@@ -14,9 +14,12 @@
   .facts{display:flex;gap:20px;flex-wrap:wrap;border:1px solid #000;padding:10px 14px;
          margin:14px 0;font-size:12.5px}
   .facts b{font-size:15px;margin-left:4px}
-  .sub2{font-size:15px;margin:26px 0 8px;padding-bottom:6px;border-bottom:1px solid #000;font-weight:700}
-  .body{font-size:13.5px;line-height:1.8}
+  .sub2{font-size:15px;margin:30px 0 8px;padding-bottom:6px;border-bottom:1px solid #000;font-weight:700}
+  .sub2 span{font-weight:400;font-size:12px;color:#555;margin-left:8px}
   .memo{font-size:12.5px;line-height:1.7;color:#555}
+  .card .d{min-height:0}
+  .tag{display:inline-block;border:1px solid #000;padding:0 5px;font-size:10.5px;margin-left:5px}
+  .tag.off{border-color:#bbb;color:#888}
 </style>
 <div class="wrap">
 <h1>네트워크 프로그래밍 구현</h1>
@@ -30,8 +33,75 @@
 </div>
 
 
-<div class="empty">평가 자료가 아직 등록되지 않았습니다.<br><a href="../courses/c2.html">능력단위 모듈 목록으로</a></div>
+<h2 class="sub2">평가 자료</h2>
+<div class="cards" id="examCards"></div>
+
+<h2 class="sub2">준비 교안</h2>
+<div class="cards" id="guideCards"></div>
+
+<h2 class="sub2">표준 강의 교안 <span id="lpSrc"></span></h2>
+<p class="memo">교과목 운영계획서 6개 시트. 심사·인증 증빙과 훈련생 배포에 그대로 쓰는 양식입니다.
+아래 카드의 항목을 이 교과에 맞게 채우면 됩니다.</p>
+<div class="cards" id="lpCards"></div>
+<div class="note"><b>작성 원칙</b><ul id="lpRules" style="margin:8px 0 0 18px;padding:0;font-size:12.5px;line-height:1.8"></ul></div>
 
 <p style="margin-top:20px"><a class="btn" href="../courses/c2.html">← 능력단위 모듈 목록으로</a></p>
 <footer>(디지털 컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E · 2026-02-24 ~ 2026-08-12 · 담당 정우균</footer>
 </div>
+
+<script src="../assets/items-c2.js"></script>
+<script src="../assets/lesson-plan.js"></script>
+<script>
+(function(){
+  var MID = 'm09';
+  function esc(s){ return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function card(title, desc, meta, links){
+    var dl = (meta || []).map(function(x){
+      return '<dt>' + esc(x[0]) + '</dt><dd>' + esc(x[1]) + '</dd>';
+    }).join('');
+    return '<div class="card"><h3>' + title + '</h3>' +
+           (desc ? '<p class="d">' + esc(desc) + '</p>' : '') +
+           (dl ? '<dl>' + dl + '</dl>' : '') +
+           '<div class="go">' + links + '</div></div>';
+  }
+
+  var adm = EXAM_AUTH.isAdmin();
+  document.body.classList.toggle('admin', adm);
+  var SRC = window.CM_SRC;
+
+  /* 1. 평가 자료 */
+  var items = (window.CM_ITEMS || {})[MID] || [];
+  var vis = items.filter(function(it){ return adm || !it.adm; });
+  document.getElementById('examCards').innerHTML = vis.length
+    ? vis.map(function(it){
+        return card(esc(it.title) + (it.adm ? '<span class="tag">강사용</span>' : ''),
+          it.desc, it.meta,
+          '<a class="btn" href="' + SRC + encodeURI(it.link) + '" target="_blank" rel="noopener">' +
+          esc(it.btn || '열기') + '</a>');
+      }).join('')
+    : '<div class="empty">평가 자료가 아직 등록되지 않았습니다.</div>';
+
+  /* 2. 준비 교안 */
+  var g = (window.CM_GUIDES || {})[MID];
+  document.getElementById('guideCards').innerHTML = g
+    ? card(esc(g) + ' 준비 교안',
+        '평가를 처음 준비한다면 여기부터. 알아야 할 개념과 실습 순서를 난이도 4레벨로 정리했습니다.',
+        [['형태', '단계별 지도안 (도입 → 전개 → 정리)'], ['위치', '원본 사이트 NCS_EXAM_PAGE']],
+        '<a class="btn" href="' + SRC + '/guides/' + MID + '.html" target="_blank" rel="noopener">준비 교안 열기</a>')
+    : '<div class="empty">준비 교안이 없습니다.</div>';
+
+  /* 3. 표준 강의 교안 6개 시트 */
+  var LP = window.CM_LESSON_PLAN || {sheets:[], rules:[]};
+  document.getElementById('lpSrc').textContent = LP.src || '';
+  document.getElementById('lpCards').innerHTML = LP.sheets.map(function(s){
+    var tags = (s.simsa ? '<span class="tag">심사 증빙</span>' : '') +
+               (s.student ? '<span class="tag">훈련생 배포</span>' : '');
+    return card(esc(s.no + ' ' + s.name) + tags, s.what,
+      [['핵심 항목', s.keys.join(' / ')], ['작성 주체', s.who]],
+      '<a class="btn" href="' + LP.file + '" download>양식 내려받기</a>');
+  }).join('');
+  document.getElementById('lpRules').innerHTML =
+    (LP.rules || []).map(function(r){ return '<li>' + esc(r) + '</li>'; }).join('');
+})();
+</script>

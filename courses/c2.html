@@ -37,7 +37,7 @@
   <span>능력단위 <b id="kCnt">0</b></span>
   <span>NCS 능력단위 <b id="kHr">0</b></span>
   <span>평가 완료 <b id="kPct">0</b></span>
-  <span class="sc">평균 점수 <b id="kLm">-</b></span>
+  <span>학습모듈 <b id="kLm">-</b></span>
 </div>
 
 <div class="note admonly" id="mNote"><b>능력단위 관리</b> — 표에서 <b>수정 · 삭제</b> 하고,
@@ -70,8 +70,7 @@
   var MKEY = 'cm_modules_' + CID, LKEY = 'cm_locks_' + CID;
   var COLS = [['name','능력단위','text'],['code','능력단위코드','text'],['tc','강사','text'],
               ['sd','시작일','date'],['ed','종료일','date'],['ev','본평가','date'],
-              ['ab','결석자평가','date'],['re','재평가','date'],
-              ['pre','사전평가','text'],['sc','능력단위 점수','text'],['page','상세','text']];
+              ['page','상세','text']];
   var editing = -1;
 
   var course = (window.CM_COURSES || []).filter(function(c){ return c.id === CID; })[0] || {};
@@ -122,26 +121,21 @@
   }
 
   function summary(v){
-    var ncs = 0, done = 0, sum = 0, n = 0;
+    var ncs = 0, done = 0;
     v.forEach(function(m){
       if(m.code) ncs++;
       if(m.ev && m.ev !== '-') done++;
-      var s = parseFloat(m.sc);
-      if(s > 0){ sum += s; n++; }
     });
     document.getElementById('kCnt').textContent = v.length;
     document.getElementById('kHr').textContent = ncs;
     document.getElementById('kPct').textContent = done + ' / ' + v.length;
-    document.getElementById('kLm').textContent = n ? (Math.round(sum / n * 100) / 100) : '-';
+    document.getElementById('kLm').textContent = '17건';
   }
 
   function draw(){
     var v = list(), adm = EXAM_AUTH.isAdmin(), h = '';
     h += '<tr><th>능력단위</th><th>코드</th><th>강사</th>' +
-         '<th>시작일</th><th>종료일</th><th>본평가</th>' +
-         '<th class="sc">결석자평가</th><th class="sc">재평가</th>' +
-         '<th class="sc">사전평가</th><th class="sc">능력단위 점수</th>' +
-         '<th>상세</th></tr>';
+         '<th>시작일</th><th>종료일</th><th>본평가</th><th>상세</th></tr>';
 
     v.forEach(function(m, i){
       if(adm && i === editing){
@@ -149,12 +143,12 @@
         COLS.forEach(function(c){
           var val = m[c[0]] == null ? '' : m[c[0]];
           var type = (c[2] === 'date' && (isDate(val) || val === '')) ? 'date' : 'text';
-          var cls = (['ab','re','pre','sc'].indexOf(c[0]) >= 0) ? ' class="sc"' : '';
+          var cls = '';
           tds += '<td' + cls + '><input class="mi" data-f="' + c[0] + '" type="' + type +
                  '" value="' + esc(val) + '"></td>';
         });
         h += '<tr class="med">' + tds + '</tr>' +
-             '<tr class="med"><td colspan="11" class="mrow">' +
+             '<tr class="med"><td colspan="7" class="mrow">' +
              '<button class="mok" data-i="' + i + '" type="button">저장</button>' +
              '<button class="mno" type="button">취소</button>' +
              '<span class="mhint">날짜가 아닌 값(예: -)은 그대로 적습니다. ' +
@@ -179,10 +173,6 @@
            '<td class="c">' + esc(m.tc) + '</td>' +
            '<td class="c">' + esc(m.sd) + '</td><td class="c">' + esc(m.ed) + '</td>' +
            '<td class="c">' + esc(m.ev || '-') + '</td>' +
-           '<td class="c sc">' + esc(m.ab || '-') + '</td>' +
-           '<td class="c sc">' + esc(m.re || '-') + '</td>' +
-           '<td class="c sc pre">' + esc(m.pre) + '</td>' +
-           '<td class="c sc">' + esc(m.sc) + '</td>' +
            '<td class="tdb">' + btn + tools + '</td></tr>';
     });
     document.getElementById('mtable').innerHTML = h;
@@ -240,7 +230,7 @@
              code: document.getElementById('mCode').value.trim(),
              tc: document.getElementById('mTc').value.trim(),
              sd: document.getElementById('mSd').value, ed: document.getElementById('mEd').value,
-             ev: '-', ab: '-', re: '-', pre: '0', sc: '0', page: '' });
+             ev: '-', page: '' });
     save(v); mf.reset(); setDefaultDates(); draw();
     document.getElementById('mMsg').textContent =
       id + ' 을 추가했습니다. 상세 페이지가 있으면 수정에서 modules/' + id + '.html 을 적습니다. ' +
