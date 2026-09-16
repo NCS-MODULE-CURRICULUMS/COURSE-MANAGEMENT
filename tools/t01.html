@@ -8,6 +8,7 @@
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
 <style>
+  .tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
   .pick{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin:14px 0}
   .pick label{display:flex;flex-direction:column;gap:3px;font-size:11.5px;color:#555}
   .pick select,.pick input{border:1px solid #999;padding:5px 8px;font-family:inherit;
@@ -66,10 +67,10 @@
   <button id="bPrint" type="button">인쇄 · PDF</button>
 </div>
 
-<table id="tb"><thead><tr>
+<div class="tscroll"><table id="tb"><thead><tr>
   <th style="width:44px">편성</th><th style="width:132px">능력단위코드</th>
   <th class="nm">능력단위명</th><th style="width:72px">수준</th><th style="width:92px">훈련시간</th>
-</tr></thead><tbody id="tbody"><tr><td colspan="5">데이터를 불러오는 중…</td></tr></tbody></table>
+</tr></thead><tbody id="tbody"><tr><td colspan="5">데이터를 불러오는 중…</td></tr></tbody></table></div>
 
 <footer>담당 정우균</footer>
 </div>

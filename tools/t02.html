@@ -8,6 +8,7 @@
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
 <style>
+  .tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
   .sub2{font-size:15px;margin:26px 0 8px;padding-bottom:6px;border-bottom:1px solid #000;font-weight:700}
   .pick{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin:14px 0}
   .pick label{display:flex;flex-direction:column;gap:3px;font-size:11.5px;color:#555}
@@ -15,6 +16,8 @@
                            font-size:12.5px;outline:none;max-width:100%}
   .pick select:focus,.pick input:focus{border-color:#000}
   .pick select{min-width:190px}
+  @media (max-width:520px){.pick label{flex:1 1 100%}
+    .pick select,.pick input{min-width:0;width:100%}}
   td.c{text-align:center}
   td.h input,td.lv input{border:1px solid #999;padding:3px 5px;font-family:inherit;
                          font-size:12px;outline:none;text-align:right}
@@ -62,11 +65,11 @@
   <button id="bPrint" type="button">인쇄 · PDF</button>
 </div>
 
-<table><thead><tr>
+<div class="tscroll"><table><thead><tr>
   <th style="width:44px">평가</th><th style="width:128px">능력단위코드</th>
   <th class="nm" style="width:190px">능력단위명</th>
   <th>평가방법 (복수 선택)</th><th style="width:78px">배점</th>
-</tr></thead><tbody id="tbody"><tr><td colspan="5">데이터를 불러오는 중…</td></tr></tbody></table>
+</tr></thead><tbody id="tbody"><tr><td colspan="5">데이터를 불러오는 중…</td></tr></tbody></table></div>
 
 <div class="rub">
   <h2 class="sub2">평가 루브릭 (4단계 기준)</h2>
