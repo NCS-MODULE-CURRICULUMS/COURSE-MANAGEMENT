@@ -1,0 +1,331 @@
+<meta charset="utf-8"><title>능력단위 모듈 목록</title>
+<link rel="stylesheet" href="../assets/site.css">
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small id="brandSub"></small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div>
+<div class="nav" id="nav"></div>
+</div>
+<script>EXAM_AUTH.paintTop("../");</script>
+<style>
+  td.c{text-align:center}
+  .sumbar{display:flex;gap:18px;flex-wrap:wrap;background:#f7f9fc;border:1px solid #e2e8f0;
+          border-radius:8px;padding:12px 14px;margin:14px 0;font-size:13.5px}
+  .sumbar b{font-size:17px;color:#1b4b8f;margin-left:4px}
+  .mi{width:100%;padding:4px 6px;border:1px solid #cfd6e0;border-radius:5px;font-size:12.5px}
+</style>
+<div class="wrap">
+<h1>능력단위 모듈 목록</h1>
+<p class="sub" id="sub"></p>
+
+<div class="role" id="roleBox">
+  <span class="now">보기 모드 &nbsp;<b id="roleNow">일반(학생)</b></span>
+  <span class="sp"></span>
+  <button id="bLogin">관리자 로그인</button>
+  <button id="bStudent">일반으로 보기</button>
+</div>
+<div class="login" id="loginBox">
+  <label>아이디 <input id="lu" autocomplete="off"></label>
+  <label>비밀번호 <input id="lp" type="password" autocomplete="off"></label>
+  <button id="bDo">확인</button>
+  <span class="msg" id="lmsg"></span>
+</div>
+
+<div class="sumbar">
+  <span>능력단위 <b id="kCnt">0</b></span>
+  <span>총 훈련시간 <b id="kHr">0</b></span>
+  <span>NCS 적용 <b id="kPct">100%</b></span>
+  <span>학습모듈 <b id="kLm">-</b></span>
+</div>
+
+<div class="note admonly" id="mNote"><b>능력단위 관리</b> — 표에서 <b>수정 · 삭제</b> 하고,
+각 행의 <b>잠김/열림</b> 으로 학생이 상세를 열 수 있는지 정합니다. 바꾼 것은 이 브라우저에만 남습니다.
+<b>설정 파일 저장</b> 을 눌러 <code>assets/modules.js</code> 와 <code>assets/locks.js</code> 에
+덮어쓴 뒤 git 에 올려야 모두에게 적용됩니다.
+<form class="cform" id="mForm">
+  <input id="mName" placeholder="능력단위명" required>
+  <input id="mCode" placeholder="능력단위코드 (예: 2001070705_25v1)">
+  <input id="mTc" placeholder="강사" value="정*균" style="max-width:110px">
+  <span class="cdate">기간 <input type="date" id="mSd"> ~ <input type="date" id="mEd"></span>
+  <button type="submit">능력단위 추가</button>
+</form>
+<div style="margin-top:8px">
+  <button id="bSaveMods" type="button">설정 파일 저장</button>
+  <button id="bResetMods" type="button">되돌리기</button>
+  <span id="mMsg" style="margin-left:10px;font-size:12.5px"></span>
+</div></div>
+
+<table id="mtable"></table>
+<footer id="foot"></footer>
+</div>
+
+<script src="../assets/courses.js"></script>
+<script src="../assets/locks.js"></script>
+<script src="../assets/modules.js"></script>
+<script>
+(function(){
+  var CID = 'c1';
+  var MKEY = 'cm_modules_' + CID, LKEY = 'cm_locks_' + CID;
+  var COLS = [['name','능력단위','text'],['code','능력단위코드','text'],['lv','수준','text'],
+              ['hr','시간','text'],['tc','강사','text'],['sd','시작일','date'],['ed','종료일','date'],
+              ['ev','본평가','date'],['ab','결석자평가','date'],['re','재평가','date'],
+              ['ev_method','평가방법','text'],['page','상세','text']];
+  var editing = -1;
+
+  var course = (window.CM_COURSES || []).filter(function(c){ return c.id === CID; })[0] || {};
+
+  function esc(s){ return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function ymd(d){ return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2); }
+  function isDate(s){ return /^\d{4}-\d{2}-\d{2}$/.test(String(s || '')); }
+
+  function base(){ return (window.CM_MODULES || []).slice(); }
+  function list(){
+    try{ var d = localStorage.getItem(MKEY); if(d) return JSON.parse(d); }catch(e){}
+    return base();
+  }
+  function save(v){
+    try{ localStorage.setItem(MKEY, JSON.stringify(v)); }
+    catch(e){ alert('저장 공간이 부족합니다.'); }
+  }
+
+  /* 잠금 : 기본값은 assets/locks.js, 관리자가 바꾼 것은 이 브라우저에만 */
+  function ovr(){ try{ return JSON.parse(localStorage.getItem(LKEY) || '{}'); }catch(e){ return {}; } }
+  function locked(id){ var o = ovr(); return (id in o) ? o[id] : !!(window.CM_LOCKS || {})[id]; }
+  function setLock(id, v){
+    var o = ovr(); o[id] = v;
+    try{ localStorage.setItem(LKEY, JSON.stringify(o)); }catch(e){}
+  }
+  function lockChanged(){
+    var o = ovr(), b = (window.CM_LOCKS || {});
+    return Object.keys(o).some(function(k){ return !!o[k] !== !!b[k]; });
+  }
+
+  function head(){
+    document.getElementById('brandSub').textContent = course.name || '';
+    document.getElementById('sub').textContent =
+      [course.name, course.ncs, course.hours, course.period].filter(Boolean).join(' · ');
+    document.getElementById('foot').textContent =
+      [course.name, course.period, '담당 ' + (course.tc || '')].filter(Boolean).join(' · ');
+  }
+
+  function nav(){
+    var adm = EXAM_AUTH.isAdmin();
+    document.getElementById('nav').innerHTML = list().map(function(m){
+      var shut = (!adm && locked(m.id));
+      return (m.page && !shut)
+        ? '<a href="../' + esc(m.page) + '">' + esc(m.name) + '</a>'
+        : '<a class="na">' + esc(m.name) + '</a>';
+    }).join('');
+  }
+
+  function summary(v){
+    var hr = 0;
+    v.forEach(function(m){ hr += (+m.hr || 0); });
+    document.getElementById('kCnt').textContent = v.length;
+    document.getElementById('kHr').textContent = hr;
+    document.getElementById('kLm').textContent = '0건 (미개발)';
+  }
+
+  function draw(){
+    var v = list(), adm = EXAM_AUTH.isAdmin(), h = '';
+    h += '<tr><th>능력단위</th><th style="width:132px">코드</th><th style="width:52px">수준</th>' +
+         '<th style="width:58px">시간</th><th style="width:74px">강사</th>' +
+         '<th style="width:96px">시작일</th><th style="width:96px">종료일</th>' +
+         '<th style="width:96px">본평가</th><th class="sc" style="width:96px">결석자평가</th>' +
+         '<th class="sc" style="width:96px">재평가</th><th>평가방법</th><th>상세</th></tr>';
+
+    v.forEach(function(m, i){
+      if(adm && i === editing){
+        var tds = '';
+        COLS.forEach(function(c){
+          var val = m[c[0]] == null ? '' : m[c[0]];
+          var type = (c[2] === 'date' && (isDate(val) || val === '')) ? 'date' : 'text';
+          var cls = (c[0] === 'ab' || c[0] === 're') ? ' class="sc"' : '';
+          tds += '<td' + cls + '><input class="mi" data-f="' + c[0] + '" type="' + type +
+                 '" value="' + esc(val) + '"></td>';
+        });
+        h += '<tr class="med">' + tds + '</tr>' +
+             '<tr class="med"><td colspan="12" class="mrow">' +
+             '<button class="mok" data-i="' + i + '" type="button">저장</button>' +
+             '<button class="mno" type="button">취소</button>' +
+             '<span class="mhint">날짜가 아닌 값(예: -)은 그대로 적습니다. ' +
+             '상세는 modules/mNN.html</span></td></tr>';
+        return;
+      }
+      var lk = locked(m.id), shut = (!adm && lk), pg = m.page || '';
+      var nm = (pg && !shut)
+        ? '<a class="mlink" href="../' + esc(pg) + '">' + esc(m.name) + '</a>'
+        : '<span class="mlink d">' + esc(m.name) + '</span>';
+      var btn = (pg && !shut)
+        ? '<a class="btn" href="../' + esc(pg) + '">상세</a>'
+        : '<a class="btn d">상세</a>';
+      var tools = adm
+        ? '<button class="lk' + (lk ? ' on' : '') + '" data-m="' + esc(m.id) + '" type="button">' +
+          (lk ? '잠김' : '열림') + '</button>' +
+          '<button class="med2" data-i="' + i + '" type="button">수정</button>' +
+          '<button class="mdel" data-i="' + i + '" type="button">삭제</button>'
+        : '';
+      h += '<tr' + (lk ? '' : ' class="open"') + '><td class="nm">' + nm + '</td>' +
+           '<td class="pre">' + esc(m.code) + '</td>' +
+           '<td class="c">' + esc(m.lv) + '</td><td class="c">' + esc(m.hr) + '</td>' +
+           '<td class="c">' + esc(m.tc) + '</td>' +
+           '<td class="c">' + esc(m.sd) + '</td><td class="c">' + esc(m.ed) + '</td>' +
+           '<td class="c">' + esc(m.ev || '-') + '</td>' +
+           '<td class="c sc">' + esc(m.ab || '-') + '</td>' +
+           '<td class="c sc">' + esc(m.re || '-') + '</td>' +
+           '<td>' + esc(m.ev_method) + '</td>' +
+           '<td class="tdb">' + btn + tools + '</td></tr>';
+    });
+    document.getElementById('mtable').innerHTML = h;
+    summary(v);
+    nav();
+
+    document.querySelectorAll('.lk').forEach(function(b){
+      b.onclick = function(){ setLock(b.dataset.m, !locked(b.dataset.m)); draw(); };
+    });
+    document.querySelectorAll('.med2').forEach(function(b){
+      b.onclick = function(){ editing = +b.dataset.i; draw(); };
+    });
+    document.querySelectorAll('.mno').forEach(function(b){
+      b.onclick = function(){ editing = -1; draw(); };
+    });
+    document.querySelectorAll('.mdel').forEach(function(b){
+      b.onclick = function(){
+        var w = list(), i = +b.dataset.i;
+        if(!confirm('"' + w[i].name + '" 을(를) 삭제합니다. 계속할까요?')) return;
+        w.splice(i, 1); save(w); editing = -1; draw();
+        document.getElementById('mMsg').textContent = '지웠습니다. 설정 파일 저장을 눌러야 반영됩니다.';
+      };
+    });
+    document.querySelectorAll('.mok').forEach(function(b){
+      b.onclick = function(){
+        var w = list(), i = +b.dataset.i, got = {};
+        document.querySelectorAll('tr.med .mi').forEach(function(e){ got[e.dataset.f] = e.value.trim(); });
+        if(!got.name){ alert('능력단위명은 비워 둘 수 없습니다.'); return; }
+        COLS.forEach(function(c){ w[i][c[0]] = got[c[0]]; });
+        save(w); editing = -1; draw();
+        document.getElementById('mMsg').textContent = '고쳤습니다. 설정 파일 저장을 눌러야 반영됩니다.';
+      };
+    });
+  }
+
+  function setDefaultDates(){
+    var a = document.getElementById('mSd'), b = document.getElementById('mEd');
+    if(!a || !b) return;
+    var s0 = new Date(), e0 = new Date(); e0.setDate(e0.getDate() + 7);
+    a.value = ymd(s0); b.value = ymd(e0);
+  }
+  var mf = document.getElementById('mForm');
+  if(mf) mf.addEventListener('submit', function(e){
+    e.preventDefault();
+    var v = list(), n = 1, used = {};
+    v.forEach(function(x){ used[x.id] = 1; });
+    while(used['m' + ('0' + n).slice(-2)]) n++;
+    var id = 'm' + ('0' + n).slice(-2);
+    v.push({ id: id, name: document.getElementById('mName').value.trim(),
+             code: document.getElementById('mCode').value.trim(), lv: '', hr: '',
+             tc: document.getElementById('mTc').value.trim(),
+             sd: document.getElementById('mSd').value, ed: document.getElementById('mEd').value,
+             ev: '-', ab: '-', re: '-', ev_method: '', page: '' });
+    save(v); mf.reset(); setDefaultDates(); draw();
+    document.getElementById('mMsg').textContent =
+      id + ' 을 추가했습니다. 상세 페이지가 있으면 수정에서 modules/' + id + '.html 을 적습니다. ' +
+      '설정 파일 저장을 눌러야 남습니다.';
+  });
+
+  var br = document.getElementById('bResetMods');
+  if(br) br.onclick = function(){
+    if(!confirm('파일에 저장된 내용으로 되돌립니다. 계속할까요?')) return;
+    try{ localStorage.removeItem(MKEY); localStorage.removeItem(LKEY); }catch(e){}
+    editing = -1; draw(); document.getElementById('mMsg').textContent = '';
+  };
+
+  function locksText(){
+    var NL = String.fromCharCode(10), out = {};
+    list().forEach(function(m){ out[m.id] = locked(m.id); });
+    return ['/* 모듈별 잠금 상태.  true = 잠김(일반은 상세를 못 엽니다)',
+            ' * courses/' + CID + '.html 의 [설정 파일 저장] 이 이 파일을 덮어씁니다.',
+            ' * 고친 뒤 git 에 올려야 학생 화면에 적용됩니다.',
+            ' */',
+            'window.CM_LOCKS = ' + JSON.stringify(out, null, 2) + ';',
+            ''].join(NL);
+  }
+  async function put(name, txt){
+    if(window.showSaveFilePicker){
+      try{
+        var h = await showSaveFilePicker({ suggestedName: name,
+          types: [{ description: 'JavaScript', accept: { 'text/javascript': ['.js'] } }] });
+        var w = await h.createWritable(); await w.write(txt); await w.close();
+        return 'saved';
+      }catch(e){ if(e.name === 'AbortError') return 'cancel'; }
+    }
+    var a = document.createElement('a');
+    a.href = 'data:text/javascript;charset=utf-8,' + encodeURIComponent(txt);
+    a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    return 'download';
+  }
+  var bs = document.getElementById('bSaveMods');
+  if(bs) bs.onclick = async function(){
+    var NL = String.fromCharCode(10);
+    var txt = ['/* 과정의 능력단위 모듈 목록.',
+               ' * courses/' + CID + '.html 의 [설정 파일 저장] 이 이 파일을 덮어씁니다.',
+               ' * 고친 뒤 git 에 올려야 모두에게 적용됩니다.',
+               ' */',
+               'window.CM_MODULES = ' + JSON.stringify(list(), null, 2) + ';',
+               ''].join(NL);
+    var m = document.getElementById('mMsg');
+    var r = await put('modules.js', txt);
+    if(r === 'cancel'){ m.textContent = ''; return; }
+    if(lockChanged()){
+      m.textContent = 'modules.js 를 저장했습니다. 이어서 locks.js 를 저장합니다.';
+      var r2 = await put('locks.js', locksText());
+      m.textContent = (r2 === 'cancel')
+        ? 'modules.js 만 저장했습니다. 잠금을 반영하려면 다시 눌러 locks.js 도 저장합니다.'
+        : 'modules.js · locks.js 저장 완료. git add/commit/push 하면 적용됩니다.';
+      return;
+    }
+    m.textContent = (r === 'saved')
+      ? 'modules.js 저장 완료. git add/commit/push 하면 적용됩니다.'
+      : 'modules.js 를 내려받았습니다. assets/ 에 덮어쓴 뒤 git 에 올립니다.';
+  };
+
+  head();
+  setDefaultDates();
+  window.__drawMods = draw;
+})();
+</script>
+
+<script>
+(function(){
+  var box = document.getElementById('roleBox'), now = document.getElementById('roleNow'),
+      login = document.getElementById('loginBox'), msg = document.getElementById('lmsg');
+  function paint(){
+    var adm = EXAM_AUTH.isAdmin();
+    now.textContent = EXAM_AUTH.label();
+    box.classList.toggle('adm', adm);
+    document.body.classList.toggle('admin', adm);
+    if(window.__drawMods) window.__drawMods();
+    document.getElementById('bLogin').style.display = adm ? 'none' : '';
+    document.getElementById('bStudent').textContent = adm ? '관리자 해제' : '일반으로 보기';
+    if(adm) login.classList.remove('on');
+  }
+  document.getElementById('bLogin').onclick = function(){
+    login.classList.toggle('on'); msg.textContent = ''; document.getElementById('lu').focus();
+  };
+  document.getElementById('bStudent').onclick = function(){ EXAM_AUTH.logout(); paint(); };
+  document.getElementById('bDo').onclick = async function(){
+    msg.className = 'msg';
+    var ok = await EXAM_AUTH.login(document.getElementById('lu').value,
+                                   document.getElementById('lp').value);
+    if(ok){ document.getElementById('lp').value = ''; msg.textContent = '관리자로 전환했습니다.'; paint(); }
+    else { msg.className = 'msg err'; msg.textContent = '아이디 또는 비밀번호가 맞지 않습니다.'; }
+  };
+  document.getElementById('lp').addEventListener('keydown', function(e){
+    if(e.key === 'Enter') document.getElementById('bDo').click();
+  });
+  paint();
+})();
+</script>

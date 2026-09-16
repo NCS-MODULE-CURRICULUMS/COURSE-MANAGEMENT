@@ -30,11 +30,33 @@
 </div>
 </div>
 
+<script src="assets/courses.js"></script>
 <script src="assets/sections.js"></script>
 <script>
 (function(){
   function esc(s){ return String(s==null?'':s)
     .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  /* 운영 과정 카드 — 과정을 누르면 그 과정의 능력단위 모듈 목록으로 들어갑니다. */
+  function courses(){
+    var cs = window.CM_COURSES || [];
+    if(!cs.length) return '';
+    var h = '<h2 style="margin:26px 0 10px;font-size:17px">운영 과정</h2><div class="cgrid">';
+    cs.forEach(function(c){
+      var meta = '<dl>' +
+        (c.ncs ? '<dt>NCS</dt><dd>' + esc(c.ncs) + '</dd>' : '') +
+        '<dt>기간</dt><dd>' + esc(c.period || '-') + '</dd>' +
+        '<dt>시간</dt><dd>' + esc(c.hours || '-') + '</dd></dl>';
+      if(c.page)
+        h += '<div class="cwrap"><a class="ccard" href="' + esc(c.page) + '"><h3>' + esc(c.name) +
+             '</h3>' + meta + '<span class="go">능력단위 모듈 목록</span></a></div>';
+      else
+        h += '<div class="cwrap"><div class="ccard na"><h3>' + esc(c.name) + '</h3>' +
+             meta + '<span class="go">준비 중</span></div></div>';
+    });
+    return h + '</div>';
+  }
+
   function draw(){
     var adm=EXAM_AUTH.isAdmin(), gs=[], by={};
     (window.CM_SECTIONS||[]).forEach(function(s){
@@ -42,7 +64,7 @@
       if(!by[s.group]){ by[s.group]=[]; gs.push(s.group); }
       by[s.group].push(s);
     });
-    var h='';
+    var h=courses();
     gs.forEach(function(g){
       h+='<h2 style="margin:26px 0 10px;font-size:17px">'+esc(g)+'</h2><div class="cgrid">';
       by[g].forEach(function(s){
