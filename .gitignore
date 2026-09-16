@@ -7,6 +7,7 @@ plan/
 # 훈련생 개인정보가 들어가는 산출물
 students/
 *.xlsx
+!docs/*.xlsx          # 양식·서식 파일은 예외 (개인정보 없음)
 
 # 그 밖
 __pycache__/
