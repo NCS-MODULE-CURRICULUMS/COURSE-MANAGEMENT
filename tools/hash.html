@@ -1,0 +1,82 @@
+<meta charset="utf-8"><title>로그인 해시 생성기</title>
+<link rel="stylesheet" href="../assets/site.css">
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>자료 / 로그인 해시 생성기</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+<style>
+  .box{max-width:620px}
+  .box label{display:block;font-size:12.5px;color:#555;margin:12px 0 4px}
+  .box input{width:100%;padding:9px 11px;border:1px solid #cfd6e0;border-radius:6px;font-size:14px}
+  .out{margin-top:16px;padding:12px 14px;background:#f7f9fc;border:1px solid #e2e8f0;border-radius:8px;
+       font-family:ui-monospace,Consolas,monospace;font-size:12.5px;word-break:break-all;min-height:20px}
+  .bar{display:flex;gap:8px;margin-top:12px}
+  .bar button{padding:8px 14px;border:1px solid #1b4b8f;background:#1b4b8f;color:#fff;
+              border-radius:6px;cursor:pointer;font-size:13px}
+  .bar button.g{background:#fff;color:#1b4b8f}
+  .warn{color:#b03030}
+</style>
+<div class="wrap">
+<h1>로그인 해시 생성기</h1>
+<p class="sub">이 사이트의 아이디 · 비밀번호를 바꿀 때 씁니다</p>
+
+<div class="note">
+<b>이 로그인은 보안 장치가 아닙니다.</b> 정적 사이트라서 해시가 <code>assets/auth.js</code> 에 그대로
+공개되고, 짧은 비밀번호는 대입으로 뚫립니다. <span class="warn">채점 정답 · 평가문항 원본처럼
+새어 나가면 안 되는 것은 이 사이트에 올리지 말고 <code>.gitignore</code> 로 막으세요.</span>
+이 로그인은 학생이 우연히 들어오는 것을 막는 <b>가림막</b> 정도로만 씁니다.
+</div>
+
+<div class="box">
+  <label>아이디</label>
+  <input id="u" placeholder="user 또는 admin" autocomplete="off">
+  <label>비밀번호</label>
+  <input id="p" type="password" placeholder="새 비밀번호" autocomplete="new-password">
+  <div class="bar">
+    <button id="go" type="button">해시 만들기</button>
+    <button id="cp" class="g" type="button">복사</button>
+  </div>
+  <div class="out" id="out"></div>
+
+  <h2 style="font-size:16px;margin:26px 0 8px">바꾸는 방법</h2>
+  <ol style="font-size:13.5px;line-height:1.9;padding-left:20px">
+    <li>위에서 아이디 · 비밀번호를 넣고 해시를 만듭니다. (비밀번호는 이 브라우저 밖으로 나가지 않습니다)</li>
+    <li><code>assets/auth.js</code> 를 엽니다.</li>
+    <li>일반 계정이면 <code>H_USER</code>, 관리자 계정이면 <code>H_ADMIN</code> 의 값을 바꿉니다.</li>
+    <li><code>git add . &amp;&amp; git commit &amp;&amp; git push</code> 하면 몇 분 뒤 사이트에 반영됩니다.</li>
+  </ol>
+  <p style="font-size:13px;color:#666">해시는 <code>아이디 + ":" + 비밀번호</code> 를 SHA-256 으로 만든 값입니다.</p>
+</div>
+
+<footer>담당 정우균</footer>
+</div>
+
+<script>
+(function(){
+  async function sha256(s){
+    var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+    return [].map.call(new Uint8Array(buf), function(b){
+      return b.toString(16).padStart(2, '0');
+    }).join('');
+  }
+  var out = document.getElementById('out');
+  document.getElementById('go').onclick = async function(){
+    var u = document.getElementById('u').value.trim(), p = document.getElementById('p').value;
+    if(!u || !p){ out.textContent = '아이디와 비밀번호를 모두 넣어 주세요.'; return; }
+    if(!window.crypto || !crypto.subtle){ out.textContent = '이 브라우저에서는 만들 수 없습니다.'; return; }
+    out.textContent = await sha256(u + ':' + p);
+  };
+  document.getElementById('cp').onclick = function(){
+    var t = out.textContent.trim();
+    if(!/^[0-9a-f]{64}$/.test(t)){ return; }
+    navigator.clipboard.writeText(t).then(function(){
+      var o = out.textContent;
+      out.textContent = o + '   ← 복사했습니다';
+      setTimeout(function(){ out.textContent = o; }, 1200);
+    });
+  };
+})();
+</script>

@@ -1,0 +1,241 @@
+<meta charset="utf-8"><title>평가도구 설계 — 운영 가이드</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>운영 가이드 / 평가도구 설계</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">기준</i>
+  <a href="#st1"><b>1</b><span>무엇을 평가하는가</span></a>
+  <a href="#st2"><b>2</b><span>평가방법 13가지</span></a>
+  <a href="#st3"><b>3</b><span>능력단위 성격별 선택</span></a>
+  <i class="qg">설계</i>
+  <a href="#st4"><b>4</b><span>평가계획서 만들기</span></a>
+  <a href="#st5"><b>5</b><span>루브릭 작성</span></a>
+  <a href="#st6"><b>6</b><span>사전평가 · 재평가 · 결석자평가</span></a>
+  <i class="qg">운영</i>
+  <a href="#st7"><b>7</b><span>보관해야 할 증빙</span></a>
+</nav>
+
+<div class="wrap" id="top">
+<h1>평가도구 설계</h1>
+<p class="sub">능력단위별 평가방법 선정과 루브릭 작성</p>
+
+<div class="note"><b>도구</b> —
+<a href="../tools/t02.html"><b>평가계획서 · 평가표 생성기</b></a> 에서
+편성표를 불러와 능력단위별 평가방법과 배점을 바로 정할 수 있습니다.</div>
+
+<h2 class="sec">기준</h2>
+
+<div class="step" id="st1">
+  <h3><i>1</i>무엇을 평가하는가</h3>
+  <aside class="side">
+    <p class="pt">지식이 아니라 <b>수행</b>을 봅니다.</p>
+    <b class="sh">용어</b>
+    <dl>
+      <dt>수행준거</dt><dd>능력단위요소마다 정해진 "이 정도는 해야 한다"의 기준</dd>
+    </dl>
+  </aside>
+  <div class="bd">
+  <p>NCS 평가는 <b>능력단위요소의 수행준거를 충족했는가</b>를 봅니다.
+     "무엇을 아는가"가 아니라 "무엇을 할 수 있는가"입니다.</p>
+  <div class="ex">
+    <p class="x"><b>안 맞는 문항</b> — "프롬프트 엔지니어링의 정의를 서술하시오"</p>
+    <p class="o"><b>맞는 문항</b> — "주어진 업무 시나리오에 대해 프롬프트를 작성하고,
+       출력이 요구사항을 충족하지 못하는 경우를 찾아 프롬프트를 수정하시오"</p>
+  </div>
+  <p class="cc">그래서 필기 한 장으로 끝내는 평가는 대부분 부적합 판정을 받습니다.
+     수행을 볼 수 있는 방법을 최소 하나는 넣어야 합니다.</p>
+  </div>
+</div>
+
+<div class="step" id="st2">
+  <h3><i>2</i>평가방법 13가지</h3>
+  <aside class="side">
+    <p class="pt">NCS가 제시하는 표준 목록입니다.</p>
+    <b class="sh">원칙</b>
+    <p class="v">능력단위당 2가지 이상 조합</p>
+  </aside>
+  <div class="bd">
+  <table>
+    <thead><tr><th style="width:74px">구분</th><th style="width:170px">방법</th><th>쓰는 자리</th></tr></thead>
+    <tbody>
+      <tr><td class="nm" rowspan="4">산출물</td><td>포트폴리오</td><td>설계 · 문서 산출물이 남는 능력단위</td></tr>
+      <tr><td>작업장평가</td><td>실제 장비 · 환경에서 수행을 관찰</td></tr>
+      <tr><td>일지 / 저널</td><td>기간을 두고 반복 수행하는 운영 · 관리 능력단위</td></tr>
+      <tr><td>구두발표</td><td>기획 · 설계 결과를 설명해야 하는 능력단위</td></tr>
+      <tr><td class="nm" rowspan="3">문제해결</td><td>문제해결 시나리오</td><td>장애 대응 · 사고 분석처럼 상황이 주어지는 능력단위</td></tr>
+      <tr><td>사례연구</td><td>기획 · 컨설팅 · 진단 능력단위</td></tr>
+      <tr><td>역할연기</td><td>고객 · 이해관계자 대응이 포함된 능력단위</td></tr>
+      <tr><td class="nm" rowspan="2">지필</td><td>서술형시험</td><td>개념 · 절차의 이해를 확인 (보조로만)</td></tr>
+      <tr><td>논술형시험</td><td>판단 근거를 요구하는 설계 · 전략 능력단위</td></tr>
+      <tr><td class="nm" rowspan="4">확인</td><td>평가자 질문</td><td>수행 중 판단 근거를 확인</td></tr>
+      <tr><td>평가자 체크리스트</td><td>절차 준수 여부를 항목별로 확인</td></tr>
+      <tr><td>피평가자 체크리스트</td><td>자가 점검 · 성찰</td></tr>
+      <tr><td>인터뷰</td><td>산출물만으로 판단이 어려울 때 보조</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<div class="step" id="st3">
+  <h3><i>3</i>능력단위 성격별 선택</h3>
+  <aside class="side">
+    <p class="pt">능력단위명의 동사를 보면 대개 답이 나옵니다.</p>
+  </aside>
+  <div class="bd">
+  <table>
+    <thead><tr><th style="width:110px">동사</th><th style="width:200px">능력단위 예</th><th>권장 조합</th></tr></thead>
+    <tbody>
+      <tr><td class="nm">설계 · 작성</td><td>UI 아키텍처 설계<br>논리 데이터베이스 설계</td>
+          <td><b>포트폴리오</b> + 평가자 질문</td></tr>
+      <tr><td class="nm">구현 · 개발</td><td>서버프로그램 구현<br>클라우드 네트워크 서비스 개발</td>
+          <td><b>작업장평가</b> + 평가자 체크리스트</td></tr>
+      <tr><td class="nm">분석 · 진단</td><td>보안취약점 진단 · 분석<br>탐지로그 분석</td>
+          <td><b>문제해결 시나리오</b> + 논술형시험</td></tr>
+      <tr><td class="nm">기획 · 수립</td><td>빅데이터 서비스 기획<br>보안 구축 계획 수립</td>
+          <td><b>사례연구</b> + 구두발표</td></tr>
+      <tr><td class="nm">운영 · 관리</td><td>인공지능서비스 운영모니터링<br>IT시스템 통합운영관리</td>
+          <td><b>일지 / 저널</b> + 평가자 체크리스트</td></tr>
+      <tr><td class="nm">대응 · 처리</td><td>보안위협 대응<br>시스템 장애 대응</td>
+          <td><b>문제해결 시나리오</b> + 작업장평가</td></tr>
+    </tbody>
+  </table>
+  <p class="cc">지필(서술형 · 논술형)만으로 구성하지 마세요.
+     특히 "구현 · 개발" 계열을 지필로만 평가하면 과정적정성에서 지적됩니다.</p>
+  </div>
+</div>
+
+<h2 class="sec">설계</h2>
+
+<div class="step" id="st4">
+  <h3><i>4</i>평가계획서 만들기</h3>
+  <aside class="side">
+    <p class="pt">편성표 → 평가계획서는 자동으로 이어집니다.</p>
+    <b class="sh">도구</b>
+    <p class="v"><a href="../tools/t02.html">t02 평가계획서 생성기</a></p>
+  </aside>
+  <div class="bd">
+  <ol>
+    <li><a href="../tools/t02.html">평가계획서 생성기</a>를 열고 <b>"편성표에서 불러오기"</b>를 누릅니다.</li>
+    <li>능력단위마다 평가방법을 2가지 이상 체크합니다.</li>
+    <li>배점을 넣습니다. 합계가 100이 되도록 맞추거나, 능력단위별 100점 만점으로 두고 평균을 냅니다.</li>
+    <li>합격 기준(보통 60점)을 확인합니다.</li>
+    <li>CSV로 내려받아 기관 양식에 옮기거나, 그대로 인쇄합니다.</li>
+  </ol>
+  <p class="cc">평가계획서에는 <b>언제 평가할지</b>도 들어가야 합니다.
+     능력단위 교육이 끝나는 시점에 평가일을 배치하고, 결석자평가 · 재평가 예비일을 함께 잡아 두세요.</p>
+  </div>
+</div>
+
+<div class="step" id="st5">
+  <h3><i>5</i>루브릭 작성</h3>
+  <aside class="side">
+    <p class="pt">"잘했다"를 숫자로 바꾸는 규칙.</p>
+  </aside>
+  <div class="bd">
+  <p>루브릭은 <b>평가자가 달라도 같은 점수가 나오게</b> 하는 장치입니다.
+     4단계가 무난합니다.</p>
+  <table>
+    <thead><tr><th style="width:96px">척도</th><th style="width:82px">환산</th><th>판정 기준</th></tr></thead>
+    <tbody>
+      <tr><td class="nm">매우 우수</td><td class="c">90 ~ 100</td>
+          <td>수행준거를 모두 충족하고 지시 없이 스스로 판단해 처리한다. 산출물이 현장에서 그대로 쓸 수 있는 수준</td></tr>
+      <tr><td class="nm">우수</td><td class="c">80 ~ 89</td>
+          <td>수행준거를 모두 충족한다. 일부 보완이 필요하나 스스로 발견해 고칠 수 있다</td></tr>
+      <tr class="on"><td class="nm">보통</td><td class="c">60 ~ 79</td>
+          <td>주요 수행준거를 충족한다. 지도를 받으면 완결할 수 있다 — <b>합격 하한</b></td></tr>
+      <tr><td class="nm">미흡</td><td class="c">60 미만</td>
+          <td>수행준거를 충족하지 못한다 — 재평가 대상</td></tr>
+    </tbody>
+  </table>
+  <h4>능력단위별 루브릭 쓰는 요령</h4>
+  <ul>
+    <li>척도 설명에 <b>관찰 가능한 행동</b>을 쓴다 — "이해한다" 대신 "설명한다 / 수정한다 / 찾아낸다"</li>
+    <li>수행준거를 그대로 옮기지 말고, <b>충족 정도의 차이</b>를 쓴다</li>
+    <li>"성실히", "적극적으로" 같은 태도 표현은 배점에 넣지 않는다</li>
+  </ul>
+  <p class="cc"><a href="../tools/t02.html">생성기</a> 아래쪽에 이 표가 인쇄용으로 들어 있습니다.</p>
+  </div>
+</div>
+
+<div class="step" id="st6">
+  <h3><i>6</i>사전평가 · 재평가 · 결석자평가</h3>
+  <aside class="side">
+    <p class="pt">세 가지를 미리 설계해 둬야 운영이 편합니다.</p>
+  </aside>
+  <div class="bd">
+  <table>
+    <thead><tr><th style="width:110px">구분</th><th style="width:130px">시점</th><th>목적과 주의</th></tr></thead>
+    <tbody>
+      <tr><td class="nm">사전평가</td><td>능력단위 시작 전</td>
+          <td>훈련 전 수준 확인. <b>본평가와 같은 문항을 쓰지 않습니다.</b> 성적에 반영하지 않는 것이 보통</td></tr>
+      <tr><td class="nm">본평가</td><td>능력단위 종료일</td><td>합격 여부를 결정하는 평가</td></tr>
+      <tr><td class="nm">결석자평가</td><td>본평가 직후 예비일</td>
+          <td>정당한 사유로 본평가에 못 온 훈련생 대상. <b>사유 증빙을 보관</b></td></tr>
+      <tr><td class="nm">재평가</td><td>미흡 판정 후</td>
+          <td>합격 기준 미달자 대상. 재평가 횟수와 상한을 미리 규정에 정해 둘 것</td></tr>
+    </tbody>
+  </table>
+  <p class="cc">사전 · 본 · 재평가 문항을 각각 따로 준비해야 합니다.
+     한 벌만 만들어 두면 재평가 때 그대로 다시 낼 수 없어 곤란해집니다.</p>
+  </div>
+</div>
+
+<h2 class="sec">운영</h2>
+
+<div class="step" id="st7">
+  <h3><i>7</i>보관해야 할 증빙</h3>
+  <aside class="side">
+    <p class="pt">평가는 했는데 증빙이 없으면 안 한 것이 됩니다.</p>
+    <b class="sh">주의</b>
+    <p class="v">정답 · 채점 원본은 공개 저장소에 두지 않습니다</p>
+  </aside>
+  <div class="bd">
+  <ul>
+    <li>평가계획서 (능력단위 · 평가방법 · 배점 · 일정)</li>
+    <li>평가문항 원본과 <b>모범답안 · 채점 기준</b></li>
+    <li>훈련생별 답안 · 산출물 (포트폴리오 실물 또는 스캔)</li>
+    <li>채점표 (평가자 서명 포함)</li>
+    <li>성적 산출 내역과 합격 · 재평가 판정 결과</li>
+    <li>결석자평가 사유 증빙</li>
+  </ul>
+  <div class="q">
+    <b class="t">공개 저장소 주의</b>
+    <p>이 사이트는 GitHub Pages 로 공개 배포됩니다.
+       <b>평가문항 원본 · 모범답안 · 채점 기준 · 훈련생 개인정보</b>는
+       절대 이 저장소에 올리지 마세요.</p>
+    <p><code>.gitignore</code> 에 <code>answers/</code>, <code>private/</code> 가 이미 막혀 있습니다.
+       로그인 게이트는 학생이 우연히 들어오는 것을 막는 가림막일 뿐, 보안 장치가 아닙니다.</p>
+  </div>
+  </div>
+</div>
+
+<footer>담당 정우균</footer>
+</div>
+
+<script>
+(function(){
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  if(btn) btn.onclick = function(){ nav.classList.toggle('open'); };
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));
+  function mark(){
+    var y = window.scrollY + 120, on = null;
+    links.forEach(function(a){
+      var el = document.getElementById(a.getAttribute('href').slice(1));
+      if(el && el.offsetTop <= y) on = a;
+    });
+    links.forEach(function(a){ a.classList.toggle('on', a === on); });
+  }
+  window.addEventListener('scroll', mark);
+  mark();
+})();
+</script>

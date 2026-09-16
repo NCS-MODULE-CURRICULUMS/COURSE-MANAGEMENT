@@ -1,0 +1,279 @@
+<meta charset="utf-8"><title>NCS 기반 훈련과정 편성 — 운영 가이드</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>운영 가이드 / NCS 기반 훈련과정 편성</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">이해</i>
+  <a href="#st1"><b>1</b><span>NCS 분류체계 읽는 법</span></a>
+  <a href="#st2"><b>2</b><span>능력단위코드 해독</span></a>
+  <i class="qg">편성</i>
+  <a href="#st3"><b>3</b><span>직무 선정</span></a>
+  <a href="#st4"><b>4</b><span>직무모델링</span></a>
+  <a href="#st5"><b>5</b><span>능력단위 선정</span></a>
+  <a href="#st6"><b>6</b><span>교과목 매핑</span></a>
+  <a href="#st7"><b>7</b><span>훈련시간 산정</span></a>
+  <a href="#st8"><b>8</b><span>NCS 적용비율</span></a>
+  <i class="qg">마감</i>
+  <a href="#st9"><b>9</b><span>교강사 · 시설 · 장비 역산</span></a>
+  <a href="#st10"><b>10</b><span>편성표 작성과 제출</span></a>
+</nav>
+
+<div class="wrap" id="top">
+<h1>NCS 기반 훈련과정 편성</h1>
+<p class="sub">직무 선정에서 편성표 제출까지 · NCS 29차 · 대분류 20.정보통신</p>
+
+<div class="note"><b>도구</b> — 이 문서의 3 ~ 8단계는
+<a href="../tools/t01.html"><b>훈련과정 편성표 생성기</b></a> 로 바로 실행할 수 있습니다.
+세분류를 고르면 능력단위 1,254건에서 해당 직무의 목록이 나오고, 시간과 적용비율이 자동 계산됩니다.</div>
+
+<h2 class="sec">이해</h2>
+
+<div class="step" id="st1">
+  <h3><i>1</i>NCS 분류체계 읽는 법</h3>
+  <aside class="side">
+    <p class="pt">4계층. 우리가 쓰는 단위는 세분류입니다.</p>
+    <b class="sh">규모</b>
+    <dl>
+      <dt>전체</dt><dd>대분류 24</dd>
+      <dt>20.정보통신</dt><dd>중분류 3 · 소분류 22 · 세분류 123 · 능력단위 1,254</dd>
+    </dl>
+  </aside>
+  <div class="bd">
+  <p>NCS는 <b>대분류 → 중분류 → 소분류 → 세분류</b> 4계층이고,
+     세분류가 하나의 <b>직무</b>입니다. 훈련과정은 세분류 단위로 붙입니다.
+     세분류 아래에 <b>능력단위</b>가 있고, 능력단위 아래에 <b>능력단위요소</b>가 있습니다.</p>
+  <pre class="cc">20. 정보통신
+ └ 01. 정보기술
+    └ 07. 인공지능
+       └ 07. 생성형AI엔지니어링      ← 세분류 = 직무
+          └ 05. 프롬프트 구현        ← 능력단위 = 교과목의 단위
+             └ 능력단위요소 · 수행준거</pre>
+  <h4>정보기술(20-01) 소분류 12개</h4>
+  <p>01.정보기술전략 · 계획 / 02.정보기술개발 / 03.정보기술운영 / 04.정보기술관리 /
+     05.정보기술영업 / <b>06.정보보호</b> / <b>07.인공지능</b> / 08.블록체인 /
+     09.스마트물류 / 10.디지털트윈 / 11.개인정보보호 / 12.산업기술보호</p>
+  <p class="cc"><b>정보보호와 인공지능이 소분류로 승격</b>되었고 개인정보보호 · 산업기술보호 · 디지털트윈이 신설되었습니다.
+     예전 자료(보안이 <code>20-01-02-06</code> 하나뿐이던 시절) 기준으로 짜인 편성표는 이미 낡은 것입니다.</p>
+  </div>
+</div>
+
+<div class="step" id="st2">
+  <h3><i>2</i>능력단위코드 해독</h3>
+  <aside class="side">
+    <p class="pt">코드만 보면 어느 직무의 몇 번째 능력단위인지 알 수 있습니다.</p>
+  </aside>
+  <div class="bd">
+  <pre class="cc">2001070705_25v1
+└┬┘└┬┘└┬┘└┬┘└┬┘  └─┬─┘
+ 20 01 07 07  05    25v1
+ 대  중  소  세  능력단위  개발연도 25년 · 버전 1
+
+앞 8자리 20010707 = 세분류코드 (생성형AI엔지니어링)
+뒤 2자리 05       = 능력단위 번호 (프롬프트 구현)</pre>
+  <h4>버전 표기가 중요한 이유</h4>
+  <p><code>_YYvN</code> 은 그 능력단위가 <b>언제 개발 · 개선되었는지</b>를 나타냅니다.
+     <code>19v4</code> 는 2019년 4차, <code>25v1</code> 은 2025년 1차입니다.
+     번호가 낮으면 오래된 직무이고, 학습모듈도 그만큼 오래된 내용일 수 있습니다.</p>
+  <div class="ex">
+    <p class="x"><b>흔한 실수</b> — 개정으로 <b>폐지된 능력단위</b>를 편성표에 쓰는 것.
+       NCS 사이트에는 폐지된 능력단위의 학습모듈 PDF가 그대로 남아 있어서,
+       교재를 먼저 찾고 거기 적힌 코드를 그대로 옮기면 사고가 납니다.</p>
+    <p class="o"><b>확인 방법</b> — <a href="https://github.com/NCS-MODULE-CURRICULUMS/NCS-CATALOG">NCS-CATALOG</a> 의
+       <code>data/competency-units.csv</code> 에 그 코드가 있는지 대조합니다.
+       <a href="../tools/t01.html">편성표 생성기</a>는 현행 데이터만 보여주므로 이 문제가 생기지 않습니다.</p>
+  </div>
+  </div>
+</div>
+
+<h2 class="sec">편성</h2>
+
+<div class="step" id="st3">
+  <h3><i>3</i>직무 선정</h3>
+  <aside class="side">
+    <p class="pt">주 세분류 1개 + 보조 몇 개.</p>
+    <b class="sh">연결</b>
+    <p class="v"><a href="g01.html#st3">직종분류검토</a></p>
+  </aside>
+  <div class="bd">
+  <p>목표 취업직무를 정하고, 거기에 대응하는 <b>NCS 세분류 1개를 주(主)로</b> 확정합니다.
+     보조 세분류는 필요한 만큼 붙이되 주/보조 구분을 분명히 합니다.</p>
+  <p class="cc">현실의 직무가 NCS 세분류 하나에 딱 떨어지지 않는 경우가 많습니다.
+     예를 들어 <b>DevOps</b>는 NCS에 세분류가 없어서
+     <code>20010215</code> 클라우드인프라 + <code>20010216</code> PaaS +
+     <code>20010301</code> IT시스템관리 + <code>20010615</code> SW공급망보안을 섞어야 합니다.
+     이때도 <b>단가를 결정할 주 세분류는 하나</b>로 정해야 합니다.</p>
+  </div>
+</div>
+
+<div class="step" id="st4">
+  <h3><i>4</i>직무모델링</h3>
+  <aside class="side">
+    <p class="pt">심사에서 "산업현장성"으로 평가되는 부분.</p>
+  </aside>
+  <div class="bd">
+  <p>산업체 요구와 채용공고를 분석해 <b>실제 수행직무</b>를 정리합니다.
+     이 문서가 다음 단계(능력단위 선정)의 <b>근거</b>가 됩니다.</p>
+  <ul>
+    <li>목표 직무의 채용공고 20 ~ 30건을 모아 요구 기술 · 경험을 빈도순으로 정리</li>
+    <li>지역 산업 수요(권역 공고, 지역 산단 현황)와 대조</li>
+    <li>기존 수료생 취업처의 실제 업무 내용 확인</li>
+  </ul>
+  <p class="cc">이 단계를 건너뛰면 5단계에서 "왜 이 능력단위를 골랐는가"에 답할 수 없게 됩니다.
+     과정적정성 심사에서 가장 자주 깎이는 지점입니다.</p>
+  </div>
+</div>
+
+<div class="step" id="st5">
+  <h3><i>5</i>능력단위 선정</h3>
+  <aside class="side">
+    <p class="pt">전부 넣는 게 아니라 <b>고르는</b> 것입니다.</p>
+    <b class="sh">도구</b>
+    <p class="v"><a href="../tools/t01.html">편성표 생성기</a></p>
+  </aside>
+  <div class="bd">
+  <p>NCS 기반 훈련기준의 능력단위 가운데 필요한 것을 <b>취사선택</b>합니다.
+     선택한 근거와 <b>뺀 근거</b>를 함께 문서로 남기세요.</p>
+  <div class="q">
+    <b class="t">과잉 편성 주의</b>
+    <p><code>20010202</code> 응용SW엔지니어링은 능력단위가 <b>27개</b>입니다.
+       요구사항 확인부터 배포 · 리팩토링 · 테스트 · 자료구조까지 SDLC 전체를 덮습니다.
+       900시간 과정이라도 27개를 다 제대로 다루긴 어렵습니다.</p>
+    <p>다 넣어 놓고 시간만 잘게 쪼개면 "형식적 편성"으로 읽힙니다.
+       <b>덜 넣고 근거를 대는 편</b>이 심사에서 낫습니다.</p>
+  </div>
+  </div>
+</div>
+
+<div class="step" id="st6">
+  <h3><i>6</i>능력단위요소 → 교과목 매핑</h3>
+  <aside class="side">
+    <p class="pt">능력단위 1개 = 교과목 1개가 기본.</p>
+  </aside>
+  <div class="bd">
+  <p>기본은 <b>능력단위 1개 = 교과목 1개</b>입니다. 필요하면 쪼개거나 묶을 수 있습니다.</p>
+  <ul>
+    <li><b>쪼개기</b> — 능력단위가 크고 시간이 많이 필요할 때 (예: 프로그래밍 언어 활용 → 기초 / 응용)</li>
+    <li><b>묶기</b> — 연속 수행되는 능력단위를 하나의 프로젝트 교과로 (예: 화면 설계 + 화면 구현)</li>
+  </ul>
+  <p class="cc">묶을 때도 <b>편성표에는 능력단위코드가 각각 남아야</b> 합니다.
+     묶어서 코드를 하나로 줄이면 NCS 적용 시간이 줄어듭니다.</p>
+  </div>
+</div>
+
+<div class="step" id="st7">
+  <h3><i>7</i>훈련시간 산정</h3>
+  <aside class="side">
+    <p class="pt">넣는 것과 빼는 것이 정해져 있습니다.</p>
+    <b class="sh">주의</b>
+    <p class="v">수치 기준은 당해년도 공고</p>
+  </aside>
+  <div class="bd">
+  <table>
+    <thead><tr><th style="width:110px">구분</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr class="on"><td class="nm">포함</td>
+          <td>온라인을 포함한 수업시간 · 수업 중 과제 수행과 피드백 · 평가시간</td></tr>
+      <tr><td class="nm">제외</td>
+          <td>선수학습 · 개인학습 · 복습시간 · 시험준비시간</td></tr>
+    </tbody>
+  </table>
+  <p>재직자 훈련과정에서 능력단위 내 <b>일부 능력단위요소만</b> 골라 편성하는 경우,
+     그 능력단위의 <b>표준훈련시간 내에서 자율 편성</b>합니다.</p>
+  <p class="cc">"자율 학습 2시간"을 훈련시간에 넣는 실수가 흔합니다. 넣으면 안 됩니다.</p>
+  </div>
+</div>
+
+<div class="step" id="st8">
+  <h3><i>8</i>NCS 적용비율</h3>
+  <aside class="side">
+    <p class="pt">기본요건 심사 항목. 부적합이면 탈락.</p>
+  </aside>
+  <div class="bd">
+  <pre class="cc">NCS 적용비율 = NCS 능력단위 기반 훈련시간 ÷ 전체 훈련시간</pre>
+  <p>NCS 능력단위에 대응하지 않는 교과(취업특강, 자격증 특강, 오리엔테이션 등)는
+     분자에 들어가지 않습니다. <a href="../tools/t01.html">편성표 생성기</a>의
+     <b>"NCS 외 교과 시간"</b> 칸에 그 시간을 넣으면 비율이 자동 계산됩니다.</p>
+  <p class="cc"><b>하한선(%)은 연도와 훈련사업에 따라 다릅니다.</b>
+     당해년도 계획공고와 집체(통합)훈련심사 설명회 자료집에서 확인하세요.</p>
+  </div>
+</div>
+
+<h2 class="sec">마감</h2>
+
+<div class="step" id="st9">
+  <h3><i>9</i>교강사 · 시설 · 장비 역산</h3>
+  <aside class="side">
+    <p class="pt">능력단위에서 거꾸로 계산합니다.</p>
+    <b class="sh">심사</b>
+    <p class="v">과정적정성 — 적부 + 점수</p>
+  </aside>
+  <div class="bd">
+  <p>편성한 능력단위를 하나씩 보면서 <b>그 능력단위를 가르치려면 무엇이 필요한가</b>를 역산합니다.</p>
+  <table>
+    <thead><tr><th style="width:230px">능력단위 예</th><th>필요한 것</th></tr></thead>
+    <tbody>
+      <tr><td class="pre">2001060210 모의해킹</td><td>격리된 실습망, 취약 서버 이미지, 라이선스</td></tr>
+      <tr><td class="pre">2001070306 인공지능 모델 학습</td><td>GPU 자원(온프레미스 또는 클라우드)</td></tr>
+      <tr><td class="pre">2001021506 클라우드 서버 서비스 개발</td><td>유료 클라우드 계정, 훈련생당 예산</td></tr>
+      <tr><td class="pre">2001060803 증거 수집</td><td>포렌식 도구, 쓰기방지장치, 대상 매체</td></tr>
+    </tbody>
+  </table>
+  <p class="cc">교강사도 마찬가지입니다. 편성한 능력단위에 대응하는 <b>경력 · 자격</b>을 갖췄는지
+     능력단위별로 확인하세요. 한 명이 전부를 커버하지 못하면 공동 강사로 편성합니다.</p>
+  </div>
+</div>
+
+<div class="step" id="st10">
+  <h3><i>10</i>편성표 작성과 제출</h3>
+  <aside class="side">
+    <p class="pt">여기까지 오면 서류는 거의 다 나옵니다.</p>
+    <b class="sh">도구</b>
+    <dl>
+      <dt>편성표</dt><dd><a href="../tools/t01.html">t01</a></dd>
+      <dt>평가계획서</dt><dd><a href="../tools/t02.html">t02</a></dd>
+      <dt>자가점검</dt><dd><a href="../tools/t03.html">t03</a></dd>
+    </dl>
+  </aside>
+  <div class="bd">
+  <ol>
+    <li><a href="../tools/t01.html">편성표 생성기</a>에서 세분류 선택 → 능력단위 체크 → 시간 입력</li>
+    <li>CSV 내려받기 → 기관 양식에 옮겨 담기</li>
+    <li><a href="../tools/t02.html">평가계획서 생성기</a>에서 <b>"편성표에서 불러오기"</b> → 평가방법 · 배점 지정</li>
+    <li><a href="../tools/t03.html">자가점검표</a>로 빠진 것 확인</li>
+    <li>HRD-Net 심사평가시스템 &gt; 통합심사 &gt; 심사공모조회에서 제출</li>
+  </ol>
+  <p class="cc">편성표의 능력단위코드가 <b>현행 NCS(29차)에 존재하는지</b> 제출 전에 한 번 더 대조하세요.
+     생성기를 쓰면 자동으로 보장되지만, 손으로 옮기다 오타가 나는 경우가 있습니다.</p>
+  </div>
+</div>
+
+<footer>담당 정우균</footer>
+</div>
+
+<script>
+(function(){
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  if(btn) btn.onclick = function(){ nav.classList.toggle('open'); };
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));
+  function mark(){
+    var y = window.scrollY + 120, on = null;
+    links.forEach(function(a){
+      var el = document.getElementById(a.getAttribute('href').slice(1));
+      if(el && el.offsetTop <= y) on = a;
+    });
+    links.forEach(function(a){ a.classList.toggle('on', a === on); });
+  }
+  window.addEventListener('scroll', mark);
+  mark();
+})();
+</script>

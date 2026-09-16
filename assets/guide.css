@@ -1,0 +1,142 @@
+/* 준비 교안 판면. guides/*.html 이 함께 씁니다.
+ * 공통 규칙(표 · 머리글 · 색)은 assets/site.css 에 있습니다.
+ * 교안마다 다른 것은 각 파일의 <style> 에 둡니다. */
+  /* 이 페이지에만 있는 것. 공통 규칙은 assets/site.css 에 있습니다. */
+
+  /* ── 판면 ─────────────────────────────────────────── */
+  .wrap{max-width:1180px;counter-reset:step}
+  h1{font-size:25px;letter-spacing:-.02em;margin:0 0 5px}
+  .sub{font-size:12.5px;color:#555}
+  h2.sec{font-size:19px;margin:40px 0 10px;border-bottom:1px solid #000;padding-bottom:7px}
+  .lv{border:1px solid #000;margin:0 0 24px}
+  .lvh{background:#000;color:#fff;padding:9px 16px;display:flex;align-items:baseline;gap:10px}
+  .lvh b{font-size:15px}
+  .lvh span{font-size:12.5px;color:#ccc}
+  .lvb{padding:0 16px}
+
+  .sect{display:grid;grid-template-columns:214px minmax(0,1fr);column-gap:32px;
+        margin:0 0 26px;padding:0 17px}
+  .sect > aside{grid-column:1;align-self:start}
+  .sect > .bd{grid-column:2;min-width:0}
+  .sect p{margin:0 0 13px;font-size:16px;line-height:1.9}
+  .sect li{margin:7px 0;font-size:16px;line-height:1.85}
+  .sect .cc{font-size:13.5px;color:#555;line-height:1.8}
+  .sect dt{font-weight:700;font-size:16px;margin:18px 0 4px}
+  .sect dd{margin:0;font-size:16px;line-height:1.9}
+
+  /* ── 단원 : 왼쪽 방주 + 본문 ──────────────────────── */
+  .step{display:grid;grid-template-columns:214px minmax(0,1fr);column-gap:32px;
+        border-top:1px solid #ccc;padding:22px 0 26px;
+        counter-increment:step;counter-reset:sub fig}
+  .step:first-child{border-top:0}
+  .step > h3{grid-column:1/-1}
+  .step > aside{grid-column:1;align-self:start}
+  .step > .bd{grid-column:2;min-width:0}
+  .step > .bd,.sect > .bd{border-left:1px solid #ccc;margin-left:-16px;padding-left:15px}
+
+  .step h3{margin:0 0 20px;font-size:21px;letter-spacing:-.02em;
+           display:flex;align-items:center;gap:11px}
+  .step h3 i{font-style:normal;flex:0 0 auto;width:27px;height:27px;line-height:25px;
+     text-align:center;border:1px solid #000;font-size:13px;font-weight:700;margin:0}
+  .bd > h4{margin:30px 0 10px;font-size:16.5px;letter-spacing:-.01em;counter-increment:sub}
+  .bd > h4::before{content:counter(step) "." counter(sub) "  ";font-weight:400;color:#666}
+  .step p{margin:0 0 13px;font-size:16px;line-height:1.9}
+  .step ul,.step ol{margin:11px 0 16px 24px;padding:0}
+  .step li{margin:7px 0;font-size:16px;line-height:1.85}
+
+  /* ── 방주 ─────────────────────────────────────────── */
+  aside.side{padding:2px 16px 2px 0;color:#333}
+  aside.side .pt{margin:0 0 14px;font-size:12px;font-weight:700;line-height:1.7;color:#000}
+  aside.side b.sh{display:block;font-size:10px;letter-spacing:.08em;color:#999;
+                  font-weight:700;margin:14px 0 4px}
+  aside.side .v{margin:0;font-size:11.5px;line-height:1.65;color:#000}
+  aside.side dl{margin:0}
+  aside.side dt{font-weight:700;font-size:11.5px;margin:9px 0 1px;color:#000}
+  aside.side dt:first-child{margin-top:0}
+  aside.side dd{margin:0;font-size:11px;line-height:1.7;color:#666}
+  aside.side .src{margin:0;font-size:10.5px;line-height:1.65;color:#777}
+
+  /* ── 본문 장치 ────────────────────────────────────── */
+  .try{border:1px solid #000;border-left-width:4px;padding:15px 18px;margin:18px 0;
+       font-size:15.5px;line-height:1.85}
+  .try b.t{display:block;font-size:11.5px;letter-spacing:.05em;margin-bottom:8px}
+  .q{border:1px solid #000;padding:15px 18px;margin:20px 0;font-size:15.5px;line-height:1.85}
+  .q b.t{display:block;font-size:11.5px;letter-spacing:.05em;margin-bottom:8px}
+  ol.qa{margin:8px 0 0 24px}ol.qa li{margin:9px 0;font-size:15.5px}
+  .draw{border-left:3px solid #000;padding:2px 0 2px 16px;margin:20px 0 13px;
+        font-size:16px;line-height:1.9}
+  .draw b.n{display:block;font-size:15.5px;margin-bottom:5px}
+  .ex{margin:9px 0;font-size:15.5px;line-height:1.85}
+  .ex .x,.ex .o{display:inline-block;min-width:52px;font-weight:700;font-size:11.5px;
+     border:1px solid #000;text-align:center;margin-right:9px;vertical-align:2px}
+  .ex .o{background:#000;color:#fff}
+  .cc{font-size:13.5px;color:#555;margin:9px 0 0;line-height:1.8}
+
+  /* ── 그림과 표 ────────────────────────────────────── */
+  figure{margin:20px 0 22px;counter-increment:fig}
+  figure img{display:block;width:100%;border:1px solid #ccc}
+  figcaption{font-size:12.5px;color:#555;margin-top:8px;line-height:1.7}
+  figcaption::before{content:"그림 " counter(step) "-" counter(fig) ".  ";
+                     font-weight:700;color:#000}
+  table{margin:14px 0;font-size:14px}
+  th,td{padding:8px 10px}
+  table.sym td{vertical-align:middle}
+  table.sym svg{display:block;margin:0 auto}
+  td.nm{font-weight:700;white-space:nowrap}
+  th,td{text-align:left;vertical-align:top}
+  td.c{text-align:center;white-space:nowrap}
+  /* 표 안의 긴 영문 토큰이 좁은 화면에서 칸을 밀어내지 않게 한다 */
+  td{overflow-wrap:anywhere}
+  /* 긴 영문 토큰이 든 인라인 코드도 마찬가지로 줄을 바꿔 준다 */
+  code{overflow-wrap:anywhere}
+  .bd > dl dt{font-weight:700;font-size:16px;margin:18px 0 4px}
+  .bd > dl dd{margin:0;font-size:16px;line-height:1.9}
+
+  /* ── 좁은 화면에서는 방주를 본문 위로 ─────────────── */
+  @media(max-width:1023px){
+    .step,.sect{display:block}
+    .step > .bd,.sect > .bd{border-left:0;margin-left:0;padding-left:0}
+    aside.side{border-top:1px solid #000;border-bottom:1px solid #000;
+               padding:12px 0 14px;margin:0 0 20px}
+    aside.side .pt{margin-bottom:10px}
+    aside.side dt{display:inline;margin:0}
+    aside.side dt::after{content:" — "}
+    aside.side dd{display:inline;margin:0}
+    aside.side dd::after{content:"";display:block;height:7px}
+  }
+  /* 아주 좁은 화면에서는 표를 표 안에서 옆으로 밀어 본다 */
+  @media(max-width:600px){
+    .bd table{display:block;overflow-x:auto;width:100%}
+  }
+  @media print{.top{display:none}.lv,.step,figure,table{break-inside:avoid}}
+  /* 빠른 이동 — 넓은 화면에서는 번호 줄, 좁은 화면에서는 여닫는 목록 */
+  .step,h2.sec{scroll-margin-top:58px}
+  #qnav{position:fixed;left:calc(50% - 644px);top:50%;transform:translateY(-50%);z-index:15;
+        background:#fff;border:1px solid #000;padding:8px 6px}
+  #qnav a{position:relative;display:block;text-decoration:none;margin:3px 0}
+  #qnav a b{display:flex;align-items:center;justify-content:center;width:24px;height:24px;
+            border:1px solid #999;color:#555;font-size:11px;font-weight:700}
+  #qnav a:hover b,#qnav a.on b{background:#000;color:#fff;border-color:#000}
+  #qnav a span{position:absolute;left:33px;top:50%;transform:translateY(-50%);
+               white-space:nowrap;background:#000;color:#fff;font-size:11.5px;padding:4px 9px;
+               opacity:0;pointer-events:none;transition:opacity .12s}
+  #qnav a:hover span{opacity:1}
+  #qnav .qg{display:block;font-style:normal;font-size:9px;color:#999;text-align:center;
+            margin:9px 0 2px;letter-spacing:-.03em}
+  #qnav .qt b{border-style:dashed}
+  #qbtn{display:none}
+  @media(max-width:1339px),(max-height:660px){
+    #qnav{display:none;left:14px;bottom:60px;top:auto;transform:none;padding:12px 16px 14px;
+          max-height:calc(100vh - 140px);box-shadow:0 4px 16px rgba(0,0,0,.12)}
+    #qnav.open{display:block}
+    #qnav a{display:flex;align-items:center;gap:9px;margin:0;padding:4px 0}
+    #qnav a b{width:20px;height:20px;font-size:10px;flex:0 0 auto}
+    #qnav a span{position:static;transform:none;opacity:1;background:none;color:#000;
+                 padding:0;font-size:12.5px}
+    #qnav a:hover b{background:#000}
+    #qnav a.on span{font-weight:700}
+    #qbtn{display:block;position:fixed;left:14px;bottom:14px;z-index:16;
+          background:#000;color:#fff;border:0;padding:9px 14px;font-size:12.5px;
+          font-family:inherit;cursor:pointer}
+  }
+  @media print{#qnav,#qbtn{display:none}}

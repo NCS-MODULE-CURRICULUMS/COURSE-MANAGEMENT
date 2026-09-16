@@ -1,0 +1,81 @@
+<meta charset="utf-8"><title>과정관리</title>
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/auth.js"></script>
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="index.html">과정관리</a><small>NCS-MODULE-CURRICULUMS</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("");</script>
+
+<div class="wrap"><h1 class="only">과정관리</h1>
+
+<div class="gate" id="gate">
+  <form class="gbox" id="gForm">
+    <h2>로그인</h2>
+    <input id="gu" placeholder="아이디" autocomplete="username" autofocus>
+    <input id="gp" type="password" placeholder="비밀번호" autocomplete="current-password">
+    <button id="gDo" type="submit">들어가기</button>
+    <p class="gmsg" id="gmsg"></p>
+  </form>
+</div>
+
+<div id="body" style="display:none">
+  <h1>과정관리</h1>
+  <p class="sub">국가기간·전략산업직종훈련(국기) 과정의 개발 · 편성 · 평가도구</p>
+  <div class="note"><b>기준</b> — NCS 29차 개정 · 대분류 20.정보통신 ·
+  원본 데이터 <code>NCS-CATALOG</code>. 심사기준 수치는 해마다 바뀌므로
+  KSQA 당해년도 계획공고를 함께 확인하세요.</div>
+  <div id="groups"></div>
+  <footer>담당 정우균</footer>
+</div>
+</div>
+
+<script src="assets/sections.js"></script>
+<script>
+(function(){
+  function esc(s){ return String(s==null?'':s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function draw(){
+    var adm=EXAM_AUTH.isAdmin(), gs=[], by={};
+    (window.CM_SECTIONS||[]).forEach(function(s){
+      if(s.adm && !adm) return;
+      if(!by[s.group]){ by[s.group]=[]; gs.push(s.group); }
+      by[s.group].push(s);
+    });
+    var h='';
+    gs.forEach(function(g){
+      h+='<h2 style="margin:26px 0 10px;font-size:17px">'+esc(g)+'</h2><div class="cgrid">';
+      by[g].forEach(function(s){
+        var meta='<dl><dt>내용</dt><dd>'+esc(s.desc||'-')+'</dd></dl>';
+        if(s.page)
+          h+='<div class="cwrap"><a class="ccard" href="'+esc(s.page)+'"><h3>'+esc(s.name)+'</h3>'+
+             meta+'<span class="go">열기</span></a></div>';
+        else
+          h+='<div class="cwrap"><div class="ccard na"><h3>'+esc(s.name)+'</h3>'+
+             meta+'<span class="go">준비 중</span></div></div>';
+      });
+      h+='</div>';
+    });
+    document.getElementById('groups').innerHTML=h;
+  }
+  var gate=document.getElementById('gate'), body=document.getElementById('body'),
+      msg=document.getElementById('gmsg');
+  function paint(){
+    var on=EXAM_AUTH.signedIn();
+    gate.style.display = on ? 'none' : '';
+    body.style.display = on ? '' : 'none';
+    document.body.classList.toggle('admin', EXAM_AUTH.isAdmin());
+    EXAM_AUTH.paintTop('');
+    if(on) draw();
+  }
+  document.getElementById('gForm').addEventListener('submit', async function(e){
+    e.preventDefault();
+    msg.className='gmsg';
+    var r=await EXAM_AUTH.signIn(document.getElementById('gu').value,
+                                 document.getElementById('gp').value);
+    if(r){ document.getElementById('gp').value=''; paint(); }
+    else { msg.className='gmsg err'; msg.textContent='아이디 또는 비밀번호가 맞지 않습니다.'; }
+  });
+  paint();
+})();
+</script>

@@ -1,0 +1,279 @@
+<meta charset="utf-8"><title>훈련과정 편성표 생성기</title>
+<link rel="stylesheet" href="../assets/site.css">
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>평가도구 / 훈련과정 편성표 생성기</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+<style>
+  .pick{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin:14px 0}
+  .pick label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:#555}
+  .pick select,.pick input{padding:7px 9px;border:1px solid #cfd6e0;border-radius:6px;font-size:13.5px}
+  .pick select{min-width:190px;max-width:100%}
+  .sum{display:flex;gap:18px;flex-wrap:wrap;background:#f7f9fc;border:1px solid #e2e8f0;
+       border-radius:8px;padding:12px 14px;margin:14px 0;font-size:13.5px}
+  .sum b{font-size:18px;color:#1b4b8f;margin-left:4px}
+  td.h input{width:72px;padding:4px 6px;border:1px solid #cfd6e0;border-radius:5px;text-align:right}
+  td.lv input{width:48px;padding:4px 6px;border:1px solid #cfd6e0;border-radius:5px;text-align:center}
+  tr.off{opacity:.4}
+  .bar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  .bar button{padding:8px 14px;border:1px solid #1b4b8f;background:#1b4b8f;color:#fff;
+              border-radius:6px;cursor:pointer;font-size:13px}
+  .bar button.g{background:#fff;color:#1b4b8f}
+  .bar button:hover{opacity:.85}
+  .warn{color:#b03030}
+  @media print{.top,.pick,.bar,.note{display:none}}
+</style>
+<div class="wrap">
+<h1>훈련과정 편성표 생성기</h1>
+<p class="sub">NCS 29차 · 대분류 20.정보통신 · 능력단위 1,254건</p>
+
+<div class="note"><b>쓰는 법</b> — 세분류를 고르면 그 직무의 능력단위가 모두 나옵니다.
+편성할 것만 체크하고 <b>훈련시간</b>을 넣으세요. 합계와 NCS 적용비율이 자동으로 계산됩니다.
+<span class="warn">훈련시간에 선수학습 · 개인학습 · 복습 · 시험준비 시간은 넣지 않습니다.</span>
+입력값은 이 브라우저에 자동 저장됩니다.
+</div>
+
+<div class="pick">
+  <label>과정명<input id="cn" size="34" placeholder="예: 클라우드 인프라 엔지니어 양성과정"></label>
+  <label>중분류<select id="m"></select></label>
+  <label>소분류<select id="s"></select></label>
+  <label>세분류<select id="d"></select></label>
+  <label>NCS 외 교과 시간<input id="etc" type="number" min="0" value="0" style="width:110px"></label>
+</div>
+
+<div class="sum">
+  <span>편성 능력단위 <b id="kCnt">0</b></span>
+  <span>NCS 훈련시간 <b id="kNcs">0</b></span>
+  <span>NCS 외 <b id="kEtc">0</b></span>
+  <span>총 훈련시간 <b id="kTot">0</b></span>
+  <span>NCS 적용비율 <b id="kPct">0%</b></span>
+</div>
+
+<div class="bar">
+  <button id="bAll" class="g" type="button">이 세분류 전체 선택</button>
+  <button id="bNone" class="g" type="button">전체 해제</button>
+  <button id="bCsv" type="button">편성표 CSV 내려받기</button>
+  <button id="bPrint" type="button">인쇄 · PDF</button>
+</div>
+
+<table id="tb"><thead><tr>
+  <th style="width:44px">편성</th><th style="width:132px">능력단위코드</th>
+  <th class="nm">능력단위명</th><th style="width:72px">수준</th><th style="width:92px">훈련시간</th>
+</tr></thead><tbody id="tbody"><tr><td colspan="5">데이터를 불러오는 중…</td></tr></tbody></table>
+
+<footer>담당 정우균</footer>
+</div>
+
+<script>
+(function(){
+  var KEY = 'cm_plan_v1';
+  var TAX = [], UNIT = [], cur = [], state = {};
+
+  function esc(s){ return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  /* 따옴표를 포함할 수 있는 CSV 한 줄을 셀 배열로 바꿉니다. */
+  function row(line){
+    var out = [], v = '', q = false;
+    for(var i = 0; i < line.length; i++){
+      var c = line.charAt(i);
+      if(q){
+        if(c === '"'){ if(line.charAt(i+1) === '"'){ v += '"'; i++; } else q = false; }
+        else v += c;
+      }
+      else if(c === '"') q = true;
+      else if(c === ','){ out.push(v); v = ''; }
+      else v += c;
+    }
+    out.push(v);
+    return out;
+  }
+  function csv(text){
+    var lines = text.replace(/^﻿/, '').split(/\r?\n/).filter(function(l){ return l.trim(); });
+    var head = row(lines.shift());
+    return lines.map(function(l){
+      var c = row(l), o = {};
+      head.forEach(function(h, i){ o[h] = c[i]; });
+      return o;
+    });
+  }
+  function uniq(arr, kf, nf){
+    var seen = {}, out = [];
+    arr.forEach(function(a){ if(!seen[a[kf]]){ seen[a[kf]] = 1; out.push({ k: a[kf], n: a[nf] }); } });
+    return out;
+  }
+
+  var $m = document.getElementById('m'),
+      $s = document.getElementById('s'),
+      $d = document.getElementById('d');
+
+  function fillM(){
+    $m.innerHTML = uniq(TAX, '중분류코드', '중분류').map(function(a){
+      return '<option value="' + a.k + '">' + a.k + '. ' + esc(a.n) + '</option>';
+    }).join('');
+    fillS();
+  }
+  function fillS(){
+    var v = uniq(TAX.filter(function(t){ return t['중분류코드'] === $m.value; }), '소분류코드', '소분류');
+    $s.innerHTML = v.map(function(a){
+      return '<option value="' + a.k + '">' + a.k + '. ' + esc(a.n) + '</option>';
+    }).join('');
+    fillD();
+  }
+  function fillD(){
+    var v = TAX.filter(function(t){
+      return t['중분류코드'] === $m.value && t['소분류코드'] === $s.value;
+    });
+    $d.innerHTML = v.map(function(t){
+      return '<option value="' + t['세분류코드'] + '">' + t['세분류코드2'] + '. ' +
+             esc(t['세분류']) + ' (' + t['능력단위수'] + ')</option>';
+    }).join('');
+    fillU();
+  }
+  function fillU(){
+    cur = UNIT.filter(function(u){ return u['세분류코드'] === $d.value; });
+    draw();
+  }
+
+  function draw(){
+    if(!cur.length){
+      document.getElementById('tbody').innerHTML =
+        '<tr><td colspan="5">이 세분류에는 아직 능력단위가 없습니다. (신설 직무)</td></tr>';
+      calc();
+      return;
+    }
+    document.getElementById('tbody').innerHTML = cur.map(function(u){
+      var k = u['능력단위코드'], st = state[k] || {};
+      return '<tr data-k="' + k + '" class="' + (st.on ? '' : 'off') + '">' +
+        '<td><input type="checkbox" class="ck"' + (st.on ? ' checked' : '') + '></td>' +
+        '<td class="pre">' + esc(k) + '</td>' +
+        '<td class="nm">' + esc(u['능력단위명']) + '</td>' +
+        '<td class="lv"><input class="lv" type="number" min="1" max="8" value="' + esc(st.lv || '') + '"></td>' +
+        '<td class="h"><input class="hr" type="number" min="0" step="1" value="' + esc(st.hr || '') + '"></td>' +
+        '</tr>';
+    }).join('');
+    bind();
+    calc();
+  }
+  function bind(){
+    var rows = document.querySelectorAll('#tbody tr');
+    Array.prototype.forEach.call(rows, function(tr){
+      var k = tr.getAttribute('data-k');
+      if(!k) return;
+      tr.querySelector('.ck').onchange = function(){
+        state[k] = state[k] || {};
+        state[k].on = this.checked;
+        tr.className = this.checked ? '' : 'off';
+        calc(); save();
+      };
+      tr.querySelector('input.hr').oninput = function(){
+        state[k] = state[k] || {}; state[k].hr = this.value; calc(); save();
+      };
+      tr.querySelector('input.lv').oninput = function(){
+        state[k] = state[k] || {}; state[k].lv = this.value; save();
+      };
+    });
+  }
+
+  /* 지금 화면의 세분류뿐 아니라 다른 세분류에서 고른 것도 모두 모읍니다. */
+  function picked(){
+    var out = [];
+    UNIT.forEach(function(u){
+      var st = state[u['능력단위코드']];
+      if(st && st.on) out.push({ u: u, st: st });
+    });
+    return out;
+  }
+  function calc(){
+    var p = picked(), ncs = 0;
+    p.forEach(function(x){ ncs += (+x.st.hr || 0); });
+    var etc = +document.getElementById('etc').value || 0, tot = ncs + etc;
+    document.getElementById('kCnt').textContent = p.length;
+    document.getElementById('kNcs').textContent = ncs;
+    document.getElementById('kEtc').textContent = etc;
+    document.getElementById('kTot').textContent = tot;
+    document.getElementById('kPct').textContent = tot ? (Math.round(ncs / tot * 1000) / 10) + '%' : '0%';
+  }
+  function save(){
+    try{
+      localStorage.setItem(KEY, JSON.stringify({
+        cn: document.getElementById('cn').value,
+        etc: document.getElementById('etc').value,
+        state: state
+      }));
+    }catch(e){}
+  }
+  function load(){
+    try{
+      var d = JSON.parse(localStorage.getItem(KEY) || 'null');
+      if(!d) return;
+      state = d.state || {};
+      document.getElementById('cn').value = d.cn || '';
+      document.getElementById('etc').value = d.etc || 0;
+    }catch(e){}
+  }
+
+  document.getElementById('bAll').onclick = function(){
+    cur.forEach(function(u){
+      var k = u['능력단위코드'];
+      state[k] = state[k] || {};
+      state[k].on = true;
+    });
+    draw(); save();
+  };
+  document.getElementById('bNone').onclick = function(){
+    cur.forEach(function(u){
+      var k = u['능력단위코드'];
+      if(state[k]) state[k].on = false;
+    });
+    draw(); save();
+  };
+  document.getElementById('etc').oninput = function(){ calc(); save(); };
+  document.getElementById('cn').oninput = save;
+  document.getElementById('bPrint').onclick = function(){ window.print(); };
+
+  document.getElementById('bCsv').onclick = function(){
+    var p = picked();
+    if(!p.length){ alert('편성한 능력단위가 없습니다.'); return; }
+    var cn = document.getElementById('cn').value || '훈련과정';
+    var L = ['과정명,' + JSON.stringify(cn),
+             '순번,능력단위코드,능력단위명,세분류,소분류,수준,훈련시간'];
+    p.forEach(function(x, i){
+      L.push([i + 1, x.u['능력단위코드'], JSON.stringify(x.u['능력단위명']),
+              JSON.stringify(x.u['세분류']), JSON.stringify(x.u['소분류']),
+              x.st.lv || '', x.st.hr || 0].join(','));
+    });
+    L.push('');
+    L.push('NCS 훈련시간,' + document.getElementById('kNcs').textContent);
+    L.push('NCS 외 시간,' + document.getElementById('kEtc').textContent);
+    L.push('총 훈련시간,' + document.getElementById('kTot').textContent);
+    L.push('NCS 적용비율,' + document.getElementById('kPct').textContent);
+    var blob = new Blob(['﻿' + L.join('\n')], { type: 'text/csv;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = cn + '_편성표.csv';
+    document.body.appendChild(a); a.click(); a.remove();
+  };
+
+  $m.onchange = fillS;
+  $s.onchange = fillD;
+  $d.onchange = fillU;
+
+  Promise.all([
+    fetch('../data/taxonomy.csv').then(function(r){ return r.text(); }),
+    fetch('../data/competency-units.csv').then(function(r){ return r.text(); })
+  ]).then(function(t){
+    TAX = csv(t[0]);
+    UNIT = csv(t[1]);
+    load();
+    fillM();
+  }).catch(function(){
+    document.getElementById('tbody').innerHTML =
+      '<tr><td colspan="5" class="warn">데이터를 불러오지 못했습니다. ' +
+      'file:// 로 직접 열면 브라우저가 막습니다 — GitHub Pages 주소로 여세요.</td></tr>';
+  });
+})();
+</script>

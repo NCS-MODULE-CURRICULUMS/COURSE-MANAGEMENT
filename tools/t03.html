@@ -1,0 +1,162 @@
+<meta charset="utf-8"><title>훈련과정 자가점검표</title>
+<link rel="stylesheet" href="../assets/site.css">
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>평가도구 / 훈련과정 자가점검표</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+<style>
+  .prog{background:#f7f9fc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 14px;margin:14px 0}
+  .prog .num{font-size:20px;color:#1b4b8f;font-weight:700}
+  .pbar{height:8px;background:#e6ebf2;border-radius:4px;margin-top:8px;overflow:hidden}
+  .pbar i{display:block;height:100%;background:#1b4b8f;width:0;transition:width .2s}
+  .grp{margin:26px 0 0}
+  .grp h2{font-size:16px;margin:0 0 8px;padding-bottom:6px;border-bottom:2px solid #1b4b8f}
+  .grp .gate{font-size:12px;color:#b03030;font-weight:normal;margin-left:8px}
+  .it{display:flex;gap:10px;padding:9px 10px;border:1px solid #e6ebf2;border-radius:6px;
+      margin-bottom:6px;align-items:flex-start;background:#fff}
+  .it.ok{background:#f4f9f4;border-color:#cfe4cf}
+  .it input{margin-top:3px;flex:none}
+  .it .tx{font-size:13.5px;line-height:1.6}
+  .it .tx small{display:block;color:#666;font-size:12px;margin-top:3px}
+  .bar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  .bar button{padding:8px 14px;border:1px solid #1b4b8f;background:#1b4b8f;color:#fff;
+              border-radius:6px;cursor:pointer;font-size:13px}
+  .bar button.g{background:#fff;color:#1b4b8f}
+  @media print{.top,.bar{display:none} .it{break-inside:avoid}}
+</style>
+<div class="wrap">
+<h1>훈련과정 자가점검표</h1>
+<p class="sub">KSQA 집체(통합)훈련심사 신청 전 셀프 체크 · 실업자 국기 기준</p>
+
+<div class="note"><b>주의</b> — 항목은 KSQA가 공개한 심사 기준의 <b>구조</b>를 따른 것이고,
+훈련시간 · NCS 적용비율 · 훈련비 단가 같은 <b>수치 기준은 해마다 바뀝니다</b>.
+반드시 <b>당해년도 계획공고</b>와 <b>집체(통합)훈련심사 설명회 자료집</b>으로 확인하세요.
+체크 결과는 이 브라우저에만 저장됩니다.
+</div>
+
+<div class="prog">
+  <span class="num" id="pNum">0 / 0</span> 완료
+  <div class="pbar"><i id="pBar"></i></div>
+</div>
+
+<div class="bar">
+  <button id="bReset" class="g" type="button">전체 해제</button>
+  <button id="bPrint" type="button">인쇄 · PDF</button>
+</div>
+
+<div id="list"></div>
+<footer>담당 정우균</footer>
+</div>
+
+<script>
+var CM_CHECK = [
+  { g:"0. 신청 자격 (선행조건)", gate:"이게 안 되면 신청 자체가 불가", items:[
+    ["근로자직업능력개발법 시행령 제12조·제17조·제22조에 해당하는 시설·기관인가",
+     "직업능력개발훈련시설 / 고등교육법 학교 / 평생교육시설 / 평생직업교육학원 등"],
+    ["훈련기관등록·관리시스템에 이 과정의 <b>실시가능직종</b>을 등록했는가",
+     "등록하지 않은 직종은 훈련과정 신청이 불가"],
+    ["KSQA 훈련기관 인증평가를 받았거나 신청 일정에 포함되어 있는가", ""],
+    ["HRD-Net 심사평가시스템에서 해당 회차 <b>심사공모</b>를 확인했는가",
+     "통합심사 > 심사공모조회"]
+  ]},
+  { g:"1. 직종분류검토", gate:"NCS직종단가·훈련실적 산정에 영향", items:[
+    ["이 과정을 붙일 <b>NCS 세분류</b>를 하나로 확정했는가",
+     "예: 클라우드 보안 과정 → 20010206 보안엔지니어링 vs 20010612 클라우드 보안 관리·운영"],
+    ["훈련내용과 선택 직종의 <b>연관성</b>을 설명할 수 있는가",
+     "교과목이 그 세분류의 능력단위에서 나왔음을 보일 수 있어야 함"],
+    ["보조로 쓰는 세분류가 있다면 주/보조 구분이 명확한가", ""],
+    ["선택한 직종의 NCS직종단가를 확인했는가", ""]
+  ]},
+  { g:"2. 기본요건 심사", gate:"적합 / 부적합 — 탈락 게이트", items:[
+    ["<b>NCS 적용 필수기준</b>을 충족하는가 (당해년도 공고 기준 확인)",
+     "NCS 적용은 선택이 아니라 의무"],
+    ["NCS 적용비율(전체 훈련시간 중 능력단위 기반 시간)을 산정했는가",
+     "편성표 생성기에서 자동 계산됨"],
+    ["훈련시간 산정에서 제외 대상을 뺐는가",
+     "선수학습 · 개인학습 · 복습 · 시험준비 시간은 훈련시간에 넣지 않음"],
+    ["훈련시간에 포함해야 할 것을 넣었는가",
+     "온라인 포함 수업시간, 수업 중 과제 수행·피드백, 평가시간"],
+    ["과정 편성 기본요건(훈련기간·정원 등)을 당해년도 공고로 확인했는가", ""]
+  ]},
+  { g:"3-1. 신청제한분야", gate:"", items:[
+    ["국가지원 필요성 · 직업훈련 실효성 측면에서 제한분야에 해당하지 않는가", ""],
+    ["동일·유사 과정이 이미 과잉 공급된 직종이 아닌가", ""]
+  ]},
+  { g:"3-2. 과정적정성", gate:"적부 판정 + 우수성 점수", items:[
+    ["능력단위 <b>선정 근거</b>를 문서로 남겼는가",
+     "목표 취업직무 → 채용공고·산업체 요구 분석 → 능력단위 선택의 연결"],
+    ["직무모델링(실제 수행직무 정리)을 했는가", "심사에서 '산업현장성'으로 평가됨"],
+    ["능력단위요소 → 교과목 매핑이 빠짐없이 되어 있는가", ""],
+    ["능력단위별 <b>평가방법</b>과 평가기준을 정했는가",
+     "평가계획서 생성기 사용. 능력단위당 2가지 이상 조합이 일반적"],
+    ["능력단위별로 필요한 <b>장비·실습환경</b>을 역산해 확보했는가",
+     "모의해킹·취약점진단은 격리 실습망, AI는 GPU, 클라우드는 유료 계정"],
+    ["교강사가 해당 능력단위의 자격·경력 요건을 충족하는가", ""],
+    ["강의실·실습실 면적과 좌석이 정원에 맞는가", ""],
+    ["과정 편성이 과잉이 아닌가 (시간 대비 능력단위 수)",
+     "예: 응용SW엔지니어링은 능력단위 27개 — 다 넣으면 6개월로 부족"]
+  ]},
+  { g:"3-3. 산업·지역인력수요적정성", gate:"국기 고유 관문", items:[
+    ["KSQA <b>권역·직종별 선정규모 공고</b>를 확인했는가",
+     "과정이 좋아도 쿼터 밖이면 탈락. 과정 기획 '전에' 볼 것"],
+    ["우리 권역에서 이 직종에 배정된 규모가 있는가", ""],
+    ["같은 권역·직종의 기존 과정 취업률·수료율 수준을 파악했는가", ""]
+  ]},
+  { g:"4. 훈련비 심사", gate:"실비 지원 신청 시", items:[
+    ["고급 · 특화과정으로 볼 근거가 있는가",
+     "클라우드 유료 자원, GPU, 라이선스 등 실비 근거를 문서화"],
+    ["예산비목과 산정 기준에 맞게 훈련비를 산정했는가", ""],
+    ["훈련생 본인부담금 구조를 확인했는가", ""]
+  ]},
+  { g:"5. 제출 전 최종", gate:"", items:[
+    ["편성표 · 평가계획서 · 강사 이력 · 장비 목록이 모두 갖춰졌는가", ""],
+    ["편성표의 능력단위코드가 <b>현행 NCS(29차)</b>에 존재하는가",
+     "개정으로 폐지된 능력단위를 쓰면 안 됨. NCS-CATALOG 데이터로 대조"],
+    ["과정명이 훈련내용·직종과 일치하는가", ""],
+    ["신청 마감 회차와 일정을 달력에 넣었는가", ""]
+  ]}
+];
+</script>
+<script>
+(function(){
+  var KEY = 'cm_check_v1', st = {};
+  try{ st = JSON.parse(localStorage.getItem(KEY) || '{}'); }catch(e){ st = {}; }
+
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(st)); }catch(e){} }
+
+  function draw(){
+    var h = '', n = 0, done = 0;
+    CM_CHECK.forEach(function(g, gi){
+      h += '<div class="grp"><h2>' + g.g +
+           (g.gate ? '<span class="gate">' + g.gate + '</span>' : '') + '</h2>';
+      g.items.forEach(function(it, ii){
+        var k = gi + '_' + ii, on = !!st[k];
+        n++; if(on) done++;
+        h += '<label class="it' + (on ? ' ok' : '') + '" data-k="' + k + '">' +
+             '<input type="checkbox"' + (on ? ' checked' : '') + '>' +
+             '<span class="tx">' + it[0] +
+             (it[1] ? '<small>' + it[1] + '</small>' : '') + '</span></label>';
+      });
+      h += '</div>';
+    });
+    document.getElementById('list').innerHTML = h;
+    document.getElementById('pNum').textContent = done + ' / ' + n;
+    document.getElementById('pBar').style.width = n ? (done / n * 100) + '%' : '0';
+    Array.prototype.forEach.call(document.querySelectorAll('.it'), function(el){
+      el.querySelector('input').onchange = function(){
+        st[el.getAttribute('data-k')] = this.checked;
+        save(); draw();
+      };
+    });
+  }
+  document.getElementById('bReset').onclick = function(){
+    if(!confirm('체크를 모두 해제합니다. 계속할까요?')) return;
+    st = {}; save(); draw();
+  };
+  document.getElementById('bPrint').onclick = function(){ window.print(); };
+  draw();
+})();
+</script>

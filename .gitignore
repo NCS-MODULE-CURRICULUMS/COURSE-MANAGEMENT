@@ -1,0 +1,14 @@
+# 평가문항 원본 · 모범답안 · 채점 기준 — 공개 저장소에 올리지 않는다.
+answers/*
+!answers/README.txt
+private/
+plan/
+
+# 훈련생 개인정보가 들어가는 산출물
+students/
+*.xlsx
+
+# 그 밖
+__pycache__/
+*.pyc
+.DS_Store

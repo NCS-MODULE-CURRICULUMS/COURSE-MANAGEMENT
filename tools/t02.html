@@ -1,0 +1,280 @@
+<meta charset="utf-8"><title>평가계획서 · 평가표 생성기</title>
+<link rel="stylesheet" href="../assets/site.css">
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>평가도구 / 평가계획서 · 평가표 생성기</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+<style>
+  .pick{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin:14px 0}
+  .pick label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:#555}
+  .pick select,.pick input{padding:7px 9px;border:1px solid #cfd6e0;border-radius:6px;font-size:13.5px}
+  .pick select{min-width:190px;max-width:100%}
+  .bar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+  .bar button{padding:8px 14px;border:1px solid #1b4b8f;background:#1b4b8f;color:#fff;
+              border-radius:6px;cursor:pointer;font-size:13px}
+  .bar button.g{background:#fff;color:#1b4b8f}
+  .bar button:hover{opacity:.85}
+  .mths{display:flex;flex-wrap:wrap;gap:3px 10px}
+  .mths label{font-size:12px;color:#444;white-space:nowrap}
+  td.sc input{width:64px;padding:4px 6px;border:1px solid #cfd6e0;border-radius:5px;text-align:right}
+  tr.off{opacity:.4}
+  .rub{margin:26px 0}
+  .rub table{table-layout:fixed}
+  .rub td{vertical-align:top;font-size:12.5px;line-height:1.5}
+  .warn{color:#b03030}
+  @media print{.top,.pick,.bar,.note{display:none}}
+</style>
+<div class="wrap">
+<h1>평가계획서 · 평가표 생성기</h1>
+<p class="sub">능력단위별 평가방법 · 배점 · 합격기준을 정해 평가계획서를 만듭니다</p>
+
+<div class="note"><b>쓰는 법</b> — 세분류를 고르고, 평가할 능력단위를 체크한 뒤 평가방법을 고릅니다.
+<b>편성표 생성기</b>에서 편성한 능력단위는 자동으로 체크되어 있습니다.
+평가방법은 NCS가 제시하는 표준 목록이며, 능력단위 성격에 맞게 2가지 이상 조합하는 것이 일반적입니다.
+</div>
+
+<div class="pick">
+  <label>과정명<input id="cn" size="30" placeholder="과정명"></label>
+  <label>능력단위 출처 — 중분류<select id="m"></select></label>
+  <label>소분류<select id="s"></select></label>
+  <label>세분류<select id="d"></select></label>
+  <label>합격 기준(점)<input id="pass" type="number" min="0" max="100" value="60" style="width:90px"></label>
+</div>
+
+<div class="bar">
+  <button id="bPlan" class="g" type="button">편성표에서 불러오기</button>
+  <button id="bCsv" type="button">평가계획서 CSV</button>
+  <button id="bPrint" type="button">인쇄 · PDF</button>
+</div>
+
+<table><thead><tr>
+  <th style="width:44px">평가</th><th style="width:128px">능력단위코드</th>
+  <th class="nm" style="width:190px">능력단위명</th>
+  <th>평가방법 (복수 선택)</th><th style="width:78px">배점</th>
+</tr></thead><tbody id="tbody"><tr><td colspan="5">데이터를 불러오는 중…</td></tr></tbody></table>
+
+<div class="rub">
+  <h2 style="font-size:17px;margin:0 0 8px">평가 루브릭 (4단계 기준)</h2>
+  <p class="sub" style="margin:0 0 10px">능력단위별 수행준거를 아래 척도에 맞춰 판정합니다. 그대로 인쇄해 채점표로 씁니다.</p>
+  <table><thead><tr>
+    <th style="width:88px">척도</th><th style="width:74px">환산</th><th>판정 기준</th>
+  </tr></thead><tbody>
+    <tr><td class="nm">매우 우수</td><td class="c">90 ~ 100</td>
+        <td>수행준거를 모두 충족하고, 지시 없이 스스로 판단해 처리한다. 산출물이 현장에서 그대로 쓸 수 있는 수준이다.</td></tr>
+    <tr><td class="nm">우수</td><td class="c">80 ~ 89</td>
+        <td>수행준거를 모두 충족한다. 일부 보완이 필요하나 스스로 발견해 고칠 수 있다.</td></tr>
+    <tr><td class="nm">보통</td><td class="c">60 ~ 79</td>
+        <td>주요 수행준거를 충족한다. 지도를 받으면 완결할 수 있다. <b>합격 하한</b></td></tr>
+    <tr><td class="nm">미흡</td><td class="c">60 미만</td>
+        <td>수행준거를 충족하지 못한다. 재평가 대상.</td></tr>
+  </tbody></table>
+</div>
+
+<footer>담당 정우균</footer>
+</div>
+
+<script>
+(function(){
+  var KEY = 'cm_eval_v1', PLAN = 'cm_plan_v1';
+  /* NCS 평가도구 매뉴얼이 제시하는 표준 평가방법. */
+  var METHODS = ['포트폴리오','문제해결 시나리오','서술형시험','논술형시험','사례연구',
+                 '평가자 질문','평가자 체크리스트','피평가자 체크리스트','일지/저널',
+                 '역할연기','구두발표','작업장평가','인터뷰'];
+  var TAX = [], UNIT = [], cur = [], state = {};
+
+  function esc(s){ return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function row(line){
+    var out = [], v = '', q = false;
+    for(var i = 0; i < line.length; i++){
+      var c = line.charAt(i);
+      if(q){
+        if(c === '"'){ if(line.charAt(i+1) === '"'){ v += '"'; i++; } else q = false; }
+        else v += c;
+      }
+      else if(c === '"') q = true;
+      else if(c === ','){ out.push(v); v = ''; }
+      else v += c;
+    }
+    out.push(v);
+    return out;
+  }
+  function csv(text){
+    var lines = text.replace(/^﻿/, '').split(/\r?\n/).filter(function(l){ return l.trim(); });
+    var head = row(lines.shift());
+    return lines.map(function(l){
+      var c = row(l), o = {};
+      head.forEach(function(h, i){ o[h] = c[i]; });
+      return o;
+    });
+  }
+  function uniq(arr, kf, nf){
+    var seen = {}, out = [];
+    arr.forEach(function(a){ if(!seen[a[kf]]){ seen[a[kf]] = 1; out.push({ k: a[kf], n: a[nf] }); } });
+    return out;
+  }
+
+  var $m = document.getElementById('m'),
+      $s = document.getElementById('s'),
+      $d = document.getElementById('d');
+
+  function fillM(){
+    $m.innerHTML = uniq(TAX, '중분류코드', '중분류').map(function(a){
+      return '<option value="' + a.k + '">' + a.k + '. ' + esc(a.n) + '</option>';
+    }).join('');
+    fillS();
+  }
+  function fillS(){
+    var v = uniq(TAX.filter(function(t){ return t['중분류코드'] === $m.value; }), '소분류코드', '소분류');
+    $s.innerHTML = v.map(function(a){
+      return '<option value="' + a.k + '">' + a.k + '. ' + esc(a.n) + '</option>';
+    }).join('');
+    fillD();
+  }
+  function fillD(){
+    var v = TAX.filter(function(t){
+      return t['중분류코드'] === $m.value && t['소분류코드'] === $s.value;
+    });
+    $d.innerHTML = v.map(function(t){
+      return '<option value="' + t['세분류코드'] + '">' + t['세분류코드2'] + '. ' +
+             esc(t['세분류']) + ' (' + t['능력단위수'] + ')</option>';
+    }).join('');
+    fillU();
+  }
+  function fillU(){
+    cur = UNIT.filter(function(u){ return u['세분류코드'] === $d.value; });
+    draw();
+  }
+
+  function draw(){
+    if(!cur.length){
+      document.getElementById('tbody').innerHTML =
+        '<tr><td colspan="5">이 세분류에는 아직 능력단위가 없습니다.</td></tr>';
+      return;
+    }
+    document.getElementById('tbody').innerHTML = cur.map(function(u){
+      var k = u['능력단위코드'], st = state[k] || {}, ms = st.ms || [];
+      var chk = METHODS.map(function(mm, i){
+        var on = ms.indexOf(mm) >= 0;
+        return '<label><input type="checkbox" class="mm" data-m="' + esc(mm) + '"' +
+               (on ? ' checked' : '') + '> ' + esc(mm) + '</label>';
+      }).join('');
+      return '<tr data-k="' + k + '" class="' + (st.on ? '' : 'off') + '">' +
+        '<td><input type="checkbox" class="ck"' + (st.on ? ' checked' : '') + '></td>' +
+        '<td class="pre">' + esc(k) + '</td>' +
+        '<td class="nm">' + esc(u['능력단위명']) + '</td>' +
+        '<td><div class="mths">' + chk + '</div></td>' +
+        '<td class="sc"><input class="sc" type="number" min="0" max="100" value="' + esc(st.sc || '') + '"></td>' +
+        '</tr>';
+    }).join('');
+    bind();
+  }
+  function bind(){
+    Array.prototype.forEach.call(document.querySelectorAll('#tbody tr'), function(tr){
+      var k = tr.getAttribute('data-k');
+      if(!k) return;
+      tr.querySelector('.ck').onchange = function(){
+        state[k] = state[k] || {}; state[k].on = this.checked;
+        tr.className = this.checked ? '' : 'off'; save();
+      };
+      tr.querySelector('input.sc').oninput = function(){
+        state[k] = state[k] || {}; state[k].sc = this.value; save();
+      };
+      Array.prototype.forEach.call(tr.querySelectorAll('.mm'), function(b){
+        b.onchange = function(){
+          state[k] = state[k] || {};
+          var ms = state[k].ms || [], m = this.getAttribute('data-m'), i = ms.indexOf(m);
+          if(this.checked){ if(i < 0) ms.push(m); }
+          else if(i >= 0) ms.splice(i, 1);
+          state[k].ms = ms; save();
+        };
+      });
+    });
+  }
+  function picked(){
+    var out = [];
+    UNIT.forEach(function(u){
+      var st = state[u['능력단위코드']];
+      if(st && st.on) out.push({ u: u, st: st });
+    });
+    return out;
+  }
+  function save(){
+    try{
+      localStorage.setItem(KEY, JSON.stringify({
+        cn: document.getElementById('cn').value,
+        pass: document.getElementById('pass').value,
+        state: state
+      }));
+    }catch(e){}
+  }
+  function load(){
+    try{
+      var d = JSON.parse(localStorage.getItem(KEY) || 'null');
+      if(!d) return;
+      state = d.state || {};
+      document.getElementById('cn').value = d.cn || '';
+      document.getElementById('pass').value = d.pass || 60;
+    }catch(e){}
+  }
+
+  /* 편성표 생성기(t01)에서 고른 능력단위를 그대로 가져옵니다. */
+  document.getElementById('bPlan').onclick = function(){
+    var d = null;
+    try{ d = JSON.parse(localStorage.getItem(PLAN) || 'null'); }catch(e){}
+    if(!d || !d.state){ alert('편성표 생성기에서 저장된 내용이 없습니다.'); return; }
+    var n = 0;
+    Object.keys(d.state).forEach(function(k){
+      if(d.state[k] && d.state[k].on){
+        state[k] = state[k] || {};
+        state[k].on = true;
+        n++;
+      }
+    });
+    if(d.cn && !document.getElementById('cn').value) document.getElementById('cn').value = d.cn;
+    save(); draw();
+    alert('편성표에서 ' + n + '개 능력단위를 불러왔습니다.');
+  };
+  document.getElementById('cn').oninput = save;
+  document.getElementById('pass').oninput = save;
+  document.getElementById('bPrint').onclick = function(){ window.print(); };
+  document.getElementById('bCsv').onclick = function(){
+    var p = picked();
+    if(!p.length){ alert('평가할 능력단위를 체크해 주세요.'); return; }
+    var cn = document.getElementById('cn').value || '훈련과정';
+    var L = ['과정명,' + JSON.stringify(cn),
+             '합격기준,' + document.getElementById('pass').value,
+             '순번,능력단위코드,능력단위명,세분류,평가방법,배점'];
+    p.forEach(function(x, i){
+      L.push([i + 1, x.u['능력단위코드'], JSON.stringify(x.u['능력단위명']),
+              JSON.stringify(x.u['세분류']),
+              JSON.stringify((x.st.ms || []).join(' · ')),
+              x.st.sc || ''].join(','));
+    });
+    var blob = new Blob(['﻿' + L.join('\n')], { type: 'text/csv;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = cn + '_평가계획서.csv';
+    document.body.appendChild(a); a.click(); a.remove();
+  };
+
+  $m.onchange = fillS;
+  $s.onchange = fillD;
+  $d.onchange = fillU;
+
+  Promise.all([
+    fetch('../data/taxonomy.csv').then(function(r){ return r.text(); }),
+    fetch('../data/competency-units.csv').then(function(r){ return r.text(); })
+  ]).then(function(t){
+    TAX = csv(t[0]); UNIT = csv(t[1]);
+    load(); fillM();
+  }).catch(function(){
+    document.getElementById('tbody').innerHTML =
+      '<tr><td colspan="5" class="warn">데이터를 불러오지 못했습니다. ' +
+      'GitHub Pages 주소로 여세요.</td></tr>';
+  });
+})();
+</script>
