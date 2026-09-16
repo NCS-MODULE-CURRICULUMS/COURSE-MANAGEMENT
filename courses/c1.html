@@ -180,6 +180,11 @@
            '<td class="tdb">' + btn + tools + '</td></tr>';
     });
     document.getElementById('mtable').innerHTML = h;
+    var _t = document.getElementById('mtable');
+    if(_t.rows.length > 1 && _t.rows[0].cells.length !== _t.rows[1].cells.length){
+      console.error('[' + CID + '] 표 머리글 ' + _t.rows[0].cells.length +
+                    '칸, 본문 ' + _t.rows[1].cells.length + '칸 — 칼럼이 어긋났습니다.');
+    }
     summary(v);
     nav();
 

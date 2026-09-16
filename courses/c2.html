@@ -137,11 +137,11 @@
 
   function draw(){
     var v = list(), adm = EXAM_AUTH.isAdmin(), h = '';
-    h += '<tr><th>능력단위</th><th>코드</th><th>수준</th>' +
-         '<th>시간</th><th>강사</th>' +
-         '<th>시작일</th><th>종료일</th>' +
-         '<th>본평가</th><th class="sc">결석자평가</th>' +
-         '<th class="sc">재평가</th><th>평가방법</th><th>상세</th></tr>';
+    h += '<tr><th>능력단위</th><th>코드</th><th>강사</th>' +
+         '<th>시작일</th><th>종료일</th><th>본평가</th>' +
+         '<th class="sc">결석자평가</th><th class="sc">재평가</th>' +
+         '<th class="sc">사전평가</th><th class="sc">능력단위 점수</th>' +
+         '<th>상세</th></tr>';
 
     v.forEach(function(m, i){
       if(adm && i === editing){
@@ -186,6 +186,11 @@
            '<td class="tdb">' + btn + tools + '</td></tr>';
     });
     document.getElementById('mtable').innerHTML = h;
+    var _t = document.getElementById('mtable');
+    if(_t.rows.length > 1 && _t.rows[0].cells.length !== _t.rows[1].cells.length){
+      console.error('[' + CID + '] 표 머리글 ' + _t.rows[0].cells.length +
+                    '칸, 본문 ' + _t.rows[1].cells.length + '칸 — 칼럼이 어긋났습니다.');
+    }
     summary(v);
     nav();
 
