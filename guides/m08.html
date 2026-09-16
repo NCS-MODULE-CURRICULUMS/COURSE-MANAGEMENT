@@ -1,0 +1,839 @@
+<meta charset="utf-8"><title>프로그래밍 언어 활용 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<style>
+  /* 이 교안에만 있는 것 — 코드 보기 */
+  .bd pre{margin:14px 0;font-family:Consolas,"D2Coding",monospace;font-size:13px;
+          line-height:1.75;border:1px solid #ccc;border-left:3px solid #000;
+          padding:13px 16px;background:#fafafa;overflow-x:auto;white-space:pre}
+  .bd pre b{background:#e6e6e6;font-weight:700}
+  .bd pre i{font-style:normal;color:#777}
+  .bd code{font-family:Consolas,"D2Coding",monospace;font-size:14px;
+           background:#f2f2f2;padding:1px 5px}
+  aside.side code{font-family:Consolas,monospace;font-size:11px;background:#f2f2f2;padding:0 3px}
+</style>
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small><a href="../courses/c2.html">능력단위 모듈 목록</a> / <a href="../modules/c2-m08.html">프로그래밍 언어 활용</a> / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">구조적</i>
+  <a href="#st1"><b>1</b><span>완성 산출물의 확인</span></a>
+  <a href="#st2"><b>2</b><span>입력받기와 반복문</span></a>
+  <a href="#st3"><b>3</b><span>삼각형 찍기</span></a>
+  <a href="#st4"><b>4</b><span>다이아몬드 찍기</span></a>
+  <a href="#st5"><b>5</b><span>오류 식별과 수정</span></a>
+  <i class="qg">객체지향</i>
+  <a href="#st6"><b>6</b><span>클래스 다이어그램 읽기</span></a>
+  <a href="#st7"><b>7</b><span>접근 한정자와 필드</span></a>
+  <a href="#st8"><b>8</b><span>생성자와 메서드</span></a>
+  <a href="#st9"><b>9</b><span>구매 절차 구현</span></a>
+  <a href="#st10"><b>10</b><span>toString 으로 값 확인</span></a>
+  <i class="qg">스크립트</i>
+  <a href="#st11"><b>11</b><span>자바스크립트의 함수</span></a>
+  <a href="#st12"><b>12</b><span>스코프와 클로저</span></a>
+  <a href="#st13"><b>13</b><span>클로저 완성하기</span></a>
+  <i class="qg">마무리</i>
+  <a href="#st14"><b>14</b><span>자가 점검</span></a>
+  <a href="#st15"><b>15</b><span>코드와 결과 정리</span></a>
+  <a href="#st16"><b>16</b><span>통합과 제출</span></a>
+  <i class="qg">감점</i>
+  <a href="#g3"><b>!</b><span>주요 감점 요인</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>프로그래밍 언어 활용 — 준비 교안</h1>
+<p class="sub">능력단위 프로그래밍 언어 활용 (2001020231_23v5) / 2수준 · 평가방법 문제 해결 시나리오 (100점)</p>
+
+<!-- ═══════ 0 ═══════ -->
+<h2 class="sec" id="g0">0. 제출물의 구성과 배점</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">세 문제, 세 가지 언어 갈래입니다.</p>
+    <b class="sh">제출 형식</b>
+    <p class="v">PPT — 코드 + 결과</p>
+    <b class="sh">참고</b>
+    <p class="src">작업지시서</p>
+  </aside>
+  <div class="bd">
+<p>문제가 셋이고, 세 능력단위요소에 하나씩 대응합니다.
+   각 항목에 대한 <b>코드와 결과물</b>을 PPT 로 정리해 제출합니다.
+   코드만 내거나 결과만 내면 채점자가 「적절히 구현하였는가」 를 판정할 수 없습니다.</p>
+<table class="wide">
+  <tr><th style="width:52px">문제</th><th style="width:190px">능력단위요소</th>
+      <th>무엇을 만드는가</th><th style="width:56px">배점</th></tr>
+  <tr><td class="c">1</td><td>구조적 프로그래밍 언어 활용하기</td>
+      <td>높이를 입력받아 삼각형 · 다이아몬드 찍기</td><td class="c">30</td></tr>
+  <tr><td class="c">2</td><td>객체지향 프로그래밍 언어 활용하기</td>
+      <td>Buyer · Seller 클래스로 구매 절차 구현</td><td class="c">50</td></tr>
+  <tr><td class="c">3</td><td>스크립트 언어 활용하기</td>
+      <td>클로저 완성하기</td><td class="c">20</td></tr>
+</table>
+<p>세 요소의 수행준거가 모두 <b>「설계서 확인 → 작성 → 오류 식별과 수정」</b> 세 단계로
+   같은 모양입니다. 언어만 바뀌고 하는 일은 같습니다.</p>
+
+<div class="warn">
+  배점의 절반이 문제 2에 있습니다. 삼각형 찍기에 시간을 다 쓰고 클래스를 서둘러 만들면
+  50점이 위태로워집니다. <b>문제 1은 40분 안에</b> 끝내는 것을 목표로 잡으십시오.
+  반복문의 두 식(공백 <code>h−i</code>, 별 <code>2i−1</code>)만 찾으면 끝나는 문제입니다.
+</div>
+  </div>
+</div>
+
+<!-- ═══════ 1 ═══════ -->
+<h2 class="sec" id="g1">1. 프로그래밍 언어 활용의 범위</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">같은 일을 세 가지 방식으로 합니다.</p>
+    <b class="sh">능력단위요소</b>
+    <p class="v">구조적 · 객체지향 · 스크립트</p>
+    <b class="sh">언어</b>
+    <p class="v">Java · JavaScript</p>
+  </aside>
+  <div class="bd">
+<p>프로그램을 짜는 방식에는 갈래가 있습니다.
+   이 능력단위는 그 갈래를 셋으로 나누어 다룹니다.
+   <b>같은 언어로도 세 방식이 다 되지만</b>, 무엇을 중심에 두느냐가 다릅니다.</p>
+
+<table class="wide">
+  <tr><th style="width:130px">갈래</th><th style="width:190px">무엇을 중심에 두는가</th>
+      <th>이 평가에서</th></tr>
+  <tr><td class="nm">구조적</td><td>절차 — 순서 · 조건 · 반복</td>
+      <td>반복문으로 모양 찍기 (Java)</td></tr>
+  <tr><td class="nm">객체지향</td><td>객체 — 값과 동작을 한 덩어리로</td>
+      <td>Buyer · Seller 가 서로를 부르기 (Java)</td></tr>
+  <tr><td class="nm">스크립트</td><td>함수 — 값처럼 주고받는 함수</td>
+      <td>함수가 바깥 변수를 기억하기 (JavaScript)</td></tr>
+</table>
+
+<h4>세 요소가 같은 세 단계를 갖습니다</h4>
+<table class="wide">
+  <tr><th style="width:80px">단계</th><th style="width:230px">수행준거</th><th>이 평가에서</th></tr>
+  <tr><td class="c">1</td><td>프로그램 설계서를 확인할 수 있다</td>
+      <td>문제 글과 클래스 다이어그램을 읽는 일</td></tr>
+  <tr><td class="c">2</td><td>언어를 활용하여 애플리케이션을 작성할 수 있다</td>
+      <td>코드를 짜는 일 — 채점 항목의 대부분</td></tr>
+  <tr><td class="c">3</td><td>작성된 애플리케이션의 오류를 식별하고 수정할 수 있다</td>
+      <td>돌려 보고 고치는 일</td></tr>
+</table>
+<p>3단계가 따로 채점되지는 않지만, <b>돌아가지 않는 코드</b>는 2단계도 인정받기 어렵습니다.
+   반드시 실행해 보고 결과 화면과 함께 내십시오.</p>
+  </div>
+</div>
+
+<!-- ═══════ 2 ═══════ -->
+<h2 class="sec" id="g2">2. 산출물 작성 실습</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">문제 순서대로 따라가면 끝납니다.</p>
+    <b class="sh">시간 배분</b>
+    <p class="v">40분 · 2시간 · 40분</p>
+    <b class="sh">환경</b>
+    <p class="v">Eclipse · 브라우저 콘솔</p>
+  </aside>
+  <div class="bd">
+<p>네 단계로 나누었습니다. 배점에 맞춰 시간을 배분하십시오.
+   문제 1은 식 두 개를 찾으면 끝나고, 문제 2가 가장 오래 걸립니다.</p>
+<p>문제 3의 클로저는 <b>자바스크립트</b> 입니다. Eclipse 가 아니라
+   브라우저의 개발자 도구 콘솔(F12)에서 실행해 보는 것이 빠릅니다.</p>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 1 · 구조적 프로그래밍</b><span>능력단위요소 ① · 채점 01 ~ 05 · 30점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st1">
+      <h3><i>1</i>완성 산출물의 확인</h3>
+      <aside class="side">
+        <p class="pt">코드와 결과를 짝지어 냅니다.</p>
+        <b class="sh">내는 것</b>
+        <p class="v">코드 · 실행 결과</p>
+        <b class="sh">참고</b>
+        <p class="src">평가도구 작업지시서</p>
+      </aside>
+      <div class="bd">
+<h4>쪽 구성</h4>
+<p>문제 하나에 두 쪽이 기본입니다. <b>코드 한 쪽, 실행 결과 한 쪽</b> 입니다.</p>
+<table class="wide">
+  <tr><th style="width:56px">쪽</th><th style="width:230px">내용</th><th>채점 항목</th></tr>
+  <tr><td class="c">1</td><td>표지</td><td>—</td></tr>
+  <tr><td class="c">2 · 3</td><td>문제 1 삼각형 — 코드 / 결과</td><td>01 ~ 05</td></tr>
+  <tr><td class="c">4 · 5</td><td>문제 1 다이아몬드 — 코드 / 결과</td><td>01 ~ 05</td></tr>
+  <tr><td class="c">6 · 7</td><td>문제 2 Buyer · Seller — 코드</td><td>06 ~ 09</td></tr>
+  <tr><td class="c">8</td><td>문제 2 실행 결과 (toString 출력)</td><td>09</td></tr>
+  <tr><td class="c">9 · 10</td><td>문제 3 클로저 — 코드 / 콘솔 결과</td><td>10 · 11</td></tr>
+</table>
+
+<h4>코드를 붙이는 방법</h4>
+<p>편집기 화면을 캡처하면 글자가 작아 읽기 어렵습니다.
+   <b>코드를 복사해 텍스트로 붙이고</b> 고정폭 글꼴(Consolas · D2Coding)을 지정하십시오.
+   들여쓰기가 살아 있어야 반복문의 구조가 보입니다.</p>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  코드를 붙인 뒤 <b>주석으로 채점 항목 번호를 달아 두십시오.</b>
+  <code>// [항목 02] 공백 출력</code> 처럼 적으면 채점자가 그 줄을 바로 찾습니다.
+  다섯 항목이 거의 한 줄씩 대응하는 문제라 효과가 큽니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>입력받기와 반복문</h3>
+      <aside class="side">
+        <p class="pt">10점짜리 항목이 입력받기입니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 04 · 05</p>
+        <b class="sh">도구</b>
+        <p class="v"><code>Scanner</code></p>
+      </aside>
+      <div class="bd">
+<h4>입력받기</h4>
+<pre>import java.util.Scanner;
+
+public class Triangle {
+  public static void main(String[] args) {
+    Scanner sc = new Scanner(System.in);
+    System.out.print("높이(h)를 입력하세요 : ");
+    <b>int h = sc.nextInt();</b>        <i>// [항목 04] 입력받은 만큼 찍습니다</i>
+    <i>// …</i>
+    sc.close();
+  }
+}</pre>
+<p>채점 항목 04 가 <b>「높이를 입력받은 만큼의 표시가 적절히 이루어지는가」</b> 이고 10점입니다.
+   <code>int h = 5;</code> 처럼 값을 박아 두면 이 항목을 받지 못합니다.
+   실행 결과도 <b>서로 다른 높이 두 가지</b>로 찍어 두면 더 분명합니다.</p>
+
+<h4>반복문의 세 자리</h4>
+<pre>for ( <b>①시작</b> ; <b>②조건</b> ; <b>③증감</b> ) { … }
+
+for ( int i = 1 ; i &lt;= h ; i++ ) { … }</pre>
+<table class="wide">
+  <tr><th style="width:90px">자리</th><th style="width:170px">이 문제에서</th><th>틀리면</th></tr>
+  <tr><td class="nm">① 시작</td><td><code>int i = 1</code></td>
+      <td>0 부터 시작하면 공백과 별의 식이 달라집니다</td></tr>
+  <tr><td class="nm">② 조건</td><td><code>i &lt;= h</code></td>
+      <td><code>&lt;</code> 로 적으면 마지막 줄이 빠집니다</td></tr>
+  <tr><td class="nm">③ 증감</td><td><code>i++</code></td>
+      <td>빠뜨리면 무한 반복이 됩니다</td></tr>
+</table>
+<p>채점 항목 05 가 <b>「반복문의 조건식과 연산식이 올바른가」</b> 입니다.
+   ② 와 ③ 을 보는 항목입니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st3">
+      <h3><i>3</i>삼각형 찍기</h3>
+      <aside class="side">
+        <p class="pt">식 두 개만 찾으면 끝납니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 01 · 02 · 03</p>
+        <b class="sh">식</b>
+        <p class="v">공백 <code>h−i</code> · 별 <code>2i−1</code></p>
+      </aside>
+      <div class="bd">
+<h4>줄마다 몇 개인가</h4>
+
+<figure>
+  <img src="img/pg_tri.png" alt="높이 5를 입력했을 때의 삼각형과 다이아몬드 실행 결과 화면, 그리고 줄 번호마다 공백 수와 별 수를 정리한 표.">
+  <figcaption>실행 결과와 줄별 개수. 공백은 <code>h − i</code>, 별은 <code>2i − 1</code> 입니다.</figcaption>
+</figure>
+
+<h4>코드</h4>
+
+<figure>
+  <img src="img/pg_loop.png" alt="Scanner 로 높이를 입력받아 바깥 반복문 안에 공백 · 별 · 개행을 차례로 처리하는 자바 코드와, 채점 항목 다섯 개가 각각 어느 줄을 보는지 정리한 표.">
+  <figcaption>이중 반복문. 다섯 채점 항목이 거의 한 줄씩 대응합니다.</figcaption>
+</figure>
+
+<h4>순서가 중요합니다</h4>
+<p>한 줄을 찍는 순서는 <b>공백 → 별 → 개행</b> 입니다.
+   개행을 안쪽 반복문에 넣으면 별 하나마다 줄이 바뀌어 세로로 늘어섭니다.</p>
+<pre><i>// 잘못</i>
+for (int j = 0; j &lt; 2 * i - 1; j++)
+  System.out.<b>println</b>("*");     <i>// ← 별마다 줄바꿈</i>
+
+<i>// 맞음</i>
+for (int j = 0; j &lt; 2 * i - 1; j++)
+  System.out.<b>print</b>("*");       <i>// 붙여서 찍고</i>
+System.out.<b>println</b>();          <i>// 줄 끝에서 한 번만 개행</i></pre>
+<p><code>print</code> 와 <code>println</code> 의 차이가 채점 항목 01 을 가릅니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st4">
+      <h3><i>4</i>다이아몬드 찍기</h3>
+      <aside class="side">
+        <p class="pt">위쪽을 그리고 거꾸로 한 번 더 돕니다.</p>
+        <b class="sh">주의</b>
+        <p class="v">가운데 줄을 두 번 찍지 않기</p>
+        <b class="sh">조건</b>
+        <p class="v">홀수만 입력받음</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/pg_dia.png" alt="다이아몬드를 위쪽과 아래쪽 두 반복문으로 나누어 짠 자바 코드와, 높이별 가운데 줄 번호를 정리한 표.">
+  <figcaption>다이아몬드. 아래쪽은 <code>mid − 1</code> 부터 거꾸로 돕니다.</figcaption>
+</figure>
+
+<h4>가운데 줄 찾기</h4>
+<p>높이가 5면 가운데는 3번째 줄입니다. 7이면 4번째입니다.
+   <b><code>mid = h / 2 + 1</code></b> 로 구합니다.
+   자바의 정수 나눗셈은 소수점을 버리므로 <code>5 / 2</code> 는 2 이고 거기에 1 을 더하면 3 입니다.</p>
+
+<h4>홀수만 받는 이유</h4>
+<p>짝수면 가운데 줄이 없어 대칭이 되지 않습니다.
+   문제가 <b>「높이(h)는 홀수값만 입력받습니다」</b> 라고 한 까닭입니다.
+   짝수가 들어왔을 때 어떻게 할지 적어 두면 오류 처리 준거를 함께 보일 수 있습니다.</p>
+<pre>if (h % 2 == 0) {
+  System.out.println("홀수를 입력하세요");
+  return;              <i>// 또는 다시 입력받는 반복문</i>
+}</pre>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  높이 <b>1 · 3 · 9</b> 세 가지로 돌려 보십시오.
+  1 이면 별 하나만 나와야 하고, 9 면 아홉 줄이 대칭으로 나와야 합니다.
+  가장자리 값에서 어긋나는 경우가 흔합니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st5">
+      <h3><i>5</i>오류 식별과 수정</h3>
+      <aside class="side">
+        <p class="pt">세 요소 모두의 마지막 수행준거입니다.</p>
+        <b class="sh">근거</b>
+        <p class="src">수행준거 1.3 · 2.3 · 3.3</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/pg_debug.png" alt="컴파일 오류와 실행 오류 여섯 가지의 메시지와 확인할 곳을 정리한 표, 그리고 메서드 앞뒤에 값을 찍어 어디서 어긋나는지 좁혀 가는 코드.">
+  <figcaption>오류 식별과 수정. 메시지를 읽고 어느 줄인지 찾아내는 것까지가 범위입니다.</figcaption>
+</figure>
+
+<h4>오류의 세 갈래</h4>
+<dl>
+  <dt>컴파일 오류 — 아예 돌지 않습니다</dt>
+  <dd>편집기가 붉은 줄로 알려 줍니다. 철자 · 자료형 · 괄호 짝이 대부분입니다.
+      메시지의 <b>첫 줄</b>만 읽어도 원인을 알 수 있는 경우가 많습니다.</dd>
+  <dt>실행 오류 — 돌다가 멈춥니다</dt>
+  <dd><code>Exception</code> 이라는 말이 나옵니다.
+      메시지 아래의 <code>at ...(Triangle.java:14)</code> 가 <b>몇 번째 줄</b>인지 알려 줍니다.</dd>
+  <dt>논리 오류 — 돌기는 도는데 결과가 틀립니다</dt>
+  <dd>컴파일러가 잡아 주지 않습니다. 값을 찍어 가며 좁혀 가야 합니다.</dd>
+</dl>
+
+<div class="warn">
+  값을 찍어 보는 <code>System.out.println</code> 줄은 <b>다 찾은 뒤 지우고</b> 제출합니다.
+  남겨 두면 실행 결과에 불필요한 줄이 섞여 채점자가 모양을 확인하기 어렵습니다.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 2 · 객체지향 프로그래밍</b><span>능력단위요소 ② · 채점 06 ~ 09 · 50점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st6">
+      <h3><i>6</i>클래스 다이어그램 읽기</h3>
+      <aside class="side">
+        <p class="pt">설계서를 읽는 것이 첫 수행준거입니다.</p>
+        <b class="sh">근거</b>
+        <p class="src">수행준거 2.1</p>
+        <b class="sh">기호</b>
+        <p class="v"><code>−</code> private · <code>+</code> public</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/pg_class.png" alt="Buyer 와 Seller 두 클래스의 필드와 메서드를 적은 클래스 다이어그램과, 두 클래스 사이에 금액과 사과 개수가 오가는 화살표.">
+  <figcaption>클래스 다이어그램. 위 칸이 필드, 아래 칸이 메서드입니다.</figcaption>
+</figure>
+
+<h4>다이어그램 읽는 법</h4>
+<table class="wide">
+  <tr><th style="width:140px">표기</th><th style="width:190px">뜻</th><th>코드로 옮기면</th></tr>
+  <tr><td class="k">- money : int</td><td>private 필드 money, 자료형 int</td>
+      <td><code>private int money;</code></td></tr>
+  <tr><td class="k">+ Buyer(int money)</td><td>public 생성자, 매개변수 하나</td>
+      <td><code>public Buyer(int money) { … }</code></td></tr>
+  <tr><td class="k">+ payment(…) : void</td><td>public 메서드, 돌려주는 값 없음</td>
+      <td><code>public void payment(…) { … }</code></td></tr>
+  <tr><td class="k">+ toString() : String</td><td>public 메서드, 문자열을 돌려줌</td>
+      <td><code>public String toString() { … }</code></td></tr>
+</table>
+<p>자료형이 <b>뒤</b>에 붙어 있는 것이 다이어그램의 표기법입니다.
+   코드로 옮길 때는 앞으로 옮깁니다.</p>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  다이어그램을 보고 <b>필드와 메서드 선언만</b> 먼저 적어 보십시오.
+  몸통은 비워 두고 <code>{ }</code> 만 둡니다.
+  이렇게 껍데기를 먼저 만들면 빠뜨린 메서드가 바로 보입니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st7">
+      <h3><i>7</i>접근 한정자와 필드</h3>
+      <aside class="side">
+        <p class="pt">필드는 private, 메서드는 public 입니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 06 · 10점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/pg_access.png" alt="private · 기본 · protected · public 네 접근 한정자의 범위를 정리한 표와, Buyer 클래스를 private 필드와 public 메서드로 작성한 자바 코드.">
+  <figcaption>접근 한정자. 필드를 private 으로 막아야 구매 절차를 거치지 않고 값이 바뀌는 일을 막습니다.</figcaption>
+</figure>
+
+<h4>왜 막는가</h4>
+<p>필드가 <code>public</code> 이면 밖에서 이렇게 할 수 있습니다.</p>
+<pre>Buyer b = new Buyer(10000);
+<b>b.money = 999999;</b>          <i>// 돈을 그냥 늘림</i>
+<b>b.apple = 100;</b>             <i>// 사과도 그냥 늘림</i></pre>
+<p>구매 절차를 거치지 않고 값이 바뀌면 클래스를 만든 뜻이 없어집니다.
+   <b>값은 감추고 동작만 열어 두는 것</b>이 객체지향의 기본입니다.</p>
+
+<h4>한정자를 적지 않으면</h4>
+<p>아무것도 적지 않으면 <b>기본 접근</b>이 됩니다.
+   같은 패키지 안에서는 보이므로 실습에서는 잘 돌아가지만,
+   채점 항목 06 은 <b>「접근 한정자는 올바른가」</b> 를 봅니다.
+   <code>private</code> · <code>public</code> 을 <b>빠짐없이 적어야</b> 합니다.</p>
+
+<p class="ex"><span class="x">감점</span> <code>int money;</code> — 한정자 없음</p>
+<p class="ex"><span class="o">권함</span> <code>private int money;</code></p>
+      </div>
+    </div>
+
+    <div class="step" id="st8">
+      <h3><i>8</i>생성자와 메서드</h3>
+      <aside class="side">
+        <p class="pt">두 객체가 서로를 부릅니다.</p>
+        <b class="sh">주의</b>
+        <p class="v">상대 객체를 매개변수로 받습니다</p>
+      </aside>
+      <div class="bd">
+<h4>생성자</h4>
+<pre>public class Seller {
+  private int money;
+  private int apple;
+  private int price;
+
+  <b>public Seller(int apple, int price) {</b>
+    this.apple = apple;      <i>// this.apple 은 필드, apple 은 매개변수</i>
+    this.price = price;
+    this.money = 0;          <i>// 처음 보유 금액은 0</i>
+  <b>}</b>
+}</pre>
+<p><code>this.</code> 를 붙이지 않으면 매개변수끼리 대입이 되어 필드가 0 으로 남습니다.
+   이름이 같을 때는 <b>반드시 <code>this.</code> 를 붙입니다.</b></p>
+
+<h4>서로를 부르는 메서드</h4>
+<pre>public void payment(<b>Seller s</b>, int amount) { … }   <i>// Buyer 안</i>
+public void receive(<b>Buyer b</b>, int amount)  { … }   <i>// Seller 안</i></pre>
+<p>구매자가 판매자에게 돈을 보내려면 <b>판매자가 누구인지</b> 알아야 합니다.
+   그래서 상대 객체를 매개변수로 받습니다.
+   판매자도 사과를 돌려주려면 구매자를 알아야 하므로 같은 방식입니다.</p>
+
+<pre>public void payment(Seller s, int amount) {
+  <b>s.receive(this, amount);</b>   <i>// this = 지금 이 구매자</i>
+  this.money -= amount;
+}</pre>
+<p><code>this</code> 를 넘기는 것이 낯설 수 있습니다.
+   「나를 데리고 가서 사과를 나에게 줘」 라는 뜻입니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st9">
+      <h3><i>9</i>구매 절차 구현</h3>
+      <aside class="side">
+        <p class="pt">지시서의 다섯 줄을 여섯 걸음으로 옮깁니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 07 · 08 · 각 15점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/pg_pay.png" alt="구매 절차를 여섯 걸음으로 나누어 어디에서 무엇을 하는지와 해당 코드를 정리한 표, 그리고 구매 전후의 두 객체 값을 출력한 실행 결과.">
+  <figcaption>구매 절차 여섯 걸음. 작업지시서의 다섯 줄이 두 메서드에 나뉘어 들어갑니다.</figcaption>
+</figure>
+
+<h4>사과 개수 계산</h4>
+<pre>public void receive(Buyer b, int amount) {
+  this.money += amount;              <i>// ③ 받은 만큼 더함</i>
+  <b>int cnt = amount / this.price;</b>    <i>// ④ 개수 계산 (정수 나눗셈)</i>
+  if (cnt &gt; this.apple) {            <i>// 모자라면</i>
+    cnt = this.apple;
+  }
+  this.apple -= cnt;                 <i>// ⑤ 빼고</i>
+  b.receiveApple(cnt);               <i>//    전달</i>
+}</pre>
+<p>3000원으로 1000원짜리를 사면 3개입니다. <code>3000 / 1000 = 3</code> 입니다.
+   3500원이면 <code>3500 / 1000 = 3</code> 이라 3개가 됩니다.
+   <b>정수 나눗셈이 소수점을 버리는 것</b>이 이 문제에서는 자연스럽게 맞아떨어집니다.</p>
+
+<h4>거스름돈을 어떻게 할까</h4>
+<p>지시서에 나와 있지 않습니다. 정하고 <b>주석으로 적어 두면</b> 됩니다.
+   판매자가 갖는 쪽으로 두어도 되고, 남은 금액을 돌려주도록 만들어도 됩니다.
+   정하지 않은 채로 두는 것이 가장 나쁩니다.</p>
+
+<div class="warn">
+  채점 항목 07 · 08 이 각각 15점, 합쳐서 30점입니다.
+  이 문제는 <b>두 메서드가 서로를 부르는 구조</b>를 보는 것이므로,
+  값이 제대로 오가는지 실행 결과로 반드시 확인하십시오.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st10">
+      <h3><i>10</i>toString 으로 값 확인</h3>
+      <aside class="side">
+        <p class="pt">감춘 값을 보이는 유일한 통로입니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 09 · 10점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/pg_tostr.png" alt="toString 을 만들지 않았을 때와 만들었을 때의 출력 차이를 보인 코드와, toString 의 뜻과 쓰임을 정리한 표.">
+  <figcaption>toString. 만들지 않으면 클래스 이름과 주소가 찍힙니다.</figcaption>
+</figure>
+
+<h4>두 클래스 모두에</h4>
+<p>채점 항목 09 가 <b>「객체 내 멤버값을 확인할 수 있는가」</b> 입니다.
+   Buyer 만 만들고 Seller 를 빠뜨리면 판매자의 값이 바뀌었는지 보일 수 없습니다.
+   <b>필드를 모두 담아</b> 적습니다.</p>
+
+<h4>실행 결과를 찍는 방법</h4>
+<pre>Buyer  b = new Buyer(10000);
+Seller s = new Seller(100, 1000);
+
+System.out.println("=== 구매 전 ===");
+System.out.println(b);
+System.out.println(s);
+
+b.payment(s, 3000);
+
+System.out.println("=== 구매 후 ===");
+System.out.println(b);
+System.out.println(s);</pre>
+<p><b>구매 전과 후</b>를 나란히 찍으면 값이 어떻게 바뀌었는지 한눈에 보입니다.
+   이 화면 하나가 항목 07 · 08 · 09 세 가지의 근거가 됩니다.</p>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  구매를 <b>두 번</b> 해 보십시오. 10000원으로 3000원어치를 두 번 사면
+  4000원이 남고 사과는 6개가 되어야 합니다.
+  한 번만 해 보면 누적되는지 알 수 없습니다.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 3 · 스크립트 언어</b><span>능력단위요소 ③ · 채점 10 · 11 · 20점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st11">
+      <h3><i>11</i>자바스크립트의 함수</h3>
+      <aside class="side">
+        <p class="pt">함수를 값처럼 주고받습니다.</p>
+        <b class="sh">도구</b>
+        <p class="v">브라우저 콘솔 (F12)</p>
+      </aside>
+      <div class="bd">
+<h4>함수를 만드는 세 가지 모양</h4>
+<pre><i>// ① 선언</i>
+function add(a, b) { return a + b; }
+
+<i>// ② 변수에 담기 — 함수도 값입니다</i>
+const add2 = function (a, b) { return a + b; };
+
+<i>// ③ 화살표</i>
+const add3 = (a, b) =&gt; a + b;</pre>
+<p>자바에서는 메서드가 클래스 안에만 있지만,
+   자바스크립트에서는 <b>함수를 변수에 담고 돌려주고 넘길 수 있습니다.</b>
+   클로저는 이 성질 위에 세워집니다.</p>
+
+<h4>함수가 함수를 돌려주기</h4>
+<pre>function makeAdder(x) {
+  <b>return function (y) {</b>       <i>// 함수를 돌려줍니다</i>
+    return x + y;
+  <b>};</b>
+}
+
+const add5 = makeAdder(5);
+console.log(add5(3));       <i>// 8</i></pre>
+<p><code>makeAdder(5)</code> 는 <b>숫자가 아니라 함수</b>를 돌려줍니다.
+   그 함수 안에서 <code>x</code> 를 쓰는데, <code>makeAdder</code> 는 이미 끝났습니다.
+   그런데도 <code>x</code> 가 5 로 남아 있습니다. 그것이 클로저입니다.</p>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  브라우저에서 <b>F12 → Console</b> 을 열고 위 코드를 그대로 쳐 보십시오.
+  파일을 만들 필요 없이 바로 실행됩니다.
+  결과 화면을 캡처해 두면 그대로 제출물이 됩니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st12">
+      <h3><i>12</i>스코프와 클로저</h3>
+      <aside class="side">
+        <p class="pt">변수가 어디까지 보이는가의 문제입니다.</p>
+        <b class="sh">낱말</b>
+        <p class="v">스코프 · 클로저</p>
+      </aside>
+      <div class="bd">
+<h4>변수가 보이는 범위</h4>
+<table class="wide">
+  <tr><th style="width:130px">선언</th><th style="width:190px">보이는 범위</th><th>비고</th></tr>
+  <tr><td class="k">let · const</td><td>선언한 <b>블록</b> 안에서만</td>
+      <td>중괄호를 벗어나면 보이지 않습니다</td></tr>
+  <tr><td class="k">var</td><td>선언한 <b>함수</b> 안에서</td>
+      <td>블록을 벗어나도 보여 헷갈립니다. 요즘은 쓰지 않습니다</td></tr>
+  <tr><td class="k">(선언 없이)</td><td>전역 — 어디서나</td>
+      <td>실수로 만들어지기 쉽습니다. 피합니다</td></tr>
+</table>
+
+<h4>안에서는 바깥이 보입니다</h4>
+<pre>function outer() {
+  let count = 0;          <i>// outer 의 지역 변수</i>
+
+  function inner() {
+    count += 1;           <i>// 바깥 변수가 보입니다</i>
+    return count;
+  }
+  return inner;
+}</pre>
+<p>안쪽 함수에서 바깥 함수의 변수를 쓸 수 있습니다.
+   그리고 <b>안쪽 함수가 살아 있는 동안</b> 그 변수도 함께 살아 있습니다.
+   <code>outer()</code> 가 끝나도 <code>count</code> 가 사라지지 않는 이유입니다.</p>
+
+<h4>클로저로 감추기</h4>
+<p><code>count</code> 는 밖에서 볼 수 없습니다.
+   <code>inner</code> 를 통해서만 만질 수 있으므로 <b>자바의 private 필드와 같은 구실</b>을 합니다.
+   그래서 클로저를 「값을 감추는 방법」 이라고도 부릅니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st13">
+      <h3><i>13</i>클로저 완성하기</h3>
+      <aside class="side">
+        <p class="pt">두 항목이 각각 10점입니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 10 · 11</p>
+        <b class="sh">보는 것</b>
+        <p class="v">리턴형 · 증가 코드</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/pg_closure.png" alt="createCounter 가 객체를 돌려주고 increment 가 바깥 변수를 증가시키는 자바스크립트 코드, 브라우저 콘솔에서 실행한 결과, 그리고 채점 항목 두 개가 보는 것을 적은 표.">
+  <figcaption>클로저 완성. 두 채점 항목이 각각 <code>return</code> 과 <code>count += 1</code> 을 봅니다.</figcaption>
+</figure>
+
+<h4>항목 10 — 리턴형</h4>
+<p>함수 하나만 돌려주면 <code>increment</code> 밖에 못 씁니다.
+   <code>getCount</code> 도 필요하므로 <b>두 함수를 담은 객체</b>를 돌려줘야 합니다.</p>
+<pre>return {
+  increment: function () { … },
+  getCount:  function () { … }
+};</pre>
+<p>중괄호가 <b>객체</b>입니다. 함수 몸통의 중괄호와 헷갈리지 않도록
+   <code>return</code> 바로 뒤에 오는 중괄호임을 확인하십시오.</p>
+
+<h4>항목 11 — 증가 코드</h4>
+<pre>increment: function () {
+  <b>count += 1;</b>       <i>// 또는 count++</i>
+  return count;       <i>// 늘린 뒤의 값을 돌려줍니다</i>
+}</pre>
+<p><code>let c = count + 1; return c;</code> 처럼 새 변수에 담으면
+   <code>count</code> 자체는 그대로라 다음에 불러도 같은 값이 나옵니다.
+   <b>바깥 변수를 직접 바꾸는 것</b>이 이 항목의 요구입니다.</p>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  <code>createCounter()</code> 를 <b>두 번</b> 불러 <code>c1</code> 과 <code>c2</code> 를 만들고
+  각각 세어 보십시오. 서로 따로 세어야 클로저가 제대로 된 것입니다.
+  전역 변수로 만들었다면 둘이 같이 올라갑니다.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 4 · 마무리</b><span>대조와 제출</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st14">
+      <h3><i>14</i>자가 점검</h3>
+      <aside class="side">
+        <p class="pt">열한 항목을 스스로 매겨 봅니다.</p>
+        <b class="sh">시간</b>
+        <p class="v">20분</p>
+      </aside>
+      <div class="bd">
+<table class="wide">
+  <tr><th style="width:56px">번호</th><th style="width:52px">배점</th>
+      <th>확인할 것</th><th style="width:80px">근거 쪽</th></tr>
+  <tr><td class="c">01</td><td class="c">5</td><td>반복문 과정에서의 개행은 적절히 이루어져 있는가</td><td></td></tr>
+  <tr><td class="c">02</td><td class="c">5</td><td>반복문 과정에서의 공백은 적절히 표시되어 있는가</td><td></td></tr>
+  <tr><td class="c">03</td><td class="c">5</td><td>반복문 과정에서의 별은 적절히 표시되어 있는가</td><td></td></tr>
+  <tr><td class="c">04</td><td class="c">10</td><td>높이를 입력받은 만큼의 표시가 적절한가</td><td></td></tr>
+  <tr><td class="c">05</td><td class="c">5</td><td>반복문의 조건식과 연산식이 올바른가</td><td></td></tr>
+  <tr><td class="c">06</td><td class="c">10</td><td>클래스 내 멤버의 접근 한정자는 올바른가</td><td></td></tr>
+  <tr><td class="c">07</td><td class="c">15</td><td>Buyer 의 payment 는 적절히 구현하였는가</td><td></td></tr>
+  <tr><td class="c">08</td><td class="c">15</td><td>Seller 의 receive 는 적절히 구현하였는가</td><td></td></tr>
+  <tr><td class="c">09</td><td class="c">10</td><td>toString 으로 객체 내 멤버값을 확인할 수 있는가</td><td></td></tr>
+  <tr><td class="c">10</td><td class="c">10</td><td>createCounter 의 리턴형은 적절한가</td><td></td></tr>
+  <tr><td class="c">11</td><td class="c">10</td><td>increment 의 count 값 증가 코드는 적절한가</td><td></td></tr>
+</table>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  코드를 <b>새 프로젝트에 복사해 다시 돌려 보십시오.</b>
+  옮기는 과정에서 빠진 파일이나 클래스가 있으면 바로 드러납니다.
+  자바스크립트는 콘솔에 다시 붙여 넣어 봅니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st15">
+      <h3><i>15</i>코드와 결과 정리</h3>
+      <aside class="side">
+        <p class="pt">코드는 글자로, 결과는 화면으로 냅니다.</p>
+        <b class="sh">글꼴</b>
+        <p class="v">Consolas · D2Coding</p>
+      </aside>
+      <div class="bd">
+<table class="wide">
+  <tr><th style="width:150px">내는 것</th><th style="width:190px">방법</th><th>이유</th></tr>
+  <tr><td class="nm">코드</td><td>복사해 텍스트로 붙이고 고정폭 글꼴 지정</td>
+      <td>들여쓰기가 살아 있어야 구조가 보입니다</td></tr>
+  <tr><td class="nm">실행 결과</td><td>콘솔 화면을 캡처</td>
+      <td>정말 돌렸다는 것을 보입니다</td></tr>
+  <tr><td class="nm">입력값</td><td>결과 화면에 함께 보이게</td>
+      <td>항목 04 가 입력받은 만큼 찍히는지 봅니다</td></tr>
+  <tr><td class="nm">주석</td><td>채점 항목 번호를 달아 둠</td>
+      <td>채점자가 해당 줄을 바로 찾습니다</td></tr>
+</table>
+
+<h4>결과를 보일 때의 요령</h4>
+<p>문제 1은 <b>높이를 달리한 결과 두 가지</b>를 냅니다 (예: 5 와 9).
+   문제 2는 <b>구매 전과 후</b>를 나란히 냅니다.
+   문제 3은 <b>c1 과 c2 가 따로 세는 것</b>까지 보입니다.
+   한 번만 돌린 결과로는 「적절히 구현하였는가」 를 판단할 근거가 얇습니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st16">
+      <h3><i>16</i>통합과 제출</h3>
+      <aside class="side">
+        <p class="pt">한 파일로 묶어 냅니다.</p>
+        <b class="sh">형식</b>
+        <p class="v">PPT</p>
+      </aside>
+      <div class="bd">
+<div class="draw">
+  <b class="n">1단계 · 쪽 순서를 문제 번호대로 맞춥니다</b>
+  문제 1 → 문제 2 → 문제 3 입니다. 채점표의 순서와 같습니다.
+</div>
+<div class="draw">
+  <b class="n">2단계 · 쪽마다 문제 번호와 채점 항목 번호를 답니다</b>
+  「문제 2 · 항목 06 ~ 09」 처럼 모서리에 작게 적습니다.
+</div>
+<div class="draw">
+  <b class="n">3단계 · 코드가 잘리지 않았는지 봅니다</b>
+  긴 줄이 슬라이드 밖으로 나가면 읽을 수 없습니다.
+  줄을 나누거나 글자 크기를 줄입니다. 12pt 아래로는 내리지 않습니다.
+</div>
+<div class="draw">
+  <b class="n">4단계 · 파일 이름을 정하고 제출합니다</b>
+  「프로그래밍언어활용_홍길동.pptx」 처럼 이름에서 보이게 합니다.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ 3 ═══════ -->
+<h2 class="sec" id="g3">3. 주요 감점 요인</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">요구를 지나쳐서 잃는 점수가 많습니다.</p>
+    <b class="sh">가장 큰 것</b>
+    <p class="v">높이를 고정한 것</p>
+    <b class="sh">가장 아까운 것</b>
+    <p class="v">toString 누락</p>
+  </aside>
+  <div class="bd">
+<p>아래 일곱 가지가 되풀이되는 감점입니다.
+   문법을 몰라서가 아니라 <b>문제가 요구한 것을 지나쳐서</b> 생깁니다.</p>
+
+<figure>
+  <img src="img/pg_bad.png" alt="높이 고정 · 공백 누락 · 가운데 줄 중복 · public 필드 · 금액 검사 없음 · toString 누락 · 전역 변수 사용 일곱 가지의 감점 모습과 보완 방법을 정리한 표.">
+  <figcaption>자주 나오는 감점과 보완. 왼쪽이 실제로 자주 나오는 모습,
+    오른쪽이 그것을 막는 방법입니다.</figcaption>
+</figure>
+
+<div class="warn">
+  세 문제 모두 <b>실행해 본 결과</b>가 근거가 됩니다.
+  코드만 내면 「적절히 구현하였는가」 를 판정할 자료가 반쪽입니다.
+  <b>돌려 보고, 캡처하고, 코드와 나란히 붙이십시오.</b>
+</div>
+  </div>
+</div>
+
+<footer>
+  프로그래밍 언어 활용 · 2수준 · 56시간 · 담당 정우균 ·
+  (디지털컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E<br>
+  예제는 평가도구 작업지시서의 세 문제이며, 실제 평가에서 수치나 조건이 달라질 수 있습니다.
+</footer>
+
+</div>
+
+<script>
+/* 빠른 이동 — 지금 보는 단원을 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"],a[href="#g3"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+  function mark() {
+    var y = window.pageYOffset + 90, cur = -1;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function () { mark(); tick = false; });
+  });
+  mark();
+})();
+</script>

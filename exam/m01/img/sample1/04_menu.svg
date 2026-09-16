@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 380" width="960" height="380">
+<style>
+ text{font-family:"Malgun Gothic","Segoe UI",sans-serif}
+ .hbar{fill:#2b4c7e}
+ .ht{font-size:17px;fill:#fff;font-weight:700}
+ .hc{font-size:12.5px;fill:#c3d4e8;text-anchor:end}
+ .sec{font-size:13px;fill:#2b4c7e;font-weight:700}
+ .bd{font-size:12.5px;fill:#1f2937}
+ .cap{font-size:11px;fill:#6b7280}
+ .card{fill:#fff;stroke:#d5dbe3}
+</style>
+<rect width="960" height="380" fill="#fff"/>
+<rect class="hbar" x="0" y="0" width="960" height="44"/><rect x="0" y="44" width="960" height="3" fill="#e8590c"/><text class="ht" x="24" y="28">데일리마켓 · 메뉴 구조도</text><text class="hc" x="936" y="28">1단 4개 · 2단 최대 3개</text>
+<rect x="400" y="76" width="160" height="38" rx="6" fill="#2b4c7e" stroke="#2b4c7e" stroke-width="1.2"/><text x="480" y="100" font-size="13.5" fill="#fff" font-weight="700" text-anchor="middle">데일리마켓</text>
+<rect x="60" y="168" width="150" height="36" rx="6" fill="#eef3f9" stroke="#2b4c7e" stroke-width="1.2"/><text x="135" y="191" font-size="13.5" fill="#1f2937" font-weight="700" text-anchor="middle">전체 카테고리</text>
+<path d="M135 168 V150 M135 150 H765 M480 150 V114 M480 114 H480" stroke="#d5dbe3" stroke-width="1.1" fill="none"/>
+<rect x="270" y="168" width="150" height="36" rx="6" fill="#eef3f9" stroke="#2b4c7e" stroke-width="1.2"/><text x="345" y="191" font-size="13.5" fill="#1f2937" font-weight="700" text-anchor="middle">신상품</text>
+<path d="M345 168 V150 M135 150 H765 M480 150 V114 M480 114 H480" stroke="#d5dbe3" stroke-width="1.1" fill="none"/>
+<rect x="480" y="168" width="150" height="36" rx="6" fill="#eef3f9" stroke="#2b4c7e" stroke-width="1.2"/><text x="555" y="191" font-size="13.5" fill="#1f2937" font-weight="700" text-anchor="middle">베스트</text>
+<path d="M555 168 V150 M135 150 H765 M480 150 V114 M480 114 H480" stroke="#d5dbe3" stroke-width="1.1" fill="none"/>
+<rect x="690" y="168" width="150" height="36" rx="6" fill="#eef3f9" stroke="#2b4c7e" stroke-width="1.2"/><text x="765" y="191" font-size="13.5" fill="#1f2937" font-weight="700" text-anchor="middle">마이페이지</text>
+<path d="M765 168 V150 M135 150 H765 M480 150 V114 M480 114 H480" stroke="#d5dbe3" stroke-width="1.1" fill="none"/>
+<path d="M480 114 V150" stroke="#d5dbe3" stroke-width="1.1"/>
+<rect x="20" y="258" width="84" height="34" rx="6" fill="#fff" stroke="#2b4c7e" stroke-width="1.2"/><text x="62" y="280" font-size="13.5" fill="#1f2937" font-weight="400" text-anchor="middle">식품</text>
+<rect x="110" y="258" width="84" height="34" rx="6" fill="#fff" stroke="#2b4c7e" stroke-width="1.2"/><text x="152" y="280" font-size="13.5" fill="#1f2937" font-weight="400" text-anchor="middle">생활용품</text>
+<rect x="200" y="258" width="84" height="34" rx="6" fill="#fff" stroke="#2b4c7e" stroke-width="1.2"/><text x="242" y="280" font-size="13.5" fill="#1f2937" font-weight="400" text-anchor="middle">가전</text>
+<rect x="640" y="258" width="84" height="34" rx="6" fill="#fff" stroke="#2b4c7e" stroke-width="1.2"/><text x="682" y="280" font-size="13.5" fill="#1f2937" font-weight="400" text-anchor="middle">장바구니</text>
+<rect x="730" y="258" width="84" height="34" rx="6" fill="#fff" stroke="#2b4c7e" stroke-width="1.2"/><text x="772" y="280" font-size="13.5" fill="#1f2937" font-weight="400" text-anchor="middle">주문 내역</text>
+<rect x="820" y="258" width="84" height="34" rx="6" fill="#fff" stroke="#2b4c7e" stroke-width="1.2"/><text x="862" y="280" font-size="13.5" fill="#1f2937" font-weight="400" text-anchor="middle">회원 정보</text>
+<path d="M135 204 V228 M62 228 H242 M62 228 V258 M152 228 V258 M242 228 V258" stroke="#d5dbe3" stroke-width="1.1" fill="none"/>
+<path d="M765 204 V228 M682 228 H862 M682 228 V258 M772 228 V258 M862 228 V258" stroke="#d5dbe3" stroke-width="1.1" fill="none"/>
+<rect x="300" y="252" width="300" height="66" rx="6" fill="#f7f8f9" stroke="#d5dbe3"/>
+<text x="316" y="276" font-size="12.5" fill="#2b4c7e" font-weight="700">깊이를 2단으로 묶은 이유</text>
+<text x="316" y="296" font-size="12" fill="#6b7280">상품 → 상세 → 장바구니가 한 흐름이라</text>
+<text x="316" y="313" font-size="12" fill="#6b7280">3단으로 내려가면 구매까지의 이탈이 커진다.</text>
+<rect x="0" y="346" width="960" height="34" fill="#1f3a63"/><text x="24" y="367" font-size="12.5" fill="#dbe4f0">계층만 그리지 말고 그 깊이로 정한 이유를 함께 적는다 — 채점 항목 18번의 「직관적」이 이것이다.</text>
+</svg>

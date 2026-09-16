@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500">
+<style>text{font-family:"Malgun Gothic",sans-serif;fill:#000}</style>
+<defs><marker id="o" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M1,1 L9,4 L1,7" fill="none" stroke="#000"/></marker></defs>
+<rect width="880" height="500" fill="#fff"/>
+<text x="20" y="26" font-size="13.5" font-weight="700">일반화 — 한 액터가 다른 액터의 일을 전부 하면서 더 할 때</text>
+<line x1="20" y1="36" x2="860" y2="36" stroke="#ccc"/>
+<text x="30" y="62" font-size="12" font-weight="700" text-anchor="start" fill="#000">묶기 전 — 회원에게 같은 선을 또 긋습니다</text>
+<circle cx="80" cy="84" r="9" fill="#fff" stroke="#000"/><path d="M80 93 v24 M66 102 h28 M80 117 l-12 19 M80 117 l12 19" stroke="#000" fill="none"/>
+<text x="80" y="148" font-size="11" font-weight="400" text-anchor="middle" fill="#000">비회원</text>
+<circle cx="80" cy="204" r="9" fill="#fff" stroke="#000"/><path d="M80 213 v24 M66 222 h28 M80 237 l-12 19 M80 237 l12 19" stroke="#000" fill="none"/>
+<text x="80" y="268" font-size="11" font-weight="400" text-anchor="middle" fill="#000">회원</text>
+<ellipse cx="290" cy="86" rx="62" ry="19" fill="#fff" stroke="#000"/>
+<text x="290" y="90" font-size="11" font-weight="400" text-anchor="middle" fill="#000">회원가입</text>
+<line x1="100" y1="90" x2="228" y2="86" stroke="#000"/>
+<line x1="100" y1="210" x2="228" y2="86" stroke="#888"/>
+<ellipse cx="290" cy="136" rx="62" ry="19" fill="#fff" stroke="#000"/>
+<text x="290" y="140" font-size="11" font-weight="400" text-anchor="middle" fill="#000">상품 검색</text>
+<line x1="100" y1="93" x2="228" y2="136" stroke="#000"/>
+<line x1="100" y1="213" x2="228" y2="136" stroke="#888"/>
+<ellipse cx="290" cy="186" rx="62" ry="19" fill="#fff" stroke="#000"/>
+<text x="290" y="190" font-size="11" font-weight="400" text-anchor="middle" fill="#000">상품 조회</text>
+<line x1="100" y1="96" x2="228" y2="186" stroke="#000"/>
+<line x1="100" y1="216" x2="228" y2="186" stroke="#888"/>
+<ellipse cx="290" cy="246" rx="46" ry="19" fill="#fff" stroke="#000"/>
+<text x="290" y="250" font-size="11" font-weight="400" text-anchor="middle" fill="#000">주문</text>
+<line x1="100" y1="219" x2="244" y2="246" stroke="#000"/>
+<text x="400" y="150" font-size="11.5" font-weight="400" text-anchor="start" fill="#000">비회원이 하는 세 가지를 회원도 다 합니다.</text>
+<text x="400" y="168" font-size="11.5" font-weight="400" text-anchor="start" fill="#555">선이 세 개 더 늘어납니다.</text>
+<line x1="20" y1="286" x2="860" y2="286" stroke="#ccc"/>
+<text x="30" y="310" font-size="12" font-weight="700" text-anchor="start" fill="#000">묶은 뒤 — 삼각형 하나로 대신합니다</text>
+<circle cx="96" cy="322" r="9" fill="#fff" stroke="#000"/><path d="M96 331 v24 M82 340 h28 M96 355 l-12 19 M96 355 l12 19" stroke="#000" fill="none"/>
+<text x="96" y="386" font-size="11" font-weight="400" text-anchor="middle" fill="#000"></text>
+<text x="66" y="332" font-size="11" font-weight="400" text-anchor="end" fill="#000">비회원</text>
+<ellipse cx="330" cy="332" rx="90" ry="19" fill="#fff" stroke="#000"/>
+<text x="330" y="336" font-size="11" font-weight="400" text-anchor="middle" fill="#000">회원가입 · 검색 · 조회</text>
+<line x1="116" y1="332" x2="240" y2="332" stroke="#000"/>
+<circle cx="96" cy="421" r="9" fill="#fff" stroke="#000"/><path d="M96 430 v24 M82 439 h28 M96 454 l-12 19 M96 454 l12 19" stroke="#000" fill="none"/>
+<text x="96" y="485" font-size="11" font-weight="400" text-anchor="middle" fill="#000"></text>
+<text x="66" y="431" font-size="11" font-weight="400" text-anchor="end" fill="#000">회원</text>
+<ellipse cx="330" cy="435" rx="50" ry="19" fill="#fff" stroke="#000"/>
+<text x="330" y="439" font-size="11" font-weight="400" text-anchor="middle" fill="#000">주문</text>
+<line x1="116" y1="437" x2="280" y2="435" stroke="#000"/>
+<line x1="96" y1="412" x2="96" y2="369" stroke="#000"/>
+<path d="M96 355 L89 369 L103 369 Z" fill="#fff" stroke="#000"/>
+<text x="112" y="398" font-size="11" font-weight="400" text-anchor="start" fill="#555">회원 ▷ 비회원</text>
+<text x="470" y="340" font-size="11.5" font-weight="400" text-anchor="start" fill="#000">회원에게는 회원만 하는 일(주문)만 잇습니다.</text>
+<text x="470" y="358" font-size="11.5" font-weight="400" text-anchor="start" fill="#555">비회원의 세 가지는 상속으로 따라옵니다.</text>
+<text x="470" y="392" font-size="11.5" font-weight="400" text-anchor="start" fill="#000">선이 세 개 줄고 「누가 어디까지 하는가」가</text>
+<text x="470" y="410" font-size="11.5" font-weight="400" text-anchor="start" fill="#000">한눈에 보입니다.</text>
+<text x="30" y="484" font-size="11.5" font-weight="400" text-anchor="start" fill="#555">삼각형은 부모 쪽(비회원)에 붙입니다. 방향을 거꾸로 그리면 비회원이 회원의 일을 다 한다는 뜻이 됩니다.</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 352" width="900" height="352">
+<style>text{font-family:"Malgun Gothic",sans-serif;fill:#000}</style>
+<defs><marker id="o" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M1,1 L9,4 L1,7" fill="none" stroke="#000"/></marker><marker id="ox" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M1,1 L9,4 L1,7" fill="none" stroke="#000"/></marker><marker id="f" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M1,1 L9,4 L1,7 z" fill="#000"/></marker></defs>
+<rect width="900" height="352" fill="#fff"/>
+<text x="20" y="28" font-size="14" font-weight="700" text-anchor="start" fill="#000">자주 틀리는 표기 — 왼쪽이 틀린 것, 오른쪽이 맞는 것</text>
+<line x1="20" y1="38" x2="880" y2="38" stroke="#ccc"/>
+<line x1="450" y1="50" x2="450" y2="332" stroke="#ccc"/>
+<text x="30" y="78" font-size="12" font-weight="700" text-anchor="start" fill="#000">① 연관선에 화살촉을 달았습니다</text>
+<circle cx="80" cy="98" r="10" fill="#fff" stroke="#000"/><path d="M80 108 v26 M64 118 h32 M80 134 l-13 21 M80 134 l13 21" stroke="#000" fill="none"/>
+<text x="80" y="170" font-size="11.5" font-weight="400" text-anchor="middle" fill="#000"></text>
+<line x1="100" y1="112" x2="210" y2="112" stroke="#000" marker-end="url(#f)"/>
+<ellipse cx="280" cy="112" rx="62" ry="20" fill="#fff" stroke="#000"/>
+<text x="280" y="116" font-size="11.5" font-weight="400" text-anchor="middle" fill="#000">상품 검색</text>
+<circle cx="530" cy="98" r="10" fill="#fff" stroke="#000"/><path d="M530 108 v26 M514 118 h32 M530 134 l-13 21 M530 134 l13 21" stroke="#000" fill="none"/>
+<text x="530" y="170" font-size="11.5" font-weight="400" text-anchor="middle" fill="#000"></text>
+<line x1="550" y1="112" x2="668" y2="112" stroke="#000"/>
+<ellipse cx="730" cy="112" rx="62" ry="20" fill="#fff" stroke="#000"/>
+<text x="730" y="116" font-size="11.5" font-weight="400" text-anchor="middle" fill="#000">상품 검색</text>
+<text x="30" y="166" font-size="11.5" font-weight="400" text-anchor="start" fill="#555">연관은 실선에 화살촉이 없습니다. 화살촉은 include · extend · 일반화에만 씁니다.</text>
+<text x="30" y="206" font-size="12" font-weight="700" text-anchor="start" fill="#000">② extend 화살표를 반대로 그렸습니다</text>
+<ellipse cx="130" cy="240" rx="62" ry="20" fill="#fff" stroke="#000"/>
+<text x="130" y="244" font-size="11.5" font-weight="400" text-anchor="middle" fill="#000">주문 조회</text>
+<ellipse cx="360" cy="240" rx="52" ry="20" fill="#fff" stroke="#000"/>
+<text x="360" y="244" font-size="11.5" font-weight="400" text-anchor="middle" fill="#000">주문 취소</text>
+<line x1="194" y1="240" x2="304" y2="240" stroke="#000" stroke-dasharray="5 3" marker-end="url(#o)"/>
+<text x="250" y="232" font-size="10" font-weight="400" text-anchor="middle" fill="#000">«extend»</text>
+<ellipse cx="580" cy="240" rx="62" ry="20" fill="#fff" stroke="#000"/>
+<text x="580" y="244" font-size="11.5" font-weight="400" text-anchor="middle" fill="#000">주문 조회</text>
+<ellipse cx="810" cy="240" rx="52" ry="20" fill="#fff" stroke="#000"/>
+<text x="810" y="244" font-size="11.5" font-weight="400" text-anchor="middle" fill="#000">주문 취소</text>
+<line x1="756" y1="240" x2="646" y2="240" stroke="#000" stroke-dasharray="5 3" marker-end="url(#o)"/>
+<text x="700" y="232" font-size="10" font-weight="400" text-anchor="middle" fill="#000">«extend» [배송 전]</text>
+<text x="30" y="294" font-size="11.5" font-weight="400" text-anchor="start" fill="#555">extend 는 확장하는 쪽에서 기반 쪽을 가리킵니다. include 와 방향이 반대입니다. 조건도 함께 적습니다.</text>
+</svg>

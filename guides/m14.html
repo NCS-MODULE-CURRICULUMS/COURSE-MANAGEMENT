@@ -1,0 +1,989 @@
+<meta charset="utf-8"><title>애플리케이션 테스트 수행 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<style>
+  /* 이 교안에만 있는 것 — 코드 보기 */
+  .bd pre{margin:14px 0;font-family:Consolas,"D2Coding",monospace;font-size:13px;
+          line-height:1.75;border:1px solid #ccc;border-left:3px solid #000;
+          padding:13px 16px;background:#fafafa;overflow-x:auto;white-space:pre}
+  .bd pre b{background:#e6e6e6;font-weight:700}
+  .bd pre i{font-style:normal;color:#777}
+  .bd code{font-family:Consolas,"D2Coding",monospace;font-size:14px;
+           background:#f2f2f2;padding:1px 5px}
+  aside.side code{font-family:Consolas,monospace;font-size:11px;background:#f2f2f2;padding:0 3px}
+</style>
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small><a href="../courses/c2.html">능력단위 모듈 목록</a> / <a href="../modules/c2-m14.html">애플리케이션 테스트 수행</a> / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">테스트 수행</i>
+  <a href="#st1"><b>1</b><span>완성 산출물의 확인</span></a>
+  <a href="#st2"><b>2</b><span>받는 프로젝트 EX01</span></a>
+  <a href="#st3"><b>3</b><span>테스트 세 층</span></a>
+  <a href="#st4"><b>4</b><span>요구사항과 테스트 대상</span></a>
+  <a href="#st5"><b>5</b><span>테스트케이스 명세서</span></a>
+  <a href="#st6"><b>6</b><span>Given – When – Then</span></a>
+  <a href="#st7"><b>7</b><span>단위 테스트와 Mockito</span></a>
+  <a href="#st8"><b>8</b><span>슬라이스 테스트</span></a>
+  <a href="#st9"><b>9</b><span>통합 테스트</span></a>
+  <i class="qg">결함 조치</i>
+  <a href="#st10"><b>10</b><span>먼저 빨갛게 만들기</span></a>
+  <a href="#st11"><b>11</b><span>결함 넷 읽어 내기</span></a>
+  <a href="#st12"><b>12</b><span>결함 관리대장</span></a>
+  <a href="#st13"><b>13</b><span>원인과 부작용 검토</span></a>
+  <a href="#st14"><b>14</b><span>결함 제거와 커밋</span></a>
+  <a href="#st15"><b>15</b><span>회귀와 실행결과서</span></a>
+  <a href="#st16"><b>16</b><span>산출물 정리</span></a>
+  <i class="qg">감점</i>
+  <a href="#g3"><b>!</b><span>주요 감점 요인</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>애플리케이션 테스트 수행 — 준비 교안</h1>
+<p class="sub">능력단위 애플리케이션 테스트 수행 (2001020227_23v6) / 3수준 · 평가방법 문제해결 시나리오 (100점)</p>
+
+<!-- ═══════ 0 ═══════ -->
+<h2 class="sec" id="g0">0. 제출물의 구성과 배점</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">남이 쓴 코드에서 결함을 찾아냅니다.</p>
+    <b class="sh">제출 형식</b>
+    <p class="v">저장소 · 캡처 · 문서 넷</p>
+    <b class="sh">참고</b>
+    <p class="src">작업지시서 · EX01 프로젝트</p>
+  </aside>
+  <div class="bd">
+<p>과제는 하나입니다. 도서 대출 프로그램 EX01 에 테스트를 써서
+   숨어 있는 결함을 드러내고, 그것을 고친 뒤 다른 데가 깨지지 않았는지 확인하는 일입니다.
+   앞의 여러 교과와 방향이 반대입니다.
+   지금까지는 빈 자리를 채워 넣었는데, 여기서는 <b>이미 돌아가는 코드를 의심</b>합니다.</p>
+<table class="wide">
+  <tr><th style="width:52px">묶음</th><th style="width:200px">능력단위요소</th>
+      <th>무엇을 하는가</th><th style="width:56px">배점</th></tr>
+  <tr><td class="c">①</td><td>애플리케이션 테스트 수행하기</td>
+      <td>테스트케이스 명세 · 단위 · 슬라이스 · 통합 테스트 작성 · 실행 결과 기록</td><td class="c">50</td></tr>
+  <tr><td class="c">②</td><td>애플리케이션 결함 조치하기</td>
+      <td>결함 식별 · 우선순위 · 원인 분석 · 수정 · 회귀 · 이력 관리</td><td class="c">50</td></tr>
+</table>
+<p>열 항목 100점입니다. 항목 하나가 5점에서 15점까지로 폭이 넓습니다.
+   가장 큰 둘이 <b>테스트 종류별 어노테이션(15점)</b> 과
+   <b>부작용을 줄이며 결함 제거(15점)</b> 입니다.</p>
+
+<div class="warn">
+  눈여겨볼 것은 <b>수정 전 실행 결과</b>가 제출물이라는 점입니다.
+  결함을 먼저 고쳐 버리면 그 화면을 다시 만들 수 없습니다.
+  테스트를 다 써서 <b>한 번 돌려 찍은 다음</b> 고쳐야 합니다.
+  이 순서 하나로 항목 05 · 09 의 15점이 갈립니다.
+</div>
+  </div>
+</div>
+
+<!-- ═══════ 1 ═══════ -->
+<h2 class="sec" id="g1">1. 이 교과의 범위</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">테스트가 결함을 찾는 도구가 됩니다.</p>
+    <b class="sh">능력단위요소</b>
+    <p class="v">테스트 수행 · 결함 조치</p>
+    <b class="sh">기술</b>
+    <p class="v">JUnit5 · Mockito · MockMvc · H2</p>
+  </aside>
+  <div class="bd">
+<p>앞 교과 「서버 프로그램 구현」 에서도 테스트를 썼습니다.
+   그때는 내가 만든 것이 잘 도는지 보려는 목적이었습니다.
+   여기서는 <b>남이 만든 것이 틀렸다는 사실을 밝히려고</b> 씁니다.
+   같은 도구인데 쓰는 마음이 다릅니다.</p>
+
+<dl>
+  <dt>애플리케이션 테스트 수행하기</dt>
+  <dd>요구사항을 기준으로 테스트케이스를 적고, 세 가지 층의 테스트를 씁니다.
+      단위는 업무 규칙을, 슬라이스는 한 겹의 동작을, 통합은 전체가 맞물리는지를 봅니다.
+      돌려서 나온 결과를 표로 남깁니다.</dd>
+  <dt>애플리케이션 결함 조치하기</dt>
+  <dd>실패한 테스트가 가리키는 곳을 결함으로 기록하고, 어느 것부터 고칠지 정합니다.
+      원인을 찾아 고치되 다른 데가 깨지지 않게 하고,
+      전부 다시 돌려 확인한 뒤 이력을 남깁니다.</dd>
+</dl>
+
+<table class="wide">
+  <tr><th style="width:70px">수행준거</th><th style="width:290px">준거의 말</th>
+      <th>이 평가에서</th></tr>
+  <tr><td class="c">1.1</td>
+      <td>테스트 계획에 따라 서버모듈 · 화면모듈 · 데이터입출력 · 인터페이스 등
+          기능단위가 요구사항을 충족하는지에 대한 테스트를 수행</td>
+      <td>단위 · 슬라이스 · 통합 테스트를 써서 대출 · 반납 · 연체 · 재고를 확인합니다</td></tr>
+  <tr><td class="c">1.2</td><td>테스트 수행으로 발견된 결함을 유형별로 기록</td>
+      <td>결함 관리대장에 네 건을 유형 · 심각도 · 우선순위로 적습니다</td></tr>
+  <tr><td class="c">1.3</td><td>발견된 결함에 대해서 원인을 분석하고 개선 방안을 도출</td>
+      <td>어느 줄이 왜 틀렸는지와 어떻게 고칠지를 결과서에 적습니다</td></tr>
+  <tr><td class="c">2.1</td><td>발견된 결함을 식별하고 조치에 대한 우선순위를 결정하고 적용</td>
+      <td>자료가 망가지는 결함을 앞에 두고 그 차례대로 고칩니다</td></tr>
+  <tr><td class="c">2.2</td><td>결함이 발생한 소스를 분석하고 기존에 구현된 로직과의 연관성을 고려하여
+          부작용이 최소화되도록 결함을 제거</td>
+      <td>고칠 줄이 어디서 또 쓰이는지 찾아본 뒤 고치고 전부 다시 돌립니다</td></tr>
+  <tr><td class="c">2.3</td><td>결함 조치로 변경되는 소스의 버전을 관리하고 조치 결과에 대한 이력을 관리</td>
+      <td>결함마다 커밋을 나누고 메시지에 결함 번호를 답니다</td></tr>
+</table>
+<p>준거 여섯이 채점 항목 열로 쪼개져 있습니다.
+   앞 셋이 「찾는 일」, 뒤 셋이 「고치는 일」 로 딱 나뉜다는 점을 보십시오.
+   <b>찾지 못하면 고칠 것도 없으므로</b> 앞쪽이 막히면 뒤쪽 50점이 통째로 비게 됩니다.</p>
+  </div>
+</div>
+
+<!-- ═══════ 2 ═══════ -->
+<h2 class="sec" id="g2">2. 산출물 작성 실습</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">명세 → 테스트 → 결함 → 수정 → 회귀 순입니다.</p>
+    <b class="sh">예제</b>
+    <p class="v">EX01 S-Library</p>
+    <b class="sh">채울 것</b>
+    <p class="v">테스트 네 파일 + 문서 넷</p>
+  </aside>
+  <div class="bd">
+<p>열여섯 단원을 두 묶음으로 나누었고 능력단위요소와 짝이 맞습니다.
+   앞 아홉이 테스트를 쓰는 일, 뒤 일곱이 결함을 다루는 일입니다.</p>
+<p>예제는 도서관의 대출 프로그램입니다.
+   책을 빌리고 돌려주고, 기한이 지났는지 보고, 남은 부수를 셉니다.
+   업무가 쉬워서 <b>무엇이 맞는 동작인지 바로 알 수 있고</b>,
+   그래서 결함이 드러났을 때 왜 틀렸는지 설명하기가 쉽습니다.</p>
+<p>데이터베이스는 인메모리 H2 라 따로 설치할 것이 없습니다.
+   프로그램을 띄우면 메모리에 생기고 끄면 사라집니다.
+   그 안에 도서 세 권이 미리 들어가는데, 그중 하나는 <b>재고가 0</b> 입니다.
+   경계를 시험해 보라고 넣어 둔 자리입니다.</p>
+<p>순서에 이유가 있습니다.
+   테스트케이스 명세서를 먼저 쓰면 <b>요구사항을 기준으로</b> 시험하게 됩니다.
+   코드를 읽고 나서 쓰면 지금 코드가 하는 일을 그대로 적게 되고,
+   그러면 결함이 있어도 초록으로 지나갑니다.</p>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 1 · 애플리케이션 테스트 수행</b><span>능력단위요소 ① · 채점 01 ~ 05 · 50점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st1">
+      <h3><i>1</i>완성 산출물의 확인</h3>
+      <aside class="side">
+        <p class="pt">끝나면 이 화면이 나옵니다.</p>
+        <b class="sh">캡처</b>
+        <p class="v">콘솔 두 컷</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ts_green.png" alt="gradlew test 를 수정 후에 돌린 콘솔. LendServiceTest 다섯 건, BookRepositoryTest 한 건, BookControllerTest 세 건, LibraryIntegrationTest 한 건이 모두 PASSED 이고 BUILD SUCCESSFUL, 10 tests completed 0 failed 로 끝난다. 아래 표는 회귀 테스트의 뜻과 전부 돌려야 하는 까닭, 무엇을 캡처하는지, 숫자가 증거라는 점을 설명한다.">
+  <figcaption>다 끝냈을 때의 콘솔. 열 건이 모두 통과하고 BUILD SUCCESSFUL 로 끝납니다.</figcaption>
+</figure>
+
+<h4>화면이 없습니다</h4>
+<p>이 교과에는 브라우저로 볼 화면이 없습니다. 결과가 <b>콘솔과 문서</b>로만 나옵니다.
+   그래서 캡처를 무엇으로 남길지가 곧 제출물의 모양이 됩니다.</p>
+<p>찍을 것은 두 장입니다.
+   테스트를 다 쓰고 처음 돌렸을 때의 <b>실패 화면</b>,
+   그리고 결함을 다 고친 뒤의 <b>통과 화면</b>입니다.
+   두 장의 숫자가 달라야 「결함이 있었고 고쳤다」 는 말이 증거를 갖습니다.</p>
+
+<table>
+  <tr><th style="width:150px">돌리는 법</th><th style="width:230px">명령</th><th>쓰임</th></tr>
+  <tr><td class="k">전부 돌리기</td><td class="k">gradlew.bat test</td>
+      <td>회귀 확인 · 제출용 캡처</td></tr>
+  <tr><td class="k">한 클래스만</td><td class="k">gradlew.bat test --tests *LendServiceTest</td>
+      <td>쓰는 중에 빨리 보기</td></tr>
+  <tr><td class="k">자세한 보고서</td><td class="k">build/reports/tests/test/index.html</td>
+      <td>실패 이유를 줄 단위로 보기</td></tr>
+</table>
+<p>IDE 의 초록 세모 단추로 돌려도 되는데,
+   <b>제출 캡처는 콘솔 쪽이 낫습니다</b>. 통과 · 실패 건수가 한 줄로 찍혀 나옵니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>받는 프로젝트 EX01</h3>
+      <aside class="side">
+        <p class="pt">본문은 있고 테스트가 비어 있습니다.</p>
+        <b class="sh">제공</b>
+        <p class="v">도메인 · 설정 · seed · 양식</p>
+        <b class="sh">비어 있음</b>
+        <p class="v">테스트 네 파일</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ts_tree.png" alt="EX01 프로젝트 트리. build.gradle 과 src/main 의 Controller · Entity · Repository · Service 는 제공되고, LibraryServiceImpl.java 에 결함 넷이 들어 있다. docs/산출물_양식 아래 문서 양식 네 장, src/test 아래 LendServiceTest · BookRepositoryTest · BookControllerTest · LibraryIntegrationTest 네 파일이 비어 있다. 아래 표는 본문 코드 · 테스트 · 문서 · 데이터베이스의 상태와 할 일을 정리한다.">
+  <figcaption>프로젝트 구조. 회색으로 표시한 것이 제공되고, 진하게 표시한 것을 채웁니다.</figcaption>
+</figure>
+
+<h4>비어 있는 테스트 파일의 모습</h4>
+<p>테스트 파일은 껍데기만 있습니다.
+   클래스 이름과 메서드 이름은 정해져 있고 본문이 한 줄짜리 실패로 채워져 있습니다.</p>
+
+<pre>class LendServiceTest {
+
+    @Test
+    @DisplayName("대출 정상: 재고가 1 줄고 반납기한이 설정된다")
+    void lend_정상() {
+        <b>fail("TODO: 테스트를 작성하세요");</b>
+    }
+
+    @Test
+    @DisplayName("대출 경계: 재고 0 이면 대출할 수 없다")
+    void lend_재고0_예외() {
+        <b>fail("TODO: 테스트를 작성하세요");</b>
+    }
+    <i>// … 세 개 더</i>
+}</pre>
+
+<p><code>@DisplayName</code> 에 적힌 말이 <b>시험해야 할 내용을 알려 줍니다</b>.
+   「재고 0 이면 대출할 수 없다」 가 곧 기대 결과입니다.
+   메서드 이름을 바꾸지 말고 그대로 두십시오. 채점할 때 이름으로 찾습니다.</p>
+
+<h4>프로그램을 한 번 띄워 봅니다</h4>
+<pre><i>// application.properties — 이미 들어 있습니다</i>
+spring.datasource.url=jdbc:h2:mem:<b>libdb</b>;DB_CLOSE_DELAY=-1;MODE=MySQL
+spring.jpa.hibernate.ddl-auto=create-drop
+spring.h2.console.enabled=true
+server.port=<b>8090</b></pre>
+
+<p><code>gradlew.bat bootRun</code> 으로 띄운 뒤
+   <code>http://localhost:8090/h2-console</code> 로 들어가면 seed 세 건이 보입니다.
+   JDBC URL 칸에 위의 <code>jdbc:h2:mem:libdb</code> 를 그대로 넣어야 합니다.
+   여기서 <b>재고가 0 인 책</b>을 눈으로 확인해 두면 뒤가 편합니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st3">
+      <h3><i>3</i>테스트 세 층</h3>
+      <aside class="side">
+        <p class="pt">층마다 잡는 것이 다릅니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 01 · 15점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ts_arch.png" alt="테스트 세 층을 그린 그림. 위쪽 단위 테스트 띠에는 LendServiceTest 와 테스트 대상 LibraryServiceImpl, 가짜로 바꿔 끼운 BookRepository 와 LendRepository 가 있다. 가운데 슬라이스 테스트 띠에는 DataJpaTest 로 JPA 와 H2 만 띄우는 BookRepositoryTest, WebMvcTest 로 MockMvc 와 가짜 서비스를 쓰는 BookControllerTest 가 있다. 아래 통합 테스트 띠에는 SpringBootTest 로 Controller · Service · Repository · H2 를 모두 진짜로 띄우는 LibraryIntegrationTest 가 있다.">
+  <figcaption>세 층. 아래로 갈수록 진짜에 가깝고 느려집니다.</figcaption>
+</figure>
+
+<h4>왜 세 가지를 다 쓰는가</h4>
+<p>하나만 쓰면 놓치는 데가 생깁니다.</p>
+<dl>
+  <dt>단위만 쓰면</dt>
+  <dd>가짜 저장소를 쓰므로 계산은 맞는지 알지만
+      <b>진짜로 저장되는지는 모릅니다</b>. 쿼리가 틀려도 초록입니다.</dd>
+  <dt>통합만 쓰면</dt>
+  <dd>다 돌기는 하는데 <b>어디가 틀렸는지 짚기 어렵습니다</b>.
+      게다가 느려서 자주 돌릴 수 없습니다.</dd>
+  <dt>셋을 섞어 쓰면</dt>
+  <dd>계산은 단위가 빨리 잡고, 연결은 슬라이스가 잡고,
+      전체 흐름은 통합이 한 번 훑습니다.</dd>
+</dl>
+
+<p>채점 항목 01 이 이 네 가지 어노테이션을 봅니다.</p>
+<table>
+  <tr><th style="width:230px">어노테이션</th><th style="width:150px">층</th><th>띄우는 것</th></tr>
+  <tr><td class="k">@ExtendWith(MockitoExtension.class)</td><td>단위</td>
+      <td>아무것도 안 띄웁니다</td></tr>
+  <tr><td class="k">@DataJpaTest</td><td>슬라이스</td><td>JPA · H2 · Repository</td></tr>
+  <tr><td class="k">@WebMvcTest</td><td>슬라이스</td><td>Controller · MockMvc</td></tr>
+  <tr><td class="k">@SpringBootTest</td><td>통합</td><td>전부</td></tr>
+</table>
+<p>15점짜리 항목이고 <b>네 가지가 코드에 다 보여야</b> 온전히 받습니다.
+   여기에 <code>@Test</code> 와 <code>@DisplayName</code> 이 함께 붙어 있어야 합니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st4">
+      <h3><i>4</i>요구사항과 테스트 대상</h3>
+      <aside class="side">
+        <p class="pt">맞는 동작을 먼저 정합니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 04 · 10점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ts_req.png" alt="도서 대출의 요구사항 표. 대출은 재고를 1 줄이고 대출 기록을 남기며 반납기한은 14일 뒤, 반납은 반납 시각을 적고 재고를 1 늘리고, 연체 판정은 반납기한을 지나야 연체이며, 재고 조회는 대출 가능한 부수를 돌려준다. 아래 data.sql 코드에 도서 세 건이 있고 두 번째 테스트 주도 개발 은 재고가 0 이다. 그 아래 표는 seed 에 재고 0 이 있는 까닭, 요구사항이 곧 기대 결과라는 점, 테스트 대상이 셋이라는 점을 설명한다.">
+  <figcaption>요구사항 네 줄과 미리 들어가는 데이터. 재고 0 인 책이 경계 시험용입니다.</figcaption>
+</figure>
+
+<h4>요구사항을 먼저 적는 까닭</h4>
+<p>테스트는 <b>기대 결과와 실제 결과를 견주는 일</b>입니다.
+   기대 결과가 없으면 견줄 것이 없습니다.
+   그래서 코드를 열기 전에 「무엇이 맞는 동작인가」 를 한 줄씩 적어 두어야 합니다.</p>
+<p>여기서 실수가 많이 납니다.
+   코드를 읽고 나서 기대 결과를 적으면 <b>코드가 하는 일이 기준이 되어 버립니다</b>.
+   <code>availableCopies() &lt; 0</code> 을 보고 「음수면 막는구나」 하고 적으면
+   재고 0 은 시험조차 하지 않게 됩니다.</p>
+
+<div class="warn">
+  요구사항의 <b>「14일 뒤」</b> 와 <b>「지나야」</b> 두 낱말에 표시해 두십시오.
+  숫자와 경계를 가리키는 말이 곧 시험할 자리입니다.
+  「지나야 연체」 는 <b>같은 시각은 연체가 아니다</b> 라는 뜻이고,
+  이 한 줄이 결함 하나를 잡아냅니다.
+</div>
+
+<h4>세 가지 기능단위</h4>
+<p>수행준거 1.1 이 「서버모듈 · 화면모듈 · 데이터입출력 · 인터페이스」 를 듭니다.
+   이 과제에는 화면이 없으므로 나머지 셋을 봅니다.</p>
+<table>
+  <tr><th style="width:150px">기능단위</th><th style="width:210px">대상</th><th>어느 테스트로</th></tr>
+  <tr><td class="k">서버모듈</td><td>LibraryServiceImpl</td><td>단위 (Mockito)</td></tr>
+  <tr><td class="k">데이터입출력</td><td>BookRepository</td><td>슬라이스 (@DataJpaTest)</td></tr>
+  <tr><td class="k">인터페이스</td><td>BookController · REST</td><td>슬라이스 (@WebMvcTest)</td></tr>
+</table>
+<p>셋을 고루 덮었는지가 항목 04 의 10점입니다.
+   단위 테스트만 다섯 개 쓰고 나머지를 비워 두면 <b>반쯤만 받습니다</b>.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st5">
+      <h3><i>5</i>테스트케이스 명세서</h3>
+      <aside class="side">
+        <p class="pt">표를 먼저 채우면 코드는 옮겨 적기입니다.</p>
+        <b class="sh">양식</b>
+        <p class="v">docs/산출물_양식/</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 05 에 포함</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ts_tc.png" alt="테스트케이스 명세서 표. TC-01 부터 TC-08 까지 여덟 줄이며 유형은 정상 · 경계값 · 예외 · 상태 · 경계값 · 연동 · 인터페이스 · 통합이고, 대상 · 사전 조건 · 기대 결과 · 우선순위 칸이 채워져 있다. 아래 표는 유형을 나눠 적는 까닭, 기대 결과가 요구사항이라는 점, 경계값이 둘이라는 점, TC 번호를 테스트 이름에 적는 방법을 설명한다.">
+  <figcaption>여덟 줄짜리 명세서. 기대 결과 칸이 그대로 assert 의 첫 인자가 됩니다.</figcaption>
+</figure>
+
+<h4>양식은 이미 들어 있습니다</h4>
+<p><code>docs/산출물_양식/테스트케이스_명세서.md</code> 를 열면 빈 표가 있습니다.
+   칸 이름은 ISO/IEC/IEEE 29119-3 의 테스트 케이스 명세 항목을 따릅니다.
+   낯설어 보이지만 채울 내용은 앞 단원에서 이미 정해 두었습니다.</p>
+
+<table>
+  <tr><th style="width:130px">칸</th><th style="width:200px">무엇을 적나</th><th>보기</th></tr>
+  <tr><td class="k">TC ID</td><td>번호</td><td>TC-02</td></tr>
+  <tr><td class="k">유형</td><td>정상 · 경계값 · 예외 · 상태 …</td><td>경계값</td></tr>
+  <tr><td class="k">대상</td><td>어느 메서드 · 어느 요청</td><td>lend()</td></tr>
+  <tr><td class="k">사전 조건</td><td>어떤 상태에서 시작하나</td><td>재고 0 인 도서</td></tr>
+  <tr><td class="k">기대 결과</td><td>무엇이 되어야 하나</td><td>BizException 발생 · 재고 그대로</td></tr>
+  <tr><td class="k">우선순위</td><td>먼저 시험할 것인가</td><td>높음</td></tr>
+</table>
+
+<h4>유형을 나눠 적으면 빈 곳이 보입니다</h4>
+<p>여덟 줄을 유형별로 세어 보십시오.
+   정상 하나, 경계값 둘, 예외 하나, 상태 하나, 그리고 연동 · 인터페이스 · 통합이 하나씩입니다.
+   <b>한쪽으로 몰려 있으면 못 보고 지나간 자리가 있습니다</b>.
+   정상만 여덟 줄이면 결함은 하나도 안 잡힙니다.</p>
+
+<div class="warn">
+  TC 번호를 <code>@DisplayName</code> 에 함께 적어 두십시오.
+  <code>@DisplayName("TC-02 재고 0 이면 대출할 수 없다")</code> 처럼 하면
+  콘솔에 찍힌 실패 줄과 명세서의 줄이 <b>번호로 맞물립니다</b>.
+  뒤에 실행결과서와 관리대장을 쓸 때 옮겨 적기만 하면 됩니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st6">
+      <h3><i>6</i>Given – When – Then</h3>
+      <aside class="side">
+        <p class="pt">준비 · 실행 · 검증 셋으로 나눕니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 03 · 10점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ts_gwt.png" alt="Given When Then 으로 쓴 테스트 코드. Given 구간에서 재고 2인 Book 을 만들고 bookRepository.findById 가 그것을 돌려주도록 정하며, When 구간에서 libraryService.lend 를 한 줄 부르고, Then 구간에서 재고가 1로 줄었는지와 반납기한이 붙었는지를 확인한다. 아래 표는 세 구간의 뜻을 설명하고, 마지막에 이름에 뜻이 없고 실행이 여럿이며 아무것도 확인하지 않는 나쁜 예를 보여 준다.">
+  <figcaption>세 구간으로 나눈 테스트. 아래쪽은 점수가 되지 않는 모습입니다.</figcaption>
+</figure>
+
+<h4>구간을 나누는 까닭</h4>
+<p>테스트를 읽는 사람은 <b>「어떤 상태에서 무엇을 했더니 어떻게 되었나」</b> 를 알고 싶어 합니다.
+   그 셋이 섞여 있으면 읽는 데 시간이 걸립니다.
+   주석 세 줄로 나눠 두면 읽는 사람이 바로 찾습니다.</p>
+
+<table>
+  <tr><th style="width:100px">구간</th><th style="width:170px">적는 것</th><th>흔한 실수</th></tr>
+  <tr><td class="k">Given</td><td>상태 만들기 · 가짜 정하기</td>
+      <td>필요 없는 것까지 다 만들어 둡니다</td></tr>
+  <tr><td class="k">When</td><td>시험할 동작 <b>하나</b></td>
+      <td>여러 줄을 부릅니다</td></tr>
+  <tr><td class="k">Then</td><td>달라진 것 확인</td>
+      <td>돌아온 값만 보고 <b>부작용을 안 봅니다</b></td></tr>
+</table>
+
+<p>Then 에서 <b>부작용까지 보는 것</b>이 이 과제에서 크게 값을 합니다.
+   대출은 <code>Lend</code> 를 돌려주지만 <b>재고도 줄어야</b> 합니다.
+   돌아온 값만 보면 재고가 안 줄어도 통과합니다.</p>
+
+<pre><i>// Then — 돌아온 값과 부작용을 함께 봅니다</i>
+assertEquals("kim", lend.getMember());          <i>// 돌아온 값</i>
+assertNotNull(lend.getDueAt());                 <i>// 돌아온 값</i>
+<b>assertEquals(1, book.getAvailableCopies());</b>     <i>// 부작용</i></pre>
+
+<div class="warn">
+  <code>assertTrue(true)</code> 나 확인이 없는 테스트는 <b>늘 통과합니다</b>.
+  통과하는데 아무것도 알려 주지 않으므로 점수가 되지 않습니다.
+  「무엇이 달라졌어야 하는가」 를 값으로 적으십시오.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st7">
+      <h3><i>7</i>단위 테스트와 Mockito</h3>
+      <aside class="side">
+        <p class="pt">가짜를 끼워 원하는 상황을 만듭니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 01 · 02 · 25점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ts_unit.png" alt="LendServiceTest 의 단위 테스트 코드. ExtendWith MockitoExtension 아래 Mock 으로 BookRepository 와 LendRepository 를 만들고 InjectMocks 로 LibraryServiceImpl 에 끼운다. 재고 0 인 도서로 lend 를 부르면 BizException 이 나야 한다는 테스트와, findById 가 Optional.empty 를 돌려줄 때 BizException 이 나야 한다는 테스트가 있다. 아래 표는 Mock · InjectMocks · when thenReturn · thenAnswer · assertThrows 를 하나씩 설명한다.">
+  <figcaption>단위 테스트. 가짜 저장소가 무엇을 돌려줄지 정해 상황을 만듭니다.</figcaption>
+</figure>
+
+<h4>가짜를 쓰는 까닭</h4>
+<p>「재고가 0 인 도서로 대출해 보기」 를 진짜 데이터베이스로 하려면
+   그런 데이터를 넣고 지우는 일이 따라붙습니다.
+   가짜를 쓰면 <b>한 줄로 그 상황을 만듭니다</b>.</p>
+
+<pre><i>// 이 한 줄이 「재고 0 인 책이 있다」 는 상황입니다</i>
+Book book = Book.builder().id(1L).<b>availableCopies(0)</b>.build();
+when(bookRepository.findById(1L)).thenReturn(Optional.of(book));</pre>
+
+<table>
+  <tr><th style="width:210px">쓰는 것</th><th>뜻</th></tr>
+  <tr><td class="k">@Mock</td><td>가짜를 만듭니다. 정해 주지 않은 호출은 null 이나 빈 값을 돌려줍니다</td></tr>
+  <tr><td class="k">@InjectMocks</td><td>시험할 진짜 객체를 만들고 그 안에 가짜를 끼워 넣습니다</td></tr>
+  <tr><td class="k">when().thenReturn()</td><td>가짜가 돌려줄 값을 정합니다</td></tr>
+  <tr><td class="k">when().thenThrow()</td><td>가짜가 예외를 던지게 합니다</td></tr>
+  <tr><td class="k">assertThrows</td><td>예외가 나야 통과하는 확인입니다</td></tr>
+</table>
+
+<h4>예외를 시험하는 법</h4>
+<pre>assertThrows(BizException.class,
+        () -&gt; libraryService.lend(1L, "kim"));</pre>
+<p>두 번째 인자가 <b>실행할 코드 덩이</b>입니다. 이것을 돌려 보고
+   <code>BizException</code> 이 나오면 통과, 안 나오거나 다른 예외가 나오면 실패입니다.
+   이 과제의 결함 둘이 바로 이 확인에 걸립니다.</p>
+
+<div class="warn">
+  <code>Optional.empty()</code> 를 돌려주게 하는 것이 <b>「없는 도서」 상황</b>입니다.
+  <code>when(bookRepository.findById(99L)).thenReturn(Optional.empty())</code> 한 줄이면
+  데이터베이스를 건드리지 않고 그 상황을 만들 수 있습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st8">
+      <h3><i>8</i>슬라이스 테스트</h3>
+      <aside class="side">
+        <p class="pt">보려는 겹만 띄웁니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 01 · 02 · 04</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ts_slice.png" alt="슬라이스 테스트 코드 두 개를 나란히 보여 준다. 왼쪽은 DataJpaTest 를 붙인 BookRepositoryTest 로 도서를 저장하고 id 로 찾아 제목을 확인한다. 오른쪽은 WebMvcTest 를 붙인 BookControllerTest 로 MockitoBean 으로 서비스를 가짜로 두고 mockMvc.perform 으로 대출 요청을 보내 상태 200 과 jsonPath 의 lendId 를 확인한다. 아래 표는 DataJpaTest · WebMvcTest · MockitoBean · jsonPath 를 설명한다.">
+  <figcaption>슬라이스 테스트 둘. 왼쪽은 데이터입출력, 오른쪽은 인터페이스를 봅니다.</figcaption>
+</figure>
+
+<h4>@DataJpaTest 로 데이터입출력 보기</h4>
+<p>Repository 는 메서드 이름만 적어 두면 스프링이 쿼리를 만들어 줍니다.
+   그래서 <b>진짜로 도는지</b> 한 번은 확인해 두어야 합니다.
+   <code>@DataJpaTest</code> 는 JPA 와 H2 만 띄우므로 몇 백 밀리초면 끝납니다.</p>
+<p>테스트가 끝나면 넣은 데이터가 <b>알아서 되돌아갑니다</b>.
+   돌릴 때마다 쌓일 걱정을 안 해도 됩니다.</p>
+
+<h4>@WebMvcTest 로 인터페이스 보기</h4>
+<p>Controller 는 요청을 받아 Service 에 넘기고 응답을 만듭니다.
+   여기서 볼 것은 <b>요청과 응답의 모양</b>이지 업무 규칙이 아닙니다.
+   그래서 Service 는 가짜로 두고 Controller 만 진짜로 띄웁니다.</p>
+
+<pre>mockMvc.perform(post("/api/library/lend")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"bookId\":1,\"member\":\"kim\"}"))
+        .andExpect(<b>status().isOk()</b>)
+        .andExpect(<b>jsonPath("$.lendId").value(10)</b>);</pre>
+
+<table>
+  <tr><th style="width:180px">쓰는 것</th><th>뜻</th></tr>
+  <tr><td class="k">perform()</td><td>요청을 보냅니다. 서버를 띄우지 않고 흉내만 냅니다</td></tr>
+  <tr><td class="k">andExpect()</td><td>응답을 확인합니다. 여러 개를 이어 붙일 수 있습니다</td></tr>
+  <tr><td class="k">status().isOk()</td><td>상태 코드 200 인지 봅니다</td></tr>
+  <tr><td class="k">jsonPath("$.lendId")</td><td>응답 본문에서 경로로 값을 집어냅니다</td></tr>
+</table>
+
+<div class="warn">
+  <code>@Mock</code> 과 <code>@MockitoBean</code> 은 다릅니다.
+  앞의 것은 그냥 가짜 객체이고, 뒤의 것은 <b>스프링 컨테이너에 등록되는</b> 가짜입니다.
+  <code>@WebMvcTest</code> 는 스프링이 띄우므로 <b>@MockitoBean 을 써야</b> 합니다.
+  여기를 잘못 쓰면 「의존성을 못 찾겠다」 는 오류로 시작조차 못 합니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st9">
+      <h3><i>9</i>통합 테스트</h3>
+      <aside class="side">
+        <p class="pt">전부 진짜로 한 번 훑습니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 01 · 04</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ts_integ.png" alt="SpringBootTest 와 Transactional 을 붙인 LibraryIntegrationTest 코드. 재고 2인 도서를 저장하고 대출하면 재고가 하나 줄고, 반납하면 재고가 처음 값으로 돌아오는지 확인한다. 아래 표는 통합 테스트가 무엇을 잡는지, 왜 느린지, Transactional 을 붙이는 까닭, H2 를 쓰는 편함을 설명한다.">
+  <figcaption>통합 테스트. 대출하고 반납하면 재고가 제자리로 오는지 봅니다.</figcaption>
+</figure>
+
+<h4>한 건이면 넉넉합니다</h4>
+<p>통합 테스트는 스프링을 통째로 띄우므로 몇 초씩 걸립니다.
+   많이 만들면 돌릴 때마다 기다리게 되어 <b>아예 안 돌리게 됩니다</b>.
+   업무의 줄기를 한 번 훑는 것 하나면 됩니다.</p>
+<p>여기서 고른 줄기는 <b>대출 → 반납 → 재고 복원</b>입니다.
+   가짜가 하나도 없으므로 Service 가 진짜로 저장하고,
+   Repository 가 진짜 쿼리를 날리고, H2 가 진짜로 값을 바꿉니다.
+   단위 테스트로는 못 보던 자리입니다.</p>
+
+<table>
+  <tr><th style="width:190px">붙이는 것</th><th>쓰임</th></tr>
+  <tr><td class="k">@SpringBootTest</td><td>애플리케이션을 통째로 띄웁니다</td></tr>
+  <tr><td class="k">@Transactional</td>
+      <td>테스트가 끝나면 넣은 데이터를 되돌립니다. 안 붙이면 돌릴 때마다 쌓입니다</td></tr>
+</table>
+
+<h4>여기까지가 레벨 1</h4>
+<p>테스트 네 파일이 채워졌고 명세서 한 장이 나왔습니다.
+   아직 <b>돌려 보지 않았습니다</b>.
+   다음 단원에서 처음 돌리는데, 그 화면이 제출물이 되므로
+   <b>다 쓰고 나서 한 번에</b> 돌리는 편이 낫습니다.</p>
+
+<div class="warn">
+  돌리기 전에 <code>fail("TODO…")</code> 가 남아 있지 않은지 훑으십시오.
+  한 줄이라도 남아 있으면 그 줄 때문에 실패가 늘어나
+  <b>결함 때문에 실패한 건수와 어긋납니다</b>.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 2 · 애플리케이션 결함 조치</b><span>능력단위요소 ② · 채점 06 ~ 10 · 50점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st10">
+      <h3><i>10</i>먼저 빨갛게 만들기</h3>
+      <aside class="side">
+        <p class="pt">이 화면을 놓치면 다시 못 만듭니다.</p>
+        <b class="sh">캡처</b>
+        <p class="v">수정 전 콘솔</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 05 · 06</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ts_red.png" alt="gradlew test 를 수정 전에 돌린 콘솔. 대출 정상은 통과하고 재고 0 경계는 예외가 나야 하는데 아무것도 안 났다고 실패하며, 없는 도서는 BizException 을 기대했는데 NullPointerException 이 났다고 실패하고, 중복 반납은 2를 기대했는데 3이 나왔다고 실패하며, 연체 경계는 false 를 기대했는데 true 가 나왔다고 실패한다. 아래 표는 네 실패 메시지가 각각 어느 결함을 가리키는지 짚는다.">
+  <figcaption>처음 돌린 콘솔. 네 건이 실패하고 메시지가 결함을 가리킵니다.</figcaption>
+</figure>
+
+<h4>실패 메시지 읽는 법</h4>
+<p>JUnit 의 실패 메시지는 <b>「무엇을 기대했는데 무엇이 나왔다」</b> 라는 꼴입니다.
+   이 형식이 그대로 결함의 증상이 됩니다.</p>
+
+<table>
+  <tr><th style="width:300px">메시지</th><th>읽는 법</th></tr>
+  <tr><td class="k">expected: &lt;2&gt; but was: &lt;3&gt;</td>
+      <td>숫자가 하나 더 늘었습니다. <b>덜 빼거나 더 더한</b> 곳이 있습니다</td></tr>
+  <tr><td class="k">expected: &lt;false&gt; but was: &lt;true&gt;</td>
+      <td>참거짓이 뒤집혔습니다. <b>부등호나 부정</b>을 봅니다</td></tr>
+  <tr><td class="k">nothing was thrown</td>
+      <td>막았어야 할 것을 안 막았습니다. <b>조건이 좁습니다</b></td></tr>
+  <tr><td class="k">but was: NullPointerException</td>
+      <td>없는 경우를 안 걸렀습니다. <b>null 이 그대로 흘러갔습니다</b></td></tr>
+</table>
+
+<h4>찍는 순서</h4>
+<p>다음 차례를 지키면 제출물이 저절로 모입니다.</p>
+<dl>
+  <dt>① 콘솔 전체를 찍습니다</dt>
+  <dd>통과 · 실패 건수가 나오는 마지막 줄까지 들어가야 합니다.</dd>
+  <dt>② 실패 상세를 찍습니다</dt>
+  <dd><code>build/reports/tests/test/index.html</code> 을 열면
+      실패한 테스트마다 메시지와 줄 번호가 나옵니다.</dd>
+  <dt>③ 실행결과서의 「수정 전」 표를 채웁니다</dt>
+  <dd>TC 번호 · 결과 · 메시지를 옮겨 적고 <b>돌린 시각</b>을 함께 적습니다.</dd>
+</dl>
+
+<div class="warn">
+  실패가 <b>네 건이어야</b> 앞뒤가 맞습니다.
+  더 많으면 테스트에 잘못 쓴 곳이 있고, 적으면 못 잡은 결함이 있습니다.
+  건수가 안 맞을 때는 고치러 가기 전에 <b>테스트부터 다시 봅니다</b>.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st11">
+      <h3><i>11</i>결함 넷 읽어 내기</h3>
+      <aside class="side">
+        <p class="pt">성격이 넷 다 다릅니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 06 ~ 08 · 35점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ts_bugs.png" alt="심어져 있는 결함 네 건의 표. D-01 은 findById 뒤에 orElse null 을 써서 없는 도서에 NullPointerException 이 나고, D-02 는 재고 조건이 0 보다 작음이라 재고 0 에도 대출되어 재고가 음수가 되며, D-03 은 반납 여부를 보는 줄이 없어 중복 반납으로 재고가 부풀고, D-04 는 연체 판정이 isBefore 의 부정이라 반납기한 당일을 연체로 본다. 아래 코드 상자에 네 건을 고친 모습이 나온다.">
+  <figcaption>결함 네 건과 고친 모습. 왼쪽이 지금 코드, 오른쪽이 증상입니다.</figcaption>
+</figure>
+
+<h4>결함이 있는 자리</h4>
+<p>넷 모두 <code>LibraryServiceImpl.java</code> 안에 있습니다.
+   파일 하나만 보면 되지만, 그렇다고 눈으로 찾아지지는 않습니다.
+   <b>넷 다 문법으로는 멀쩡한 코드</b>이기 때문입니다.</p>
+
+<table>
+  <tr><th style="width:80px">결함</th><th style="width:150px">유형</th><th>왜 눈에 안 띄는가</th></tr>
+  <tr><td class="c k">D-01</td><td>예외 처리</td>
+      <td><code>orElse(null)</code> 은 흔히 쓰는 꼴입니다. 뒤에서 터진다는 것만 안 보입니다</td></tr>
+  <tr><td class="c k">D-02</td><td>경계값</td>
+      <td><code>&lt;</code> 와 <code>&lt;=</code> 는 글자 하나 차이입니다</td></tr>
+  <tr><td class="c k">D-03</td><td>상태 검증 누락</td>
+      <td><b>없는 줄</b>은 읽어서 찾을 수 없습니다</td></tr>
+  <tr><td class="c k">D-04</td><td>경계값</td>
+      <td><code>!isBefore</code> 는 「이후이거나 같음」 인데 「이후」 로 읽힙니다</td></tr>
+</table>
+
+<h4>자료가 망가지는 결함을 앞에</h4>
+<p>어느 것부터 고칠지를 정하는 것이 항목 06 입니다.
+   기준은 <b>「그냥 두면 무엇이 더 망가지는가」</b> 입니다.</p>
+<dl>
+  <dt>D-02 가 가장 급합니다</dt>
+  <dd>재고가 음수가 되면 그 뒤의 모든 계산이 틀립니다.
+      화면에 「-1권 남음」 이 찍히고 되돌릴 방법도 마땅치 않습니다.</dd>
+  <dt>D-03 이 그 다음입니다</dt>
+  <dd>없던 책이 생깁니다. 자료가 늘어나는 쪽이라 티가 덜 나서 더 오래 갑니다.</dd>
+  <dt>D-01 은 사용자가 바로 압니다</dt>
+  <dd>500 오류가 나가므로 눈에 띕니다. 자료는 안 망가집니다.</dd>
+  <dt>D-04 는 하루치 판정만 어긋납니다</dt>
+  <dd>연체료가 하루 더 붙는 정도이고 되돌릴 수 있습니다.</dd>
+</dl>
+<p>이 판단을 <b>결함 관리대장의 우선순위 칸</b>에 숫자로 적습니다.
+   적어 두지 않으면 고친 차례가 우연처럼 보입니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st12">
+      <h3><i>12</i>결함 관리대장</h3>
+      <aside class="side">
+        <p class="pt">테스트가 알려 준 것을 옮겨 적습니다.</p>
+        <b class="sh">양식</b>
+        <p class="v">docs/산출물_양식/</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 05 · 06 · 15점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ts_log.png" alt="결함 관리대장 표. D-01 부터 D-04 까지 네 줄이며 발견 테스트 메서드 이름, 유형은 예외 처리 · 경계값 · 상태 검증 누락 · 경계값, 심각도는 높음 셋과 보통 하나, 우선순위는 1 둘과 2 둘, 제목 칸이 채워져 있다. 아래 표는 심각도와 우선순위가 다르다는 점, D-01 과 D-02 를 먼저 고치는 까닭, 재현 절차를 적는 법, 유형을 적는 까닭을 설명한다.">
+  <figcaption>결함 관리대장 네 줄. 발견 테스트 칸에 메서드 이름을 그대로 적습니다.</figcaption>
+</figure>
+
+<h4>심각도와 우선순위는 다릅니다</h4>
+<p>둘을 같은 것으로 적어 내는 일이 잦습니다. 뜻이 다릅니다.</p>
+<table>
+  <tr><th style="width:130px">칸</th><th style="width:230px">묻는 것</th><th>보기</th></tr>
+  <tr><td class="k">심각도</td><td>터지면 얼마나 큰일인가</td>
+      <td>재고가 음수가 됨 → 높음</td></tr>
+  <tr><td class="k">우선순위</td><td>먼저 고쳐야 하는가</td>
+      <td>자주 일어남 · 자료가 망가짐 → 1</td></tr>
+</table>
+<p>심각한데 <b>거의 안 일어나는</b> 결함은 심각도가 높고 우선순위는 낮을 수 있습니다.
+   반대로 사소한데 <b>모든 화면에 보이는</b> 결함은 심각도가 낮고 우선순위가 높습니다.
+   이 과제에서는 D-01 · D-02 가 우선순위 1, D-03 · D-04 가 2 입니다.</p>
+
+<h4>재현 절차를 적는 법</h4>
+<p>남이 그대로 따라 해서 같은 증상을 볼 수 있어야 합니다.</p>
+<pre><i>-- 이렇게 적으면 따라 할 수 있습니다</i>
+1. H2 콘솔에서 재고가 0 인 도서의 id 를 확인한다 (seed: '테스트 주도 개발')
+2. POST /api/library/lend 에 { "bookId": 2, "member": "kim" } 을 보낸다
+3. 200 이 돌아오고 book.available_copies 가 <b>-1</b> 이 된다
+
+<i>-- 이렇게 적으면 못 따라 합니다</i>
+<i>재고가 없을 때 대출이 됨</i></pre>
+
+<div class="warn">
+  발견 테스트 칸에 <b>메서드 이름을 그대로</b> 적으십시오.
+  <code>lend_재고0_예외</code> 라고 적어 두면 나중에 회귀를 돌렸을 때
+  그 줄만 찾아보면 됩니다. 「대출 테스트」 처럼 적으면 다시 뒤져야 합니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st13">
+      <h3><i>13</i>원인과 부작용 검토</h3>
+      <aside class="side">
+        <p class="pt">고치기 전에 어디서 또 쓰이는지 봅니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 07 · 10점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ts_fix.png" alt="결함 네 건의 원인과 조치와 부작용 검토를 담은 표. D-01 은 orElse null 로 없는 경우를 넘겨 버린 것이 원인이며 orElseThrow 로 바꾸고 다른 메서드와 맞춰지는 셈이고, D-02 는 재고 0 을 대출 가능으로 읽은 것이 원인이며 부등호를 바꾸면 재고 계산 전체에 영향이 있고, D-03 은 반납 여부를 안 본 것이 원인이며 조건을 더해도 정상 흐름은 그대로이고, D-04 는 지나야 를 이후이거나 같으면 으로 읽은 것이 원인이며 반납한 건은 앞에서 걸러지므로 영향이 없다.">
+  <figcaption>원인과 조치. 오른쪽 칸이 「고치면 어디가 흔들리는가」 입니다.</figcaption>
+</figure>
+
+<h4>원인은 「어느 줄」 이 아니라 「왜」 입니다</h4>
+<p>「29번째 줄이 틀렸다」 는 원인이 아니라 위치입니다.
+   <b>무엇을 잘못 읽었기에 그렇게 썼는가</b> 를 적어야 원인이 됩니다.</p>
+<table>
+  <tr><th style="width:220px">이렇게 적으면 부족</th><th>이렇게 적으면 원인</th></tr>
+  <tr><td>부등호가 틀렸음</td>
+      <td>재고 0 을 <b>대출 가능한 상태로 읽어</b> 경계를 한 칸 밀어 두었음</td></tr>
+  <tr><td>null 체크 누락</td>
+      <td>조회 실패를 <b>업무 예외가 아니라 빈 값</b>으로 넘겨 다음 줄에서 터짐</td></tr>
+</table>
+
+<h4>부작용을 찾는 법</h4>
+<p>고칠 줄을 정했으면 그 이름이 <b>어디서 또 쓰이는지</b> 찾아봅니다.
+   IDE 의 「사용처 찾기」 (Find Usages) 로 한 번 훑으면 됩니다.</p>
+<dl>
+  <dt>메서드를 고칠 때</dt>
+  <dd>그 메서드를 부르는 곳이 몇 군데인지 셉니다.
+      <code>isOverdue</code> 는 Service 안에서만 쓰이므로 밖으로 번지지 않습니다.</dd>
+  <dt>조건을 바꿀 때</dt>
+  <dd>같은 값을 보는 다른 조건이 있는지 봅니다.
+      재고는 대출 · 반납 · 조회 셋이 함께 씁니다.</dd>
+  <dt>예외를 새로 던질 때</dt>
+  <dd>그 예외를 받아 주는 곳이 있는지 봅니다.
+      <code>BizException</code> 은 이미 <code>@RestControllerAdvice</code> 가 받고 있어
+      400 으로 나갑니다.</dd>
+</dl>
+
+<div class="warn">
+  「영향 없음」 이라고만 적으면 검토한 것이 되지 않습니다.
+  <b>왜 없는지</b> 를 함께 적으십시오.
+  「<code>isOverdue</code> 는 <code>LibraryServiceImpl</code> 안에서만 쓰이고
+  반납된 건은 앞 조건에서 걸러지므로 영향 없음」 처럼 적으면 항목 07 이 채워집니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st14">
+      <h3><i>14</i>결함 제거와 커밋</h3>
+      <aside class="side">
+        <p class="pt">결함 하나에 커밋 하나입니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 08 · 10 · 20점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ts_git.png" alt="git 명령 콘솔. fix/D-01-missing-book 브랜치를 만들어 D-01 을 고쳐 커밋하고 gradlew test 로 TC-03 만 통과하는 것을 확인한 뒤, D-02 · D-03 · D-04 를 차례로 커밋한다. git log --oneline 에 테스트 작성 커밋 위로 네 커밋이 결함 번호와 함께 쌓여 있고, main 으로 옮겨 병합한 뒤 푸시한다. 아래 표는 커밋을 나누는 까닭, 메시지에 결함 ID 를 적는 법, 브랜치 이름 짓기, REPO 제출을 설명한다.">
+  <figcaption>커밋 이력. 메시지의 결함 번호가 관리대장과 맞물립니다.</figcaption>
+</figure>
+
+<h4>한 건씩 고치고 한 건씩 돌립니다</h4>
+<p>넷을 한꺼번에 고치고 한 번 돌리면 <b>어느 수정이 무엇을 고쳤는지</b> 알 수 없습니다.
+   우선순위 차례대로 하나 고치고 돌리기를 넷 되풀이하십시오.</p>
+<table>
+  <tr><th style="width:60px">차례</th><th style="width:110px">결함</th>
+      <th style="width:200px">고친 뒤 통과하는 것</th><th>아직 실패</th></tr>
+  <tr><td class="c">1</td><td class="k">D-02</td><td>TC-02</td><td>TC-03 · TC-04 · TC-05</td></tr>
+  <tr><td class="c">2</td><td class="k">D-01</td><td>TC-02 · TC-03</td><td>TC-04 · TC-05</td></tr>
+  <tr><td class="c">3</td><td class="k">D-03</td><td>TC-02 ~ TC-04</td><td>TC-05</td></tr>
+  <tr><td class="c">4</td><td class="k">D-04</td><td>전부</td><td>없음</td></tr>
+</table>
+<p>실패 건수가 <b>4 → 3 → 2 → 1 → 0</b> 으로 줄어드는 모습이
+   그대로 조치 과정의 기록이 됩니다.</p>
+
+<h4>커밋 메시지에 결함 번호를</h4>
+<pre>git commit -m "<b>D-02</b> 재고 0 경계 조건을 &lt;= 로 수정"
+git commit -m "<b>D-01</b> 없는 도서 대출 시 BizException 으로 처리"</pre>
+<p>관리대장의 D-02 와 커밋의 D-02 가 이어집니다.
+   결함조치 결과서의 <b>커밋 해시 칸</b>에 <code>git log --oneline</code> 의 앞 일곱 자를 옮겨 적으면
+   문서와 저장소가 맞물립니다.</p>
+
+<div class="warn">
+  작업지시서가 <b>커밋 · 머지 · 푸시</b>를 함께 봅니다.
+  로컬에만 커밋해 두고 올리지 않으면 채점자가 볼 수 없습니다.
+  마지막에 <code>git push</code> 까지 하고 저장소 주소를 제출물에 적으십시오.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st15">
+      <h3><i>15</i>회귀와 실행결과서</h3>
+      <aside class="side">
+        <p class="pt">전부 돌려야 부작용이 없다고 말할 수 있습니다.</p>
+        <b class="sh">캡처</b>
+        <p class="v">수정 후 콘솔</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 09 · 10점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ts_rep.png" alt="테스트 실행결과서의 표 두 개. 왼쪽 수정 전 표는 2026년 7월 2일 10시 40분에 돌려 TC-01 만 통과하고 TC-02 부터 TC-05 까지 네 건이 실패하며 총 10건 중 통과 6 실패 4 로 BUILD FAILED 이다. 오른쪽 수정 후 표는 같은 날 14시 10분에 돌려 다섯 건이 모두 통과하고 총 10건 통과 10 실패 0 으로 BUILD SUCCESSFUL 이다. 아래 표는 표가 둘인 까닭과 시각을 적는 이유, 숫자가 증거라는 점, TC 번호로 잇는 법을 설명한다.">
+  <figcaption>실행결과서. 왼쪽이 수정 전, 오른쪽이 수정 후이고 시각이 다릅니다.</figcaption>
+</figure>
+
+<h4>회귀 테스트란</h4>
+<p>고친 뒤 <b>전부 다시 돌려 보는 일</b>입니다.
+   고치다가 멀쩡하던 데를 깨뜨렸는지 보려는 걸음입니다.</p>
+<p>고친 테스트만 돌려서는 모릅니다.
+   D-02 를 고치려고 재고 조건을 바꿨는데 반납 쪽에서 같은 값을 쓰고 있었다면
+   <b>반납이 깨집니다</b>. 그것은 대출 테스트로는 안 보입니다.</p>
+
+<pre><b>&gt; gradlew.bat test</b>      <i>// --tests 를 붙이지 않고 전부 돌립니다</i>
+
+BUILD SUCCESSFUL in 18s
+<b>10 tests completed, 0 failed</b></pre>
+
+<h4>실행결과서를 두 번 적습니다</h4>
+<table>
+  <tr><th style="width:150px">언제</th><th style="width:190px">무엇을 적나</th><th>숫자</th></tr>
+  <tr><td class="k">수정 전</td><td>실패한 TC 와 메시지</td><td>통과 6 · 실패 4</td></tr>
+  <tr><td class="k">수정 후</td><td>전부 통과</td><td>통과 10 · 실패 0</td></tr>
+</table>
+<p>두 표의 <b>돌린 시각이 달라야</b> 앞뒤가 맞습니다.
+   같은 시각으로 적혀 있으면 한 번만 돌리고 표를 둘로 나눈 것으로 읽힙니다.</p>
+
+<div class="warn">
+  실패 건수 <b>4</b> 와 결함 건수 <b>4</b> 가 같아야 합니다.
+  관리대장에 세 건만 적혀 있는데 실패가 넷이면 하나를 빠뜨린 것이고,
+  다섯 건이 적혀 있으면 결함이 아닌 것을 결함으로 올린 셈입니다.
+  세 문서의 숫자를 맞춰 두면 읽는 사람이 바로 납득합니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st16">
+      <h3><i>16</i>산출물 정리</h3>
+      <aside class="side">
+        <p class="pt">네 장이 서로 번호로 이어집니다.</p>
+        <b class="sh">제출</b>
+        <p class="v">문서 넷 · 캡처 · 저장소</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ts_docs.png" alt="산출물 네 장의 표와 만드는 차례. 테스트케이스 명세서는 항목 05 로 테스트를 쓰기 전에, 테스트 실행결과서는 항목 05 와 09 로 빨강과 초록 두 번, 결함 관리대장은 항목 05 와 06 으로 실패 테스트마다 한 줄, 결함조치 결과서는 항목 07 08 10 으로 조치 뒤에 쓴다. 아래 일곱 단계 흐름은 명세서 · 테스트 작성 · 실행결과서 수정 전 · 관리대장 · 수정 · 실행결과서 수정 후 · 조치결과서 차례다.">
+  <figcaption>산출물 네 장과 만드는 차례. 번호 ①부터 ⑦까지가 작업 순서입니다.</figcaption>
+</figure>
+
+<h4>네 장이 한 줄로 이어져야 합니다</h4>
+<p>따로 쓴 문서 넷이 아니라 <b>하나의 이야기</b>가 되어야 합니다.
+   이어 주는 것이 번호입니다.</p>
+<table>
+  <tr><th style="width:150px">잇는 것</th><th style="width:200px">어디와 어디</th><th>보기</th></tr>
+  <tr><td class="k">TC 번호</td><td>명세서 ↔ 실행결과서</td><td>TC-02 가 양쪽에</td></tr>
+  <tr><td class="k">발견 테스트</td><td>실행결과서 ↔ 관리대장</td><td>lend_재고0_예외</td></tr>
+  <tr><td class="k">결함 ID</td><td>관리대장 ↔ 조치 결과서</td><td>D-02 가 양쪽에</td></tr>
+  <tr><td class="k">커밋 해시</td><td>조치 결과서 ↔ 저장소</td><td>b2a3f4e</td></tr>
+</table>
+
+<h4>제출 전 확인</h4>
+<dl>
+  <dt>숫자 세 개가 맞는가</dt>
+  <dd>실패 건수 · 결함 건수 · 조치 건수가 모두 넷인지 봅니다.</dd>
+  <dt>어노테이션 네 가지가 다 있는가</dt>
+  <dd><code>@ExtendWith(MockitoExtension.class)</code> ·
+      <code>@DataJpaTest</code> · <code>@WebMvcTest</code> ·
+      <code>@SpringBootTest</code> 를 찾아봅니다.</dd>
+  <dt>캡처 두 장이 다 있는가</dt>
+  <dd>수정 전 실패 화면과 수정 후 통과 화면입니다.</dd>
+  <dt><code>fail("TODO…")</code> 가 남아 있지 않은가</dt>
+  <dd>한 줄이라도 남으면 건수가 어긋납니다.</dd>
+  <dt>푸시했는가</dt>
+  <dd>로컬 커밋만으로는 채점자가 볼 수 없습니다.</dd>
+</dl>
+
+<div class="warn">
+  문서는 <code>docs/산출물_양식/</code> 의 마크다운을 그대로 쓰면 됩니다.
+  새로 만들지 말고 <b>빈 칸을 메우는 쪽</b>이 빠르고 빠뜨릴 일도 적습니다.
+  양식의 칸 이름이 곧 채점자가 찾는 이름입니다.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ 3 ═══════ -->
+<h2 class="sec" id="g3">3. 주요 감점 요인</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">순서를 어기면 되돌릴 수 없습니다.</p>
+    <b class="sh">가장 큰 것</b>
+    <p class="v">수정 전 화면 없음</p>
+    <b class="sh">가장 아까운 것</b>
+    <p class="v">어노테이션 누락</p>
+  </aside>
+  <div class="bd">
+<p>아래 여덟 가지가 되풀이되는 감점입니다.
+   이 교과의 감점은 <b>실력보다 순서에서</b> 더 많이 납니다.
+   테스트를 잘 써 놓고도 먼저 고쳐 버려 증거가 없어지는 일이 잦습니다.</p>
+
+<figure>
+  <img src="img/ts_bad.png" alt="자주 나오는 감점 여덟 가지와 보완 방법. 빨간 화면을 안 찍음 · 지금 코드에 맞춰 시험 · 어노테이션이 빠짐 · assertTrue(true) · 커밋이 한 덩이 · 부작용 검토 없음 · 회귀를 일부만 · 문서 네 장 누락이고, 각각 보완 방법이 오른쪽에 적혀 있다.">
+  <figcaption>자주 나오는 감점과 보완. 왼쪽이 실제로 자주 나오는 모습입니다.</figcaption>
+</figure>
+
+<div class="warn">
+  세 가지를 차례대로 해 보십시오. 각각 십 분이면 됩니다.
+  <b>테스트를 다 쓰고 한 번 돌려 찍기</b>(항목 05 · 09),
+  <b>네 가지 어노테이션이 다 있는지 찾아보기</b>(항목 01),
+  <b>고칠 메서드의 사용처 찾아보기</b>(항목 07).
+  셋이 합쳐 <b>40점</b>을 받칩니다.
+</div>
+  </div>
+</div>
+
+<footer>
+  애플리케이션 테스트 수행 · 3수준 · 40시간 · 담당 정우균 ·
+  (디지털컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E<br>
+  예제는 평가도구 작업지시서의 EX01 S-Library 이며, 도메인 코드와 seed 는 제공되고
+  테스트 코드와 산출물 네 장을 작성합니다.
+</footer>
+
+</div>
+
+<script>
+/* 빠른 이동 — 지금 보는 단원을 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"],a[href="#g3"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+  function mark() {
+    var y = window.pageYOffset + 90, cur = -1;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function () { mark(); tick = false; });
+  });
+  mark();
+})();
+</script>

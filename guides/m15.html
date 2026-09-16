@@ -1,0 +1,1013 @@
+<meta charset="utf-8"><title>애플리케이션 배포 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<style>
+  /* 이 교안에만 있는 것 — 코드 보기 */
+  .bd pre{margin:14px 0;font-family:Consolas,"D2Coding",monospace;font-size:13px;
+          line-height:1.75;border:1px solid #ccc;border-left:3px solid #000;
+          padding:13px 16px;background:#fafafa;overflow-x:auto;white-space:pre}
+  .bd pre b{background:#e6e6e6;font-weight:700}
+  .bd pre i{font-style:normal;color:#777}
+  .bd code{font-family:Consolas,"D2Coding",monospace;font-size:14px;
+           background:#f2f2f2;padding:1px 5px}
+  aside.side code{font-family:Consolas,monospace;font-size:11px;background:#f2f2f2;padding:0 3px}
+</style>
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small><a href="../courses/c2.html">능력단위 모듈 목록</a> / <a href="../modules/c2-m15.html">애플리케이션 배포</a> / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">배포환경 구성</i>
+  <a href="#st1"><b>1</b><span>완성 산출물의 확인</span></a>
+  <a href="#st2"><b>2</b><span>받는 프로젝트 EX01</span></a>
+  <a href="#st3"><b>3</b><span>배포 다섯 걸음</span></a>
+  <a href="#st4"><b>4</b><span>시나리오와 소프트웨어</span></a>
+  <a href="#st5"><b>5</b><span>JAR 고정과 운영 설정</span></a>
+  <i class="qg">소스 검증</i>
+  <a href="#st6"><b>6</b><span>형상관리 체크아웃</span></a>
+  <a href="#st7"><b>7</b><span>소스 검증</span></a>
+  <a href="#st8"><b>8</b><span>환경설정 점검</span></a>
+  <i class="qg">빌드</i>
+  <a href="#st9"><b>9</b><span>이관과 빌드 스크립트</span></a>
+  <a href="#st10"><b>10</b><span>빌드 실행과 확인</span></a>
+  <a href="#st11"><b>11</b><span>릴리스 보관과 버전</span></a>
+  <a href="#st12"><b>12</b><span>빌드 실패와 원인</span></a>
+  <i class="qg">배포</i>
+  <a href="#st13"><b>13</b><span>실행 환경 정보</span></a>
+  <a href="#st14"><b>14</b><span>운영환경 적용</span></a>
+  <a href="#st15"><b>15</b><span>롤백과 복원 확인</span></a>
+  <a href="#st16"><b>16</b><span>배포 결과보고서</span></a>
+  <i class="qg">감점</i>
+  <a href="#g3"><b>!</b><span>주요 감점 요인</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>애플리케이션 배포 — 준비 교안</h1>
+<p class="sub">능력단위 애플리케이션 배포 (2001020214_23v6) / 3수준 · 평가방법 평가자 체크리스트 (100점)</p>
+
+<!-- ═══════ 0 ═══════ -->
+<h2 class="sec" id="g0">0. 제출물의 구성과 배점</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">만든 것을 내보내고 되돌리는 일입니다.</p>
+    <b class="sh">제출 형식</b>
+    <p class="src">보고서 한 부 · 캡처 · 저장소</p>
+    <b class="sh">참고</b>
+    <p class="src">작업지시서 · EX01 프로젝트</p>
+  </aside>
+  <div class="bd">
+<p>과제는 하나입니다. S-Deploy 프로젝트를 <b>환경 구성 → 소스 검증 → 빌드 →
+   운영 배포 → 헬스체크 → 롤백</b> 차례로 밟고, 단계마다 무엇을 쳤고 무엇이 나왔는지를
+   보고서에 남기는 일입니다.</p>
+<p>앞 교과들과 달리 <b>코드를 거의 쓰지 않습니다</b>. 채울 곳이 일곱 자리, 합쳐 스무 줄이 안 됩니다.
+   대신 명령을 치고 결과를 확인하고 적는 일이 많습니다.
+   지금까지 만든 프로그램을 <b>남이 쓸 수 있게 내놓는 마지막 단계</b>이기 때문입니다.</p>
+<table class="wide">
+  <tr><th style="width:52px">묶음</th><th style="width:200px">능력단위요소</th>
+      <th>무엇을 하는가</th><th style="width:56px">배점</th></tr>
+  <tr><td class="c">①</td><td>애플리케이션 배포환경 구성하기</td>
+      <td>시나리오 · 쓸 소프트웨어 · 빌드 설정 · 프로파일과 포트</td><td class="c">20</td></tr>
+  <tr><td class="c">②</td><td>애플리케이션 소스 검증하기</td>
+      <td>형상관리 체크아웃 · 테스트 · 환경설정 점검</td><td class="c">25</td></tr>
+  <tr><td class="c">③</td><td>애플리케이션 빌드하기</td>
+      <td>이관 · 빌드 스크립트 · 실행 · 결과 확인 · 실패 원인</td><td class="c">30</td></tr>
+  <tr><td class="c">④</td><td>애플리케이션 배포하기</td>
+      <td>실행 환경 확인 · 운영 적용 · 동작 확인 · 복원</td><td class="c">25</td></tr>
+</table>
+<p>열여섯 항목 100점이고 항목마다 5점에서 10점까지입니다.
+   가장 큰 넷이 <b>체크아웃(10) · 소스 검증(10) · 빌드 이관(10) · 운영환경 적용(10)</b> 입니다.
+   넷 다 어려운 일이 아니라 <b>빠뜨리기 쉬운 일</b>입니다.</p>
+
+<div class="warn">
+  눈여겨볼 것은 <b>롤백의 준비가 빌드 단계에 있다</b>는 점입니다.
+  빌드할 때 <code>releases/</code> 에 사본을 남겨 두지 않으면
+  마지막에 되돌릴 것이 없습니다.
+  <code>cp</code> 한 줄을 빠뜨리면 <b>5점이 아니라 롤백 단계 전체</b>가 막힙니다.
+</div>
+  </div>
+</div>
+
+<!-- ═══════ 1 ═══════ -->
+<h2 class="sec" id="g1">1. 이 교과의 범위</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">코드가 아니라 절차를 봅니다.</p>
+    <b class="sh">능력단위요소</b>
+    <p class="v">환경 구성 · 소스 검증 · 빌드 · 배포</p>
+    <b class="sh">기술</b>
+    <p class="v">Gradle · bootJar · 프로파일 · bash</p>
+  </aside>
+  <div class="bd">
+<p>앞 교과 「애플리케이션 테스트 수행」 에서도 <code>gradlew test</code> 를 썼습니다.
+   그때는 결함을 찾으려고 썼고, 여기서는 <b>내보내도 되는지 확인하려고</b> 씁니다.
+   같은 명령인데 놓인 자리가 다릅니다.</p>
+
+<dl>
+  <dt>애플리케이션 배포환경 구성하기</dt>
+  <dd>무엇을 어디에 어떻게 올릴지 정하는 일입니다.
+      빌드 산출물의 이름을 고정하고, 개발용과 운영용 설정을 갈라 두고,
+      되돌아갈 자리를 마련합니다.</dd>
+  <dt>애플리케이션 소스 검증하기</dt>
+  <dd>올릴 소스가 맞는지 확인하는 일입니다.
+      저장소에서 받아 오고, 테스트를 돌려 보고, 설정값이 명세와 맞는지 견줍니다.</dd>
+  <dt>애플리케이션 빌드하기</dt>
+  <dd>소스를 실행 가능한 덩이로 묶는 일입니다.
+      스크립트로 절차를 굳히고, 돌리고, 정말 만들어졌는지 보고,
+      실패했을 때 왜 실패했는지 읽습니다.</dd>
+  <dt>애플리케이션 배포하기</dt>
+  <dd>운영 환경에 올리고 확인하는 일입니다.
+      환경 정보를 확인하고, 운영 프로파일로 띄우고, 살아 있는지 물어보고,
+      잘못되면 이전 것으로 되돌립니다.</dd>
+</dl>
+
+<table class="wide">
+  <tr><th style="width:70px">수행준거</th><th style="width:280px">준거의 말</th>
+      <th>이 평가에서</th></tr>
+  <tr><td class="c">1.1</td><td>빌드와 배포를 위한 환경 구성 방안을 계획</td>
+      <td>배포 시나리오 다섯 줄을 보고서 1절에 적습니다</td></tr>
+  <tr><td class="c">1.2</td><td>배포를 위한 도구와 시스템을 결정</td>
+      <td>JDK · Gradle · Actuator · bash · Git 을 표로 적습니다</td></tr>
+  <tr><td class="c">1.3</td><td>결정한 도구와 시스템을 설치</td>
+      <td><code>bootJar</code> 이름 고정과 <code>releases/</code> 준비</td></tr>
+  <tr><td class="c">1.4</td><td>시스템과 도구 운영을 위해 상세 구성 및 설정</td>
+      <td>prod 프로파일 · 포트 9090 · 로그 수준 · actuator 노출</td></tr>
+  <tr><td class="c">2.1</td><td>형상관리 서버로부터 소스코드를 체크아웃</td>
+      <td><code>git clone</code> · <code>checkout</code> · <code>log</code> 세 줄</td></tr>
+  <tr><td class="c">2.2</td><td>검증 도구로 라이브러리 · 소스 · 로직의 오류를 검증</td>
+      <td><code>gradlew test</code> 로 두 건 통과를 확인합니다</td></tr>
+  <tr><td class="c">2.3</td><td>환경 설정 · 운영 환경 정보 · 대상 시스템 정보의 오류를 확인</td>
+      <td>포트 · 프로파일 · 버전 · JDK 를 표로 대조합니다</td></tr>
+  <tr><td class="c">3.1</td><td>검증 결과 문제가 없는 경우 빌드 시스템으로 이관</td>
+      <td>검증과 빌드를 한 스크립트로 이어 둡니다</td></tr>
+  <tr><td class="c">3.2</td><td>빌드 절차에 따른 빌드 스크립트를 작성</td>
+      <td><code>build.sh</code> 의 빈 곳 셋을 채웁니다</td></tr>
+  <tr><td class="c">3.3</td><td>작성한 스크립트 또는 도구로 빌드를 실행</td>
+      <td><code>./scripts/build.sh</code> 를 돌립니다</td></tr>
+  <tr><td class="c">3.4</td><td>빌드 실행 결과가 정상 완료되었는지 확인</td>
+      <td>BUILD SUCCESSFUL 과 <code>app.jar</code> 존재를 봅니다</td></tr>
+  <tr><td class="c">3.5</td><td>빌드 실패 시 문제 내용과 원인을 파악하여 설명</td>
+      <td>일부러 한 번 깨뜨려 메시지와 원인을 적습니다</td></tr>
+  <tr><td class="c">4.1</td><td>실행 환경에 대한 정보를 확인</td>
+      <td>프로파일 · 포트 · 버전 · 산출물 경로를 확인합니다</td></tr>
+  <tr><td class="c">4.2</td><td>배포 절차에 따라 운영환경에 적용</td>
+      <td><code>run.sh prod</code> 로 9090 에 띄웁니다</td></tr>
+  <tr><td class="c">4.3</td><td>배포 후 정상적으로 작동하는지를 확인</td>
+      <td>엔드포인트 셋으로 UP 을 받습니다</td></tr>
+  <tr><td class="c">4.4</td><td>문제가 발생했을 경우 적용 내용을 이전 상태로 복원</td>
+      <td><code>rollback.sh</code> 로 되돌리고 버전으로 확인합니다</td></tr>
+</table>
+<p>준거 열여섯이 채점 항목 열여섯과 <b>하나씩 짝</b>입니다.
+   앞 교과들처럼 준거 하나가 여러 항목으로 쪼개지지 않습니다.
+   <b>준거 문장이 곧 할 일 목록</b>이라는 뜻이므로, 읽어 가며 하나씩 지워 나가면 됩니다.</p>
+  </div>
+</div>
+
+<!-- ═══════ 2 ═══════ -->
+<h2 class="sec" id="g2">2. 산출물 작성 실습</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">단계마다 명령과 화면을 남깁니다.</p>
+    <b class="sh">예제</b>
+    <p class="v">EX01 S-Deploy</p>
+    <b class="sh">채울 것</b>
+    <p class="v">TODO 일곱 + 보고서 여섯 절</p>
+  </aside>
+  <div class="bd">
+<p>열여섯 단원을 네 묶음으로 나누었고 능력단위요소와 그대로 짝이 맞습니다.
+   앞 다섯이 환경 구성, 다음 셋이 소스 검증, 그 다음 넷이 빌드, 마지막 넷이 배포입니다.</p>
+<p>예제는 헬스체크 엔드포인트만 가진 작은 프로그램입니다.
+   업무 기능이 거의 없는데 <b>일부러 그렇게 만든 것</b>입니다.
+   업무가 복잡하면 배포 절차가 가려지기 때문입니다.
+   여기서는 <code>/api/health</code> 가 <b>UP</b> 을 돌려주는지 하나만 보면 됩니다.</p>
+<p>순서에 이유가 있습니다.
+   환경을 먼저 구성해야 검증할 대상이 정해지고,
+   검증을 거쳐야 빌드로 넘길 것이 생기고,
+   빌드가 되어야 올릴 것이 있습니다.
+   앞이 끝나야 뒤가 성립하므로 건너뛸 수 없습니다.</p>
+<div class="warn">
+  실습 중에 <b>명령창을 지우지 마십시오</b>.
+  이 교과의 제출물은 대부분 콘솔 화면입니다.
+  단계를 마칠 때마다 그 자리에서 찍어 두면 마지막에 다시 만들 일이 없습니다.
+</div>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 1 · 배포환경 구성</b><span>능력단위요소 ① · 채점 01 ~ 04 · 20점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st1">
+      <h3><i>1</i>완성 산출물의 확인</h3>
+      <aside class="side">
+        <p class="pt">끝나면 이 응답이 나옵니다.</p>
+        <b class="sh">캡처</b>
+        <p class="v">응답 세 컷</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/dp_health.png" alt="배포 후 세 엔드포인트의 응답. /api/health 는 status UP 과 version 1.0.0, env production, profile prod 를 돌려주고, /api/version 은 version 1.0.0 만 돌려주며, /actuator/health 는 status UP 과 diskSpace · ping 컴포넌트를 돌려준다. 아래 표는 세 주소가 각각 누가 만든 것이고 무엇을 보는지 설명한다.">
+  <figcaption>다 끝냈을 때의 응답. 포트가 9090 이고 profile 이 prod 입니다.</figcaption>
+</figure>
+
+<h4>보이는 화면이 없습니다</h4>
+<p>이 프로그램에는 웹 페이지가 없습니다. 주소로 물어보면 JSON 으로 답할 뿐입니다.
+   그래도 <b>배포가 제대로 되었는지는 이 응답만으로 다 알 수 있습니다</b>.</p>
+<table>
+  <tr><th style="width:150px">응답의 값</th><th style="width:170px">무엇을 증명하나</th><th>틀리면</th></tr>
+  <tr><td class="k">status: UP</td><td>프로그램이 살아 있다</td>
+      <td>아직 안 떴습니다</td></tr>
+  <tr><td class="k">profile: prod</td><td>운영 설정으로 떴다</td>
+      <td><code>default</code> 면 프로파일을 안 걸었습니다</td></tr>
+  <tr><td class="k">env: production</td><td>prod 파일을 읽었다</td>
+      <td><code>dev</code> 면 파일이 비었거나 이름이 틀립니다</td></tr>
+  <tr><td class="k">포트 9090</td><td>운영 포트로 떴다</td>
+      <td>8080 이면 기본 설정으로 떴습니다</td></tr>
+  <tr><td class="k">version: 1.0.0</td><td>어느 버전이 올라갔나</td>
+      <td>롤백 확인의 기준값입니다</td></tr>
+</table>
+<p>주소창이 함께 보이게 찍으면 <b>포트까지 한 장에</b> 증명됩니다.
+   <code>curl</code> 로 받아도 되지만 브라우저 쪽이 주소가 같이 나와 유리합니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>받는 프로젝트 EX01</h3>
+      <aside class="side">
+        <p class="pt">채울 곳이 일곱 자리입니다.</p>
+        <b class="sh">제공</b>
+        <p class="v">소스 · 테스트 · 스크립트 골격</p>
+        <b class="sh">채울 것</b>
+        <p class="v">TODO 일곱</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/dp_tree.png" alt="EX01 프로젝트 트리. build.gradle 에 TODO 하나, scripts 의 build.sh 에 둘, run.sh 와 rollback.sh 에 하나씩, HealthController.java 에 둘, application-prod.properties 에 하나가 있고 나머지 소스와 테스트와 문서 양식은 제공된다. 아래 표는 파일마다 무엇을 채우는지 정리한다.">
+  <figcaption>프로젝트 구조. 회색이 제공되는 것, 진한 것이 채울 자리입니다.</figcaption>
+</figure>
+
+<h4>일곱 자리의 목록</h4>
+<table>
+  <tr><th style="width:56px">번호</th><th style="width:250px">파일</th><th>채울 것</th></tr>
+  <tr><td class="c">1</td><td class="k">build.gradle</td>
+      <td><code>archiveFileName</code> 한 줄</td></tr>
+  <tr><td class="c">2</td><td class="k">application-prod.properties</td>
+      <td>포트 · 환경 이름 · 로그 수준 세 줄</td></tr>
+  <tr><td class="c">3</td><td class="k">HealthController.health()</td>
+      <td>응답 Map 네 칸</td></tr>
+  <tr><td class="c">4</td><td class="k">HealthController.version()</td>
+      <td>응답 Map 한 칸</td></tr>
+  <tr><td class="c">5</td><td class="k">scripts/build.sh</td>
+      <td>빌드 명령 한 줄</td></tr>
+  <tr><td class="c">6</td><td class="k">scripts/build.sh</td>
+      <td>릴리스 사본 보관 네 줄</td></tr>
+  <tr><td class="c">7</td><td class="k">scripts/run.sh · rollback.sh</td>
+      <td>실행 한 줄 · 복사 한 줄</td></tr>
+</table>
+
+<h4>먼저 컨트롤러부터 채웁니다</h4>
+<pre>@GetMapping("/health")
+public Map&lt;String, Object&gt; health() {
+    Map&lt;String, Object&gt; body = new LinkedHashMap&lt;&gt;();
+    body.put("status", <b>"UP"</b>);
+    body.put("version", version);       <i>// @Value 로 읽어 둔 값</i>
+    body.put("env", env);
+    body.put("profile", profile);
+    return body;
+}</pre>
+<p>여기가 <code>null</code> 인 채로 두면 <b>테스트가 실패해 소스 검증에서 막힙니다</b>.
+   <code>LinkedHashMap</code> 을 쓰면 넣은 차례대로 나옵니다.
+   <code>HashMap</code> 을 써도 값은 같지만 순서가 뒤섞여 캡처가 읽기 나빠집니다.</p>
+
+<div class="warn">
+  <code>@Value("${spring.profiles.active:default}")</code> 의 <b>콜론 뒤 default</b> 는
+  「값이 없으면 이것을 쓴다」 는 뜻입니다.
+  그래서 프로파일을 안 걸고 띄우면 응답에 <code>"profile":"default"</code> 가 찍힙니다.
+  캡처에 이 글자가 보이면 <b>운영 배포가 아닙니다</b>.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st3">
+      <h3><i>3</i>배포 다섯 걸음</h3>
+      <aside class="side">
+        <p class="pt">앞이 끝나야 뒤가 성립합니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">다섯 걸음 = 네 요소</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/dp_pipe.png" alt="배포 다섯 걸음 흐름도. 환경 구성 20점, 소스 검증 25점, 빌드 30점, 배포 25점, 롤백은 배포에 포함이라는 다섯 상자가 화살표로 이어져 있다. 아래 표는 순서를 바꿀 수 없는 까닭과 되돌아올 자리를 먼저 만드는 까닭, 명령과 결과가 증거라는 점을 설명한다.">
+  <figcaption>다섯 걸음과 배점. 걸음마다 남길 것이 정해져 있습니다.</figcaption>
+</figure>
+
+<h4>걸음마다 남길 것</h4>
+<table>
+  <tr><th style="width:130px">걸음</th><th style="width:230px">치는 명령</th><th>남길 것</th></tr>
+  <tr><td class="k">① 환경 구성</td><td>파일을 고치는 일</td>
+      <td>설정 표 · 소프트웨어 목록</td></tr>
+  <tr><td class="k">② 소스 검증</td><td><code>git clone</code> · <code>gradlew test</code></td>
+      <td>체크아웃 화면 · 테스트 결과</td></tr>
+  <tr><td class="k">③ 빌드</td><td><code>./scripts/build.sh</code></td>
+      <td>빌드 로그 · 산출물 목록</td></tr>
+  <tr><td class="k">④ 배포</td><td><code>./scripts/run.sh prod</code></td>
+      <td>기동 로그 · 응답 세 컷</td></tr>
+  <tr><td class="k">⑤ 롤백</td><td><code>./scripts/rollback.sh 1.0.0</code></td>
+      <td>복원 화면 · 버전 확인</td></tr>
+</table>
+
+<h4>배포와 개발의 차이</h4>
+<p>개발은 내 자리에서 잘 도는 것이 목표입니다.
+   배포는 남의 자리에서도 같게 도는 것이 목표입니다.
+   그래서 배포는 절차를 굳혀 둡니다. 손으로 치면 사람마다 달라지기 때문입니다.</p>
+<p>이 과제에서 스크립트 셋을 쓰는 까닭도 거기에 있습니다.
+   빌드도 실행도 롤백도 명령 한 줄로 끝나게 해 두면
+   다음 사람이 와서 그대로 칠 수 있습니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st4">
+      <h3><i>4</i>시나리오와 쓸 소프트웨어</h3>
+      <aside class="side">
+        <p class="pt">문서로 받는 10점입니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 01 · 02 · 10점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/dp_scn.png" alt="배포 시나리오 표. 무엇을 올리나 app.jar, 어디에 올리나 prod 프로파일 9090, 어떻게 올리나 run.sh prod, 되었는지 어떻게 아나 api health 와 actuator health, 잘못되면 rollback.sh 다섯 줄이다. 아래 표는 배포 이후 쓸 소프트웨어로 JDK 21 · Gradle · Spring Boot 3.5 · Actuator · bash · Git 여섯을 든다.">
+  <figcaption>시나리오 다섯 줄과 소프트웨어 여섯 줄. 보고서 1절에 그대로 들어갑니다.</figcaption>
+</figure>
+
+<h4>시나리오는 다섯 가지 물음의 답</h4>
+<p>「배포 시나리오」 라는 말이 커 보이지만 묻는 것은 다섯입니다.
+   <b>무엇을 · 어디에 · 어떻게 올리고 · 어떻게 확인하고 · 잘못되면 어떻게 되돌리나</b>.
+   각각 한 줄이면 됩니다.</p>
+<p>답을 적을 때는 <b>명령 그대로</b> 쓰십시오.
+   「스크립트로 실행한다」 가 아니라 <code>./scripts/run.sh prod</code> 로 적습니다.
+   읽는 사람이 따라 칠 수 있어야 시나리오 노릇을 합니다.</p>
+
+<h4>「배포 이후 사용할 소프트웨어」</h4>
+<p>채점 항목 02 의 말입니다. 올린 뒤에도 계속 필요한 것을 적으라는 뜻입니다.</p>
+<table>
+  <tr><th style="width:190px">쓰는 때</th><th>무엇이 필요한가</th></tr>
+  <tr><td class="k">올릴 때만</td><td>Gradle · Git — 빌드하고 받아 올 때 씁니다</td></tr>
+  <tr><td class="k">올린 뒤에도</td>
+      <td><b>JDK 21</b> — jar 를 계속 돌립니다 ·
+          <b>Actuator</b> — 살아 있는지 계속 물어봅니다</td></tr>
+</table>
+<p>둘을 갈라 적으면 표가 깊어집니다.
+   운영 장비에 무엇이 남아 있어야 하는지가 <b>한눈에 보이기 때문</b>입니다.</p>
+
+<div class="warn">
+  두 항목 모두 <b>코드 한 줄 없이 받는 10점</b>입니다.
+  보고서 1절의 표 두 개이고 십 분이면 끝납니다.
+  실습에 몰두하다 문서를 마지막에 몰아 쓰면 이 자리가 가장 먼저 허술해집니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st5">
+      <h3><i>5</i>JAR 고정과 운영 설정</h3>
+      <aside class="side">
+        <p class="pt">네 줄로 환경이 갈립니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 03 · 04 · 10점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/dp_gradle.png" alt="build.gradle 의 bootJar 설정을 받았을 때와 고친 뒤로 나란히 보여 준다. 받았을 때는 archiveFileName 이 TODO 주석이고, 고친 뒤에는 app.jar 로 지정되어 있다. 아래 콘솔은 이름을 고정하지 않으면 EX01-1.0.0.jar 가 생겨 run.sh 가 app.jar 를 못 찾는 장면이다. 그 아래 표는 왜 이름을 고정하는지와 버전이 어디에 남는지, bootJar 와 jar 의 차이를 설명한다.">
+  <figcaption>산출물 이름 고정. 배포 스크립트 셋이 모두 이 이름을 봅니다.</figcaption>
+</figure>
+
+<figure>
+  <img src="img/dp_prod.png" alt="application-prod.properties 에 server.port 9090, app.env production, logging.level.root INFO 를 적은 코드. 아래 표는 각 설정이 무엇이고 왜 필요한지 설명하고, 그 아래 표는 외부접속을 위한 상세 설정이 포트를 여는 것과 점검 창구를 여는 것 둘이라는 점, 방화벽과 수신 주소, 접속 정보를 코드에 두지 않는 규칙을 든다.">
+  <figcaption>운영 설정 세 줄. 개발용과 같이 띄워 둘 수 있게 포트를 가릅니다.</figcaption>
+</figure>
+
+<h4>releases 폴더를 미리 만들지 않아도 됩니다</h4>
+<pre><i># build.sh 안에서 없으면 만들어 줍니다</i>
+<b>mkdir -p releases</b>
+cp "$JAR" "releases/app-${VERSION}.jar"</pre>
+<p><code>-p</code> 는 「이미 있으면 그냥 넘어가라」 는 뜻입니다.
+   없을 때만 만들고 있을 때는 아무 일도 하지 않습니다.
+   그래서 <b>몇 번을 돌려도 안전</b>합니다.</p>
+
+<h4>확인해 두는 법</h4>
+<pre><b>&gt; ./gradlew clean bootJar</b>
+<b>&gt; ls -1 build/libs</b>
+app.jar                          <i># 이름이 고정되었는지</i>
+
+<b>&gt; java -jar build/libs/app.jar --spring.profiles.active=prod</b>
+The following 1 profile is active: "<b>prod</b>"
+Tomcat started on port <b>9090</b>      <i># 운영 설정이 걸렸는지</i></pre>
+<p>두 가지를 이 자리에서 확인해 두면 뒤가 막히지 않습니다.
+   이름이 틀리면 스크립트가 못 찾고, 프로파일이 안 걸리면 배포 단계가 통째로 어긋납니다.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 2 · 소스 검증</b><span>능력단위요소 ② · 채점 05 ~ 07 · 25점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st6">
+      <h3><i>6</i>형상관리 체크아웃</h3>
+      <aside class="side">
+        <p class="pt">가장 자주 빠뜨리는 10점입니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 05 · 10점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/dp_ckout.png" alt="형상관리 서버에서 소스를 받아 오는 콘솔. git clone 으로 저장소를 받고, git checkout 으로 release 브랜치를 고르고, git log -1 --oneline 으로 커밋 해시를 확인하고, git status 로 작업 트리가 깨끗한지 확인한다. 아래 표는 왜 받아 와서 빌드하는지, 무엇을 적는지, clean 을 확인하는 까닭, 배점이 10점이라는 점을 설명한다.">
+  <figcaption>체크아웃 네 줄. 저장소 주소 · 브랜치 · 커밋 해시를 남깁니다.</figcaption>
+</figure>
+
+<h4>왜 이 단계가 있는가</h4>
+<p>배포는 <b>「저장소의 어느 시점」 을 내보내는 일</b>입니다.
+   내 PC 폴더에 있는 소스로 빌드하면 그것이 저장소의 어느 시점인지 아무도 모릅니다.
+   커밋하지 않은 수정이 섞였을 수도 있습니다.</p>
+<p>그래서 받아 오는 일 자체가 채점 항목이 됩니다.
+   실습에서는 이미 폴더에 프로젝트가 있으니 <b>건너뛰기가 쉽습니다</b>.
+   그러면 10점이 통째로 빕니다.</p>
+
+<h4>보고서에 적을 세 값</h4>
+<table>
+  <tr><th style="width:150px">값</th><th style="width:250px">얻는 명령</th><th>보기</th></tr>
+  <tr><td class="k">저장소 주소</td><td><code>git remote -v</code></td>
+      <td>https://github.com/…/s-deploy.git</td></tr>
+  <tr><td class="k">브랜치</td><td><code>git branch --show-current</code></td>
+      <td>release/1.0.0</td></tr>
+  <tr><td class="k">커밋 해시</td><td><code>git log -1 --oneline</code></td>
+      <td>a1f2e3d</td></tr>
+</table>
+<p>이 셋이 있으면 남이 <b>같은 것을 다시 빌드</b>할 수 있습니다.
+   그것이 형상관리가 하는 일이고, 그래서 배점이 10점입니다.</p>
+
+<div class="warn">
+  <code>git status</code> 에 <b>nothing to commit, working tree clean</b> 이 찍히는지 보십시오.
+  고쳐 놓고 커밋하지 않은 것이 있으면
+  커밋 해시가 가리키는 소스와 <b>실제로 빌드한 소스가 다릅니다</b>.
+  이 한 줄까지 캡처에 넣으면 대조가 끝납니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st7">
+      <h3><i>7</i>소스 검증</h3>
+      <aside class="side">
+        <p class="pt">내보내도 되는지 묻는 검문소입니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 06 · 10점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/dp_test.png" alt="gradlew test 실행 콘솔. compileJava · processResources · test 단계를 거쳐 HealthControllerTest 의 헬스체크와 버전 조회 두 건이 PASSED 이고 BUILD SUCCESSFUL, 2 tests completed 0 failed 로 끝난다. 아래 표는 라이브러리 · 소스 · 로직을 각각 어느 단계가 보는지, 그리고 검증 도구가 곧 테스트라는 점과 TODO 를 채워야 통과한다는 점을 설명한다.">
+  <figcaption>소스 검증 콘솔. 라이브러리 · 소스 · 로직이 한 명령에 걸러집니다.</figcaption>
+</figure>
+
+<h4>준거가 말하는 세 가지</h4>
+<p>수행준거 2.2 가 「라이브러리 · 소스 · 로직 등의 오류」 를 듭니다.
+   셋을 따로 볼 도구를 찾을 것 없이 <code>gradlew test</code> 한 명령이 차례로 거릅니다.</p>
+<pre><b>&gt; ./gradlew test</b>
+
+&gt; Task :compileJava            <i>// 라이브러리를 못 받으면 여기 전에 멈춤</i>
+&gt; Task :processResources       <i>// 소스 문법이 틀리면 여기서 멈춤</i>
+&gt; Task :test                   <i>// 동작이 다르면 여기서 멈춤</i>
+
+<b>BUILD SUCCESSFUL</b>
+<b>2 tests completed, 0 failed</b></pre>
+
+<h4>보고서에 적을 다섯 칸</h4>
+<table>
+  <tr><th style="width:190px">칸</th><th>값</th></tr>
+  <tr><td class="k">실행 명령</td><td><code>./gradlew test</code></td></tr>
+  <tr><td class="k">총 테스트 수</td><td>2</td></tr>
+  <tr><td class="k">통과 / 실패</td><td>2 / 0</td></tr>
+  <tr><td class="k">결과</td><td>BUILD SUCCESSFUL</td></tr>
+  <tr><td class="k">판정</td><td>빌드로 이관 가능</td></tr>
+</table>
+
+<div class="warn">
+  컨트롤러의 TODO 를 안 채운 상태로 돌리면 <b>두 건 다 실패</b>합니다.
+  <code>null</code> 을 돌려주므로 <code>status</code> 도 <code>version</code> 도 없기 때문입니다.
+  이 교과에서는 실패한 채로 다음으로 넘어갈 수 없습니다.
+  <b>통과를 확인해야 빌드 이관</b>이 성립합니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st8">
+      <h3><i>8</i>환경설정 점검</h3>
+      <aside class="side">
+        <p class="pt">값이 서로 맞는지 견줍니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 07 · 5점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/dp_cfg.png" alt="환경설정 점검표. 환경 설정 구분에 server.port 와 app.version, 운영 환경 구분에 spring.profiles.active · app.env · logging.level.root, 대상 시스템 구분에 JDK · 산출물 이름 · 릴리스 경로가 있고 각각 있어야 할 값과 어디서 보는지, 확인 표시가 붙어 있다. 아래 콘솔은 grep 으로 build.gradle 과 properties 의 값을 실제로 견주어 보는 장면이다.">
+  <figcaption>점검표 여덟 줄. 준거가 든 세 가지로 구분을 나눠 적습니다.</figcaption>
+</figure>
+
+<h4>옮겨 적기가 아니라 견주기</h4>
+<p>값을 표에 옮겨 적는 것만으로는 점검이 되지 않습니다.
+   두 곳에 적힌 같은 값이 서로 맞는지 보는 것이 점검입니다.</p>
+<table>
+  <tr><th style="width:230px">견줄 짝</th><th>어긋나면</th></tr>
+  <tr><td class="k">build.gradle 의 version<br>↔ app.version</td>
+      <td>롤백했는데 <b>버전이 안 바뀐 것처럼</b> 보입니다</td></tr>
+  <tr><td class="k">prod 의 server.port<br>↔ 시나리오의 포트</td>
+      <td>보고서와 실제 화면의 포트가 다릅니다</td></tr>
+  <tr><td class="k">bootJar 의 이름<br>↔ 스크립트가 찾는 이름</td>
+      <td>실행 단계에서 <b>파일을 못 찾습니다</b></td></tr>
+  <tr><td class="k">JDK 21<br>↔ 실행 장비의 자바</td>
+      <td>jar 가 안 뜹니다</td></tr>
+</table>
+
+<pre><i># 실행 장비의 자바 확인</i>
+<b>&gt; java -version</b>
+openjdk version "<b>21</b>.0.2" 2024-01-16
+
+<i># build.gradle 의 toolchain 확인</i>
+<b>&gt; grep -A2 toolchain build.gradle</b>
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(<b>21</b>)
+	}</pre>
+
+<p>준거 2.3 이 <b>「환경 설정 · 운영 환경 정보 · 대상 시스템 정보」</b> 셋을 나눠 듭니다.
+   표의 첫 칸을 그 셋으로 두면 읽는 사람이 대응을 바로 봅니다.
+   5점짜리 항목인데 <b>표 한 장으로 끝납니다</b>.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 3 · 빌드</b><span>능력단위요소 ③ · 채점 08 ~ 12 · 30점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st9">
+      <h3><i>9</i>이관과 빌드 스크립트</h3>
+      <aside class="side">
+        <p class="pt">절차를 한 줄로 굳힙니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 08 · 09 · 15점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/dp_script.png" alt="scripts/build.sh 코드. set -e 로 실패 시 멈추게 하고, gradlew clean test bootJar 로 검증과 빌드를 한 줄에 잇고, app.jar 가 생겼는지 if 로 확인한 뒤, build.gradle 에서 버전을 뽑아 releases 폴더에 사본을 복사한다. 아래 표는 set -e · clean test bootJar · 파일 존재 확인 · 릴리스 복사가 각각 무슨 일을 하는지 설명한다.">
+  <figcaption>빌드 스크립트. 검증과 빌드와 보관이 한 줄 명령으로 묶입니다.</figcaption>
+</figure>
+
+<h4>「빌드 시스템으로 이관」 이란</h4>
+<p>큰 현장에서는 검증을 통과한 소스를 빌드 서버로 넘깁니다.
+   이 과제에는 서버가 따로 없으므로 <b>검증과 빌드를 한 흐름에 잇는 것</b>이 이관입니다.</p>
+<pre>./gradlew <b>clean test bootJar</b>
+<i>#          ↑     ↑      ↑</i>
+<i>#       찌꺼기  검문소  묶기</i></pre>
+<p>가운데에 <code>test</code> 가 있으므로 <b>검증에 실패하면 묶이지 않습니다</b>.
+   사람이 순서를 지킬 필요 없이 도구가 지켜 줍니다.
+   채점 항목 08 의 배점이 10점인 까닭도 여기에 있습니다.</p>
+
+<h4>set -e 한 줄</h4>
+<pre>set -e     <i># 한 줄이라도 실패하면 즉시 멈춘다</i></pre>
+<p>이것이 없으면 <code>gradlew</code> 가 실패해도 다음 줄이 계속 돕니다.
+   그러면 <b>낡은 jar 를 릴리스로 보관</b>하는 사고가 납니다.
+   셸 스크립트를 쓸 때는 거의 언제나 맨 위에 둡니다.</p>
+
+<h4>버전을 파일에서 읽어 오기</h4>
+<pre>VERSION=$(grep "^version" build.gradle | head -1 | sed "s/.*'\(.*\)'.*/\1/")</pre>
+<p>줄이 길어 보이지만 하는 일은 하나입니다 —
+   <code>build.gradle</code> 에서 <code>version = '1.0.0'</code> 줄을 찾아
+   따옴표 안의 1.0.0 만 꺼냅니다.
+   이렇게 해 두면 버전을 올렸을 때 <b>스크립트를 고치지 않아도</b> 사본 이름이 따라옵니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st10">
+      <h3><i>10</i>빌드 실행과 확인</h3>
+      <aside class="side">
+        <p class="pt">한 화면이 세 항목을 받칩니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 10 · 11 · 10점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/dp_build.png" alt="scripts/build.sh 실행 콘솔. clean · compileJava · test · bootJar 단계가 차례로 돌고 테스트 두 건이 PASSED, BUILD SUCCESSFUL 이 뜬 뒤 빌드 성공 메시지와 함께 app.jar 의 크기 21M 이 표시되고 releases/app-1.0.0.jar 로 사본이 보관된다. 아래 표는 무엇을 확인하는지, 크기를 함께 남기는 까닭, 릴리스 사본과 이관의 뜻을 설명한다.">
+  <figcaption>빌드 실행. 명령부터 릴리스 보관 줄까지 한 장으로 남깁니다.</figcaption>
+</figure>
+
+<h4>「정상 완료되었는지 확인」 의 뜻</h4>
+<p>로그에 <b>BUILD SUCCESSFUL</b> 이 찍혔다고 끝이 아닙니다.
+   결과물이 실제로 있는지 눈으로 보는 것까지가 확인입니다.</p>
+<pre><b>&gt; ls -lh build/libs/app.jar</b>
+-rw-r--r-- 1 user 197121 <b>21M</b> Jul  8 10:22 build/libs/app.jar</pre>
+<table>
+  <tr><th style="width:170px">보는 것</th><th>판단</th></tr>
+  <tr><td class="k">파일이 있는가</td><td>없으면 빌드가 도중에 멈췄습니다</td></tr>
+  <tr><td class="k">크기가 20MB 안팎인가</td>
+      <td>수백 KB 면 라이브러리가 안 들어간 jar 입니다</td></tr>
+  <tr><td class="k">시각이 방금인가</td><td>옛날 것이면 <code>clean</code> 이 안 돌았습니다</td></tr>
+</table>
+
+<h4>스크립트가 대신 확인해 줍니다</h4>
+<pre>if [ -f "$JAR" ]; then
+  echo "==&gt; 2) 빌드 성공: $JAR"
+  ls -lh "$JAR"
+else
+  echo "!! 빌드 실패: $JAR 가 생성되지 않았습니다." &gt;&amp;2
+  <b>exit 1</b>
+fi</pre>
+<p><code>exit 1</code> 은 「실패로 끝냈다」 는 신호입니다.
+   나중에 이 스크립트를 다른 도구가 부를 때 <b>성공인지 실패인지 알아볼 수 있습니다</b>.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st11">
+      <h3><i>11</i>릴리스 보관과 버전</h3>
+      <aside class="side">
+        <p class="pt">여기서 롤백이 준비됩니다.</p>
+        <b class="sh">과제</b>
+        <p class="v">버전 두 개 만들기</p>
+      </aside>
+      <div class="bd">
+
+<h4>되돌릴 것이 있어야 되돌립니다</h4>
+<p>롤백은 마지막 단계이지만 <b>준비는 이 자리에서</b> 끝납니다.
+   빌드할 때마다 사본을 남겨 두지 않으면 나중에 갈 곳이 없습니다.</p>
+<pre>mkdir -p releases
+cp "$JAR" "releases/app-${VERSION}.jar"</pre>
+
+<h4>버전을 두 개 만듭니다</h4>
+<p>사본이 하나뿐이면 되돌릴 자리가 없어 롤백을 <b>흉내만 내게</b> 됩니다.
+   실습에서는 버전을 한 번 올려 두 개를 만들어 두십시오.</p>
+<table>
+  <tr><th style="width:56px">차례</th><th style="width:230px">하는 일</th><th>결과</th></tr>
+  <tr><td class="c">1</td><td><code>./scripts/build.sh</code></td>
+      <td><code>releases/app-<b>1.0.0</b>.jar</code></td></tr>
+  <tr><td class="c">2</td><td>build.gradle 의 version 을 <b>1.1.0</b> 으로</td>
+      <td>한 글자만 고칩니다</td></tr>
+  <tr><td class="c">3</td><td><code>./scripts/build.sh</code> 다시</td>
+      <td><code>releases/app-<b>1.1.0</b>.jar</code></td></tr>
+  <tr><td class="c">4</td><td><code>ls -1 releases/</code></td>
+      <td>두 개가 보입니다</td></tr>
+</table>
+
+<pre><b>&gt; ls -1 releases/</b>
+app-1.0.0.jar
+app-1.1.0.jar
+
+<b>&gt; ./scripts/run.sh prod</b>
+<b>&gt; curl -s http://localhost:9090/api/version</b>
+{"version":"<b>1.1.0</b>"}      <i># 지금 올라간 것은 새 버전</i></pre>
+
+<div class="warn">
+  <code>app.version</code> 도 같이 올려야 합니다.
+  <code>build.gradle</code> 의 version 은 <b>파일 이름</b>에 쓰이고,
+  <code>application.properties</code> 의 <code>app.version</code> 은 <b>응답</b>에 쓰입니다.
+  하나만 올리면 파일 이름은 1.1.0 인데 응답은 1.0.0 이라
+  <b>롤백해도 숫자가 안 바뀌어</b> 확인이 되지 않습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st12">
+      <h3><i>12</i>빌드 실패와 원인</h3>
+      <aside class="side">
+        <p class="pt">오분이면 만드는 5점입니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 12 · 5점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/dp_fail.png" alt="일부러 변수 이름을 틀리게 만들어 빌드를 실패시킨 콘솔. compileJava 가 FAILED 이고 HealthController.java 31번째 줄에서 cannot find symbol, variable verson 이라는 메시지가 나오며 BUILD FAILED 로 끝난다. set -e 덕분에 멈춰 build/libs 폴더 자체가 없다. 아래 표는 컴파일 · 테스트 · 의존성 · 패키징 실패의 메시지 모양과 읽는 법, 그리고 왜 일부러 깨뜨리는지를 설명한다.">
+  <figcaption>일부러 실패시킨 화면. 줄 번호와 기호 이름이 그대로 나옵니다.</figcaption>
+</figure>
+
+<h4>깨뜨렸다가 되돌리는 법</h4>
+<table>
+  <tr><th style="width:56px">차례</th><th style="width:250px">하는 일</th><th>확인</th></tr>
+  <tr><td class="c">1</td><td>변수 이름 한 글자를 바꿉니다</td>
+      <td><code>version</code> → <code>verson</code></td></tr>
+  <tr><td class="c">2</td><td><code>./scripts/build.sh</code></td>
+      <td>BUILD FAILED 캡처</td></tr>
+  <tr><td class="c">3</td><td>메시지를 보고서에 옮깁니다</td>
+      <td>단계 · 메시지 · 원인 · 조치</td></tr>
+  <tr><td class="c">4</td><td>글자를 되돌립니다</td>
+      <td><code>git checkout -- &lt;파일&gt;</code> 도 됩니다</td></tr>
+  <tr><td class="c">5</td><td>다시 빌드해 성공을 확인합니다</td>
+      <td>BUILD SUCCESSFUL</td></tr>
+</table>
+
+<h4>「개발자에게 설명할 수 있다」</h4>
+<p>준거 3.5 의 말입니다. 남이 읽고 고칠 수 있게 적으라는 뜻입니다.</p>
+<table>
+  <tr><th style="width:230px">이렇게 적으면 부족</th><th>이렇게 적으면 설명</th></tr>
+  <tr><td>빌드가 안 됨</td>
+      <td>컴파일 단계에서 <code>HealthController.java:31</code> 의
+          <code>verson</code> 이 선언되지 않아 실패.
+          <b>변수 이름 오타</b>이므로 <code>version</code> 으로 고침</td></tr>
+  <tr><td>테스트 실패</td>
+      <td><code>health_UP</code> 이 <code>$.status</code> 를 찾지 못해 실패.
+          컨트롤러가 <code>null</code> 을 돌려주는 것이 원인</td></tr>
+</table>
+
+<div class="warn">
+  성공 화면만 있는 보고서가 가장 흔합니다.
+  실패를 겪지 않았으니 적을 것이 없어서입니다.
+  빌드가 잘 될 때 <b>일부러 한 번 깨뜨려</b> 두십시오.
+  깨뜨리는 데 일 분, 되돌리는 데 일 분입니다.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 4 · 배포</b><span>능력단위요소 ④ · 채점 13 ~ 16 · 25점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st13">
+      <h3><i>13</i>실행 환경 정보</h3>
+      <aside class="side">
+        <p class="pt">올리기 전에 무엇이 어디로 가는지 봅니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 13 · 5점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/dp_env.png" alt="프로파일과 포트 표. dev 는 application.properties 로 8080 포트 app.env dev 이고 켜면 그냥 이것으로 뜨며, prod 는 application-prod.properties 로 9090 포트 app.env production 이고 실행 인자로 켠다. 아래 기본 설정 코드와 함께, 프로파일을 나누는 까닭과 파일 이름이 규칙이라는 점, 겹치면 prod 가 이긴다는 점, actuator 를 열어 두는 까닭을 표로 설명한다.">
+  <figcaption>프로파일 둘. 같은 jar 하나로 두 환경을 다 띄웁니다.</figcaption>
+</figure>
+
+<h4>올리기 전에 확인할 다섯</h4>
+<table>
+  <tr><th style="width:170px">확인할 것</th><th style="width:180px">이 과제의 값</th>
+      <th>확인 방법</th></tr>
+  <tr><td class="k">올릴 파일</td><td><code>build/libs/app.jar</code></td>
+      <td><code>ls -lh build/libs</code></td></tr>
+  <tr><td class="k">대상 프로파일</td><td>prod</td>
+      <td>실행 인자로 지정</td></tr>
+  <tr><td class="k">대상 포트</td><td>9090</td>
+      <td>prod 설정 파일</td></tr>
+  <tr><td class="k">자바 버전</td><td>21</td>
+      <td><code>java -version</code></td></tr>
+  <tr><td class="k">포트가 비었는가</td><td>9090 을 쓰는 것이 없어야 합니다</td>
+      <td><code>netstat -ano | findstr 9090</code></td></tr>
+</table>
+
+<h4>포트가 물려 있으면</h4>
+<pre>Web server failed to start. <b>Port 9090 was already in use.</b></pre>
+<p>앞서 띄운 프로그램이 안 꺼져 있으면 이 메시지가 납니다.
+   앞 창에서 <code>Ctrl+C</code> 로 끄고 다시 띄우면 됩니다.
+   <b>실습 중에 가장 자주 만나는 오류</b>이므로 미리 알아 두면 당황하지 않습니다.</p>
+
+<h4>덮어쓰기 차례</h4>
+<p>같은 설정이 여러 곳에 있으면 <b>나중 것이 이깁니다</b>.</p>
+<table>
+  <tr><th style="width:56px">차례</th><th style="width:250px">어디</th><th>이 과제에서</th></tr>
+  <tr><td class="c">1</td><td>application.properties</td><td>8080</td></tr>
+  <tr><td class="c">2</td><td>application-prod.properties</td><td><b>9090</b> — 이깁니다</td></tr>
+  <tr><td class="c">3</td><td>실행할 때 준 인자</td><td>더 주면 이것이 이깁니다</td></tr>
+</table>
+<p>그래서 급할 때는 <code>--server.port=9091</code> 처럼
+   <b>명령줄에서 바로 바꿀 수도</b> 있습니다.
+   다만 보고서에는 어디에서 온 값인지 적어 두어야 읽는 사람이 헷갈리지 않습니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st14">
+      <h3><i>14</i>운영환경 적용</h3>
+      <aside class="side">
+        <p class="pt">기동 로그 두 줄이 증거입니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 14 · 15 · 15점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/dp_run.png" alt="scripts/run.sh prod 실행 콘솔. 스프링 부트 배너 아래 The following 1 profile is active prod 와 Tomcat started on port 9090, Started DemoApplication 이 찍히고, 다른 창에서 curl 로 /api/health 를 불러 status UP 과 version 1.0.0, env production, profile prod 응답을 받는다. 아래 표는 네 줄이 각각 무엇을 증명하는지 설명한다.">
+  <figcaption>운영 기동. profile 과 port 두 줄이 배포가 맞다는 증거입니다.</figcaption>
+</figure>
+
+<h4>세 가지 방법 모두 같습니다</h4>
+<pre><i># ① 스크립트로 — 권장</i>
+<b>./scripts/run.sh prod</b>
+
+<i># ② java 명령으로 직접</i>
+<b>java -jar build/libs/app.jar --spring.profiles.active=prod</b>
+
+<i># ③ 환경 변수로</i>
+<b>SPRING_PROFILES_ACTIVE=prod java -jar build/libs/app.jar</b></pre>
+<p>보고서에는 <b>실제로 친 것</b>을 적으십시오.
+   스크립트로 했으면 스크립트를, 직접 쳤으면 그 명령을 적습니다.
+   셋 다 적어 두면 어느 것을 했는지 알 수 없습니다.</p>
+
+<h4>확인은 다른 창에서</h4>
+<p>앱을 띄운 창은 로그가 계속 흐르므로 그 창에서는 명령을 칠 수 없습니다.
+   <b>창을 하나 더 열어</b> 거기서 확인 명령을 칩니다.</p>
+<pre><i># 두 번째 창</i>
+<b>&gt; curl -s http://localhost:9090/api/health</b>
+{"status":"UP","version":"1.0.0","env":"production","profile":"prod"}
+
+<b>&gt; curl -s http://localhost:9090/actuator/health</b>
+{"status":"UP","components":{...}}</pre>
+<p>브라우저로 열어도 됩니다. 주소창이 같이 찍혀 <b>포트까지 증명</b>되므로 오히려 낫습니다.
+   결과보고서 4절에 그림 자리가 셋이므로 <b>세 주소를 다</b> 찍으십시오.</p>
+
+<div class="warn">
+  응답에 <code>"profile":"default"</code> 나 <code>"env":"dev"</code> 가 보이면
+  <b>운영 배포가 아닙니다</b>. 프로파일이 안 걸렸습니다.
+  기동 로그의 <code>The following 1 profile is active: "prod"</code> 한 줄을
+  먼저 확인하고 나서 응답을 찍는 편이 안전합니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st15">
+      <h3><i>15</i>롤백과 복원 확인</h3>
+      <aside class="side">
+        <p class="pt">숫자 하나가 증거입니다.</p>
+        <b class="sh">배점</b>
+        <p class="v">항목 16 · 5점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/dp_roll.png" alt="롤백 콘솔. 지금 올라간 버전이 1.1.0 임을 확인하고, releases 폴더에 app-1.0.0.jar 와 app-1.1.0.jar 두 개가 있는 것을 본 뒤, rollback.sh 1.0.0 으로 이전 사본을 배포 자리에 덮고, run.sh prod 로 다시 띄워 /api/version 이 1.0.0 으로 돌아온 것을 확인한다. 아래에 rollback.sh 에서 채울 cp 한 줄과, 되돌릴 것이 있어야 한다는 점 등 네 가지 설명 표가 있다.">
+  <figcaption>롤백. 버전이 1.1.0 에서 1.0.0 으로 되돌아오는 것이 증거입니다.</figcaption>
+</figure>
+
+<h4>롤백 네 걸음</h4>
+<table>
+  <tr><th style="width:56px">차례</th><th style="width:260px">명령</th><th>보는 것</th></tr>
+  <tr><td class="c">1</td><td><code>curl .../api/version</code></td>
+      <td>지금 올라간 것이 무엇인지</td></tr>
+  <tr><td class="c">2</td><td><code>ls -1 releases/</code></td>
+      <td>되돌아갈 사본이 있는지</td></tr>
+  <tr><td class="c">3</td><td><code>./scripts/rollback.sh 1.0.0</code></td>
+      <td>사본이 배포 자리에 덮였는지</td></tr>
+  <tr><td class="c">4</td><td><code>./scripts/run.sh prod</code> 후 다시 확인</td>
+      <td>버전이 <b>되돌아왔는지</b></td></tr>
+</table>
+
+<h4>앱을 껐다 켜야 합니다</h4>
+<p>파일만 덮으면 <b>이미 떠 있는 앱은 옛 것을 물고 있습니다</b>.
+   자바는 프로그램을 켤 때 jar 를 읽어 들이므로 그 뒤에 파일이 바뀌어도 모릅니다.
+   <code>Ctrl+C</code> 로 끄고 다시 띄워야 바뀝니다.</p>
+
+<h4>롤백 사유를 적습니다</h4>
+<p>실습에서는 실제로 문제가 난 것이 아니므로 <b>가정</b>을 적습니다.</p>
+<table>
+  <tr><th style="width:190px">칸</th><th>적는 보기</th></tr>
+  <tr><td class="k">롤백 사유</td>
+      <td>1.1.0 배포 후 <code>/api/health</code> 응답 지연이 확인되어 이전 버전으로 복원 (가정)</td></tr>
+  <tr><td class="k">현재 버전</td><td>1.1.0</td></tr>
+  <tr><td class="k">복원 대상</td><td>1.0.0</td></tr>
+  <tr><td class="k">복원 확인</td>
+      <td><code>/api/version</code> 이 <code>{"version":"1.0.0"}</code> 으로 돌아옴</td></tr>
+</table>
+<p>「가정」 이라고 적어 두면 <b>꾸며 낸 것이 아니라 연습</b>이라는 점이 분명해집니다.
+   사유 없이 롤백만 적으면 왜 되돌렸는지 읽는 사람이 알 수 없습니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st16">
+      <h3><i>16</i>배포 결과보고서</h3>
+      <aside class="side">
+        <p class="pt">여섯 절이 요소 넷과 맞물립니다.</p>
+        <b class="sh">제출</b>
+        <p class="v">보고서 한 부 · 캡처 · 저장소</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/dp_report.png" alt="배포 결과보고서의 여섯 절 표. 1절 배포 환경 구성은 요소 ① 20점, 2절 소스 검증 결과는 요소 ② 25점, 3절 빌드 결과는 요소 ③ 30점, 4절 배포 및 헬스체크는 요소 ④ 15점으로 그림 세 장이 들어가고, 5절 롤백 결과는 요소 ④ 10점, 6절 종합 확인은 전체를 되짚는다. 아래 표는 절 번호가 요소 번호라는 점과 명령을 그대로 옮기는 법, 그림 자리, 양식 네 장의 쓰임을 설명한다.">
+  <figcaption>보고서 여섯 절. 빈 절이 있으면 그 요소가 통째로 빕니다.</figcaption>
+</figure>
+
+<h4>캡처 목록</h4>
+<table>
+  <tr><th style="width:56px">번호</th><th style="width:250px">무엇</th><th>어느 항목</th></tr>
+  <tr><td class="c">1</td><td>체크아웃 화면</td><td>05</td></tr>
+  <tr><td class="c">2</td><td><code>gradlew test</code> 통과 콘솔</td><td>06</td></tr>
+  <tr><td class="c">3</td><td>빌드 로그와 릴리스 보관</td><td>08 · 10 · 11</td></tr>
+  <tr><td class="c">4</td><td>빌드 실패 콘솔</td><td>12</td></tr>
+  <tr><td class="c">5</td><td>prod 기동 로그</td><td>14</td></tr>
+  <tr><td class="c">6 ~ 8</td><td>엔드포인트 응답 세 컷</td><td>15</td></tr>
+  <tr><td class="c">9</td><td>롤백 후 버전 확인</td><td>16</td></tr>
+</table>
+
+<h4>제출 전 확인</h4>
+<dl>
+  <dt>여섯 절이 다 차 있는가</dt>
+  <dd>비어 있는 절이 있으면 그 요소의 배점이 통째로 빕니다.</dd>
+  <dt>명령을 그대로 적었는가</dt>
+  <dd>「빌드함」 이 아니라 <code>./scripts/build.sh</code> 로 적습니다.</dd>
+  <dt>포트가 9090 인 화면이 있는가</dt>
+  <dd>8080 만 있으면 운영 배포를 안 한 것으로 읽힙니다.</dd>
+  <dt>실패 화면이 있는가</dt>
+  <dd>성공만 있으면 항목 12 가 빕니다.</dd>
+  <dt>버전이 되돌아온 화면이 있는가</dt>
+  <dd>숫자가 바뀌는 장면이 롤백의 유일한 증거입니다.</dd>
+  <dt>푸시했는가</dt>
+  <dd>작업지시서가 커밋 · 머지 · 푸시를 함께 봅니다.</dd>
+</dl>
+
+<div class="warn">
+  <code>docs/산출물_양식/</code> 에 배포환경 명세서 · 빌드 결과서 · 배포 절차서 · 롤백 절차서
+  네 장이 들어 있습니다. 보고서의 각 절과 <b>칸이 그대로 맞물립니다</b>.
+  양식을 먼저 채우고 보고서로 옮기면 빠뜨리는 칸이 없습니다.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ 3 ═══════ -->
+<h2 class="sec" id="g3">3. 주요 감점 요인</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">빠뜨려서 나는 감점이 대부분입니다.</p>
+    <b class="sh">가장 큰 것</b>
+    <p class="v">체크아웃 건너뜀</p>
+    <b class="sh">가장 아까운 것</b>
+    <p class="v">릴리스 사본 없음</p>
+  </aside>
+  <div class="bd">
+<p>아래 여덟 가지가 되풀이되는 감점입니다.
+   이 교과의 감점은 <b>틀려서가 아니라 빠뜨려서</b> 납니다.
+   할 줄 몰라서 못 한 것이 아니라, 하고도 남기지 않았거나 아예 건너뛴 탓입니다.</p>
+
+<figure>
+  <img src="img/dp_bad.png" alt="자주 나오는 감점 여덟 가지와 보완 방법. 체크아웃을 건너뜀 · 실패 화면이 없음 · 릴리스 사본을 안 남김 · 버전이 하나뿐 · dev 로 띄움 · jar 이름을 안 고정 · 명령을 말로 적음 · 보고서 절이 빔이고, 각각 보완 방법이 오른쪽에 적혀 있다.">
+  <figcaption>자주 나오는 감점과 보완. 왼쪽이 실제로 자주 나오는 모습입니다.</figcaption>
+</figure>
+
+<div class="warn">
+  세 가지를 차례대로 해 보십시오. 각각 십 분이면 됩니다.
+  <b>저장소에서 받아 와 빌드하기</b>(항목 05),
+  <b>버전을 올려 한 번 더 빌드하기</b>(항목 16),
+  <b>한 글자 틀려 빌드 깨뜨려 보기</b>(항목 12).
+  셋이 합쳐 <b>20점</b>을 받칩니다.
+</div>
+  </div>
+</div>
+
+<footer>
+  애플리케이션 배포 · 3수준 · 40시간 · 담당 정우균 ·
+  (디지털컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E<br>
+  예제는 평가도구 작업지시서의 EX01 S-Deploy 이며, 앱 소스와 프로파일과 배포 스크립트 골격이
+  제공되고 일곱 자리를 채워 배포 절차를 수행합니다.
+</footer>
+
+</div>
+
+<script>
+/* 빠른 이동 — 지금 보는 단원을 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"],a[href="#g3"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+  function mark() {
+    var y = window.pageYOffset + 90, cur = -1;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function () { mark(); tick = false; });
+  });
+  mark();
+})();
+</script>

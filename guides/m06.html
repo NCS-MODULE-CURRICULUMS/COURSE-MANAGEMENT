@@ -1,0 +1,789 @@
+<meta charset="utf-8"><title>SQL 활용 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<style>
+  /* 이 교안에만 있는 것 — SQL 보기 */
+  .bd pre{margin:14px 0;font-family:Consolas,"D2Coding",monospace;font-size:13px;
+          line-height:1.75;border:1px solid #ccc;border-left:3px solid #000;
+          padding:13px 16px;background:#fafafa;overflow-x:auto;white-space:pre}
+  .bd pre b{background:#e6e6e6;font-weight:700}
+  .bd pre i{font-style:normal;color:#777}
+  .bd code{font-family:Consolas,"D2Coding",monospace;font-size:14px;
+           background:#f2f2f2;padding:1px 5px}
+  aside.side code{font-family:Consolas,monospace;font-size:11px;background:#f2f2f2;padding:0 3px}
+</style>
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small><a href="../courses/c2.html">능력단위 모듈 목록</a> / <a href="../modules/c2-m06.html">SQL활용</a> / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">준비</i>
+  <a href="#st1"><b>1</b><span>완성 산출물의 확인</span></a>
+  <a href="#st2"><b>2</b><span>보기 테이블 만들기</span></a>
+  <i class="qg">기본</i>
+  <a href="#st3"><b>3</b><span>ALTER 로 제약조건 걸기</span></a>
+  <a href="#st4"><b>4</b><span>값 넣기와 무결성 확인</span></a>
+  <a href="#st5"><b>5</b><span>트랜잭션의 완료와 취소</span></a>
+  <a href="#st6"><b>6</b><span>데이터사전 조회</span></a>
+  <i class="qg">고급</i>
+  <a href="#st7"><b>7</b><span>인덱스</span></a>
+  <a href="#st8"><b>8</b><span>조인 고르기</span></a>
+  <a href="#st9"><b>9</b><span>뷰 만들기</span></a>
+  <i class="qg">서술형</i>
+  <a href="#st10"><b>10</b><span>시나리오 쓰기</span></a>
+  <a href="#st11"><b>11</b><span>논리 설계와 모델링</span></a>
+  <i class="qg">마무리</i>
+  <a href="#st12"><b>12</b><span>답변란과 결과 캡처</span></a>
+  <a href="#st13"><b>13</b><span>자가 점검</span></a>
+  <a href="#st14"><b>14</b><span>통합과 제출</span></a>
+  <i class="qg">감점</i>
+  <a href="#g3"><b>!</b><span>주요 감점 요인</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>SQL 활용 — 준비 교안</h1>
+<p class="sub">능력단위 SQL활용 (2001020413_19v4) / 3수준 · 평가방법 서술형 (20점) + 평가자 체크리스트 (80점)</p>
+
+<!-- ═══════ 0 ═══════ -->
+<h2 class="sec" id="g0">0. 제출물의 구성과 배점</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">SQL 을 적고, 실행한 결과 화면을 함께 냅니다.</p>
+    <b class="sh">제출 형식</b>
+    <p class="v">답변란 + PPT</p>
+    <b class="sh">참고</b>
+    <p class="src">작업지시서</p>
+  </aside>
+  <div class="bd">
+<p>제출물은 둘입니다. <b>답변란에 적은 SQL</b> 과
+   <b>그 SQL 을 실행한 결과 화면을 모은 PPT</b> 입니다.
+   둘 중 하나만 내면 채점자가 「적절한가」 를 판정할 근거가 반쪽이 됩니다.</p>
+<table class="wide">
+  <tr><th style="width:52px">묶음</th><th style="width:230px">하는 일</th>
+      <th>확인하는 것</th><th style="width:56px">배점</th></tr>
+  <tr><td class="c">서술형</td><td>관계형 테이블 추가 시나리오와 모델링</td>
+      <td>시나리오 5 · 논리 설계 5 · 모델링 10</td><td class="c">20</td></tr>
+  <tr><td class="c">①</td><td>제약조건 설정과 값 넣기</td>
+      <td>PK 2 · 2 · FK 3 · 3 · CASCADE 5 · INSERT 5 · 5 · 5</td><td class="c">30</td></tr>
+  <tr><td class="c">②</td><td>사전 조회 · 인덱스 · 조인 · 뷰</td>
+      <td>사전 5 · 5 · 인덱스 10 · 조인 10 · 조건 10 · 관계형 테이블 10</td>
+      <td class="c">50</td></tr>
+</table>
+<p>평가방법이 <b>평가자 체크리스트</b> 이므로 부분 점수가 없습니다.
+   SQL 한 줄이 맞으면 그 항목의 점수를 다 받고, 틀리면 0점입니다.</p>
+
+<div class="warn">
+  작업지시서가 <b>「alter 사용」</b>, <b>「Inner Join 사용할 것」</b>,
+  <b>「Rental_Id, Member_Name, Book_name 만 표시」</b> 처럼 방법을 지정해 둔 곳이 여럿 있습니다.
+  결과가 같아도 <b>지정한 방법이 아니면</b> 그 항목은 인정되지 않습니다.
+  문제를 읽을 때 지정된 방법에 밑줄을 그어 두십시오.
+</div>
+  </div>
+</div>
+
+<!-- ═══════ 1 ═══════ -->
+<h2 class="sec" id="g1">1. SQL 활용의 범위</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">앞 교과에서 만든 테이블을 실제로 다룹니다.</p>
+    <b class="sh">능력단위요소</b>
+    <p class="v">기본 SQL 작성하기 · 고급 SQL 작성하기</p>
+    <b class="sh">앞 교과</b>
+    <p class="v">데이터베이스 구현</p>
+  </aside>
+  <div class="bd">
+<p>앞 교과에서 데이터베이스와 테이블을 만들었습니다.
+   이 교과는 그 테이블을 <b>실제로 다루는 SQL</b> 을 다룹니다.
+   만드는 문장(DDL) · 다루는 문장(DML) · 통제하는 문장(DCL) 세 가지를 씁니다.</p>
+
+<table class="wide">
+  <tr><th style="width:90px">갈래</th><th style="width:230px">대표 명령</th>
+      <th>무엇을 하는가</th></tr>
+  <tr><td class="nm">DDL</td><td><code>CREATE</code> · <code>ALTER</code> · <code>DROP</code></td>
+      <td>테이블 · 인덱스 · 뷰의 <b>틀</b>을 만들고 고칩니다</td></tr>
+  <tr><td class="nm">DML</td><td><code>SELECT</code> · <code>INSERT</code> ·
+      <code>UPDATE</code> · <code>DELETE</code></td>
+      <td>틀 안의 <b>값</b>을 넣고 꺼내고 고칩니다</td></tr>
+  <tr><td class="nm">DCL</td><td><code>COMMIT</code> · <code>ROLLBACK</code> ·
+      <code>GRANT</code></td>
+      <td>작업의 <b>확정과 취소</b>, 권한을 다룹니다</td></tr>
+</table>
+
+<dl>
+  <dt>기본 SQL 작성하기</dt>
+  <dd>제약조건을 걸고, 값을 넣고, 여러 테이블에서 꺼내고, 작업을 확정하거나 되돌립니다.
+      그리고 지금 무엇이 걸려 있는지 <b>데이터사전</b>을 열어 확인합니다.</dd>
+  <dt>고급 SQL 작성하기</dt>
+  <dd>조회를 빠르게 하는 <b>인덱스</b>를 걸고,
+      이미 있는 테이블을 엮어 새 테이블이나 <b>뷰</b>를 만듭니다.</dd>
+</dl>
+
+<p>두 요소 모두 마지막에 <b>「데이터사전을 조회하는 명령문을 작성할 수 있다」</b> 가 들어 있습니다.
+   만드는 것만큼 <b>만들어졌는지 확인하는 것</b>을 중요하게 봅니다.</p>
+  </div>
+</div>
+
+<!-- ═══════ 2 ═══════ -->
+<h2 class="sec" id="g2">2. 산출물 작성 실습</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">레벨 1부터 5까지 따라가면 답변란이 채워집니다.</p>
+    <b class="sh">예제</b>
+    <p class="v">tbl_member · tbl_book · tbl_rental</p>
+    <b class="sh">환경</b>
+    <p class="v">MySQL 8.0 · Workbench</p>
+  </aside>
+  <div class="bd">
+<p>예제는 평가도구 작업지시서의 [보기] 세 테이블입니다.
+   앞 교과에서 만든 <code>bookdb</code> 안에 만들어도 되고, 새 데이터베이스를 만들어도 됩니다.</p>
+<p>이 교과의 실습은 <b>치고, 보고, 캡처하는</b> 되풀이입니다.
+   명령 하나를 칠 때마다 결과를 확인하고 캡처해 두면 마지막에 모을 것이 없습니다.</p>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 1 · 준비</b><span>보기 테이블을 만듭니다</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st1">
+      <h3><i>1</i>완성 산출물의 확인</h3>
+      <aside class="side">
+        <p class="pt">답변란과 결과 화면, 두 가지를 냅니다.</p>
+        <b class="sh">내는 것</b>
+        <p class="v">SQL 답변란 · 결과 PPT</p>
+        <b class="sh">참고</b>
+        <p class="src">평가도구 작업지시서</p>
+      </aside>
+      <div class="bd">
+<h4>문제와 채점 항목의 대응</h4>
+<table class="wide">
+  <tr><th style="width:56px">문제</th><th style="width:250px">지시</th>
+      <th style="width:100px">채점 항목</th><th>배점</th></tr>
+  <tr><td class="c">1 · 2</td><td>PK 를 ALTER 로 설정</td><td class="c">04 · 05</td><td>각 2점</td></tr>
+  <tr><td class="c">3 · 4</td><td>FK 를 ALTER 로 설정 · DELETE CASCADE</td>
+      <td class="c">06 · 07 · 08</td><td>3 · 3 · 5점</td></tr>
+  <tr><td class="c">5</td><td>각 테이블에 값 넣기</td><td class="c">09 · 10 · 11</td><td>각 5점</td></tr>
+  <tr><td class="c">6</td><td>제약조건 확인 (사전검색)</td><td class="c">12 · 13</td><td>각 5점</td></tr>
+  <tr><td class="c">7</td><td>FK 열에 인덱스 추가하고 확인</td><td class="c">14</td><td>10점</td></tr>
+  <tr><td class="c">8</td><td>Inner Join 을 쓴 뷰 만들기</td><td class="c">15 · 16 · 17</td>
+      <td>각 10점</td></tr>
+  <tr><td class="c">서술형</td><td>관계형 테이블 추가 시나리오와 모델링</td>
+      <td class="c">01 · 02 · 03</td><td>5 · 5 · 10점</td></tr>
+</table>
+
+<h4>답변란을 채우는 방식</h4>
+<p>답변란에는 <b>실제로 실행해 본 SQL</b> 을 옮겨 적습니다.
+   머리로 쓴 문장은 세미콜론이나 따옴표에서 어긋나는 일이 많습니다.
+   Workbench 에서 실행해 <b>초록 체크</b>를 확인한 뒤 복사해 붙이는 것이 안전합니다.</p>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  빈 슬라이드에 문제 번호대로 쪽을 만들고 쪽마다 채점 항목 번호를 적어 두십시오.
+  SQL 을 하나 실행할 때마다 그 쪽에 결과를 붙이면, 마지막에 빈 쪽이 곧 놓친 항목입니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>보기 테이블 만들기</h3>
+      <aside class="side">
+        <p class="pt">제약조건 없이 먼저 만듭니다.</p>
+        <b class="sh">주의</b>
+        <p class="v">PK · FK 는 나중에 <code>ALTER</code> 로</p>
+      </aside>
+      <div class="bd">
+<h4>세 테이블</h4>
+
+<figure>
+  <img src="img/sq_tbl.png" alt="tbl_member · tbl_book · tbl_rental 세 테이블의 컬럼 · 자료형 · 제약을 나란히 보인 표.">
+  <figcaption>[보기] 세 테이블. 제약조건 칸은 나중에 ALTER 로 걸 것을 표시한 것입니다.</figcaption>
+</figure>
+
+<pre>CREATE TABLE tbl_member (
+  Member_id     INT,
+  Member_name   VARCHAR(45),
+  Member_grade  VARCHAR(45),
+  Member_phone  VARCHAR(45)
+);
+
+CREATE TABLE tbl_book (
+  Book_code    INT,
+  book_name    VARCHAR(45),
+  book_author  VARCHAR(45),
+  publisher    VARCHAR(45)
+);
+
+CREATE TABLE tbl_rental (
+  Rental_id    INT,
+  Book_code    INT,
+  Member_id    INT,
+  rental_date  DATETIME
+);</pre>
+
+<div class="warn">
+  <code>CREATE TABLE</code> 안에 <code>PRIMARY KEY</code> 를 미리 적지 마십시오.
+  작업지시서가 <b>「alter 사용」</b> 이라고 못 박고 있습니다.
+  미리 걸어 두면 ALTER 문을 쓸 일이 없어져 항목 04 ~ 07 을 보일 수 없습니다.
+</div>
+
+<p>다만 FK 를 걸려면 참조되는 칸이 <code>NOT NULL</code> 이어야 문제가 없습니다.
+   기본키를 나중에 걸 예정이라면 <code>INT NOT NULL</code> 로 만들어 두는 편이 안전합니다.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 2 · 기본 SQL</b><span>능력단위요소 ① · 채점 04 ~ 13</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st3">
+      <h3><i>3</i>ALTER 로 제약조건 걸기</h3>
+      <aside class="side">
+        <p class="pt">순서를 지켜야 오류가 나지 않습니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 04 ~ 08 · 15점</p>
+        <b class="sh">근거</b>
+        <p class="src">수행준거 1.1</p>
+      </aside>
+      <div class="bd">
+<h4>명령과 오류</h4>
+
+<figure>
+  <img src="img/sq_alter.png" alt="ALTER TABLE 로 두 테이블에 기본키를 걸고 tbl_rental 에 두 외래키를 DELETE CASCADE 와 함께 거는 화면, 자주 나는 오류 화면, 그리고 채점 항목 다섯 개의 배점표.">
+  <figcaption>ALTER 로 제약조건 걸기. 작업지시서의 번호 순서가 그대로 실행 순서입니다.</figcaption>
+</figure>
+
+<h4>순서가 중요한 이유</h4>
+<p>외래키는 <b>가리키는 쪽에 기본키가 있어야</b> 걸립니다.
+   3번(FK)을 1·2번(PK)보다 먼저 실행하면 <code>ERROR 1215</code> 가 납니다.
+   오류가 나면 대부분 아래 셋 중 하나입니다.</p>
+<ol>
+  <li>참조되는 칸에 기본키나 유일 인덱스가 없습니다 — PK 를 먼저 겁니다.</li>
+  <li>두 칸의 자료형이 다릅니다 — <code>INT</code> 와 <code>BIGINT</code>,
+      부호 있음과 없음이 섞이면 걸리지 않습니다.</li>
+  <li>이미 들어 있는 값이 참조되는 곳에 없습니다 —
+      값을 넣기 전에 제약조건을 먼저 거는 이유입니다.</li>
+</ol>
+
+<h4>CASCADE 를 적는 자리</h4>
+<pre>ALTER TABLE tbl_rental
+  ADD CONSTRAINT fk_rental_book
+  FOREIGN KEY (Book_code) REFERENCES tbl_book (Book_code)
+  <b>ON DELETE CASCADE</b>;</pre>
+<p>제약조건에 <b>이름을 붙여 두면</b> 나중에 지우거나 확인할 때 편합니다.
+   이름 없이 걸면 <code>tbl_rental_ibfk_1</code> 처럼 저절로 붙습니다.</p>
+<p class="ex"><span class="x">감점</span> FK 는 걸었으나 <code>ON DELETE CASCADE</code> 를 빠뜨림</p>
+<p class="ex"><span class="o">권함</span> 두 FK 모두에 붙입니다. 항목 08 이 5점입니다</p>
+      </div>
+    </div>
+
+    <div class="step" id="st4">
+      <h3><i>4</i>값 넣기와 무결성 확인</h3>
+      <aside class="side">
+        <p class="pt">부모부터 넣습니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 09 ~ 11 · 각 5점</p>
+        <b class="sh">근거</b>
+        <p class="src">수행준거 1.2</p>
+      </aside>
+      <div class="bd">
+<h4>넣기</h4>
+
+<figure>
+  <img src="img/sq_insert.png" alt="세 테이블에 값을 넣고 조회한 화면과, 없는 도서 번호로 대여를 넣어 외래키 제약에 걸려 거절되는 오류 화면.">
+  <figcaption>값 넣기와 확인. 아래 오류 화면은 참조 무결성이 동작한다는 증거입니다.</figcaption>
+</figure>
+
+<h4>INSERT 를 쓰는 두 가지 모양</h4>
+<pre><i>-- ① 칸 이름을 적는 방식 — 권합니다</i>
+INSERT INTO tbl_member <b>(Member_id, Member_name, Member_grade, Member_phone)</b>
+VALUES (1, '홍길동', '일반', '010-0000-0001');
+
+<i>-- ② 생략하는 방식 — 칸 순서가 바뀌면 엉뚱한 곳에 들어갑니다</i>
+INSERT INTO tbl_member VALUES (1, '홍길동', '일반', '010-0000-0001');</pre>
+<p>답변란에는 ① 로 적습니다. 칸 이름이 있으면 채점자가 무엇을 어디에 넣는지 바로 압니다.</p>
+
+<h4>여러 줄을 한 번에</h4>
+<pre>INSERT INTO tbl_book (Book_code, book_name, book_author, publisher)
+VALUES (101, '데이터베이스 개론', '이순신', '한빛')<b>,</b>
+       (102, '자바의 정석', '남궁성', '도우출판');</pre>
+<p>쉼표로 이어 붙이면 한 번에 여러 줄을 넣습니다. 한 문장이므로 하나라도 틀리면 모두 들어가지 않습니다.</p>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  일부러 없는 번호(예: <code>999</code>)로 대여를 넣어 보고 <b>거절되는 화면</b>을 캡처하십시오.
+  6번 문제의 「FK 확인」 을 보이는 데에도 쓸 수 있고,
+  제약조건이 실제로 동작한다는 것을 한 장으로 증명합니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st5">
+      <h3><i>5</i>트랜잭션의 완료와 취소</h3>
+      <aside class="side">
+        <p class="pt">이번 채점표에는 없지만 수행준거에 있습니다.</p>
+        <b class="sh">근거</b>
+        <p class="src">수행준거 1.3</p>
+        <b class="sh">명령</b>
+        <p class="v"><code>COMMIT</code> · <code>ROLLBACK</code></p>
+      </aside>
+      <div class="bd">
+<h4>왜 묶는가</h4>
+<p>대여를 한 건 처리하려면 <b>대여 기록을 넣고</b> <b>도서 상태를 바꾸는</b> 두 가지가 함께 되어야 합니다.
+   앞의 것만 되고 뒤의 것이 실패하면 데이터가 어긋난 채로 남습니다.
+   그래서 둘을 한 덩어리로 묶고, 다 되면 확정하고 하나라도 안 되면 통째로 되돌립니다.</p>
+
+<figure>
+  <img src="img/sq_dcl.png" alt="START TRANSACTION 으로 시작해 수정과 삭제를 하고 ROLLBACK 또는 COMMIT 으로 끝내는 화면과, 트랜잭션 명령 여섯 가지를 정리한 표.">
+  <figcaption>트랜잭션의 완료와 취소. MySQL 은 기본이 자동 확정이라 묶으려면 먼저 선언합니다.</figcaption>
+</figure>
+
+<h4>실습해 보기</h4>
+<pre>START TRANSACTION;
+DELETE FROM tbl_rental WHERE Rental_id = 2;
+SELECT * FROM tbl_rental;     <i>-- 나에게는 지워져 보입니다</i>
+
+<i>-- 다른 창을 하나 더 열어 같은 조회를 해 보십시오. 아직 남아 있습니다.</i>
+
+ROLLBACK;
+SELECT * FROM tbl_rental;     <i>-- 되돌아왔습니다</i></pre>
+
+<p class="cc">이 수행준거는 이번 평가도구에 대응하는 채점 항목이 없습니다.
+  다만 능력단위의 수행준거이고 다음 교과의 서버 프로그램에서 바로 쓰이므로 함께 다룹니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st6">
+      <h3><i>6</i>데이터사전 조회</h3>
+      <aside class="side">
+        <p class="pt">무엇이 걸려 있는지 데이터베이스에게 물어봅니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 12 · 13 · 각 5점</p>
+        <b class="sh">근거</b>
+        <p class="src">수행준거 1.4 · 2.1</p>
+      </aside>
+      <div class="bd">
+<h4>데이터사전이란</h4>
+<p>데이터베이스는 <b>자기가 무엇을 갖고 있는지</b>를 다시 테이블로 갖고 있습니다.
+   MySQL 에서는 <code>information_schema</code> 라는 이름입니다.
+   이것을 조회하면 어떤 테이블에 어떤 제약조건과 인덱스가 걸렸는지 알 수 있습니다.</p>
+
+<figure>
+  <img src="img/sq_dict.png" alt="information_schema 의 TABLE_CONSTRAINTS 와 KEY_COLUMN_USAGE 를 조회한 화면, 주요 사전 테이블 여섯 개의 쓰임, 그리고 SHOW 명령 세 가지.">
+  <figcaption>데이터사전 조회. 왼쪽은 조회 결과, 오른쪽 위는 사전 테이블의 쓰임입니다.</figcaption>
+</figure>
+
+<h4>SHOW 와 사전 조회의 차이</h4>
+<table class="wide">
+  <tr><th style="width:180px">방법</th><th style="width:200px">보기</th><th>차이</th></tr>
+  <tr><td class="nm">SHOW · DESC</td><td><code>DESC tbl_member;</code></td>
+      <td>빠르고 짧습니다. 그러나 조건을 걸거나 여러 테이블을 한 번에 볼 수 없습니다</td></tr>
+  <tr><td class="nm">사전 조회</td>
+      <td><code>SELECT … FROM information_schema.TABLE_CONSTRAINTS</code></td>
+      <td>일반 SELECT 이므로 조건 · 정렬 · 조인이 됩니다</td></tr>
+</table>
+
+<div class="warn">
+  채점 항목 12 · 13 이 <b>「사전검색을 통한 제약조건 확인 SQL 이 적절한가」</b> 입니다.
+  <b>사전검색</b>이라고 못 박혀 있으므로 <code>DESC</code> 만 내면 인정되지 않을 수 있습니다.
+  <code>information_schema</code> 를 조회한 SQL 을 답변란에 적고, 그 결과 화면을 캡처하십시오.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 3 · 고급 SQL</b><span>능력단위요소 ② · 채점 14 ~ 17 · 40점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st7">
+      <h3><i>7</i>인덱스</h3>
+      <aside class="side">
+        <p class="pt">만들고 <b>확인</b>까지 해야 항목이 채워집니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 14 · 10점</p>
+        <b class="sh">근거</b>
+        <p class="src">수행준거 2.2</p>
+      </aside>
+      <div class="bd">
+<h4>만들기와 확인</h4>
+
+<figure>
+  <img src="img/sq_index.png" alt="두 외래키 칸에 인덱스를 만들고 SHOW INDEX 로 확인한 화면, EXPLAIN 으로 인덱스 전후를 비교한 화면, 그리고 인덱스를 한 줄로 정리한 표.">
+  <figcaption>인덱스 생성과 확인. 오른쪽 위는 인덱스를 걸기 전과 뒤에 조회 방식이 달라지는 모습입니다.</figcaption>
+</figure>
+
+<h4>왜 외래키 칸에 거는가</h4>
+<p>외래키가 걸린 칸은 <b>조인에 쓰이고</b>, <b>부모를 지울 때 검사</b>에도 쓰입니다.
+   둘 다 그 칸으로 찾는 일이므로 인덱스가 있으면 빨라집니다.</p>
+<p>MySQL 의 InnoDB 는 외래키를 걸면 인덱스를 저절로 만들어 주기도 합니다.
+   그래도 작업지시서가 <b>「각 FK 열에 Index 를 추가하고」</b> 라고 했으므로
+   <code>CREATE INDEX</code> 문을 명시적으로 적습니다.</p>
+
+<pre>CREATE INDEX idx_rental_book   ON tbl_rental (Book_code);
+CREATE INDEX idx_rental_member ON tbl_rental (Member_id);
+
+SHOW INDEX FROM tbl_rental;          <i>-- 확인</i>
+SELECT INDEX_NAME, COLUMN_NAME       <i>-- 사전으로 확인해도 됩니다</i>
+FROM   information_schema.STATISTICS
+WHERE  TABLE_SCHEMA='bookdb' AND TABLE_NAME='tbl_rental';</pre>
+
+<p class="ex"><span class="x">감점</span> <code>CREATE INDEX</code> 만 적고 확인 결과가 없음</p>
+<p class="ex"><span class="o">권함</span> 만든 SQL 과 <code>SHOW INDEX</code> 결과를 한 쪽에 함께 둡니다</p>
+      </div>
+    </div>
+
+    <div class="step" id="st8">
+      <h3><i>8</i>조인 고르기</h3>
+      <aside class="side">
+        <p class="pt">문제에 쓸 종류가 지정되어 있습니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 15 · 16 · 각 10점</p>
+        <b class="sh">지정</b>
+        <p class="v"><code>INNER JOIN</code></p>
+      </aside>
+      <div class="bd">
+<h4>네 가지 조인</h4>
+
+<figure>
+  <img src="img/sq_join.png" alt="INNER · LEFT · RIGHT · FULL OUTER 네 조인을 벤 다이어그램과 함께 비교한 표, 그리고 두 테이블을 INNER JOIN 으로 이어 대여한 회원을 조회한 화면.">
+  <figcaption>조인 고르기. 이번 문제는 「책을 대여한 회원」 이므로 INNER JOIN 입니다.</figcaption>
+</figure>
+
+<h4>조건을 거는 자리</h4>
+<p>채점 항목 16 이 <b>「적절한 조건 설정을 하였는가」</b> 입니다.
+   테이블 셋을 이으려면 조건이 <b>둘</b> 필요합니다.
+   대여는 회원과도 이어야 하고 도서와도 이어야 하기 때문입니다.</p>
+<pre>FROM   tbl_rental r
+INNER JOIN tbl_member m <b>ON r.Member_id = m.Member_id</b>   <i>-- 조건 1</i>
+INNER JOIN tbl_book   b <b>ON r.Book_code = b.Book_code</b>   <i>-- 조건 2</i></pre>
+<p>조건을 하나만 걸면 남은 테이블과 모든 줄이 짝지어져 줄 수가 부풀어 오릅니다.
+   결과의 줄 수가 대여 건수보다 많으면 조건이 빠진 것입니다.</p>
+
+<h4>별칭을 쓰는 이유</h4>
+<p><code>tbl_rental r</code> 처럼 짧은 이름을 붙이면 <code>r.Member_id</code> 로 쓸 수 있습니다.
+   두 테이블에 같은 이름의 칸이 있을 때 <b>어느 쪽인지 밝히지 않으면</b>
+   <code>Column 'Member_id' in field list is ambiguous</code> 오류가 납니다.</p>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  같은 질의를 <code>LEFT JOIN</code> 으로도 실행해 보고 줄 수를 비교하십시오.
+  대여하지 않은 회원이 있으면 줄이 늘어납니다.
+  그 차이를 보면 왜 <code>INNER JOIN</code> 인지 설명할 수 있습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st9">
+      <h3><i>9</i>뷰 만들기</h3>
+      <aside class="side">
+        <p class="pt">이름과 칸이 지정되어 있습니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 17 · 10점</p>
+        <b class="sh">이름</b>
+        <p class="v"><code>ShowRental_view</code></p>
+        <b class="sh">근거</b>
+        <p class="src">수행준거 2.3</p>
+      </aside>
+      <div class="bd">
+<h4>만들기</h4>
+
+<figure>
+  <img src="img/sq_view.png" alt="CREATE VIEW 로 조인 결과를 뷰로 만들고 조회한 화면, 사전에서 뷰 정의를 확인하는 질의, 그리고 뷰를 한 줄로 정리한 표.">
+  <figcaption>뷰 만들기. 뷰는 저장해 둔 SELECT 문이며 테이블처럼 조회합니다.</figcaption>
+</figure>
+
+<h4>지정된 조건 세 가지</h4>
+<table class="wide">
+  <tr><th style="width:150px">지정</th><th style="width:210px">지시서의 문구</th><th>지키는 법</th></tr>
+  <tr><td class="nm">뷰 이름</td><td>뷰테이블명 : ShowRental_view</td>
+      <td>대소문자까지 그대로 씁니다</td></tr>
+  <tr><td class="nm">조인 종류</td><td>JOIN 종류 : Inner Join 사용할 것</td>
+      <td><code>INNER JOIN</code> 으로 적습니다.
+      <code>JOIN</code> 만 써도 같은 뜻이지만 명시하는 편이 안전합니다</td></tr>
+  <tr><td class="nm">표시할 칸</td><td>Rental_Id, Member_Name, Book_name 만 표시</td>
+      <td>세 칸만 <code>SELECT</code> 합니다. <code>SELECT *</code> 는 조건 위반입니다</td></tr>
+</table>
+
+<h4>뷰를 확인하는 법</h4>
+<pre>SELECT * FROM ShowRental_view;              <i>-- 써 보기</i>
+SHOW CREATE VIEW ShowRental_view\G          <i>-- 정의 확인</i>
+SELECT TABLE_NAME FROM information_schema.VIEWS
+WHERE  TABLE_SCHEMA = 'bookdb';             <i>-- 사전으로 확인</i></pre>
+<p>수행준거 2.1 이 <b>「테이블의 인덱스와 뷰를 파악하기 위해 데이터사전을 조회」</b> 입니다.
+   뷰를 만든 뒤 사전에서 확인한 화면까지 있으면 그 준거도 함께 보입니다.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 4 · 서술형</b><span>채점 01 ~ 03 · 20점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st10">
+      <h3><i>10</i>시나리오 쓰기</h3>
+      <aside class="side">
+        <p class="pt">왜 테이블이 하나 더 필요한지를 씁니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 01 · 5점</p>
+      </aside>
+      <div class="bd">
+<h4>묻는 것</h4>
+<p>문제는 <b>「현재 만들어진 ERD 에서 1개 이상의 관계형 테이블을 생성하기 위한 시나리오를
+   예상하고 서술해 보세요」</b> 입니다.
+   지금 구조로는 담을 수 없는 요구가 무엇인지 찾아 적는 일입니다.</p>
+
+<h4>찾는 방법 — 세 가지 질문</h4>
+<dl>
+  <dt>한 사람이 여럿을 가질 수 있는가</dt>
+  <dd>한 회원이 여러 역할을 가질 수 있다면 역할은 칸이 아니라 테이블이어야 합니다.
+      이 예제의 <code>tbl_role</code> 이 그렇게 나옵니다.</dd>
+  <dt>이력을 남겨야 하는가</dt>
+  <dd>연체나 반납처럼 <b>시간이 지나며 쌓이는 것</b>은 칸을 덮어쓰면 과거가 사라집니다.
+      따로 테이블로 뺍니다.</dd>
+  <dt>같은 값이 되풀이되는가</dt>
+  <dd>출판사 이름이 도서마다 되풀이된다면 출판사 테이블로 빼고 번호로 가리킵니다.</dd>
+</dl>
+
+<h4>쓰는 틀</h4>
+<p>세 문장이면 충분합니다. <b>지금 무엇이 안 되는가 → 왜 칸으로는 안 되는가 → 그래서 어떻게 하는가</b>.</p>
+
+<figure>
+  <img src="img/sq_model.png" alt="역할 테이블이 필요한 이유를 적은 시나리오 글상자와, tbl_role 의 컬럼 · 자료형 · 제약조건 표, 그에 해당하는 CREATE TABLE 문, 그리고 채점 항목 세 개의 배점표.">
+  <figcaption>서술형 답안. 위가 시나리오, 아래 왼쪽이 모델링 표, 오른쪽이 그에 해당하는 DDL 입니다.</figcaption>
+</figure>
+
+<p class="ex"><span class="x">약함</span> 역할 테이블이 있으면 편리할 것 같습니다</p>
+<p class="ex"><span class="o">권함</span> 한 회원이 사서이면서 관리자일 수 있으므로 칸 하나로는 담기지 않습니다.
+  그래서 역할을 따로 빼고 회원과 1:N 으로 잇습니다</p>
+      </div>
+    </div>
+
+    <div class="step" id="st11">
+      <h3><i>11</i>논리 설계와 모델링</h3>
+      <aside class="side">
+        <p class="pt">표와 DDL 까지 있어야 10점이 채워집니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 02 · 03 · 15점</p>
+      </aside>
+      <div class="bd">
+<h4>논리 설계 (항목 02)</h4>
+<p>새 테이블이 기존 테이블과 <b>어떤 관계로 몇 대 몇</b> 인지를 밝힙니다.</p>
+<table class="wide">
+  <tr><th style="width:180px">확인할 것</th><th>이 예제에서</th></tr>
+  <tr><td class="nm">누가 부모인가</td><td><code>tbl_member</code> — 회원이 있어야 역할을 줍니다</td></tr>
+  <tr><td class="nm">몇 대 몇인가</td><td>1:N — 한 회원이 여러 역할을 가질 수 있습니다</td></tr>
+  <tr><td class="nm">어느 칸으로 잇는가</td>
+      <td><code>tbl_role.member_id</code> → <code>tbl_member.Member_id</code></td></tr>
+  <tr><td class="nm">부모가 지워지면</td><td><code>ON DELETE CASCADE</code> — 역할도 함께 지웁니다</td></tr>
+</table>
+
+<h4>테이블 모델링 (항목 03)</h4>
+<p>10점짜리입니다. <b>칸 이름 · 자료형 · 제약조건</b> 세 칸을 갖춘 표를 만듭니다.
+   가능하면 <code>CREATE TABLE</code> 문까지 함께 적습니다.</p>
+<pre>CREATE TABLE tbl_role (
+  role_id     INT          NOT NULL AUTO_INCREMENT,
+  member_id   INT          NOT NULL,
+  role        VARCHAR(20)  NOT NULL,
+  granted_at  DATETIME     DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (role_id),
+  <b>CONSTRAINT fk_role_member</b>
+    <b>FOREIGN KEY (member_id) REFERENCES tbl_member (Member_id)</b>
+    <b>ON DELETE CASCADE</b>
+);</pre>
+
+<div class="warn">
+  서술형은 글만으로 끝내지 마십시오. 항목 03 이 <b>「테이블 모델링은 잘 구현하였는가」</b> 이고
+  10점입니다. 표와 <code>CREATE TABLE</code> 문을 함께 내고,
+  가능하면 <b>실제로 만들어 본 결과 화면</b>까지 붙이면 근거가 분명해집니다.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 5 · 마무리</b><span>대조와 제출</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st12">
+      <h3><i>12</i>답변란과 결과 캡처</h3>
+      <aside class="side">
+        <p class="pt">SQL 과 결과를 짝지어 냅니다.</p>
+        <b class="sh">형식</b>
+        <p class="v">답변란 + PPT</p>
+      </aside>
+      <div class="bd">
+<p>제출 방법이 둘로 나뉘어 있습니다.</p>
+<ol>
+  <li>각 항목에 적절한 <b>SQL 을 답변란에 기입</b>합니다.</li>
+  <li>각 항목에 적절한 SQL 을 적용한 <b>결과 화면을 PPT 로 취합</b>해 올립니다.</li>
+</ol>
+<p>답변란의 SQL 과 PPT 의 결과 화면이 <b>같은 문장</b>이어야 합니다.
+   답변란은 고쳐 적고 캡처는 옛 것을 그대로 두면 둘이 어긋납니다.</p>
+
+<h4>캡처하는 요령</h4>
+<table class="wide">
+  <tr><th style="width:170px">상황</th><th>이렇게 캡처합니다</th></tr>
+  <tr><td class="nm">명령이 성공</td>
+      <td>명령문과 <code>Query OK</code> 가 한 장에 함께 보이게 자릅니다</td></tr>
+  <tr><td class="nm">조회 결과</td>
+      <td>질의문과 결과 표를 한 장에. Workbench 라면 위쪽 편집창과 아래 결과창을 함께</td></tr>
+  <tr><td class="nm">오류를 보일 때</td>
+      <td>어떤 명령에서 무슨 오류가 났는지 함께 보이게 자릅니다</td></tr>
+  <tr><td class="nm">긴 결과</td>
+      <td>앞 몇 줄과 마지막 줄 수 표시가 보이면 충분합니다</td></tr>
+</table>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  Workbench 에서는 결과창 오른쪽의 <b>Form Editor</b> 나 <b>Export</b> 도 쓸 수 있지만,
+  가장 확실한 것은 <b>편집창과 결과창이 함께 보이는 화면</b>을 통째로 캡처하는 것입니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st13">
+      <h3><i>13</i>자가 점검</h3>
+      <aside class="side">
+        <p class="pt">열여덟 항목을 스스로 매겨 봅니다.</p>
+        <b class="sh">시간</b>
+        <p class="v">30분</p>
+      </aside>
+      <div class="bd">
+<table class="wide">
+  <tr><th style="width:56px">번호</th><th style="width:52px">배점</th>
+      <th>확인할 것</th><th style="width:80px">근거 쪽</th></tr>
+  <tr><td class="c">01</td><td class="c">5</td><td>추가 시나리오는 적절한가</td><td></td></tr>
+  <tr><td class="c">02</td><td class="c">5</td><td>논리적 설계는 적절한가</td><td></td></tr>
+  <tr><td class="c">03</td><td class="c">10</td><td>테이블 모델링은 잘 구현하였는가</td><td></td></tr>
+  <tr><td class="c">04</td><td class="c">2</td><td>tbl_member 의 PK 설정 SQL</td><td></td></tr>
+  <tr><td class="c">05</td><td class="c">2</td><td>tbl_book 의 PK 설정 SQL</td><td></td></tr>
+  <tr><td class="c">06</td><td class="c">3</td><td>tbl_member 의 PK 에 대한 FK SQL</td><td></td></tr>
+  <tr><td class="c">07</td><td class="c">3</td><td>tbl_book 의 PK 에 대한 FK SQL</td><td></td></tr>
+  <tr><td class="c">08</td><td class="c">5</td><td>tbl_rental 의 DELETE CASCADE 옵션</td><td></td></tr>
+  <tr><td class="c">09</td><td class="c">5</td><td>tbl_member 의 INSERT SQL</td><td></td></tr>
+  <tr><td class="c">10</td><td class="c">5</td><td>tbl_book 의 INSERT SQL</td><td></td></tr>
+  <tr><td class="c">11</td><td class="c">5</td><td>tbl_rental 의 INSERT SQL</td><td></td></tr>
+  <tr><td class="c">12</td><td class="c">5</td><td>tbl_member 의 사전검색 제약조건 확인 SQL</td><td></td></tr>
+  <tr><td class="c">13</td><td class="c">5</td><td>tbl_book 의 사전검색 제약조건 확인 SQL</td><td></td></tr>
+  <tr><td class="c">14</td><td class="c">10</td><td>tbl_rental 의 FK 에 index 설정 SQL</td><td></td></tr>
+  <tr><td class="c">15</td><td class="c">10</td><td>적절한 조인 종류를 선택하였는가</td><td></td></tr>
+  <tr><td class="c">16</td><td class="c">10</td><td>적절한 조건 설정을 하였는가</td><td></td></tr>
+  <tr><td class="c">17</td><td class="c">10</td><td>하나 이상의 관계형 테이블이 구성되어 있는가</td><td></td></tr>
+</table>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  데이터베이스를 통째로 지우고(<code>DROP DATABASE</code>) 답변란의 SQL 을
+  <b>위에서부터 차례로 다시 실행</b>해 보십시오.
+  오류 없이 끝까지 돌면 순서와 문법이 모두 맞는 것입니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st14">
+      <h3><i>14</i>통합과 제출</h3>
+      <aside class="side">
+        <p class="pt">답변란과 PPT 를 함께 냅니다.</p>
+        <b class="sh">형식</b>
+        <p class="v">답변란 · PPT</p>
+      </aside>
+      <div class="bd">
+<div class="draw">
+  <b class="n">1단계 · 답변란의 SQL 을 한 번 더 실행해 봅니다</b>
+  적는 과정에서 세미콜론이나 따옴표가 빠지는 일이 흔합니다.
+</div>
+<div class="draw">
+  <b class="n">2단계 · 쪽 순서를 문제 번호대로 맞춥니다</b>
+  1 · 2 → 3 · 4 → 5 → 6 → 7 → 8 → 서술형 순입니다.
+</div>
+<div class="draw">
+  <b class="n">3단계 · 쪽마다 문제 번호와 채점 항목 번호를 답니다</b>
+  채점자가 항목을 찾아 헤매지 않습니다.
+</div>
+<div class="draw">
+  <b class="n">4단계 · 글자가 읽히는지 확인합니다</b>
+  콘솔 화면을 줄여 붙이면 글자가 뭉개집니다.
+  필요한 줄만 잘라 크게 붙이는 편이 낫습니다.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ 3 ═══════ -->
+<h2 class="sec" id="g3">3. 주요 감점 요인</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">지정된 방법을 지키지 않아 잃는 점수가 많습니다.</p>
+    <b class="sh">가장 큰 것</b>
+    <p class="v">서술형에 표가 없는 것</p>
+    <b class="sh">가장 아까운 것</b>
+    <p class="v"><code>CASCADE</code> 누락</p>
+  </aside>
+  <div class="bd">
+<p>아래 일곱 가지가 되풀이되는 감점입니다.
+   SQL 을 몰라서가 아니라 <b>지시서가 지정한 방법을 지나쳐서</b> 생깁니다.</p>
+
+<figure>
+  <img src="img/sq_bad.png" alt="CREATE 안에 제약조건 · CASCADE 누락 · 사전검색 대신 DESC · 인덱스 확인 누락 · 조인 종류 오류 · 뷰 칸 과다 · 서술형 표 누락 일곱 가지의 감점 모습과 보완 방법을 정리한 표.">
+  <figcaption>자주 나오는 감점과 보완. 왼쪽이 실제로 자주 나오는 모습,
+    오른쪽이 그것을 막는 방법입니다.</figcaption>
+</figure>
+
+<div class="warn">
+  문제를 읽을 때 <b>「alter 사용」</b> · <b>「Inner Join 사용할 것」</b> ·
+  <b>「~만 표시」</b> · <b>「추가하고 확인해 보세요」</b> 처럼
+  방법을 지정한 말에 밑줄을 그어 두십시오.
+  결과가 같아도 방법이 다르면 그 항목은 인정되지 않습니다.
+</div>
+  </div>
+</div>
+
+<footer>
+  SQL활용 · 3수준 · 32시간 · 담당 정우균 ·
+  (디지털컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E<br>
+  예제는 평가도구 작업지시서의 [보기] 세 테이블이며, 앞 교과에서 만든 bookdb 안에서 실습합니다.
+</footer>
+
+</div>
+
+<script>
+/* 빠른 이동 — 지금 보는 단원을 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"],a[href="#g3"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+  function mark() {
+    var y = window.pageYOffset + 90, cur = -1;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function () { mark(); tick = false; });
+  });
+  mark();
+})();
+</script>

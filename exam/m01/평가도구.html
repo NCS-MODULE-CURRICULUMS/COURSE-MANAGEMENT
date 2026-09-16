@@ -1,0 +1,347 @@
+<meta charset="utf-8"><title>평가도구 · 화면 설계 (HWP 채움도우미)</title>
+<link rel="stylesheet" href="../../assets/site.css">
+<style>
+  /* 이 페이지에만 있는 것. 공통 규칙은 assets/site.css 에 있습니다. */
+  .blk{border:1px solid #000;margin:0 0 18px}
+  .bh{display:flex;align-items:center;justify-content:space-between;gap:10px;
+      background:#eee;border-bottom:1px solid #000;padding:8px 12px}
+  .bt{font-size:13.5px;font-weight:700}
+  .bd{padding:12px}
+  button.cp,button.mini{font-family:inherit;cursor:pointer;background:#fff;color:#000;
+      border:1px solid #000;font-size:12px;padding:2px 10px;white-space:nowrap}
+  button.cp:hover,button.mini:hover{background:#000;color:#fff}
+  button.mini{font-size:11px;float:right;margin:0 0 4px 8px}
+  button.ok{background:#000;color:#fff}
+  th,td{text-align:left;vertical-align:top}
+  td.lb{background:#f7f7f7;font-weight:700;width:140px}
+  td.num,th.num{text-align:right;width:64px}
+  ul{margin:4px 0 4px 18px;padding:0}
+  li{margin:2px 0}
+  .tot{text-align:right;font-weight:700;font-size:13px;margin-top:8px}
+  .fix{color:#777;font-size:12px;font-weight:400}
+  .ok2{font-weight:700}
+  .bad{font-weight:700;text-decoration:underline}
+  .cell{white-space:pre-wrap}
+  @media print{button{display:none}.blk{break-inside:avoid}.top{display:none}}
+</style>
+
+<script src="../../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../../index.html">평가 자료</a><small><a href="../../courses/c1.html">평가 모듈 목록</a> / <a href="../../modules/m01.html">화면 설계</a> / 평가도구</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+
+
+<div class="wrap">
+
+<h1>화면 설계 — 내부평가 평가도구</h1>
+<p class="sub">능력단위 화면 설계 (2001020224_23v6) / 5수준 · 평가방법 <b>포트폴리오 (100점)</b> · 합격선 60점</p>
+
+<div class="note">
+  <b>사용법</b><br>
+  · <b>[복사]</b> — 각 칸의 파란 단추를 누르면 그 칸 내용만 클립보드에 담깁니다.
+    <code>화면설계_평가도구(100점).hwp</code> 의 해당 칸에 <b>Ctrl+V</b>.<br>
+  · <b>[블록 전체 복사]</b> — 표 하나를 통째로 복사합니다.<br>
+  · 표가 깨지면 <b>Ctrl+Alt+V</b>(골라 붙이기) → <b>텍스트 형식</b> 을 씁니다.<br>
+  · 정답 예시 산출물은 <a href="포트폴리오.html">포트폴리오 제출서</a> 에서 <b>[예시 보기]</b> 를 누르면 나옵니다.
+</div>
+
+<div class="warn">
+  <b>원본 대비 수정한 것</b> — 아래 5가지 외에 작업지시서 문구와 채점 항목 19개의 <b>문장·배점은 원본 그대로</b>입니다.
+  <ul>
+    <li>과정명 — 「(과정평가형 자격)정보처리산업기사 취득과정B」 → 「(디지털 컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E」<br>
+      <span class="fix">이전 기수 문서를 재사용하며 남은 값입니다.</span></li>
+    <li>채점표 두 번째 블록의 문항번호가 전부 <code>1)</code> 이었습니다 → <code>07) ~ 11)</code></li>
+    <li>「능력단위 요소별 요구조건(수행준거)」 칸이 없었습니다 → 능력단위 정의서(report.pdf) 원문으로 채웠습니다</li>
+    <li>제출방법을 <b>훈련 포털의 실제 제출 칸(파일 1 · 링크 1)</b> 에 맞춰 다시 적었습니다.<br><span class="fix">캡처를 파일에 넣게 한 것은 링크만 받으면 평가자료가 남지 않기 때문입니다 (매뉴얼 p.180).</span></li>
+    <li>부록(출제근거·난이도·루브릭·성취수준 환산·검증자·자료보관)을 신설했습니다. 매뉴얼이 요구하는 항목입니다</li>
+  </ul>
+</div>
+
+<!-- 1 -->
+<div class="blk">
+  <div class="bh"><span class="bt">1. 기본 정보</span><button class="cp" data-blk="b1">블록 전체 복사</button></div>
+  <div class="bd"><table id="b1">
+    <tr><td class="lb">과정명</td><td><button class="mini cp">복사</button><span class="cell">(디지털 컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E</span></td></tr>
+    <tr><td class="lb">평가자</td><td><button class="mini cp">복사</button><span class="cell">정우균</span></td></tr>
+    <tr><td class="lb">능력단위명/수준</td><td><button class="mini cp">복사</button><span class="cell">화면 설계 / 5수준</span></td></tr>
+    <tr><td class="lb">평가일자(시간)</td><td><button class="mini cp">복사</button><span class="cell">2026-03-05 (09:00 ~ 18:00)</span></td></tr>
+    <tr><td class="lb">능력단위 요소명</td><td><button class="mini cp">복사</button><span class="cell">UI 요구사항 확인하기
+UI 설계하기</span></td></tr>
+    <tr><td class="lb">평가방법(배점)</td><td><button class="mini cp">복사</button><span class="cell">포트폴리오 (100점)</span></td></tr>
+  </table>
+  <p class="tot">평가방법 근거 — 학습모듈 <code>LM2001020224</code> p.45 학습1 평가방법 「포트폴리오」, p.77 학습2 「포트폴리오」.
+    학습모듈 부록의 제목도 「작업 포트폴리오」입니다.</p>
+  </div>
+</div>
+
+<!-- 2 -->
+<div class="blk">
+  <div class="bh"><span class="bt">2. 능력단위 요소별 요구조건 (수행준거) — 신설</span><button class="cp" data-blk="b2">블록 전체 복사</button></div>
+  <div class="bd"><table id="b2">
+    <tr><td class="lb">[UI 요구사항 확인하기]</td><td><button class="mini cp">복사</button><span class="cell">1. 응용소프트웨어 개발을 위한 UI 표준 및 지침에 의거하여, 개발하고자 하는 응용소프트웨어에 적용될 UI 요구사항을 확인할 수 있다.
+2. 응용소프트웨어 개발을 위한 UI 표준 및 지침에 의거하여, UI 요구사항을 반영한 프로토타입을 제작할 수 있다.
+3. 작성한 프로토타입을 활용하여 UI/UX 엔지니어와 향후 적용할 UI의 적정성에 대해 검토할 수 있다.</span></td></tr>
+    <tr><td class="lb">[UI 설계하기]</td><td><button class="mini cp">복사</button><span class="cell">4. UI 요구사항과 UI 표준 및 지침에 따라, 화면과 폼의 흐름을 설계하고, 제약사항을 화면과 폼 흐름설계에 반영할 수 있다.
+5. UI 요구사항과 UI 표준 및 지침에 따라, 사용자의 편의성을 고려한 메뉴 구조를 설계할 수 있다.
+6. UI 요구사항과 UI 표준 및 지침에 따라, 하위 시스템 단위의 내·외부 화면과 폼을 설계할 수 있다.</span></td></tr>
+  </table></div>
+</div>
+
+<!-- 3 -->
+<div class="blk">
+  <div class="bh"><span class="bt">3. 평가내용 — 작업지시서 · 내용(설명) · 제출방법</span><button class="cp" data-blk="b3">블록 전체 복사</button></div>
+  <div class="bd"><table id="b3">
+    <tr><td class="lb">작업지시서<br>(문제)</td><td><button class="mini cp">복사</button><span class="cell">[팀별제출] 웹기획을 위한 각 단계를 이행하세요.
+
+1 프로젝트 주제 선정 이후 유스케이스 다이어그램과 명세서를 작성하세요
+2 프로젝트 주제를 정하고 관련 스타일가이드 작성/제출합니다
+  구동환경 / 로고 / 폰트 / 색상 / 레이아웃 / 구성요소(버튼/그리드)
+3 프로토타입을 구현합니다
+  각 화면별 화면이동이나 기타 효과를 PPT로 정리해서 제출합니다
+  Interactive 한 화면이 구현되었는지 테스트 확인</span></td></tr>
+    <tr><td class="lb">내용(설명)</td><td><button class="mini cp">복사</button><span class="cell">[수행 프로세스]
+1. 프로젝트 주제 선정 → 요구사항 명세서 작성
+2. 유스케이스 다이어그램 · 유스케이스 명세서 작성 (정상 / 대안 / 예외 흐름)
+3. 스타일가이드 작성 — 구동환경 · 로고 · 폰트 · 색상 · 레이아웃 · 구성요소
+4. 화면 목록 · 화면 흐름도 · 메뉴 구조도 설계
+5. 프로토타입 구현 — 화면 이동과 효과를 실제로 동작시킴
+6. 스타일가이드와 프로토타입의 일관성 검토
+
+[작성 기준]
+· 유스케이스 명세서는 정상 흐름만이 아니라 대안 흐름 · 예외 흐름까지 적습니다.
+· 스타일가이드에서 정한 색·글꼴·레이아웃이 프로토타입에 그대로 적용되어야 합니다.
+  스타일가이드가 프로토타입 채점의 판정 기준이 됩니다.
+· 화면 흐름설계에는 제약사항(예: 로그인해야 접근 가능)이 흐름으로 그려져야 합니다.
+· 메뉴 구조는 계층으로 그리고, 그 깊이로 정한 이유를 함께 적습니다.
+· 프로토타입은 정적인 그림이 아니라 화면 이동이 실제로 동작해야 합니다.
+
+[제공물]
+· 학습모듈 활용 서식 — 요구사항 명세서 양식, 유스케이스 설명 양식,
+  UI 시나리오 스토리보드, 인터뷰 리포트 (LM2001020224 p.79~82)
+· 작성 서식 웹 페이지 (예시 포함)</span></td></tr>
+    <tr><td class="lb">제출방법</td><td><button class="mini cp">복사</button><span class="cell">훈련 포털의 평가문제는 1문항 100점이며 제출 칸은 파일 1개 · 링크 1개입니다.
+
+· 파일(1개) : 유스케이스 다이어그램·명세서 → 스타일가이드 → 프로토타입 화면 캡처 순으로
+  한 파일에 합쳐 PPT 또는 PDF 로 제출
+· 링크(1개) : Figma 프로토타입 공유 링크 (권한 = 링크가 있는 모든 사용자 보기 가능)
+· 프로토타입 화면 캡처를 파일 안에 반드시 포함합니다.
+  링크는 권한 변경·삭제 시 열리지 않으므로 캡처본을 정본으로 합니다.
+· 팀별 제출. 팀원 전원의 이름과 역할을 문서 첫 장에 기재합니다.
+
+□ 포트폴리오</span></td></tr>
+  </table></div>
+</div>
+
+<!-- 4 -->
+<div class="blk">
+  <div class="bh"><span class="bt">4. 참고 — 정답 예시</span></div>
+  <div class="bd">
+    <p style="margin:0 0 8px;font-size:13.5px">
+      예시 산출물은 <a href="포트폴리오.html">포트폴리오 제출서</a> 에서 <b>[예시 보기]</b> 를 누르면 펼쳐집니다.
+      가상 프로젝트 <b>데일리마켓</b>(신선식품 온라인 쇼핑몰)으로 작성했습니다.
+      목록·상세·입력 폼·표·결제 연동·로그인 제약이 한 서비스에 모두 들어 있어
+      화면 설계에 필요한 요소를 빠짐없이 보여 줄 수 있는 주제입니다.</p>
+    <table>
+      <tr><th style="width:150px">예시 산출물</th><th>확인 포인트</th></tr>
+      <tr><td>요구사항 명세서 8행</td><td>SR-01~08 이 유스케이스와 1:1 로 대응하는지 · 우선순위 근거가 있는지</td></tr>
+      <tr><td>유스케이스 다이어그램</td><td>액터 3(비회원 · 회원 · <code>«system»</code> 결제 시스템 PG) · 유스케이스 12(SR 대응 8 + 공통·확장 4) · include 6 · extend 1 · 일반화 1(회원 ▷ 비회원) · 범례</td></tr>
+      <tr><td>유스케이스 명세서 2건</td><td>장바구니 담기 · 주문 결제. 예외 흐름(비로그인 · 재고부족 · 결제 무응답)이 있는지</td></tr>
+      <tr><td>스타일가이드 6항목</td><td>색상 코드 · 글꼴 크기 · 그리드 수치가 구체적인지 · 가격 색이 하나로 고정됐는지</td></tr>
+      <tr><td>화면 흐름도</td><td>제약사항(비로그인 → 로그인 화면)이 <b>흐름으로 그려져</b> 있는지</td></tr>
+      <tr><td>메뉴 구조도</td><td>깊이를 그렇게 정한 이유가 적혀 있는지</td></tr>
+      <tr><td>Figma 캡처 3종</td><td>캔버스(연결선) · 화면 확대(가이드 대조) · Prototype 패널(인터랙션 목록)</td></tr>
+    </table>
+    <p class="tot">학생은 본인 팀 주제로 같은 흐름을 만들어야 하며, 항목·수치는 당연히 다릅니다.
+      채점 시 흐름이 갖춰졌는지 대조합니다.</p>
+  </div>
+</div>
+
+<!-- 5 -->
+<div class="blk">
+  <div class="bh"><span class="bt">5. 채점표 ① 유스케이스 (30점)</span><button class="cp" data-blk="b5">블록 전체 복사</button></div>
+  <div class="bd"><table id="b5">
+    <tr><td class="lb">[지식/기술]<br>평가 세부항목</td><td><button class="mini cp">복사</button><span class="cell">1. 응용소프트웨어 개발을 위한 UI 표준 및 지침에 의거하여 개발하고자 하는 응용소프트웨어에 적용될 UI 요구사항을 확인할 수 있다.</span></td></tr>
+    <tr><td class="lb">작업 내용</td><td><button class="mini cp">복사</button><span class="cell">1 프로젝트 주제 선정 이후 유스케이스 다이어그램과 명세서를 작성하세요</span></td></tr>
+    <tr><td class="lb">배점 / 득점</td><td><button class="mini cp">복사</button><span class="cell">30점 / (     )</span></td></tr>
+    <tr><td class="lb">정답(총 30점)</td><td><button class="mini cp">복사</button><span class="cell">01) □ Actor 선정은 올바르게 되어 있는가 (5점)
+02) □ Usecase간 관계선은 올바른가 (5점)
+03) □ Include / Extended 가 적절히 표기되어 있는가 (5점)
+04) □ 유스케이스 명세서의 정상흐름은 올바르게 기입되어 있는가 (5점)
+05) □ 유스케이스 명세서의 대안흐름은 올바르게 기입되어 있는가 (5점)
+06) □ 유스케이스 명세서의 예외흐름은 올바르게 기입되어 있는가 (5점)</span></td></tr>
+  </table></div>
+</div>
+
+<!-- 6 -->
+<div class="blk">
+  <div class="bh"><span class="bt">6. 채점표 ② 스타일가이드 (30점)</span><button class="cp" data-blk="b6">블록 전체 복사</button></div>
+  <div class="bd"><table id="b6">
+    <tr><td class="lb">[지식/기술]<br>평가 세부항목</td><td><button class="mini cp">복사</button><span class="cell">2. 응용소프트웨어 개발을 위한 UI 표준 및 지침에 의거하여, UI 요구사항을 반영한 프로토타입을 제작할 수 있다.
+3. 작성한 프로토타입을 활용하여 UI/UX엔지니어와 향후 적용할 UI의 적정성에 대해 검토할 수 있다.</span></td></tr>
+    <tr><td class="lb">작업 내용</td><td><button class="mini cp">복사</button><span class="cell">2 프로젝트 주제를 정하고 관련 스타일가이드 작성/제출합니다
+  구동환경 / 로고 / 폰트 / 색상 / 레이아웃 / 구성요소(버튼/그리드)</span></td></tr>
+    <tr><td class="lb">배점 / 득점</td><td><button class="mini cp">복사</button><span class="cell">30점 / (     )</span></td></tr>
+    <tr><td class="lb">정답(총 30점)</td><td><button class="mini cp">복사</button><span class="cell">07) □ 구동환경 작성하였는지 여부 확인 (5점)
+08) □ 로고이미지에 대한 내용 포함 여부 확인 (5점)
+09) □ 글꼴/기본색상 표기 여부 확인 (5점)
+10) □ 레이아웃 형태 내용 포함 여부 확인 (10점)
+11) □ 구성요소(사용버튼/그리드) 내용 포함 여부 확인 (5점)</span></td></tr>
+  </table>
+  <p class="tot fix">원본은 이 블록의 문항번호가 전부 <code>1)</code> 이었습니다. <code>07)~11)</code> 로 바로잡았고 배점·문구는 그대로입니다.</p>
+  </div>
+</div>
+
+<!-- 7 -->
+<div class="blk">
+  <div class="bh"><span class="bt">7. 채점표 ③ 프로토타입 (40점)</span><button class="cp" data-blk="b7">블록 전체 복사</button></div>
+  <div class="bd"><table id="b7">
+    <tr><td class="lb">[지식/기술]<br>평가 세부항목</td><td><button class="mini cp">복사</button><span class="cell">4. UI 요구사항과 UI 표준 및 지침에 따라, 화면과 폼의 흐름을 설계하고, 제약사항을 화면과 폼 흐름설계에 반영할 수 있다.
+5. UI 요구사항과 UI 표준 및 지침에 따라, 사용자의 편의성을 고려한 메뉴 구조를 설계할 수 있다.
+6. UI 요구사항과 UI 표준 및 지침에 따라, 하위 시스템 단위의 내·외부 화면과 폼을 설계할 수 있다.</span></td></tr>
+    <tr><td class="lb">작업 내용</td><td><button class="mini cp">복사</button><span class="cell">3 프로토타입을 구현합니다
+  각 화면별 화면이동이나 기타 효과를 PPT로 정리해서 제출합니다
+  Interactive 한 화면이 구현되었는지 테스트 확인</span></td></tr>
+    <tr><td class="lb">배점 / 득점</td><td><button class="mini cp">복사</button><span class="cell">40점 / (     )</span></td></tr>
+    <tr><td class="lb">정답(총 40점)</td><td><button class="mini cp">복사</button><span class="cell">12) □ 메인페이지의 레이아웃이 스타일가이드의 레이아웃과 유사한지 여부 확인 (5점)
+13) □ 로고의 형태가 스타일가이드에서 제시한 형태와 유사한지 여부 확인 (5점)
+14) □ GNB의 메뉴효과가 1개 이상 구현되어 있는지 여부 확인 (5점)
+15) □ 기타 다른 부수적인 EFFECT(슬라이드/Dropdown등) 이 하나이상 포함되어 표현되어지는지 여부 확인 (5점)
+16) □ 스타일(Color, Typography 등)이 UI 표준 가이드에 따라 일관성 있게 적용되었는지 여부 (5점)
+17) □ 화면 전환과 폼(Form) 흐름이 인터랙션으로 연결되었는지 여부 확인 (5점)
+18) □ 메인 메뉴와 하위 메뉴 구조가 계층적으로 직관적이게 설계되었는지 여부 확인 (5점)
+19) □ 하위 시스템 단위별로 필요한 내·외부 화면과 입력 폼이 누락 없이 구현되었는지 여부 확인 (5점)</span></td></tr>
+  </table></div>
+</div>
+
+<!-- 배점 검증 -->
+<div class="blk">
+  <div class="bh"><span class="bt">8. 배점 검증</span><button class="cp" data-blk="b8">블록 전체 복사</button></div>
+  <div class="bd"><table id="b8">
+    <tr><th>능력단위요소</th><th>수행준거</th><th class="num">배점</th><th>대응 과제</th></tr>
+    <tr><td rowspan="4">① UI 요구사항 확인하기</td><td>1. UI 요구사항 확인</td><td class="num">30</td><td>과제 1</td></tr>
+    <tr><td>2. 프로토타입 제작</td><td class="num">20</td><td>과제 2</td></tr>
+    <tr><td>3. 프로토타입 적정성 검토</td><td class="num">10</td><td>과제 2</td></tr>
+    <tr><th>소계</th><th class="num">60</th><td></td></tr>
+    <tr><td rowspan="4">② UI 설계하기</td><td>4. 화면·폼 흐름설계</td><td class="num">10</td><td>과제 3</td></tr>
+    <tr><td>5. 메뉴 구조 설계</td><td class="num">10</td><td>과제 3</td></tr>
+    <tr><td>6. 내·외부 화면·폼 설계</td><td class="num">20</td><td>과제 3</td></tr>
+    <tr><th>소계</th><th class="num">40</th><td></td></tr>
+    <tr><th colspan="2">합계</th><th class="num" id="sumCell">100</th><td class="ok2" id="sumMsg">채점도구 hwp 실측값과 일치</td></tr>
+  </table>
+  <p class="tot">과제 배점(30 / 30 / 40)과 준거 배점(30 / 20+10 / 10+10+20)이 정확히 대응합니다.</p>
+  </div>
+</div>
+
+<!-- 부록 -->
+<div class="blk">
+  <div class="bh"><span class="bt">9. 부록 — 매뉴얼 요구 항목 (신설)</span><button class="cp" data-blk="b9">블록 전체 복사</button></div>
+  <div class="bd">
+    <p style="margin:0 0 10px;font-size:13px;color:#555">
+      「NCS 기반 훈련과정 편성·평가도구 활용 매뉴얼」이 요구하나 원본 평가도구에 없던 항목입니다.
+      별첨2(평가도구 개발 양식) I-2 · I-3 · I-4 와 본문 p.177 · p.179 · p.180 에 근거합니다.</p>
+
+    <table id="b9">
+      <tr><th colspan="4" style="background:#e8eef7">9-1. 출제 의도 · 출제 근거 (별첨2 I-2)</th></tr>
+      <tr><th style="width:56px">과제</th><th>출제 의도</th><th style="width:250px">출제 근거</th><th style="width:60px">난이도</th></tr>
+      <tr><td>1</td><td>요구사항을 사용자 관점의 기능 단위로 분해할 수 있는지 확인합니다. 다이어그램만이 아니라 명세서의 정상·대안·예외 흐름까지 요구해 요구사항 누락을 스스로 찾게 합니다.</td>
+          <td>수행준거 1 / LM 학습1-1 「UI 요구사항 확인」<br>LM 활용서식 「유스케이스 설명 양식」</td><td>중</td></tr>
+      <tr><td>2</td><td>UI 표준 및 지침을 문서로 고정할 수 있는지 확인합니다. 과제 3의 판정 기준이 되므로 먼저 작성하게 합니다.</td>
+          <td>수행준거 2, 3 / LM 학습1-2 「UI 프로토타입 제작, 검토」</td><td>하</td></tr>
+      <tr><td>3</td><td>스스로 만든 표준을 실제 화면으로 구현하고, 화면 흐름·메뉴 구조·내외부 폼까지 설계로 연결할 수 있는지 확인합니다.</td>
+          <td>수행준거 4, 5, 6 / LM 학습2-1 「UI 흐름설계」 · 2-2 「UI 상세설계」</td><td>상</td></tr>
+
+      <tr><th colspan="4" style="background:#e8eef7">9-2. 성취수준 루브릭 5척도 (별첨2 I-4)</th></tr>
+      <tr><th>평가요소</th><th colspan="3">척도별 기준</th></tr>
+      <tr><td>유스케이스<br>(30점)</td><td colspan="3">1 다이어그램 없음 · 2 다이어그램만 명세서 없음 · 3 정상흐름까지 · 4 대안흐름까지 · 5 예외흐름과 관계선까지 정확</td></tr>
+      <tr><td>스타일가이드<br>(30점)</td><td colspan="3">1 미제출 · 2 2항목 이하 · 3 4항목 · 4 6항목 모두 · 5 6항목과 사용 예시까지</td></tr>
+      <tr><td>프로토타입<br>(40점)</td><td colspan="3">1 화면 없음 · 2 정적 화면만 · 3 화면 이동 동작 · 4 이동과 효과 1개 이상 · 5 스타일가이드와 일관되고 폼 흐름 연결</td></tr>
+
+      <tr><th colspan="4" style="background:#e8eef7">9-3. 성취수준 환산 (매뉴얼 p.179)</th></tr>
+      <tr><td colspan="4">90점 이상 = 5 · 80~90 미만 = 4 · 70~80 미만 = 3 · 60~70 미만 = 2 · 60 미만 = 1<br>
+        60점 미만은 Fail. 보충학습 시행 후 재평가합니다. 평가일 결석자도 재평가 대상입니다.</td></tr>
+
+      <tr><th colspan="4" style="background:#e8eef7">9-4. 평가도구 검증 (매뉴얼 p.177)</th></tr>
+      <tr><td class="lb">평가자</td><td>정우균</td><td class="lb">검증자</td><td>(기재)</td></tr>
+      <tr><td class="lb">검증자 소속</td><td>(기재)</td><td class="lb">검증 구분</td><td>내부 / 외부 — 외부 검증 권장</td></tr>
+
+      <tr><th colspan="4" style="background:#e8eef7">9-5. 평가자료 관리 (매뉴얼 p.180 — 포트폴리오)</th></tr>
+      <tr><td colspan="4">
+        · 제출 파일(스타일가이드 PDF · 프로토타입 캡처 PDF · 유스케이스 문서)을 파일로 보관합니다.<br>
+        · 전량 출력하지 않고 샘플자료만 출력, 나머지는 파일로 보관합니다.<br>
+        · Figma 링크는 보조 자료입니다. 캡처본을 정본으로 삼습니다.<br>
+        · 개인정보 수집·활용 동의서를 사전에 받고 유출되지 않도록 보관합니다.</td></tr>
+    </table>
+  </div>
+</div>
+
+<p style="text-align:right"><button class="cp" id="allCp">문서 전체 복사</button></p>
+
+</div>
+
+<script>
+(function(){
+  function mark(btn, txt){
+    var o = btn.textContent;
+    btn.textContent = txt; btn.classList.add('ok');
+    setTimeout(function(){ btn.textContent = o; btn.classList.remove('ok'); }, 1300);
+  }
+  function put(text, btn){
+    function ok(){ mark(btn, '복사됨'); }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(ok, function(){ fb(text, ok); });
+    } else fb(text, ok);
+  }
+  function fb(text, ok){
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); ok(); }catch(e){ alert('복사하지 못했습니다. 직접 선택해서 복사해 주세요.'); }
+    ta.remove();
+  }
+  function tableText(tb){
+    return [].map.call(tb.querySelectorAll('tr'), function(tr){
+      return [].map.call(tr.children, function(td){
+        return td.textContent.replace(/^복사/, '').trim();
+      }).join('\t');
+    }).join('\n');
+  }
+
+  /* 칸별 복사 */
+  document.querySelectorAll('button.mini.cp').forEach(function(b){
+    b.onclick = function(){
+      var cell = b.parentNode.querySelector('.cell');
+      put(cell ? cell.textContent : b.parentNode.textContent.replace(/^복사/, '').trim(), b);
+    };
+  });
+  /* 블록 전체 복사 */
+  document.querySelectorAll('button.cp[data-blk]').forEach(function(b){
+    b.onclick = function(){
+      var tb = document.getElementById(b.dataset.blk);
+      if(tb) put(tableText(tb), b);
+    };
+  });
+  /* 문서 전체 복사 */
+  document.getElementById('allCp').onclick = function(){
+    var b = this, out = [];
+    document.querySelectorAll('.blk').forEach(function(blk){
+      var t = blk.querySelector('.bt');
+      if(t) out.push('=== ' + t.textContent + ' ===');
+      var tb = blk.querySelector('table');
+      if(tb) out.push(tableText(tb));
+      out.push('');
+    });
+    put(out.join('\n'), b);
+  };
+
+  /* 배점 합계 검증 — 표에 적힌 숫자를 실제로 더해 본다 */
+  var rows = document.querySelectorAll('#b8 td.num');
+  var sum = 0;
+  rows.forEach(function(td){ sum += parseInt(td.textContent, 10) || 0; });
+  var cell = document.getElementById('sumCell'), msg = document.getElementById('sumMsg');
+  cell.textContent = sum;
+  if(sum !== 100){ msg.textContent = '합계가 100점이 아닙니다'; msg.className = 'bad'; }
+})();
+</script>
+<script>EXAM_AUTH.paintTop("../../");</script>

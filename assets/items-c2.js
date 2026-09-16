@@ -8,9 +8,8 @@
  *   link  : 열 페이지        btn  : 단추 글자
  *
  * 평가 자료 실물(포트폴리오 제출서 · 채점판 · 평가도구)과 준비 교안은
- * 원본 사이트 NCS_EXAM_PAGE 에 있어 그쪽으로 연결합니다.
+ * NCS_EXAM_PAGE 에서 이 저장소로 그대로 가져왔습니다. 링크는 모두 사이트 안에 머뭅니다.
  */
-window.CM_SRC = "https://my-web-common-lecture.github.io/NCS_EXAM_PAGE";
 
 window.CM_ITEMS = {
   "m01": [
@@ -24,7 +23,7 @@ window.CM_ITEMS = {
         ["제출", "스타일가이드 PDF · Figma 링크 및 캡처 PDF · 유스케이스 문서"],
         ["기능", "자동 저장 · 중간저장 · 예시 보기 · 자가 점검 · 인쇄"]
       ],
-      "link": "/exam/m01/포트폴리오.html",
+      "link": "../exam/m01/포트폴리오.html",
       "btn": "제출서 열기"
     },
     {
@@ -36,7 +35,7 @@ window.CM_ITEMS = {
         ["산출", "총점 · 성취수준 5~1 · 합격여부 · 요소별 소계"],
         ["부가", "미달 항목으로 총평 자동 작성 · 결과 복사 · 학생별 저장"]
       ],
-      "link": "/exam/m01/채점판.html",
+      "link": "../exam/m01/채점판.html",
       "btn": "채점판 열기",
       "adm": true
     },
@@ -48,7 +47,7 @@ window.CM_ITEMS = {
         ["신설", "출제근거 · 난이도 · 5척도 루브릭 · 성취수준 환산 · 검증자 · 자료보관"],
         ["검증", "배점 합계 100 자동 확인"]
       ],
-      "link": "/exam/m01/평가도구.html",
+      "link": "../exam/m01/평가도구.html",
       "btn": "평가도구 열기",
       "adm": true
     }
@@ -64,7 +63,7 @@ window.CM_ITEMS = {
         ["타겟", "인명피해여부 (양성 3.93% · 불균형)"],
         ["성능", "정확도 0.7347 · ROC-AUC 0.7131"]
       ],
-      "link": "/exam/dbms/sample1.html",
+      "link": "../exam/dbms/sample1.html",
       "btn": "빈칸 문제지 열기"
     },
     {
@@ -77,7 +76,7 @@ window.CM_ITEMS = {
         ["타겟", "부적합 (양성 1.12% · 불균형)"],
         ["성능", "정확도 0.6519 · ROC-AUC 0.8147"]
       ],
-      "link": "/exam/dbms/sample2.html",
+      "link": "../exam/dbms/sample2.html",
       "btn": "빈칸 문제지 열기"
     },
     {
@@ -90,13 +89,13 @@ window.CM_ITEMS = {
         ["타겟", "대형 (양성 49.90% · 균형)"],
         ["성능", "정확도 0.6548 · ROC-AUC 0.7258"]
       ],
-      "link": "/exam/dbms/sample3.html",
+      "link": "../exam/dbms/sample3.html",
       "btn": "빈칸 문제지 열기"
     }
   ]
 };
 
-/* 준비 교안 — 원본 사이트 guides/mNN.html (17개 모두 있음) */
+/* 준비 교안 — guides/mNN.html (이 저장소, 17개) */
 window.CM_GUIDES = {
   "m01": "화면 설계", "m02": "UI 디자인", "m03": "화면 구현", "m04": "요구사항 확인",
   "m05": "데이터베이스 구현", "m06": "SQL활용", "m07": "개발 환경 운영 지원",

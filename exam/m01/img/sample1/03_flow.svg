@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" width="960" height="420">
+<style>
+ text{font-family:"Malgun Gothic","Segoe UI",sans-serif}
+ .hbar{fill:#2b4c7e}
+ .ht{font-size:17px;fill:#fff;font-weight:700}
+ .hc{font-size:12.5px;fill:#c3d4e8;text-anchor:end}
+ .sec{font-size:13px;fill:#2b4c7e;font-weight:700}
+ .bd{font-size:12.5px;fill:#1f2937}
+ .cap{font-size:11px;fill:#6b7280}
+ .card{fill:#fff;stroke:#d5dbe3}
+</style>
+<defs><marker id="ar" markerWidth="10" markerHeight="8" refX="9" refY="3" orient="auto" markerUnits="userSpaceOnUse">
+ <path d="M0,0 L9,3 L0,6 Z" fill="#6b7280"/></marker></defs>
+<rect width="960" height="420" fill="#fff"/>
+<rect class="hbar" x="0" y="0" width="960" height="44"/><rect x="0" y="44" width="960" height="3" fill="#e8590c"/><text class="ht" x="24" y="28">데일리마켓 · 화면 흐름도</text><text class="hc" x="936" y="28">SC-01 ~ SC-05</text>
+<rect x="40" y="96" width="140" height="52" rx="6" fill="#eef3f9" stroke="#2b4c7e" stroke-width="1.3"/><text x="110" y="119" font-size="14" fill="#1f2937" font-weight="700" text-anchor="middle">SC-01 메인</text><text x="110" y="137" font-size="11.5" fill="#6b7280" text-anchor="middle">배너 · 추천</text>
+<rect x="240" y="96" width="150" height="52" rx="6" fill="#fff" stroke="#2b4c7e" stroke-width="1.3"/><text x="315" y="119" font-size="14" fill="#1f2937" font-weight="700" text-anchor="middle">SC-02 상품 목록</text><text x="315" y="137" font-size="11.5" fill="#6b7280" text-anchor="middle">카테고리 · 정렬</text>
+<rect x="450" y="96" width="150" height="52" rx="6" fill="#fff" stroke="#2b4c7e" stroke-width="1.3"/><text x="525" y="119" font-size="14" fill="#1f2937" font-weight="700" text-anchor="middle">SC-03 상품 상세</text><text x="525" y="137" font-size="11.5" fill="#6b7280" text-anchor="middle">옵션 · 수량</text>
+<rect x="660" y="96" width="150" height="52" rx="6" fill="#fff" stroke="#2b4c7e" stroke-width="1.3"/><text x="735" y="119" font-size="14" fill="#1f2937" font-weight="700" text-anchor="middle">SC-04 장바구니</text><text x="735" y="137" font-size="11.5" fill="#6b7280" text-anchor="middle">수량 · 삭제</text>
+<rect x="660" y="208" width="150" height="52" rx="6" fill="#eef3f9" stroke="#2b4c7e" stroke-width="1.3"/><text x="735" y="231" font-size="14" fill="#1f2937" font-weight="700" text-anchor="middle">SC-05 주문 · 결제</text><text x="735" y="249" font-size="11.5" fill="#6b7280" text-anchor="middle">PG 연동</text>
+<rect x="660" y="300" width="150" height="52" rx="6" fill="#fff" stroke="#2b4c7e" stroke-width="1.3"/><text x="735" y="331" font-size="14" fill="#1f2937" font-weight="700" text-anchor="middle">주문 완료</text>
+<rect x="450" y="300" width="150" height="52" rx="6" fill="#fff" stroke="#2b4c7e" stroke-width="1.3"/><text x="525" y="323" font-size="14" fill="#1f2937" font-weight="700" text-anchor="middle">주문 내역</text><text x="525" y="341" font-size="11.5" fill="#6b7280" text-anchor="middle">취소 · 배송조회</text>
+<rect x="240" y="208" width="150" height="52" rx="6" fill="#eef3f9" stroke="#2b4c7e" stroke-width="1.3"/><text x="315" y="239" font-size="14" fill="#1f2937" font-weight="700" text-anchor="middle">로그인</text>
+<path d="M180 122 H234" stroke="#2b4c7e" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+<rect x="170" y="74" width="74" height="17" rx="8" fill="#fff" stroke="#d5dbe3"/><text x="207" y="88" font-size="11.5" fill="#6b7280" text-anchor="middle">카테고리</text>
+<path d="M390 122 H444" stroke="#2b4c7e" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+<rect x="373" y="74" width="88" height="17" rx="8" fill="#fff" stroke="#d5dbe3"/><text x="417" y="88" font-size="11.5" fill="#6b7280" text-anchor="middle">상품 선택</text>
+<path d="M600 122 H654" stroke="#2b4c7e" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+<rect x="604" y="74" width="46" height="17" rx="8" fill="#fff" stroke="#d5dbe3"/><text x="627" y="88" font-size="11.5" fill="#6b7280" text-anchor="middle">담기</text>
+<path d="M735 148 V202" stroke="#2b4c7e" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+<rect x="753" y="164" width="74" height="17" rx="8" fill="#fff" stroke="#d5dbe3"/><text x="790" y="178" font-size="11.5" fill="#6b7280" text-anchor="middle">주문하기</text>
+<path d="M735 260 V294" stroke="#2b4c7e" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+<rect x="746" y="266" width="88" height="17" rx="8" fill="#fff" stroke="#d5dbe3"/><text x="790" y="280" font-size="11.5" fill="#6b7280" text-anchor="middle">결제 승인</text>
+<path d="M654 326 H606" stroke="#2b4c7e" stroke-width="1.4" fill="none" marker-end="url(#ar)"/>
+<rect x="607" y="336" width="46" height="17" rx="8" fill="#fff" stroke="#d5dbe3"/><text x="630" y="350" font-size="11.5" fill="#6b7280" text-anchor="middle">확인</text>
+<path d="M660 148 C 560 190, 420 210, 396 228" stroke="#6b7280" stroke-width="1.4" fill="none" stroke-dasharray="6 4" marker-end="url(#ar)"/>
+<rect x="483" y="182" width="74" height="17" rx="8" fill="#fff" stroke="#d5dbe3"/><text x="520" y="196" font-size="11.5" fill="#6b7280" text-anchor="middle">비로그인</text>
+<rect x="40" y="208" width="160" height="86" rx="6" fill="#f7f8f9" stroke="#d5dbe3"/>
+<text x="52" y="232" font-size="12.5" fill="#2b4c7e" font-weight="700">제약사항</text>
+<text x="52" y="252" font-size="11.5" fill="#6b7280">장바구니부터는 로그인이</text>
+<text x="52" y="267" font-size="11.5" fill="#6b7280">필요하다. 비로그인이면</text>
+<text x="52" y="282" font-size="11.5" fill="#6b7280">로그인 화면으로 보내고,</text>
+<text x="52" y="297" font-size="11.5" fill="#6b7280">성공하면 원래 화면 복귀.</text>
+<rect x="0" y="386" width="960" height="34" fill="#1f3a63"/><text x="24" y="407" font-size="12.5" fill="#dbe4f0">화살표에 이동 조건을 적는다. 점선은 제약사항이며, 글로만 쓰지 않고 흐름으로 그려야 수행준거 4를 만족한다.</text>
+</svg>

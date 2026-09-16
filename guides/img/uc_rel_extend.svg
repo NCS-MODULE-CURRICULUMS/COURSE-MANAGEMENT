@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 250" width="880" height="250">
+<style>text{font-family:"Malgun Gothic",sans-serif;fill:#000}</style>
+<defs><marker id="o" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M1,1 L9,4 L1,7" fill="none" stroke="#000"/></marker></defs>
+<rect width="880" height="250" fill="#fff"/>
+<text x="20" y="26" font-size="13.5" font-weight="700">extend — 어떤 조건일 때만 나타나는 기능일 때</text>
+<line x1="20" y1="36" x2="860" y2="36" stroke="#ccc"/>
+<circle cx="90" cy="100" r="9" fill="#fff" stroke="#000"/><path d="M90 109 v24 M76 118 h28 M90 133 l-12 19 M90 133 l12 19" stroke="#000" fill="none"/>
+<text x="90" y="164" font-size="11" font-weight="400" text-anchor="middle" fill="#000">회원</text>
+<ellipse cx="300" cy="100" rx="68" ry="19" fill="#fff" stroke="#000"/>
+<text x="300" y="104" font-size="11" font-weight="400" text-anchor="middle" fill="#000">주문 조회</text>
+<ellipse cx="620" cy="100" rx="64" ry="19" fill="#fff" stroke="#000"/>
+<text x="620" y="104" font-size="11" font-weight="400" text-anchor="middle" fill="#000">주문 취소</text>
+<line x1="110" y1="106" x2="232" y2="100" stroke="#000"/>
+<line x1="556" y1="100" x2="372" y2="100" stroke="#000" stroke-dasharray="5 3" marker-end="url(#o)"/>
+<text x="464" y="88" font-size="10" font-weight="400" text-anchor="middle" fill="#000">«extend»</text>
+<text x="464" y="130" font-size="10" font-weight="400" text-anchor="middle" fill="#000">[배송 시작 전]</text>
+<text x="30" y="180" font-size="11.5" font-weight="400" text-anchor="start" fill="#000">주문 내역은 <b>항상</b> 볼 수 있지만, 취소 버튼은 <b>배송 전인 주문에만</b> 나타납니다.</text>
+<text x="30" y="200" font-size="11.5" font-weight="400" text-anchor="start" fill="#000">없어도 「주문 내역을 본다」는 그대로 성립합니다. 그래서 extend 입니다.</text>
+<text x="30" y="234" font-size="11.5" font-weight="400" text-anchor="start" fill="#555">화살표는 확장하는 쪽(주문 취소)에서 기반(주문 내역) 쪽으로 갑니다. 조건은 대괄호로 함께 적습니다.</text>
+</svg>

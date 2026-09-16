@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>데일리마켓 UI 스타일가이드 v1.0</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{
+  --navy:#2b4c7e; --navy-h:#22406c; --navy-p:#1a3358; --navy-l:#dbe4f0;
+  --org:#e8590c;  --org-h:#c94d0a;
+  --ink:#111827;  --mu:#6b7280;  --mu2:#9ca3af;  --ln:#e5e7eb;  --bg:#f9fafb;
+}
+*{box-sizing:border-box}
+body{
+  width:1120px; margin:0 auto; padding:56px 64px 40px; background:#fff; color:var(--ink);
+  font-family:Pretendard,"Malgun Gothic",sans-serif; font-size:12px; line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,p,ul,li,table{margin:0; padding:0} li{list-style:none}
+
+/* ── 표지 ── */
+.lockup{display:flex; align-items:center; gap:12px}
+.mark{width:28px; height:28px; border-radius:6px; background:var(--navy); display:grid; place-items:center; flex:0 0 auto}
+.mark svg{display:block}
+.word{font-size:18px; letter-spacing:.2px} .word b{font-weight:700}
+.cover{display:flex; justify-content:space-between; align-items:flex-end; margin-top:40px}
+.cover h1{font-size:26px; font-weight:700; letter-spacing:-.4px}
+.cover .sub{font-size:12px; color:var(--mu2); margin-top:6px}
+.meta{display:flex; gap:40px}
+.meta dt{font-size:10px; color:var(--mu2); letter-spacing:.5px}
+.meta dd{font-size:11.5px; font-weight:500; margin-top:6px}
+.rule{height:2px; background:var(--ink); margin-top:16px; position:relative}
+.rule::before{content:""; position:absolute; left:0; top:0; width:56px; height:2px; background:var(--org)}
+
+/* ── 절 ── */
+.sec{display:grid; grid-template-columns:200px 1fr; gap:40px;
+     border-top:1px solid var(--ln); margin-top:56px; padding-top:30px}
+.sec .no{font-size:11px; font-weight:700; color:var(--mu2); letter-spacing:1px}
+.sec h2{font-size:16px; font-weight:700; margin:12px 0 10px}
+.sec .desc{font-size:11.5px; color:var(--mu); line-height:1.6}
+.blocks>*+*{margin-top:38px}
+.lab{font-size:12px; font-weight:700; width:84px; flex:0 0 auto}
+.cap{font-size:11px; color:var(--mu); margin-top:8px}
+.note{font-size:11.5px; color:var(--mu)}
+
+/* 01 로고 */
+.logos{display:flex; gap:20px; align-items:flex-start}
+.logobox{height:84px; border-radius:10px; display:grid; place-items:center; position:relative}
+.logobox.a{width:300px; border:1px solid var(--ln)}
+.logobox.b{width:300px; background:var(--navy)}
+.logobox.b .word{color:#fff} .logobox.b .mark{background:#fff}
+.logobox.c{width:112px; background:var(--bg); border:1px solid var(--ln)}
+.logobox .cap{position:absolute; bottom:-24px; left:0; right:0; text-align:center; margin:0}
+.guard{position:absolute; width:56px; height:56px; border:1px dashed var(--mu2)}
+.callout{position:absolute; font-size:10px; color:var(--mu2); white-space:nowrap}
+
+/* 02 컬러 */
+.brand{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
+.brand .sw{height:96px; border-radius:10px; padding:12px 16px; display:flex; align-items:flex-end;
+           font-size:12px; font-weight:500; color:#fff}
+.brand .nm{font-size:12.5px; font-weight:700; margin-top:22px}
+.brand .use{font-size:11.5px; color:var(--mu); margin-top:4px}
+.row{display:flex; align-items:center}
+.neutral{display:flex; gap:12px}
+.neutral div{width:78px}
+.neutral i{display:block; height:36px; border-radius:6px}
+.neutral span{display:block; font-size:11px; color:var(--mu); margin-top:8px}
+.sem{display:flex; gap:0}
+.sem li{width:168px; display:flex; align-items:center; gap:8px}
+.sem em{width:12px; height:12px; border-radius:3px; font-style:normal}
+.sem b{font-size:12px; font-weight:500; width:62px}
+.sem span{font-size:11.5px; color:var(--mu)}
+.ratio{display:flex; height:22px; font-size:10.5px; font-weight:500; color:#fff; line-height:22px; text-align:center}
+.ratio .a{flex:6; background:var(--bg); border:1px solid var(--ln); color:var(--mu); line-height:20px}
+.ratio .b{flex:3; background:var(--navy)} .ratio .c{flex:1; background:var(--org)}
+
+/* 03 타이포 */
+.typo{display:flex; gap:32px}
+.specimen{width:176px; height:176px; border-radius:10px; background:var(--bg); text-align:center; padding-top:22px; flex:0 0 auto}
+.specimen .aa{font-size:64px; font-weight:700; color:var(--navy); line-height:1}
+.specimen .nm{font-size:13px; font-weight:700; margin-top:14px}
+.specimen .ko{font-size:11px; color:var(--mu); margin-top:6px}
+.specimen .wt{font-size:10.5px; color:var(--mu2); margin-top:10px}
+.scale{flex:1; border-collapse:collapse; width:100%}
+.scale td{padding:9px 0; vertical-align:middle}
+.scale tr+tr td{border-top:1px solid #f1f3f5}
+.scale .n{font-size:12.5px; font-weight:600; width:96px}
+.scale .s{font-size:11.5px; color:var(--mu2); width:72px}
+.scale .u{font-size:11.5px; color:var(--mu); width:96px}
+.scale td:last-child{white-space:nowrap}
+
+/* 04 간격 */
+.tri{display:flex; gap:56px}
+.spacing{display:flex; align-items:flex-end; gap:20px; height:46px}
+.spacing i{background:var(--navy); display:block}
+.spacing span{font-size:11.5px; color:var(--mu); display:block; margin-top:8px; text-align:left}
+.radius{display:flex; gap:16px}
+.radius i{display:block; width:84px; height:40px; border:1.4px solid var(--navy)}
+.elev i{display:block; width:60px; height:40px; border-radius:10px; background:#fff; border:none}
+.radius .cap{display:block}
+.sh1{box-shadow:0 1px 2px rgba(15,23,42,.10)}
+.sh2{box-shadow:0 6px 7px rgba(15,23,42,.16)}
+.tag{font-size:10.5px; color:var(--mu2); margin-top:14px}
+
+/* 05 컴포넌트 */
+.btns{border-collapse:separate; border-spacing:0 18px}
+.btns th{font-size:11.5px; font-weight:400; color:var(--mu2); text-align:center; padding-bottom:0}
+.btns td{padding-right:22px}
+.btns .rl{font-size:12.5px; font-weight:600; width:132px; padding-right:0}
+.btn{width:130px; height:40px; border-radius:6px; border:1.4px solid transparent;
+     font-size:14px; font-weight:500; display:grid; place-items:center; font-family:inherit}
+.p-def{background:var(--navy); color:#fff} .p-hov{background:var(--navy-h); color:#fff}
+.p-dis{background:#e5e7eb; color:#9ca3af}
+.s-def{background:#fff; color:var(--navy); border-color:var(--navy)}
+.s-hov{background:var(--navy-l); color:var(--navy); border-color:var(--navy)}
+.s-dis{background:#fff; color:#9ca3af; border-color:var(--ln)}
+.b-def{background:var(--org); color:#fff} .b-hov{background:var(--org-h); color:#fff}
+.dimv{position:relative; width:40px}
+.dimv::before{content:""; position:absolute; left:8px; top:0; bottom:0; width:1px; background:var(--mu2)}
+.dimv::after{content:"40"; position:absolute; left:16px; top:50%; transform:translateY(-50%); font-size:10px; color:var(--mu2)}
+.forms{display:flex; align-items:center; gap:26px}
+.fld{height:40px; border:1.4px solid var(--ln); border-radius:6px; display:flex; align-items:center;
+     padding:0 14px; font-size:14px; background:#fff}
+.fld.ph{color:var(--mu2)}
+.stepper{display:flex; height:40px; border:1.4px solid var(--ln); border-radius:6px; overflow:hidden}
+.stepper div{width:40px; display:grid; place-items:center; font-size:15px}
+.stepper div+div{border-left:1px solid var(--ln)}
+.chk{width:18px; height:18px; border-radius:4px; background:var(--navy); display:grid; place-items:center}
+.rad{width:18px; height:18px; border-radius:50%; border:2px solid var(--navy); display:grid; place-items:center}
+.rad i{width:9px; height:9px; border-radius:50%; background:var(--navy); display:block}
+.icons{display:flex; gap:26px}
+.icons li{text-align:center; white-space:nowrap}
+.icons .bx{width:44px; height:44px; border-radius:8px; background:var(--bg); display:grid; place-items:center}
+.icons span{display:block; font-size:11px; color:var(--mu); margin-top:8px}
+
+/* 06 레이아웃 */
+.layout{display:flex; gap:32px}
+.wire{width:520px; border:1px solid var(--ln); flex:0 0 auto}
+.wire .hd{height:28px; background:var(--navy); color:#fff; font-size:10.5px; font-weight:700;
+          display:flex; align-items:center; padding:0 12px; letter-spacing:.2px}
+.wire .gnb{height:22px; border-bottom:1px solid var(--ln); font-size:9px; display:flex;
+           align-items:center; padding:0 12px; gap:14px}
+.wire .grid{display:grid; grid-template-columns:repeat(12,1fr); gap:10px; padding:8px 12px 0}
+.wire .grid i{height:10px; background:var(--navy-l); display:block}
+.wire .banner{margin:10px 12px 0; height:68px; background:var(--navy-l); border-radius:6px;
+              display:grid; place-items:center; font-size:10.5px; color:var(--navy)}
+.wire .cards{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; padding:12px}
+.wire .cards div{border:1px solid var(--ln); border-radius:6px; padding:5px}
+.wire .cards i{display:block; height:26px; background:#f3f4f6; border-radius:3px}
+.wire .cards b{display:block; font-size:9px; color:var(--org); margin-top:8px}
+.bps li{display:flex; align-items:center; gap:16px; margin-bottom:20px}
+.vp{border:1px solid var(--ln); border-radius:3px; overflow:hidden; flex:0 0 auto}
+.vp .b{height:8px; background:var(--navy)}
+.vp .g{display:grid; gap:4px; padding:4px}
+.vp .g i{display:block; height:18px; background:#f3f4f6; border-radius:2px}
+.bps .nm{display:block; font-size:12px; font-weight:600}
+.bps .sp{display:block; font-size:11px; color:var(--mu); margin-top:4px}
+
+/* 07 적용 예시 */
+.panel{background:var(--bg); border-radius:16px; padding:20px}
+.hdr{height:56px; background:var(--navy); display:flex; align-items:center; padding:0 20px; gap:30px}
+.hdr .search{flex:0 0 300px; height:40px; background:#fff; border-radius:6px; display:flex;
+             align-items:center; justify-content:space-between; padding:0 14px; font-size:14px; color:var(--mu2)}
+.hdr .util{margin-left:auto; display:flex; gap:20px}
+.gnb2{height:44px; background:#fff; border:1px solid var(--ln); border-top:none;
+      display:flex; align-items:center; padding:0 24px; gap:44px; font-size:14px; font-weight:500}
+.gnb2 .on{color:var(--navy); border-bottom:2px solid var(--navy); height:100%;
+          display:flex; align-items:center; margin-bottom:-1px}
+.gnb2 .sale{color:var(--org)}
+.cards2{display:flex; gap:28px; margin-top:44px}
+.card{width:240px; background:#fff; border-radius:10px; box-shadow:0 1px 2px rgba(15,23,42,.10); overflow:hidden}
+.card.hov{box-shadow:0 6px 7px rgba(15,23,42,.16)}
+.card .img{height:180px; background:#f3f4f6; position:relative; display:grid; place-items:center}
+.card.hov .img{background:#e5e7eb}
+.card .badge{position:absolute; left:12px; top:12px; background:var(--org); color:#fff;
+             font-size:11px; font-weight:700; border-radius:2px; padding:3px 8px}
+.card .wish{position:absolute; right:12px; top:12px}
+.card .body{padding:16px}
+.card .ttl{font-size:16px}
+.card .sub2{font-size:12px; color:var(--mu); margin-top:5px}
+.card .price{font-size:20px; font-weight:700; color:var(--org); margin-top:14px}
+.card .was{font-size:12px; color:var(--mu2); text-decoration:line-through; margin-left:8px; font-weight:400}
+.card .cta{height:32px; border-radius:6px; display:grid; place-items:center; font-size:13px;
+           font-weight:500; margin-top:14px}
+.card .cta.line{border:1.4px solid var(--navy); color:var(--navy)}
+.card .cta.buy{background:var(--org); color:#fff}
+.show{position:relative}
+.annot{position:absolute; left:540px; top:0; width:180px}
+.annot li{position:absolute; display:flex; align-items:center; gap:10px;
+          font-size:10.5px; color:var(--mu2); white-space:nowrap; transform:translateY(-50%)}
+.annot i{width:24px; height:1px; background:var(--mu2); display:block; flex:0 0 auto}
+.dimh{position:relative; height:1px; background:var(--mu2); width:240px; margin:26px 0 0}
+.dimh::before,.dimh::after{content:""; position:absolute; top:-3px; width:1px; height:7px; background:var(--mu2)}
+.dimh::before{left:0} .dimh::after{right:0}
+.dimh span{position:absolute; left:0; top:8px; font-size:10px; color:var(--mu2)}
+
+/* 꼬리말 */
+footer{display:flex; justify-content:space-between; border-top:1px solid var(--ln);
+       margin-top:56px; padding-top:20px; font-size:10.5px; color:var(--mu2)}
+</style>
+</head>
+<body>
+
+<!-- 표지 -->
+<div class="lockup">
+  <span class="mark"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M2.5 5.5h13l-1.7 9.5H4.2z M5.5 5.5V2.7a3.6 3.6 0 0 1 7.2 0v2.8" stroke="#fff" stroke-width="1.5" fill="none"/></svg></span>
+  <span class="word" style="color:var(--navy)">DAILY <b>MARKET</b></span>
+</div>
+<div class="cover">
+  <div>
+    <h1>데일리마켓 UI 스타일가이드</h1>
+    <div class="sub">DailyMarket Design Style Guide · v1.0 · 2026-03-05 · 1조</div>
+  </div>
+  <dl class="meta">
+    <div><dt>구동 환경</dt><dd>Windows 11 · Chrome 120+</dd></div>
+    <div><dt>기준 해상도</dt><dd>1920 × 1080 · 폭 1200</dd></div>
+    <div><dt>접근성</dt><dd>WCAG 2.2 AA</dd></div>
+  </dl>
+</div>
+<div class="rule"></div>
+
+<!-- 01 로고 -->
+<section class="sec">
+  <div>
+    <div class="no">01</div><h2>로고</h2>
+    <p class="desc">기본 · 반전 · 심볼 세 가지만 씁니다. 최소 폭 104px, 보호 여백은 심볼 높이의 절반입니다.</p>
+  </div>
+  <div class="logos">
+    <div class="logobox a">
+      <div class="lockup"><span class="mark"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M2.5 5.5h13l-1.7 9.5H4.2z M5.5 5.5V2.7a3.6 3.6 0 0 1 7.2 0v2.8" stroke="#fff" stroke-width="1.5" fill="none"/></svg></span>
+      <span class="word" style="color:var(--navy)">DAILY <b>MARKET</b></span></div>
+      <div class="cap">기본</div>
+    </div>
+    <div class="logobox b">
+      <div class="lockup"><span class="mark"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M2.5 5.5h13l-1.7 9.5H4.2z M5.5 5.5V2.7a3.6 3.6 0 0 1 7.2 0v2.8" stroke="#2b4c7e" stroke-width="1.5" fill="none"/></svg></span>
+      <span class="word">DAILY <b>MARKET</b></span></div>
+      <div class="cap" style="color:var(--mu)">반전</div>
+    </div>
+    <div class="logobox c">
+      <span class="guard"></span>
+      <span class="mark"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M2.5 5.5h13l-1.7 9.5H4.2z M5.5 5.5V2.7a3.6 3.6 0 0 1 7.2 0v2.8" stroke="#fff" stroke-width="1.5" fill="none"/></svg></span>
+      <span class="callout" style="right:0; top:-22px">보호 여백 = 심볼 × 0.5</span>
+      <div class="cap">심볼</div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 컬러 -->
+<section class="sec">
+  <div>
+    <div class="no">02</div><h2>컬러</h2>
+    <p class="desc">주조 60 · 보조 30 · 강조 10. 강조색은 가격과 구매 버튼에만 씁니다.</p>
+  </div>
+  <div class="blocks">
+    <div class="brand">
+      <div><div class="sw" style="background:var(--bg); border:1px solid var(--ln); color:var(--mu)">#F9FAFB</div>
+        <div class="nm">Background</div><div class="use">바탕 · 카드</div></div>
+      <div><div class="sw" style="background:var(--navy)">#2B4C7E</div>
+        <div class="nm">Primary</div><div class="use">헤더 · GNB · 기본 버튼</div></div>
+      <div><div class="sw" style="background:var(--org)">#E8590C</div>
+        <div class="nm">Accent</div><div class="use">가격 · 세일 · 구매</div></div>
+    </div>
+    <div class="row"><span class="lab">Neutral</span>
+      <div class="neutral">
+        <div><i style="background:#f9fafb; border:1px solid var(--ln)"></i><span>#F9FAFB</span></div>
+        <div><i style="background:#f3f4f6; border:1px solid var(--ln)"></i><span>#F3F4F6</span></div>
+        <div><i style="background:#e5e7eb"></i><span>#E5E7EB</span></div>
+        <div><i style="background:#9ca3af"></i><span>#9CA3AF</span></div>
+        <div><i style="background:#6b7280"></i><span>#6B7280</span></div>
+        <div><i style="background:#111827"></i><span>#111827</span></div>
+      </div>
+    </div>
+    <div class="row"><span class="lab">Semantic</span>
+      <ul class="sem">
+        <li><em style="background:#1a7f37"></em><b>Success</b><span>주문 완료</span></li>
+        <li><em style="background:#b8860b"></em><b>Warning</b><span>재고 부족</span></li>
+        <li><em style="background:#dc2626"></em><b>Error</b><span>결제 실패</span></li>
+        <li><em style="background:#1d6fb8"></em><b>Info</b><span>배송 안내</span></li>
+      </ul>
+    </div>
+    <div>
+      <div class="ratio"><div class="a">주조 60</div><div class="b">보조 30</div><div class="c">강조 10</div></div>
+      <p class="note" style="margin-top:16px">대비 — 본문 16.2:1 · 보조 4.8:1 · 흰 글자 / Primary 8.6:1. Accent 는 3.6:1 이라 20px 700 이상에서만 씁니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 03 타이포그래피 -->
+<section class="sec">
+  <div>
+    <div class="no">03</div><h2>타이포그래피</h2>
+    <p class="desc">Pretendard · 기본 16px · 굵기 400 / 500 / 700 · 제목 행간 1.3 · 본문 1.5</p>
+  </div>
+  <div class="typo">
+    <div class="specimen">
+      <div class="aa">Aa</div>
+      <div class="nm">Pretendard</div>
+      <div class="ko">가나다라마 ABC 0123</div>
+      <div class="wt">Regular · Medium · Bold</div>
+    </div>
+    <table class="scale">
+      <tr><td class="n">Display</td><td class="s">28 / 700</td><td class="u">메인 배너</td>
+          <td style="font-size:28px;font-weight:700">신선한 사과 1kg 12,900원</td></tr>
+      <tr><td class="n">Heading 1</td><td class="s">24 / 700</td><td class="u">화면 제목</td>
+          <td style="font-size:24px;font-weight:700">신선한 사과 1kg 12,900원</td></tr>
+      <tr><td class="n">Price</td><td class="s">20 / 700</td><td class="u">상품 가격</td>
+          <td style="font-size:20px;font-weight:700;color:var(--org)">신선한 사과 1kg 12,900원</td></tr>
+      <tr><td class="n">Heading 2</td><td class="s">18 / 700</td><td class="u">절 · 카드 제목</td>
+          <td style="font-size:18px;font-weight:700">신선한 사과 1kg 12,900원</td></tr>
+      <tr><td class="n">Body</td><td class="s">16 / 400</td><td class="u">본문 · 상품명</td>
+          <td style="font-size:16px">신선한 사과 1kg 12,900원</td></tr>
+      <tr><td class="n">Caption</td><td class="s">12 / 400</td><td class="u">배송 안내</td>
+          <td style="font-size:12px;color:var(--mu)">신선한 사과 1kg 12,900원</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 04 간격 · 모서리 · 그림자 -->
+<section class="sec">
+  <div>
+    <div class="no">04</div><h2>간격 · 모서리 · 그림자</h2>
+    <p class="desc">간격은 4의 배수만. 그림자는 카드와 hover 둘뿐입니다.</p>
+  </div>
+  <div class="tri">
+    <div>
+      <div class="spacing">
+        <div><i style="width:4px;height:4px"></i><span>4</span></div>
+        <div><i style="width:8px;height:8px"></i><span>8</span></div>
+        <div><i style="width:16px;height:16px"></i><span>16</span></div>
+        <div><i style="width:24px;height:24px"></i><span>24</span></div>
+        <div><i style="width:32px;height:32px"></i><span>32</span></div>
+      </div>
+      <div class="tag">Spacing</div>
+    </div>
+    <div>
+      <div class="radius">
+        <div><i style="border-radius:2px"></i><span class="cap">2 배지</span></div>
+        <div><i style="border-radius:6px"></i><span class="cap">6 버튼 · 입력</span></div>
+        <div><i style="border-radius:10px"></i><span class="cap">10 카드</span></div>
+      </div>
+      <div class="tag">Radius</div>
+    </div>
+    <div>
+      <div class="radius elev">
+        <div><i class="sh1"></i><span class="cap">카드</span></div>
+        <div><i class="sh2"></i><span class="cap">hover</span></div>
+      </div>
+      <div class="tag">Elevation</div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 컴포넌트 -->
+<section class="sec">
+  <div>
+    <div class="no">05</div><h2>컴포넌트</h2>
+    <p class="desc">버튼 높이 40 · 모서리 6 · 글자 14/500. Primary 는 화면당 1개, 구매 버튼만 강조색입니다.</p>
+  </div>
+  <div class="blocks">
+    <table class="btns">
+      <tr><td></td><th>Default</th><th>Hover</th><th>Disabled</th><td></td></tr>
+      <tr><td class="rl">Primary</td>
+        <td><div class="btn p-def">장바구니 담기</div></td>
+        <td><div class="btn p-hov">장바구니 담기</div></td>
+        <td><div class="btn p-dis">장바구니 담기</div></td>
+        <td rowspan="3" style="padding:0"><div class="dimv" style="height:40px"></div></td></tr>
+      <tr><td class="rl">Secondary</td>
+        <td><div class="btn s-def">찜하기</div></td>
+        <td><div class="btn s-hov">찜하기</div></td>
+        <td><div class="btn s-dis">찜하기</div></td></tr>
+      <tr><td class="rl">Buy</td>
+        <td><div class="btn b-def">바로 구매</div></td>
+        <td><div class="btn b-hov">바로 구매</div></td>
+        <td><div class="btn p-dis">바로 구매</div></td></tr>
+    </table>
+    <div>
+      <div class="forms">
+        <div class="fld ph" style="width:210px">검색어를 입력하세요</div>
+        <div class="fld" style="width:160px; justify-content:space-between">중량 선택
+          <svg width="12" height="8" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" stroke="#6b7280" stroke-width="1.6" fill="none"/></svg></div>
+        <div class="stepper"><div>−</div><div style="font-size:14px;font-weight:500">1</div><div>+</div></div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="chk">
+          <svg width="11" height="9" viewBox="0 0 11 9"><path d="M1 4.5l3 3 6-6.5" stroke="#fff" stroke-width="2" fill="none"/></svg></span>
+          <span style="font-size:14px">동의</span></div>
+        <div style="display:flex;align-items:center;gap:8px"><span class="rad"><i></i></span>
+          <span style="font-size:14px">카드 결제</span></div>
+      </div>
+      <div class="forms" style="gap:0; margin-top:12px">
+        <span class="cap" style="width:236px">입력 · 포커스 Primary 2px</span>
+        <span class="cap" style="width:152px">수량 1 ~ 재고</span>
+        <span class="cap">체크 · 라디오</span>
+      </div>
+    </div>
+    <ul class="icons">
+      <li><span class="bx"><svg width="24" height="24" viewBox="-12 -12 24 24" stroke="#111827" stroke-width="1.8" fill="none" stroke-linecap="round"><path d="M-5 -5 m3 3 a6 6 0 1 0 12 0 a6 6 0 1 0 -12 0 M7 7 L12 12"/></svg></span><span>검색</span></li>
+      <li><span class="bx"><svg width="24" height="24" viewBox="-12 -12 24 24" stroke="#111827" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M-7 -6 h14 l-2 12 h-10 z M-4 -6 v-3 a4 4 0 0 1 8 0 v3"/></svg></span><span>장바구니</span></li>
+      <li><span class="bx"><svg width="24" height="24" viewBox="-12 -12 24 24" stroke="#111827" stroke-width="1.8" fill="none" stroke-linecap="round"><path d="M0 -4 m-4 0 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0 M-7 9 a7 7 0 0 1 14 0"/></svg></span><span>마이페이지</span></li>
+      <li><span class="bx"><svg width="24" height="24" viewBox="-12 -12 24 24" stroke="#111827" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M0 7 C -9 0 -7 -7 -3 -7 C -1 -7 0 -5 0 -5 C 0 -5 1 -7 3 -7 C 7 -7 9 0 0 7 Z"/></svg></span><span>찜</span></li>
+      <li><span class="bx"><svg width="24" height="24" viewBox="-12 -12 24 24" stroke="#111827" stroke-width="1.8" fill="none" stroke-linecap="round"><path d="M-6 4 v-5 a6 6 0 0 1 12 0 v5 l2 2 h-16 z M-2 8 a2 2 0 0 0 4 0"/></svg></span><span>알림</span></li>
+      <li><span class="bx"><svg width="24" height="24" viewBox="-12 -12 24 24" stroke="#111827" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M-9 -4 h11 v9 h-11 z M2 -1 h4 l3 3 v3 h-7 z M-5 5 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0 M5 5 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0"/></svg></span><span>배송</span></li>
+      <li><span class="bx"><svg width="24" height="24" viewBox="-12 -12 24 24" stroke="#111827" stroke-width="1.8" fill="none" stroke-linecap="round"><path d="M-8 -6 h16 M-5 0 h10 M-2 6 h4"/></svg></span><span>필터</span></li>
+      <li><span class="bx"><svg width="24" height="24" viewBox="-12 -12 24 24" stroke="#111827" stroke-width="1.8" fill="none" stroke-linecap="round"><path d="M-6 -6 L6 6 M6 -6 L-6 6"/></svg></span><span>삭제</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 06 레이아웃 -->
+<section class="sec">
+  <div>
+    <div class="no">06</div><h2>레이아웃</h2>
+    <p class="desc">콘텐츠 폭 1200 · 12칼럼 · 거터 24 · 마진 24. 헤더 56 · GNB 44 · 배너 360 · 푸터 280.</p>
+  </div>
+  <div class="layout">
+    <div>
+      <div class="wire">
+        <div class="hd">DAILY MARKET</div>
+        <div class="gnb"><span>과일</span><span>채소</span><span>정육</span><span>수산</span><span>간편식</span><span>베스트</span><span>세일</span></div>
+        <div class="grid"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div style="font-size:10px;color:var(--mu2);padding:6px 12px 0">12칼럼 · 거터 24 · 마진 24</div>
+        <div class="banner">메인 배너 360</div>
+        <div class="cards">
+          <div><i></i><b>12,900원</b></div><div><i></i><b>12,900원</b></div>
+          <div><i></i><b>12,900원</b></div><div><i></i><b>12,900원</b></div>
+        </div>
+      </div>
+      <p class="note" style="margin-top:20px">얇은 띠가 12칼럼입니다. 배너는 12칼럼을 다 쓰고 상품 카드는 각 3칼럼씩 4열입니다.</p>
+    </div>
+    <ul class="bps">
+      <li><span class="vp" style="width:92px"><span class="b"></span>
+          <span class="g" style="grid-template-columns:repeat(4,1fr)"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span>
+        <span><span class="nm">Desktop ≥ 1280</span><span class="sp">12칼럼 · 거터 24 · 4열</span></span></li>
+      <li><span class="vp" style="width:70px"><span class="b"></span>
+          <span class="g" style="grid-template-columns:repeat(3,1fr)"><i></i><i></i><i></i><i></i><i></i><i></i></span></span>
+        <span><span class="nm">Tablet 768–1279</span><span class="sp">8칼럼 · 거터 20 · 3열</span></span></li>
+      <li><span class="vp" style="width:44px"><span class="b"></span>
+          <span class="g" style="grid-template-columns:repeat(2,1fr)"><i></i><i></i><i></i><i></i></span></span>
+        <span><span class="nm">Mobile ≤ 767</span><span class="sp">4칼럼 · 거터 16 · 2열</span></span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- 07 적용 예시 -->
+<section class="sec">
+  <div>
+    <div class="no">07</div><h2>적용 예시</h2>
+    <p class="desc">위 규칙만으로 조립한 헤더와 상품 카드입니다. 과제 3 프로토타입과 이 지면을 나란히 놓고 대조합니다.</p>
+  </div>
+  <div class="panel">
+    <div class="hdr">
+      <div class="lockup"><span class="mark" style="background:#fff"><svg width="18" height="18" viewBox="0 0 18 18"><path d="M2.5 5.5h13l-1.7 9.5H4.2z M5.5 5.5V2.7a3.6 3.6 0 0 1 7.2 0v2.8" stroke="#2b4c7e" stroke-width="1.5" fill="none"/></svg></span>
+        <span class="word" style="color:#fff">DAILY <b>MARKET</b></span></div>
+      <div class="search">검색어를 입력하세요
+        <svg width="20" height="20" viewBox="-12 -12 24 24" stroke="#111827" stroke-width="1.8" fill="none" stroke-linecap="round"><path d="M-5 -5 m3 3 a6 6 0 1 0 12 0 a6 6 0 1 0 -12 0 M7 7 L12 12"/></svg></div>
+      <div class="util">
+        <svg width="22" height="22" viewBox="-12 -12 24 24" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M-7 -6 h14 l-2 12 h-10 z M-4 -6 v-3 a4 4 0 0 1 8 0 v3"/></svg>
+        <svg width="22" height="22" viewBox="-12 -12 24 24" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round"><path d="M0 -4 m-4 0 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0 M-7 9 a7 7 0 0 1 14 0"/></svg>
+      </div>
+    </div>
+    <div class="gnb2"><span class="on">과일</span><span>채소</span><span>정육</span><span>수산</span><span>간편식</span><span>베스트</span><span class="sale">세일</span></div>
+    <div style="text-align:center; font-size:10.5px; color:var(--mu2); margin-top:14px">헤더 56 · GNB 44 · 콘텐츠 폭 1200</div>
+
+    <div class="show">
+      <div>
+        <div class="cards2">
+          <div class="card">
+            <div class="img"><span class="badge">19%</span>
+              <span class="wish"><svg width="20" height="20" viewBox="-12 -12 24 24" stroke="#6b7280" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M0 7 C -9 0 -7 -7 -3 -7 C -1 -7 0 -5 0 -5 C 0 -5 1 -7 3 -7 C 7 -7 9 0 0 7 Z"/></svg></span>
+              <svg width="86" height="86" viewBox="-40 -40 80 80" stroke="#9ca3af" stroke-width="1.6" fill="none" stroke-linecap="round">
+                <path d="M0 -22 C -26 -22 -34 6 -18 24 C -10 33 -4 28 0 28 C 4 28 10 33 18 24 C 34 6 26 -22 0 -22 C -6 -22 -6 -16 0 -16 C 6 -16 6 -22 0 -22 Z"/>
+                <path d="M0 -20 V -32"/><path d="M0 -30 C 8 -38 18 -36 18 -28 C 18 -22 8 -22 0 -28"/></svg>
+            </div>
+            <div class="body">
+              <div class="ttl">[산지직송] 부사 사과 1kg</div>
+              <div class="sub2">당도 선별 · 5~6과</div>
+              <div class="price">12,900원<span class="was">15,900원</span></div>
+              <div class="cta line">장바구니 담기</div>
+            </div>
+          </div>
+          <div class="card hov">
+            <div class="img">
+              <span class="wish"><svg width="20" height="20" viewBox="-12 -12 24 24" stroke="#6b7280" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M0 7 C -9 0 -7 -7 -3 -7 C -1 -7 0 -5 0 -5 C 0 -5 1 -7 3 -7 C 7 -7 9 0 0 7 Z"/></svg></span>
+              <svg width="86" height="86" viewBox="-40 -40 80 80" stroke="#9ca3af" stroke-width="1.6" fill="none" stroke-linecap="round">
+                <path d="M0 -22 C -26 -22 -34 6 -18 24 C -10 33 -4 28 0 28 C 4 28 10 33 18 24 C 34 6 26 -22 0 -22 C -6 -22 -6 -16 0 -16 C 6 -16 6 -22 0 -22 Z"/>
+                <path d="M0 -20 V -32"/><path d="M0 -30 C 8 -38 18 -36 18 -28 C 18 -22 8 -22 0 -28"/></svg>
+            </div>
+            <div class="body">
+              <div class="ttl">[산지직송] 부사 사과 1kg</div>
+              <div class="sub2">당도 선별 · 5~6과</div>
+              <div class="price">12,900원<span class="was">15,900원</span></div>
+              <div class="cta buy">바로 구매</div>
+            </div>
+          </div>
+        </div>
+        <div class="dimh"><span>카드 240 · radius 10 · 안쪽 여백 16</span></div>
+      </div>
+      <ul class="annot">
+        <li style="top:208px"><i></i>Body 16 / 400</li>
+        <li style="top:272px"><i></i>Price 20 / 700 · Accent</li>
+        <li style="top:317px"><i></i>버튼 높이 32 · radius 6</li>
+      </ul>
+    </div>
+    <p class="note" style="margin-top:22px">왼쪽이 기본, 오른쪽이 hover 입니다. 그림자가 한 단계 올라가고 구매 버튼이 드러납니다.</p>
+  </div>
+</section>
+
+<footer>
+  <span>데일리마켓 UI 스타일가이드 v1.0</span>
+  <span>2026-03-05 · 1조</span>
+</footer>
+
+</body>
+</html>

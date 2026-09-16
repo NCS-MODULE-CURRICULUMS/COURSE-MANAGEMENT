@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 230" width="880" height="230">
+<style>text{font-family:"Malgun Gothic",sans-serif;fill:#000}</style>
+<defs><marker id="o" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M1,1 L9,4 L1,7" fill="none" stroke="#000"/></marker></defs>
+<rect width="880" height="230" fill="#fff"/>
+<text x="20" y="26" font-size="13.5" font-weight="700">연관 — 액터가 그 일을 직접 시작할 때</text>
+<line x1="20" y1="36" x2="860" y2="36" stroke="#ccc"/>
+<circle cx="90" cy="90" r="9" fill="#fff" stroke="#000"/><path d="M90 99 v24 M76 108 h28 M90 123 l-12 19 M90 123 l12 19" stroke="#000" fill="none"/>
+<text x="90" y="154" font-size="11" font-weight="400" text-anchor="middle" fill="#000">회원</text>
+<ellipse cx="300" cy="78" rx="58" ry="19" fill="#fff" stroke="#000"/>
+<text x="300" y="82" font-size="11" font-weight="400" text-anchor="middle" fill="#000">상품 검색</text>
+<ellipse cx="300" cy="148" rx="58" ry="19" fill="#fff" stroke="#000"/>
+<text x="300" y="152" font-size="11" font-weight="400" text-anchor="middle" fill="#000">장바구니 담기</text>
+<line x1="110" y1="96" x2="242" y2="78" stroke="#000"/>
+<line x1="110" y1="102" x2="242" y2="148" stroke="#000"/>
+<text x="420" y="82" font-size="11.5" font-weight="400" text-anchor="start" fill="#000">회원이 스스로 「검색」을 누릅니다</text>
+<text x="420" y="100" font-size="11.5" font-weight="400" text-anchor="start" fill="#555">→ 실선을 긋습니다</text>
+<text x="420" y="152" font-size="11.5" font-weight="400" text-anchor="start" fill="#000">회원이 스스로 「담기」를 누릅니다</text>
+<text x="420" y="170" font-size="11.5" font-weight="400" text-anchor="start" fill="#555">→ 실선을 긋습니다</text>
+<text x="20" y="214" font-size="11.5" font-weight="400" text-anchor="start" fill="#555">판단 — 「이 사람이 직접 시작하는가?」 예이면 실선. 화살촉은 달지 않습니다.</text>
+</svg>

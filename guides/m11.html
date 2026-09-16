@@ -1,0 +1,1004 @@
+<meta charset="utf-8"><title>애플리케이션 설계 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<style>
+  /* 이 교안에만 있는 것 — 코드 보기 */
+  .bd pre{margin:14px 0;font-family:Consolas,"D2Coding",monospace;font-size:13px;
+          line-height:1.75;border:1px solid #ccc;border-left:3px solid #000;
+          padding:13px 16px;background:#fafafa;overflow-x:auto;white-space:pre}
+  .bd pre b{background:#e6e6e6;font-weight:700}
+  .bd pre i{font-style:normal;color:#777}
+  .bd code{font-family:Consolas,"D2Coding",monospace;font-size:14px;
+           background:#f2f2f2;padding:1px 5px}
+  aside.side code{font-family:Consolas,monospace;font-size:11px;background:#f2f2f2;padding:0 3px}
+</style>
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small><a href="../courses/c2.html">능력단위 모듈 목록</a> / <a href="../modules/c2-m11.html">애플리케이션 설계</a> / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">공통 모듈</i>
+  <a href="#st1"><b>1</b><span>완성 산출물의 확인</span></a>
+  <a href="#st2"><b>2</b><span>받는 프로젝트 EX01</span></a>
+  <a href="#st3"><b>3</b><span>요청이 지나가는 길</span></a>
+  <a href="#st4"><b>4</b><span>무엇이 공통인가</span></a>
+  <a href="#st5"><b>5</b><span>MemberDTO</span></a>
+  <a href="#st6"><b>6</b><span>MemberDAO</span></a>
+  <a href="#st7"><b>7</b><span>MemberController</span></a>
+  <a href="#st8"><b>8</b><span>결합도와 응집도</span></a>
+  <a href="#st9"><b>9</b><span>기능 코드와 경로 규칙</span></a>
+  <i class="qg">타 시스템 연동</i>
+  <a href="#st10"><b>10</b><span>연동 리스트</span></a>
+  <a href="#st11"><b>11</b><span>DataSourceConfig</span></a>
+  <a href="#st12"><b>12</b><span>미들웨어 명세</span></a>
+  <a href="#st13"><b>13</b><span>예외 처리 두 층</span></a>
+  <a href="#st14"><b>14</b><span>오류 예측과 대응</span></a>
+  <i class="qg">마무리</i>
+  <a href="#st15"><b>15</b><span>실행과 자가 점검</span></a>
+  <a href="#st16"><b>16</b><span>제출물 정리</span></a>
+  <i class="qg">감점</i>
+  <a href="#g3"><b>!</b><span>주요 감점 요인</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>애플리케이션 설계 — 준비 교안</h1>
+<p class="sub">능력단위 애플리케이션 설계 (2001020221_23v6) / 6수준 · 평가방법 포트폴리오 (100점)</p>
+
+<!-- ═══════ 0 ═══════ -->
+<h2 class="sec" id="g0">0. 제출물의 구성과 배점</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">클래스 다섯을 채우고, 도는 화면을 냅니다.</p>
+    <b class="sh">제출 형식</b>
+    <p class="v">저장소 주소 · 화면 캡처 PDF</p>
+    <b class="sh">참고</b>
+    <p class="src">작업지시서 · EX01 프로젝트</p>
+  </aside>
+  <div class="bd">
+<p>과제는 하나입니다. <b>미완성 프로젝트 EX01 의 자바 클래스 다섯을 채우는 것</b>입니다.
+   화면 일곱 장과 데이터베이스 스키마는 이미 완성되어 있고, 서버 쪽만 비어 있습니다.
+   회원을 등록하고 목록을 보는 것, 그 두 기능이 전부입니다.</p>
+<table class="wide">
+  <tr><th style="width:52px">묶음</th><th style="width:200px">능력단위요소</th>
+      <th>무엇을 하는가</th><th style="width:56px">배점</th></tr>
+  <tr><td class="c">①</td><td>공통 모듈 설계하기</td>
+      <td>공통 요소 식별 · 패키지 배치 · 자료 명세 · 계층 분리 · 경로 규칙</td>
+      <td class="c">50</td></tr>
+  <tr><td class="c">②</td><td>타 시스템 연동설계하기</td>
+      <td>연동 리스트 · 연결 설정 · 접근 절차 · 미들웨어 명세 · 오류 대응</td>
+      <td class="c">50</td></tr>
+</table>
+<p>한 묶음이 <b>열 항목씩 5점</b>으로 나뉘어 스무 항목 100점입니다.
+   한 항목이 5점뿐이라 한두 개를 놓쳐도 합격선은 넘지만,
+   <b>계층을 잘못 나누면 서너 항목이 한꺼번에</b> 빠집니다.
+   SQL 을 컨트롤러에 쓰면 1-7 과 1-8 이 같이 날아가는 식입니다.</p>
+
+<div class="warn">
+  이 교과의 이름은 「설계」 인데 실제로 내는 것은 <b>도는 코드</b>입니다.
+  설계 문서를 따로 쓰라는 것이 아니라,
+  <b>코드의 생김새로 설계를 증명하라</b>는 뜻입니다.
+  어디에 무엇을 두었는지가 곧 답안입니다.
+</div>
+  </div>
+</div>
+
+<!-- ═══════ 1 ═══════ -->
+<h2 class="sec" id="g1">1. 애플리케이션 설계의 범위</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">같이 쓰는 것을 뽑고, 밖과 잇습니다.</p>
+    <b class="sh">능력단위요소</b>
+    <p class="v">공통 모듈 설계 · 타 시스템 연동설계</p>
+    <b class="sh">기술</b>
+    <p class="v">Spring Boot · Thymeleaf · JDBC</p>
+  </aside>
+  <div class="bd">
+<p>요구사항을 확인하고 화면을 만들었다면, 그 다음은 <b>안쪽을 어떻게 나눌 것인가</b>입니다.
+   이 교과가 다루는 것은 두 가지입니다.
+   여러 곳이 같이 쓰는 것을 뽑아 한 군데로 모으는 일과,
+   내 프로그램 밖에 있는 것과 잇는 일입니다.</p>
+
+<dl>
+  <dt>공통 모듈 설계하기</dt>
+  <dd>같은 코드를 여러 곳에 베껴 두면 고칠 때 다 찾아다녀야 합니다.
+      공통인 것을 뽑아 이름을 주고 자리를 정해 주는 것이 이 요소입니다.
+      뽑는 기준이 <b>결합도와 응집도</b> 두 낱말입니다.</dd>
+  <dt>타 시스템 연동설계하기</dt>
+  <dd>내 프로그램은 혼자 돌지 않습니다. 이 과제에서는 데이터베이스가 그 「타 시스템」 입니다.
+      무엇과 잇는지 적고, 어떻게 잇는지 정하고, 사이에 낀 소프트웨어를 밝히고,
+      끊겼을 때 어떻게 할지까지가 한 묶음입니다.</dd>
+</dl>
+
+<table class="wide">
+  <tr><th style="width:70px">수행준거</th><th style="width:250px">준거의 말</th>
+      <th>이 평가에서</th></tr>
+  <tr><td class="c">1.1</td><td>전체 · 단위 시스템 차원의 공통부분을 식별하여 상세 명세</td>
+      <td>DB 연결 설정 · 전역 예외 · 회원 자료 구조를 뽑습니다</td></tr>
+  <tr><td class="c">1.2</td><td>이해하기 쉬운 크기로 공통 모듈을 설계</td>
+      <td>Config · Controller · Domain 으로 패키지를 나눕니다</td></tr>
+  <tr><td class="c">1.3</td><td>결합도는 줄이고 응집도는 높이는 공통모듈을 설계</td>
+      <td>SQL 은 DAO 에만, 화면 이름은 컨트롤러에만 둡니다</td></tr>
+  <tr><td class="c">1.4</td><td>인터페이스의 인덱스 번호나 기능 코드를 설계</td>
+      <td>기본키 자동 채번 · <code>/도메인/기능</code> 경로 규칙</td></tr>
+  <tr><td class="c">2.1</td><td>타 시스템 연동 리스트 및 연동 방안을 참조해 가이드라인 작성</td>
+      <td>MySQL 하나를 리스트로 적고 규칙 다섯 줄을 세웁니다</td></tr>
+  <tr><td class="c">2.2</td><td>가이드라인에 따라 타 시스템 연동 상세 설계</td>
+      <td>DataSourceConfig 와 DAO 의 접근 절차를 만듭니다</td></tr>
+  <tr><td class="c">2.3</td><td>기술영역별 미들웨어솔루션에 대하여 명세를 작성</td>
+      <td>내장 Tomcat · 커넥션풀 · 드라이버를 표로 정리합니다</td></tr>
+  <tr><td class="c">2.4</td><td>연동 시 발생할 수 있는 오류를 예측하고 대응 방안을 제시</td>
+      <td>연결 실패 · SQL 오류 · 검증 실패와 각각의 대응</td></tr>
+</table>
+<p>준거는 여덟인데 채점 항목은 스물입니다.
+   <b>준거 하나가 두세 항목으로 쪼개져</b> 있습니다.
+   그래서 「설계 의도를 코드에서 몇 군데나 보여 주는가」 가 점수를 가릅니다.</p>
+  </div>
+</div>
+
+<!-- ═══════ 2 ═══════ -->
+<h2 class="sec" id="g2">2. 산출물 작성 실습</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">안쪽을 나누고, 바깥과 잇습니다.</p>
+    <b class="sh">예제</b>
+    <p class="v">EX01 B-Member 회원 관리</p>
+    <b class="sh">채울 것</b>
+    <p class="v">자바 다섯 클래스</p>
+  </aside>
+  <div class="bd">
+<p>세 단계로 나누었습니다.
+   앞의 아홉 단원이 <b>공통 모듈 설계</b>, 다음 다섯 단원이 <b>타 시스템 연동</b>,
+   마지막 두 단원이 확인과 제출입니다.
+   앞 묶음이 길어 보이지만 실제로 쓰는 코드는 다섯 클래스뿐이고,
+   나머지는 왜 거기에 두는가를 설명하는 데 씁니다.</p>
+<p>예제는 회원을 등록하고 목록을 보는 프로그램입니다.
+   상세 · 수정 · 삭제 · 검색 · 로그인은 없습니다.
+   배운 범위가 거기까지이고, <b>없는 기능을 넣는다고 점수가 오르지 않습니다</b>.
+   오히려 계층이 흐트러져 감점됩니다.</p>
+<p>순서에는 이유가 있습니다. DTO 를 먼저 만들어야 DAO 가 담을 그릇이 생기고,
+   DAO 가 있어야 컨트롤러가 부를 것이 생깁니다.
+   안에서 바깥으로 만들어 나가면 중간에 막히는 일이 적습니다.</p>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 1 · 공통 모듈 설계</b><span>능력단위요소 ① · 채점 1-1 ~ 1-10 · 50점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st1">
+      <h3><i>1</i>완성 산출물의 확인</h3>
+      <aside class="side">
+        <p class="pt">세 화면이 채점의 증거입니다.</p>
+        <b class="sh">내는 것</b>
+        <p class="v">저장소 주소 · 화면 캡처</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ap_screen.png" alt="완성했을 때의 브라우저 화면 셋. 등록 폼에 값을 넣은 화면, 빈 칸으로 보내 칸마다 검증 메시지가 붙은 화면, 그리고 저장 뒤 목록 맨 위에 새 회원이 나오고 아래에 회원등록 성공 메시지가 뜬 화면.">
+  <figcaption>완성했을 때의 화면 셋. 이 세 장이 제출물의 알맹이입니다.</figcaption>
+</figure>
+
+<h4>무엇을 내는가</h4>
+<p>내는 것은 둘입니다. <b>완성한 GitHub 저장소 주소</b>와
+   <b>동작 화면을 담은 PDF 또는 PPT</b> 입니다.
+   화면은 위의 셋을 넣고, 여기에 <b>받자마자 찍은 500 오류 화면</b>을 더하면
+   무엇을 만들었는지가 한눈에 드러납니다.</p>
+
+<h4>점수가 어떻게 매겨지는가</h4>
+<p>채점표가 두 벌 있습니다. 채점도구는 준거 여덟 개에 10 · 15 · 15 · 10 점을 주고,
+   평가도구의 세부 항목표는 <b>스무 항목에 5점씩</b> 줍니다.
+   묶음별 합계는 둘 다 50 · 50 이라 어긋나지 않습니다.
+   실제 채점은 <b>세부 항목이 적힌 평가도구</b>를 씁니다.</p>
+<table>
+  <tr><th style="width:120px">묶음</th><th style="width:100px">항목 수</th>
+      <th style="width:90px">항목당</th><th>합계</th></tr>
+  <tr><td class="g">공통 모듈 설계</td><td class="c">10</td><td class="c">5점</td>
+      <td class="c">50점</td></tr>
+  <tr><td class="g">타 시스템 연동</td><td class="c">10</td><td class="c">5점</td>
+      <td class="c">50점</td></tr>
+</table>
+<p>항목이 잘게 나뉘어 있으니 하나씩 표를 보며 대조하는 것이 가장 빠릅니다.
+   이 교안의 각 단원 머리에 해당 채점 항목 번호를 달아 두었습니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>받는 프로젝트 EX01</h3>
+      <aside class="side">
+        <p class="pt">화면은 돌고 서버만 비어 있습니다.</p>
+        <b class="sh">빈 클래스</b>
+        <p class="v">다섯</p>
+        <b class="sh">먼저</b>
+        <p class="v"><code>db/schema.sql</code></p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ap_tree.png" alt="EX01 프로젝트의 폴더 구조. Config · Controller · Domain 아래 비어 있는 자바 다섯 클래스가 진하게 표시되어 있고, 템플릿 일곱 장과 schema.sql 은 제공된다고 표시되어 있다. 옆에 클래스별로 무엇을 채우는지 정리한 표가 있다.">
+  <figcaption>EX01 프로젝트 구조. 진하게 표시한 다섯 클래스가 비어 있습니다.</figcaption>
+</figure>
+
+<h4>받자마자 하는 일</h4>
+<p>MySQL 의 <code>testdb</code> 에 <code>db/schema.sql</code> 을 실행합니다.
+   회원 테이블 하나와 seed 세 건이 생깁니다.
+   그 다음 <code>gradlew.bat bootRun</code> 으로 띄웁니다.
+   Gradle 이 처음에는 내려받느라 시간이 걸리니 넉넉히 기다리십시오.</p>
+
+<pre><i>-- db/schema.sql 이 만드는 것</i>
+CREATE TABLE tbl_member (
+    id       BIGINT       NOT NULL <b>AUTO_INCREMENT</b>,
+    name     VARCHAR(50),
+    email    VARCHAR(100),
+    phone    VARCHAR(20),
+    createAt TIMESTAMP,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO tbl_member VALUES (null, '김철수', 'kim@example.com', '010-1111-2222', now());
+INSERT INTO tbl_member VALUES (null, '이영희', 'lee@example.com', '010-3333-4444', now());
+INSERT INTO tbl_member VALUES (null, '박민수', 'park@example.com', '010-5555-6666', now());</pre>
+
+<p>띄우고 나면 <code>/member/add</code> 는 폼이 그대로 뜹니다.
+   화면이 이미 만들어져 있기 때문입니다.
+   그런데 <b>저장을 누르거나 목록을 열면 500 오류</b>가 납니다.
+   비어 있는 메서드가 <code>UnsupportedOperationException</code> 을 던지기 때문입니다.</p>
+
+<div class="warn">
+  이 500 화면이 <b>완료 전 캡처</b>입니다. 구현을 시작하기 전에 먼저 찍어 두십시오.
+  한 줄이라도 채우고 나면 다시 만들 수 없습니다.
+  메인 화면 · 등록 폼 · 저장 500 · 목록 500 네 장이면 충분합니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st3">
+      <h3><i>3</i>요청이 지나가는 길</h3>
+      <aside class="side">
+        <p class="pt">Service 계층이 없는 것이 이 과제의 특징입니다.</p>
+        <b class="sh">계층</b>
+        <p class="v">Controller · DAO · DTO</p>
+        <b class="sh">포트</b>
+        <p class="v">8090</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ap_arch.png" alt="브라우저에서 시작해 MemberController 를 거쳐 MemberDAO 로 가고, DataSourceConfig 의 커넥션풀을 통해 MySQL testdb 에 닿는 흐름도. 컨트롤러 아래에 Thymeleaf 템플릿이 있어 화면을 그려 브라우저로 돌려주고, 아래쪽에 GlobalExceptionHandler 가 전체를 받친다.">
+  <figcaption>요청이 지나가는 길. 점선 상자가 어디서 터지든 받는 전역 핸들러입니다.</figcaption>
+</figure>
+
+<h4>계층이 셋뿐입니다</h4>
+<p>많은 교재가 <b>Controller → Service → DAO</b> 세 층을 가르칩니다.
+   이 과제에는 가운데 Service 가 없습니다. 컨트롤러가 DAO 를 바로 부릅니다.
+   배운 범위가 거기까지이기 때문이고, <b>없는 것을 넣으면 오히려 어긋납니다</b>.</p>
+<p>그래도 지켜야 할 선은 그대로입니다.
+   <b>컨트롤러는 SQL 을 모르고, DAO 는 화면을 모릅니다.</b>
+   이 두 문장이 채점 항목 1-7 과 1-8 의 전부입니다.</p>
+
+<h4>DTO 가 오가는 그릇입니다</h4>
+<p>폼에서 온 값도 <code>MemberDTO</code>, DAO 가 돌려주는 것도 <code>MemberDTO</code> 입니다.
+   계층 사이에 값을 하나씩 넘기지 않고 한 덩어리로 묶어 넘깁니다.
+   필드가 하나 늘어도 메서드 서명이 안 바뀌는 것이 이 방식의 값입니다.</p>
+
+<table>
+  <tr><th style="width:170px">계층</th><th style="width:200px">아는 것</th><th>모르는 것</th></tr>
+  <tr><td class="k">MemberController</td><td>화면 이름 · 요청 경로 · DAO</td>
+      <td><b>SQL · 연결 · 드라이버</b></td></tr>
+  <tr><td class="k">MemberDAO</td><td>SQL · 연결 · 테이블 구조</td>
+      <td><b>화면 이름 · 요청 경로</b></td></tr>
+  <tr><td class="k">MemberDTO</td><td>자기 필드와 검증 규칙</td>
+      <td>위 둘을 전혀 모릅니다</td></tr>
+</table>
+      </div>
+    </div>
+
+    <div class="step" id="st4">
+      <h3><i>4</i>무엇이 공통인가</h3>
+      <aside class="side">
+        <p class="pt">여러 곳이 똑같이 쓰는 것을 찾습니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">1-1 · 1-2 · 10점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ap_common.png" alt="DB 연결 설정 · 전역 예외 처리 · 회원 자료 구조 · DB 접근 절차 · 요청 경로 규칙 다섯 가지를 전체 시스템 차원과 단위 시스템 차원으로 나누고, 각각을 어느 패키지에 두는지와 왜 공통인지를 정리한 표. 아래에 패키지 구조가 나열되어 있다.">
+  <figcaption>공통 요소 식별표. 전체 차원과 단위 차원을 나누어 적습니다.</figcaption>
+</figure>
+
+<h4>두 가지 차원</h4>
+<p>수행준거 1.1 이 <b>「전체 시스템 차원과 단위 시스템 차원」</b> 을 나눠 보라고 합니다.
+   전체 차원은 프로그램 전체가 같이 쓰는 것이고,
+   단위 차원은 한 기능 덩어리 안에서만 같이 쓰는 것입니다.
+   DB 연결 설정은 전체 차원이고, 회원 자료 구조는 회원 기능 안에서만 쓰이니 단위 차원입니다.</p>
+
+<h4>지금은 하나뿐인데 왜 나누는가</h4>
+<p>지금은 회원 기능 하나뿐이라 나눌 까닭이 없어 보입니다.
+   그런데 게시판이 하나 더 붙는다고 생각해 보십시오.
+   DB 연결 설정을 또 만들어야 하는지가 갈립니다.
+   공통으로 뽑아 두었으면 그대로 쓰고, 안 뽑았으면 베껴 씁니다.
+   베끼는 순간 계정이 바뀔 때 고칠 곳이 둘이 됩니다.</p>
+
+<h4>패키지가 곧 설계도입니다</h4>
+<pre>com.example.demo
+ ├─ <b>Config</b>                  <i>-- 프로그램 전체의 설정</i>
+ │   └─ DataSourceConfig
+ ├─ <b>Controller</b>              <i>-- 바깥 요청을 받는 쪽</i>
+ │   ├─ HomeController
+ │   ├─ MemberController
+ │   └─ <b>GlobalException</b>     <i>-- 전역 예외는 따로 묶습니다</i>
+ │       └─ GlobalExceptionHandler
+ └─ <b>Domain.Common</b>           <i>-- 도메인 공통 — 자료와 접근</i>
+     ├─ Daos / MemberDAO
+     └─ Dtos / MemberDTO</pre>
+<p>폴더 이름만 봐도 무엇이 어디 있는지 짐작됩니다.
+   채점 항목 1-2 가 <b>「역할이 분명한 단위로 구분하여 패키지에 배치」</b> 인데,
+   이 구조를 그대로 두는 것만으로 절반은 받습니다.
+   파일을 한 폴더에 다 몰아 넣으면 그 자리에서 잃습니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st5">
+      <h3><i>5</i>MemberDTO</h3>
+      <aside class="side">
+        <p class="pt">자료의 모양과 규칙을 한 곳에 적습니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">1-3 · 5점</p>
+        <b class="sh">쓰는 것</b>
+        <p class="v">Lombok · Bean Validation</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ap_dto.png" alt="MemberDTO 클래스 전체 코드. Lombok 어노테이션 네 개가 붙고 id · name · email · phone · createAt 다섯 필드에 @NotBlank 와 @Email 검증이 붙어 있다. 옆에 필드마다 테이블 자료형과 검증 규칙을 정리한 표가 있다.">
+  <figcaption>MemberDTO. 자료의 모양과 검증 규칙이 한 파일에 모입니다.</figcaption>
+</figure>
+
+<h4>Lombok 네 개가 하는 일</h4>
+<table>
+  <tr><th style="width:170px">어노테이션</th><th>대신 써 주는 것</th></tr>
+  <tr><td class="k">@Data</td>
+      <td>getter · setter · toString · equals · hashCode</td></tr>
+  <tr><td class="k">@NoArgsConstructor</td>
+      <td>빈 생성자 — 폼 값을 담을 때 스프링이 이것을 씁니다</td></tr>
+  <tr><td class="k">@AllArgsConstructor</td>
+      <td>모든 필드를 받는 생성자 — @Builder 가 안에서 씁니다</td></tr>
+  <tr><td class="k">@Builder</td>
+      <td><code>MemberDTO.builder().name(...).build()</code> 형태</td></tr>
+</table>
+<p><code>@NoArgsConstructor</code> 를 빠뜨리면 <b>폼 값이 담기지 않습니다</b>.
+   <code>@AllArgsConstructor</code> 없이 <code>@Builder</code> 만 붙이면 컴파일이 안 됩니다.
+   넷이 서로 물려 있으니 통째로 붙이는 편이 안전합니다.</p>
+
+<h4>검증은 왜 DTO 에 붙는가</h4>
+<p>검증 규칙을 컨트롤러에 <code>if</code> 로 쓰면
+   같은 규칙을 여러 곳에서 되풀이하게 됩니다.
+   DTO 에 붙여 두면 그 자료를 쓰는 곳마다 규칙이 따라다닙니다.
+   이것이 「자료의 상세 명세」 라는 말의 뜻이며, 채점 항목 1-3 이 이것을 봅니다.</p>
+
+<table>
+  <tr><th style="width:150px">쓸 것</th><th style="width:160px">안 되는 것</th><th>까닭</th></tr>
+  <tr><td class="k">@NotBlank</td><td class="k">@NotNull</td>
+      <td>폼의 빈 칸은 <code>null</code> 이 아니라 <b>빈 문자열</b>로 옵니다</td></tr>
+  <tr><td class="k">@NotBlank + @Email</td><td class="k">@Email 만</td>
+      <td><code>@Email</code> 은 빈 값을 통과시킵니다</td></tr>
+  <tr><td class="k">message 지정</td><td class="k">기본 메시지</td>
+      <td>화면에 영어가 뜹니다. 사람이 읽을 문장을 적습니다</td></tr>
+</table>
+      </div>
+    </div>
+
+    <div class="step" id="st6">
+      <h3><i>6</i>MemberDAO</h3>
+      <aside class="side">
+        <p class="pt">DB 접근만 맡고 다른 일은 안 합니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">1-5 · 1-8 · 2-4 · 2-5</p>
+        <b class="sh">메서드</b>
+        <p class="v">insert · selectAll</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ap_dao.png" alt="MemberDAO 의 insert 와 selectAll 전체 코드. 커넥션풀에서 연결을 얻어 PreparedStatement 로 물음표 바인딩을 하고, 조회 결과를 MemberDTO.builder 로 매핑해 리스트로 돌려준다. 아래에 id 에 null 을 넣는 까닭 등 네 가지 주의점을 정리한 표가 있다.">
+  <figcaption>MemberDAO. 메서드 둘이 각각 등록과 목록 하나씩만 맡습니다.</figcaption>
+</figure>
+
+<h4>왜 메서드를 둘로 나누는가</h4>
+<p>채점 항목 1-5 가 <b>「insert 와 selectAll 단위 메서드로 적절히 나누어」</b> 를 봅니다.
+   하나의 메서드가 「등록하고 목록도 돌려주는」 식이면 나뉜 것이 아닙니다.
+   <b>한 메서드가 한 가지 일만</b> 하도록 두는 것이 응집도를 높이는 방법입니다.</p>
+
+<h4>물음표 바인딩</h4>
+<p>SQL 을 문자열로 이어 붙이면 값 안의 따옴표가 <b>SQL 의 일부로 읽힙니다</b>.
+   물음표를 두고 <code>setString</code> 으로 채우면 값은 끝까지 값으로만 남습니다.
+   채점 항목 2-5 가 <b>「모든 SQL 을」</b> 이라고 못 박았으므로
+   두 메서드 모두 <code>PreparedStatement</code> 여야 합니다.</p>
+
+<pre><i>// 이렇게 쓰면 안 됩니다</i>
+String sql = "insert into tbl_member values(null,'" + dto.getName() + "', ...)";
+
+<i>// 이렇게 씁니다 — 번호는 1부터입니다</i>
+PreparedStatement pstmt = conn.prepareStatement(
+        "insert into tbl_member values(<b>null,?,?,?,?</b>)");
+pstmt.setString(<b>1</b>, dto.getName());
+pstmt.setString(<b>2</b>, dto.getEmail());</pre>
+
+<h4>자료형을 두 번 바꿉니다</h4>
+<p>DTO 는 <code>LocalDateTime</code> 을 쓰고 데이터베이스는 <code>TIMESTAMP</code> 를 씁니다.
+   넣을 때는 <code>Timestamp.valueOf(...)</code>,
+   꺼낼 때는 <code>rs.getTimestamp(...).toLocalDateTime()</code> 입니다.
+   한쪽만 바꾸면 컴파일에서 바로 걸리니 놓치기는 어렵습니다.</p>
+
+<div class="warn">
+  <code>INSERT</code> 는 <code>executeUpdate()</code>, <code>SELECT</code> 는
+  <code>executeQuery()</code> 입니다. 바꿔 쓰면 컴파일은 되고 <b>실행할 때 터집니다</b>.
+  돌려주는 것이 하나는 바뀐 줄 수(<code>int</code>), 하나는 결과 집합(<code>ResultSet</code>)
+  이라는 점으로 외우면 헷갈리지 않습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st7">
+      <h3><i>7</i>MemberController</h3>
+      <aside class="side">
+        <p class="pt">받고 · 보고 · 어디로 보낼지 고릅니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">1-4 · 1-7 · 10점</p>
+        <b class="sh">눈여겨볼 것</b>
+        <p class="v">@Valid · redirect</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ap_ctrl.png" alt="MemberController 전체 코드. @RequestMapping 으로 경로 앞을 묶고, POST 에서 @Valid 와 BindingResult 로 검증해 실패하면 FieldError 를 모델에 담아 폼으로 되돌리며, 통과하면 DAO 로 저장하고 flash 메시지와 함께 목록으로 redirect 한다. 아래에 네 가지 주의점을 정리한 표가 있다.">
+  <figcaption>MemberController. 검증 실패와 성공의 길이 뚜렷하게 갈립니다.</figcaption>
+</figure>
+
+<h4>검증 실패는 예외가 아닙니다</h4>
+<p><code>@Valid</code> 가 붙은 값이 규칙에 안 맞으면 <b>예외가 나지 않습니다</b>.
+   결과가 <code>BindingResult</code> 에 담겨 들어옵니다.
+   그래서 <code>try-catch</code> 로는 잡히지 않고,
+   <code>if (bindingResult.hasErrors())</code> 로 갈라야 합니다.</p>
+<p>여기서 자리를 틀리는 일이 잦습니다.
+   <code>BindingResult</code> 는 <b>검증 대상 바로 뒤</b>에 와야 합니다.
+   사이에 <code>Model</code> 을 끼우면 스프링이 오류를 넘겨주지 않고
+   <b>400 오류</b>를 내 버립니다. 순서가 곧 규칙입니다.</p>
+
+<h4>실패했을 때 어느 칸이 틀렸는지 알려 주기</h4>
+<pre>for (<b>FieldError</b> error : bindingResult.getFieldErrors()) {
+    model.addAttribute(<b>error.getField()</b>,          <i>// "name" · "email" · "phone"</i>
+                       <b>error.getDefaultMessage()</b>); <i>// DTO 에 적어 둔 문장</i>
+}
+return "member/add";        <i>// 폼으로 되돌아갑니다 (redirect 아님)</i></pre>
+<p>필드 이름을 그대로 모델 키로 쓰면
+   화면의 <code>th:text="${name}"</code> 이 그 칸 옆에 메시지를 찍습니다.
+   화면이 이미 그렇게 만들어져 있으니 <b>키 이름을 마음대로 바꾸면</b> 안 나옵니다.</p>
+
+<h4>성공하면 왜 redirect 인가</h4>
+<p>저장한 자리에서 목록을 그려 주면, 사용자가 새로고침할 때
+   <b>같은 POST 가 다시 날아가</b> 회원이 또 들어갑니다.
+   주소를 <code>/member/list</code> 로 바꿔 주면 새로고침해도 조회만 다시 일어납니다.</p>
+<p>다만 주소가 바뀌면 <code>Model</code> 에 담은 값이 사라집니다.
+   그래서 <code>addFlashAttribute</code> 를 씁니다.
+   다음 화면 한 번만 살아 있다가 없어지는 값입니다.
+   목록에 「회원등록 성공!」 이 한 번 뜨고, 새로고침하면 사라지는 것이 정상입니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st8">
+      <h3><i>8</i>결합도와 응집도</h3>
+      <aside class="side">
+        <p class="pt">SQL 은 DAO 에만, 화면 이름은 컨트롤러에만.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">1-7 · 1-8 · 10점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ap_coh.png" alt="왼쪽에 결합도가 높고 응집도가 낮은 잘못된 코드, 오른쪽에 고친 코드를 나란히 놓은 그림. 컨트롤러가 Connection 을 직접 여는 코드와 DAO 가 redirect 문자열을 돌려주는 코드가 잘못된 예로, DAO 를 부르기만 하는 컨트롤러와 int 를 돌려주는 DAO 가 올바른 예로 제시되어 있다.">
+  <figcaption>결합도와 응집도. 왼쪽이 두 항목을 한꺼번에 잃는 코드입니다.</figcaption>
+</figure>
+
+<h4>두 낱말을 쉽게 바꾸면</h4>
+<p><b>결합도</b>는 「이 클래스를 고칠 때 다른 클래스도 같이 고쳐야 하는가」 입니다.
+   낮을수록 좋습니다. 데이터베이스를 MySQL 에서 다른 것으로 바꿔도
+   컨트롤러를 안 고쳐도 되면 결합도가 낮습니다.</p>
+<p><b>응집도</b>는 「이 클래스 안에 한 가지 일만 모여 있는가」 입니다.
+   높을수록 좋습니다. 가늠하는 방법이 하나 있습니다.
+   <b>이 클래스가 하는 일을 한 문장으로 말해 보십시오.</b>
+   「그리고」 가 들어가면 응집도가 낮은 것입니다.</p>
+
+<table>
+  <tr><th style="width:200px">클래스</th><th>한 문장으로</th><th style="width:60px">판정</th></tr>
+  <tr><td class="k">MemberDAO</td>
+      <td>회원 자료를 데이터베이스에 넣고 꺼낸다</td><td class="c">좋음</td></tr>
+  <tr><td class="k">MemberController</td>
+      <td>회원 요청을 받아 검증하고 어느 화면으로 보낼지 고른다</td><td class="c">좋음</td></tr>
+  <tr><td class="k">MemberDAO <i>(잘못된 예)</i></td>
+      <td>회원을 넣고 <b>그리고</b> 어느 화면으로 갈지 정한다</td><td class="c">나쁨</td></tr>
+</table>
+
+<h4>이 과제에서 실제로 보는 것</h4>
+<p>낱말은 어렵지만 채점자가 보는 것은 두 가지뿐입니다.</p>
+<ol>
+  <li><code>MemberController</code> 안에 <code>Connection</code> · <code>PreparedStatement</code>
+      · SQL 문자열이 <b>없어야</b> 합니다.</li>
+  <li><code>MemberDAO</code> 안에 <code>"member/add"</code> · <code>"redirect:"</code>
+      같은 화면 이름이 <b>없어야</b> 합니다.</li>
+</ol>
+<p>두 가지를 한 번씩 눈으로 훑어보는 것만으로 10점을 지킬 수 있습니다.
+   완성한 뒤 두 파일을 열어 확인하십시오.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st9">
+      <h3><i>9</i>기능 코드와 경로 규칙</h3>
+      <aside class="side">
+        <p class="pt">규칙이 하나면 외우지 않아도 짐작됩니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">1-9 · 1-10 · 10점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ap_code.png" alt="/member/add 의 GET 과 POST, /member/list 의 GET, 그리고 / 네 가지 경로가 각각 어떤 화면이나 동작으로 이어지는지 정리한 표. 아래에 경로 규칙과 식별자 채번 방식을 정리한 표가 있다.">
+  <figcaption>경로와 기능 코드. 같은 경로에 GET 과 POST 를 겹쳐 둡니다.</figcaption>
+</figure>
+
+<h4>인덱스 번호 — 기본키 채번</h4>
+<p>수행준거 1.4 가 말하는 <b>「인덱스 번호」</b> 는 이 과제에서 <code>tbl_member.id</code> 입니다.
+   <code>AUTO_INCREMENT</code> 로 두고 넣을 때 <code>null</code> 을 주면
+   데이터베이스가 번호를 매깁니다.
+   프로그램이 「지금 몇 번까지 있나」 를 세어 매기면
+   두 사람이 동시에 등록할 때 같은 번호가 나옵니다.</p>
+
+<h4>기능 코드 — 경로 규칙</h4>
+<p>경로는 <code>/도메인/기능</code> 한 가지로 통일합니다.
+   회원 등록은 <code>/member/add</code>, 목록은 <code>/member/list</code> 입니다.
+   게시판이 붙으면 <code>/board/add</code> · <code>/board/list</code> 가 될 것이
+   <b>보지 않아도 짐작됩니다</b>. 그것이 규칙이 있다는 뜻입니다.</p>
+
+<pre>@Controller
+<b>@RequestMapping("/member")</b>        <i>// 아래 경로 앞에 모두 붙습니다</i>
+public class MemberController {
+
+    @GetMapping(<b>"/add"</b>)             <i>// → /member/add  폼 보여 주기</i>
+    @PostMapping(<b>"/add"</b>)            <i>// → /member/add  값 받아 저장</i>
+    @GetMapping(<b>"/list"</b>)            <i>// → /member/list 목록</i>
+}</pre>
+
+<p>같은 <code>/member/add</code> 에 GET 과 POST 를 겹쳐 두는 것이 이상해 보일 수 있습니다.
+   <b>보여 주기와 저장하기가 같은 일의 앞뒤</b>이기 때문입니다.
+   검증에 실패해 폼으로 되돌아갈 때도 주소가 그대로라
+   사용자 눈에는 한 화면에 머무는 것처럼 보입니다.</p>
+
+<div class="warn">
+  <code>/memberAdd</code> 와 <code>/member/list</code> 를 섞어 쓰면
+  동작은 해도 <b>규칙이 없는 것</b>입니다.
+  채점 항목 1-10 이 「일관된 규칙의 기능 코드」 라고 못 박아 두었습니다.
+  제공된 화면의 링크가 이미 규칙대로 걸려 있으니 <b>경로를 바꾸지 마십시오</b>.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 2 · 타 시스템 연동 설계</b><span>능력단위요소 ② · 채점 2-1 ~ 2-10 · 50점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st10">
+      <h3><i>10</i>연동 리스트</h3>
+      <aside class="side">
+        <p class="pt">대상이 하나여도 리스트는 만듭니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">2-1 · 2-2 · 10점</p>
+        <b class="sh">대상</b>
+        <p class="v">MySQL testdb</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ap_link.png" alt="연동 대상 MySQL 과 드라이버 · 계정 · 연동 방식 · 연동 지점 · 자원 관리를 정리한 연동 리스트 표와, 연동 정보는 한 곳에만 적는다는 등 다섯 줄의 연동 상세 설계 가이드라인 표.">
+  <figcaption>연동 리스트와 가이드라인. 표 한 장과 규칙 다섯 줄입니다.</figcaption>
+</figure>
+
+<h4>「타 시스템」 이 무엇인가</h4>
+<p>말이 거창하지만 이 과제에서는 <b>MySQL 하나</b>입니다.
+   내 프로그램 밖에 있고, 따로 켜고 끄고, 꺼져 있으면 내가 못 도는 것 —
+   그것이 타 시스템입니다.
+   외부 API 나 다른 서버가 없다고 이 요소를 건너뛰면 <b>50점을 통째로 잃습니다</b>.</p>
+
+<h4>리스트에 적을 것</h4>
+<p>무엇과 잇는지(대상), 무엇으로 잇는지(드라이버),
+   누구로 접속하는지(계정), 어떻게 잇는지(방식),
+   내 코드의 어디가 잇는 자리인지(연동 지점) 다섯입니다.
+   마지막 항목을 눈여겨보십시오. <code>MemberDAO</code> 말고는 DB 를 건드리지 않는다는 선언이
+   곧 설계이기 때문입니다.</p>
+
+<h4>동기 연동이라는 뜻</h4>
+<p>이 과제의 연동은 <b>동기</b>입니다.
+   요청을 처리하는 그 자리에서 데이터베이스에 묻고 답이 올 때까지 기다립니다.
+   그래서 데이터베이스가 느리면 화면도 그만큼 늦게 뜨고,
+   꺼져 있으면 그 요청은 오류가 됩니다.</p>
+<p>앞 교과 「인터페이스 구현」 의 비동기 방식과 견주면 차이가 뚜렷합니다.
+   거기서는 테이블에 쌓아 두고 나중에 가져갔습니다.
+   여기서는 <b>바로 묻고 바로 받습니다</b>.
+   화면을 그리려면 값이 지금 있어야 하므로 이쪽이 맞습니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st11">
+      <h3><i>11</i>DataSourceConfig</h3>
+      <aside class="side">
+        <p class="pt">연결 정보를 한 곳에 모읍니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">2-3 · 2-7 · 10점</p>
+        <b class="sh">빈</b>
+        <p class="v">dataSource2 · dataSource3</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ap_ds.png" alt="DataSourceConfig 전체 코드. commons-dbcp2 의 BasicDataSource 와 HikariCP 의 HikariDataSource 를 각각 빈으로 만들고 드라이버 · 주소 · 계정 · 비밀번호를 설정한다. 옆에 setUrl 과 setJdbcUrl 이 다르다는 등 네 가지 주의점을 정리한 표가 있다.">
+  <figcaption>DataSourceConfig. 커넥션풀 두 가지를 각각 빈으로 만듭니다.</figcaption>
+</figure>
+
+<h4>커넥션풀이 하는 일</h4>
+<p>데이터베이스 연결을 여는 데는 생각보다 시간이 많이 듭니다.
+   요청마다 새로 열고 닫으면 그 시간이 그대로 사용자 대기 시간이 됩니다.
+   커넥션풀은 <b>연결을 미리 몇 개 만들어 두고 빌려 주고 돌려받습니다</b>.
+   <code>getConnection()</code> 이 실제로는 새로 여는 것이 아니라 빌리는 것입니다.</p>
+
+<h4>둘을 만드는 까닭</h4>
+<p>과제가 <code>commons-dbcp2</code> 와 <code>HikariCP</code> 둘 다 명세하라고 합니다.
+   그래서 빈을 둘 만들고, DAO 는 그중 <code>dataSource3</code> 하나만 씁니다.
+   채점 항목 2-7 이 <b>「커넥션풀 미들웨어의 사용 목적을 명세」</b> 이므로
+   두 가지를 모두 적어 두는 것이 답입니다.</p>
+
+<table>
+  <tr><th style="width:200px">구분</th><th style="width:200px">commons-dbcp2</th>
+      <th>HikariCP</th></tr>
+  <tr><td class="g">클래스</td><td class="k">BasicDataSource</td>
+      <td class="k">HikariDataSource</td></tr>
+  <tr><td class="g">주소 설정</td><td class="k"><b>setUrl</b>(...)</td>
+      <td class="k"><b>setJdbcUrl</b>(...)</td></tr>
+  <tr><td class="g">이 과제에서</td><td>명세만 합니다</td>
+      <td><b>DAO 가 실제로 씁니다</b></td></tr>
+  <tr><td class="g">스프링 부트</td><td>따로 의존성을 넣습니다</td>
+      <td>기본으로 들어 있습니다</td></tr>
+</table>
+
+<div class="warn">
+  주소를 넣는 메서드 이름이 다릅니다. Hikari 에 <code>setUrl</code> 을 쓰면
+  <b>컴파일은 되고 연결만 안 됩니다</b>. 다른 뜻의 메서드가 있기 때문입니다.
+  기동 로그에 <code>HikariPool-1 - Start completed</code> 가 안 뜨면 이것부터 보십시오.
+</div>
+
+<h4>빈 이름으로 골라 쓰기</h4>
+<p><code>DataSource</code> 타입 빈이 둘이라 스프링이 어느 것을 넣어야 할지 모릅니다.
+   <b>필드 이름을 빈 이름과 똑같이</b> 두면 그것으로 고릅니다.</p>
+<pre>@Repository
+public class MemberDAO {
+    @Autowired
+    private DataSource <b>dataSource3</b>;   <i>// 빈 메서드 이름과 같아야 합니다</i>
+}</pre>
+<p>이름을 <code>ds</code> 같이 달리 지으면 기동할 때
+   <b>후보가 둘이라 정할 수 없다</b>는 오류가 납니다.
+   오류 문구에 후보 이름이 그대로 찍히니 당황하지 말고 읽으면 됩니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st12">
+      <h3><i>12</i>미들웨어 명세</h3>
+      <aside class="side">
+        <p class="pt">표 한 장으로 세 항목 15점입니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">2-6 · 2-7 · 2-8 · 15점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ap_mw.png" alt="WAS 내장 Tomcat · 커넥션풀 두 가지 · DB 드라이버 · 템플릿 엔진을 정리한 미들웨어 표와, JDK 21 · Spring Boot 3.5 · Thymeleaf · MySQL 8 · 포트 8090 · Gradle 을 정리한 개발 운영 환경 표.">
+  <figcaption>미들웨어와 환경 명세. 세 항목 15점이 이 표에 걸려 있습니다.</figcaption>
+</figure>
+
+<h4>미들웨어가 무엇인가</h4>
+<p><b>미들웨어</b>는 내 프로그램과 그 아래 시스템 사이에 낀 소프트웨어입니다.
+   내가 만든 것도 아니고 운영체제도 아닌, 가운데에서 일을 대신해 주는 것입니다.
+   이 과제에는 셋이 있습니다.</p>
+<ol>
+  <li><b>내장 Tomcat</b> — HTTP 요청을 받아 컨트롤러에 넘겨 줍니다.
+      따로 설치하지 않고 실행 파일 안에 들어 있어 눈에 잘 안 띕니다.</li>
+  <li><b>커넥션풀</b> — 데이터베이스 연결을 관리합니다.</li>
+  <li><b>JDBC 드라이버</b> — 자바의 말을 MySQL 의 말로 옮깁니다.</li>
+</ol>
+<p>Thymeleaf 는 미들웨어라기보다 템플릿 엔진이지만,
+   기술 영역별로 정리하라는 항목 2-8 에는 함께 적어 두는 편이 낫습니다.</p>
+
+<h4>기동 로그가 증거입니다</h4>
+<pre><i>-- 이 세 줄이 미들웨어가 떴다는 증거입니다</i>
+<b>HikariPool-1 - Starting...</b>
+<b>HikariPool-1 - Start completed.</b>            <i>// 커넥션풀</i>
+<b>Tomcat started on port 8090</b>                <i>// WAS</i>
+Starting DemoApplication using Java <b>21</b>     <i>// 실행 환경</i></pre>
+<p>보고서에 표만 적는 것보다 기동 로그 한 장을 함께 붙이는 것이 낫습니다.
+   적어 둔 것과 실제로 뜬 것이 같다는 증명이 되기 때문입니다.
+   항목 2-6 · 2-7 · 2-8 세 개를 한 장으로 받칠 수 있습니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st13">
+      <h3><i>13</i>예외 처리 두 층</h3>
+      <aside class="side">
+        <p class="pt">가까운 쪽이 먼저 받습니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">2-10 · 5점</p>
+        <b class="sh">핸들러</b>
+        <p class="v">넷</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ap_ex.png" alt="GlobalExceptionHandler 전체 코드와, 컨트롤러 안의 핸들러가 먼저 받고 그 다음 전역 핸들러의 FileNotFound · Arithmetic · Exception 순으로 걸리는 순서를 정리한 표.">
+  <figcaption>예외 처리 두 층. 좁은 예외가 넓은 예외보다 먼저 걸립니다.</figcaption>
+</figure>
+
+<h4>두 층이 있는 까닭</h4>
+<p>회원 기능에서 난 오류는 회원 오류 화면으로 보내는 것이 친절합니다.
+   그런데 오류가 어디서 날지 다 알 수는 없습니다.
+   그래서 회원 안에서 난 것은 회원 핸들러가,
+   나머지는 전역 핸들러가 받는 두 층을 둡니다.</p>
+<p>두 층이 겹치면 <b>가까운 쪽이 이깁니다</b>.
+   컨트롤러 안의 <code>@ExceptionHandler</code> 가 먼저 보고,
+   없을 때만 <code>@ControllerAdvice</code> 로 넘어갑니다.</p>
+
+<h4>전역 핸들러 안의 순서</h4>
+<p>전역 핸들러 안에서도 순서가 있습니다.
+   <b>좁은 예외가 넓은 예외보다 먼저</b> 걸립니다.
+   <code>ArithmeticException</code> 은 <code>Exception</code> 의 자식이라
+   둘 다 걸릴 수 있지만, 더 구체적인 쪽이 이깁니다.
+   <code>Exception</code> 은 <b>그물의 마지막 칸</b>이라고 생각하면 됩니다.</p>
+
+<table>
+  <tr><th style="width:60px">순서</th><th style="width:230px">잡는 것</th>
+      <th style="width:140px">보내는 화면</th><th>어떤 경우</th></tr>
+  <tr><td class="c">1</td><td class="k">MemberController 의 @ExceptionHandler</td>
+      <td class="k">member/error</td><td>회원 기능 안에서 난 예외</td></tr>
+  <tr><td class="c">2</td><td class="k">FileNotFoundException</td>
+      <td class="k">global/error1</td><td>파일을 못 찾음</td></tr>
+  <tr><td class="c">3</td><td class="k">ArithmeticException</td>
+      <td class="k">global/error2</td><td>0 으로 나눔</td></tr>
+  <tr><td class="c">4</td><td class="k">Exception</td>
+      <td class="k">global/error3</td><td>나머지 전부</td></tr>
+</table>
+<p>화면 일곱 장 가운데 네 장이 오류 화면입니다.
+   이미 만들어져 있으니 핸들러의 반환 문자열만 맞추면 됩니다.
+   이름을 틀리면 「템플릿을 못 찾는다」 는 또 다른 오류가 납니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st14">
+      <h3><i>14</i>오류 예측과 대응</h3>
+      <aside class="side">
+        <p class="pt">예측한 표와 만든 코드가 짝을 이뤄야 합니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">2-9 · 2-10 · 10점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ap_err.png" alt="DB 연결 실패 · SQL 실행 오류 · 입력값 검증 실패 · 파일 없음 · 0 으로 나눔 다섯 가지 오류를 언제 나는지, 어떻게 대응하는지 정리한 표. 아래에 MySQL 을 내린 채 목록을 열었을 때 실제로 찍히는 콘솔 기록이 있다.">
+  <figcaption>연동 오류 예측과 대응. 검증 실패만 예외가 아닙니다.</figcaption>
+</figure>
+
+<h4>세 가지를 예측합니다</h4>
+<p>채점 항목 2-9 가 <b>「DB 연결 실패, SQLException, 입력값 검증 실패」</b> 를 콕 집어 적었습니다.
+   세 가지의 성격이 서로 다릅니다.</p>
+<table>
+  <tr><th style="width:150px">오류</th><th style="width:130px">누구 탓인가</th>
+      <th style="width:130px">예외인가</th><th>어떻게 갈라지는가</th></tr>
+  <tr><td class="g">DB 연결 실패</td><td>환경 · 운영</td><td class="c">예</td>
+      <td>전역 핸들러 → <code>global/error3</code></td></tr>
+  <tr><td class="g">SQL 실행 오류</td><td>개발자</td><td class="c">예</td>
+      <td>컨트롤러 핸들러 → <code>member/error</code></td></tr>
+  <tr><td class="g">입력값 검증 실패</td><td>사용자</td><td class="c"><b>아니오</b></td>
+      <td>BindingResult → 폼으로 복귀</td></tr>
+</table>
+<p>세 번째는 예외가 아닙니다.
+   사용자가 이름을 안 적은 것은 <b>잘못이 아니라 흔한 일</b>입니다.
+   흔한 일을 예외로 처리하면 오류 화면이 뜨고,
+   사용자는 자기가 무엇을 잘못했는지 모릅니다.
+   그래서 <b>폼으로 되돌리고 칸 옆에 까닭을 적는 것</b>이 답입니다.</p>
+
+<h4>대응은 코드로 보여야 합니다</h4>
+<p>표만 있고 핸들러가 없으면 항목 2-9 만 받고 2-10 은 못 받습니다.
+   반대로 핸들러만 있고 표가 없어도 절반입니다.
+   <b>보고서의 표와 코드의 핸들러가 줄 단위로 맞아야</b> 둘 다 받습니다.</p>
+
+<div class="warn">
+  일부러 오류를 내 보는 것이 가장 확실한 증명입니다.
+  MySQL 을 잠깐 내리고 목록을 열면 <code>global/error3</code> 이 뜹니다.
+  그 화면을 캡처해 두면 <b>「대응 방안을 제시했다」</b> 는 증거가 됩니다.
+  실제로 멈춰 보기 전에는 어느 화면이 뜨는지 알 수 없습니다.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 3 · 확인과 제출</b><span>제출물 정리</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st15">
+      <h3><i>15</i>실행과 자가 점검</h3>
+      <aside class="side">
+        <p class="pt">여섯 단계로 스스로 확인합니다.</p>
+        <b class="sh">확인할 줄</b>
+        <p class="v">HikariPool · port 8090</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/ap_run.png" alt="gradlew bootRun 기동 로그. HikariPool 이 시작되고 연결을 추가한 뒤 완료되며 Tomcat 이 8090 포트에서 뜨는 줄, 값을 저장할 때의 요청 로그, 빈 칸으로 보냈을 때의 검증 로그, MySQL 이 꺼져 있을 때의 연결 실패 로그가 차례로 있다. 아래에 자가 점검 여섯 단계를 정리한 표가 있다.">
+  <figcaption>기동 로그와 자가 점검. HikariPool 두 줄이 연동의 증거입니다.</figcaption>
+</figure>
+
+<h4>로그를 읽는 법</h4>
+<p>기동할 때 찍히는 줄이 많아 보이지만 봐야 할 것은 넷입니다.
+   자바 버전, 커넥션풀 시작, 포트, 그리고 걸린 시간입니다.
+   커넥션풀 줄이 안 보이면 데이터베이스에 못 붙은 것이고,
+   포트 줄이 안 보이면 웹 서버가 안 떴습니다.</p>
+<p>요청을 보낼 때마다 찍히는 줄도 있습니다.
+   <code>MemberController</code> 에 <code>@Slf4j</code> 가 붙어 있어
+   <code>log.info(...)</code> 로 남긴 것이 그대로 보입니다.
+   값이 제대로 담겼는지 여기서 먼저 확인할 수 있습니다.</p>
+
+<h4>여섯 단계 점검</h4>
+<p>그림 아래의 여섯 단계를 순서대로 해 보십시오.
+   <b>마지막 새로고침</b>을 빠뜨리지 마십시오.
+   저장 뒤 새로고침했을 때 같은 회원이 또 들어가면
+   <code>redirect</code> 가 빠진 것이고, 이것은 눈에 잘 안 띕니다.</p>
+
+<pre><i>-- 정말 두 번 들어갔는지 보는 SQL</i>
+SELECT name, COUNT(*) FROM tbl_member GROUP BY name <b>HAVING COUNT(*) &gt; 1</b>;
+
+<i>-- 검증이 도는지 보는 가장 빠른 방법 — 세 칸을 다 비우고 저장</i>
+<b>세 칸 모두에 메시지가 붙어야 합니다.</b> 하나만 붙으면 규칙을 하나만 단 것입니다.</pre>
+      </div>
+    </div>
+
+    <div class="step" id="st16">
+      <h3><i>16</i>제출물 정리</h3>
+      <aside class="side">
+        <p class="pt">저장소와 화면 캡처 둘입니다.</p>
+        <b class="sh">형식</b>
+        <p class="v">PDF 또는 PPT</p>
+      </aside>
+      <div class="bd">
+
+<h4>무엇을 어떤 차례로</h4>
+<table>
+  <tr><th style="width:60px">차례</th><th style="width:220px">넣을 것</th>
+      <th>덮는 채점 항목</th></tr>
+  <tr><td class="c">1</td><td class="g">완료 전 화면 네 컷</td>
+      <td>시작 상태를 보입니다</td></tr>
+  <tr><td class="c">2</td><td class="g">패키지 구조 한 컷</td>
+      <td>1-2 · 역할이 분명한 단위로 배치</td></tr>
+  <tr><td class="c">3</td><td class="g">공통 요소 식별표</td>
+      <td>1-1 · 공통부분 식별과 상세 명세</td></tr>
+  <tr><td class="c">4</td><td class="g">클래스 다섯의 코드</td>
+      <td>1-3 ~ 1-8 · 2-3 ~ 2-5</td></tr>
+  <tr><td class="c">5</td><td class="g">연동 리스트와 가이드라인</td>
+      <td>2-1 · 2-2</td></tr>
+  <tr><td class="c">6</td><td class="g">미들웨어 · 환경 명세표</td>
+      <td>2-6 · 2-7 · 2-8</td></tr>
+  <tr><td class="c">7</td><td class="g">기동 로그 한 컷</td>
+      <td>2-6 · 2-7 을 받칩니다</td></tr>
+  <tr><td class="c">8</td><td class="g">완료 후 화면 세 컷</td>
+      <td>전체가 도는 증거</td></tr>
+  <tr><td class="c">9</td><td class="g">오류 예측표와 오류 화면</td>
+      <td>2-9 · 2-10</td></tr>
+</table>
+
+<h4>저장소 정리</h4>
+<p>저장소 주소만 내면 되지만, 받는 사람이 열어서 바로 돌릴 수 있어야 합니다.
+   <code>build/</code> 폴더와 IDE 설정 파일은 올리지 마십시오.
+   <code>.gitignore</code> 가 이미 들어 있으니 그대로 두면 됩니다.</p>
+<p><code>README</code> 에 <b>준비 순서 세 줄</b>을 적어 두면 좋습니다.
+   스키마 실행 · 기동 명령 · 접속 주소입니다.
+   세 줄이면 남의 컴퓨터에서도 돕니다.</p>
+
+<pre><i># README.md 에 적을 세 줄</i>
+1. MySQL testdb 에 db/schema.sql 실행
+2. gradlew.bat bootRun
+3. http://localhost:8090/</pre>
+
+<h4>마지막 점검 다섯 가지</h4>
+<ol>
+  <li>컨트롤러에 SQL 이나 <code>Connection</code> 이 남아 있지 않은가</li>
+  <li>DAO 에 화면 이름이 남아 있지 않은가</li>
+  <li>저장 뒤 새로고침으로 회원이 또 들어가지 않는가</li>
+  <li>세 칸을 다 비웠을 때 메시지가 세 개 다 붙는가</li>
+  <li>완료 전 네 컷과 완료 후 세 컷이 모두 있는가</li>
+</ol>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ 3 ═══════ -->
+<h2 class="sec" id="g3">3. 주요 감점 요인</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">한 줄 때문에 두 항목이 같이 빠집니다.</p>
+    <b class="sh">가장 큰 것</b>
+    <p class="v">컨트롤러에 SQL</p>
+    <b class="sh">가장 아까운 것</b>
+    <p class="v">BindingResult 위치</p>
+  </aside>
+  <div class="bd">
+<p>아래 여덟 가지가 되풀이되는 감점입니다.
+   앞쪽 다섯은 <b>돌아가기는 하는데 설계가 틀린 것</b>이고,
+   뒤쪽 셋은 <b>아예 안 도는 것</b>입니다.
+   앞쪽이 더 무섭습니다. 스스로 알아채기가 어렵기 때문입니다.</p>
+
+<figure>
+  <img src="img/ap_bad.png" alt="컨트롤러에 SQL · BindingResult 위치 · @NotNull 로 검증 · setUrl 과 setJdbcUrl · 빈 이름 불일치 · redirect 없이 forward · id 를 직접 넣음 · 완료 전 캡처 없음 여덟 가지의 감점 모습과 보완 방법을 정리한 표.">
+  <figcaption>자주 나오는 감점과 보완. 왼쪽이 실제로 자주 나오는 모습입니다.</figcaption>
+</figure>
+
+<div class="warn">
+  이 교과는 <b>기능이 적은 대신 생김새를 봅니다</b>.
+  회원 등록 하나만 도는데 채점 항목이 스물인 까닭이 거기 있습니다.
+  기능을 더 만들어 채우려 들지 말고,
+  <b>이미 만든 다섯 클래스가 각자 제자리에 있는지</b>를 확인하는 데 시간을 쓰십시오.
+</div>
+  </div>
+</div>
+
+<footer>
+  애플리케이션 설계 · 6수준 · 56시간 · 담당 정우균 ·
+  (디지털컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E<br>
+  예제는 평가도구 작업지시서의 EX01 B-Member 이며, 제공되는 프로젝트와 클래스 이름은
+  실제 평가에서 달라질 수 있습니다.
+</footer>
+
+</div>
+
+<script>
+/* 빠른 이동 — 지금 보는 단원을 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"],a[href="#g3"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+  function mark() {
+    var y = window.pageYOffset + 90, cur = -1;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function () { mark(); tick = false; });
+  });
+  mark();
+})();
+</script>

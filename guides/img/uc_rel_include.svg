@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 500" width="880" height="500">
+<style>text{font-family:"Malgun Gothic",sans-serif;fill:#000}</style>
+<defs><marker id="o" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M1,1 L9,4 L1,7" fill="none" stroke="#000"/></marker></defs>
+<rect width="880" height="500" fill="#fff"/>
+<text x="20" y="26" font-size="13.5" font-weight="700">include — 같은 절차가 여러 곳에서 빠짐없이 반복될 때</text>
+<line x1="20" y1="36" x2="860" y2="36" stroke="#ccc"/>
+<text x="30" y="62" font-size="12" font-weight="700" text-anchor="start" fill="#000">묶기 전 — 세 곳에 로그인 확인이 각각 들어 있습니다</text>
+<ellipse cx="130" cy="100" rx="66" ry="19" fill="#fff" stroke="#000"/>
+<text x="130" y="104" font-size="11" font-weight="400" text-anchor="middle" fill="#000">장바구니 담기</text>
+<ellipse cx="320" cy="100" rx="52" ry="19" fill="#fff" stroke="#888"/>
+<text x="320" y="104" font-size="11" font-weight="400" text-anchor="middle" fill="#888">로그인 확인</text>
+<line x1="196" y1="100" x2="268" y2="100" stroke="#888"/>
+<ellipse cx="130" cy="158" rx="66" ry="19" fill="#fff" stroke="#000"/>
+<text x="130" y="162" font-size="11" font-weight="400" text-anchor="middle" fill="#000">주문</text>
+<ellipse cx="320" cy="158" rx="52" ry="19" fill="#fff" stroke="#888"/>
+<text x="320" y="162" font-size="11" font-weight="400" text-anchor="middle" fill="#888">로그인 확인</text>
+<line x1="196" y1="158" x2="268" y2="158" stroke="#888"/>
+<ellipse cx="130" cy="216" rx="66" ry="19" fill="#fff" stroke="#000"/>
+<text x="130" y="220" font-size="11" font-weight="400" text-anchor="middle" fill="#000">주문 조회</text>
+<ellipse cx="320" cy="216" rx="52" ry="19" fill="#fff" stroke="#888"/>
+<text x="320" y="220" font-size="11" font-weight="400" text-anchor="middle" fill="#888">로그인 확인</text>
+<line x1="196" y1="216" x2="268" y2="216" stroke="#888"/>
+<text x="400" y="158" font-size="11.5" font-weight="400" text-anchor="start" fill="#000">같은 것이 세 번 반복됩니다.</text>
+<text x="400" y="176" font-size="11.5" font-weight="400" text-anchor="start" fill="#555">고칠 일이 생기면 세 군데를 다 고쳐야 합니다.</text>
+<line x1="20" y1="256" x2="860" y2="256" stroke="#ccc"/>
+<text x="30" y="282" font-size="12" font-weight="700" text-anchor="start" fill="#000">묶은 뒤 — 하나로 빼내고 세 곳에서 가리킵니다</text>
+<ellipse cx="130" cy="320" rx="66" ry="19" fill="#fff" stroke="#000"/>
+<text x="130" y="324" font-size="11" font-weight="400" text-anchor="middle" fill="#000">장바구니 담기</text>
+<line x1="196" y1="320" x2="528" y2="384" stroke="#000" stroke-dasharray="5 3" marker-end="url(#o)"/>
+<ellipse cx="130" cy="380" rx="66" ry="19" fill="#fff" stroke="#000"/>
+<text x="130" y="384" font-size="11" font-weight="400" text-anchor="middle" fill="#000">주문</text>
+<line x1="196" y1="380" x2="528" y2="384" stroke="#000" stroke-dasharray="5 3" marker-end="url(#o)"/>
+<ellipse cx="130" cy="440" rx="66" ry="19" fill="#fff" stroke="#000"/>
+<text x="130" y="444" font-size="11" font-weight="400" text-anchor="middle" fill="#000">주문 조회</text>
+<line x1="196" y1="440" x2="528" y2="384" stroke="#000" stroke-dasharray="5 3" marker-end="url(#o)"/>
+<ellipse cx="600" cy="384" rx="60" ry="19" fill="#fff" stroke="#000"/>
+<text x="600" y="388" font-size="11" font-weight="400" text-anchor="middle" fill="#000">로그인 확인</text>
+<text x="380" y="340" font-size="10" font-weight="400" text-anchor="middle" fill="#000">«include»</text>
+<text x="690" y="380" font-size="11.5" font-weight="400" text-anchor="start" fill="#000">한 곳만 고치면 됩니다.</text>
+<text x="690" y="398" font-size="11.5" font-weight="400" text-anchor="start" fill="#555">반복이 사라집니다.</text>
+<text x="30" y="480" font-size="11.5" font-weight="400" text-anchor="start" fill="#555">판단 — 「예외 없이 매번 거치는가?」 그리고 「빼내면 원래 것이 성립하지 않는가?」 둘 다 예이면 include 입니다.</text>
+</svg>

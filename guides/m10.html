@@ -1,0 +1,1074 @@
+<meta charset="utf-8"><title>인터페이스 구현 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<style>
+  /* 이 교안에만 있는 것 — 코드 보기 */
+  .bd pre{margin:14px 0;font-family:Consolas,"D2Coding",monospace;font-size:13px;
+          line-height:1.75;border:1px solid #ccc;border-left:3px solid #000;
+          padding:13px 16px;background:#fafafa;overflow-x:auto;white-space:pre}
+  .bd pre b{background:#e6e6e6;font-weight:700}
+  .bd pre i{font-style:normal;color:#777}
+  .bd code{font-family:Consolas,"D2Coding",monospace;font-size:14px;
+           background:#f2f2f2;padding:1px 5px}
+  aside.side code{font-family:Consolas,monospace;font-size:11px;background:#f2f2f2;padding:0 3px}
+</style>
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small><a href="../courses/c2.html">능력단위 모듈 목록</a> / <a href="../modules/c2-m10.html">인터페이스 구현</a> / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">설계서</i>
+  <a href="#st1"><b>1</b><span>완성 산출물의 확인</span></a>
+  <a href="#st2"><b>2</b><span>받는 프로젝트 EX</span></a>
+  <a href="#st3"><b>3</b><span>설계서와 전체 흐름</span></a>
+  <a href="#st4"><b>4</b><span>공통 데이터 매핑표</span></a>
+  <a href="#st5"><b>5</b><span>데이터 표준</span></a>
+  <i class="qg">송신측</i>
+  <a href="#st6"><b>6</b><span>인터페이스 테이블</span></a>
+  <a href="#st7"><b>7</b><span>두 DB 연결</span></a>
+  <a href="#st8"><b>8</b><span>단일 트랜잭션</span></a>
+  <i class="qg">수신측</i>
+  <a href="#st9"><b>9</b><span>수신 배치의 뼈대</span></a>
+  <a href="#st10"><b>10</b><span>멱등성</span></a>
+  <a href="#st11"><b>11</b><span>응답코드와 실패 처리</span></a>
+  <a href="#st12"><b>12</b><span>보안 세 가지</span></a>
+  <i class="qg">검증</i>
+  <a href="#st13"><b>13</b><span>모니터링 화면</span></a>
+  <a href="#st14"><b>14</b><span>실패와 재시도 시연</span></a>
+  <a href="#st15"><b>15</b><span>검증 시나리오</span></a>
+  <a href="#st16"><b>16</b><span>통합과 검증 보고서</span></a>
+  <i class="qg">감점</i>
+  <a href="#g3"><b>!</b><span>주요 감점 요인</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>인터페이스 구현 — 준비 교안</h1>
+<p class="sub">능력단위 인터페이스 구현 (2001020212_23v6) / 5수준 · 평가방법 평가자 체크리스트 (100점)</p>
+
+<!-- ═══════ 0 ═══════ -->
+<h2 class="sec" id="g0">0. 제출물의 구성과 배점</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">네 사람이 나눠 채우고, 하나로 합쳐 냅니다.</p>
+    <b class="sh">제출 형식</b>
+    <p class="v">저장소 주소 · PPT · 체크리스트 · 보고서</p>
+    <b class="sh">참고</b>
+    <p class="src">작업지시서 · 인터페이스설계서.md</p>
+  </aside>
+  <div class="bd">
+<p>과제는 하나입니다. <b>미완성 프로젝트 EX 의 빈 칸 열두 개를 채우는 것</b>입니다.
+   다만 혼자 채우는 것이 아니라 <b>네 사람이 역할을 나눠</b> 채우고, 조장이 합칩니다.
+   화면은 이미 만들어져 있고 서버 쪽만 비어 있습니다.</p>
+<table class="wide">
+  <tr><th style="width:52px">묶음</th><th style="width:200px">능력단위요소</th>
+      <th>무엇을 하는가</th><th style="width:56px">배점</th></tr>
+  <tr><td class="c">①</td><td>인터페이스 설계서 확인하기</td>
+      <td>공통 항목 식별 · 매핑표 · 흐름 파악 · 데이터 표준</td><td class="c">30</td></tr>
+  <tr><td class="c">②</td><td>인터페이스 기능 구현하기</td>
+      <td>식별자와 상태 코드 · 송신 트랜잭션 · 수신 배치 · 예외처리 · 보안</td>
+      <td class="c">40</td></tr>
+  <tr><td class="c">③</td><td>인터페이스 구현 검증하기</td>
+      <td>모니터링 화면 · 계정 동기화와 멱등성 · 오류 기록과 보고서</td>
+      <td class="c">30</td></tr>
+</table>
+<p>제출물은 넷입니다. <b>완성한 GitHub 저장소 주소</b>, <b>작업과정 PPT</b>,
+   <b>역할별 체크리스트</b>, <b>통합 검증 보고서</b> 입니다.
+   PPT 에는 시작 화면 네 컷과 완성 화면 네 컷,
+   그리고 <b>실패했다가 되살린 화면 한두 컷</b>이 들어가야 합니다.</p>
+
+<div class="warn">
+  <code>WebContent/</code> 의 JSP 다섯 장은 이미 동작합니다.
+  화면이 마음에 안 든다고 JSP 를 고치면 <b>채점자가 보려는 것이 사라집니다</b>.
+  고칠 곳은 <code>src/</code> 아래 <b>열두 개 자바 파일뿐</b>입니다.
+</div>
+  </div>
+</div>
+
+<!-- ═══════ 1 ═══════ -->
+<h2 class="sec" id="g1">1. 인터페이스 구현의 범위</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">설계서를 읽고, 만들고, 돌아가는지 확인합니다.</p>
+    <b class="sh">능력단위요소</b>
+    <p class="v">설계서 확인 · 기능 구현 · 구현 검증</p>
+    <b class="sh">연계 방식</b>
+    <p class="v">DB 테이블 비동기 · 배치 polling</p>
+  </aside>
+  <div class="bd">
+<p>인터페이스는 <b>두 시스템 사이에 오가는 자료의 약속</b>입니다.
+   이 교과가 다루는 것은 그 약속을 문서에서 읽어 내고, 코드로 옮기고,
+   옮긴 것이 실제로 오가는지 확인하는 세 가지입니다.
+   앞의 교과들이 한 시스템 안을 다루었다면 이 교과는 <b>시스템과 시스템 사이</b>를 다룹니다.</p>
+
+<dl>
+  <dt>인터페이스 설계서 확인하기</dt>
+  <dd>문서를 읽어 <b>무엇을 주고받는지</b> 목록으로 만듭니다.
+      주고받는 항목, 식별자와 상태 값의 규칙, 자료가 지나가는 길이 여기서 정해집니다.
+      코드를 한 줄도 쓰지 않는 단계인데 배점이 30점입니다.</dd>
+  <dt>인터페이스 기능 구현하기</dt>
+  <dd>읽은 대로 만듭니다. 보내는 쪽과 받는 쪽, 실패했을 때의 처리, 그리고 보안입니다.
+      네 사람 중 셋이 이 묶음을 나눠 맡습니다.</dd>
+  <dt>인터페이스 구현 검증하기</dt>
+  <dd>만든 것이 도는지 보여 줍니다. 화면으로 상태를 띄우고,
+      받는 쪽 계정이 실제로 생겼는지 확인하고, 오류를 정리해 보고서로 냅니다.</dd>
+</dl>
+
+<table class="wide">
+  <tr><th style="width:70px">수행준거</th><th style="width:250px">준거의 말</th>
+      <th>이 평가에서</th></tr>
+  <tr><td class="c">1.1</td><td>공통적으로 제공되는 기능과 각 데이터의 인터페이스를 확인</td>
+      <td>사원 여섯 항목을 뽑아 매핑표를 만듭니다</td></tr>
+  <tr><td class="c">1.2</td><td>연계가 필요한 인터페이스의 기능을 식별</td>
+      <td>employee → if_outbox → if_inbox → account 의 길을 그립니다</td></tr>
+  <tr><td class="c">1.3</td><td>인터페이스를 위한 데이터 표준을 확인</td>
+      <td>tx_no · status · payload · retry_cnt 의 규칙을 정합니다</td></tr>
+  <tr><td class="c">2.1</td><td>일관되고 정형화된 인터페이스 기능 구현을 정의</td>
+      <td>IF ID 와 상태 코드를 스키마와 코드에 똑같이 넣습니다</td></tr>
+  <tr><td class="c">2.2</td><td>공통적인 인터페이스를 구현</td>
+      <td>송신 · 수신 양쪽을 각각 단일 트랜잭션으로 만듭니다</td></tr>
+  <tr><td class="c">2.3</td><td>기능 구현 실패 시 예외처리 방안을 정의</td>
+      <td>응답코드 아홉 가지 · 상태 F · err_msg · 재시도</td></tr>
+  <tr><td class="c">2.4</td><td>연계 데이터의 중요성을 고려하여 보안 기능을 적용</td>
+      <td>물음표 바인딩 · SHA-256 해시 · 부서 코드 검증</td></tr>
+  <tr><td class="c">3.1</td><td>구현 검증에 필요한 감시 및 도구를 준비</td>
+      <td>모니터링 화면에 상태와 통계와 처리시간을 띄웁니다</td></tr>
+  <tr><td class="c">3.2</td><td>외부 시스템과의 연계 모듈 상태를 확인</td>
+      <td>받는 쪽 account 가 실제로 생겼는지, 중복이 없는지 봅니다</td></tr>
+  <tr><td class="c">3.3</td><td>오류처리 사항을 확인하고 보고서를 작성</td>
+      <td>err_msg 를 읽을 수 있게 남기고 통계로 보고서를 씁니다</td></tr>
+</table>
+<p>준거의 말이 길지만 짝은 단순합니다.
+   <b>1번 묶음은 문서</b>, <b>2번 묶음은 코드</b>, <b>3번 묶음은 화면과 보고서</b> 입니다.
+   이 짝을 외워 두면 지금 무엇을 하고 있는지 잃어버리지 않습니다.</p>
+  </div>
+</div>
+
+<!-- ═══════ 2 ═══════ -->
+<h2 class="sec" id="g2">2. 산출물 작성 실습</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">문서 → 송신 → 수신 → 검증 순입니다.</p>
+    <b class="sh">예제</b>
+    <p class="v">IF_HR_001 사원 입사 계정 발급</p>
+    <b class="sh">채울 것</b>
+    <p class="v">자바 열두 파일</p>
+  </aside>
+  <div class="bd">
+<p>네 단계로 나누었습니다. 문서를 먼저 읽지 않으면 뒤가 전부 어긋납니다.
+   <b>매핑표를 만들지 않고 코드부터 쓰면</b>
+   조원 1 은 <code>empName</code>, 조원 2 는 <code>userName</code> 을 쓰게 되고,
+   합칠 때 값이 비어 들어옵니다.</p>
+<p>예제는 <b>사원이 입사하면 그룹웨어 계정이 자동으로 생기는</b> 인터페이스입니다.
+   인사 시스템과 그룹웨어는 운영하는 부서가 달라 서로 직접 부르지 못합니다.
+   그래서 가운데에 테이블을 두고 <b>쌓아 두면 나중에 가져가는</b> 방식으로 잇습니다.</p>
+<p>순서가 있습니다. 조장이 <code>DBManager</code> 를 끝내야 나머지 셋이 실행해 볼 수 있고,
+   조원 1 이 보내는 쪽을 끝내야 조원 2 가 받는 쪽을 시험해 볼 수 있습니다.
+   조원 3 의 모니터링만 테이블이 있으면 먼저 만들어 둘 수 있습니다.</p>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 1 · 인터페이스 설계서 확인</b><span>능력단위요소 ① · 채점 1 · 2 · 3 · 30점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st1">
+      <h3><i>1</i>완성 산출물의 확인</h3>
+      <aside class="side">
+        <p class="pt">누가 무엇을 맡고, 무엇을 내는지 먼저 정합니다.</p>
+        <b class="sh">내는 것</b>
+        <p class="v">저장소 · PPT · 체크리스트 · 보고서</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/if_role.png" alt="조장과 조원 1·2·3 이 각각 맡는 자바 파일과 만드는 것, 주로 걸리는 채점 항목을 정리한 표와, 제출물 네 가지를 정리한 표.">
+  <figcaption>역할 분담과 제출물. 역할별 20점씩 균등하게 나누어 80점입니다.</figcaption>
+</figure>
+
+<h4>점수가 두 벌로 매겨집니다</h4>
+<p>작업지시서는 <b>역할별 20점 × 4 = 80점</b> 으로 나누라고 적어 두었고,
+   프로젝트 안의 <code>docs/채점기준_체크리스트.md</code> 도 13항목 80점입니다.
+   그런데 평가도구의 채점표는 <b>11항목 100점</b>입니다.
+   자릿수가 다르니 점수는 평가도구 쪽으로 매기고,
+   체크리스트는 누가 무엇을 했는지 확인하는 데 씁니다.</p>
+<p>이 차이가 뜻하는 바는 하나입니다. <b>조별 산출물 전체가 채점됩니다.</b>
+   내 몫만 끝내고 손을 놓으면 남의 몫에서 깎인 점수가 내 점수가 됩니다.
+   조장이 합치는 시간을 <b>미리 떼어 두십시오</b>. 마지막 한 시간이면 모자랍니다.</p>
+
+<h4>먼저 정해 둘 것</h4>
+<ol>
+  <li>저장소를 하나 만들고 네 사람이 모두 접근할 수 있게 합니다.</li>
+  <li>각자 브랜치를 따로 씁니다. <code>main</code> 에 넷이 동시에 올리면 충돌합니다.</li>
+  <li>캡처는 각자 자기 차례에 바로 찍습니다. 나중에 몰아 찍으려면 다시 못 만듭니다.</li>
+  <li>실패 시나리오는 조원 3 이 맡되, 조원 2 의 배치가 끝난 뒤에야 할 수 있습니다.</li>
+</ol>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>받는 프로젝트 EX</h3>
+      <aside class="side">
+        <p class="pt">화면은 돌고 서버만 비어 있습니다.</p>
+        <b class="sh">빈 파일</b>
+        <p class="v">자바 12개</p>
+        <b class="sh">먼저</b>
+        <p class="v"><code>db/schema.sql</code></p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/if_tree.png" alt="EX 프로젝트의 폴더 구조. common · send · recv · monitor 네 묶음 아래 비어 있는 자바 열두 파일이 진하게 표시되어 있고, 역할별로 몇 개씩 맡는지 정리한 표가 함께 있다.">
+  <figcaption>EX 프로젝트 구조. 진하게 표시한 열두 파일이 비어 있습니다.</figcaption>
+</figure>
+
+<h4>받자마자 하는 일</h4>
+<p>프로젝트를 이클립스로 가져오고, <code>db/schema.sql</code> 을 그대로 실행합니다.
+   이 파일 하나가 <b>데이터베이스 두 개</b>를 만듭니다.
+   보내는 쪽 <code>HrmDB</code> 와 받는 쪽 <code>GroupwareDB</code> 입니다.
+   부서 마스터에 다섯 건이 미리 들어가는 것까지 이 파일이 합니다.</p>
+
+<pre>mysql -u root -p &lt; db/schema.sql
+
+<i>-- 끝나면 이렇게 나옵니다</i>
+--- HrmDB ---          employee, if_outbox
+--- GroupwareDB ---    account, account_history, dept, if_inbox
+--- 초기 부서 ---       D001 경영지원본부 / D002 개발본부 / D003 영업본부 ...</pre>
+
+<p>그 다음 <code>config/db.properties.sample</code> 을
+   <code>db.properties</code> 로 복사해 내 환경에 맞춥니다.
+   <b>sample 파일을 그냥 쓰면 안 됩니다.</b>
+   원본은 그대로 두고 복사본을 고쳐야 다른 조원과 충돌하지 않습니다.</p>
+
+<div class="warn">
+  이 시점에 Tomcat 에 올려 보십시오. 화면은 뜨는데
+  <b>입사 등록을 누르면 500 오류</b>가 납니다.
+  <code>UnsupportedOperationException</code> 이라고 적혀 있으면 정상입니다.
+  이 네 장면이 제출물의 <b>before 4컷</b> 입니다. 지금 찍어 두십시오.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st3">
+      <h3><i>3</i>설계서와 전체 흐름</h3>
+      <aside class="side">
+        <p class="pt">직접 부르지 않고 테이블에 쌓아 둡니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">2 · 10점</p>
+        <b class="sh">패턴</b>
+        <p class="v">Transactional Outbox</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/if_flow.png" alt="왼쪽 HRM 의 EmpRegistServlet 이 employee 와 if_outbox 에 단일 트랜잭션으로 넣고, 가운데 AccountBatchServlet 이 status 가 N 인 것을 읽어, 오른쪽 Groupware 의 if_inbox 와 account 에 넣은 뒤 outbox 상태를 S 나 F 로 고치는 흐름도.">
+  <figcaption>IF_HR_001 전체 흐름. 점선 상자가 한 트랜잭션으로 묶이는 부분입니다.</figcaption>
+</figure>
+
+<h4>왜 직접 부르지 않는가</h4>
+<p>인사 시스템이 그룹웨어를 직접 부르면 <b>그룹웨어가 멈춰 있을 때 입사 등록도 멈춥니다</b>.
+   부서가 다르니 상대가 언제 점검하는지도 모릅니다.
+   그래서 보내는 쪽은 <code>if_outbox</code> 에 「이것을 보내야 한다」고 적어 두기만 하고 끝냅니다.
+   받는 쪽이 자기 형편에 맞춰 가져갑니다.</p>
+<p>이 방식을 <b>Transactional Outbox</b> 라 부릅니다.
+   이름이 어려워 보이지만 하는 일은 메모를 남겨 두는 것입니다.
+   메모를 남기는 일과 사원을 등록하는 일이 <b>한 묶음</b>으로 묶여야 합니다.
+   둘이 따로 확정되면 메모 없는 사원이나 사원 없는 메모가 생깁니다.</p>
+
+<h4>설계서에서 읽어 낼 다섯 줄</h4>
+<table>
+  <tr><th style="width:130px">읽을 것</th><th style="width:220px">이 과제의 값</th><th>어디에 쓰이는가</th></tr>
+  <tr><td class="g">IF ID</td><td class="k">IF_HR_001</td>
+      <td>양쪽 테이블의 <code>if_id</code> 칸에 그대로 들어갑니다</td></tr>
+  <tr><td class="g">송신 · 수신</td><td class="k">HRM → Groupware</td>
+      <td>어느 쪽이 먼저 쓰고 어느 쪽이 읽는지</td></tr>
+  <tr><td class="g">주기</td><td class="k">5분 또는 수동</td>
+      <td>배치를 얼마나 자주 돌릴지</td></tr>
+  <tr><td class="g">방식</td><td class="k">Async / Batch · DB 테이블</td>
+      <td>HTTP 가 아니라 테이블을 쓴다는 것</td></tr>
+  <tr><td class="g">멱등키</td><td class="k">tx_no = emp_id</td>
+      <td>중복을 무엇으로 가려내는지</td></tr>
+</table>
+<p>채점 항목 2 가 <b>「데이터 흐름을 파악하여 연계가 필요한 기능을 식별할 수 있는가」</b> 입니다.
+   그림을 한 장 그려 두면 이 항목은 끝납니다.
+   PPT 첫 장에 이 흐름도를 넣으십시오.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st4">
+      <h3><i>4</i>공통 데이터 매핑표</h3>
+      <aside class="side">
+        <p class="pt">같은 값인데 이름이 셋입니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">1 · 10점</p>
+        <b class="sh">항목 수</b>
+        <p class="v">여섯 + 수신측 둘</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/if_map.png" alt="사원번호 · 사원명 · 부서코드 · 직급 · 입사일 · 이메일 여섯 항목이 HRM 의 employee 컬럼, payload JSON 키, Groupware 의 account 컬럼으로 각각 어떻게 대응되는지 보여 주는 매핑표. 비밀번호 해시와 계정 상태는 수신측이 만든다고 표시되어 있다.">
+  <figcaption>공통 데이터 항목 매핑표. 전달하지 않는 항목까지 적어 둡니다.</figcaption>
+</figure>
+
+<h4>이름이 셋인 까닭</h4>
+<p>데이터베이스 컬럼은 밑줄을 쓰는 것이 관례라 <code>emp_name</code> 이고,
+   자바와 JSON 은 낙타 등 표기를 쓰는 것이 관례라 <code>empName</code> 입니다.
+   받는 쪽 계정 테이블은 아예 다른 낱말인 <code>account_id</code> 를 씁니다.
+   셋 다 같은 값인데 적는 법만 다릅니다.</p>
+<p>이것을 표로 만들어 두지 않으면 무슨 일이 생기는지 실제로 겪게 됩니다.
+   조원 1 이 <code>payload</code> 에 <code>emp_name</code> 으로 넣고
+   조원 2 가 <code>empName</code> 으로 꺼내면 <b>오류 없이 빈 문자열</b>이 나옵니다.
+   계정은 생기는데 이름이 비어 있고, 왜 그런지 한참 못 찾습니다.</p>
+
+<h4>전달하지 않는 항목도 적습니다</h4>
+<p>표의 아래 두 줄이 <b>보내지 않는</b> 항목입니다.
+   비밀번호 해시와 계정 상태는 받는 쪽이 스스로 만듭니다.
+   보내는 쪽은 비밀번호를 알지도 못하고 알 필요도 없습니다.
+   이 두 줄을 적어 두면 설계서를 끝까지 읽었다는 것이 드러나고,
+   나중에 「비밀번호는 누가 정하나」 하는 질문이 나오지 않습니다.</p>
+
+<div class="warn">
+  매핑표는 <b>조장이 가장 먼저 만들어 공유해야</b> 합니다.
+  조원들이 코드를 쓰기 시작한 뒤에 만들면 이미 이름이 어긋나 있습니다.
+  종이 한 장이면 되고, 십 분이면 됩니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st5">
+      <h3><i>5</i>데이터 표준</h3>
+      <aside class="side">
+        <p class="pt">값의 규칙을 미리 못 박아 둡니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">3 · 10점</p>
+        <b class="sh">상태</b>
+        <p class="v">N · S · F 셋뿐</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/if_std.png" alt="if_id · tx_no · status · payload · retry_cnt · err_msg 여섯 가지 표준 항목의 값과 뜻을 정리한 표, payload JSON 한 건의 실제 모습, 상태가 N 에서 S 나 F 로 옮겨 가는 흐름, 그리고 설계서 부록의 데이터 표준 도메인 표.">
+  <figcaption>데이터 표준. 상태 코드는 세 값뿐이고 재시도는 최대 세 번입니다.</figcaption>
+</figure>
+
+<h4>표준이 하는 일</h4>
+<p>데이터 표준은 <b>값이 어떻게 생겨야 하는지</b>를 미리 정해 둡니다.
+   사원번호는 <code>E</code> 로 시작해 여덟 자리 날짜와 세 자리 일련번호가 붙어
+   모두 열두 글자입니다. 입사일은 날짜형이 아니라 <code>CHAR(8)</code> 문자열입니다.
+   시스템마다 날짜를 다루는 법이 달라 문자열로 주고받는 것이 안전하기 때문입니다.</p>
+<p>상태 코드가 셋뿐이라는 것도 표준입니다.
+   기다리는 중이면 <code>N</code>, 잘 됐으면 <code>S</code>, 안 됐으면 <code>F</code> 입니다.
+   「처리 중」 을 뜻하는 <code>P</code> 를 넣고 싶어지는데, <b>넣으면 감점입니다</b>.
+   설계서에 없는 값을 만드는 순간 받는 쪽이 그 값을 모릅니다.</p>
+
+<h4>payload 를 JSON 으로 담는 까닭</h4>
+<p>여섯 항목을 컬럼 여섯 개로 만들 수도 있습니다.
+   그런데 그러면 항목이 하나 늘 때마다 양쪽 테이블을 모두 고쳐야 합니다.
+   JSON 문자열 한 칸에 담아 두면 항목이 늘어도 테이블은 그대로입니다.
+   대신 값을 꺼낼 때 키 이름을 틀리면 조용히 빈 값이 나오므로,
+   앞 단원의 매핑표가 더 중요해집니다.</p>
+
+<pre><i>-- 표준이 지켜졌는지 보는 SQL. 한 줄이라도 나오면 고칠 곳이 있습니다.</i>
+SELECT status, COUNT(*) FROM if_outbox
+ WHERE status NOT IN (<b>'N','S','F'</b>) GROUP BY status;
+
+SELECT tx_no FROM if_outbox
+ WHERE tx_no NOT REGEXP <b>'^E[0-9]{8}[0-9]{3}$'</b>;
+
+SELECT COUNT(*) FROM if_outbox WHERE retry_cnt &gt; <b>3</b>;</pre>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 2 · 송신측 구현</b><span>능력단위요소 ② · 채점 4 · 5 · 15점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st6">
+      <h3><i>6</i>인터페이스 테이블</h3>
+      <aside class="side">
+        <p class="pt">UNIQUE 를 어느 쪽에 거는지가 갈립니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">4 · 5점</p>
+        <b class="sh">UNIQUE</b>
+        <p class="v"><code>if_inbox.tx_no</code></p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/if_schema.png" alt="if_outbox 와 if_inbox 두 테이블의 컬럼 목록을 나란히 놓은 그림. inbox 의 tx_no 에 UNIQUE 가 걸려 있고 outbox 에는 status 와 retry_cnt 복합 색인이 걸려 있다. 아래에 실제 CREATE TABLE 문이 있다.">
+  <figcaption>인터페이스 테이블 둘. UNIQUE 는 받는 쪽에, 색인은 보내는 쪽에 겁니다.</figcaption>
+</figure>
+
+<h4>두 테이블이 닮았지만 다릅니다</h4>
+<p>보내는 쪽 <code>if_outbox</code> 에는 <code>retry_cnt</code> 가 있고
+   받는 쪽 <code>if_inbox</code> 에는 <code>proc_ms</code> 가 있습니다.
+   재시도는 보낸 것을 다시 보내는 일이라 보내는 쪽이 세고,
+   처리 시간은 받아서 일하는 시간이라 받는 쪽이 잽니다.
+   칸 이름만 봐도 누구의 사정을 적는 칸인지 알 수 있습니다.</p>
+
+<h4>UNIQUE 를 받는 쪽에 거는 까닭</h4>
+<p>보내는 쪽에 <code>UNIQUE</code> 를 걸면 같은 사번을 두 번 등록할 수 없습니다.
+   그런데 퇴사했다 재입사하는 경우가 실제로 있습니다.
+   받는 쪽에 걸면 <b>같은 건을 두 번 처리하는 것만</b> 막힙니다.
+   막으려는 것이 「등록」이 아니라 「중복 처리」이므로 받는 쪽이 맞습니다.</p>
+
+<div class="warn">
+  프로젝트 안의 <code>docs/채점기준_체크리스트.md</code> 에는
+  <code>if_outbox.tx_no UNIQUE</code> 라고 적혀 있습니다.
+  설계서와 <code>schema.sql</code> 은 <b><code>if_inbox</code> 쪽</b>입니다.
+  실제로 도는 것은 <code>schema.sql</code> 이니 <b>설계서를 따르십시오</b>.
+  보고서에 이 차이를 한 줄 적어 두면 읽었다는 것이 드러납니다.
+</div>
+
+<h4>색인은 왜 거는가</h4>
+<p>배치가 매번 <code>WHERE status='N' AND retry_cnt &lt; 3</code> 으로 찾습니다.
+   건수가 쌓이면 이 조회가 느려지므로 두 컬럼에 색인을 겁니다.
+   조건에 쓰는 순서대로 묶어야 쓸모가 있습니다.
+   <code>schema.sql</code> 에 이미 들어 있으니 지우지만 마십시오.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st7">
+      <h3><i>7</i>두 DB 연결</h3>
+      <aside class="side">
+        <p class="pt">연결이 둘입니다. 섞으면 안 됩니다.</p>
+        <b class="sh">맡는 이</b>
+        <p class="v">조장</p>
+        <b class="sh">설정</b>
+        <p class="v"><code>db.properties</code></p>
+      </aside>
+      <div class="bd">
+
+<p>이 과제는 앞 교과들과 달리 <b>연결이 둘</b>입니다.
+   지금까지는 <code>getConnection()</code> 하나였는데 여기서는
+   <code>getHrmConnection()</code> 과 <code>getGroupwareConnection()</code> 을 따로 만듭니다.
+   둘을 섞어 쓰면 없는 테이블을 찾는 오류가 납니다.</p>
+
+<pre><i># config/db.properties — sample 을 복사해 만듭니다</i>
+db.driver=com.mysql.cj.jdbc.Driver
+
+<i># 보내는 쪽</i>
+<b>hrm.url</b>=jdbc:mysql://localhost:3306/<b>HrmDB</b>?useSSL=false&amp;serverTimezone=Asia/Seoul&amp;characterEncoding=UTF-8
+hrm.user=ifuserx
+hrm.password=ifx1234!
+
+<i># 받는 쪽</i>
+<b>gw.url</b>=jdbc:mysql://localhost:3306/<b>GroupwareDB</b>?useSSL=false&amp;serverTimezone=Asia/Seoul&amp;characterEncoding=UTF-8
+gw.user=ifuserx
+gw.password=ifx1234!
+
+<i># 배치 처리 옵션 — 코드에 숫자를 박지 않고 여기서 읽습니다</i>
+batch.fetch.size=100
+batch.max.retry=3
+account.init.password.suffix=1234</pre>
+
+<p>설정 파일에서 읽는 값이 넷입니다. 연결 정보 둘, 배치 옵션 둘입니다.
+   <code>DBManager</code> 는 이것을 한 번만 읽어 두고 나눠 줍니다.</p>
+
+<pre>public class DBManager {
+  private static final Properties P = new Properties();
+
+  static {                                     <i>// 클래스가 처음 쓰일 때 한 번</i>
+    try (InputStream in = DBManager.class.getClassLoader()
+             .getResourceAsStream("db.properties")) {
+      P.load(new InputStreamReader(in, StandardCharsets.UTF_8));
+      Class.forName(P.getProperty("db.driver"));
+    } catch (Exception e) { throw new ExceptionInInitializerError(e); }
+  }
+
+  public static Connection <b>getHrmConnection</b>() throws SQLException {
+    return DriverManager.getConnection(P.getProperty("hrm.url"),
+             P.getProperty("hrm.user"), P.getProperty("hrm.password"));
+  }
+
+  public static Connection <b>getGroupwareConnection</b>() throws SQLException {
+    return DriverManager.getConnection(P.getProperty("gw.url"),
+             P.getProperty("gw.user"), P.getProperty("gw.password"));
+  }
+
+  public static int getFetchSize() {
+    return Integer.parseInt(P.getProperty("batch.fetch.size", "100"));
+  }
+  public static int getMaxRetry() {
+    return Integer.parseInt(P.getProperty("batch.max.retry", "3"));
+  }
+  public static String getInitPasswordSuffix() {
+    return P.getProperty("account.init.password.suffix", "1234");
+  }
+
+  public static void close(AutoCloseable... cs) {
+    for (AutoCloseable c : cs)
+      if (c != null) try { c.close(); } catch (Exception ignored) {}
+  }
+}</pre>
+
+<div class="warn">
+  <code>db.properties</code> 는 <b>저장소에 올리지 않습니다</b>.
+  <code>.gitignore</code> 에 넣고 <code>db.properties.sample</code> 만 올립니다.
+  비밀번호가 들어 있는 파일이 저장소에 있으면
+  채점 항목 8 의 보안에서 깎입니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st8">
+      <h3><i>8</i>단일 트랜잭션</h3>
+      <aside class="side">
+        <p class="pt">사원과 메모가 함께 들어가거나 함께 없어야 합니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">5 · 10점</p>
+        <b class="sh">맡는 이</b>
+        <p class="v">조원 1</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/if_send.png" alt="createEmployeeWithOutbox 메서드의 전체 코드. setAutoCommit(false) 로 시작해 employee 와 if_outbox 에 각각 INSERT 한 뒤 commit 하고, 예외가 나면 rollback 하고 finally 에서 setAutoCommit(true) 로 되돌리는 흐름과, 왜 그렇게 하는지 설명한 표.">
+  <figcaption>송신측 단일 트랜잭션. 같은 Connection 을 두 INSERT 에 씁니다.</figcaption>
+</figure>
+
+<h4>한 줄만 빠져도 묶이지 않습니다</h4>
+<p><code>setAutoCommit(false)</code> 를 부르지 않으면
+   JDBC 는 <b>INSERT 한 줄마다 곧바로 확정</b>합니다.
+   그러면 첫 INSERT 가 끝난 뒤 두 번째에서 오류가 나도 첫 번째는 이미 들어가 있습니다.
+   묶음의 시작을 알리는 이 한 줄이 트랜잭션의 전부입니다.</p>
+<p>그 다음으로 자주 틀리는 것이 <b>연결을 따로 얻는 것</b>입니다.
+   두 개의 DAO 를 각각 부르면서 안에서 <code>getHrmConnection()</code> 을 새로 얻으면
+   둘은 서로 다른 세션이라 따로 확정됩니다.
+   그래서 이 과제의 정답 코드는 두 INSERT 를 한 메서드 안에 두었습니다.</p>
+
+<h4>사번은 서블릿이 만듭니다</h4>
+<p><code>EmpRegistServlet</code> 이 폼을 받아 값을 검사하고 사번을 만듭니다.
+   사번은 <code>E</code> + 오늘 날짜 여덟 자리 + 세 자리 일련번호입니다.
+   검사가 넷인데 <b>하나라도 빠뜨리면 받는 쪽에서 터집니다</b>.</p>
+
+<pre><i>// ① 필수값 — 셋 중 하나라도 비면 안 됩니다</i>
+if (empName.isBlank() || deptCd.isBlank() || position.isBlank())
+    → E10 필수값 누락
+
+<i>// ② 길이</i>
+if (empName.length() &gt; 50)               → E10
+
+<i>// ③ 부서 코드 모양</i>
+if (!deptCd.matches(<b>"D\\d{3}"</b>))          → E10
+
+<i>// ④ 직급 화이트리스트 — 목록에 없으면 거절</i>
+private static final Set&lt;String&gt; ALLOWED_POSITIONS =
+        Set.of("사원", "대리", "과장", "차장", "부장");
+if (!ALLOWED_POSITIONS.contains(position)) → E31
+
+<i>// ⑤ 사번 만들기</i>
+String empId = "E"
+    + new SimpleDateFormat("yyyyMMdd").format(new Date())
+    + String.format(<b>"%03d"</b>, new Random().nextInt(1000));</pre>
+
+<p><b>화이트리스트</b>는 「들어와도 되는 것의 목록」입니다.
+   막을 것을 적는 것이 아니라 허락할 것만 적습니다.
+   목록 밖은 전부 거절이므로, 생각 못 한 값이 들어와도 막힙니다.
+   보안에서 늘 이 방향을 씁니다.</p>
+
+<div class="warn">
+  일련번호를 난수로 만들면 <b>같은 날 같은 번호가 나올 수 있습니다</b>.
+  나오면 사원 테이블의 기본키 충돌로 등록이 실패합니다.
+  드물지만 시연 중에 한 번 일어나면 당황합니다.
+  등록 결과 화면에서 사번을 확인하는 습관을 들이십시오.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 3 · 수신측 구현</b><span>능력단위요소 ② · 채점 6 · 7 · 8 · 25점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st9">
+      <h3><i>9</i>수신 배치의 뼈대</h3>
+      <aside class="side">
+        <p class="pt">쌓인 것을 꺼내 한 건씩 처리합니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">6 · 10점</p>
+        <b class="sh">맡는 이</b>
+        <p class="v">조원 2</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/if_recv.png" alt="AccountBatchServlet 의 전체 코드. fetchPending 으로 status 가 N 인 건을 읽어 한 건씩 processOne 을 부르고, 그 안에서 JSON 을 풀어 값을 검사하고 inbox 를 먼저 넣은 뒤 계정을 만들고 commit 하는 흐름과, 다섯 단계를 설명한 표.">
+  <figcaption>수신 배치. 읽음 · 성공 · 실패 · 스킵 넷을 세어 통계로 씁니다.</figcaption>
+</figure>
+
+<h4>배치는 「쌓인 것을 꺼내 오는 일」입니다</h4>
+<p>배치라는 말이 거창하지만 하는 일은 목록을 읽어 하나씩 처리하는 것입니다.
+   읽을 조건이 둘입니다. <b>아직 처리 안 된 것</b>(<code>status='N'</code>) 이고,
+   <b>세 번 넘게 실패하지 않은 것</b>(<code>retry_cnt &lt; 3</code>) 입니다.
+   두 번째 조건이 없으면 고칠 수 없는 건이 영원히 다시 잡혀 로그를 채웁니다.</p>
+<p>한 번에 백 건까지만 읽습니다. 설정에서 읽는 값입니다.
+   수천 건이 밀려 있을 때 한 번에 다 처리하려 들면
+   요청이 끝나지 않아 시간 초과가 납니다.
+   나눠서 여러 번 도는 편이 안전하고, 밀린 것은 다음 차례에 갑니다.</p>
+
+<h4>한 건마다 연결을 새로 엽니다</h4>
+<p><code>processOne</code> 안에서 연결을 얻고 <code>finally</code> 에서 닫습니다.
+   백 건이면 연결을 백 번 여닫는 셈이라 비효율로 보이는데,
+   한 건이 실패해도 다음 건이 영향을 안 받는 쪽이 낫습니다.
+   한 연결로 백 건을 묶으면 한 건 때문에 아흔아홉 건이 되돌려집니다.</p>
+
+<h4>네 가지를 셉니다</h4>
+<table>
+  <tr><th style="width:90px">세는 것</th><th style="width:180px">언제</th><th>쓰이는 곳</th></tr>
+  <tr><td class="g">읽음</td><td class="k">목록 크기</td><td>몇 건이 밀려 있었는지</td></tr>
+  <tr><td class="g">성공</td><td class="k">"OK" 로 시작</td><td>계정이 실제로 생긴 건수</td></tr>
+  <tr><td class="g">스킵</td><td class="k">"SKIP" 으로 시작</td>
+      <td>이미 처리한 것 · <b>실패가 아닙니다</b></td></tr>
+  <tr><td class="g">실패</td><td class="k">나머지</td><td>사람이 봐야 하는 건수</td></tr>
+</table>
+<p>이 넷이 모니터링 화면의 통계가 되고, 검증 보고서의 숫자가 됩니다.
+   <b>스킵을 실패로 세는 실수</b>가 가장 흔합니다.
+   그러면 배치를 돌릴 때마다 실패 건수가 늘어나 보고서가 이상해집니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st10">
+      <h3><i>10</i>멱등성</h3>
+      <aside class="side">
+        <p class="pt">두 번 눌러도 결과가 같아야 합니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">10 · 10점</p>
+        <b class="sh">막는 곳</b>
+        <p class="v">데이터베이스</p>
+      </aside>
+      <div class="bd">
+
+<h4>낱말부터</h4>
+<p><b>멱등</b>은 「여러 번 해도 한 번 한 것과 같다」는 뜻입니다.
+   승강기 단추를 두 번 눌러도 승강기는 한 번만 오는 것과 같습니다.
+   인터페이스에서는 <b>같은 자료가 두 번 도착해도 계정은 하나만</b> 생겨야 한다는 뜻입니다.</p>
+<p>왜 두 번 도착하는가. 배치가 계정을 만들고 나서
+   <code>if_outbox</code> 를 <code>'S'</code> 로 고치기 직전에 서버가 죽으면,
+   다음 배치가 그 건을 아직 안 한 것으로 보고 다시 집어갑니다.
+   드문 일이 아니라 <b>언젠가는 일어나는 일</b>입니다.</p>
+
+<h4>코드가 아니라 데이터베이스가 막습니다</h4>
+<pre>tx_no     VARCHAR(20)  NOT NULL <b>UNIQUE</b>
+
+<i>// 배치는 inbox 를 먼저 넣습니다</i>
+try {
+  inboxDAO.insertInTx(conn, o.ifId, o.txNo, o.payload, "S", 0, null);
+} catch (SQLException ex) {
+  if (<b>"23000".equals(ex.getSQLState())</b>) {     <i>// 중복키 위반</i>
+    conn.rollback();
+    outboxDAO.markSuccess(o.outboxId);        <i>// 다시 안 잡히게 마감</i>
+    return "SKIP: 멱등 중복 (이미 발급된 계정)";
+  }
+  throw ex;                                    <i>// 다른 오류는 그대로 올림</i>
+}</pre>
+
+<p><code>SQLState</code> 가 <code>23000</code> 이면 제약 조건을 어겼다는 뜻입니다.
+   MySQL 오류 번호는 버전에 따라 바뀔 수 있지만
+   <code>SQLState</code> 는 표준이라 잘 안 바뀝니다. 이쪽으로 보는 편이 낫습니다.</p>
+
+<h4>왜 inbox 를 먼저 넣는가</h4>
+<p>순서를 바꾸면 결과가 달라집니다. 계정을 먼저 만들고 나중에 inbox 를 넣으면,
+   중복 건은 계정을 만들려다 기본키 충돌로 터집니다.
+   그것도 막히기는 하는데 오류로 기록되지 스킵으로 기록되지 않습니다.
+   inbox 를 먼저 넣으면 중복이 가장 먼저, 가장 싸게 걸러집니다.</p>
+<p>그리고 중복을 만났을 때 <code>markSuccess</code> 를 부르는 것을 빠뜨리지 마십시오.
+   되돌리기만 하고 두면 그 건은 계속 <code>'N'</code> 이라
+   <b>배치를 돌릴 때마다 영원히 스킵으로 잡힙니다</b>.
+   이미 계정이 있으니 성공으로 마감하는 것이 맞습니다.</p>
+
+<div class="warn">
+  체크리스트에는 <code>InboxDAO.existsByTxNo()</code> 로 미리 확인하라고 적혀 있습니다.
+  미리 보는 방법도 되지만, 확인하고 넣는 사이에 다른 배치가 끼어들면 막지 못합니다.
+  <b>제약 조건으로 막는 편</b>이 확실합니다. 둘 다 해도 됩니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st11">
+      <h3><i>11</i>응답코드와 실패 처리</h3>
+      <aside class="side">
+        <p class="pt">왜 안 됐는지 사람이 읽을 수 있게 남깁니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">7 · 10점</p>
+        <b class="sh">코드</b>
+        <p class="v">아홉 가지</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/if_fail.png" alt="00 부터 E99 까지 아홉 가지 응답코드와 각각의 의미, 재시도 여부를 정리한 표. 아래에 예외를 잡아 응답코드를 정하고 rollback 한 뒤 inbox 와 outbox 에 실패를 기록하는 코드와, markFail 과 재시도가 실행하는 SQL 이 있다.">
+  <figcaption>응답코드와 실패 처리. 재시도해도 소용없는 것과 소용있는 것이 갈립니다.</figcaption>
+</figure>
+
+<h4>실패에도 종류가 있습니다</h4>
+<p>아홉 가지 코드가 <b>세 부류</b>로 나뉩니다.
+   다시 해도 소용없는 것(<code>E10</code> · <code>E11</code> · <code>E31</code> · <code>E32</code>),
+   무언가 고친 뒤에야 되는 것(<code>E30</code>),
+   그냥 다시 해 보면 될 수도 있는 것(<code>E90</code> · <code>E99</code>) 입니다.
+   값이 잘못된 것은 사람이 값을 고쳐야 하고,
+   데이터베이스가 잠깐 끊긴 것은 다시 해 보면 됩니다.</p>
+<p><code>E20</code> 만 성격이 다릅니다. 중복은 <b>실패가 아닙니다</b>.
+   이미 계정이 있으니 하려던 일은 이루어진 셈입니다.
+   그래서 <code>'S'</code> 로 마감하고 통계에서는 스킵으로 셉니다.</p>
+
+<h4>실패해도 기록은 남깁니다</h4>
+<p>계정 만들기는 되돌려도 <b>「실패했다」는 사실은 남겨야</b> 합니다.
+   그래서 되돌린 뒤 <b>별도의 연결</b>로 <code>if_inbox</code> 에
+   상태 <code>'F'</code> 와 까닭을 넣습니다.
+   같은 연결로 넣으면 되돌리기에 함께 휩쓸려 사라집니다.</p>
+<p>그리고 보내는 쪽 <code>if_outbox</code> 를 <code>'F'</code> 로 고치면서
+   <code>retry_cnt</code> 를 하나 올립니다. 세 번이 되면 배치가 더 안 집어갑니다.
+   그때부터는 <b>사람이 모니터링 화면을 보고 손을 대야</b> 합니다.</p>
+
+<h4>err_msg 는 사람이 읽는 칸입니다</h4>
+<table>
+  <tr><th style="width:46%">이렇게 적으면</th><th>이렇게 적습니다</th></tr>
+  <tr><td class="k">NullPointerException</td>
+      <td class="k">E10: 필수값 누락 (deptCd)</td></tr>
+  <tr><td class="k">SQLException</td>
+      <td class="k">E30: DEPT_NOT_FOUND:D999</td></tr>
+  <tr><td class="k">error</td>
+      <td class="k">E32: empId 형식 오류 (E2026009)</td></tr>
+</table>
+<p>왼쪽처럼 적으면 화면을 봐도 무엇을 고쳐야 할지 모릅니다.
+   오른쪽은 코드로 분류할 수 있고 문장으로 읽을 수 있습니다.
+   채점 항목 11 이 <b>「err_msg 가 사람이 읽을 수 있는 형태로 기록되는가」</b> 입니다.
+   보고서에 이 칸을 그대로 옮겨 붙일 수 있어야 합니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st12">
+      <h3><i>12</i>보안 세 가지</h3>
+      <aside class="side">
+        <p class="pt">바인딩 · 해시 · 부서 검증 셋입니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">8 · 5점</p>
+        <b class="sh">해시 길이</b>
+        <p class="v">언제나 64자</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/if_sec.png" alt="부서 존재를 물음표 바인딩으로 확인하고, 초기 비밀번호를 SHA-256 으로 해시해 pwd_hash 에만 저장하는 코드, 그리고 HashUtil.sha256 이 바이트 배열을 16진수 문자열로 바꾸는 코드와 다섯 가지 주의점을 정리한 표.">
+  <figcaption>보안 기능 셋. 하나라도 빠지면 항목 전체를 잃습니다.</figcaption>
+</figure>
+
+<h4>물음표 바인딩</h4>
+<p>SQL 을 문자열로 이어 붙이면 값 안에 든 따옴표가 SQL 의 일부로 읽힙니다.
+   물음표를 두고 <code>setString</code> 으로 채우면
+   값은 끝까지 값으로만 남습니다.
+   이 과제에서는 열두 파일 전부에 이 규칙이 걸립니다.
+   <b>한 군데라도 이어 붙인 곳</b>이 있으면 항목 8 을 잃습니다.</p>
+<p>스스로 확인하는 법이 있습니다. 프로젝트 전체에서
+   <code>"SELECT</code> 나 <code>"INSERT</code> 로 시작하는 줄을 찾아
+   그 뒤에 <code>+</code> 가 붙어 있는지 보십시오.
+   상수를 여러 줄로 나누느라 붙은 <code>+</code> 는 괜찮고,
+   <b>변수가 붙은 <code>+</code></b> 가 문제입니다.</p>
+
+<h4>비밀번호 해시</h4>
+<p>해시는 <b>되돌릴 수 없는 변환</b>입니다.
+   같은 값을 넣으면 늘 같은 결과가 나오지만, 결과에서 원래 값을 알아낼 수는 없습니다.
+   그래서 비밀번호를 그대로 저장하지 않고 해시만 저장합니다.
+   나중에 로그인할 때는 들어온 값을 똑같이 해시해 비교합니다.</p>
+<p><code>account</code> 테이블에는 원문을 담을 칸 자체가 없습니다.
+   <code>pwd_hash CHAR(64)</code> 뿐입니다. 이것이 설계로 막는 방식입니다.
+   길이가 <code>CHAR(64)</code> 로 못 박혀 있으니
+   변환을 잘못하면 길이가 안 맞아 바로 드러납니다.</p>
+
+<pre><i>// 자주 틀리는 곳 — 앞자리 0 이 사라집니다</i>
+sb.append(String.format(<b>"%x"</b>, b));     <i>// 0x0a → "a"   (한 자리)</i>
+sb.append(String.format(<b>"%02x"</b>, b));   <i>// 0x0a → "0a"  (두 자리) ← 맞는 것</i>
+
+<i>// 확인하는 법 — 길이가 64 가 아니면 틀린 것입니다</i>
+System.out.println(HashUtil.sha256("E202605270011234").length());   <i>// 64</i></pre>
+
+<h4>부서 코드 검증</h4>
+<p>받는 쪽에는 부서 마스터 <code>dept</code> 가 따로 있습니다.
+   보내는 쪽이 보낸 부서 코드가 거기 있는지 확인한 뒤에야 계정을 만듭니다.
+   없으면 <code>DEPT_NOT_FOUND</code> 로 일부러 실패시킵니다.</p>
+<p>이 검증이 실패 시나리오를 만드는 데도 쓰입니다.
+   <code>D999</code> 는 마스터에 없는 코드라 <b>반드시 실패합니다</b>.
+   다음 단원에서 이것으로 실패와 재시도를 시연합니다.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 4 · 인터페이스 구현 검증</b><span>능력단위요소 ③ · 채점 9 · 10 · 11 · 30점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st13">
+      <h3><i>13</i>모니터링 화면</h3>
+      <aside class="side">
+        <p class="pt">세 테이블과 통계를 한 화면에 놓습니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">9 · 10점</p>
+        <b class="sh">맡는 이</b>
+        <p class="v">조원 3</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/if_mon.png" alt="모니터링 화면. 위쪽에 읽음 · 성공 · 실패 · 스킵 · 평균 처리시간 통계가 있고, 가운데에 if_outbox 목록이 상태를 색으로 구분해 나오며 실패 건에만 재시도 단추가 붙어 있다. 아래에 account 목록이 있고 pwd_hash 칸에는 조회에서 뺐다고 적혀 있다.">
+  <figcaption>모니터링 화면. 실패 건에만 재시도 단추가 붙습니다.</figcaption>
+</figure>
+
+<h4>무엇을 보여야 하는가</h4>
+<p>채점 항목 9 가 요구하는 것이 넷입니다.
+   상태(N · S · F), 재시도 횟수, 처리 통계, 처리 시간 입니다.
+   여기에 항목 10 이 요구하는 <b>받는 쪽 계정 목록</b>까지 한 화면에 놓으면
+   두 항목을 한꺼번에 보일 수 있습니다.</p>
+<p>보내는 쪽과 받는 쪽이 서로 다른 데이터베이스에 있다는 것을 잊지 마십시오.
+   <code>if_outbox</code> 는 <code>HrmDB</code>, 나머지는 <code>GroupwareDB</code> 입니다.
+   한 화면을 그리는 데 연결이 둘 필요합니다.</p>
+
+<h4>색과 단추</h4>
+<p>상태를 글자로만 적어 두면 목록이 길어졌을 때 실패가 눈에 안 띕니다.
+   작업지시서가 <b>「S 는 녹색 · F 는 빨강 · N 은 주황」</b> 으로 못 박아 두었습니다.
+   그대로 하십시오. 교안의 그림은 흑백으로 인쇄해도 구분되게 그렸습니다.</p>
+<p>재시도 단추는 <b>실패한 줄에만</b> 나와야 합니다.
+   성공한 줄에도 단추가 있으면 눌렀을 때 아무 일도 안 일어나
+   화면이 고장 난 것처럼 보입니다.
+   되살리는 SQL 자체에 <code>AND status='F'</code> 가 들어 있어
+   실제로 바뀌지는 않지만, 화면에서부터 막는 편이 맞습니다.</p>
+
+<h4>비밀번호 해시는 아예 꺼내지 않습니다</h4>
+<pre><i>-- 이렇게 꺼내 놓고 화면에서 가리는 것은 반쪽짜리입니다</i>
+SELECT account_id, <b>pwd_hash</b>, dept_cd, status FROM account;
+
+<i>-- 조회에서부터 뺍니다 — 정답 코드가 쓰는 SQL</i>
+SELECT account_id, dept_cd, status, create_dt
+  FROM account ORDER BY account_id DESC LIMIT 100;</pre>
+<p>화면에서 별표로 가려도 브라우저 개발자 도구로 보면 그대로 보입니다.
+   꺼내지 않으면 볼 수 없습니다. 이것이 「외부 노출 방지」의 뜻입니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st14">
+      <h3><i>14</i>실패와 재시도 시연</h3>
+      <aside class="side">
+        <p class="pt">일부러 실패시켜 되살리는 것까지 보입니다.</p>
+        <b class="sh">필수 캡처</b>
+        <p class="v">1 ~ 2컷</p>
+        <b class="sh">쓰는 값</b>
+        <p class="v"><code>deptCd=D999</code></p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/if_retry.png" alt="콘솔 기록. 부서코드 D999 로 입사 등록한 뒤 배치를 돌려 실패하고, 부서를 등록한 다음 재시도 단추로 상태를 N 으로 되돌린 뒤 배치를 다시 돌려 성공하는 여섯 단계가 차례로 찍혀 있다.">
+  <figcaption>실패에서 되살리기까지. 마지막에 한 번 더 돌려 아무것도 안 잡히는 것까지 보입니다.</figcaption>
+</figure>
+
+<h4>순서를 지켜야 그림이 나옵니다</h4>
+<ol>
+  <li>입사 등록 폼에서 부서코드에 <code>D999</code> 를 넣고 등록합니다.
+      <b>등록 자체는 성공합니다.</b> 보내는 쪽은 부서 마스터를 모릅니다.</li>
+  <li>배치를 돌립니다. 실패 한 건이 나오고
+      <code>if_outbox</code> 가 <code>'F'</code> 로 바뀝니다. <b>여기서 한 컷.</b></li>
+  <li>부서를 등록합니다. <code>INSERT INTO dept VALUES ('D999','신규본부');</code></li>
+  <li>모니터링에서 재시도 단추를 누릅니다. 상태가 <code>'N'</code> 으로 돌아갑니다.</li>
+  <li>배치를 다시 돌립니다. 성공 한 건이 나오고 계정이 생깁니다. <b>여기서 또 한 컷.</b></li>
+  <li>한 번 더 돌려 봅니다. <b>읽음 0</b> 이 나와야 맞습니다.</li>
+</ol>
+
+<h4>마지막 한 번을 빠뜨립니다</h4>
+<p>여섯 번째 단계를 빠뜨리는 사람이 많습니다.
+   성공한 뒤 한 번 더 돌려 <b>아무것도 안 잡히는 것</b>을 보여야
+   상태 관리가 제대로 된다는 증거가 됩니다.
+   읽음이 0 이 아니라 1 이 나온다면 <code>markSuccess</code> 가 안 불린 것입니다.</p>
+
+<h4>실패한 상태에서 확인할 것</h4>
+<table>
+  <tr><th style="width:170px">어디</th><th>실패 뒤에 어떻게 되어 있어야 하는가</th></tr>
+  <tr><td class="k">employee</td><td>사원은 <b>남아 있습니다</b>. 보내는 쪽은 이미 확정되었습니다</td></tr>
+  <tr><td class="k">if_outbox</td><td><code>'F'</code> · <code>retry_cnt=1</code> · <code>err_msg</code> 에 까닭</td></tr>
+  <tr><td class="k">if_inbox</td><td><code>'F'</code> 기록이 <b>남습니다</b>. 별도 연결로 넣었기 때문입니다</td></tr>
+  <tr><td class="k">account</td><td>계정은 <b>없습니다</b>. 되돌려졌습니다</td></tr>
+</table>
+<p>네 줄 중 하나라도 다르면 트랜잭션 경계가 잘못 잡힌 것입니다.
+   <code>account</code> 가 생겨 있으면 되돌리기가 안 된 것이고,
+   <code>if_inbox</code> 가 비어 있으면 실패 기록을 같은 연결로 넣은 것입니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st15">
+      <h3><i>15</i>검증 시나리오</h3>
+      <aside class="side">
+        <p class="pt">여덟 개 중 넷만 해도 항목 셋을 덮습니다.</p>
+        <b class="sh">참고</b>
+        <p class="v">설계서 §7</p>
+        <b class="sh">먼저</b>
+        <p class="v">TC01 · 02 · 03 · 08</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/if_tc.png" alt="TC01 부터 TC08 까지 여덟 가지 검증 시나리오. 각각 무엇을 보는지, 어떤 값을 넣는지, 어떤 결과가 나와야 하는지 정리한 표.">
+  <figcaption>검증 시나리오 여덟 가지. 설계서에 미리 적혀 있습니다.</figcaption>
+</figure>
+
+<h4>시나리오는 이미 주어져 있습니다</h4>
+<p>무엇을 시험해야 할지 고민할 필요가 없습니다.
+   설계서 §7 에 여덟 개가 적혀 있고, 기대 결과까지 적혀 있습니다.
+   그대로 돌려 보고 결과가 같으면 통과입니다.
+   시간이 모자라면 <b>TC01 · TC02 · TC03 · TC08</b> 넷을 먼저 하십시오.
+   정상 · 멱등 · 실패 · 재시도 넷이 채점 항목 7 · 10 · 11 을 모두 덮습니다.</p>
+
+<h4>TC06 이 이 방식의 값을 보여 줍니다</h4>
+<p>배치를 아예 안 돌린 채 다섯 건을 등록해 두고,
+   한참 뒤에 배치를 한 번 돌립니다. 다섯 건이 모두 처리됩니다.
+   받는 쪽이 멈춰 있는 동안에도 보내는 쪽은 아무 지장이 없었다는 뜻입니다.
+   직접 부르는 방식이었다면 다섯 번 모두 오류였을 것입니다.</p>
+<p>시연할 때 이 점을 말로 설명하면 좋습니다.
+   「그룹웨어를 껐다 켜도 입사 등록은 계속 됩니다」 한 문장이면 됩니다.
+   채점 항목 2 가 물어 본 <b>연계 기능의 값</b>이 여기서 드러납니다.</p>
+
+<h4>결과를 표로 남깁니다</h4>
+<pre><i>-- 보고서에 붙일 숫자를 뽑는 SQL</i>
+SELECT status, COUNT(*) AS 건수, AVG(retry_cnt) AS 평균재시도
+  FROM if_outbox GROUP BY status;
+
+SELECT status, COUNT(*) AS 건수, <b>AVG(proc_ms)</b> AS 평균처리시간
+  FROM if_inbox GROUP BY status;
+
+SELECT COUNT(*) AS 발급계정 FROM account;</pre>
+<p>세 줄이면 검증 보고서의 숫자가 다 나옵니다.
+   <b>화면 캡처와 이 숫자가 맞아야</b> 합니다.
+   캡처는 성공 열 건인데 표에는 여덟 건이면 채점자가 먼저 알아봅니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st16">
+      <h3><i>16</i>통합과 검증 보고서</h3>
+      <aside class="side">
+        <p class="pt">합치는 데 걸리는 시간을 남겨 두십시오.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">11 · 10점</p>
+        <b class="sh">맡는 이</b>
+        <p class="v">조장</p>
+      </aside>
+      <div class="bd">
+
+<h4>합치는 순서</h4>
+<p>네 사람의 코드를 한꺼번에 합치면 무엇이 깨졌는지 못 찾습니다.
+   <b>한 사람씩 넣고 그때마다 돌려 보십시오.</b>
+   조장의 공통 모듈이 이미 들어가 있으니,
+   조원 1 → 조원 2 → 조원 3 순서로 하나씩 얹습니다.</p>
+<table>
+  <tr><th style="width:80px">차례</th><th style="width:180px">넣는 것</th><th>확인하는 것</th></tr>
+  <tr><td class="c">1</td><td class="k">조원 1</td>
+      <td>입사 등록이 되고 <code>if_outbox</code> 에 <code>'N'</code> 한 줄이 쌓이는가</td></tr>
+  <tr><td class="c">2</td><td class="k">조원 2</td>
+      <td>배치를 돌리면 그 줄이 <code>'S'</code> 가 되고 계정이 생기는가</td></tr>
+  <tr><td class="c">3</td><td class="k">조원 3</td>
+      <td>모니터링에 세 테이블이 다 나오고 재시도가 도는가</td></tr>
+  <tr><td class="c">4</td><td class="k">전체</td>
+      <td>TC01 부터 차례로 돌려 설계서의 기대 결과와 같은가</td></tr>
+</table>
+
+<h4>보고서에 들어갈 것</h4>
+<p>작업지시서가 요구하는 것이 넷입니다.
+   통계, 재시도 결과, 역할별 분담표, 개인별 산출물 정리 입니다.
+   앞 단원에서 뽑은 SQL 결과와 캡처를 붙이면 앞의 둘은 끝납니다.
+   분담표는 첫 단원에서 정해 둔 것을 그대로 옮기면 됩니다.</p>
+<p>여기에 <b>어긋난 곳을 적은 한 줄</b>을 더하면 좋습니다.
+   체크리스트와 설계서가 <code>UNIQUE</code> 위치를 다르게 적어 둔 것,
+   체크리스트의 <code>existsByTxNo</code> 대신 제약 조건으로 막은 것 —
+   이런 것을 적어 두면 문서를 읽고 판단했다는 것이 드러납니다.
+   채점 항목 11 은 보고서의 분량이 아니라 이런 것을 봅니다.</p>
+
+<h4>제출 직전 점검</h4>
+<ol>
+  <li><code>db.properties</code> 가 저장소에 올라가 있지 않은가</li>
+  <li>PPT 에 before 4컷 · after 4컷 · <b>실패와 재시도 1 ~ 2컷</b>이 다 있는가</li>
+  <li>화면 캡처의 숫자와 보고서의 표가 맞는가</li>
+  <li>저장소를 다른 사람이 받아서 <code>schema.sql</code> 만 돌리면 뜨는가</li>
+  <li>역할별 체크리스트 13항목에 모두 표시했는가</li>
+</ol>
+<p>네 번째에서 걸리는 경우가 많습니다.
+   내 컴퓨터에서만 도는 프로젝트는 채점자가 확인할 수 없습니다.
+   <code>README</code> 에 준비 순서 세 줄만 적어 두어도 다릅니다.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ 3 ═══════ -->
+<h2 class="sec" id="g3">3. 주요 감점 요인</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">돌아가는데 점수를 잃는 경우가 많습니다.</p>
+    <b class="sh">가장 큰 것</b>
+    <p class="v">연결을 따로 얻는 것</p>
+    <b class="sh">가장 아까운 것</b>
+    <p class="v">실패 캡처 없음</p>
+  </aside>
+  <div class="bd">
+<p>아래 여덟 가지가 되풀이되는 감점입니다.
+   눈여겨볼 것은 <b>대부분이 「돌아가기는 하는」 상태</b>라는 점입니다.
+   화면이 뜨고 계정도 생기는데 채점 항목은 잃습니다.
+   그래서 스스로 찾기가 어렵고, 미리 알아 두는 것 말고는 방법이 없습니다.</p>
+
+<figure>
+  <img src="img/if_bad.png" alt="연결을 따로 얻음 · inbox 를 나중에 넣음 · 스킵을 실패로 셈 · err_msg 가 예외 이름 · 비밀번호 원문 저장 · 상태 코드를 늘림 · 실패 캡처 없음 · 문자열로 이은 SQL 여덟 가지의 감점 모습과 보완 방법을 정리한 표.">
+  <figcaption>자주 나오는 감점과 보완. 왼쪽이 실제로 자주 나오는 모습입니다.</figcaption>
+</figure>
+
+<div class="warn">
+  넷이 나눠 맡는 과제이므로 <b>내 몫이 끝났다고 끝이 아닙니다</b>.
+  조원 1 의 트랜잭션이 안 묶여 있으면 조원 2 의 배치가 멀쩡해도 항목 5 를 잃고,
+  그 점수는 조 전체의 점수입니다.
+  먼저 끝낸 사람이 다른 사람의 코드를 읽어 주는 것이 가장 값싼 점검입니다.
+</div>
+  </div>
+</div>
+
+<footer>
+  인터페이스 구현 · 5수준 · 40시간 · 담당 정우균 ·
+  (디지털컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E<br>
+  예제는 평가도구 작업지시서의 IF_HR_001 이며, 제공되는 프로젝트와 클래스 이름은
+  실제 평가에서 달라질 수 있습니다.
+</footer>
+
+</div>
+
+<script>
+/* 빠른 이동 — 지금 보는 단원을 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"],a[href="#g3"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+  function mark() {
+    var y = window.pageYOffset + 90, cur = -1;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function () { mark(); tick = false; });
+  });
+  mark();
+})();
+</script>

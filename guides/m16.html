@@ -1,0 +1,1041 @@
+<meta charset="utf-8"><title>공공데이터 융합 DBMS 구축 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+  /* 이 페이지에만 있는 것. 공통 규칙은 assets/site.css 에 있습니다. */
+
+  /* ── 판면 ─────────────────────────────────────────── */
+  .wrap{max-width:1180px;counter-reset:step}
+  h1{font-size:25px;letter-spacing:-.02em;margin:0 0 5px}
+  .sub{font-size:12.5px;color:#555}
+  h2.sec{font-size:19px;margin:40px 0 10px;border-bottom:1px solid #000;padding-bottom:7px}
+  .lv{border:1px solid #000;margin:0 0 24px}
+  .lvh{background:#000;color:#fff;padding:9px 16px;display:flex;align-items:baseline;gap:10px}
+  .lvh b{font-size:15px}
+  .lvh span{font-size:12.5px;color:#ccc}
+  .lvb{padding:0 16px}
+
+  .sect{display:grid;grid-template-columns:214px minmax(0,1fr);column-gap:32px;
+        margin:0 0 26px;padding:0 17px}
+  .sect > aside{grid-column:1;align-self:start}
+  .sect > .bd{grid-column:2;min-width:0}
+  .sect p{margin:0 0 13px;font-size:16px;line-height:1.9}
+  .sect li{margin:7px 0;font-size:16px;line-height:1.85}
+  .sect .cc{font-size:13.5px;color:#555;line-height:1.8}
+  .sect dt{font-weight:700;font-size:16px;margin:18px 0 4px}
+  .sect dd{margin:0;font-size:16px;line-height:1.9}
+
+  /* ── 단원 : 왼쪽 방주 + 본문 ──────────────────────── */
+  .step{display:grid;grid-template-columns:214px minmax(0,1fr);column-gap:32px;
+        border-top:1px solid #ccc;padding:22px 0 26px;
+        counter-increment:step;counter-reset:sub fig}
+  .step:first-child{border-top:0}
+  .step > h3{grid-column:1/-1}
+  .step > aside{grid-column:1;align-self:start}
+  .step > .bd{grid-column:2;min-width:0}
+  .step > .bd,.sect > .bd{border-left:1px solid #ccc;margin-left:-16px;padding-left:15px}
+
+  .step h3{margin:0 0 20px;font-size:21px;letter-spacing:-.02em;
+           display:flex;align-items:center;gap:11px}
+  .step h3 i{font-style:normal;flex:0 0 auto;width:27px;height:27px;line-height:25px;
+     text-align:center;border:1px solid #000;font-size:13px;font-weight:700;margin:0}
+  .bd > h4{margin:30px 0 10px;font-size:16.5px;letter-spacing:-.01em;counter-increment:sub}
+  .bd > h4::before{content:counter(step) "." counter(sub) "  ";font-weight:400;color:#666}
+  .step p{margin:0 0 13px;font-size:16px;line-height:1.9}
+  .step ul,.step ol{margin:11px 0 16px 24px;padding:0}
+  .step li{margin:7px 0;font-size:16px;line-height:1.85}
+
+  /* ── 방주 ─────────────────────────────────────────── */
+  aside.side{padding:2px 16px 2px 0;color:#333}
+  aside.side .pt{margin:0 0 14px;font-size:12px;font-weight:700;line-height:1.7;color:#000}
+  aside.side b.sh{display:block;font-size:10px;letter-spacing:.08em;color:#999;
+                  font-weight:700;margin:14px 0 4px}
+  aside.side .v{margin:0;font-size:11.5px;line-height:1.65;color:#000}
+  aside.side dl{margin:0}
+  aside.side dt{font-weight:700;font-size:11.5px;margin:9px 0 1px;color:#000}
+  aside.side dt:first-child{margin-top:0}
+  aside.side dd{margin:0;font-size:11px;line-height:1.7;color:#666}
+  aside.side .src{margin:0;font-size:10.5px;line-height:1.65;color:#777}
+
+  /* ── 본문 장치 ────────────────────────────────────── */
+  .try{border:1px solid #000;border-left-width:4px;padding:15px 18px;margin:18px 0;
+       font-size:15.5px;line-height:1.85}
+  .try b.t{display:block;font-size:11.5px;letter-spacing:.05em;margin-bottom:8px}
+  .q{border:1px solid #000;padding:15px 18px;margin:20px 0;font-size:15.5px;line-height:1.85}
+  .q b.t{display:block;font-size:11.5px;letter-spacing:.05em;margin-bottom:8px}
+  ol.qa{margin:8px 0 0 24px}ol.qa li{margin:9px 0;font-size:15.5px}
+  .draw{border-left:3px solid #000;padding:2px 0 2px 16px;margin:20px 0 13px;
+        font-size:16px;line-height:1.9}
+  .draw b.n{display:block;font-size:15.5px;margin-bottom:5px}
+  .ex{margin:9px 0;font-size:15.5px;line-height:1.85}
+  .ex .x,.ex .o{display:inline-block;min-width:52px;font-weight:700;font-size:11.5px;
+     border:1px solid #000;text-align:center;margin-right:9px;vertical-align:2px}
+  .ex .o{background:#000;color:#fff}
+  .cc{font-size:13.5px;color:#555;margin:9px 0 0;line-height:1.8}
+
+  /* ── 그림과 표 ────────────────────────────────────── */
+  figure{margin:20px 0 22px;counter-increment:fig}
+  figure img{display:block;width:100%;border:1px solid #ccc}
+  figcaption{font-size:12.5px;color:#555;margin-top:8px;line-height:1.7}
+  figcaption::before{content:"그림 " counter(step) "-" counter(fig) ".  ";
+                     font-weight:700;color:#000}
+  table{margin:14px 0;font-size:14px}
+  th,td{padding:8px 10px}
+  table.sym td{vertical-align:middle}
+  table.sym svg{display:block;margin:0 auto}
+  td.nm{font-weight:700;white-space:nowrap}
+  th,td{text-align:left;vertical-align:top}
+  td.c{text-align:center;white-space:nowrap}
+  .bd > dl dt{font-weight:700;font-size:16px;margin:18px 0 4px}
+  .bd > dl dd{margin:0;font-size:16px;line-height:1.9}
+
+  /* ── 좁은 화면에서는 방주를 본문 위로 ─────────────── */
+  @media(max-width:1023px){
+    .step,.sect{display:block}
+    .step > .bd,.sect > .bd{border-left:0;margin-left:0;padding-left:0}
+    aside.side{border-top:1px solid #000;border-bottom:1px solid #000;
+               padding:12px 0 14px;margin:0 0 20px}
+    aside.side .pt{margin-bottom:10px}
+    aside.side dt{display:inline;margin:0}
+    aside.side dt::after{content:" — "}
+    aside.side dd{display:inline;margin:0}
+    aside.side dd::after{content:"";display:block;height:7px}
+  }
+  @media print{.top{display:none}.lv,.step,figure,table{break-inside:avoid}}
+  /* 빠른 이동 — 넓은 화면에서는 번호 줄, 좁은 화면에서는 여닫는 목록 */
+  .step,h2.sec{scroll-margin-top:58px}
+  #qnav{position:fixed;left:calc(50% - 644px);top:50%;transform:translateY(-50%);z-index:15;
+        background:#fff;border:1px solid #000;padding:8px 6px}
+  #qnav a{position:relative;display:block;text-decoration:none;margin:3px 0}
+  #qnav a b{display:flex;align-items:center;justify-content:center;width:24px;height:24px;
+            border:1px solid #999;color:#555;font-size:11px;font-weight:700}
+  #qnav a:hover b,#qnav a.on b{background:#000;color:#fff;border-color:#000}
+  #qnav a span{position:absolute;left:33px;top:50%;transform:translateY(-50%);
+               white-space:nowrap;background:#000;color:#fff;font-size:11.5px;padding:4px 9px;
+               opacity:0;pointer-events:none;transition:opacity .12s}
+  #qnav a:hover span{opacity:1}
+  #qnav .qg{display:block;font-style:normal;font-size:9px;color:#999;text-align:center;
+            margin:9px 0 2px;letter-spacing:-.03em}
+  #qnav .qt b{border-style:dashed}
+  #qbtn{display:none}
+  @media(max-width:1339px),(max-height:660px){
+    #qnav{display:none;left:14px;bottom:60px;top:auto;transform:none;padding:12px 16px 14px;
+          max-height:calc(100vh - 140px);box-shadow:0 4px 16px rgba(0,0,0,.12)}
+    #qnav.open{display:block}
+    #qnav a{display:flex;align-items:center;gap:9px;margin:0;padding:4px 0}
+    #qnav a b{width:20px;height:20px;font-size:10px;flex:0 0 auto}
+    #qnav a span{position:static;transform:none;opacity:1;background:none;color:#000;
+                 padding:0;font-size:12.5px}
+    #qnav a:hover b{background:#000}
+    #qnav a.on span{font-weight:700}
+    #qbtn{display:block;position:fixed;left:14px;bottom:14px;z-index:16;
+          background:#000;color:#fff;border:0;padding:9px 14px;font-size:12.5px;
+          font-family:inherit;cursor:pointer}
+  }
+  @media print{#qnav,#qbtn{display:none}}
+</style>
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small><a href="../courses/c2.html">능력단위 모듈 목록</a> / 공공데이터 융합 DBMS 구축 / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">준비</i>
+  <a href="#st1"><b>1</b><span>완성 예시의 확인</span></a>
+  <a href="#st2"><b>2</b><span>실습 환경의 준비</span></a>
+  <a href="#st3"><b>3</b><span>데이터 선정</span></a>
+  <i class="qg">기초</i>
+  <a href="#st4"><b>4</b><span>데이터 확보와 출처 확인</span></a>
+  <a href="#st5"><b>5</b><span>구조 · 유형 · 척도 파악</span></a>
+  <a href="#st6"><b>6</b><span>품질 진단과 인사이트 도출</span></a>
+  <a href="#st7"><b>7</b><span>타겟 정의와 누수 배제</span></a>
+  <i class="qg">구축</i>
+  <a href="#st8"><b>8</b><span>정제 · 가공과 모델 학습</span></a>
+  <a href="#st9"><b>9</b><span>모델과 입력 정의서 저장</span></a>
+  <a href="#st10"><b>10</b><span>ML API 구현</span></a>
+  <a href="#st11"><b>11</b><span>예측 이력 CRUD</span></a>
+  <a href="#st12"><b>12</b><span>풀스택 통합과 인증</span></a>
+  <i class="qg">점검</i>
+  <a href="#st13"><b>13</b><span>동작 검증과 결과 해석</span></a>
+  <a href="#st14"><b>14</b><span>자가 점검</span></a>
+  <a href="#st15"><b>15</b><span>제출</span></a>
+  <i class="qg">감점</i>
+  <a href="#g3"><b>!</b><span>주요 감점 요인</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>공공데이터 융합 DBMS 구축 — 준비 교안</h1>
+<p class="sub">교과목 공공데이터 융합 DBMS 구축 / 7수준 · 평가방법 문제해결시나리오 (100점)</p>
+
+<h2 class="sec" id="g0">0. 제출물의 구성과 배점</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">배점이 30 대 70 입니다. 시간도 이 비율로 나눕니다.</p>
+    <b class="sh">제출 형식</b>
+    <p class="v">PPT · 소스 폴더 · 저장소 링크</p>
+    <b class="sh">참고</b>
+    <p class="src">작업지시서 · 평가도구</p>
+  </aside>
+  <div class="bd">
+<p>제출물은 폴더 세 개와 그것을 정리한 발표 자료입니다. 배점을 시간 배분의 기준으로 삼습니다.</p>
+<table class="wide">
+  <tr><th style="width:56px">폴더</th><th>만들어야 할 것</th><th style="width:170px">산출물</th><th style="width:70px">배점</th></tr>
+  <tr><td class="c">01</td><td>모델 학습 — 데이터 확보부터 학습과 저장까지</td>
+      <td>모델학습 노트북 · model.pkl · feature_spec.json</td><td class="c">44</td></tr>
+  <tr><td class="c">02</td><td>ML API — 모델을 주소로 감싸고 이력을 저장</td>
+      <td>API 코드 · 컨테이너 정의</td><td class="c">28</td></tr>
+  <tr><td class="c">03</td><td>풀스택 통합 — 화면과 서버에 연결하고 인증 적용</td>
+      <td>중계 코드 · 예측 화면</td><td class="c">28</td></tr>
+  <tr><th colspan="3">합계</th><th class="c">100</th></tr>
+</table>
+<p>평가는 능력단위가 끝나는 날 하루에 몰아서 봅니다.
+   그날 8시간 안에 위의 것을 모두 보여야 하므로, 미루지 말고 차시마다 마무리해야 합니다.</p>
+<div class="warn">
+  채점은 두 묶음으로 나뉩니다. 데이터를 다루는 앞부분이 <b>공공데이터 융합 기초 30점</b>,
+  모델과 서비스를 만드는 뒷부분이 <b>공공데이터 융합 DBMS 구축 70점</b> 입니다.
+  앞부분을 소홀히 하면 30점을 그대로 잃습니다.
+</div>
+  </div>
+</div>
+
+<h2 class="sec" id="g1">1. 예측 서비스의 구조</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">네 조각이 줄지어 연결된 구조입니다.</p>
+    <b class="sh">구분</b>
+    <p class="v">화면 · 서버 · ML · 모델 파일</p>
+    <b class="sh">참고</b>
+    <p class="src">상세가이드 03 「핵심 개념」</p>
+  </aside>
+  <div class="bd">
+<p>만들 것은 예측 모델 하나가 아니라 <b>모델을 품은 서비스</b>입니다.
+   조각이 넷이고, 각자 맡은 일이 다릅니다.</p>
+<table class="wide">
+  <tr><th style="width:110px">조각</th><th style="width:200px">맡은 일</th><th>왜 나누는가</th></tr>
+  <tr><td class="nm">화면</td><td>사람이 값을 넣고 결과를 봅니다</td>
+      <td>입력칸을 스스로 만들지 않고 입력 정의서를 읽어 그립니다</td></tr>
+  <tr><td class="nm">서버</td><td>로그인을 확인하고 요청을 넘깁니다</td>
+      <td>예측을 직접 하지 않으므로 모델이 바뀌어도 고칠 것이 없습니다</td></tr>
+  <tr><td class="nm">ML</td><td>모델을 불러 답을 냅니다</td>
+      <td>모델을 다루는 일을 한곳에 모아 둡니다</td></tr>
+  <tr><td class="nm">모델 파일</td><td>학습 결과를 담고 있습니다</td>
+      <td>서비스할 때마다 다시 학습하지 않습니다</td></tr>
+</table>
+<p>그리고 곁에 데이터베이스와 캐시가 붙습니다. 예측 이력이 데이터베이스에 쌓이고,
+   캐시는 로그인 상태를 들고 있습니다. 모두 합쳐 컨테이너 다섯 개입니다.</p>
+<p class="cc">이 구조를 먼저 머릿속에 넣어 두면, 뒤에서 어느 파일을 왜 고치는지가 보입니다.</p>
+  </div>
+</div>
+
+<h2 class="sec" id="g2">2. 산출물 작성 실습</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">레벨 1부터 4까지 따라가면 제출물이 완성됩니다.</p>
+    <b class="sh">시간</b>
+    <p class="v">레벨 2와 3에 몰아 씁니다</p>
+    <b class="sh">이동</b>
+    <p class="v">왼쪽 번호로 바로 갑니다</p>
+  </aside>
+  <div class="bd">
+<p>열다섯 단원입니다. 레벨 2가 채점 30점, 레벨 3이 70점에 대응합니다.
+   각 단원의 왼쪽 방주에 그 단원이 어느 채점 항목을 채우는지 적어 두었습니다.</p>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 1 · 준비</b><span>산출물 없음 · 도구와 데이터의 준비</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st1">
+      <h3><i>1</i>완성 예시의 확인</h3>
+      <aside class="side">
+        <p class="pt">무엇을 만드는지 눈으로 먼저 익힙니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">해당 없음</p>
+        <b class="sh">용어</b>
+        <dl>
+          <dt>예측 서비스</dt><dd>입력을 받아 결과를 맞히는 웹 서비스입니다.</dd>
+          <dt>이진분류</dt><dd>답이 둘 중 하나인 문제입니다.</dd>
+        </dl>
+      </aside>
+      <div class="bd">
+      <h4>무엇을 만드는가</h4>
+      <p>공공데이터로 예측 모델을 만들고, 그 모델을 웹 서비스로 올리는 것이 이 교과의 과제입니다.
+         완성되면 브라우저에서 회원가입과 로그인을 하고, 입력 폼에 값을 넣어 예측한 결과가 화면에 나오며,
+         그 결과가 목록에 쌓여 수정하거나 지울 수 있습니다.</p>
+      <p>먼저 완성 예시를 눈으로 익힙니다. 무엇을 만드는지 모르는 채로 코드를 따라 치면
+         지금 무엇을 하는지 알기 어려워집니다.</p>
+      <figure>
+        <img src="../exam/dbms/img/sample1/03-4.png" alt="예측 폼 화면">
+        <figcaption>입력칸이 사람 손으로 만들어진 것이 아니라 입력 정의서를 읽어 자동으로 그려진 것입니다.</figcaption>
+      </figure>
+      <p>화면 아래쪽에 예측 이력이 표로 쌓입니다. 새로 고쳐도 사라지지 않습니다.
+         데이터베이스에 저장되기 때문입니다.</p>
+      <figure>
+        <img src="../exam/dbms/img/sample1/03-5.png" alt="예측 결과 화면">
+        <figcaption>결과와 확률이 함께 표시됩니다. 이 확률이 뒤에서 해석의 근거가 됩니다.</figcaption>
+      </figure>
+
+      <h4>세 폴더로 나누어 만듭니다</h4>
+      <table>
+        <tr><th style="width:70px">폴더</th><th style="width:150px">하는 일</th><th>만들 것</th></tr>
+        <tr><td class="c">01</td><td class="nm">모델 학습</td>
+            <td>주피터 노트북으로 데이터를 다듬고 모델을 학습시켜 <code>model.pkl</code> 과 <code>feature_spec.json</code> 을 만듭니다</td></tr>
+        <tr><td class="c">02</td><td class="nm">ML API</td>
+            <td>저장한 모델을 불러 예측 결과를 돌려주는 API 와 예측 이력 저장소를 만듭니다</td></tr>
+        <tr><td class="c">03</td><td class="nm">풀스택 통합</td>
+            <td>제공된 템플릿에 ML 을 연결해 화면에서 로그인하고 예측할 수 있게 만듭니다</td></tr>
+      </table>
+
+      <h4>데이터가 흐르는 길</h4>
+      <p>브라우저에서 누른 값이 서버를 거쳐 ML 로 가고, ML 이 모델 파일을 열어 답을 냅니다.
+         답은 온 길을 되짚어 화면으로 돌아옵니다.</p>
+      <p class="cc">화면 → 서버 → ML → 모델 파일 → ML → 서버 → 화면</p>
+      <p>서버는 예측을 직접 하지 않고 중계만 합니다.
+         모델을 바꾸어도 서버 코드는 그대로입니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>실습 환경의 준비</h3>
+      <aside class="side">
+        <p class="pt">도구를 먼저 갖추고 시작합니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">해당 없음</p>
+        <b class="sh">용어</b>
+        <dl>
+          <dt>컨테이너</dt><dd>실행 환경을 통째로 담은 상자입니다.</dd>
+          <dt>인증키</dt><dd>포털이 발급하는 이용 열쇠입니다.</dd>
+        </dl>
+        <b class="sh">참고</b>
+        <p class="src">설치는 1차시에 함께 합니다</p>
+      </aside>
+      <div class="bd">
+      <h4>갖추어야 할 것</h4>
+      <table>
+        <tr><th style="width:160px">항목</th><th>확인</th></tr>
+        <tr><td class="nm">Python 3.11</td><td>주피터 노트북을 함께 씁니다</td></tr>
+        <tr><td class="nm">Docker Desktop</td><td>설치 후 재시작이 필요합니다. 기동된 상태로 두십시오</td></tr>
+        <tr><td class="nm">공공데이터포털 계정</td><td>data.go.kr 회원가입. 인증키 발급에 시간이 걸립니다</td></tr>
+        <tr><td class="nm">GitHub 계정</td><td>산출물을 저장소 링크로 제출합니다</td></tr>
+        <tr><td class="nm">풀스택 템플릿</td><td>03 단계에서 씁니다. 미리 내려받아 두시기 바랍니다</td></tr>
+      </table>
+
+      <h4>먼저 확인할 것</h4>
+      <p>Docker Desktop 이 켜져 있지 않으면 03 단계에서 아무것도 되지 않습니다.
+         설치만 하고 실행하지 않는 경우가 가장 흔합니다.</p>
+      <p>포털 인증키는 신청 후 승인까지 시간이 걸립니다. 첫날에 신청해 두십시오.
+         CSV 를 내려받는 데에는 인증키가 필요 없지만, 나중에 쓸 일이 생깁니다.</p>
+
+      <div class="try">
+        <b class="t">실습 · 환경 점검</b>
+        터미널에서 파이썬 버전을 확인하고, Docker 가 응답하는지 확인합니다.
+        둘 다 답이 돌아오면 준비가 끝난 것입니다.
+        <p class="cc" style="margin-top:8px">답이 돌아오지 않으면 그 자리에서 강사에게 알립니다.
+        뒤로 미루면 실습 시간을 잃습니다.</p>
+      </div>
+      </div>
+    </div>
+
+    <div class="step" id="st3">
+      <h3><i>3</i>데이터 선정</h3>
+      <aside class="side">
+        <p class="pt">여기서 고른 데이터가 끝까지 갑니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">데이터 선정서</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">① 01</p>
+        <b class="sh">용어</b>
+        <dl>
+          <dt>행 단위 데이터</dt><dd>한 줄이 한 사건인 데이터입니다.</dd>
+          <dt>집계 데이터</dt><dd>이미 합계로 묶인 데이터입니다. 쓸 수 없습니다.</dd>
+        </dl>
+        <b class="sh">참고</b>
+        <p class="src">3차시에 제출 · 강사 승인</p>
+      </aside>
+      <div class="bd">
+      <h4>고를 수 있는 데이터의 조건</h4>
+      <p>조별로 서로 다른 데이터를 직접 고릅니다. 수업에서 보여 드리는 예시 데이터는 쓸 수 없습니다.
+         고르기 전에 세 가지를 확인합니다.</p>
+      <table>
+        <tr><th style="width:130px">조건</th><th>뜻</th></tr>
+        <tr><td class="nm">행 단위</td>
+            <td>한 줄이 한 사건이어야 합니다. 이미 합계로 묶인 집계 데이터는 학습할 수 없습니다</td></tr>
+        <tr><td class="nm">이진 타겟</td>
+            <td>답이 둘 중 하나여야 합니다. 적합과 부적합처럼 이미 있으면 좋고, 없으면 연속값을 중앙값으로 갈라 만들어도 됩니다</td></tr>
+        <tr><td class="nm">공공데이터포털</td>
+            <td>data.go.kr 에서 받은 CSV 여야 합니다. 데이터셋 식별번호를 적어 둡니다</td></tr>
+      </table>
+
+      <h4>고르면 안 되는 데이터</h4>
+      <p>다음에 해당하면 뒤에서 막힙니다. 검색 단계에서 걸러 냅니다.</p>
+      <ul>
+        <li>결과 컬럼이 없는 경우입니다. 접수나 신고 현황처럼 무슨 일이 있었는지만 적힌 데이터가 그렇습니다.</li>
+        <li>답이 1인 행이 지나치게 적은 경우입니다. 몇 건뿐이면 학습도 검증도 되지 않습니다.</li>
+        <li>파일이 지나치게 큰 경우입니다. 수십 MB 에 100열이 넘으면 실습 시간 안에 다루기 어렵습니다.</li>
+        <li>행이 수십 개뿐인 경우입니다. 지자체 단위 데이터에 흔합니다.</li>
+      </ul>
+
+      <div class="try">
+        <b class="t">실습 · 후보 3건 검색</b>
+        키워드로 검색해 후보를 셋 찾습니다. 각각 행수와 컬럼 목록을 확인하고,
+        어느 컬럼을 타겟으로 삼을지 미리 정해 봅니다.
+        셋 가운데 하나를 골라 3차시에 데이터 선정서로 제출합니다.
+        <p class="cc" style="margin-top:8px">승인을 받아야 다음으로 넘어갑니다.
+        승인되지 않으면 다시 골라야 하므로 후보를 넉넉히 확보해 둡니다.</p>
+      </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 2 · 기초</b><span>공공데이터 융합 기초 · 채점 30점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st4">
+      <h3><i>4</i>데이터 확보와 출처 확인</h3>
+      <aside class="side">
+        <p class="pt">출처를 밝히지 않으면 첫 항목부터 감점입니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">출처 기록</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">① 01</p>
+        <b class="sh">용어</b>
+        <dl>
+          <dt>이용허락범위</dt><dd>어디까지 써도 되는지의 조건입니다.</dd>
+          <dt>갱신주기</dt><dd>데이터가 새로 올라오는 간격입니다.</dd>
+        </dl>
+      </aside>
+      <div class="bd">
+      <h4>무엇을 적어야 하는가</h4>
+      <p>데이터를 내려받은 것으로 끝나지 않습니다. 어디에서 온 데이터인지를 밝혀야 합니다.
+         채점표 첫 항목이 이것을 봅니다.</p>
+      <table>
+        <tr><th style="width:130px">항목</th><th>어디에서 확인하는가</th></tr>
+        <tr><td class="nm">출처</td><td>공공데이터포털의 데이터셋 주소와 식별번호</td></tr>
+        <tr><td class="nm">제공기관</td><td>데이터셋 상세 화면의 제공기관 항목</td></tr>
+        <tr><td class="nm">건수</td><td>내려받은 CSV 의 행 수. 전체 가운데 일부만 쓴다면 그 수도 함께</td></tr>
+        <tr><td class="nm">갱신주기</td><td>상세 화면의 갱신주기 항목</td></tr>
+        <tr><td class="nm">이용허락범위</td><td>상세 화면의 이용허락범위 항목</td></tr>
+      </table>
+
+      <h4>선정 이유를 함께 씁니다</h4>
+      <p>왜 이 데이터를 골랐는지 한두 문장으로 적습니다.
+         분석 목적과 데이터가 어떻게 맞는지를 씁니다.</p>
+      <div class="ex"><span class="x">잘못</span>공공데이터포털에서 받았습니다</div>
+      <div class="ex"><span class="o">좋음</span>화재 발생 시 인명피해 여부를 미리 가늠할 수 있으면 출동 우선순위를
+        정하는 데 쓸 수 있어 골랐습니다. 사건 단위로 기록되어 있고 인명피해 수가 함께 들어 있습니다</div>
+      <p class="cc">형식적으로 한 줄 적으면 보통 이하로 내려갑니다. 목적과 데이터를 이어 붙여 씁니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st5">
+      <h3><i>5</i>구조 · 유형 · 척도 파악</h3>
+      <aside class="side">
+        <p class="pt">컬럼마다 자료형과 척도를 정합니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">컬럼 목록표</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">① 02</p>
+        <b class="sh">용어</b>
+        <dl>
+          <dt>명목척도</dt><dd>순서가 없는 이름입니다. 지역 · 유형이 그렇습니다.</dd>
+          <dt>비율척도</dt><dd>0 이 없음을 뜻하는 수치입니다.</dd>
+          <dt>cp949</dt><dd>공공데이터 CSV 가 흔히 쓰는 한글 인코딩입니다.</dd>
+        </dl>
+      </aside>
+      <div class="bd">
+      <h4>먼저 열어 봅니다</h4>
+      <p>공공데이터 CSV 는 대개 cp949 로 저장되어 있습니다.
+         인코딩을 지정하지 않고 열면 한글이 깨지므로, 적재할 때 cp949 를 지정합니다.</p>
+      <p>적재한 뒤에는 세 가지를 확인합니다. 행과 열이 몇 개인지, 각 컬럼의 자료형이 무엇인지,
+         비어 있는 칸이 얼마나 되는지입니다.</p>
+
+      <h4>척도를 구분합니다</h4>
+      <p>자료형은 컴퓨터가 보는 형태이고, 척도는 그 값이 무엇을 뜻하는지입니다.
+         둘은 다릅니다. 숫자로 저장되어 있어도 명목척도인 경우가 있습니다.</p>
+      <table>
+        <tr><th style="width:110px">척도</th><th style="width:200px">뜻</th><th>예</th></tr>
+        <tr><td class="nm">명목</td><td>순서가 없는 이름</td><td>자치구 · 화재유형 · 발화요인</td></tr>
+        <tr><td class="nm">순서</td><td>차례는 있으나 간격은 모름</td><td>등급 · 만족도</td></tr>
+        <tr><td class="nm">등간</td><td>간격은 같으나 0 이 없음을 뜻하지 않음</td><td>온도 · 연도</td></tr>
+        <tr><td class="nm">비율</td><td>0 이 없음을 뜻함</td><td>건수 · 금액 · 면적</td></tr>
+      </table>
+      <p class="cc">우편번호나 코드처럼 숫자로 적힌 명목척도를 그대로 수치로 넣으면 모델이 크기를 비교해 버립니다.
+         이 구분이 뒤의 인코딩으로 이어집니다.</p>
+
+      <h4>분석 가능 여부를 판단합니다</h4>
+      <p>컬럼 목록을 정리하고 나면 판단할 수 있습니다.
+         타겟으로 삼을 컬럼이 있는지, 쓸 만한 설명 변수가 대여섯 개는 되는지,
+         한 컬럼에 값이 지나치게 많지는 않은지를 봅니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st6">
+      <h3><i>6</i>품질 진단과 인사이트 도출</h3>
+      <aside class="side">
+        <p class="pt">품질을 수치로 진단하고 위험 조건을 찾아냅니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">품질 진단표 · 인사이트 3건</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">① 03</p>
+        <b class="sh">용어</b>
+        <dl>
+          <dt>결측치</dt><dd>값이 비어 있는 칸입니다.</dd>
+          <dt>희소 범주</dt><dd>몇 건뿐이라 학습에 방해가 되는 값입니다.</dd>
+          <dt>양성비율</dt><dd>타겟이 1인 행의 비율입니다.</dd>
+        </dl>
+      </aside>
+      <div class="bd">
+      <h4>품질을 수치로 적습니다</h4>
+      <p>「결측치가 좀 있습니다」 는 진단이 아닙니다. 몇 건이고 몇 퍼센트인지를 적어야 진단입니다.</p>
+      <table>
+        <tr><th style="width:140px">볼 것</th><th>적을 것</th></tr>
+        <tr><td class="nm">결측치</td><td>컬럼별 빈 칸의 건수와 비율</td></tr>
+        <tr><td class="nm">표기 불일치</td><td>같은 뜻인데 다르게 적힌 값. 띄어쓰기나 표기 차이</td></tr>
+        <tr><td class="nm">희소 범주</td><td>몇 건뿐인 값. 범주 개수와 함께 적습니다</td></tr>
+        <tr><td class="nm">이상치</td><td>범위를 크게 벗어난 값</td></tr>
+      </table>
+      <p>진단만 하고 끝내지 않습니다. 각 항목을 어떻게 처리할지 정제 방향을 함께 적습니다.</p>
+
+      <h4>타겟 분포를 확인합니다</h4>
+      <figure>
+        <img src="../exam/dbms/img/sample1/01-1.png" alt="타겟 분포">
+        <figcaption>답이 1인 쪽이 크게 적으면 불균형입니다. 이 진단이 뒤의 분할과 학습 전략을 정합니다.</figcaption>
+      </figure>
+      <p>불균형이면 정확도만 보아서는 안 됩니다. 전부 0 이라고 찍어도 정확도가 높게 나오기 때문입니다.
+         이 점이 8단원의 지표 선택으로 이어집니다.</p>
+
+      <h4>인사이트를 도출합니다</h4>
+      <p>데이터가 무엇을 말하는지를 수치로 꺼냅니다.
+         범주별로 답이 1인 비율을 집계하면 어떤 조건이 위험한지가 드러납니다.</p>
+      <div class="ex"><span class="x">잘못</span>방화가 위험해 보입니다</div>
+      <div class="ex"><span class="o">좋음</span>방화는 20.1%, 가스누출은 32.9% 인데 부주의는 3.1% 입니다.
+        새벽 5시가 8.5%, 저녁 7시가 2.6% 입니다</div>
+
+      <div class="try">
+        <b class="t">실습 · 인사이트 3건</b>
+        범주형 컬럼을 셋 골라 각각 값별 양성비율을 집계합니다.
+        가장 높은 값과 가장 낮은 값을 비교해 문장으로 적습니다.
+        <p class="cc" style="margin-top:8px">여기서 적은 세 문장을 13단원에서 다시 꺼내 씁니다.
+        모델이 낸 예측이 이 인사이트와 맞는지 대조하는 것이 결과 해석입니다.</p>
+      </div>
+      </div>
+    </div>
+
+    <div class="step" id="st7">
+      <h3><i>7</i>타겟 정의와 누수 배제</h3>
+      <aside class="side">
+        <p class="pt">타겟을 정하고 누수 컬럼을 걷어냅니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">타겟 · 변수 정의서</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">① 04 · 05</p>
+        <b class="sh">용어</b>
+        <dl>
+          <dt>타겟</dt><dd>맞히려는 값입니다. 종속변수라고도 합니다.</dd>
+          <dt>데이터 누수</dt><dd>답이 들어 있는 컬럼이 설명 변수에 섞이는 것입니다.</dd>
+          <dt>파생 타겟</dt><dd>연속값을 중앙값으로 갈라 만든 타겟입니다.</dd>
+        </dl>
+        <b class="sh">참고</b>
+        <p class="src">평가도구 「데이터 누수 주의」</p>
+      </aside>
+      <div class="bd">
+      <h4>타겟을 정의합니다</h4>
+      <p>맞히려는 값을 0 과 1 로 만듭니다. 기준을 세우고 그 근거를 함께 적습니다.</p>
+      <p>데이터에 이미 적합과 부적합처럼 두 값이 있으면 그대로 씁니다.
+         없으면 만들어야 합니다. 인명피해 수가 1명 이상이면 1로 두는 식입니다.
+         연속값이라면 중앙값으로 갈라 큰 쪽을 1로 두어도 됩니다.</p>
+      <p class="cc">기준을 적지 않으면 채점에서 근거 없음으로 봅니다.
+         「1명 이상」 인지 「2명 이상」 인지가 왜 그래야 하는지를 한 문장으로 씁니다.</p>
+
+      <h4>데이터 누수를 걷어냅니다</h4>
+      <p>답이 들어 있는 컬럼이 설명 변수에 섞이면, 모델이 문제를 푸는 것이 아니라 답을 베끼게 됩니다.
+         이것을 데이터 누수라고 합니다.</p>
+      <table>
+        <tr><th style="width:180px">걷어낼 컬럼</th><th>이유</th></tr>
+        <tr><td class="nm">타겟을 구성하는 컬럼</td>
+            <td>인명피해 여부를 맞히는데 사망자 수가 들어 있으면 답이 그대로 보입니다</td></tr>
+        <tr><td class="nm">사후 결과값</td>
+            <td>사건이 끝난 뒤에 확정되는 값입니다. 재산피해액이 그렇습니다</td></tr>
+        <tr><td class="nm">식별자</td>
+            <td>일련번호처럼 뜻이 없는 값입니다</td></tr>
+      </table>
+      <p><b>성능이 지나치게 높으면 누수를 의심하십시오.</b>
+         ROC-AUC 가 0.99 처럼 나오면 대개 답이 새어 든 것입니다.
+         그대로 두면 뒤의 모든 결과가 무효가 됩니다.</p>
+
+      <h4>남길 변수를 정합니다</h4>
+      <p>걷어내고 남은 것 가운데 쓸 변수를 고릅니다. 다섯에서 열 개면 충분합니다.
+         컬럼명은 영문으로 바꾸어 둡니다. 이 이름이 그대로 API 의 항목 이름이 되고,
+         한글 이름은 뒤에서 인코딩 문제를 일으킵니다.</p>
+      <p class="cc">고른 이유를 컬럼마다 한 줄씩 적어 두면 채점표 ① 05 항목이 채워집니다.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 3 · 구축</b><span>공공데이터 융합 DBMS 구축 · 채점 70점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st8">
+      <h3><i>8</i>정제 · 가공과 모델 학습</h3>
+      <aside class="side">
+        <p class="pt">정제한 데이터로 모델을 학습시키고 성능을 해석합니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">모델 성능 보고</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">② 01</p>
+        <b class="sh">용어</b>
+        <dl>
+          <dt>층화 추출</dt><dd>클래스 비율을 유지한 채 나누는 분할입니다.</dd>
+          <dt>ROC-AUC</dt><dd>불균형 데이터에서 정확도보다 믿을 만한 지표입니다.</dd>
+          <dt>클래스 가중치</dt><dd>적은 쪽에 힘을 실어 주는 설정입니다.</dd>
+        </dl>
+      </aside>
+      <div class="bd">
+      <h4>정제하고 가공합니다</h4>
+      <p>6단원에서 세운 정제 방향을 실행합니다. 결측치를 채우거나 지우고,
+         몇 건뿐인 희소 범주는 기타로 묶고, 필요하면 파생변수를 만듭니다.</p>
+      <p>범주형 컬럼은 숫자로 바꾸어야 학습할 수 있습니다. 이것이 인코딩입니다.
+         5단원에서 구분한 척도가 여기서 쓰입니다. 명목척도는 순서가 없으므로 크기를 만들지 않는 방식으로 바꿉니다.</p>
+
+      <h4>학습과 검증으로 나눕니다</h4>
+      <p>학습에 쓴 데이터로 성능을 재면 답을 보고 채점하는 것과 같습니다.
+         8 대 2 로 나누어 2 를 남겨 두고, 남긴 쪽으로만 성능을 잽니다.</p>
+      <p><b>나눌 때 클래스 비율을 유지해야 합니다.</b>
+         불균형 데이터를 아무렇게나 나누면 검증 쪽에 답이 1인 행이 거의 없게 될 수 있습니다.
+         층화 추출을 지정합니다.</p>
+
+      <h4>학습시킵니다</h4>
+      <p>랜덤포레스트로 시작합니다. 범주형이 많은 공공데이터에 잘 맞고 설정이 간단합니다.</p>
+      <p>불균형이라면 적은 쪽에 가중치를 싣는 설정을 켭니다.
+         켜지 않으면 모델이 많은 쪽으로만 답합니다.</p>
+
+      <h4>성능을 재고 해석합니다</h4>
+      <p>네 가지를 함께 출력합니다. 정확도, ROC-AUC, Precision, Recall 입니다.
+         그리고 <b>어느 것을 주지표로 삼았는지와 그 이유를 적습니다.</b></p>
+      <figure>
+        <img src="../exam/dbms/img/sample1/01-2.png" alt="ROC 곡선">
+        <figcaption>불균형에서는 정확도가 높아도 의미가 없습니다. 곡선 아래 넓이를 주지표로 삼는 근거를 적습니다.</figcaption>
+      </figure>
+      <div class="ex"><span class="x">잘못</span>정확도 0.73 이 나왔습니다</div>
+      <div class="ex"><span class="o">좋음</span>답이 1인 쪽이 3.9% 뿐이라 전부 0 으로 찍어도 정확도가 0.96 이 됩니다.
+        그래서 ROC-AUC 0.713 을 주지표로 삼았습니다</div>
+      <p class="cc">여기서 나온 변수 중요도를 6단원의 인사이트와 대조해 보십시오.
+         손으로 찾은 위험 조건이 모델에서도 위쪽에 있으면 진단이 옳았던 것입니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st9">
+      <h3><i>9</i>모델과 입력 정의서 저장</h3>
+      <aside class="side">
+        <p class="pt">모델과 입력 정의서 두 파일을 남깁니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">model.pkl · feature_spec.json</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">② 02</p>
+        <b class="sh">용어</b>
+        <dl>
+          <dt>model.pkl</dt><dd>학습을 마친 모델을 담은 파일입니다.</dd>
+          <dt>feature_spec.json</dt><dd>입력칸의 설계도입니다. 화면이 이것을 읽습니다.</dd>
+        </dl>
+        <b class="sh">참고</b>
+        <p class="src">버전이 어긋나면 다음 단계에서 열리지 않습니다</p>
+      </aside>
+      <div class="bd">
+      <h4>두 파일을 남깁니다</h4>
+      <p>학습을 마쳤으면 결과를 파일로 남깁니다. 두 개입니다.</p>
+      <table>
+        <tr><th style="width:170px">파일</th><th>담는 것</th></tr>
+        <tr><td class="nm">model.pkl</td><td>학습을 마친 모델 자체입니다. 다시 학습하지 않고 불러 씁니다</td></tr>
+        <tr><td class="nm">feature_spec.json</td><td>입력칸의 설계도입니다. 항목 이름 · 표시할 이름 · 종류 · 선택지를 담습니다</td></tr>
+      </table>
+      <p>두 파일은 02 폴더에 둡니다. 다음 단원에서 API 가 이 파일을 엽니다.</p>
+
+      <h4>입력 정의서가 하는 일</h4>
+      <p>이 파일 하나가 두 곳을 자동으로 만듭니다.
+         API 의 문서 화면과, 03 단원의 입력 폼입니다.
+         입력칸을 손으로 만들지 않는 이유가 여기에 있습니다.</p>
+      <p class="cc">정의서를 고치면 화면이 따라 바뀝니다.
+         바뀌지 않는다면 화면에 값을 박아 넣은 것이고, 그러면 감점됩니다.</p>
+
+      <h4>버전을 맞춥니다</h4>
+      <p>모델을 학습한 환경과 서비스하는 환경의 라이브러리 버전이 다르면 파일이 열리지 않습니다.
+         학습에 쓴 버전을 그대로 적어 둡니다.</p>
+      <p>버전이 어긋나면 02 단원에서 모델을 여는 순간 오류가 납니다.
+         원인을 찾기 어려운 축에 들어가니 지금 맞춰 두는 편이 낫습니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st10">
+      <h3><i>10</i>ML API 구현</h3>
+      <aside class="side">
+        <p class="pt">모델을 불러 쓰는 창구를 만듭니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">ML API (main · model · store)</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">② 03</p>
+        <b class="sh">용어</b>
+        <dl>
+          <dt>API</dt><dd>프로그램끼리 주고받는 창구입니다.</dd>
+          <dt>엔드포인트</dt><dd>주소 하나하나를 가리킵니다.</dd>
+          <dt>상태 확인</dt><dd>서비스가 살아 있는지 묻는 주소입니다.</dd>
+        </dl>
+      </aside>
+      <div class="bd">
+      <h4>왜 API 로 만드는가</h4>
+      <p>노트북 안에서만 돌면 다른 프로그램이 쓸 수 없습니다.
+         모델을 주소로 감싸 두면 화면이든 서버든 누구나 불러 쓸 수 있습니다.</p>
+      <p>모델은 서비스를 시작할 때 한 번만 불러옵니다.
+         요청마다 파일을 열면 느려집니다.</p>
+
+      <h4>만들 주소</h4>
+      <table>
+        <tr><th style="width:120px">주소</th><th style="width:80px">방식</th><th>하는 일</th></tr>
+        <tr><td class="nm">/health</td><td class="c">GET</td><td>서비스가 살아 있는지 답합니다</td></tr>
+        <tr><td class="nm">/spec</td><td class="c">GET</td><td>입력 정의서를 그대로 내려 줍니다. 화면이 이것을 읽습니다</td></tr>
+        <tr><td class="nm">/predict</td><td class="c">POST</td><td>입력을 받아 라벨과 확률을 돌려줍니다</td></tr>
+      </table>
+
+      <h4>파일을 나눕니다</h4>
+      <p>한 파일에 다 넣지 않습니다. 모델을 다루는 부분과 주소를 다루는 부분을 나누어 두면
+         뒤에서 고치기 쉽습니다.</p>
+      <ul>
+        <li>모델 로드와 예측 함수는 따로 둡니다. 예측 로직이 한 곳에만 있어야 합니다.</li>
+        <li>이력 저장소도 따로 둡니다. 다음 단원에서 씁니다.</li>
+        <li>주소를 붙이는 파일에서 이 둘을 불러 씁니다.</li>
+      </ul>
+
+      <figure>
+        <img src="../exam/dbms/img/sample1/02-1.png" alt="API 문서 화면">
+        <figcaption>주소를 만들면 문서가 자동으로 생깁니다. 여기에서 값을 넣어 바로 시험해 볼 수 있습니다.</figcaption>
+      </figure>
+
+      <h4>오류를 처리합니다</h4>
+      <p>없는 번호를 찾거나 형식이 틀린 요청이 오면 그에 맞는 응답을 돌려주어야 합니다.
+         처리하지 않으면 서비스가 그대로 멈춥니다.</p>
+      <p class="cc">채점에서 오류 처리를 봅니다. 없는 자원에 404 가 돌아오는지 확인하십시오.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st11">
+      <h3><i>11</i>예측 이력 CRUD</h3>
+      <aside class="side">
+        <p class="pt">예측한 것을 데이터베이스에 남기고 관리합니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">이력 CRUD 5개</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">② 04</p>
+        <b class="sh">용어</b>
+        <dl>
+          <dt>CRUD</dt><dd>생성 · 조회 · 수정 · 삭제입니다.</dd>
+          <dt>재예측</dt><dd>수정할 때 값만 바꾸지 않고 다시 맞히는 것입니다.</dd>
+        </dl>
+        <b class="sh">참고</b>
+        <p class="src">수정이 재예측되지 않으면 감점입니다</p>
+      </aside>
+      <div class="bd">
+      <h4>예측을 남깁니다</h4>
+      <p>예측만 하고 버리면 서비스가 아닙니다. 무엇을 넣어 무슨 답이 나왔는지를 남기고,
+         나중에 다시 보고 고치고 지울 수 있어야 합니다.</p>
+      <table>
+        <tr><th style="width:70px">동작</th><th style="width:130px">주소</th><th>하는 일</th></tr>
+        <tr><td class="nm">C</td><td class="c">POST</td><td>예측하고 그 결과를 저장합니다</td></tr>
+        <tr><td class="nm">R</td><td class="c">GET</td><td>저장된 이력을 목록으로 봅니다</td></tr>
+        <tr><td class="nm">U</td><td class="c">PUT</td><td>입력을 고치고 다시 예측해 결과를 갱신합니다</td></tr>
+        <tr><td class="nm">D</td><td class="c">DELETE</td><td>이력을 지웁니다</td></tr>
+      </table>
+
+      <h4>수정이 재예측이어야 하는 이유</h4>
+      <p>가장 자주 어긋나는 곳입니다. 수정은 값만 바꾸는 것이 아닙니다.
+         입력을 바꾸었으면 그 입력으로 <b>다시 예측</b>해 결과도 함께 바뀌어야 합니다.</p>
+      <figure>
+        <img src="../exam/dbms/img/sample1/03-8.png" alt="이력 수정 후">
+        <figcaption>입력을 고치자 결과가 뒤집혔습니다. 값만 덮어썼다면 결과는 그대로일 것입니다.</figcaption>
+      </figure>
+      <div class="ex"><span class="x">잘못</span>수정하면 입력칸의 값만 바뀌고 결과는 그대로입니다</div>
+      <div class="ex"><span class="o">좋음</span>수정하면 새 입력으로 다시 예측해 라벨과 확률이 함께 갱신됩니다</div>
+
+      <div class="try">
+        <b class="t">실습 · 네 동작 확인</b>
+        문서 화면에서 차례로 눌러 봅니다.
+        저장하고, 목록에서 보이는지 확인하고, 입력을 바꾸어 결과가 달라지는지 보고, 지웁니다.
+        마지막으로 없는 번호를 찾아 오류가 제대로 돌아오는지 확인합니다.
+        <p class="cc" style="margin-top:8px">다섯 가지가 모두 되면 채점표 ② 03 · 04 항목이 채워집니다.</p>
+      </div>
+      </div>
+    </div>
+
+    <div class="step" id="st12">
+      <h3><i>12</i>풀스택 통합과 인증</h3>
+      <aside class="side">
+        <p class="pt">화면 · 서버 · ML 을 한 번에 기동합니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">통합 구동</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">② 05</p>
+        <b class="sh">용어</b>
+        <dl>
+          <dt>중계</dt><dd>서버가 대신 받아 ML 에 넘기는 구조입니다.</dd>
+          <dt>자동 생성</dt><dd>입력 정의서를 읽어 폼을 그리는 것입니다.</dd>
+          <dt>인증</dt><dd>로그인해야 쓸 수 있게 하는 장치입니다.</dd>
+        </dl>
+        <b class="sh">참고</b>
+        <p class="src">인증 코드는 템플릿 그대로 둡니다</p>
+      </aside>
+      <div class="bd">
+      <h4>템플릿에서 만들 것</h4>
+      <p>03 단계는 처음부터 만들지 않습니다. 화면과 서버, 데이터베이스, 캐시가 들어 있는 템플릿이 제공됩니다.
+         여러분이 만들 것은 <b>ML 을 연결하는 부분 둘</b> 뿐입니다.</p>
+      <table>
+        <tr><th style="width:150px">이미 있는 것</th><th>만들 것</th></tr>
+        <tr><td class="nm">회원가입 · 로그인</td>
+            <td rowspan="4">서버의 예측 중계 부분<br>화면의 예측 페이지</td></tr>
+        <tr><td class="nm">데이터베이스 · 캐시</td></tr>
+        <tr><td class="nm">화면 뼈대와 경로</td></tr>
+        <tr><td class="nm">인증 설정</td></tr>
+      </table>
+      <p class="cc"><b>인증 코드는 고치지 마십시오.</b>
+         템플릿의 인증 설정을 그대로 두는 것이 요건입니다. 고치면 감점됩니다.</p>
+
+      <h4>컨테이너를 하나로 묶습니다</h4>
+      <p>구성 파일에 ML 서비스를 더하고, 서버가 ML 을 찾을 수 있게 주소를 연결합니다.
+         그러면 명령 한 번으로 다섯이 함께 뜹니다.</p>
+      <p class="cc">데이터베이스 · 캐시 · ML · 서버 · 화면</p>
+
+      <h4>서버는 중계만 합니다</h4>
+      <p>서버가 예측을 직접 하지 않습니다. 받은 요청을 ML 로 넘기고 답을 그대로 돌려줍니다.
+         이 구조라면 모델을 바꾸어도 서버를 고치지 않아도 됩니다.</p>
+      <p>대신 서버를 거치므로 <b>로그인한 사람만 예측할 수 있습니다.</b>
+         인증이 걸린 경로 아래에 두는 것이 요건입니다.</p>
+      <figure>
+        <img src="../exam/dbms/img/sample1/03-3.png" alt="로그인 화면">
+        <figcaption>로그인하지 않으면 예측 화면으로 갈 수 없어야 합니다.</figcaption>
+      </figure>
+
+      <h4>화면은 정의서를 보고 그립니다</h4>
+      <p>예측 화면은 입력칸을 스스로 만들지 않습니다.
+         9단원에서 만든 입력 정의서를 받아 와서 그 내용대로 폼을 그립니다.</p>
+      <p>항목이 여덟 개면 여덟 칸이 생기고, 선택지가 있으면 드롭다운이 됩니다.
+         정의서를 고치면 화면이 따라 바뀝니다.</p>
+      <p class="cc">입력칸을 코드에 박아 넣으면 채점표 ② 05 항목이 미흡으로 내려갑니다.
+         정의서를 한 항목 지워 보고 화면이 따라 줄어드는지로 확인하십시오.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 4 · 점검</b><span>동작 검증과 제출</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st13">
+      <h3><i>13</i>동작 검증과 결과 해석</h3>
+      <aside class="side">
+        <p class="pt">동작을 확인하고 결과를 데이터로 설명합니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">실행화면 캡처</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">② 05</p>
+        <b class="sh">용어</b>
+        <dl>
+          <dt>동작 검증</dt><dd>만든 것이 실제로 도는지 확인하는 일입니다.</dd>
+          <dt>결과 해석</dt><dd>예측값을 앞서 찾은 인사이트로 설명하는 일입니다.</dd>
+        </dl>
+      </aside>
+      <div class="bd">
+      <h4>순서대로 확인합니다</h4>
+      <p>전부 기동한 뒤에 처음부터 끝까지 한 번 지나갑니다.
+         각 지점에서 화면을 캡처합니다. 이 캡처가 제출물이 됩니다.</p>
+      <table>
+        <tr><th style="width:56px">순서</th><th style="width:170px">확인</th><th>캡처할 것</th></tr>
+        <tr><td class="c">1</td><td class="nm">기동</td><td>컨테이너 다섯 개가 모두 떠 있는 상태</td></tr>
+        <tr><td class="c">2</td><td class="nm">회원가입 · 로그인</td><td>로그인 화면과 로그인 후 화면</td></tr>
+        <tr><td class="c">3</td><td class="nm">예측 폼</td><td>입력칸이 자동으로 그려진 화면</td></tr>
+        <tr><td class="c">4</td><td class="nm">예측과 저장</td><td>결과와 확률, 그리고 아래 쌓인 이력 표</td></tr>
+        <tr><td class="c">5</td><td class="nm">수정</td><td>입력을 바꾸어 결과가 달라진 화면</td></tr>
+        <tr><td class="c">6</td><td class="nm">삭제</td><td>지운 뒤의 목록</td></tr>
+      </table>
+      <figure>
+        <img src="../exam/dbms/img/sample1/03-9.png" alt="삭제 후 목록">
+        <figcaption>지운 뒤에도 목록이 정상으로 유지되는지 확인합니다.</figcaption>
+      </figure>
+
+      <h4>결과를 해석합니다</h4>
+      <p>여기가 마지막 채점 항목입니다. 화면이 도는 것만으로는 부족합니다.
+         나온 예측을 <b>6단원에서 찾은 인사이트로 설명</b>해야 합니다.</p>
+      <p>위험이 높게 나올 조건과 낮게 나올 조건을 각각 하나씩 넣어 보고,
+         예측 확률이 예상대로 갈리는지 확인합니다.</p>
+      <div class="ex"><span class="x">잘못</span>예측이 잘 되었습니다. 확률은 0.9087 입니다</div>
+      <div class="ex"><span class="o">좋음</span>6단원에서 방화와 새벽 시간대, 주거지의 양성비율이 높다고 확인했습니다.
+        이 조건을 넣으니 0.9087 이 나왔고, 반대로 야외 쓰레기 화재는 0.0113 으로 갈렸습니다.
+        진단이 모델에서도 확인되었습니다</div>
+      <p class="cc">이 대조가 있으면 우수, 수치만 나열하면 보통입니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st14">
+      <h3><i>14</i>자가 점검</h3>
+      <aside class="side">
+        <p class="pt">강사가 보는 채점 기준 그대로 스스로 켜 봅니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">해당 없음</p>
+        <b class="sh">용어</b>
+        <dl>
+          <dt>합격선</dt><dd>100점 만점에 60점입니다.</dd>
+        </dl>
+      </aside>
+      <div class="bd">
+      <h4>강사가 보는 기준 그대로</h4>
+      <p>아래는 실제 채점표입니다. 하나씩 확인하고 채워지지 않은 것을 메웁니다.</p>
+
+      <h4>공공데이터 융합 기초 · 30점</h4>
+      <div class="q">
+        <b class="t">확인 학습</b>
+        <ol class="qa">
+          <li>포털에서 받은 행 단위 CSV 이고, 출처 · 제공기관 · 건수 · 이용허락범위를 적었습니까. <b>(6점)</b></li>
+          <li>행과 열의 규모, 각 컬럼의 유형과 척도를 파악해 분석 가능 여부를 판단했습니까. <b>(6점)</b></li>
+          <li>결측치 건수, 범주 개수, 표기 불일치, 희소 범주를 수치로 제시했습니까. <b>(6점)</b></li>
+          <li>이진 타겟을 정의하고 그 기준을 근거와 함께 서술했습니까. <b>(6점)</b></li>
+          <li>누수 컬럼을 식별해 제외하고, 남긴 변수의 선정 근거를 적었습니까. <b>(6점)</b></li>
+        </ol>
+      </div>
+
+      <h4>공공데이터 융합 DBMS 구축 · 70점</h4>
+      <div class="q">
+        <b class="t">확인 학습</b>
+        <ol class="qa">
+          <li>정제 · 가공하고 클래스 분포를 지켜 8 대 2 로 나눈 뒤 학습시켰습니까.
+            네 지표를 출력하고 지표 선택의 근거를 적었습니까. <b>(14점)</b></li>
+          <li>모델과 입력 정의서를 규격대로 저장했습니까. 학습 환경과 서비스 환경의 버전이 같습니까. <b>(14점)</b></li>
+          <li>상태 확인 · 입력 정의 · 예측 세 주소가 동작하고 라벨과 확률을 돌려줍니까.
+            없는 자원에 오류가 돌아옵니까. <b>(14점)</b></li>
+          <li>이력의 생성 · 조회 · 수정 · 삭제가 모두 되고, 수정 시 재예측됩니까. <b>(14점)</b></li>
+          <li>다섯 컨테이너가 한 번에 뜨고, 로그인해야 예측되며, 입력 폼이 자동으로 그려집니까. <b>(14점)</b></li>
+        </ol>
+      </div>
+
+      <p class="cc">전부 켜지면 100점입니다. 합격선은 60점입니다.
+         켜지지 않는 항목이 있으면 그 단원으로 돌아갑니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st15">
+      <h3><i>15</i>제출</h3>
+      <aside class="side">
+        <p class="pt">세 가지를 모두 냅니다. 하나라도 빠지면 근거가 사라집니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">PPT · 소스 01/02/03 · 저장소 링크</p>
+        <b class="sh">용어</b>
+        <dl>
+          <dt>제출 형식</dt><dd>PPT 와 소스 폴더, 저장소 링크입니다.</dd>
+        </dl>
+      </aside>
+      <div class="bd">
+      <h4>세 가지를 냅니다</h4>
+      <table>
+        <tr><th style="width:56px">번호</th><th style="width:150px">제출물</th><th>담을 것</th></tr>
+        <tr><td class="c">①</td><td class="nm">PPT</td>
+            <td>실행화면 캡처를 포함합니다. 13단원의 여섯 지점을 순서대로 넣습니다</td></tr>
+        <tr><td class="c">②</td><td class="nm">소스 폴더</td>
+            <td>01 · 02 · 03 세 폴더를 그대로 냅니다</td></tr>
+        <tr><td class="c">③</td><td class="nm">저장소 링크</td>
+            <td>GitHub 주소. 공개 범위를 확인하고 냅니다</td></tr>
+      </table>
+      <p><b>링크만 내지 마십시오.</b> 권한이 바뀌거나 저장소를 지우면 평가할 것이 남지 않습니다.
+         캡처는 반드시 파일 안에 넣어 냅니다.</p>
+
+      <h4>제출 전에 확인할 것</h4>
+      <ul>
+        <li>모델 파일과 입력 정의서가 02 폴더에 들어 있습니까.</li>
+        <li>설치 목록의 버전이 학습에 쓴 버전과 같습니까.</li>
+        <li>인증 관련 코드를 건드리지 않았습니까.</li>
+        <li>예시 데이터가 아니라 조에서 직접 고른 데이터입니까.</li>
+        <li>문제지에 적은 값이 가이드의 값이 아니라 본인 화면에 나온 값입니까.</li>
+      </ul>
+
+      <div class="try">
+        <b class="t">실습 · 작성한 내용의 보관</b>
+        학생 제출용 문제지에 입력한 내용은 그 브라우저에만 저장됩니다.
+        다른 PC 에서는 이어지지 않고, 브라우저 기록을 지우면 사라집니다.
+        작성이 끝나면 답안 전체 복사 또는 인쇄 · PDF 저장으로 반드시 남겨 두시기 바랍니다.
+      </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<h2 class="sec" id="g3">3. 주요 감점 요인</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">여기 적힌 것만 피해도 합격선은 넘습니다.</p>
+    <b class="sh">합격선</b>
+    <p class="v">100점 만점에 60점</p>
+    <b class="sh">참고</b>
+    <p class="src">평가도구 채점표</p>
+  </aside>
+  <div class="bd">
+<table class="wide">
+  <tr><th style="width:80px">항목</th><th>이런 경우</th><th style="width:80px">잃는 점수</th></tr>
+  <tr><td class="c">① 01</td><td>출처와 이용허락범위를 적지 않은 경우. 가장 자주 나옵니다</td><td class="c">6</td></tr>
+  <tr><td class="c">① 03</td><td>품질 문제를 문장으로만 쓰고 수치를 적지 않은 경우</td><td class="c">6</td></tr>
+  <tr><td class="c">① 05</td><td>누수 컬럼이 독립변수에 남아 있는 경우. 성능이 지나치게 높으면 의심합니다</td><td class="c">6</td></tr>
+  <tr><td class="c">② 01</td><td>층화 분할 없이 나눈 경우. 지표 선택의 근거가 없는 경우</td><td class="c">14</td></tr>
+  <tr><td class="c">② 02</td><td>모델만 저장하고 입력 정의서가 없는 경우. 버전이 어긋난 경우</td><td class="c">14</td></tr>
+  <tr><td class="c">② 04</td><td>수정이 값만 덮어쓰고 재예측되지 않는 경우</td><td class="c">14</td></tr>
+  <tr><td class="c">② 05</td><td>입력칸을 코드에 박아 넣은 경우. 인증 없이 예측이 되는 경우</td><td class="c">14</td></tr>
+</table>
+<div class="note">
+  이 평가는 아는 것을 묻지 않고 만든 것을 봅니다.
+  개념은 산출물을 만들 때 판단 기준으로 쓰시고, 시간은 레벨 2와 3에 배분하시기 바랍니다.
+  작성 중 판단이 어려우면 각 단계의 상세가이드를 확인하시기 바랍니다.
+</div>
+  </div>
+</div>
+
+<footer>
+  공공데이터 융합 DBMS 구축 / 7수준 · 문제해결시나리오 (100점) · 담당 정우균<br>
+  내용과 절차는 작업지시서와 상세가이드 01 · 02 · 03, 평가도구(내부평가 채점기준)를 따랐습니다.
+  실행화면은 완성 예시(SAMPLE_1)를 캡처한 것이며, 본인이 고른 데이터에서는 항목과 수치가 다릅니다.
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"],a[href="#g3"]'));
+  var tgt = links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });
+
+  function mark(){
+    var y = window.pageYOffset + 90, cur = -1;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function(a, i){ a.className = (i === cur) ? 'on' : ''; });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function(){
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function(){ mark(); tick = false; });
+  });
+  mark();
+
+  btn.addEventListener('click', function(){ nav.classList.toggle('open'); });
+  nav.addEventListener('click', function(e){
+    if (e.target.closest('a')) nav.classList.remove('open');
+  });
+})();
+</script>

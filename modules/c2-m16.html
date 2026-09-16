@@ -73,7 +73,6 @@
 
   var adm = EXAM_AUTH.isAdmin();
   document.body.classList.toggle('admin', adm);
-  var SRC = window.CM_SRC;
 
   /* 1. 평가 자료 */
   var items = (window.CM_ITEMS || {})[MID] || [];
@@ -82,8 +81,7 @@
     ? vis.map(function(it){
         return card(esc(it.title) + (it.adm ? '<span class="tag">강사용</span>' : ''),
           it.desc, it.meta,
-          '<a class="btn" href="' + SRC + encodeURI(it.link) + '" target="_blank" rel="noopener">' +
-          esc(it.btn || '열기') + '</a>');
+          '<a class="btn" href="' + encodeURI(it.link) + '">' + esc(it.btn || '열기') + '</a>');
       }).join('')
     : '<div class="empty">평가 자료가 아직 등록되지 않았습니다.</div>';
 
@@ -92,8 +90,8 @@
   document.getElementById('guideCards').innerHTML = g
     ? card(esc(g) + ' 준비 교안',
         '평가를 처음 준비한다면 여기부터. 알아야 할 개념과 실습 순서를 난이도 4레벨로 정리했습니다.',
-        [['형태', '단계별 지도안 (도입 → 전개 → 정리)'], ['위치', '원본 사이트 NCS_EXAM_PAGE']],
-        '<a class="btn" href="' + SRC + '/guides/' + MID + '.html" target="_blank" rel="noopener">준비 교안 열기</a>')
+        [['형태', '단계별 지도안 (도입 → 전개 → 정리)'], ['난이도', '4레벨 구성']],
+        '<a class="btn" href="../guides/' + MID + '.html">준비 교안 열기</a>')
     : '<div class="empty">준비 교안이 없습니다.</div>';
 
   /* 3. 표준 강의 교안 6개 시트 */

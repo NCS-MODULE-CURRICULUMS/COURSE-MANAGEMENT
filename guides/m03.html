@@ -1,0 +1,1006 @@
+<meta charset="utf-8"><title>화면 구현 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<style>
+  /* 이 교안에만 있는 것 — 코드 보기 */
+  .bd pre{margin:14px 0;font-family:Consolas,"D2Coding",monospace;font-size:13px;
+          line-height:1.75;border:1px solid #ccc;border-left:3px solid #000;
+          padding:13px 16px;background:#fafafa;overflow-x:auto;white-space:pre}
+  .bd pre b{background:#e6e6e6;font-weight:700}
+  .bd pre i{font-style:normal;color:#777}
+  .bd code{font-family:Consolas,"D2Coding",monospace;font-size:14px;
+           background:#f2f2f2;padding:1px 5px}
+  aside.side code{font-family:Consolas,monospace;font-size:11px;background:#f2f2f2;padding:0 3px}
+</style>
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small><a href="../courses/c2.html">능력단위 모듈 목록</a> / <a href="../modules/c2-m03.html">화면 구현</a> / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">준비</i>
+  <a href="#st1"><b>1</b><span>완성 산출물의 확인</span></a>
+  <a href="#st2"><b>2</b><span>역할 나누기와 파일 구조</span></a>
+  <a href="#st3"><b>3</b><span>스타일가이드를 CSS 변수로</span></a>
+  <i class="qg">설계 확인</i>
+  <a href="#st4"><b>4</b><span>화면과 폼 흐름 확인</span></a>
+  <a href="#st5"><b>5</b><span>메뉴 구조 해석</span></a>
+  <a href="#st6"><b>6</b><span>내 · 외부 화면과 폼 확인</span></a>
+  <i class="qg">골격</i>
+  <a href="#st7"><b>7</b><span>레이아웃과 태그</span></a>
+  <a href="#st8"><b>8</b><span>그리드</span></a>
+  <a href="#st9"><b>9</b><span>로고와 GNB 드롭다운</span></a>
+  <a href="#st10"><b>10</b><span>버튼과 푸터</span></a>
+  <i class="qg">구현</i>
+  <a href="#st11"><b>11</b><span>메인페이지</span></a>
+  <a href="#st12"><b>12</b><span>서브페이지</span></a>
+  <a href="#st13"><b>13</b><span>흐름 구현</span></a>
+  <a href="#st14"><b>14</b><span>정책과 UI 기능정의</span></a>
+  <i class="qg">검사</i>
+  <a href="#st15"><b>15</b><span>W3C 표준 검사</span></a>
+  <a href="#st16"><b>16</b><span>자가 점검과 제출</span></a>
+  <i class="qg">감점</i>
+  <a href="#g3"><b>!</b><span>주요 감점 요인</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>화면 구현 — 준비 교안</h1>
+<p class="sub">능력단위 화면 구현 (2001020225_23v6) / 3수준 · 평가방법 포트폴리오 (100점)</p>
+
+<!-- ═══════ 0 ═══════ -->
+<h2 class="sec" id="g0">0. 제출물의 구성과 배점</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">앞 두 교과의 문서를 실제로 동작하는 쪽으로 옮깁니다.</p>
+    <b class="sh">제출 형식</b>
+    <p class="v">코드 + 검사 결과 + 업무 PPT</p>
+    <b class="sh">참고</b>
+    <p class="src">작업지시서</p>
+  </aside>
+  <div class="bd">
+<p>이 교과는 앞 교과에서 만든 스타일가이드와 스토리보드를 <b>HTML 과 CSS 로 옮기는</b> 일을 다룹니다.
+   새로 기획하는 것이 없습니다. 채점은 대부분 「앞 문서와 같은가」 를 봅니다.</p>
+<table class="wide">
+  <tr><th style="width:52px">묶음</th><th style="width:200px">무엇을 보는가</th>
+      <th>채점 항목</th><th style="width:56px">배점</th></tr>
+  <tr><td class="c">①</td><td>스타일가이드대로 만들었는가</td>
+      <td>레이아웃 · GNB 드롭다운 · 로고 · 푸터 · 버튼 · 그리드 (각 5점)</td><td class="c">30</td></tr>
+  <tr><td class="c">②</td><td>W3C 표준을 지켰는가</td>
+      <td>HTML 검사 통과 10점 · CSS 검사 통과 10점</td><td class="c">20</td></tr>
+  <tr><td class="c">③</td><td>스토리보드대로 동작하는가</td>
+      <td>메뉴구조 · 정책 · UI 기능정의 · 로그인 흐름 · 쪽 이동 (각 10점)</td><td class="c">50</td></tr>
+</table>
+<p>쪽은 <b>조원 수만큼</b> 필요합니다. 조장이 메인페이지를, 조원이 서브페이지를 하나씩 맡습니다.
+   누가 무엇을 맡았는지는 업무 내용 PPT 에 적어 냅니다.</p>
+
+<div class="warn">
+  배점의 절반이 <b>③ 스토리보드대로 동작하는가</b> 에 있습니다.
+  화면을 보기 좋게 만드는 데 시간을 다 쓰고 링크를 <code>#</code> 으로 남겨 두면
+  50점 가운데 20점(로그인 흐름 · 쪽 이동)이 그대로 날아갑니다.
+</div>
+  </div>
+</div>
+
+<!-- ═══════ 1 ═══════ -->
+<h2 class="sec" id="g1">1. 화면 구현의 범위</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">설계를 읽는 일과 그것을 옮기는 일, 둘로 나뉩니다.</p>
+    <b class="sh">능력단위요소</b>
+    <p class="v">UI 설계 확인하기 · UI 구현하기</p>
+    <b class="sh">앞 교과</b>
+    <p class="v">화면 설계 · UI 디자인</p>
+  </aside>
+  <div class="bd">
+<p>세 교과가 이어집니다. 화면 설계에서 무엇을 만들지 정했고,
+   UI 디자인에서 그것을 남에게 넘길 수 있는 문서로 만들었습니다.
+   이 교과는 그 문서를 받아 <b>실제로 열리는 쪽</b>으로 옮깁니다.</p>
+
+<dl>
+  <dt>UI 설계 확인하기</dt>
+  <dd>넘겨받은 설계를 읽고 구현에 옮길 수 있는 상태인지 확인하는 단계입니다.
+      화면과 폼의 흐름, 메뉴 구조, 내 · 외부 화면과 폼을 차례로 확인합니다.
+      이 단계에서 설계의 빈 곳을 찾아 두지 않으면 구현 도중에 멈추게 됩니다.</dd>
+  <dt>UI 구현하기</dt>
+  <dd>확인한 설계를 코드로 옮기는 단계입니다.
+      표준과 지침을 지켜 마크업하고, 접근성과 사용 편의를 고려해 흐름을 구현하고,
+      구현한 것을 테스트할 조건을 적습니다.</dd>
+</dl>
+
+<p>구현이라는 말 때문에 자바스크립트로 서버와 주고받는 일까지 떠올리기 쉽습니다.
+   이 교과의 범위는 거기까지 가지 않습니다.
+   <b>화면이 스토리보드대로 보이고, 눌렀을 때 스토리보드대로 이동하면</b> 됩니다.</p>
+  </div>
+</div>
+
+<!-- ═══════ 2 ═══════ -->
+<h2 class="sec" id="g2">2. 산출물 작성 실습</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">레벨 1부터 5까지 따라가면 쪽이 완성됩니다.</p>
+    <b class="sh">시간</b>
+    <p class="v">레벨 3과 4에 몰아 씁니다</p>
+    <b class="sh">예제</b>
+    <p class="v">공공 체육시설 예약 서비스</p>
+  </aside>
+  <div class="bd">
+<p>다섯 단계로 나누었습니다. 예제는 앞 교과와 같은
+   <b>공공 체육시설 예약 서비스</b> 이며, 앞 교과에서 만든 스토리보드를 그대로 이어 씁니다.</p>
+<p>레벨 3까지는 조원이 <b>함께</b> 합니다. 공통 골격을 한 번 만들어 모두가 나눠 쓰는 것이
+   이 교과에서 점수를 지키는 방법입니다. 레벨 4부터 각자 맡은 쪽을 만듭니다.</p>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 1 · 준비</b><span>역할 · 파일 구조 · 공통 값</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st1">
+      <h3><i>1</i>완성 산출물의 확인</h3>
+      <aside class="side">
+        <p class="pt">무엇을 내면 점수가 되는지 먼저 봅니다.</p>
+        <b class="sh">내는 것</b>
+        <p class="v">코드 · 검사 결과 · 업무 PPT</p>
+        <b class="sh">참고</b>
+        <p class="src">평가도구 작업지시서</p>
+      </aside>
+      <div class="bd">
+<p>제출물은 셋입니다. 코드만 내고 나머지를 빠뜨리는 조가 매 기수 나옵니다.</p>
+<table class="wide">
+  <tr><th style="width:56px">No</th><th style="width:180px">제출물</th><th>내용</th></tr>
+  <tr><td class="c">1</td><td>구현 코드</td>
+      <td>메인페이지 1 + 서브페이지 (조원 수만큼) + css + img</td></tr>
+  <tr><td class="c">2</td><td>검사 결과 캡처</td>
+      <td>HTML 검사 · CSS 검사 결과 화면. 쪽마다 찍습니다</td></tr>
+  <tr><td class="c">3</td><td>업무 내용 PPT</td>
+      <td>누가 어느 쪽을 맡았고 무엇을 했는지. 쪽별 화면 캡처를 함께 넣습니다</td></tr>
+</table>
+<p>업무 내용 PPT 는 채점 항목에 직접 걸려 있지 않으나,
+   작업지시서가 「각 역할별로 업무 내용을 PPT 에 포함시킵니다」 라고 못 박고 있습니다.
+   빠지면 제출물 미비로 처리됩니다.</p>
+
+<h4>이 교과에서 새로 정하는 것은 없습니다</h4>
+<p>채점 항목 13개 가운데 11개가 「스타일가이드에 맞게」 또는 「스토리보드에 맞게」 로 시작합니다.
+   나머지 둘은 W3C 표준 검사입니다. 즉 <b>무엇을 만들지 고민할 자리가 없습니다.</b></p>
+<p>그래서 이 교과에서 시간을 잃는 자리는 대체로 둘입니다.
+   앞 문서를 열어 보지 않고 기억으로 만들다가 어긋나는 경우,
+   그리고 앞 문서에 적혀 있지 않은 것을 새로 정하느라 멈추는 경우입니다.</p>
+<p>앞 문서에 없는 값(이를테면 카드의 모서리 둥글기)을 만나면
+   그 자리에서 정하고 <b>스타일가이드에도 적어 둡니다</b>.
+   그러면 다음에 같은 값이 필요할 때 조원끼리 어긋나지 않습니다.</p>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  앞 교과에서 낸 스타일가이드와 스토리보드를 열어 한 화면에 띄워 두십시오.
+  이 교과의 작업은 처음부터 끝까지 그 두 문서를 옆에 놓고 합니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>역할 나누기와 파일 구조</h3>
+      <aside class="side">
+        <p class="pt">공용 파일을 먼저 정하고 각자 쪽을 맡습니다.</p>
+        <b class="sh">조장</b>
+        <p class="v">메인페이지</p>
+        <b class="sh">조원</b>
+        <p class="v">서브페이지 각 1개</p>
+        <b class="sh">공용</b>
+        <p class="v"><code>css/common.css</code></p>
+      </aside>
+      <div class="bd">
+<h4>파일 구조</h4>
+<p>폴더를 먼저 만들고 시작합니다. 나중에 옮기면 CSS 와 이미지 경로가 전부 깨집니다.</p>
+
+<figure>
+  <img src="img/hc_tree.png" alt="project 폴더 아래 index.html, sub 폴더의 서브페이지 네 개, css 폴더의 common.css 와 page.css, img 폴더를 보인 파일 구조와 각 경로의 쓰임을 적은 표.">
+  <figcaption>파일과 폴더 구조. 서브페이지는 <code>sub/</code> 아래에 모읍니다.
+    파일 이름에 한글과 빈칸을 쓰면 서버에 올렸을 때 열리지 않습니다.</figcaption>
+</figure>
+
+<h4>역할 나누기</h4>
+<p>작업지시서가 <b>조장은 메인페이지, 조원은 서브페이지</b>로 정해 두었습니다.
+   서브페이지는 조원 수만큼 필요하므로, 어느 화면을 누가 맡을지 스토리보드를 보고 정합니다.</p>
+<table class="wide">
+  <tr><th style="width:100px">역할</th><th style="width:170px">맡는 쪽</th><th>고르는 기준</th></tr>
+  <tr><td class="nm">조장</td><td><code>index.html</code></td>
+      <td>공통 골격(헤더 · GNB · 푸터)을 함께 만들어 조원에게 넘깁니다</td></tr>
+  <tr><td class="nm">조원 1</td><td><code>sub/facility.html</code></td>
+      <td>목록 화면 — 카드나 표가 있는 쪽</td></tr>
+  <tr><td class="nm">조원 2</td><td><code>sub/reserve.html</code></td>
+      <td>입력 화면 — 폼과 버튼이 있는 쪽</td></tr>
+  <tr><td class="nm">조원 3</td><td><code>sub/login.html</code></td>
+      <td>로그인 — 흐름 채점(③ 04)이 걸리는 쪽</td></tr>
+</table>
+<p>로그인 쪽은 반드시 누군가 맡아야 합니다. 채점 항목 ③ 04 가
+   <b>「프로토타입의 흐름과 일치하게 로그인 화면 흐름을 구현하였는가」</b> 를 봅니다. 10점입니다.</p>
+
+<div class="q">
+  <b class="t">확인</b>
+  <ol class="qa">
+    <li>조원 수와 서브페이지 수가 같습니까.</li>
+    <li>로그인 쪽을 맡은 사람이 있습니까.</li>
+    <li>공용 CSS 파일 하나를 정했습니까. 누가 그 파일을 고칠지도 정해 둡니다.</li>
+  </ol>
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st3">
+      <h3><i>3</i>스타일가이드를 CSS 변수로 옮기기</h3>
+      <aside class="side">
+        <p class="pt">색과 크기를 한 곳에만 적습니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ① 전체</p>
+        <b class="sh">파일</b>
+        <p class="v"><code>css/common.css</code></p>
+      </aside>
+      <div class="bd">
+<h4>변수를 쓰는 이유</h4>
+<p>채점 항목 ① 여섯 개가 모두 <b>「스타일 가이드에 맞게」</b> 로 시작합니다.
+   조원이 각자 눈대중으로 색을 맞추면 쪽마다 조금씩 달라지고, 그 차이가 그대로 감점이 됩니다.
+   색 값을 한 곳에 적고 나머지는 그것을 불러 쓰면 어긋날 자리가 없어집니다.</p>
+
+<figure>
+  <img src="img/hc_var.png" alt="CSS 의 :root 에 색 다섯 가지와 글자 크기, 여백을 변수로 선언하고 버튼에서 var() 로 불러 쓰는 코드와, 스타일가이드 항목별 색 값과 변수 이름을 짝지은 표.">
+  <figcaption>스타일가이드를 CSS 변수로 옮긴 모습.
+    <code>:root</code> 에 한 번만 적고 나머지는 <code>var()</code> 로 부릅니다.</figcaption>
+</figure>
+
+<h4>옮기는 순서</h4>
+<div class="draw">
+  <b class="n">1단계 · common.css 를 만들고 맨 위에 :root 를 씁니다</b>
+  이 파일을 모든 쪽에서 불러 쓰게 됩니다.
+</div>
+<div class="draw">
+  <b class="n">2단계 · 스타일가이드의 색을 그대로 옮겨 적습니다</b>
+  눈으로 비슷하게 맞추지 말고 여섯 자리 값을 복사합니다.
+  스타일가이드에 값이 적혀 있지 않으면 지금 정해서 스타일가이드에도 적어 둡니다.
+</div>
+<div class="draw">
+  <b class="n">3단계 · 글자 크기와 여백도 변수로 만듭니다</b>
+  본문 · 작은 글 · 여백 세 가지면 충분합니다.
+</div>
+<div class="draw">
+  <b class="n">4단계 · 조원에게 파일을 돌립니다</b>
+  이 시점 이후 색 값을 직접 적는 사람이 없어야 합니다.
+</div>
+
+<p class="ex"><span class="x">감점</span> 쪽마다 <code>#1B4D3E</code> 와 <code>#1F5A48</code> 이 섞여 있음</p>
+<p class="ex"><span class="o">권함</span> <code>var(--c-primary)</code> 하나만 씁니다</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 2 · 설계 확인</b><span>능력단위요소 ① · 구현 전에 설계를 읽습니다</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st4">
+      <h3><i>4</i>화면과 폼 흐름 확인</h3>
+      <aside class="side">
+        <p class="pt">스토리보드의 흐름도를 코드로 옮길 수 있는 형태로 바꿔 둡니다.</p>
+        <b class="sh">근거</b>
+        <p class="src">수행준거 1.1</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ③ 04 · 05</p>
+      </aside>
+      <div class="bd">
+<p>앞 교과의 화면 흐름도는 화면 이름으로 그려져 있습니다.
+   구현하려면 그것을 <b>파일 이름</b>으로 바꿔야 합니다.
+   이 옮겨 적기를 먼저 해 두면 나중에 링크를 고민하지 않아도 됩니다.</p>
+
+<figure>
+  <img src="img/hc_flow.png" alt="사용자가 하는 다섯 가지 동작에 대해 실제 구현(파일 경로와 클래스)과 스토리보드의 대응 자리를 짝지은 표.">
+  <figcaption>흐름 구현과 스토리보드의 대조.
+    흐름도의 화살표 하나가 <code>href</code> 하나가 됩니다.</figcaption>
+</figure>
+
+<h4>흐름도를 파일 이름으로 바꾸는 표</h4>
+<p>아래 표를 조별로 하나 만들어 두고 시작합니다.
+   구현 중에 「이 버튼 어디로 보내지」 하고 멈추는 일이 없어집니다.</p>
+<table class="wide">
+  <tr><th style="width:110px">SCREEN ID</th><th style="width:130px">화면명</th>
+      <th style="width:180px">파일</th><th style="width:80px">담당</th><th>들어오는 자리</th></tr>
+  <tr><td class="nm">MAIN-001</td><td>메인</td><td><code>index.html</code></td><td>조장</td>
+      <td>로고 · 첫 화면</td></tr>
+  <tr><td class="nm">FACL-001</td><td>시설 목록</td><td><code>sub/facility.html</code></td><td>조원 1</td>
+      <td>GNB 「시설 안내」</td></tr>
+  <tr><td class="nm">RESV-001</td><td>예약 신청</td><td><code>sub/reserve.html</code></td><td>조원 2</td>
+      <td>메인 카드의 「예약하기」</td></tr>
+  <tr><td class="nm">LOGN-001</td><td>로그인</td><td><code>sub/login.html</code></td><td>조원 3</td>
+      <td>유틸 「로그인」 · 예약 신청의 판단</td></tr>
+</table>
+<p>「들어오는 자리」 칸이 중요합니다. 아무 데서도 들어오지 않는 쪽은
+   만들어도 채점자가 찾지 못합니다.</p>
+
+<h4>확인할 것</h4>
+<ul>
+  <li>흐름도의 화면마다 맡을 사람과 파일 이름이 정해졌는가</li>
+  <li>판단(로그인 여부 · 권한)이 나오는 자리가 몇 군데인가</li>
+  <li>되돌아오는 선이 있는가. 있으면 어디로 되돌아오는가</li>
+  <li>흐름도에는 있는데 아무도 맡지 않은 화면이 있는가</li>
+</ul>
+<p>마지막 항목이 자주 걸립니다. 조원이 넷인데 흐름도의 화면이 여섯이면
+   둘은 만들어지지 않습니다. 그 자리에서 흐름이 끊기므로 미리 정해 둡니다.
+   맡지 않을 화면은 링크를 걸지 않고 <b>메뉴에서도 뺍니다</b>.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st5">
+      <h3><i>5</i>메뉴 구조 해석</h3>
+      <aside class="side">
+        <p class="pt">메뉴 구조도를 GNB 목록으로 바꿉니다.</p>
+        <b class="sh">근거</b>
+        <p class="src">수행준거 1.2</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ① 02 · ③ 01</p>
+      </aside>
+      <div class="bd">
+<p>메뉴 구조도의 대메뉴가 GNB 항목이 되고, 하위 메뉴가 드롭다운 항목이 됩니다.
+   구조도를 그대로 목록 태그로 옮기면 마크업이 저절로 만들어집니다.</p>
+
+<pre>&lt;nav&gt;
+  &lt;ul class="gnb"&gt;
+    &lt;li&gt;&lt;a href="/sub/facility.html"&gt;시설 안내&lt;/a&gt;
+      <b>&lt;ul class="drop"&gt;</b>
+        &lt;li&gt;&lt;a href="/sub/facility.html"&gt;시설 목록&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href="/sub/facility.html#detail"&gt;시설 상세&lt;/a&gt;&lt;/li&gt;
+      <b>&lt;/ul&gt;</b>
+    &lt;/li&gt;
+    &lt;li&gt;&lt;a href="/sub/reserve.html"&gt;예약&lt;/a&gt; <i>…</i>&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</pre>
+
+<p>바깥 <code>&lt;ul&gt;</code> 이 대메뉴, 안쪽 <code>&lt;ul class="drop"&gt;</code> 이 하위 메뉴입니다.
+   메뉴 구조도가 2 Depth 면 <code>&lt;ul&gt;</code> 이 두 겹, 3 Depth 면 세 겹이 됩니다.
+   구조도와 겹 수가 다르면 채점 항목 ③ 01 에서 감점됩니다.</p>
+
+<h4>지금 보고 있는 쪽을 표시하기</h4>
+<p>메뉴 구조도에는 없지만 구현에서는 필요한 것이 하나 있습니다.
+   지금 어느 쪽에 있는지를 GNB 에서 보여 주는 일입니다.
+   쪽마다 해당 항목에 <code>class="on"</code> 을 답니다.</p>
+<pre>&lt;!-- sub/reserve.html --&gt;
+&lt;li <b>class="on"</b>&gt;&lt;a href="reserve.html" <b>aria-current="page"</b>&gt;예약&lt;/a&gt;&lt;/li&gt;</pre>
+<p><code>aria-current="page"</code> 는 화면을 읽어 주는 기기에 「지금 이 쪽」 이라고 알립니다.
+   눈으로 보는 표시(<code>class="on"</code>)와 짝을 이룹니다.</p>
+
+<h4>메뉴 이름은 세 곳에서 같아야 합니다</h4>
+<table class="wide">
+  <tr><th style="width:170px">자리</th><th>무엇과 같아야 하는가</th></tr>
+  <tr><td class="nm">GNB 항목</td><td>메뉴 구조도의 대메뉴 이름</td></tr>
+  <tr><td class="nm">드롭다운 항목</td><td>메뉴 구조도의 하위 메뉴 이름</td></tr>
+  <tr><td class="nm">위치 표시 (breadcrumb)</td><td>위 둘을 이은 경로</td></tr>
+</table>
+<p>세 곳 가운데 하나만 달라도 채점자는 어느 쪽이 맞는지 알 수 없습니다.
+   구조도의 낱말을 그대로 복사해 붙입니다.</p>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  메뉴 구조도를 옆에 놓고 대메뉴를 <code>&lt;li&gt;</code> 로, 하위 메뉴를 안쪽 <code>&lt;li&gt;</code> 로
+  옮겨 적어 보십시오. 구조도에 없는 메뉴가 코드에 들어가면 안 됩니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st6">
+      <h3><i>6</i>내 · 외부 화면과 폼 확인</h3>
+      <aside class="side">
+        <p class="pt">쪽마다 무엇이 들어가는지 UI 기능정의에서 뽑아 둡니다.</p>
+        <b class="sh">근거</b>
+        <p class="src">수행준거 1.3</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ③ 03</p>
+      </aside>
+      <div class="bd">
+<p>UI 기능정의 한 쪽이 곧 구현할 쪽 하나입니다.
+   거기 적힌 Description 의 번호가 그 쪽에 들어갈 요소 목록이 됩니다.</p>
+<table class="wide">
+  <tr><th style="width:60px">번호</th><th style="width:220px">UI 기능정의의 설명</th>
+      <th>구현할 것</th></tr>
+  <tr><td class="c">①</td><td>앞 화면에서 고른 시설명을 그대로 받아 표시</td>
+      <td>읽기 전용 영역. 입력칸이 아닙니다</td></tr>
+  <tr><td class="c">②</td><td>달력에서 날짜를 고름. 30일 이내</td>
+      <td><code>&lt;input type="date"&gt;</code> 와 <code>max</code> 속성</td></tr>
+  <tr><td class="c">③</td><td>마감된 시간대는 흐리게 하고 누를 수 없게 함</td>
+      <td>버튼에 <code>disabled</code> 와 흐린 색</td></tr>
+  <tr><td class="c">④</td><td>숫자만 넣음. 최대 인원 초과 시 안내</td>
+      <td><code>&lt;input type="number"&gt;</code> 와 <code>max</code></td></tr>
+  <tr><td class="c">⑤</td><td>모두 채워져야 눌림. 누르면 다음 쪽으로</td>
+      <td>제출 버튼과 <code>href</code></td></tr>
+</table>
+<p>이 표를 쪽마다 하나씩 만들어 두면 구현할 때 무엇을 빠뜨렸는지 바로 보입니다.
+   채점 항목 ③ 03 이 <b>「스토리보드에 맞게 UI 기능정의가 구현되었는가」</b> 를 봅니다. 10점입니다.</p>
+
+<div class="q">
+  <b class="t">확인</b>
+  <ol class="qa">
+    <li>맡은 쪽의 UI 기능정의에 번호가 몇 개 있습니까. 그 수만큼 화면에 요소가 있어야 합니다.</li>
+    <li>CheckPoint 에 적힌 조건 가운데 화면에서 보여 줄 수 있는 것이 있습니까.</li>
+    <li>다른 쪽으로 넘어가는 번호가 있습니까. 그 번호가 링크가 됩니다.</li>
+  </ol>
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 3 · 공통 골격 구현</b><span>채점 묶음 ① 30점 · 조원이 함께 만듭니다</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st7">
+      <h3><i>7</i>레이아웃과 태그</h3>
+      <aside class="side">
+        <p class="pt">스타일가이드의 레이아웃을 태그로 옮깁니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ① 01</p>
+        <b class="sh">주의</b>
+        <p class="v"><code>&lt;main&gt;</code> 은 한 쪽에 하나</p>
+      </aside>
+      <div class="bd">
+<h4>영역과 태그의 짝</h4>
+<p>레이아웃은 네 덩어리로 나뉘고, 덩어리마다 쓸 태그가 정해져 있습니다.
+   전부 <code>&lt;div&gt;</code> 로 만들어도 화면은 나오지만,
+   표준 검사와 접근성 항목에서 불리해집니다.</p>
+
+<figure>
+  <img src="img/hc_layout.png" alt="header · nav · main · footer 네 영역을 위아래로 쌓은 그림과, header · nav · main · section · article · footer 여섯 태그의 뜻과 쓰는 자리를 적은 표.">
+  <figcaption>레이아웃 영역과 태그. 왼쪽이 화면의 덩어리, 오른쪽이 각 태그를 쓰는 자리입니다.</figcaption>
+</figure>
+
+<h4>div 로만 만들면 무엇이 달라지는가</h4>
+<p>화면만 놓고 보면 차이가 없습니다. 달라지는 것은 셋입니다.</p>
+<dl>
+  <dt>검사 결과</dt>
+  <dd><code>&lt;section&gt;</code> 에 제목이 없거나 <code>&lt;main&gt;</code> 이 두 개면 지적을 받습니다.
+      반대로 태그를 제대로 쓰면 구조가 맞는지를 검사기가 대신 봐 줍니다.</dd>
+  <dt>화면을 읽어 주는 기기</dt>
+  <dd>눈으로 보지 않는 사용자는 「머리말로 건너뛰기」, 「본문으로 건너뛰기」 로 이동합니다.
+      전부 <code>&lt;div&gt;</code> 면 건너뛸 지점이 없어 처음부터 끝까지 들어야 합니다.</dd>
+  <dt>조원끼리의 약속</dt>
+  <dd><code>&lt;header&gt;</code> 안은 공용, <code>&lt;main&gt;</code> 안은 각자 —
+      이렇게 정해 두면 누가 어디를 고쳐도 되는지가 분명해집니다.</dd>
+</dl>
+
+<h4>기본 뼈대</h4>
+<pre>&lt;!doctype html&gt;
+&lt;html lang="ko"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width,initial-scale=1"&gt;
+  &lt;title&gt;공공 체육시설 예약&lt;/title&gt;
+  &lt;link rel="stylesheet" href="css/common.css"&gt;
+  &lt;link rel="stylesheet" href="css/page.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt; <i>로고 · GNB · 유틸</i> &lt;/header&gt;
+  &lt;main&gt;   <i>쪽마다 다른 본문</i>  &lt;/main&gt;
+  &lt;footer&gt; <i>주소 · 약관</i>       &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+
+<p><code>lang="ko"</code> 와 <code>&lt;meta charset&gt;</code> 이 빠지면 검사에서 바로 걸립니다.
+   이 뼈대를 한 번 만들어 조원에게 돌리고, 각자는 <code>&lt;main&gt;</code> 안만 채웁니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st8">
+      <h3><i>8</i>그리드</h3>
+      <aside class="side">
+        <p class="pt">칼럼 수와 간격을 스타일가이드에서 가져옵니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ① 06</p>
+        <b class="sh">도구</b>
+        <p class="v"><code>display:grid</code></p>
+      </aside>
+      <div class="bd">
+<h4>12칼럼으로 잡는 이유</h4>
+<p>12는 2 · 3 · 4 · 6 으로 나누어떨어집니다.
+   한 줄을 둘로도, 셋으로도, 넷으로도 나눌 수 있어 대부분의 배치를 담을 수 있습니다.
+   스타일가이드에 다른 수가 적혀 있으면 그것을 따릅니다.</p>
+
+<figure>
+  <img src="img/hc_grid.png" alt="12칸으로 나눈 그리드와 그 위에 span 4 짜리 카드 세 개를 올린 그림, grid-template-columns 를 쓴 CSS 코드, 쓸 자리별 span 값을 적은 표.">
+  <figcaption>12칼럼 그리드. 카드 세 개를 한 줄에 놓으려면 <code>span 4</code> 를 씁니다.</figcaption>
+</figure>
+
+<h4>자주 걸리는 자리</h4>
+<p class="ex"><span class="x">감점</span> 카드를 <code>float</code> 와 <code>width:33%</code> 로 만들어 간격이 들쭉날쭉</p>
+<p class="ex"><span class="o">권함</span> <code>display:grid</code> 와 <code>gap</code> 을 씁니다. 간격이 한 값으로 정해집니다</p>
+<p>간격 값도 스타일가이드에서 가져옵니다. 여백이 24px 로 적혀 있으면
+   <code>gap: var(--gap)</code> 로 씁니다.</p>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  브라우저에서 <b>F12 → 요소 검사</b>로 카드 하나를 고르고, 오른쪽 Computed 에서
+  <code>gap</code> 값을 확인해 보십시오. 스타일가이드의 값과 같아야 합니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st9">
+      <h3><i>9</i>로고와 GNB 드롭다운</h3>
+      <aside class="side">
+        <p class="pt">드롭다운은 마우스와 키보드 양쪽에서 열려야 합니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ① 02 · 03</p>
+        <b class="sh">한 줄 더</b>
+        <p class="v"><code>:focus-within</code></p>
+      </aside>
+      <div class="bd">
+<h4>세 가지 상태</h4>
+<p>GNB 는 상태가 셋입니다. 지금 보고 있는 쪽을 표시하는 것까지가 채점 대상입니다.</p>
+
+<figure>
+  <img src="img/hc_gnb.png" alt="GNB 의 기본 · 현재 쪽 · 열림 세 상태를 차례로 보인 머리 영역 셋과, hover 와 focus-within 으로 드롭다운을 여는 CSS 코드.">
+  <figcaption>GNB 드롭다운의 세 상태. ② 는 지금 보고 있는 쪽을,
+    ③ 은 하위 메뉴가 열린 모습을 보입니다.</figcaption>
+</figure>
+
+<h4>로고</h4>
+<p>로고는 <b>모든 쪽에서 같은 자리, 같은 크기</b>여야 합니다.
+   그리고 누르면 메인페이지로 가야 합니다. 이것이 빠지는 조가 많습니다.</p>
+<pre>&lt;h1 class="logo"&gt;
+  &lt;a href="/index.html"&gt;
+    &lt;img src="img/logo.svg" alt="공공 체육시설 예약"&gt;
+  &lt;/a&gt;
+&lt;/h1&gt;</pre>
+<p>이미지 로고에는 <code>alt</code> 에 서비스 이름을 적습니다.
+   「로고」 라고만 적으면 화면을 읽어 주는 기기에서 뜻이 전해지지 않습니다.</p>
+
+<h4>드롭다운 마크업</h4>
+<pre>&lt;li class="has-drop"&gt;
+  &lt;a href="reserve.html"&gt;예약&lt;/a&gt;
+  &lt;ul class="drop"&gt;
+    &lt;li&gt;&lt;a href="reserve.html"&gt;예약 신청&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="reserve.html#done"&gt;예약 완료&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/li&gt;</pre>
+<pre>.gnb li{ position:relative; }        <i>기준점 — 이것이 없으면 드롭다운이 엉뚱한 곳에 뜸</i>
+.drop  { position:absolute; top:100%; left:0; display:none; }
+.gnb li:hover > .drop,
+.gnb li:focus-within > .drop{ display:block; }</pre>
+<p><code>position:relative</code> 를 부모에 주는 것을 빠뜨리면
+   드롭다운이 쪽 맨 위로 올라가 버립니다. 가장 자주 나오는 실수입니다.</p>
+
+<h4>현재 쪽 표시의 모양</h4>
+<p>스타일가이드에 정해 둔 방식을 그대로 씁니다. 대개 셋 중 하나입니다.</p>
+<ul>
+  <li>글자색을 주색으로 바꾸고 굵게</li>
+  <li>아래에 밑줄 두 픽셀</li>
+  <li>배경을 옅은 색으로</li>
+</ul>
+<p>세 가지를 한꺼번에 쓰면 다른 항목과 견주어 지나치게 튑니다. 하나나 둘로 정합니다.</p>
+
+<div class="warn">
+  드롭다운을 <code>:hover</code> 로만 만들면 마우스 없이 열 수 없습니다.
+  <code>:focus-within</code> 한 줄을 함께 적으면 탭 키로도 열립니다.
+  접근성을 보는 채점 묶음 ③ 에서 이 한 줄이 근거가 됩니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st10">
+      <h3><i>10</i>버튼과 푸터</h3>
+      <aside class="side">
+        <p class="pt">버튼은 세 상태, 푸터는 항목 배치를 봅니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ① 04 · 05</p>
+      </aside>
+      <div class="bd">
+<h4>버튼 세 종류</h4>
+<p>스타일가이드에 정해 둔 버튼 종류를 그대로 만듭니다.
+   대개 주요 · 보조 · 비활성 셋입니다.</p>
+<pre>.btn      { background: var(--c-primary); color:#fff; }
+.btn.gh   { background:#fff; color:var(--c-primary);
+            border:1px solid var(--c-primary); }   <i>보조</i>
+.btn.off  { background:#eee; color:#aaa;
+            pointer-events:none; }                 <i>비활성</i></pre>
+<p>비활성 버튼은 색만 흐리게 하는 것으로 끝내지 않습니다.
+   눌리지 않아야 합니다. 폼 안의 버튼이면 <code>disabled</code> 속성을 함께 씁니다.</p>
+
+<h4>a 로 만들 것과 button 으로 만들 것</h4>
+<p>보기에는 같아도 태그가 다릅니다. 기준은 <b>눌렀을 때 쪽이 바뀌는가</b> 입니다.</p>
+<table class="wide">
+  <tr><th style="width:96px">태그</th><th style="width:200px">쓰는 자리</th><th>예</th></tr>
+  <tr><td class="nm">&lt;a&gt;</td><td>다른 쪽으로 갑니다</td>
+      <td>「예약하기」 「시설 목록」 「뒤로」</td></tr>
+  <tr><td class="nm">&lt;button&gt;</td><td>그 쪽에서 무언가를 합니다</td>
+      <td>「시간대 선택」 「검색」 폼의 「제출」</td></tr>
+</table>
+<p><code>&lt;div class="btn"&gt;</code> 로 만들면 탭 키로 갈 수 없고 엔터로 눌리지도 않습니다.
+   검사에서는 걸리지 않지만 접근성을 보는 자리에서 불리합니다.</p>
+
+<h4>푸터</h4>
+<p>채점 항목 ① 04 가 <b>「스타일 가이드에 맞게 푸터의 항목은 적절히 배치되어 있는가」</b> 를 봅니다.
+   스타일가이드에 적어 둔 항목이 빠짐없이 들어가고 순서도 같아야 합니다.</p>
+<table class="wide">
+  <tr><th style="width:130px">항목</th><th>내용</th></tr>
+  <tr><td class="nm">사업자 정보</td><td>상호 · 주소 · 대표전화</td></tr>
+  <tr><td class="nm">약관 링크</td><td>이용약관 · 개인정보처리방침 · 이메일무단수집거부</td></tr>
+  <tr><td class="nm">강조</td><td>개인정보처리방침은 굵게 하는 것이 관례입니다</td></tr>
+</table>
+<p>푸터도 <code>common.css</code> 에 두어 모든 쪽에서 같은 모양이 되게 합니다.
+   서브페이지의 푸터가 메인과 다르면 그 자리에서 감점됩니다.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 4 · 쪽 구현과 흐름</b><span>채점 묶음 ③ 50점 · 점수가 몰려 있는 구간</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st11">
+      <h3><i>11</i>메인페이지</h3>
+      <aside class="side">
+        <p class="pt">조장이 맡습니다. 공통 골격의 본보기가 됩니다.</p>
+        <b class="sh">파일</b>
+        <p class="v"><code>index.html</code></p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ① 전체 · ③ 05</p>
+      </aside>
+      <div class="bd">
+<h4>완성된 모습</h4>
+
+<figure>
+  <img src="img/hc_main.png" alt="공공 체육시설 예약 메인페이지. 로고와 GNB 가 있는 머리, 안내 문구가 있는 큰 영역, 시설 카드 세 개, 사업자 정보와 약관 링크가 있는 푸터로 이루어져 있습니다.">
+  <figcaption>메인페이지 구현 결과. 스타일가이드의 색과 12칼럼 그리드를 그대로 적용했습니다.</figcaption>
+</figure>
+
+<h4>본문 구성</h4>
+<pre>&lt;main&gt;
+  &lt;section class="hero"&gt;
+    &lt;h2&gt;가까운 체육시설, 빈 시간대를 바로 예약하세요&lt;/h2&gt;
+    &lt;p&gt;대구 전역 공공 체육시설 · 오늘부터 30일 이내 예약&lt;/p&gt;
+  &lt;/section&gt;
+
+  &lt;section class="wrap"&gt;
+    &lt;h2 class="sr"&gt;시설 목록&lt;/h2&gt;
+    &lt;div class="grid"&gt;
+      &lt;<b>article</b> class="card"&gt;
+        &lt;h3&gt;달성구민운동장 · 풋살장 A&lt;/h3&gt;
+        &lt;p&gt;달서구 · 실외 · 최대 20명&lt;br&gt;잔여 3개 시간대&lt;/p&gt;
+        &lt;a class="btn" href="<b>sub/reserve.html</b>"&gt;예약하기&lt;/a&gt;
+      &lt;/article&gt;
+      <i>… 카드 반복</i>
+    &lt;/div&gt;
+  &lt;/section&gt;
+&lt;/main&gt;</pre>
+
+<p>카드 하나가 <code>&lt;article&gt;</code> 입니다. 떼어 놓아도 뜻이 통하기 때문입니다.
+   <code>&lt;h2 class="sr"&gt;</code> 는 화면에 보이지 않게 감춘 제목입니다.
+   <code>&lt;section&gt;</code> 에 제목이 없으면 검사에서 지적을 받으므로 이렇게 넣어 둡니다.</p>
+
+<pre>.sr{ position:absolute; width:1px; height:1px;
+     overflow:hidden; clip:rect(0,0,0,0); }   <i>화면에서만 감춤</i></pre>
+
+<h4>제목 단계</h4>
+<p>제목 태그는 번호를 건너뛰지 않고 씁니다.
+   <code>&lt;h1&gt;</code> 다음에 <code>&lt;h3&gt;</code> 가 나오면 검사에서 지적을 받습니다.</p>
+<table class="wide">
+  <tr><th style="width:80px">단계</th><th style="width:180px">이 쪽에서의 자리</th><th>비고</th></tr>
+  <tr><td class="nm">h1</td><td>로고 (서비스 이름)</td><td>한 쪽에 하나만 씁니다</td></tr>
+  <tr><td class="nm">h2</td><td>안내 문구 · 「시설 목록」</td><td>본문의 큰 덩어리마다 하나</td></tr>
+  <tr><td class="nm">h3</td><td>시설 카드의 시설명</td><td>h2 아래 덩어리</td></tr>
+</table>
+<p>화면에 제목을 보이고 싶지 않을 때 태그를 빼지 말고 <code>class="sr"</code> 로 감춥니다.
+   구조는 남기고 화면에서만 없애는 방법입니다.</p>
+
+<div class="warn">
+  「예약하기」 버튼의 <code>href</code> 를 <code>#</code> 으로 두지 마십시오.
+  채점 항목 ③ 05 가 <b>「메인페이지에서 서브페이지로의 이동이 구현되었는가」</b> 를 봅니다. 10점입니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st12">
+      <h3><i>12</i>서브페이지</h3>
+      <aside class="side">
+        <p class="pt">조원이 하나씩 맡습니다. 머리와 꼬리는 그대로 씁니다.</p>
+        <b class="sh">파일</b>
+        <p class="v"><code>sub/*.html</code></p>
+        <b class="sh">주의</b>
+        <p class="v">CSS 경로가 한 단계 깊어집니다</p>
+      </aside>
+      <div class="bd">
+<h4>완성된 모습</h4>
+
+<figure>
+  <img src="img/hc_sub.png" alt="예약 신청 서브페이지. 메인과 같은 머리와 꼬리 사이에 위치 표시, 제목, 시간대 표, 주요 · 보조 · 비활성 세 가지 버튼이 들어 있습니다.">
+  <figcaption>서브페이지 구현 결과. 머리와 꼬리는 메인과 같고 본문만 다릅니다.
+    아래 버튼 셋이 주요 · 보조 · 비활성입니다.</figcaption>
+</figure>
+
+<h4>경로가 한 단계 깊어집니다</h4>
+<p><code>sub/</code> 안에 있으므로 CSS 와 이미지 경로가 달라집니다. 여기서 화면이 깨지는 일이 잦습니다.</p>
+<table class="wide">
+  <tr><th style="width:150px">위치</th><th style="width:230px">CSS 부르기</th><th>메인으로 가기</th></tr>
+  <tr><td class="nm">index.html</td><td><code>css/common.css</code></td><td>—</td></tr>
+  <tr><td class="nm">sub/reserve.html</td><td><code>../css/common.css</code></td><td><code>../index.html</code></td></tr>
+</table>
+<p>루트 기준 경로(<code>/css/common.css</code>)는 서버에 올렸을 때만 맞습니다.
+   파일을 그대로 열어 볼 때는 깨지므로, 제출물에는 <code>../</code> 를 쓰는 편이 안전합니다.</p>
+
+<h4>위치 표시</h4>
+<pre>&lt;nav class="bc" aria-label="현재 위치"&gt;
+  &lt;a href="../index.html"&gt;홈&lt;/a&gt; &amp;gt;
+  &lt;a href="reserve.html"&gt;예약&lt;/a&gt; &amp;gt;
+  &lt;span&gt;예약 신청&lt;/span&gt;
+&lt;/nav&gt;</pre>
+<p>위치 표시는 메뉴 구조도의 경로를 그대로 옮긴 것입니다.
+   구조도가 2 Depth 면 여기도 두 단계가 됩니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st13">
+      <h3><i>13</i>흐름 구현</h3>
+      <aside class="side">
+        <p class="pt">흐름도의 화살표를 하나씩 링크로 만듭니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ③ 04 · 05 · 각 10점</p>
+        <b class="sh">확인</b>
+        <p class="v">직접 눌러 봅니다</p>
+      </aside>
+      <div class="bd">
+<h4>로그인 흐름</h4>
+<p>채점 항목 ③ 04 가 <b>「프로토타입의 흐름과 일치하게 로그인 화면 흐름을 구현하였는가」</b> 를 봅니다.
+   스토리보드의 흐름도에는 세 갈래가 있습니다.</p>
+<div class="draw">
+  <b class="n">1 · 로그인하지 않은 사람이 예약 신청을 누름</b>
+  로그인 쪽으로 보냅니다. 어디서 왔는지를 주소에 남깁니다.
+  <code>sub/login.html?next=reserve</code>
+</div>
+<div class="draw">
+  <b class="n">2 · 로그인을 마침</b>
+  「다음」 버튼이 원래 가려던 쪽으로 가게 합니다.
+  <code>&lt;a href="reserve.html"&gt;로그인&lt;/a&gt;</code>
+</div>
+<div class="draw">
+  <b class="n">3 · 이미 로그인한 사람이 로그인 쪽을 엶</b>
+  메인으로 보냅니다. 스토리보드 PERMISSION 표의 비고에 적혀 있습니다.
+</div>
+<p>서버가 없으므로 실제 판별은 되지 않습니다.
+   <b>눌렀을 때 스토리보드에 적힌 쪽으로 가면</b> 됩니다.
+   이 교과의 범위는 거기까지입니다.</p>
+
+<h4>쪽 이동</h4>
+<p>메인의 카드 버튼, GNB 의 모든 항목, 푸터의 약관 링크, 로고 —
+   눌리는 것에는 전부 갈 곳이 있어야 합니다.</p>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  완성한 뒤 <b>메인에서 시작해 모든 링크를 한 번씩 눌러 보십시오.</b>
+  아무 일도 일어나지 않는 곳이 있으면 그것이 감점 자리입니다.
+  조원끼리 서로의 쪽을 눌러 보면 빠진 곳이 더 잘 보입니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st14">
+      <h3><i>14</i>정책과 UI 기능정의의 구현</h3>
+      <aside class="side">
+        <p class="pt">스토리보드에 적은 정책이 화면에 드러나야 합니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ③ 02 · 03 · 각 10점</p>
+      </aside>
+      <div class="bd">
+<h4>정책을 화면으로 옮기기</h4>
+<p>채점 항목 ③ 02 가 <b>「스토리보드에 맞게 정책이 구현되었는가」</b> 를 봅니다.
+   정책은 글로만 적혀 있으므로, 그것이 화면에서 어떻게 보이는지 정해 옮겨야 합니다.</p>
+<table class="wide">
+  <tr><th style="width:60px">정책</th><th style="width:250px">스토리보드의 내용</th>
+      <th>화면에서 드러나는 모습</th></tr>
+  <tr><td class="c">P-01</td><td>오늘부터 30일 이내의 날짜만 선택</td>
+      <td><code>&lt;input type="date" min="…" max="…"&gt;</code></td></tr>
+  <tr><td class="c">P-02</td><td>같은 날짜에 시설 1곳, 최대 2시간</td>
+      <td>입력칸 아래 안내 문구로 적어 둡니다</td></tr>
+  <tr><td class="c">P-03</td><td>마감된 시간대는 선택 목록에서 감춤</td>
+      <td>흐린 색 + <code>disabled</code></td></tr>
+  <tr><td class="c">P-04</td><td>이용 시작 24시간 전까지만 취소</td>
+      <td>예약 내역 쪽의 취소 버튼 옆 안내</td></tr>
+  <tr><td class="c">P-06</td><td>목록의 이름은 가운데 글자를 가림</td>
+      <td>예시 데이터를 <code>홍*동</code> 으로 적습니다</td></tr>
+</table>
+<p>서버가 없으므로 실제로 막히지는 않습니다.
+   <b>정책이 있다는 것이 화면에서 읽히면</b> 됩니다.
+   안내 문구 한 줄, 흐린 버튼 하나가 근거가 됩니다.</p>
+
+<h4>입력 제한</h4>
+<pre>&lt;label for="d"&gt;이용 날짜&lt;/label&gt;
+&lt;input id="d" type="date" <b>min="2026-03-27" max="2026-04-26"</b>&gt;
+&lt;p class="hint"&gt;오늘부터 30일 이내만 고를 수 있습니다. <i>[P-01]</i>&lt;/p&gt;
+
+&lt;label for="n"&gt;이용 인원&lt;/label&gt;
+&lt;input id="n" type="number" <b>min="1" max="20"</b>&gt;</pre>
+<p><code>&lt;label for&gt;</code> 와 <code>&lt;input id&gt;</code> 를 짝지어야 합니다.
+   짝이 없으면 검사에서 지적을 받고, 화면을 읽어 주는 기기에서 무엇을 넣는 칸인지 알 수 없습니다.</p>
+
+<p class="ex"><span class="x">감점</span> 정책표에는 30일 제한이 있는데 화면에는 아무 표시가 없음</p>
+<p class="ex"><span class="o">권함</span> <code>max</code> 속성과 안내 문구를 함께 둡니다</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 5 · 표준 검사와 제출</b><span>채점 묶음 ② 20점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st15">
+      <h3><i>15</i>W3C 표준 검사</h3>
+      <aside class="side">
+        <p class="pt">Error 를 0 으로 만듭니다. Warning 은 두어도 됩니다.</p>
+        <b class="sh">HTML</b>
+        <p class="v">validator.w3.org</p>
+        <b class="sh">CSS</b>
+        <p class="v">jigsaw.w3.org/css-validator</p>
+        <b class="sh">배점</b>
+        <p class="v">10점 + 10점</p>
+      </aside>
+      <div class="bd">
+<h4>검사하는 순서</h4>
+<div class="draw">
+  <b class="n">1단계 · validator.w3.org 를 엽니다</b>
+  서버에 올리지 않았다면 <b>Validate by Direct Input</b> 탭을 고르고
+  HTML 전체를 붙여 넣습니다.
+</div>
+<div class="draw">
+  <b class="n">2단계 · Check 를 누르고 Error 만 봅니다</b>
+  결과에 Error 와 Warning 이 섞여 나옵니다.
+  <b>Error 를 0 으로</b> 만드는 것이 목표입니다. Warning 은 감점 대상이 아닙니다.
+</div>
+<div class="draw">
+  <b class="n">3단계 · 위에서부터 하나씩 고칩니다</b>
+  오류 하나를 고치면 딸려 있던 오류가 여럿 사라지는 일이 흔합니다.
+  아래에서부터 고치면 같은 일을 여러 번 하게 됩니다.
+</div>
+<div class="draw">
+  <b class="n">4단계 · CSS 도 같은 방법으로 검사합니다</b>
+  jigsaw.w3.org/css-validator 에서 <b>직접 입력</b> 탭에 CSS 를 붙여 넣습니다.
+</div>
+<div class="draw">
+  <b class="n">5단계 · 결과 화면을 캡처합니다</b>
+  「No errors or warnings to show」 또는 오류 수가 0 인 화면을 쪽마다 찍어
+  업무 내용 PPT 에 넣습니다.
+</div>
+
+<h4>자주 나오는 오류</h4>
+
+<figure>
+  <img src="img/hc_valid.png" alt="HTML 과 CSS 검사에서 자주 나오는 오류 여덟 가지의 메시지, 원인, 고치는 방법을 정리한 표.">
+  <figcaption>W3C 검사에서 자주 나오는 오류.
+    메시지를 그대로 검색하면 원인이 바로 나옵니다.</figcaption>
+</figure>
+
+<div class="warn">
+  검사는 <b>쪽 하나를 끝낼 때마다</b> 합니다.
+  제출 직전에 몰아서 하면 오류가 수십 개 쌓여 하루로는 모자랍니다.
+  20점짜리 묶음이고, 고치기 어려운 오류는 거의 없습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st16">
+      <h3><i>16</i>자가 점검과 제출</h3>
+      <aside class="side">
+        <p class="pt">채점표 순서대로 스스로 매겨 봅니다.</p>
+        <b class="sh">방법</b>
+        <p class="v">항목마다 근거 파일과 줄을 적습니다</p>
+        <b class="sh">시간</b>
+        <p class="v">1시간</p>
+      </aside>
+      <div class="bd">
+<p>제출 전에 채점표를 그대로 옮겨 적고, 항목마다 근거가 되는 파일과 자리를 적습니다.
+   적을 수 없는 항목이 곧 빠진 항목입니다.</p>
+<table class="wide">
+  <tr><th style="width:70px">항목</th><th style="width:56px">배점</th>
+      <th>확인할 것</th><th style="width:100px">근거</th></tr>
+  <tr><td class="c">① 01</td><td class="c">5</td><td>레이아웃이 스타일가이드대로 배치되었는가</td><td></td></tr>
+  <tr><td class="c">① 02</td><td class="c">5</td><td>GNB 드롭다운이 스타일가이드대로 구현되었는가</td><td></td></tr>
+  <tr><td class="c">① 03</td><td class="c">5</td><td>로고가 스타일가이드대로 배치되었는가</td><td></td></tr>
+  <tr><td class="c">① 04</td><td class="c">5</td><td>푸터 항목이 스타일가이드대로 배치되었는가</td><td></td></tr>
+  <tr><td class="c">① 05</td><td class="c">5</td><td>버튼을 스타일가이드대로 배치하였는가</td><td></td></tr>
+  <tr><td class="c">① 06</td><td class="c">5</td><td>그리드를 스타일가이드대로 배치하였는가</td><td></td></tr>
+  <tr><td class="c">② 01</td><td class="c">10</td><td>W3C 표준에 맞게 HTML 을 구현하였는가</td><td></td></tr>
+  <tr><td class="c">② 02</td><td class="c">10</td><td>W3C 표준에 맞게 CSS 를 구현하였는가</td><td></td></tr>
+  <tr><td class="c">③ 01</td><td class="c">10</td><td>스토리보드에 맞게 메뉴 구조가 구현되었는가</td><td></td></tr>
+  <tr><td class="c">③ 02</td><td class="c">10</td><td>스토리보드에 맞게 정책이 구현되었는가</td><td></td></tr>
+  <tr><td class="c">③ 03</td><td class="c">10</td><td>스토리보드에 맞게 UI 기능정의가 구현되었는가</td><td></td></tr>
+  <tr><td class="c">③ 04</td><td class="c">10</td><td>프로토타입의 흐름과 같게 로그인 흐름을 구현하였는가</td><td></td></tr>
+  <tr><td class="c">③ 05</td><td class="c">10</td><td>메인에서 서브페이지로의 이동이 구현되었는가</td><td></td></tr>
+</table>
+
+<h4>제출</h4>
+<div class="draw">
+  <b class="n">1단계 · 폴더를 통째로 압축합니다</b>
+  <code>project/</code> 를 통째로 압축합니다. 파일을 하나씩 고르면 경로가 깨집니다.
+</div>
+<div class="draw">
+  <b class="n">2단계 · 압축을 풀어 다시 열어 봅니다</b>
+  다른 폴더에 풀고 <code>index.html</code> 을 더블클릭해 화면이 나오는지 확인합니다.
+  여기서 깨지면 채점자 화면에서도 깨집니다.
+</div>
+<div class="draw">
+  <b class="n">3단계 · 업무 내용 PPT 를 함께 냅니다</b>
+  역할 분담 · 쪽별 화면 캡처 · 검사 결과 캡처 세 가지를 넣습니다.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ 3 ═══════ -->
+<h2 class="sec" id="g3">3. 주요 감점 요인</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">해마다 같은 자리에서 점수가 깎입니다.</p>
+    <b class="sh">가장 큰 것</b>
+    <p class="v">링크를 <code>#</code> 으로 남겨 둔 것</p>
+    <b class="sh">가장 아까운 것</b>
+    <p class="v">검사를 미뤄 둔 것</p>
+  </aside>
+  <div class="bd">
+<p>아래 여섯 가지가 되풀이되는 감점입니다.
+   모두 실력이 모자라서가 아니라 <b>순서를 바꿔서</b> 생깁니다.
+   공통 골격을 먼저 만들고, 쪽마다 검사하고, 마지막에 눌러 보면 대부분 걸리지 않습니다.</p>
+
+<figure>
+  <img src="img/hc_bad.png" alt="헤더가 쪽마다 다름 · 색이 스타일가이드와 다름 · 검사 미통과 · 흐름 끊김 · 드롭다운 마우스 전용 · alt 누락 여섯 가지의 감점 모습과 보완 방법을 정리한 표.">
+  <figcaption>자주 나오는 감점과 보완. 왼쪽이 실제로 자주 나오는 모습,
+    오른쪽이 그것을 막는 방법입니다.</figcaption>
+</figure>
+
+<div class="warn">
+  ② 01 · 02 (표준 검사) 는 합쳐서 20점이고, ③ 04 · 05 (흐름) 는 합쳐서 20점입니다.
+  둘 다 <b>기능이 어려워서가 아니라 미뤄 두어서</b> 잃는 점수입니다.
+  쪽 하나를 끝낼 때마다 검사하고, 완성하면 모든 링크를 한 번씩 눌러 보십시오.
+</div>
+  </div>
+</div>
+
+<footer>
+  화면 구현 · 3수준 · 48시간 · 담당 정우균 ·
+  (디지털컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E<br>
+  예제는 「공공 체육시설 예약 서비스」 이며 실제 조별 주제와 다릅니다.
+  화면과 코드는 앞 교과 「UI 디자인」 의 스토리보드를 이어받은 것입니다.
+</footer>
+
+</div>
+
+<script>
+/* 빠른 이동 — 지금 보는 단원을 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"],a[href="#g3"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+  function mark() {
+    var y = window.pageYOffset + 90, cur = -1;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function () { mark(); tick = false; });
+  });
+  mark();
+})();
+</script>

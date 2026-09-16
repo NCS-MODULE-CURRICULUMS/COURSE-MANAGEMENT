@@ -1,0 +1,1180 @@
+<meta charset="utf-8"><title>화면 설계 — 포트폴리오 제출서</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;color:#000;
+       font-family:"Malgun Gothic","Segoe UI",-apple-system,sans-serif;line-height:1.7;font-size:15px}
+  .wrap{max-width:900px;margin:0 auto;padding:30px 24px 90px}
+
+  /* 상단 고정 */
+  .sitehead{border-bottom:1px solid #ccc;padding:8px 14px;font-size:12.5px;background:#fff;
+            white-space:nowrap;overflow-x:auto}
+  .sitehead a{color:#000;text-decoration:none;border-bottom:1px solid #000}
+  .sitehead a:hover{background:#000;color:#fff}
+  .sitehead .cur{color:#555}
+  .tuser{float:right;font-size:12px}
+  .tuser b{margin-right:7px}
+  .stick{position:sticky;top:0;z-index:30;background:#fff}
+  .bar{background:#fff;border-bottom:2px solid #000;padding:8px 14px;
+       display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12.5px}
+  .bar b{font-size:13px}
+  .bar .sp{flex:1}
+  .bar button,.tuser button{font-family:inherit;font-size:12px;padding:3px 10px;background:#fff;
+       border:1px solid #000;cursor:pointer}
+  .bar button:hover,.tuser button:hover{background:#000;color:#fff}
+  .prog{width:110px;height:7px;border:1px solid #000;background:#fff}
+  .prog i{display:block;height:100%;background:#000;width:0}
+  .svat{font-size:11.5px;color:#555}
+  #roleBadge{border:1px solid #000;padding:1px 8px;font-size:11.5px;font-weight:700}
+
+  /* 예시 모드는 기본 화면과 스타일이 같아야 합니다.
+     칸에 값이 들어오고 해설이 펼쳐지는 것 말고는 아무것도 달라지지 않습니다.
+     예시 화면이 곧 완성된 제출서의 모습이어야 하기 때문입니다. */
+
+  /* 머리말 */
+  .kicker{font-size:11.5px;letter-spacing:.08em;color:#555;padding-bottom:6px;border-bottom:1px solid #000}
+  h1{margin:13px 0 4px;font-size:22px;font-weight:700;letter-spacing:-.01em}
+  .sub{color:#333;margin:0 0 8px;font-size:14px}
+  .meta{color:#555;font-size:12.5px;margin:0;padding-bottom:11px;border-bottom:2px solid #000}
+
+  /* 절 */
+  section{padding:24px 0;border-top:1px solid #ccc;scroll-margin-top:110px}
+  h2{margin:0;font-size:17px;font-weight:700;border-bottom:1px solid #000;padding-bottom:6px;overflow:hidden}
+  h2 .n{display:inline-block;min-width:23px;height:23px;line-height:21px;text-align:center;
+        border:1px solid #000;font-size:12px;margin-right:9px;vertical-align:2px;font-weight:700}
+  .badge{float:right;font-size:11.5px;font-weight:700;border:1px solid #000;padding:1px 9px;
+         background:#000;color:#fff;margin-left:5px}
+  .badge.g{background:#fff;color:#000}
+  .lead{color:#555;margin:8px 0 12px;font-size:13px}
+
+  /* 지문 상자 */
+  .note{margin:12px 0;border:1px solid #999;padding:9px 12px;background:#fafafa}
+  .note .tag{display:block;font-weight:700;font-size:11px;letter-spacing:.05em;margin-bottom:3px}
+  .note.warn{border-color:#000;border-left-width:4px;background:#f2f2f2}
+  .note p{margin:3px 0;font-size:13.5px}
+  .note ul{margin:4px 0 2px 18px;padding:0}
+  .note li{margin:2px 0;font-size:13.5px}
+
+  /* 표 */
+  table{border-collapse:collapse;width:100%;margin:10px 0;font-size:13px}
+  th,td{border:1px solid #000;padding:6px 8px;text-align:left;vertical-align:top}
+  th{background:#f0f0f0;font-weight:700}
+  td.lb{background:#f7f7f7;font-weight:700;width:118px}
+  .num{text-align:right}
+
+  /* 입력 */
+  .b{font-family:inherit;font-size:13.5px;border:0;border-bottom:1px solid #000;background:#fafafa;
+     padding:1px 4px;min-width:60px}
+  .b:focus{outline:none;background:#ffe;border-bottom-width:2px}
+  .t{font-family:inherit;font-size:13.5px;width:100%;border:1px solid #000;background:#fafafa;
+     padding:6px 8px;line-height:1.6;resize:vertical}
+  .t:focus{outline:none;background:#ffe}
+  td .b{width:100%;border-bottom:none;background:none}
+  td .t{border:none;background:none;padding:2px}
+  .fill{margin:6px 0;font-size:13.5px}
+  .pv{display:none}
+
+  /* 과제 블록 */
+  .task{border:1px solid #666;margin:14px 0;padding:0}
+  .taskh{background:#f0f0f0;border-bottom:1px solid #666;padding:7px 11px;font-weight:700;font-size:14px}
+  .taskh .no{display:inline-block;border:1px solid #000;background:#000;color:#fff;
+             font-size:11px;padding:1px 7px;margin-right:8px;vertical-align:1px}
+  .taskh .rt{float:right;font-weight:400;font-size:11.5px;color:#333}
+  .taskb{padding:11px 12px}
+
+  /* 해설 — 예시 모드에서만 */
+  .ex{display:none;border:1px solid #000;border-left-width:4px;background:#f2f2f2;
+      padding:9px 12px;margin:11px 0;font-size:13px}
+  body.exmode .ex{display:block}
+  .ex .exh{font-weight:700;font-size:11px;letter-spacing:.05em;margin-bottom:5px}
+  .ex p{margin:4px 0}
+  .ex ul{margin:4px 0 2px 18px;padding:0}
+  .ex li{margin:2px 0}
+
+  /* 자가 점검 */
+  .chk{border:1px solid #999;background:#fcfcfc;padding:9px 11px;margin:12px 0 0}
+  .chk .ch{font-weight:700;font-size:12px;letter-spacing:.04em;margin-bottom:5px}
+  .chk label{display:block;font-size:13px;margin:3px 0;cursor:pointer}
+  .chk input{margin-right:6px}
+  .pt{display:none;color:#555;font-size:12px}
+  body.admin .pt{display:inline}
+  .admonly{display:none}
+  body.admin .admonly{display:block}
+
+  /* 드롭존 */
+  .dz{border:1px dashed #666;background:#fafafa;min-height:88px;padding:8px;margin:8px 0;
+      position:relative;text-align:center;cursor:pointer}
+  .dz.on{border-style:solid;background:#fff}
+  .dzhint{color:#777;font-size:12.5px;display:block;padding:26px 0}
+  .dz.on .dzhint{display:none}
+  .dzimg{max-width:100%;display:none}
+  .dz.on .dzimg{display:inline-block}
+  .dzdel{display:none;position:absolute;top:5px;right:5px;font-family:inherit;font-size:11px;
+         border:1px solid #000;background:#fff;padding:1px 7px;cursor:pointer}
+  .dz.on .dzdel{display:inline-block}
+  body.exmode .dzdel{display:none !important}
+  .caph{font-size:12.5px;font-weight:700;margin-top:9px}
+  .dzrow{display:flex;gap:8px;flex-wrap:wrap}
+  .dzrow .dzcell{flex:1 1 250px;min-width:230px}
+
+  footer{margin-top:34px;padding-top:12px;border-top:2px solid #000;font-size:12px;color:#555}
+
+  /* 인쇄 모달 */
+  .mask{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:60}
+  .mask.on{display:flex;align-items:center;justify-content:center}
+  .modal{background:#fff;border:2px solid #000;max-width:560px;padding:18px 20px;font-size:13.5px}
+  .modal h3{margin:0 0 9px;font-size:15px}
+  .modal ol{margin:0 0 10px 18px;padding:0}
+  .modal li{margin:4px 0}
+  .modal .mr{text-align:right;margin-top:12px}
+  .modal button{font-family:inherit;font-size:12.5px;padding:4px 12px;border:1px solid #000;
+                background:#fff;cursor:pointer;margin-left:6px}
+
+  @media print{
+    .stick,.sitehead,.bar,.mask,.lead,.badge,.noprint{display:none !important}
+    body{font-size:10.5pt}
+    .wrap{max-width:none;padding:0}
+    h1{border-bottom:2px solid #000;padding-bottom:10px}
+    section,.task,.ex,table{page-break-inside:avoid}
+    section{border-top:1px solid #000}
+    .b,.t{display:none}
+    .pv{display:inline;border-bottom:1px solid #000;padding:0 3px;white-space:pre-wrap;
+        word-break:break-word;font-weight:600}
+    .pv:empty{display:inline-block;min-width:110px;height:1.3em;vertical-align:-.3em}
+    td .pv{display:block;width:100%;border-bottom:none;min-height:1.3em;font-weight:400}
+    .pv.blk{display:block;border:1px solid #000;padding:5px 7px;min-height:3em;font-weight:400}
+    .dz{border:1px solid #000}
+    .dz:not(.on){display:none}
+    .dzdel{display:none}
+    .note{background:none}
+    .ex{background:none}
+  }
+</style>
+
+<script src="../../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../../");</script>
+
+<div class="stick">
+  <div class="sitehead">
+    <a href="../../index.html">과목 목록</a> &nbsp;/&nbsp;
+    <a href="../../courses/c1.html">평가 모듈 목록</a> &nbsp;/&nbsp;
+    <a href="../../modules/m01.html">화면 설계</a> &nbsp;/&nbsp;
+    <span class="cur">포트폴리오 제출서</span>
+    <span class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></span>
+  </div>
+  <div class="bar">
+    <b>화면 설계 · 포트폴리오</b>
+    <div class="prog"><i id="pi"></i></div><span id="pt">0 / 0</span>
+    <span class="sp"></span>
+    <span id="svAt" class="svat"></span>
+    <button id="bSave" type="button">중간저장</button>
+    <button id="bLoad" type="button">불러오기</button>
+    <span id="roleBadge">일반(학생)</span>
+    <button id="bEx" type="button">예시 보기</button>
+    <button id="bCopy" type="button">제출 목록 복사</button>
+    <button id="bPrint" type="button">인쇄 / PDF 저장</button>
+    <button id="bReset" type="button">초기화</button>
+  </div>
+</div>
+
+<div class="mask" id="pMask"><div class="modal">
+  <h3>PDF 로 저장하기 전에 — 인쇄 창에서 확인할 것</h3>
+  <ol>
+    <li><b>대상</b> 을 <b>"PDF로 저장"</b> 으로 바꿉니다. "Microsoft Print to PDF" 로 두면 글자가 그림처럼 박혀서 검색과 복사가 안 됩니다.</li>
+    <li><b>설정 더보기</b> 가 접혀 있으면 펼칩니다.</li>
+    <li>맨 아래 <b>옵션</b> 의 <b>머리글과 바닥글</b> 체크를 <b>풉니다.</b></li>
+  </ol>
+  <div class="mr"><button id="pNo" type="button">취소</button><button id="pGo" type="button">인쇄 창 열기</button></div>
+</div></div>
+
+<div class="wrap">
+
+<p class="kicker">(디지털 컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E · 내부평가</p>
+<h1>화면 설계 — 포트폴리오 제출서</h1>
+<p class="sub">능력단위 화면 설계 (2001020224_23v6) / 5수준 · 평가방법 <b>포트폴리오 (100점)</b> · 합격선 60점</p>
+<p class="meta">평가자 정우균 · 평가일자 2026-03-05 (09:00~18:00) · 팀별 제출</p>
+
+<div class="note">
+  <span class="tag">이 문서의 쓰임</span>
+  <p>평가도구에 적힌 <b>과제 3개</b>를 그대로 옮긴 <b>작성 서식</b>입니다. 빈칸을 맞히는 시험지가 아니라
+     <b>산출물을 만들어 채워 넣는 작업 문서</b>입니다. 여기에 정리한 내용을 그대로 제출물로 옮기면 됩니다.</p>
+  <p>상단 <b>예시 보기</b> 를 누르면 <b>모든 칸이 완성 예시로 채워집니다.</b>
+     유스케이스 다이어그램·명세서·스타일가이드·프로토타입이 실제로 어떻게 작성되는지 보고 나서
+     <b>예시 숨기기</b> 로 되돌린 뒤 본인 팀 내용을 쓰면 됩니다. 내가 쓴 답은 지워지지 않습니다.
+     화면 모양은 그대로이므로 <b>예시 화면이 곧 완성된 제출서의 모습</b>입니다.
+     각 과제 끝의 회색 상자는 <b>왜 그렇게 썼는지</b> 에 대한 해설이며 예시를 볼 때만 나옵니다.</p>
+  <p>입력한 내용은 이 브라우저에 자동 저장됩니다. <b>중간저장</b> 을 누르면 되돌릴 지점이 남습니다.</p>
+</div>
+
+<table>
+  <tr><td class="lb">능력단위</td><td>화면 설계 / 5수준 (2001020224_23v6)</td>
+      <td class="lb">평가방법</td><td>포트폴리오 (100점)</td></tr>
+  <tr><td class="lb">능력단위 요소</td><td colspan="3">① UI 요구사항 확인하기 (60점) &nbsp; ② UI 설계하기 (40점)</td></tr>
+  <tr><td class="lb">합격선</td><td>60점</td>
+      <td class="lb">성취수준</td><td>90↑=5 · 80~=4 · 70~=3 · 60~=2 · 60미만=1(재평가)</td></tr>
+</table>
+
+<div class="note warn">
+  <span class="tag">능력단위요소별 요구조건 (수행준거)</span>
+  <p><b>[UI 요구사항 확인하기]</b></p>
+  <ul>
+    <li>1. 응용소프트웨어 개발을 위한 UI 표준 및 지침에 의거하여, 개발하고자 하는 응용소프트웨어에 적용될 UI 요구사항을 확인할 수 있다.</li>
+    <li>2. 응용소프트웨어 개발을 위한 UI 표준 및 지침에 의거하여, UI 요구사항을 반영한 프로토타입을 제작할 수 있다.</li>
+    <li>3. 작성한 프로토타입을 활용하여 UI/UX 엔지니어와 향후 적용할 UI의 적정성에 대해 검토할 수 있다.</li>
+  </ul>
+  <p><b>[UI 설계하기]</b></p>
+  <ul>
+    <li>4. UI 요구사항과 UI 표준 및 지침에 따라, 화면과 폼의 흐름을 설계하고, 제약사항을 화면과 폼 흐름설계에 반영할 수 있다.</li>
+    <li>5. UI 요구사항과 UI 표준 및 지침에 따라, 사용자의 편의성을 고려한 메뉴 구조를 설계할 수 있다.</li>
+    <li>6. UI 요구사항과 UI 표준 및 지침에 따라, 하위 시스템 단위의 내·외부 화면과 폼을 설계할 수 있다.</li>
+  </ul>
+</div>
+
+<!-- ===================== 0. 제출물 명세 ===================== -->
+<section id="s0">
+  <h2><span class="n">0</span>제출물 명세<span class="badge g">먼저 확인</span></h2>
+  <p class="lead">작업지시서 「[팀별제출] 웹기획을 위한 각 단계를 이행하세요」 의 제출물입니다.</p>
+
+  <table>
+    <tr><th style="width:52px">번호</th><th>만들어야 할 산출물</th><th style="width:150px">형식</th><th style="width:66px">배점</th></tr>
+    <tr><td>1</td><td>유스케이스 다이어그램 + 유스케이스 명세서</td><td>슬라이드 또는 문서</td><td class="num">30</td></tr>
+    <tr><td>2</td><td>스타일가이드 (구동환경·로고·폰트·색상·레이아웃·구성요소)</td><td>슬라이드 또는 문서</td><td class="num">30</td></tr>
+    <tr><td>3</td><td>프로토타입 (화면이동·효과 정리)</td><td>Figma + 화면 캡처</td><td class="num">40</td></tr>
+    <tr><th colspan="3">합계</th><th class="num">100</th></tr>
+  </table>
+
+  <div class="note warn">
+    <span class="tag">포털 제출 방식 — 파일 1개 + 링크 1개로 합쳐서 냅니다</span>
+    <p>훈련 포털의 이 능력단위 평가문제는 <b>1문항 · 100점</b> 이고, 제출 칸이
+       <b>파일 1개</b>와 <b>링크 1개</b> 뿐입니다. 산출물마다 따로 올리는 것이 아닙니다.</p>
+    <table style="margin:8px 0 4px">
+      <tr><th style="width:150px">포털 제출 칸</th><th>여기에 넣는 것</th><th style="width:170px">형식</th></tr>
+      <tr><td><b>파일</b> (다운로드)</td>
+          <td><b>ZIP 1개</b> 안에 PDF 2부를 넣습니다.<br>
+              ① <code>N조_스타일가이드.pdf</code> — 과제 2<br>
+              ② <code>N조_프로젝트명.pdf</code> — 과제 1(기능 정의 · 유스케이스) + 과제 3 캡처</td>
+          <td>ZIP <b>1개</b><br>(안에 PDF 2부)</td></tr>
+      <tr><td><b>링크</b> (링크열기)</td>
+          <td>Figma 프로토타입 공유 링크</td>
+          <td>URL <b>1개</b></td></tr>
+    </table>
+    <p style="font-size:12.5px;color:#555;margin:6px 0 0">
+      파일명에 <b>조 번호</b>를 넣으면 강사가 팀별로 구분하기 쉽습니다.
+      팀원 전원이 <b>같은 파일</b>을 각자 올립니다. 포털은 개인별로 점수를 매기기 때문입니다.</p>
+    <p><b>링크만 내면 안 됩니다.</b> 권한이 바뀌거나 파일이 지워지면 열리지 않아 평가 근거가 사라집니다.
+       프로토타입 <b>화면 캡처를 파일 안에 반드시 넣습니다.</b> 캡처본이 정본이고 링크는 보조 자료입니다.</p>
+    <p>점수도 <b>1문항 100점으로 한 번</b> 입력됩니다. 아래 자가 점검 19항목은 그 100점을
+       어떻게 나눠 보는지에 대한 것이며, 강사는 항목별로 매긴 합계를 포털에 한 번에 넣습니다.</p>
+  </div>
+
+  <p class="fill">팀명 <input class="b" data-k="team" data-q="팀명" size="16"
+       data-a="1조"><span class="pv"></span>
+     &nbsp; 프로젝트 주제 <input class="b" data-k="topic" data-q="프로젝트 주제" size="44"
+       data-a="데일리마켓 — 신선식품 온라인 쇼핑몰"><span class="pv"></span></p>
+  <p class="fill" style="margin:8px 0 3px">팀원 / 역할</p>
+  <textarea class="t" data-k="member" data-q="팀원 역할" rows="2" data-a="홍길동(조장·설계 총괄) / 김서연(유스케이스) / 이준호(스타일가이드) / 박민지(프로토타입)"></textarea><span class="pv blk"></span>
+  <p class="fill" style="margin:8px 0 3px">Figma 공유 링크</p>
+  <textarea class="t" data-k="figma" data-q="Figma 링크" rows="2" data-a="https://www.figma.com/file/DAILY-MARKET/prototype  (포털 「링크」 칸에 이 URL 하나만 넣는다 · 권한: 링크가 있는 모든 사용자 보기 가능)"></textarea><span class="pv blk"></span>
+
+  <div class="ex">
+    <div class="exh">예시 주제 — 데일리마켓</div>
+    <p><b>데일리마켓</b> — 신선식품을 파는 온라인 쇼핑몰입니다.
+       상품을 목록에서 고르고, 상세에서 옵션·수량을 정해 장바구니에 담고, 주문·결제한 뒤 주문 내역에서 확인합니다.</p>
+    <p>쇼핑몰을 고른 이유는 <b>화면 설계에 필요한 요소가 모두 들어 있으면서 누구나 아는 흐름</b>이기 때문입니다.
+       목록·상세·입력 폼·표·결제 연동·로그인 제약이 한 서비스 안에 다 있습니다.
+       <b>본인 팀은 다른 주제로 해도 됩니다.</b> 예약 서비스, 도서관, 배달 앱 모두 같은 구조로 풀립니다.</p>
+  </div>
+</section>
+
+<!-- ===================== 1. 과제 1 ===================== -->
+<section id="s1">
+  <h2><span class="n">1</span>유스케이스 다이어그램 · 명세서<span class="badge">30점</span><span class="badge g">난이도 중</span></h2>
+  <p class="lead">수행준거 1 — 개발하고자 하는 응용소프트웨어에 적용될 UI 요구사항을 확인할 수 있다.</p>
+
+  <div class="note">
+    <span class="tag">작업지시서 (원문)</span>
+    <p>프로젝트 주제 선정 이후 <b>유스케이스 다이어그램과 명세서를 작성</b>하세요.</p>
+  </div>
+
+  <div class="task">
+    <div class="taskh"><span class="no">1-1</span>요구사항 명세서<span class="rt">학습모듈 활용서식</span></div>
+    <div class="taskb">
+      <p class="lead">화면을 그리기 전에 무엇을 만들지 문장으로 먼저 고정합니다. 6행 이상 작성합니다.</p>
+      <table>
+        <tr><th style="width:70px">번호</th><th style="width:156px">요구사항 명</th><th>요구사항 내용</th>
+            <th style="width:74px">우선순위</th></tr>
+        <tr><td><input class="b" data-k="rq1n" data-q="요구사항1 번호" data-a="SR-01"><span class="pv"></span></td>
+            <td><input class="b" data-k="rq1t" data-q="요구사항1 명" data-a="회원가입"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="rq1d" data-q="요구사항1 내용" rows="2" data-a="아이디·비밀번호·이메일로 계정을 만듭니다. 아이디 중복은 입력 즉시 알립니다."></textarea><span class="pv blk"></span></td>
+            <td><input class="b" data-k="rq1p" data-q="요구사항1 우선순위" data-a="높음"><span class="pv"></span></td></tr>
+        <tr><td><input class="b" data-k="rq2n" data-q="요구사항2 번호" data-a="SR-02"><span class="pv"></span></td>
+            <td><input class="b" data-k="rq2t" data-q="요구사항2 명" data-a="로그인 / 로그아웃"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="rq2d" data-q="요구사항2 내용" rows="2" data-a="로그인해야 장바구니·주문을 쓸 수 있습니다. 비로그인 접근은 로그인 화면으로 보냅니다."></textarea><span class="pv blk"></span></td>
+            <td><input class="b" data-k="rq2p" data-q="요구사항2 우선순위" data-a="높음"><span class="pv"></span></td></tr>
+        <tr><td><input class="b" data-k="rq3n" data-q="요구사항3 번호" data-a="SR-03"><span class="pv"></span></td>
+            <td><input class="b" data-k="rq3t" data-q="요구사항3 명" data-a="상품 목록 조회"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="rq3d" data-q="요구사항3 내용" rows="2" data-a="카테고리별로 상품을 목록으로 봅니다. 최신순·낮은가격순 정렬과 페이지 이동을 제공합니다."></textarea><span class="pv blk"></span></td>
+            <td><input class="b" data-k="rq3p" data-q="요구사항3 우선순위" data-a="높음"><span class="pv"></span></td></tr>
+        <tr><td><input class="b" data-k="rq4n" data-q="요구사항4 번호" data-a="SR-04"><span class="pv"></span></td>
+            <td><input class="b" data-k="rq4t" data-q="요구사항4 명" data-a="상품 검색"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="rq4d" data-q="요구사항4 내용" rows="2" data-a="상품명 키워드로 검색합니다. 결과가 없으면 안내 문구와 추천 카테고리를 보여 줍니다."></textarea><span class="pv blk"></span></td>
+            <td><input class="b" data-k="rq4p" data-q="요구사항4 우선순위" data-a="중간"><span class="pv"></span></td></tr>
+        <tr><td><input class="b" data-k="rq5n" data-q="요구사항5 번호" data-a="SR-05"><span class="pv"></span></td>
+            <td><input class="b" data-k="rq5t" data-q="요구사항5 명" data-a="상품 상세 조회"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="rq5d" data-q="요구사항5 내용" rows="2" data-a="대표 이미지·가격·옵션·재고를 보여 주고, 수량을 골라 장바구니에 담습니다."></textarea><span class="pv blk"></span></td>
+            <td><input class="b" data-k="rq5p" data-q="요구사항5 우선순위" data-a="높음"><span class="pv"></span></td></tr>
+        <tr><td><input class="b" data-k="rq6n" data-q="요구사항6 번호" data-a="SR-06"><span class="pv"></span></td>
+            <td><input class="b" data-k="rq6t" data-q="요구사항6 명" data-a="장바구니 관리"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="rq6d" data-q="요구사항6 내용" rows="2" data-a="담긴 상품의 수량을 바꾸거나 지웁니다. 합계 금액은 자동으로 다시 계산합니다."></textarea><span class="pv blk"></span></td>
+            <td><input class="b" data-k="rq6p" data-q="요구사항6 우선순위" data-a="높음"><span class="pv"></span></td></tr>
+        <tr><td><input class="b" data-k="rq7n" data-q="요구사항7 번호" data-a="SR-07"><span class="pv"></span></td>
+            <td><input class="b" data-k="rq7t" data-q="요구사항7 명" data-a="주문 · 결제"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="rq7d" data-q="요구사항7 내용" rows="2" data-a="배송지를 입력하고 결제수단을 골라 결제합니다. 재고가 부족하면 진행하지 않습니다."></textarea><span class="pv blk"></span></td>
+            <td><input class="b" data-k="rq7p" data-q="요구사항7 우선순위" data-a="높음"><span class="pv"></span></td></tr>
+        <tr><td><input class="b" data-k="rq8n" data-q="요구사항8 번호" data-a="SR-08"><span class="pv"></span></td>
+            <td><input class="b" data-k="rq8t" data-q="요구사항8 명" data-a="주문 내역 조회"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="rq8d" data-q="요구사항8 내용" rows="2" data-a="주문 목록과 상태(결제완료·배송중·배송완료)를 봅니다. 배송 전이면 취소할 수 있습니다."></textarea><span class="pv blk"></span></td>
+            <td><input class="b" data-k="rq8p" data-q="요구사항8 우선순위" data-a="중간"><span class="pv"></span></td></tr>
+      </table>
+
+      <div class="ex">
+        <div class="exh">해설 — 요구사항 명세서를 쓰는 요령</div>
+    <ul>
+      <li><b>우선순위는 「없으면 서비스가 성립하지 않는가」</b> 로 판단했습니다.
+          쇼핑몰에서 회원가입·로그인·상품 목록·상세·장바구니·주문이 빠지면 쇼핑몰이 아니므로 높음입니다.
+          검색과 주문 내역은 없어도 물건은 팔리므로 중간입니다.</li>
+      <li>SR-06 의 「합계 금액은 자동으로 다시 계산합니다」처럼 <b>화면이 해야 할 일</b>을 적었습니다.
+          「장바구니 기능」이라고만 쓰면 무엇을 만들지 정해지지 않습니다.</li>
+      <li>SR-07 의 「재고가 부족하면 진행하지 않습니다」는 <b>하지 말아야 할 것</b>입니다.
+          이렇게 적어 두면 뒤에서 예외 흐름을 빠뜨리지 않습니다.</li>
+      <li>요구사항 명세서는 <b>유스케이스의 재료</b>입니다. 여기 적은 8개가 다음 장 다이어그램의 유스케이스가 됩니다.</li>
+    </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="task">
+    <div class="taskh"><span class="no">1-2</span>기능 정의 매트릭스<span class="rt">액터 × 서비스 · CRUD 표기</span></div>
+    <div class="taskb">
+      <p class="lead">요구사항을 <b>액터별로</b> 다시 늘어놓습니다. 누가 무엇까지 할 수 있는지가 격자로 드러나고,
+        <b>C·R·U·D</b> 를 붙여 보면 빠뜨린 기능이 눈에 띕니다. 다음 장 유스케이스의 재료가 됩니다.</p>
+      <table>
+        <tr><th style="width:120px">서비스</th><th>비회원</th><th>회원</th><th>관리자</th></tr>
+        <tr><td class="lb">인증 서비스</td>
+            <td><textarea class="t" data-k="mx_auth_g" data-q="인증 서비스 / 비회원" rows="2" data-a="(C) 비회원은 회원가입을 할 수 있습니다"></textarea><span class="pv blk"></span></td>
+            <td><textarea class="t" data-k="mx_auth_m" data-q="인증 서비스 / 회원" rows="5" data-a="(R) 회원은 내 정보를 조회할 수 있습니다
+(U) 회원은 내 정보를 수정할 수 있습니다
+(D) 회원은 회원탈퇴를 할 수 있습니다
+(P) 회원은 로그인·로그아웃을 할 수 있습니다"></textarea><span class="pv blk"></span></td>
+            <td><textarea class="t" data-k="mx_auth_a" data-q="인증 서비스 / 관리자" rows="3" data-a="(R) 관리자는 회원 정보를 조회할 수 있습니다
+(D) 관리자는 회원을 탈퇴 처리할 수 있습니다"></textarea><span class="pv blk"></span></td></tr>
+        <tr><td class="lb">상품 서비스</td>
+            <td><textarea class="t" data-k="mx_prod_g" data-q="상품 서비스 / 비회원" rows="3" data-a="(R) 비회원은 상품 목록·상세를 조회할 수 있습니다
+(R) 비회원은 상품을 검색할 수 있습니다"></textarea><span class="pv blk"></span></td>
+            <td><textarea class="t" data-k="mx_prod_m" data-q="상품 서비스 / 회원" rows="3" data-a="(R) 회원은 상품 목록·상세를 조회할 수 있습니다
+(R) 회원은 상품을 검색할 수 있습니다"></textarea><span class="pv blk"></span></td>
+            <td><textarea class="t" data-k="mx_prod_a" data-q="상품 서비스 / 관리자" rows="5" data-a="(C) 관리자는 상품을 등록할 수 있습니다
+(R) 관리자는 상품을 조회할 수 있습니다
+(U) 관리자는 상품을 수정할 수 있습니다
+(D) 관리자는 상품을 삭제할 수 있습니다"></textarea><span class="pv blk"></span></td></tr>
+        <tr><td class="lb">장바구니 · 주문 서비스</td>
+            <td><textarea class="t" data-k="mx_cart_g" data-q="장바구니 · 주문 서비스 / 비회원" rows="2" data-a="—  (로그인 후 이용)"></textarea><span class="pv blk"></span></td>
+            <td><textarea class="t" data-k="mx_cart_m" data-q="장바구니 · 주문 서비스 / 회원" rows="8" data-a="(C) 회원은 상품을 장바구니에 담을 수 있습니다
+(R) 회원은 장바구니를 조회할 수 있습니다
+(U) 회원은 수량을 변경할 수 있습니다
+(D) 회원은 장바구니 항목을 삭제할 수 있습니다
+(P) 회원은 주문할 수 있습니다
+(R) 회원은 주문 내역을 조회할 수 있습니다
+(D) 회원은 배송 전 주문을 취소할 수 있습니다"></textarea><span class="pv blk"></span></td>
+            <td><textarea class="t" data-k="mx_cart_a" data-q="장바구니 · 주문 서비스 / 관리자" rows="3" data-a="(R) 관리자는 전체 주문을 조회할 수 있습니다
+(U) 관리자는 배송 상태를 변경할 수 있습니다"></textarea><span class="pv blk"></span></td></tr>
+        <tr><td class="lb">결제 서비스</td>
+            <td><textarea class="t" data-k="mx_pay_g" data-q="결제 서비스 / 비회원" rows="2" data-a="—  (로그인 후 이용)"></textarea><span class="pv blk"></span></td>
+            <td><textarea class="t" data-k="mx_pay_m" data-q="결제 서비스 / 회원" rows="4" data-a="(C) 회원은 결제수단을 등록할 수 있습니다
+(D) 회원은 결제수단을 삭제할 수 있습니다
+(P) 회원은 결제수단을 골라 결제할 수 있습니다"></textarea><span class="pv blk"></span></td>
+            <td><textarea class="t" data-k="mx_pay_a" data-q="결제 서비스 / 관리자" rows="2" data-a="(R) 관리자는 결제 내역을 조회할 수 있습니다"></textarea><span class="pv blk"></span></td></tr>
+      </table>
+      <div class="ex">
+        <div class="exh">해설 — CRUD 로 훑으면 빠뜨리지 않습니다</div>
+        <ul>
+          <li><b>C</b>reate 등록 · <b>R</b>ead 조회 · <b>U</b>pdate 수정 · <b>D</b>elete 삭제 ·
+              <b>P</b>rocess 그 밖의 처리(로그인·결제·주문 같은 동작)를 앞에 붙입니다.</li>
+          <li>칸을 하나씩 채우다 보면 <b>「관리자는 상품을 수정할 수 있나?」</b> 같은 질문이 저절로 나옵니다.
+              요구사항 명세서만 쓰면 이런 게 빠집니다.</li>
+          <li>비어 있는 칸도 의미가 있습니다. 비회원의 장바구니·결제 칸이 비었다는 것이
+              <b>「로그인해야 쓸 수 있습니다」</b> 는 제약을 그대로 보여 줍니다. 이 제약이 뒤에서
+              유스케이스의 «include» 와 화면 흐름도의 점선이 됩니다.</li>
+          <li>액터 열이 곧 <b>유스케이스 다이어그램의 액터</b>이고, 셀의 문장이 곧 <b>유스케이스</b>입니다.
+              여기서 정리해 두면 다음 장을 그리기 쉽습니다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="task">
+    <div class="taskh"><span class="no">1-3</span>유스케이스 다이어그램<span class="rt">액터 · 관계선 · include / extend</span></div>
+    <div class="taskb">
+      <p class="lead">작성한 다이어그램 이미지를 아래 상자에 끌어다 놓습니다. 인쇄·PDF 에도 함께 나옵니다.</p>
+      <div class="dz" data-img="uc1" data-aimg="img/sample1/01_usecase.svg">
+        <span class="dzhint">유스케이스 다이어그램 이미지를 끌어다 놓기 (누르면 파일 선택)</span>
+        <img class="dzimg" alt=""><button type="button" class="dzdel">지우기</button></div>
+      <p class="fill">유스케이스 개수 <input class="b" data-k="uc_cnt" data-q="유스케이스 개수" size="5"
+         data-a="11"><span class="pv"></span>
+        &nbsp; 그중 요구사항(SR) 대응 <input class="b" data-k="uc_sr" data-q="SR 대응 개수" size="5"
+         data-a="8"><span class="pv"></span></p>
+      <p class="fill" style="margin:8px 0 3px">액터</p>
+  <textarea class="t" data-k="uc_actor" data-q="액터" rows="2" data-a="비회원(주 액터), 회원(비회원을 상속), 관리자, 결제 시스템(외부 «system»)"></textarea><span class="pv blk"></span>
+      <p class="fill" style="margin:8px 0 3px">include 로 표기한 것</p>
+  <textarea class="t" data-k="uc_inc" data-q="include" rows="3" data-a="장바구니 담기 → 로그인, 주문 → 로그인, 주문 → 결제. 세 건 모두 예외 없이 거치므로 include 다."></textarea><span class="pv blk"></span>
+      <p class="fill" style="margin:8px 0 3px">extend 로 표기한 것</p>
+  <textarea class="t" data-k="uc_ext" data-q="extend" rows="3" data-a="주문 조회 ← 주문 취소 [배송 전]. 배송이 시작되기 전에만 나타나므로 extend 이고, 화살표는 주문 취소에서 주문 조회 쪽을 가리킵니다."></textarea><span class="pv blk"></span>
+      <p class="fill" style="margin:8px 0 3px">일반화(상속)로 표기한 것</p>
+  <textarea class="t" data-k="uc_gen" data-q="일반화" rows="2" data-a="회원 ▷ 비회원. 비회원이 하는 회원가입·검색·조회를 회원도 다 할 수 있고, 회원은 장바구니·주문·주문 조회를 더 합니다."></textarea><span class="pv blk"></span>
+
+      <div class="ex">
+        <div class="exh">해설 — 다이어그램에서 자주 틀리는 것</div>
+    <ul>
+      <li><b>액터 (01번)</b> — 비회원 · 회원 · 관리자 · 결제 시스템 넷입니다.
+          결제 시스템은 사람이 아니라 밖에서 호출되는 시스템이라 <code>«system»</code> 사각형으로 그렸습니다.
+          관리자를 빼면 「상품 관리 · 주문 관리」가 갈 곳이 없습니다.</li>
+      <li><b>관계선 (02번)</b> — 연관은 실선에 화살촉 없음. include·extend 는 점선에 속 빈 화살촉.
+          일반화는 실선에 속 빈 삼각형. 이 셋을 섞어 쓰면 틀린 표기가 됩니다.</li>
+      <li><b>include (03번)</b> — 항상 거치는 절차입니다. 장바구니·주문·주문 조회는 예외 없이 로그인을 거치므로
+          공통으로 빼내 include 로 묶었습니다. 재고 확인과 결제 승인 요청까지 여섯 건입니다.
+          화살표는 기반에서 포함 쪽으로 나갑니다(주문 → 결제).</li>
+      <li><b>extend (03번)</b> — 조건이 맞을 때만 붙는 절차입니다. 주문 취소는 배송이 시작되기 전인 주문에만
+          나타나므로 extend 입니다. 화살표는 반대로 기반 쪽을 가리키고(주문 취소 → 주문 조회),
+          조건은 <code>[배송 전]</code> 처럼 대괄호로 적습니다.
+          항상 하는 일인지 조건이 맞을 때만 하는 일인지로 나누면 헷갈리지 않습니다.</li>
+      <li><b>로그인에 액터 선이 없는 이유</b> — 로그인은 장바구니·주문이 include 하는 공통 절차입니다.
+          include 되는 유스케이스에는 액터를 따로 연결하지 않아도 됩니다.</li>
+      <li><b>일반화</b> — 회원이 비회원을 상속합니다. 비회원도 목록·검색·상세는 볼 수 있고,
+          회원은 거기에 더해 장바구니·주문·주문 조회를 씁니다.
+          회원 쪽에 선을 네 개 더 긋는 대신 삼각형 하나로 대신하면
+          선이 줄고 누가 어디까지 할 수 있는지가 분명해집니다.</li>
+      <li><b>요구사항과의 대응</b> — 각 유스케이스 아래에 <b>SR 번호</b>를 적었습니다.
+          앞 장의 요구사항 여덟 개가 모두 유스케이스로 나타났는지 눈으로 확인됩니다.
+          빠진 SR 이 있으면 그 요구사항은 설계에서 누락된 것입니다.
+          로그인 확인 · 재고 확인 · 결제 승인 요청 · 주문 취소 네 개에 번호가 없는 것은
+          사용자 목표가 아니라 공통 절차이거나 조건부 확장이기 때문입니다.</li>
+    </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="task">
+    <div class="taskh"><span class="no">1-4</span>유스케이스 명세서 (2건 이상)<span class="rt">정상 · 대안 · 예외 흐름</span></div>
+    <div class="taskb">
+      <table>
+        <tr><td class="lb">목표</td><td colspan="3"><textarea class="t" data-k="uc1_goal" data-q="명세서1 목표" rows="2" data-a="회원이 고른 상품을 장바구니에 담아 두었다가 한 번에 주문할 수 있게 합니다."></textarea><span class="pv blk"></span></td></tr>
+        <tr><td class="lb">유스케이스명</td><td colspan="3"><input class="b" data-k="uc1_nm" data-q="명세서1 이름"
+            data-a="장바구니 담기 (UC-06)"><span class="pv"></span></td></tr>
+        <tr><td class="lb">액터</td><td><input class="b" data-k="uc1_ac" data-q="명세서1 액터"
+            data-a="회원"><span class="pv"></span></td>
+            <td class="lb">사전 조건</td><td><textarea class="t" data-k="uc1_pre" data-q="명세서1 사전조건" rows="2" data-a="로그인 상태이고, 상품 상세 화면에서 옵션과 수량을 고를 수 있습니다."></textarea><span class="pv blk"></span></td></tr>
+        <tr><td class="lb">기본흐름</td><td colspan="3"><textarea class="t" data-k="uc1_main" data-q="명세서1 기본흐름" rows="5"
+            data-a="1. 회원이 상품 상세 화면에서 옵션과 수량을 고릅니다.
+2. 「장바구니 담기」를 누릅니다.
+3. 시스템이 로그인 상태와 재고를 확인합니다.
+4. 시스템이 장바구니에 상품을 담고 담기 완료 알림을 띄웁니다.
+5. 회원은 계속 쇼핑하거나 장바구니로 이동합니다."></textarea><span class="pv blk"></span></td></tr>
+        <tr><td class="lb">대안흐름</td><td colspan="3"><textarea class="t" data-k="uc1_alt" data-q="명세서1 대안흐름" rows="3"
+            data-a="2a. 이미 담긴 상품이면 새로 추가하지 않고 수량만 더합니다.
+5a. 알림에서 「장바구니 보기」를 누르면 SC-04 장바구니로 이동합니다."></textarea><span class="pv blk"></span></td></tr>
+        <tr><td class="lb">예외흐름</td><td colspan="3"><textarea class="t" data-k="uc1_exc" data-q="명세서1 예외흐름" rows="3"
+            data-a="3a. 비로그인이면 로그인 화면으로 보내고, 로그인 후 원래 화면으로 되돌립니다.
+3b. 옵션을 고르지 않았으면 옵션 칸에 오류를 표시하고 담지 않습니다.
+3c. 재고보다 많은 수량이면 「재고 24개」를 알리고 담지 않습니다."></textarea><span class="pv blk"></span></td></tr>
+        <tr><td class="lb">사후 처리</td><td colspan="3"><input class="b" data-k="uc1_post" data-q="명세서1 사후 처리"
+            data-a="장바구니에 상품 1건이 추가되거나 기존 항목의 수량이 늘어납니다."><span class="pv"></span></td></tr>
+      </table>
+      <table>
+        <tr><td class="lb">목표</td><td colspan="3"><textarea class="t" data-k="uc2_goal" data-q="명세서2 목표" rows="2" data-a="장바구니에 담긴 상품을 결제해 주문을 확정하고, 재고를 그만큼 줄입니다."></textarea><span class="pv blk"></span></td></tr>
+        <tr><td class="lb">유스케이스명</td><td colspan="3"><input class="b" data-k="uc2_nm" data-q="명세서2 이름"
+            data-a="주문 · 결제 (UC-07)"><span class="pv"></span></td></tr>
+        <tr><td class="lb">액터</td><td><input class="b" data-k="uc2_ac" data-q="명세서2 액터"
+            data-a="회원, 결제 시스템(PG)"><span class="pv"></span></td>
+            <td class="lb">사전 조건</td><td><textarea class="t" data-k="uc2_pre" data-q="명세서2 사전조건" rows="2" data-a="장바구니에 상품이 1건 이상 있고 로그인 상태입니다."></textarea><span class="pv blk"></span></td></tr>
+        <tr><td class="lb">기본흐름</td><td colspan="3"><textarea class="t" data-k="uc2_main" data-q="명세서2 기본흐름" rows="5"
+            data-a="1. 회원이 장바구니에서 「주문하기」를 누릅니다.
+2. 시스템이 주문서에 상품과 금액을 채워 보여 줍니다.
+3. 회원이 배송지를 입력하고 결제수단을 고릅니다.
+4. 시스템이 재고를 다시 확인하고 결제 시스템에 승인을 요청합니다.
+5. 승인되면 주문을 확정하고 주문 완료 화면을 보여 줍니다."></textarea><span class="pv blk"></span></td></tr>
+        <tr><td class="lb">대안흐름</td><td colspan="3"><textarea class="t" data-k="uc2_alt" data-q="명세서2 대안흐름" rows="3"
+            data-a="3a. 최근 배송지를 고르면 입력 없이 채워집니다.
+5a. 「주문 내역 보기」를 누르면 주문 내역으로 이동합니다."></textarea><span class="pv blk"></span></td></tr>
+        <tr><td class="lb">예외흐름</td><td colspan="3"><textarea class="t" data-k="uc2_exc" data-q="명세서2 예외흐름" rows="3"
+            data-a="4a. 결제 직전에 재고가 소진되면 승인을 요청하지 않고 해당 상품을 알립니다.
+4b. 결제 승인이 거절되면 주문을 만들지 않고 장바구니를 그대로 둡니다.
+5a. 승인 응답이 오지 않으면 주문을 「결제 확인 중」으로 두고 중복 결제를 막습니다."></textarea><span class="pv blk"></span></td></tr>
+        <tr><td class="lb">사후 처리</td><td colspan="3"><input class="b" data-k="uc2_post" data-q="명세서2 사후 처리"
+            data-a="주문 1건이 생성되고 장바구니가 비워집니다. 재고가 주문 수량만큼 줄어듭니다."><span class="pv"></span></td></tr>
+      </table>
+
+      <div class="ex">
+        <div class="exh">해설 — 정상 · 대안 · 예외를 나누는 기준</div>
+    <ul>
+      <li><b>정상 흐름</b>은 「회원이 …합니다」와 「시스템이 …합니다」를 번갈아 씁니다.
+          한쪽만 쓰면 화면 설계로 이어지지 않습니다. (04번)</li>
+      <li><b>대안 흐름</b>은 실패가 아니라 <b>다른 길</b>입니다.
+          「이미 담긴 상품이면 수량만 더합니다」, 「최근 배송지를 고르면 입력 없이 채워집니다」처럼
+          정상이지만 경로가 다른 경우입니다. (05번)</li>
+      <li><b>예외 흐름</b>은 <b>실패</b>입니다. 쇼핑몰에서는 세 가지를 습관처럼 적습니다.
+          「비로그인 상태」, 「필수 선택 누락」, 「재고 부족」입니다. (06번)</li>
+      <li>결제는 예외가 특히 중요합니다. <b>「승인 응답이 오지 않으면」</b> 을 빼먹으면
+          같은 주문이 두 번 결제되는 설계가 됩니다. 실무에서도 자주 문제가 되는 부분입니다.</li>
+      <li>흐름 번호는 <code>3a</code>, <code>4b</code> 처럼 <b>어느 단계에서 갈라지는지</b>가 보이게 붙입니다.</li>
+      <li>예외 흐름을 쓰지 않고 정상 흐름만 내면 <b>5점을 잃습니다.</b> 가장 흔한 감점입니다.</li>
+    </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="chk">
+    <div class="ch">자가 점검 — 과제 1 (30점)</div>
+    <label><input type="checkbox" data-k="c01"> 01) Actor 선정은 올바르게 되어 있는가 <span class="pt">(5점)</span></label>
+    <label><input type="checkbox" data-k="c02"> 02) Usecase간 관계선은 올바른가 <span class="pt">(5점)</span></label>
+    <label><input type="checkbox" data-k="c03"> 03) Include / Extended 가 적절히 표기되어 있는가 <span class="pt">(5점)</span></label>
+    <label><input type="checkbox" data-k="c04"> 04) 유스케이스 명세서의 정상흐름은 올바르게 기입되어 있는가 <span class="pt">(5점)</span></label>
+    <label><input type="checkbox" data-k="c05"> 05) 유스케이스 명세서의 대안흐름은 올바르게 기입되어 있는가 <span class="pt">(5점)</span></label>
+    <label><input type="checkbox" data-k="c06"> 06) 유스케이스 명세서의 예외흐름은 올바르게 기입되어 있는가 <span class="pt">(5점)</span></label>
+  </div>
+</section>
+
+<!-- ===================== 2. 과제 2 ===================== -->
+<section id="s2">
+  <h2><span class="n">2</span>스타일가이드<span class="badge">30점</span><span class="badge g">난이도 하</span></h2>
+  <p class="lead">수행준거 2 · 3 — UI 요구사항을 반영한 프로토타입을 제작하고, 적정성을 검토할 수 있습니다.</p>
+
+  <div class="note">
+    <span class="tag">작업지시서 (원문)</span>
+    <p>프로젝트 주제를 정하고 관련 <b>스타일가이드를 작성/제출</b>합니다.<br>
+       구동환경 / 로고 / 폰트 / 색상 / 레이아웃 / 구성요소(버튼·그리드)</p>
+  </div>
+
+  <div class="note warn">
+    <span class="tag">왜 먼저 쓰는가</span>
+    <p>과제 3(프로토타입)의 채점 항목 12·13·16번이 <b>「스타일가이드와 유사한가 · 일관되게 적용되었는가」</b>입니다.
+       여기서 정한 것이 뒤 과제의 판정 기준이 됩니다. <b>대충 쓰면 뒤에서 감점됩니다.</b></p>
+  </div>
+
+  <div class="task">
+    <div class="taskh"><span class="no">2-1</span>스타일가이드 6항목<span class="rt">작업지시서 원문 항목</span></div>
+    <div class="taskb">
+  <table>
+    <tr><td class="lb">① 구동환경</td><td><textarea class="t" data-k="sg_env" data-q="구동환경" rows="3"
+        data-a="OS Windows 11 · 브라우저 Chrome / Edge 120+ · 기준 해상도 1920×1080. 콘텐츠 폭 1200 고정. 영역 높이 헤더 56 · GNB 44 · 배너 360 · 푸터 280. 접근성 WCAG 2.2 AA."></textarea><span class="pv blk"></span></td></tr>
+    <tr><td class="lb">② 로고</td><td><textarea class="t" data-k="sg_logo" data-q="로고" rows="3"
+        data-a="장바구니 심볼 + 워드마크. DAILY 는 400, MARKET 은 700. 기본(흰 바탕 네이비) · 반전(네이비 바탕 흰색) · 심볼 단독 세 가지만 씁니다. 최소 폭 104px, 보호 여백은 심볼 높이 × 0.5. 변색 · 비율 변형 · 그림자 · 회전 금지."></textarea><span class="pv blk"></span></td></tr>
+    <tr><td class="lb">③ 폰트</td><td><textarea class="t" data-k="sg_font" data-q="폰트" rows="3"
+        data-a="Pretendard, 없으면 맑은 고딕. 굵기 400 / 500 / 700 세 가지만 씁니다. 기본 16px, 단위 rem, 제목 행간 1.3 · 본문 1.5. 스케일 6단계 — Display 28/700 메인 배너 · Heading1 24/700 화면 제목 · Price 20/700 상품 가격(Accent) · Heading2 18/700 절·카드 제목 · Body 16/400 본문·상품명 · Caption 12/400 배송 안내."></textarea><span class="pv blk"></span></td></tr>
+    <tr><td class="lb">④ 색상</td><td><textarea class="t" data-k="sg_color" data-q="색상" rows="5"
+        data-a="주조 60% Background #f9fafb · 보조 30% Primary #2b4c7e(hover #22406c) 헤더·GNB·기본 버튼 · 강조 10% Accent #e8590c(hover #c94d0a) 가격·세일·구매 버튼. Neutral 6단계 gray-50 #f9fafb / 100 #f3f4f6 / 200 #e5e7eb 선 / 400 #9ca3af 비활성 / 600 #6b7280 보조 텍스트 / 950 #111827 본문. Semantic 4 — 성공 #1a7f37 · 경고 #b8860b · 오류 #dc2626 · 안내 #1d6fb8. 규칙 — 강조색은 가격과 구매 버튼 외에 쓰지 않습니다. 대비 — 본문 16.2:1 · 보조 4.8:1 · 흰 글자/Primary 8.6:1 · Accent 3.6:1 이라 20px 700 이상에서만."></textarea><span class="pv blk"></span></td></tr>
+    <tr><td class="lb">⑤ 레이아웃</td><td><textarea class="t" data-k="sg_layout" data-q="레이아웃" rows="4"
+        data-a="콘텐츠 폭 1200 · 12칼럼 · 거터 24 · 마진 24. Desktop ≥1280 12칼럼 상품 4열, Tablet 768~1279 8칼럼 상품 3열, Mobile ≤767 4칼럼 상품 2열(GNB 는 햄버거). 간격은 4·8·12·16·24·32 만 씁니다."></textarea><span class="pv blk"></span></td></tr>
+    <tr><td class="lb">⑥ 구성요소</td><td><textarea class="t" data-k="sg_comp" data-q="구성요소" rows="4"
+        data-a="간격은 4의 배수 4·8·16·24·32 만. 모서리 배지 2 · 버튼과 입력 6 · 카드 10. 그림자는 카드 0 1 2 rgba(0,0,0,.06) 과 hover 0 4 6 rgba(0,0,0,.10) 둘뿐. 버튼 높이 40 · 모서리 6 · 글자 14/500, Primary(네이비) · Secondary(흰 바탕 네이비 선) · Buy(오렌지) 3종 × Default · Hover · Disabled 3상태. Primary 는 화면당 1개, 구매 버튼만 강조색. 폼 높이 40 · 테두리 1px gray-200 · 포커스 Primary 2px · 오류 Error + 안내문, 셀렉트 · 수량 스테퍼(1~재고) · 체크 · 라디오. 아이콘 24×24 선 1.8 · 터치 영역 44."></textarea><span class="pv blk"></span></td></tr>
+  </table>
+    </div>
+  </div>
+
+
+
+  <div class="task">
+    <div class="taskh"><span class="no">2-2</span>영역별 상세 구조<span class="rt">Header · Main · Footer</span></div>
+    <div class="taskb">
+      <p class="lead">6항목을 정해 놓고 끝내면 과제 3에서 대조할 게 없습니다.
+        화면을 <b>Header / Main / Footer</b> 세 영역으로 나눠, 각 영역에 무엇이 들어가고
+        <b>왜 거기 있는지</b>를 적습니다. 이것이 프로토타입 채점(12·13번)의 대조 기준이 됩니다.</p>
+      <table>
+        <tr><td class="lb">Header</td><td><textarea class="t" data-k="sg_head" data-q="Header 상세" rows="3"
+            data-a="높이 56 + GNB 44. 왼쪽부터 로고 · 카테고리 · 검색창 · 장바구니 · 마이페이지 순서로 둡니다. 로고는 어느 화면에서든 메인으로 돌아가는 출구이고, 검색창은 목록으로 못 찾은 사용자의 두 번째 길입니다. 장바구니 아이콘에는 담긴 개수를 배지로 얹습니다."></textarea><span class="pv blk"></span></td></tr>
+        <tr><td class="lb">Main</td><td><textarea class="t" data-k="sg_main" data-q="Main 상세" rows="3"
+            data-a="화면마다 다르지만 폭 1200 · 12컬럼은 공통입니다. 상품 목록은 카드 3컬럼(=4열) 그리드, 상품 상세는 이미지 6컬럼 + 정보 6컬럼, 장바구니는 표 12컬럼 전폭, 주문서는 입력 8컬럼 + 금액 요약 4컬럼. 가격은 어느 화면에서나 price/accent 20px/700 로 같게 보입니다."></textarea><span class="pv blk"></span></td></tr>
+        <tr><td class="lb">Footer</td><td><textarea class="t" data-k="sg_foot" data-q="Footer 상세" rows="3"
+            data-a="회사 정보 · 이용약관 · 개인정보처리방침 · 고객센터 번호와 운영시간을 둡니다. SNS 아이콘은 자리만 잡아 두고 링크는 추후 연동 예정으로 표시했습니다. 배경은 gray/50, 글자는 text/subdued 로 낮춰 본문과 구분합니다."></textarea><span class="pv blk"></span></td></tr>
+      </table>
+      <div class="ex">
+        <div class="exh">해설 — 「왜 거기 있는가」까지 써야 설계가 됩니다</div>
+        <ul>
+          <li>영역별 상세 구조는 채점표에 직접 나오지 않지만,
+              <b>12번(메인 레이아웃이 가이드와 유사한가)</b> 과 <b>13번(로고 형태가 가이드와 유사한가)</b> 을
+              판정할 <b>기준</b>이 여기서 나옵니다. 이게 없으면 강사는 비교할 대상이 없습니다.</li>
+          <li>「로고 · 검색창 · 장바구니」 처럼 <b>나열</b>만 하지 말고
+              「로고는 어느 화면에서든 메인으로 돌아가는 출구」 처럼 <b>역할</b>을 적습니다.</li>
+          <li>Main 은 화면마다 다르므로 <b>공통 규칙</b>(폭·컬럼)과 <b>화면별 배치</b>를 나눠 적습니다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="task">
+    <div class="taskh"><span class="no">2-3</span>버튼 목록<span class="rt">채점 항목 11번 「사용버튼」</span></div>
+    <div class="taskb">
+      <p class="lead">채점 항목 11번이 <b>「구성요소(사용버튼/그리드) 내용 포함 여부」</b>입니다.
+        버튼 모양 몇 개를 그려 두는 것으로는 부족하고, <b>이 서비스에 있는 버튼을 빠짐없이 세어</b>
+        어느 화면의 무슨 버튼이 무슨 일을 하는지 적습니다.</p>
+      <table>
+        <tr><th style="width:158px">버튼</th><th style="width:130px">있는 화면</th><th>누르면 무슨 일이 일어나는가</th></tr>
+        <tr><td><input class="b" data-k="bt1n" data-q="버튼1 이름" data-a="로고"><span class="pv"></span></td>
+            <td><input class="b" data-k="bt1s" data-q="버튼1 화면" data-a="전 화면 헤더"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="bt1f" data-q="버튼1 기능" rows="2" data-a="누르면 메인(SC-01)으로 이동합니다"></textarea><span class="pv blk"></span></td></tr>
+        <tr><td><input class="b" data-k="bt2n" data-q="버튼2 이름" data-a="검색창"><span class="pv"></span></td>
+            <td><input class="b" data-k="bt2s" data-q="버튼2 화면" data-a="전 화면 헤더"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="bt2f" data-q="버튼2 기능" rows="2" data-a="상품명으로 검색합니다. 누르면 최근 검색어가 펼쳐집니다"></textarea><span class="pv blk"></span></td></tr>
+        <tr><td><input class="b" data-k="bt3n" data-q="버튼3 이름" data-a="전체 카테고리"><span class="pv"></span></td>
+            <td><input class="b" data-k="bt3s" data-q="버튼3 화면" data-a="전 화면 GNB"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="bt3f" data-q="버튼3 기능" rows="2" data-a="마우스를 올리면 2단 카테고리가 펼쳐진다 (Dropdown)"></textarea><span class="pv blk"></span></td></tr>
+        <tr><td><input class="b" data-k="bt4n" data-q="버튼4 이름" data-a="상품 카드"><span class="pv"></span></td>
+            <td><input class="b" data-k="bt4s" data-q="버튼4 화면" data-a="SC-02 상품 목록"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="bt4f" data-q="버튼4 기능" rows="2" data-a="누르면 그 상품의 상세(SC-03)로 이동합니다. 올리면 그림자가 커집니다"></textarea><span class="pv blk"></span></td></tr>
+        <tr><td><input class="b" data-k="bt5n" data-q="버튼5 이름" data-a="정렬 선택"><span class="pv"></span></td>
+            <td><input class="b" data-k="bt5s" data-q="버튼5 화면" data-a="SC-02 상품 목록"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="bt5f" data-q="버튼5 기능" rows="2" data-a="최신순 · 낮은가격순으로 목록을 다시 부릅니다"></textarea><span class="pv blk"></span></td></tr>
+        <tr><td><input class="b" data-k="bt6n" data-q="버튼6 이름" data-a="수량 스테퍼 −/+"><span class="pv"></span></td>
+            <td><input class="b" data-k="bt6s" data-q="버튼6 화면" data-a="SC-03 · SC-04"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="bt6f" data-q="버튼6 기능" rows="2" data-a="수량을 1씩 줄이고 늘립니다. 재고를 넘으면 더 늘지 않습니다"></textarea><span class="pv blk"></span></td></tr>
+        <tr><td><input class="b" data-k="bt7n" data-q="버튼7 이름" data-a="장바구니 담기"><span class="pv"></span></td>
+            <td><input class="b" data-k="bt7s" data-q="버튼7 화면" data-a="SC-03 상품 상세"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="bt7f" data-q="버튼7 기능" rows="2" data-a="장바구니에 담고 「담기 완료」 알림을 띄웁니다"></textarea><span class="pv blk"></span></td></tr>
+        <tr><td><input class="b" data-k="bt8n" data-q="버튼8 이름" data-a="바로구매"><span class="pv"></span></td>
+            <td><input class="b" data-k="bt8s" data-q="버튼8 화면" data-a="SC-03 상품 상세"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="bt8f" data-q="버튼8 기능" rows="2" data-a="장바구니를 거치지 않고 주문서(SC-05)로 바로 갑니다"></textarea><span class="pv blk"></span></td></tr>
+        <tr><td><input class="b" data-k="bt9n" data-q="버튼9 이름" data-a="삭제 (×)"><span class="pv"></span></td>
+            <td><input class="b" data-k="bt9s" data-q="버튼9 화면" data-a="SC-04 장바구니"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="bt9f" data-q="버튼9 기능" rows="2" data-a="확인을 한 번 받고 그 항목을 지웁니다"></textarea><span class="pv blk"></span></td></tr>
+        <tr><td><input class="b" data-k="bt10n" data-q="버튼10 이름" data-a="주문하기"><span class="pv"></span></td>
+            <td><input class="b" data-k="bt10s" data-q="버튼10 화면" data-a="SC-04 장바구니"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="bt10f" data-q="버튼10 기능" rows="2" data-a="주문서(SC-05)로 이동합니다. 장바구니가 비면 눌리지 않습니다"></textarea><span class="pv blk"></span></td></tr>
+      </table>
+      <div class="ex">
+        <div class="exh">해설 — 버튼 목록이 과제 3으로 이어집니다</div>
+        <ul>
+          <li>여기 적은 <b>「올리면 그림자가 커집니다」</b>, <b>「Dropdown 이 펼쳐집니다」</b> 가
+              그대로 과제 3의 <b>효과</b>(14·15번)가 됩니다. 스타일가이드에서 먼저 선언하고
+              프로토타입에서 구현하는 순서입니다.</li>
+          <li><b>「눌리지 않습니다」</b> 같은 <b>비활성 조건</b>도 적습니다.
+              그래야 버튼 5상태 중 Disabled 를 왜 만들었는지 설명됩니다.</li>
+          <li>10개 안팎이면 충분합니다. 다만 <b>로고 · 검색 · 카테고리 · 담기 · 주문 · 삭제</b> 는 빠지면 안 됩니다.
+              서비스의 주요 동선이 전부 버튼이기 때문입니다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <span class="tag">지면 구성 — 정의 · 부품 · 조립 순서</span>
+    <p>스타일가이드는 <b>토큰을 정의하고 → 부품을 만들고 → 조립해 보이는</b> 순서로 씁니다.
+       절이 많다고 좋은 것은 아닙니다. 쓰지도 않을 항목을 넣으면 정작 필요한 값이 묻힙니다.
+       예시는 7절뿐이고, 그 안에 평가도구 6항목이 모두 들어갑니다.</p>
+    <table style="margin:8px 0 4px">
+      <tr><th style="width:170px">예시 지면의 절</th><th>담기는 내용</th><th style="width:110px">평가도구 항목</th></tr>
+      <tr><td>표지 한 줄</td><td>버전 · 조 / OS · 브라우저 · 해상도 · 콘텐츠 폭 · 접근성 기준</td><td>① 구동환경</td></tr>
+      <tr><td>1 로고</td><td>기본 · 반전 · 심볼 / 최소 폭 · 보호 여백 · 금지</td><td>② 로고</td></tr>
+      <tr><td>2 컬러</td><td>Brand 3 · Neutral 6 · Semantic 4 / 60·30·10 / 대비 수치</td><td>④ 색상</td></tr>
+      <tr><td>3 타이포그래피</td><td>서체 · 굵기 3 · 스케일 6단계를 <b>실제 크기</b>로</td><td>③ 폰트</td></tr>
+      <tr><td>4 간격 · 모서리</td><td>4의 배수 5 · 모서리 3 · 그림자 2</td><td rowspan="2">⑥ 구성요소</td></tr>
+      <tr><td>5 컴포넌트</td><td>버튼 3종 × 3상태 · 폼 4 · 아이콘 8</td></tr>
+      <tr><td>6 레이아웃</td><td>12칼럼 위 와이어프레임 · 브레이크포인트 3 · 영역 높이</td><td>⑤ 레이아웃</td></tr>
+      <tr><td>7 적용 예시</td><td>헤더 · 상품 카드를 규칙만으로 조립 — 과제 3과 대조하는 근거</td><td>(16 일관성)</td></tr>
+    </table>
+    <p>실제 제출은 <b>슬라이드(16:9)</b> 로 절마다 한 장씩 내는 것이 보통입니다.
+       색 칩 · 버튼 · 글자 견본은 <b>실제 크기로 그려 넣고</b>, 값은 전부 숫자(#hex · px)로 적습니다.
+       기존 사이트를 참고했다면 <b>출처를 마지막 장에 밝힙니다.</b></p>
+  </div>
+
+  <p class="lead">작성한 스타일가이드 지면을 캡처해 넣습니다. 예시는 로고 · 컬러 · 타이포 · 간격 · 컴포넌트 ·
+     레이아웃 · 적용 예시 7절입니다.
+     <a href="img/sample1/02_styleguide.html" target="_blank" rel="noopener"
+        style="color:#2b4c7e;font-weight:700">예시 지면 원본(HTML) 열기 ↗</a>
+     — 아래 그림은 이 지면을 그대로 캡처한 것입니다.</p>
+  <div class="dz" data-img="sg1" data-aimg="img/sample1/02_styleguide.png">
+    <span class="dzhint">스타일가이드 캡처를 끌어다 놓기</span>
+    <img class="dzimg" alt=""><button type="button" class="dzdel">지우기</button></div>
+
+  <div class="ex">
+    <div class="exh">해설 — 스타일가이드를 쓸 때 지킬 것</div>
+    <ul>
+      <li><b>정의 → 부품 → 조립</b> — 토큰(컬러·타이포·간격)을 정하고, 그걸로 부품(버튼·폼·아이콘)을 만들고, 마지막에 <b>적용 예시</b>(헤더·상품 카드)로 조립해 보입니다. 적용 예시가 있어야 과제 3 프로토타입과 대조할 수 있습니다.</li>
+      <li><b>항목을 늘리지 않습니다</b> — 색을 스무 개 늘어놓으면 어디에 무엇을 쓰는지가 오히려 흐려집니다. 예시는 Brand 3 · Neutral 6 · Semantic 4, 버튼 3종 × 3상태, 그림자 2개로 끝냈습니다. <b>화면에 실제로 쓰는 것만</b> 남깁니다.</li>
+      <li><b>컬러는 60·30·10</b> — 주조(바탕) 60 · 보조(헤더·버튼) 30 · 강조(가격·구매) 10. 쇼핑몰은 <b>강조색을 가격과 구매 버튼에만</b> 쓴다고 못 박아야 화면마다 가격 색이 달라지지 않습니다.</li>
+      <li><b>수치로 적습니다</b> — 「파란색」이 아니라 #2b4c7e, 「적당한 여백」이 아니라 24px. 과제 3에서 「일관성 있게 적용됐는가」(16번)를 판정하려면 대조할 숫자가 있어야 합니다.</li>
+      <li><b>대비를 계산해 둡니다</b> — 강조 #e8590c 는 흰 바탕에서 3.6:1 이라 본문 크기로 쓰면 WCAG AA(4.5:1) 미달입니다. 그래서 Price 를 20px 굵게로 고정했습니다. 크기를 그렇게 정한 근거를 한 줄이라도 함께 적어 둡니다.</li>
+      <li><b>버튼은 상태까지</b> — Primary · Secondary · Buy · Disabled · Text. 상태가 없으면 프로토타입에서 hover 효과(14·15번)를 만들 근거가 없습니다.</li>
+      <li><b>레이아웃만 10점</b>(10번) — 칼럼·거터·마진과 <b>브레이크포인트별 상품 열 수</b>(4→3→2)까지 적습니다. 다른 항목의 두 배 배점입니다.</li>
+      <li>견본(색 칩·버튼·글자 크기)은 <b>실제 크기로 그려 넣습니다.</b> 글로만 쓰면 강사가 프로토타입과 대조할 수 없습니다.</li>
+    </ul>
+  </div>
+
+  <div class="chk">
+    <div class="ch">자가 점검 — 과제 2 (30점)</div>
+    <label><input type="checkbox" data-k="c07"> 07) 구동환경 작성하였는지 여부 확인 <span class="pt">(5점)</span></label>
+    <label><input type="checkbox" data-k="c08"> 08) 로고이미지에 대한 내용 포함 여부 확인 <span class="pt">(5점)</span></label>
+    <label><input type="checkbox" data-k="c09"> 09) 글꼴/기본색상 표기 여부 확인 <span class="pt">(5점)</span></label>
+    <label><input type="checkbox" data-k="c10"> 10) 레이아웃 형태 내용 포함 여부 확인 <span class="pt">(10점)</span></label>
+    <label><input type="checkbox" data-k="c11"> 11) 구성요소(사용버튼/그리드) 내용 포함 여부 확인 <span class="pt">(5점)</span></label>
+  </div>
+</section>
+
+<!-- ===================== 3. 과제 3 ===================== -->
+<section id="s3">
+  <h2><span class="n">3</span>프로토타입 구현<span class="badge">40점</span><span class="badge g">난이도 상</span></h2>
+  <p class="lead">수행준거 4 · 5 · 6 — 화면·폼 흐름설계, 메뉴 구조 설계, 내·외부 화면과 폼 설계.</p>
+
+  <div class="note">
+    <span class="tag">작업지시서 (원문)</span>
+    <p><b>프로토타입을 구현</b>합니다. 각 화면별 화면이동이나 기타 효과를 PPT로 정리해서 제출합니다.
+       <b>Interactive 한 화면이 구현되었는지 테스트 확인</b>.</p>
+  </div>
+
+  <div class="task">
+    <div class="taskh"><span class="no">3-1</span>화면 목록<span class="rt">내·외부 화면과 폼</span></div>
+    <div class="taskb">
+      <table>
+        <tr><th style="width:70px">화면코드</th><th style="width:120px">화면명</th><th>포함하는 폼 · 주요 요소</th><th style="width:132px">구분</th></tr>
+        <tr><td><input class="b" data-k="sc1c" data-q="화면1 코드" data-a="SC-01"><span class="pv"></span></td>
+            <td><input class="b" data-k="sc1n" data-q="화면1 명" data-a="메인"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="sc1e" data-q="화면1 요소" rows="2" data-a="배너, 카테고리 바로가기, 추천 상품 8개"></textarea><span class="pv blk"></span></td>
+            <td><input class="b" data-k="sc1t" data-q="화면1 구분" data-a="내부"><span class="pv"></span></td></tr>
+        <tr><td><input class="b" data-k="sc2c" data-q="화면2 코드" data-a="SC-02"><span class="pv"></span></td>
+            <td><input class="b" data-k="sc2n" data-q="화면2 명" data-a="상품 목록"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="sc2e" data-q="화면2 요소" rows="2" data-a="카테고리 탭, 정렬 선택, 상품 카드 그리드, 페이지 이동"></textarea><span class="pv blk"></span></td>
+            <td><input class="b" data-k="sc2t" data-q="화면2 구분" data-a="내부"><span class="pv"></span></td></tr>
+        <tr><td><input class="b" data-k="sc3c" data-q="화면3 코드" data-a="SC-03"><span class="pv"></span></td>
+            <td><input class="b" data-k="sc3n" data-q="화면3 명" data-a="상품 상세"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="sc3e" data-q="화면3 요소" rows="2" data-a="이미지, 가격, 옵션 선택, 수량 스테퍼, 장바구니 담기·바로구매"></textarea><span class="pv blk"></span></td>
+            <td><input class="b" data-k="sc3t" data-q="화면3 구분" data-a="내부"><span class="pv"></span></td></tr>
+        <tr><td><input class="b" data-k="sc4c" data-q="화면4 코드" data-a="SC-04"><span class="pv"></span></td>
+            <td><input class="b" data-k="sc4n" data-q="화면4 명" data-a="장바구니"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="sc4e" data-q="화면4 요소" rows="2" data-a="목록 표, 수량 변경, 삭제, 합계 요약, 주문하기"></textarea><span class="pv blk"></span></td>
+            <td><input class="b" data-k="sc4t" data-q="화면4 구분" data-a="내부"><span class="pv"></span></td></tr>
+        <tr><td><input class="b" data-k="sc5c" data-q="화면5 코드" data-a="SC-05"><span class="pv"></span></td>
+            <td><input class="b" data-k="sc5n" data-q="화면5 명" data-a="주문 · 결제"><span class="pv"></span></td>
+            <td><textarea class="t" data-k="sc5e" data-q="화면5 요소" rows="2" data-a="배송지 입력 폼, 결제수단 선택, PG 결제창 호출"></textarea><span class="pv blk"></span></td>
+            <td><input class="b" data-k="sc5t" data-q="화면5 구분" data-a="외부 · PG 연동"><span class="pv"></span></td></tr>
+      </table>
+
+      <div class="ex">
+        <div class="exh">해설 — 「내·외부」를 구분하는 이유</div>
+    <p>채점 항목 19번이 <b>「하위 시스템 단위별로 필요한 내·외부 화면과 입력 폼이 누락 없이」</b>입니다.
+       우리 쇼핑몰이 직접 그리는 화면이 <b>내부</b>, 다른 시스템의 화면을 불러오는 것이 <b>외부</b>입니다.
+       예시에서 SC-05 주문·결제는 <b>PG 결제창</b>을 띄우므로 외부입니다.
+       표에 구분 열을 두면 이 항목을 자연스럽게 만족합니다.</p>
+    <p>화면 목록은 요구사항 명세서 8개와 짝이 맞아야 합니다.
+       SR 번호에 대응하는 화면이 없으면 그 요구사항은 구현되지 않은 것입니다.
+       (예시에서는 SR-01 회원가입·SR-02 로그인 화면을 표에 넣지 않았는데,
+       실제 제출에서는 <b>빠짐없이 적는 편이 안전합니다.</b>)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="task">
+    <div class="taskh"><span class="no">3-2</span>화면 흐름 · 메뉴 구조<span class="rt">수행준거 4 · 5</span></div>
+    <div class="taskb">
+      <div class="caph">화면 흐름도</div>
+      <div class="dz" data-img="fl1" data-aimg="img/sample1/03_flow.svg">
+        <span class="dzhint">화면 흐름도를 끌어다 놓기</span>
+        <img class="dzimg" alt=""><button type="button" class="dzdel">지우기</button></div>
+      <div class="caph">메뉴 구조도</div>
+      <div class="dz" data-img="mn1" data-aimg="img/sample1/04_menu.svg">
+        <span class="dzhint">메뉴 구조도를 끌어다 놓기</span>
+        <img class="dzimg" alt=""><button type="button" class="dzdel">지우기</button></div>
+      <p class="fill" style="margin:8px 0 3px">흐름설계에 반영한 제약사항</p>
+  <textarea class="t" data-k="fl_lim" data-q="제약사항" rows="2" data-a="장바구니부터는 로그인해야 쓸 수 있습니다는 제약을 흐름으로 그렸습니다. 비로그인 상태로 담기·주문·주문내역에 접근하면 로그인 화면으로 보내고, 성공하면 원래 있던 화면으로 되돌립니다."></textarea><span class="pv blk"></span>
+      <p class="fill" style="margin:8px 0 3px">메뉴 깊이를 그렇게 정한 이유</p>
+  <textarea class="t" data-k="mn_why" data-q="메뉴 깊이 근거" rows="2" data-a="1단 4개 · 2단 최대 3개로 묶었습니다. 상품 → 상세 → 장바구니가 한 흐름이라 3단으로 내려가면 클릭 수가 늘어 구매까지의 이탈이 커집니다."></textarea><span class="pv blk"></span>
+
+      <div class="ex">
+        <div class="exh">해설 — 제약사항은 「글」이 아니라 「선」으로 그립니다</div>
+    <ul>
+      <li>흐름도의 <b>점선</b>이 제약사항입니다. 「장바구니부터는 로그인해야 쓸 수 있습니다」는 요건을,
+          비로그인 상태로 접근하면 로그인 화면으로 가는 <b>흐름</b>으로 그렸습니다.</li>
+      <li>제약사항을 문장으로만 쓰고 흐름도에 그리지 않으면 <b>17번에서 감점</b>됩니다.
+          「반영할 수 있습니다」가 수행준거 4의 문구입니다.</li>
+      <li>쇼핑몰의 핵심 흐름은 <b>목록 → 상세 → 장바구니 → 주문 → 완료</b>입니다.
+          이 다섯 단계가 한 줄로 이어져 보여야 「구매까지 몇 번 누르는가」를 판단할 수 있습니다.</li>
+      <li>메뉴 구조는 <b>깊이를 정한 이유</b>가 함께 있어야 합니다(18번의 「직관적」).
+          쇼핑몰은 클릭이 한 번 늘 때마다 이탈이 커지므로 그 근거를 쓰면 설득력이 생깁니다.</li>
+      <li>흐름도의 화살표에는 <b>무엇 때문에 이동하는지</b>(「상품 선택」, 「담기」, 「주문하기」)를 적습니다.
+          이동 조건이 곧 폼 흐름입니다.</li>
+    </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="task">
+    <div class="taskh"><span class="no">3-3</span>프로토타입 화면<span class="rt">3화면 이상 · 효과 포함</span></div>
+    <div class="taskb">
+      <p class="lead">Figma 에서 작업한 결과 화면을 캡처해 넣습니다. 세 가지를 냅니다.
+        <b>캔버스 전체</b>(프레임과 연결선이 보이게), <b>대표 화면 확대</b>,
+        <b>프로토타입 인터랙션 목록</b>.</p>
+
+      <div class="caph">① Figma 캔버스 — 프레임과 프로토타입 연결</div>
+      <div class="dz" data-img="pt1" data-aimg="img/sample1/05_figma_canvas.svg">
+        <span class="dzhint">Figma 캔버스 캡처를 끌어다 놓기</span>
+        <img class="dzimg" alt=""><button type="button" class="dzdel">지우기</button></div>
+
+      <div class="caph">② 대표 화면 확대</div>
+      <div class="dz" data-img="pt2" data-aimg="img/sample1/06_figma_screen.svg">
+        <span class="dzhint">대표 화면(프레임) 확대 캡처를 끌어다 놓기</span>
+        <img class="dzimg" alt=""><button type="button" class="dzdel">지우기</button></div>
+
+      <div class="caph">③ 프로토타입 인터랙션 목록 (Prototype 패널)</div>
+      <div class="dz" data-img="pt3" data-aimg="img/sample1/07_figma_prototype_panel.svg">
+        <span class="dzhint">Prototype 패널 캡처를 끌어다 놓기</span>
+        <img class="dzimg" alt=""><button type="button" class="dzdel">지우기</button></div>
+
+      <table>
+        <tr><th style="width:170px">구현한 효과</th><th>어디에 · 어떻게 동작하는가</th></tr>
+        <tr><td>GNB 메뉴 효과</td><td><textarea class="t" data-k="ef_gnb" data-q="GNB 효과" rows="3" data-a="GNB 「전체 카테고리」에 On hover → Open overlay(카테고리 Dropdown, Move in 150ms)를 걸었습니다. 현재 화면의 메뉴는 밑줄로 굵게 유지됩니다."></textarea><span class="pv blk"></span></td></tr>
+        <tr><td>부수 효과 (슬라이드 · Dropdown 등)</td><td><textarea class="t" data-k="ef_etc" data-q="부수 효과" rows="3" data-a="상품 카드는 On hover → Change to(상품 카드 / hover)로 그림자가 커집니다. 「장바구니 담기」는 Open overlay(담기 완료 Toast, Move in 200ms)."></textarea><span class="pv blk"></span></td></tr>
+        <tr><td>폼 흐름 인터랙션</td><td><textarea class="t" data-k="ef_form" data-q="폼 흐름" rows="3" data-a="상품 카드→SC-03 상세(Instant), 담기→Toast, 주문하기→SC-05 주문·결제(Smart animate 300ms), 수량 +→스테퍼 variant(Smart animate 150ms). Flow starting point 는 SC-01 메인. 인터랙션 5개."></textarea><span class="pv blk"></span></td></tr>
+      </table>
+      <p class="fill" style="margin:8px 0 3px">스타일가이드와 일관되게 적용한 근거</p>
+  <textarea class="t" data-k="ef_cons" data-q="일관성 근거" rows="3" data-a="컴포넌트가 Semantic 토큰만 참조하도록 만들어 자동으로 일관됩니다. 헤더·기본 버튼은 interactive/default(#2b4c7e), 가격은 전부 price/accent(#e8590c), 삭제만 interactive/destructive(#dc2626) 다. 버튼 높이 40 · radius/sm, 표 머리행 #eef2f6 도 가이드대로입니다."></textarea><span class="pv blk"></span>
+
+      <div class="ex">
+        <div class="exh">해설 — 캡처 세 장이 각각 무엇을 증명하는가</div>
+    <ul>
+      <li><b>① 캔버스</b> — 프레임 이름을 <code>SC-02 상품 목록</code> 처럼 화면코드로 붙이면
+          화면 목록·흐름도와 그대로 대응합니다. 프레임 사이의 <b>파란 연결선</b>이
+          「화면 전환이 인터랙션으로 연결되었는가」(17번)의 직접 증거입니다.
+          정적인 그림 여러 장은 이 항목을 만족하지 못합니다.</li>
+      <li><b>② 화면 확대</b> — 스타일가이드에서 정한 <b>주색 #2b4c7e · 가격 #e8590c · 버튼 높이 40 ·
+          표 머리행 #eef2f6</b> 이 그대로 쓰였는지 여기서 대조합니다(12·13·16번).
+          강사는 스타일가이드 지면과 이 캡처를 나란히 놓고 봅니다.</li>
+      <li><b>③ 인터랙션 목록</b> — Trigger / Action / Destination / Animation 이 표로 남습니다.
+          GNB 메뉴 효과 1개(14번)와 그 밖의 효과 1개 이상(15번)이 <b>각각 다른 줄</b>로 보여야 합니다.
+          한 줄로 뭉뚱그리면 하나로 봅니다.</li>
+      <li>일관성은 <b>「지켰습니다」가 아니라 「어디에 무엇을 썼습니다」</b>로 써야 인정됩니다(16번).</li>
+      <li>장바구니 화면의 <b>삭제(×) 버튼</b>과 상세 화면의 <b>수량 스테퍼</b>는
+          요구사항 SR-06 「수량을 바꾸거나 지웁니다」를 화면으로 옮긴 것입니다.
+          요구사항 → 화면의 대응이 보이면 19번이 쉽게 인정됩니다.</li>
+      <li>제출은 <b>Figma 링크 + 이 캡처들의 PDF</b>입니다. 링크만 내면 권한이 바뀌었을 때
+          평가 근거가 사라집니다.</li>
+    </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="chk">
+    <div class="ch">자가 점검 — 과제 3 (40점)</div>
+    <label><input type="checkbox" data-k="c12"> 12) 메인페이지의 레이아웃이 스타일가이드의 레이아웃과 유사한지 여부 확인 <span class="pt">(5점)</span></label>
+    <label><input type="checkbox" data-k="c13"> 13) 로고의 형태가 스타일가이드에서 제시한 형태와 유사한지 여부 확인 <span class="pt">(5점)</span></label>
+    <label><input type="checkbox" data-k="c14"> 14) GNB의 메뉴효과가 1개 이상 구현되어 있는지 여부 확인 <span class="pt">(5점)</span></label>
+    <label><input type="checkbox" data-k="c15"> 15) 기타 다른 부수적인 EFFECT(슬라이드/Dropdown등) 이 하나이상 포함되어 표현되어지는지 여부 확인 <span class="pt">(5점)</span></label>
+    <label><input type="checkbox" data-k="c16"> 16) 스타일(Color, Typography 등)이 UI 표준 가이드에 따라 일관성 있게 적용되었는지 여부 <span class="pt">(5점)</span></label>
+    <label><input type="checkbox" data-k="c17"> 17) 화면 전환과 폼(Form) 흐름이 인터랙션으로 연결되었는지 여부 확인 <span class="pt">(5점)</span></label>
+    <label><input type="checkbox" data-k="c18"> 18) 메인 메뉴와 하위 메뉴 구조가 계층적으로 직관적이게 설계되었는지 여부 확인 <span class="pt">(5점)</span></label>
+    <label><input type="checkbox" data-k="c19"> 19) 하위 시스템 단위별로 필요한 내·외부 화면과 입력 폼이 누락 없이 구현되었는지 여부 확인 <span class="pt">(5점)</span></label>
+  </div>
+</section>
+
+<!-- ===================== 4. 제출 요약 ===================== -->
+<section id="s4">
+  <h2><span class="n">4</span>제출 요약<span class="badge g">마지막에 확인</span></h2>
+
+  <table>
+    <tr><th style="width:150px">과제</th><th style="width:110px">자가 점검</th><th>남은 항목</th></tr>
+    <tr><td>1 유스케이스 (30점)</td><td id="sm1">0 / 6</td><td id="sr1">-</td></tr>
+    <tr><td>2 스타일가이드 (30점)</td><td id="sm2">0 / 5</td><td id="sr2">-</td></tr>
+    <tr><td>3 프로토타입 (40점)</td><td id="sm3">0 / 8</td><td id="sr3">-</td></tr>
+    <tr><th>합계</th><th id="smAll">0 / 19</th><th id="smNote"></th></tr>
+  </table>
+
+  <div class="note">
+    <span class="tag">제출 전 마지막 확인</span>
+    <ul>
+      <li>산출물 3종을 <b>한 파일</b>로 합쳤는가 (유스케이스 → 스타일가이드 → 프로토타입 캡처 순서)</li>
+      <li>그 파일 안에 <b>프로토타입 화면 캡처</b>가 들어 있는가 — 링크만으로는 평가 근거가 남지 않습니다</li>
+      <li>Figma 링크 권한이 <b>링크가 있는 모든 사용자 보기 가능</b> 인가</li>
+      <li>캡처가 링크와 <b>같은 화면</b>을 담고 있는가</li>
+      <li>팀원 전원의 이름과 역할이 문서 첫 장에 적혀 있는가</li>
+      <li>포털 <b>파일 칸에 1개, 링크 칸에 1개</b>를 올렸는가</li>
+    </ul>
+  </div>
+
+  <p class="lead">아래 단추를 누르면 지금까지 입력한 내용이 텍스트로 복사됩니다. 제출 문서에 붙여 넣어 쓰세요.</p>
+  <p class="noprint"><button id="bCopy2" type="button" style="font-family:inherit;font-size:12.5px;padding:5px 14px;border:1px solid #000;background:#fff;cursor:pointer">제출 목록 복사</button></p>
+</section>
+
+<footer>
+  화면 설계 / 5수준 (2001020224_23v6) · 포트폴리오 (100점) · 합격선 60점 · 평가자 정우균<br>
+  제출 : 스타일가이드 PDF + 프로토타입 Figma 링크 및 캡처 PDF + 유스케이스 문서<br>
+  예시는 가상 프로젝트 「데일리마켓」(쇼핑몰)으로 작성한 것입니다. 본인 팀 주제로 같은 흐름을 만들면 됩니다.
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var KEY   = 'ws_m01_v1';
+  var IKEY  = 'ws_m01_img_v1';
+  var SKEY  = 'ws_m01_snap_v1';
+
+  function $(s,r){ return (r||document).querySelector(s); }
+  function all(s,r){ return [].slice.call((r||document).querySelectorAll(s)); }
+  var fields = all('[data-k]');
+  var dzs    = all('.dz');
+  var exOn   = false;          // 예시 보기 중인가
+  var backup = null;           // 예시를 켤 때 학생이 쓰던 답
+
+  /* ---------- 저장 · 복원 ---------- */
+  function read(){ try{ return JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){ return {}; } }
+  function write(d){ try{ localStorage.setItem(KEY, JSON.stringify(d)); }catch(e){} }
+
+  function collect(){
+    var d = {};
+    fields.forEach(function(el){
+      d[el.dataset.k] = (el.type === 'checkbox') ? (el.checked ? 1 : 0) : el.value;
+    });
+    return d;
+  }
+  function apply(d){
+    fields.forEach(function(el){
+      var v = d[el.dataset.k];
+      if(v === undefined) return;
+      if(el.type === 'checkbox') el.checked = !!v; else el.value = v;
+    });
+  }
+  /* 예시를 보는 동안에는 저장하지 않습니다. 예시 값이 내 답을 덮어쓰면 안 됩니다. */
+  function save(){ if(!exOn) write(collect()); }
+
+  /* ---------- 긴 답이 잘리지 않게 칸 높이를 내용에 맞춘다 ----------
+     rows 값을 답안 길이에 맞춰 일일이 손보면 글자 수가 바뀔 때마다 또 어긋납니다.
+     빈 상태의 높이를 최소로 잡아 두고, 내용이 그보다 길면 그만큼 늘립니다. */
+  var minH = fields.map(function(el){
+    return (el.tagName === 'TEXTAREA') ? el.offsetHeight : 0;
+  });
+  function autosize(el, i){
+    if(el.tagName !== 'TEXTAREA') return;
+    el.style.height = 'auto';
+    el.style.height = Math.max(el.scrollHeight + 2, minH[i] || 0) + 'px';
+  }
+  function autosizeAll(){ fields.forEach(autosize); }
+
+  /* ---------- 진행률 ---------- */
+  function filled(el){
+    return (el.type === 'checkbox') ? el.checked : String(el.value||'').trim() !== '';
+  }
+  function progress(){
+    var done = fields.filter(filled).length;
+    $('#pt').textContent = done + ' / ' + fields.length;
+    $('#pi').style.width = (fields.length ? Math.round(done*100/fields.length) : 0) + '%';
+  }
+
+  /* ---------- 자가 점검 집계 ---------- */
+  var GROUPS = [
+    { ids: ['c01','c02','c03','c04','c05','c06'], sum: '#sm1', rest: '#sr1' },
+    { ids: ['c07','c08','c09','c10','c11'],       sum: '#sm2', rest: '#sr2' },
+    { ids: ['c12','c13','c14','c15','c16','c17','c18','c19'], sum: '#sm3', rest: '#sr3' }
+  ];
+  function summarize(){
+    var doneAll = 0, totAll = 0, restAll = [];
+    GROUPS.forEach(function(g){
+      var done = 0, rest = [];
+      g.ids.forEach(function(id){
+        var el = document.querySelector('[data-k="'+id+'"]');
+        if(!el) return;
+        if(el.checked) done++; else rest.push(id.replace('c',''));
+      });
+      $(g.sum).textContent = done + ' / ' + g.ids.length;
+      $(g.rest).textContent = rest.length ? rest.join(', ') + '번' : '없음';
+      doneAll += done; totAll += g.ids.length;
+      restAll = restAll.concat(rest);
+    });
+    $('#smAll').textContent = doneAll + ' / ' + totAll;
+    $('#smNote').textContent = restAll.length ? (restAll.length + '개 남음') : '전부 확인함';
+  }
+
+  function touched(){ save(); progress(); summarize(); }
+  fields.forEach(function(el, i){
+    el.addEventListener('input', function(){ autosize(el, i); touched(); });
+    el.addEventListener('change', touched);
+  });
+
+  /* ---------- 이미지 드롭존 ---------- */
+  function imgRead(){ try{ return JSON.parse(localStorage.getItem(IKEY)||'{}'); }catch(e){ return {}; } }
+  function imgWrite(d){
+    try{ localStorage.setItem(IKEY, JSON.stringify(d)); }
+    catch(e){ alert('이미지가 너무 커서 저장하지 못했습니다. 크기를 줄여 다시 넣어 주세요.'); }
+  }
+  /* 예시 모드면 예시 그림을, 아니면 학생이 넣은 그림을 보여 줍니다. */
+  function paintImg(dz){
+    var mine = imgRead()[dz.dataset.img];
+    var src  = exOn ? (dz.dataset.aimg || mine) : mine;
+    var im   = $('.dzimg', dz);
+    if(src){ im.src = src; dz.classList.add('on'); }
+    else { im.removeAttribute('src'); dz.classList.remove('on'); }
+  }
+  function paintAllImg(){ dzs.forEach(paintImg); }
+  function loadFile(dz, file){
+    if(!file || !/^image\//.test(file.type)) return;
+    var fr = new FileReader();
+    fr.onload = function(){
+      var d = imgRead(); d[dz.dataset.img] = fr.result; imgWrite(d);
+      paintImg(dz);
+    };
+    fr.readAsDataURL(file);
+  }
+  dzs.forEach(function(dz){
+    dz.addEventListener('dragover', function(e){ e.preventDefault(); });
+    dz.addEventListener('drop', function(e){
+      e.preventDefault();
+      if(exOn){ alert('예시를 보는 중입니다. 예시 숨기기를 누른 뒤 넣어 주세요.'); return; }
+      loadFile(dz, e.dataTransfer.files && e.dataTransfer.files[0]);
+    });
+    dz.addEventListener('click', function(e){
+      if(e.target.classList.contains('dzdel')) return;
+      if(exOn){ alert('예시를 보는 중입니다. 예시 숨기기를 누른 뒤 넣어 주세요.'); return; }
+      var inp = document.createElement('input');
+      inp.type = 'file'; inp.accept = 'image/*';
+      inp.onchange = function(){ loadFile(dz, inp.files[0]); };
+      inp.click();
+    });
+    $('.dzdel', dz).addEventListener('click', function(e){
+      e.stopPropagation();
+      if(exOn) return;
+      var d = imgRead(); delete d[dz.dataset.img]; imgWrite(d);
+      paintImg(dz);
+    });
+  });
+
+  /* ---------- 예시 보기 — 칸을 실제로 채운다 ---------- */
+  $('#bEx').onclick = function(){
+    if(!exOn){
+      backup = fields.map(function(el){
+        return (el.type === 'checkbox') ? el.checked : el.value;
+      });
+      exOn = true;                                  // 켠 다음에 채웁니다(저장 막기)
+      fields.forEach(function(el){
+        if(el.type === 'checkbox') return;          // 자가 점검은 학생 몫이라 건드리지 않습니다
+        if(el.dataset.a !== undefined) el.value = el.dataset.a;
+      });
+      document.body.classList.add('exmode');
+      this.textContent = '예시 숨기기';
+    }else{
+      exOn = false;                                 // 끈 다음에 되돌립니다
+      fields.forEach(function(el, i){
+        if(el.type === 'checkbox') el.checked = backup[i];
+        else el.value = backup[i];
+      });
+      document.body.classList.remove('exmode');
+      this.textContent = '예시 보기';
+    }
+    paintAllImg(); autosizeAll(); progress(); summarize();
+  };
+
+  /* ---------- 중간저장 ---------- */
+  function stamp(t){
+    var d = new Date(t);
+    return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);
+  }
+  function snapShow(){
+    var s;
+    try{ s = JSON.parse(localStorage.getItem(SKEY)||'null'); }catch(e){ s = null; }
+    $('#svAt').textContent = s ? ('저장 ' + stamp(s.t)) : '';
+  }
+  function guardEx(){
+    if(exOn){ alert('예시를 보는 중입니다. 예시 숨기기를 누른 뒤 다시 눌러 주세요.'); return true; }
+    return false;
+  }
+  $('#bSave').onclick = function(){
+    if(guardEx()) return;
+    try{
+      localStorage.setItem(SKEY, JSON.stringify({ t: Date.now(), d: collect(), i: imgRead() }));
+      snapShow();
+      alert('중간저장했습니다. 불러오기를 누르면 이 시점으로 돌아옵니다.');
+    }catch(e){ alert('저장 공간이 부족합니다.'); }
+  };
+  $('#bLoad').onclick = function(){
+    if(guardEx()) return;
+    var s;
+    try{ s = JSON.parse(localStorage.getItem(SKEY)||'null'); }catch(e){ s = null; }
+    if(!s){ alert('중간저장한 내용이 없습니다.'); return; }
+    if(!confirm('중간저장 시점(' + stamp(s.t) + ')으로 되돌립니다. 계속할까요?')) return;
+    apply(s.d); write(s.d);
+    if(s.i) imgWrite(s.i);
+    paintAllImg(); autosizeAll(); progress(); summarize();
+  };
+  $('#bReset').onclick = function(){
+    if(guardEx()) return;
+    if(!confirm('입력한 내용과 넣은 이미지를 모두 지웁니다. 계속할까요?')) return;
+    try{ localStorage.removeItem(KEY); localStorage.removeItem(IKEY); }catch(e){}
+    fields.forEach(function(el){ if(el.type === 'checkbox') el.checked = false; else el.value = ''; });
+    paintAllImg(); autosizeAll(); progress(); summarize();
+  };
+
+  /* ---------- 제출 목록 복사 ---------- */
+  function textDump(){
+    var out = ['화면 설계 — 포트폴리오 제출서' + (exOn ? '  [예시]' : ''), ''];
+    all('section').forEach(function(sec){
+      var h = $('h2', sec); if(!h) return;
+      out.push('■ ' + h.textContent.replace(/\s+/g,' ').trim());
+      all('[data-k]', sec).forEach(function(el){
+        var q = el.dataset.q;
+        if(el.type === 'checkbox'){
+          if(!q) return;
+          out.push('  [' + (el.checked ? 'v' : ' ') + '] ' + q);
+        } else if(String(el.value||'').trim()){
+          out.push('  - ' + (q || el.dataset.k) + ' : ' + el.value.replace(/\n/g, ' / '));
+        }
+      });
+      out.push('');
+    });
+    return out.join('\n');
+  }
+  function copyOut(btn){
+    var t = textDump();
+    function ok(){ var o = btn.textContent; btn.textContent = '복사됨'; setTimeout(function(){ btn.textContent = o; }, 1200); }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(t).then(ok, function(){ fallback(t, ok); });
+    } else fallback(t, ok);
+  }
+  function fallback(t, ok){
+    var ta = document.createElement('textarea');
+    ta.value = t; document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); ok(); }catch(e){ alert('복사하지 못했습니다. 직접 선택해서 복사해 주세요.'); }
+    ta.remove();
+  }
+  $('#bCopy').onclick = function(){ copyOut(this); };
+  $('#bCopy2').onclick = function(){ copyOut(this); };
+
+  /* ---------- 인쇄 ---------- */
+  /* 입력칸 바로 뒤의 .pv 를 짝으로 봅니다.
+     한 <p> 안에 입력칸이 둘 이상이면 parentNode.querySelector 는 늘 첫 번째만 잡아
+     뒤 칸의 값이 앞 칸 자리에 찍힙니다. 형제로 찾아야 합니다. */
+  function pvOf(el){
+    var n = el.nextElementSibling;
+    while(n){
+      if(n.classList && n.classList.contains('pv')) return n;
+      if(n.matches && n.matches('input,textarea')) return null;
+      n = n.nextElementSibling;
+    }
+    return null;
+  }
+  function syncPV(){
+    autosizeAll();
+    fields.forEach(function(el){
+      if(el.type === 'checkbox') return;
+      var pv = pvOf(el);
+      if(pv) pv.textContent = el.value || '';
+    });
+  }
+  $('#bPrint').onclick = function(){ $('#pMask').classList.add('on'); };
+  $('#pNo').onclick = function(){ $('#pMask').classList.remove('on'); };
+  $('#pGo').onclick = function(){ $('#pMask').classList.remove('on'); syncPV(); window.print(); };
+  window.addEventListener('beforeprint', syncPV);
+
+  /* ---------- 시작 ---------- */
+  apply(read());
+  paintAllImg(); autosizeAll();
+  progress(); summarize(); snapShow();
+
+  document.body.classList.toggle('admin', !!(window.EXAM_AUTH && EXAM_AUTH.isAdmin()));
+  var rb = $('#roleBadge');
+  if(rb) rb.textContent = window.EXAM_AUTH ? EXAM_AUTH.label() : '일반(학생)';
+})();
+</script>
+<script>EXAM_AUTH.paintTop("../../");</script>

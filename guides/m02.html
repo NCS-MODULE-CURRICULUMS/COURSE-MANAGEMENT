@@ -1,0 +1,1110 @@
+<meta charset="utf-8"><title>UI 디자인 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small><a href="../courses/c2.html">능력단위 모듈 목록</a> / <a href="../modules/c2-m02.html">UI 디자인</a> / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">준비</i>
+  <a href="#st1"><b>1</b><span>완성 산출물의 확인</span></a>
+  <a href="#st2"><b>2</b><span>작업 도구의 준비</span></a>
+  <a href="#st3"><b>3</b><span>앞 과목 산출물의 정리</span></a>
+  <i class="qg">콘셉트</i>
+  <a href="#st4"><b>4</b><span>페르소나</span></a>
+  <a href="#st5"><b>5</b><span>비주얼 무드보드</span></a>
+  <a href="#st6"><b>6</b><span>GUI 콘셉트 기획서</span></a>
+  <i class="qg">기본</i>
+  <a href="#st7"><b>7</b><span>SCREEN ID 체계</span></a>
+  <a href="#st8"><b>8</b><span>화면 흐름도</span></a>
+  <a href="#st9"><b>9</b><span>메뉴 구조</span></a>
+  <a href="#st10"><b>10</b><span>화면정보 (LIST OF SCREEN)</span></a>
+  <i class="qg">상세</i>
+  <a href="#st11"><b>11</b><span>FLOWCHART</span></a>
+  <a href="#st12"><b>12</b><span>PERMISSION</span></a>
+  <a href="#st13"><b>13</b><span>POLICY</span></a>
+  <a href="#st14"><b>14</b><span>UI 기능정의</span></a>
+  <i class="qg">마무리</i>
+  <a href="#st15"><b>15</b><span>자가 점검</span></a>
+  <a href="#st16"><b>16</b><span>통합과 제출</span></a>
+  <i class="qg">감점</i>
+  <a href="#g3"><b>!</b><span>주요 감점 요인</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>UI 디자인 — 준비 교안</h1>
+<p class="sub">능력단위 UI 디자인 (2001020707_19v3) / 4수준 · 평가방법 포트폴리오 (100점)</p>
+
+<!-- ═══════ 0 ═══════ -->
+<h2 class="sec" id="g0">0. 제출물의 구성과 배점</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">제출물은 파일 하나입니다. 그 안에 일곱 항목이 들어갑니다.</p>
+    <b class="sh">제출 형식</b>
+    <p class="v">PPT 한 벌</p>
+    <b class="sh">참고</b>
+    <p class="src">작업지시서</p>
+  </aside>
+  <div class="bd">
+<p>이 과목의 제출물은 스토리보드 한 벌입니다. 파일은 하나지만 그 안에 일곱 항목이
+   들어가야 하고, 채점은 항목별로 나뉩니다. 배점을 시간 배분의 기준으로 삼습니다.</p>
+<table class="wide">
+  <tr><th style="width:52px">묶음</th><th style="width:180px">항목</th><th>확인하는 것</th>
+      <th style="width:56px">배점</th></tr>
+  <tr><td class="c" rowspan="3">①<br>30점</td><td>화면 흐름도</td>
+      <td>프로토타입과 같은 경로인가</td><td class="c">10</td></tr>
+  <tr><td>메뉴 구조</td><td>프로토타입과 같은가 · 요구사항을 만족하는가 · 라이프스타일이 보이는가</td>
+      <td class="c">10</td></tr>
+  <tr><td>화면정보 (LIST OF SCREEN)</td><td>화면과 표시 내용이 맞는가 · SCREEN ID 가 올바른가</td>
+      <td class="c">10</td></tr>
+  <tr><td class="c" rowspan="4">②<br>70점</td><td>FLOWCHART</td>
+      <td>도형 · 흐름 · 판단 메시지</td><td class="c">15</td></tr>
+  <tr><td>PERMISSION</td><td>유저별 접근 권한</td><td class="c">5</td></tr>
+  <tr><td>POLICY</td><td>화면별 정책</td><td class="c">10</td></tr>
+  <tr><td>UI 기능정의</td><td>화면 · ID 일치 · Description · CheckPoint</td><td class="c">40</td></tr>
+</table>
+<p class="cc">배점은 평가도구의 채점 항목을 항목별로 더한 값입니다. 정확한 항목 구성은
+  <a href="#g3">주요 감점 요인</a> 과 각 단원에서 다시 짚습니다.</p>
+
+<div class="warn">
+  이 과목의 점수는 UI 기능정의에 몰려 있습니다. 40점입니다.
+  앞의 여섯 항목은 UI 기능정의를 쓰기 위한 준비에 가깝습니다.
+  앞에서 시간을 다 쓰고 UI 기능정의를 서둘러 채우면 점수가 크게 깎입니다.
+</div>
+  </div>
+</div>
+
+<!-- ═══════ 1 ═══════ -->
+<h2 class="sec" id="g1">1. UI 디자인의 범위</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">콘셉트를 뽑고, 그 콘셉트대로 요소를 고르는 두 단계입니다.</p>
+    <b class="sh">능력단위요소</b>
+    <p class="v">GUI 디자인 콘셉트 도출하기 · GUI 디자인 요소 선정하기</p>
+    <b class="sh">앞 과목</b>
+    <p class="v">화면 설계</p>
+  </aside>
+  <div class="bd">
+<p>앞 과목인 화면 설계에서는 무엇을 만들지 정하고 그것을 프로토타입으로 보였습니다.
+   이 과목은 그 프로토타입을 남에게 넘길 수 있는 문서로 바꾸는 일을 다룹니다.
+   화면을 더 예쁘게 고치는 과목이 아닙니다.</p>
+
+<dl>
+  <dt>GUI 디자인 콘셉트 도출하기</dt>
+  <dd>어떤 사람이 쓸 것인지를 먼저 정하고, 그 사람에게 맞는 분위기와 색과 글꼴을 정하는 단계입니다.
+      페르소나 · 비주얼 무드보드 · 콘셉트 기획서가 여기서 나옵니다.
+      이 세 가지는 제출 항목에 직접 들어가지는 않지만,
+      채점 항목 ① 03 「사용자 요구사항을 만족하는 메뉴구조인가」 와
+      ① 04 「라이프스타일이 반영된 결과물인가」 를 설명할 근거가 됩니다.</dd>
+  <dt>GUI 디자인 요소 선정하기</dt>
+  <dd>정한 콘셉트대로 대표 화면을 고르고, 그 화면의 레이아웃 · 색 · 글꼴을 확정하는 단계입니다.
+      스토리보드 일곱 항목이 여기서 나옵니다.</dd>
+</dl>
+
+<p>두 단계를 나누어 두는 이유는 되물을 자리를 없애기 위해서입니다.
+   개발자가 「이 버튼은 왜 여기 있습니까」 하고 물었을 때
+   「그냥 그렇게 했습니다」 가 아니라 「콘셉트 기획서 3번 때문입니다」 라고 답할 수 있어야 합니다.</p>
+  </div>
+</div>
+
+<!-- ═══════ 2 ═══════ -->
+<h2 class="sec" id="g2">2. 산출물 작성 실습</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">레벨 1부터 5까지 따라가면 스토리보드가 완성됩니다.</p>
+    <b class="sh">시간</b>
+    <p class="v">레벨 3과 4에 몰아 씁니다</p>
+    <b class="sh">예제</b>
+    <p class="v">공공 체육시설 예약 서비스</p>
+  </aside>
+  <div class="bd">
+<p>다섯 단계로 나누었습니다. 각 단계 끝에 그 단계에서 완성되는 항목과
+   충족되는 채점 항목 번호를 적어 두었습니다.</p>
+<p>이 교안의 예제는 공공 체육시설 예약 서비스 하나로 통일했습니다.
+   화면 아홉 개짜리 작은 서비스입니다. 조별 주제는 다르겠지만
+   같은 절차를 밟으면 같은 모양의 문서가 나옵니다.</p>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 1 · 준비</b><span>산출물 없음 · 도구와 재료의 준비</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st1">
+      <h3><i>1</i>완성 산출물의 확인</h3>
+      <aside class="side">
+        <p class="pt">무엇이 완성인지 먼저 보고 시작합니다.</p>
+        <b class="sh">확인할 것</b>
+        <p class="v">일곱 항목과 배점</p>
+        <b class="sh">참고</b>
+        <p class="src">평가도구 작업지시서</p>
+      </aside>
+      <div class="bd">
+<p>스토리보드는 슬라이드 한 벌입니다. 순서는 다음과 같이 잡습니다.
+   이 순서가 그대로 채점자가 넘겨 보는 순서가 됩니다.</p>
+<table class="wide">
+  <tr><th style="width:56px">쪽</th><th style="width:190px">내용</th><th>비고</th></tr>
+  <tr><td class="c">1</td><td>표지</td><td>서비스명 · 조 이름 · 작성일</td></tr>
+  <tr><td class="c">2</td><td>콘셉트 요약</td><td>페르소나 · 콘셉트 · 색 · 글꼴 한 장</td></tr>
+  <tr><td class="c">3</td><td>화면 흐름도</td><td>채점 ① 01</td></tr>
+  <tr><td class="c">4</td><td>메뉴 구조</td><td>채점 ① 02 · 03 · 04</td></tr>
+  <tr><td class="c">5</td><td>화면정보 (LIST OF SCREEN)</td><td>채점 ① 05 · 06</td></tr>
+  <tr><td class="c">6 ~ 8</td><td>FLOWCHART</td><td>채점 ② 01 · 02 · 03</td></tr>
+  <tr><td class="c">9</td><td>PERMISSION</td><td>채점 ② 04</td></tr>
+  <tr><td class="c">10</td><td>POLICY</td><td>채점 ② 05</td></tr>
+  <tr><td class="c">11 ~</td><td>UI 기능정의 (화면 수만큼)</td><td>채점 ② 06 ~ 09</td></tr>
+</table>
+<p>UI 기능정의는 화면 하나에 한 쪽입니다. 화면이 아홉 개면 아홉 쪽이 됩니다.
+   전체 분량이 스무 쪽 안팎이 되는 것이 보통입니다.</p>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  빈 슬라이드 파일을 만들고 위 표대로 쪽 제목만 먼저 넣어 두십시오.
+  빈 쪽이 채워지지 않은 채 남아 있으면 그것이 그대로 감점 자리입니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>작업 도구의 준비</h3>
+      <aside class="side">
+        <p class="pt">그리는 도구와 담는 도구를 나눕니다.</p>
+        <b class="sh">그리기</b>
+        <p class="v">draw.io · Figma</p>
+        <b class="sh">담기</b>
+        <p class="v">PowerPoint</p>
+      </aside>
+      <div class="bd">
+<p>흐름도와 FLOWCHART 는 그리기 도구로 만들고, 완성한 그림을 슬라이드에 붙입니다.
+   슬라이드 안에서 직접 도형을 그리면 나중에 고치기가 어렵고 도형 크기가 제각각이 됩니다.</p>
+<table class="wide">
+  <tr><th style="width:130px">도구</th><th style="width:190px">쓰는 자리</th><th>준비</th></tr>
+  <tr><td class="nm">draw.io</td><td>화면 흐름도 · 메뉴 구조 · FLOWCHART</td>
+      <td>가입 없이 씁니다. 도형 검색창에 <b>flowchart</b> 를 치면 규격 도형이 나옵니다.</td></tr>
+  <tr><td class="nm">Figma</td><td>UI 기능정의에 붙일 화면 이미지</td>
+      <td>앞 과목에서 만든 프로토타입 파일을 그대로 씁니다. 새로 만들지 않습니다.</td></tr>
+  <tr><td class="nm">PowerPoint</td><td>스토리보드 본체</td>
+      <td>슬라이드 크기를 <b>와이드스크린 16:9</b> 로 맞춥니다.</td></tr>
+</table>
+
+<h4>draw.io 에서 규격 도형 꺼내기</h4>
+<p>draw.io 는 처음 열면 왼쪽 도형 목록에 일반 도형만 나옵니다.
+   FLOWCHART 도형은 따로 켜야 나옵니다.</p>
+<div class="draw">
+  <b class="n">1단계 · app.diagrams.net 을 엽니다</b>
+  저장 위치를 묻는 창이 뜨면 <b>Device</b> 를 고릅니다. 가입하지 않아도 됩니다.
+</div>
+<div class="draw">
+  <b class="n">2단계 · 왼쪽 아래 「More Shapes」 를 누릅니다</b>
+  목록에서 <b>Flowchart</b> 에 체크하고 Apply 를 누릅니다.
+  단말 · 처리 · 판단 · 입출력 도형이 왼쪽에 나타납니다.
+</div>
+<div class="draw">
+  <b class="n">3단계 · 도형 검색창을 씁니다</b>
+  왼쪽 위 검색창에 <b>decision</b> 이나 <b>terminator</b> 를 치면 바로 나옵니다.
+  이름을 외우기보다 검색해 쓰는 편이 빠릅니다.
+</div>
+<div class="draw">
+  <b class="n">4단계 · 그림을 내보냅니다</b>
+  <b>File → Export as → PNG</b> 에서 <b>Transparent Background</b> 를 끄고
+  <b>Zoom 200%</b> 로 내보냅니다. 흐릿하게 나오면 그 자리에서 읽히지 않습니다.
+</div>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  Figma 에서 화면 하나를 골라 <b>오른쪽 클릭 → Copy as → Copy as PNG</b> 를 누른 뒤
+  슬라이드에 붙여 보십시오. 이 방법으로 화면을 옮깁니다.
+  화면 캡처 도구로 찍으면 주변 회색 바탕까지 들어가 지저분해집니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st3">
+      <h3><i>3</i>앞 과목 산출물의 정리</h3>
+      <aside class="side">
+        <p class="pt">채점 항목 여섯 개가 「프로토타입과 같은가」 를 봅니다.</p>
+        <b class="sh">꺼내 둘 것</b>
+        <p class="v">프로토타입 · 화면 흐름도 · 메뉴 구조도 · 스타일가이드</p>
+        <b class="sh">주의</b>
+        <p class="v">지금 고치면 뒤가 전부 어긋납니다</p>
+      </aside>
+      <div class="bd">
+<p>작업지시서의 첫 줄이 <b>「앞서 제작했던 프로토타입을 참고하여」</b> 입니다.
+   이 과목의 채점은 상당 부분 앞 과목 산출물과의 대조로 이루어집니다.</p>
+<table class="wide">
+  <tr><th style="width:120px">채점 항목</th><th>대조 대상</th></tr>
+  <tr><td class="c">① 01</td><td>프로토타입의 화면 이동 ↔ 이 과목의 화면 흐름도</td></tr>
+  <tr><td class="c">① 02</td><td>프로토타입의 GNB ↔ 이 과목의 메뉴 구조</td></tr>
+  <tr><td class="c">① 05</td><td>프로토타입 화면의 표시 내용 ↔ 화면정보의 주요 표시 내용</td></tr>
+  <tr><td class="c">② 06</td><td>프로토타입 화면 ↔ UI 기능정의에 붙인 화면</td></tr>
+</table>
+<p>그래서 이 단계에서 할 일은 앞 과목 산출물을 열어 한 화면에 띄워 두는 것입니다.
+   프로토타입을 지금 고치고 싶어지더라도 고치지 않습니다.
+   고치면 이미 제출한 앞 과목 산출물과 어긋나 양쪽에서 점수를 잃습니다.</p>
+
+<div class="q">
+  <b class="t">확인</b>
+  <ol class="qa">
+    <li>프로토타입에 화면이 몇 개 있습니까. 그 수가 곧 화면정보의 줄 수이고 UI 기능정의의 쪽 수입니다.</li>
+    <li>프로토타입의 GNB 대메뉴가 몇 개입니까. 그 수가 메뉴 구조의 기둥 수입니다.</li>
+    <li>프로토타입에서 로그인해야 들어갈 수 있는 화면이 어느 것입니까. 그것이 PERMISSION 의 × 자리입니다.</li>
+  </ol>
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 2 · 콘셉트 도출</b><span>능력단위요소 ① · 제출물의 근거를 만듭니다</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st4">
+      <h3><i>4</i>페르소나</h3>
+      <aside class="side">
+        <p class="pt">「사용자」 를 사람 두 명으로 좁힙니다.</p>
+        <b class="sh">만드는 것</b>
+        <p class="v">페르소나 카드 2장</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ① 03 · 04</p>
+        <b class="sh">근거</b>
+        <p class="src">수행준거 1.2</p>
+      </aside>
+      <div class="bd">
+<h4>페르소나가 필요한 이유</h4>
+<p>「사용자가 편하게」 라는 말로는 아무것도 정해지지 않습니다.
+   글자를 키울지 말지, 절차를 한 쪽에 몰지 나눌지를 정하려면
+   그 결정을 받아 줄 사람이 있어야 합니다. 페르소나는 그 사람을 두 명으로 좁혀 놓은 것입니다.</p>
+<p>두 명으로 잡는 이유는 한 명이면 결정이 한쪽으로 쏠리고,
+   셋 이상이면 서로 어긋나는 요구가 생겨 정리가 되지 않기 때문입니다.
+   가급적 쓰는 방식이 서로 다른 두 명으로 잡습니다.</p>
+
+<figure>
+  <img src="img/ui_persona.png" alt="페르소나 카드 두 장. 각각 목표 · 행동 · 불편 · 기기와 인용 문장이 들어 있습니다.">
+  <figcaption>페르소나 카드. 네 칸과 인용 문장 하나로 이루어집니다.
+    인용 문장은 실제로 들은 말이 아니어도 되지만, 앞 네 칸에서 자연스럽게 나올 말이어야 합니다.</figcaption>
+</figure>
+
+<h4>작성 절차</h4>
+<div class="draw">
+  <b class="n">1단계 · 조별 주제의 실제 이용자를 떠올립니다</b>
+  주변에 그 서비스를 쓸 만한 사람이 있으면 그 사람을 기준으로 잡습니다.
+  나이와 직업을 먼저 적으면 나머지가 따라옵니다.
+</div>
+<div class="draw">
+  <b class="n">2단계 · 네 칸을 채웁니다</b>
+  목표는 「무엇을 하려고 들어오는가」, 행동은 「어떻게 쓰는가」,
+  불편은 「지금 무엇이 걸리는가」, 기기는 「무엇으로 보는가」 입니다.
+</div>
+<div class="draw">
+  <b class="n">3단계 · 인용 문장을 한 줄 답니다</b>
+  네 칸을 요약한 말 한마디입니다. 이 문장이 나중에 화면 결정의 근거로 인용됩니다.
+</div>
+<div class="draw">
+  <b class="n">4단계 · 두 사람이 서로 다른지 봅니다</b>
+  둘 다 「빠르게 쓰고 싶어 한다」 로 끝나면 나눈 뜻이 없습니다.
+  한 명은 속도를, 다른 한 명은 읽기 편함을 앞세우도록 잡으면 뒤에서 결정할 거리가 생깁니다.
+</div>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  페르소나 두 장을 만든 뒤 「이 사람이 우리 서비스를 처음 열면 어디를 먼저 누를까」 를
+  한 문장씩 적어 보십시오. 그 답이 메뉴 구조의 첫 번째 대메뉴가 됩니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st5">
+      <h3><i>5</i>비주얼 무드보드</h3>
+      <aside class="side">
+        <p class="pt">분위기를 낱말 세 개와 색 다섯 개로 붙잡습니다.</p>
+        <b class="sh">만드는 것</b>
+        <p class="v">무드보드 1장</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ① 04</p>
+        <b class="sh">근거</b>
+        <p class="src">수행준거 1.2</p>
+      </aside>
+      <div class="bd">
+<h4>무드보드의 구성</h4>
+<p>무드보드는 색판과 근거 표로 이루어집니다.
+   색을 고른 뒤 왜 골랐는지를 페르소나에서 끌어와 적는 자리가 함께 있습니다.
+   근거가 없는 색판은 채점 항목 ① 04 에서 설명할 말이 없어집니다.</p>
+
+<figure>
+  <img src="img/ui_mood.png" alt="색 다섯 개의 색판과, 분위기 낱말 · 근거 · 사진 방향 · 배제 항목을 적은 표.">
+  <figcaption>비주얼 무드보드. 색마다 이름 · 값 · 쓰는 자리를 답니다.
+    아래 표의 「근거」 칸이 페르소나와 이어지는 자리입니다.</figcaption>
+</figure>
+
+<h4>색을 고르는 순서</h4>
+<div class="draw">
+  <b class="n">1단계 · 분위기 낱말 세 개를 먼저 적습니다</b>
+  「차분함 · 야외 · 믿을 수 있음」 처럼 형용사로 적습니다.
+  색을 먼저 고르고 낱말을 갖다 붙이면 근거가 어색해집니다.
+</div>
+<div class="draw">
+  <b class="n">2단계 · 주색 한 가지를 정합니다</b>
+  버튼과 선택 상태에 쓸 색입니다. 이 한 가지가 서비스의 인상을 정합니다.
+</div>
+<div class="draw">
+  <b class="n">3단계 · 나머지 네 가지를 역할로 채웁니다</b>
+  밝은 주색 · 배경 · 본문 글자 · 경고. 다섯 가지를 넘기지 않습니다.
+  색이 여섯 가지를 넘으면 화면마다 다른 색이 쓰여 일관성 항목에서 감점됩니다.
+</div>
+<div class="draw">
+  <b class="n">4단계 · 쓰지 않을 것을 적습니다</b>
+  「형광색 · 그라데이션 · 손글씨체」 처럼 배제 항목을 적어 두면
+  조원이 각자 작업할 때 어긋나는 일이 줄어듭니다.
+</div>
+
+<p class="cc">색 값은 <b>#1B4D3E</b> 처럼 여섯 자리로 적습니다.
+  「짙은 초록」 이라고만 적으면 조원마다 다른 색을 씁니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st6">
+      <h3><i>6</i>GUI 콘셉트 기획서</h3>
+      <aside class="side">
+        <p class="pt">뒤에 나올 모든 결정의 근거를 한 장에 모읍니다.</p>
+        <b class="sh">만드는 것</b>
+        <p class="v">기획서 1장</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">스토리보드 2쪽</p>
+        <b class="sh">근거</b>
+        <p class="src">수행준거 1.3</p>
+      </aside>
+      <div class="bd">
+<h4>기획서에 들어가는 것</h4>
+<p>페르소나와 무드보드에서 정한 것을 한 장으로 옮긴 표입니다.
+   스토리보드의 두 번째 쪽에 그대로 들어갑니다.
+   채점자가 이 한 장만 보고도 나머지 쪽을 예상할 수 있어야 합니다.</p>
+
+<figure>
+  <img src="img/ui_concept.png" alt="서비스명 · 한 줄 정의 · 주 사용자 · 콘셉트 · 색 · 글꼴 · 레이아웃 · 구성요소 · 배제 항목을 적은 표.">
+  <figcaption>GUI 콘셉트 기획서. 아홉 줄짜리 표 한 장입니다.
+    글꼴 줄에 「박정희 님의 읽기 편의를 기준으로」 처럼 페르소나 이름이 들어가는 것이 좋습니다.</figcaption>
+</figure>
+
+<h4>한 줄 정의를 쓰는 법</h4>
+<p>「누가 · 무엇을 · 어떻게」 순으로 한 문장에 담습니다.</p>
+<p class="ex"><span class="x">약함</span> 체육시설을 예약하는 서비스</p>
+<p class="ex"><span class="o">권함</span> 집 가까운 공공 체육시설의 빈 시간대를 찾아 그 자리에서 예약하는 서비스</p>
+<p>아래 문장에는 「집 가까운」 과 「그 자리에서」 가 들어 있습니다.
+   이 두 마디가 뒤에서 메뉴 구조를 정할 때 기준이 됩니다.</p>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  기획서를 다 쓴 뒤, 앞 과목에서 만든 스타일가이드를 열어 색과 글꼴이 같은지 대조해 보십시오.
+  다르면 어느 쪽이 맞는지 정하고, 고친 쪽에 고친 이유를 한 줄 적습니다.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 3 · 스토리보드 기본</b><span>채점 묶음 ① 30점 · 프로토타입과의 대조</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st7">
+      <h3><i>7</i>SCREEN ID 체계</h3>
+      <aside class="side">
+        <p class="pt">ID 를 먼저 정합니다. 뒤의 모든 표가 이 ID 로 서로를 가리킵니다.</p>
+        <b class="sh">만드는 것</b>
+        <p class="v">ID 규칙 · 화면군 목록</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ① 06 · ② 07</p>
+      </aside>
+      <div class="bd">
+<h4>ID 를 먼저 정하는 이유</h4>
+<p>스토리보드의 일곱 항목은 서로를 가리킵니다.
+   화면 흐름도의 칸, 화면정보의 줄, FLOWCHART 의 제목, PERMISSION 의 줄,
+   UI 기능정의의 머리글이 모두 같은 ID 를 씁니다.
+   ID 를 나중에 정하면 일곱 군데를 모두 고쳐야 하고, 그 과정에서 반드시 하나가 빠집니다.</p>
+<p>채점 항목 <b>② 07</b> 은 <b>「화면정보에 기입된 ID 와 UI 기능정의에 부여된 ID 가 동일한가」</b> 하나만 봅니다.
+   10점짜리입니다. 규칙을 먼저 정해 두면 잃지 않는 점수입니다.</p>
+
+<figure>
+  <img src="img/ui_id.png" alt="화면군별 SCREEN ID 목록과, 접두어 · 구분자 · 일련번호 · 고정 규칙을 적은 표.">
+  <figcaption>SCREEN ID 부여 규칙. 왼쪽은 화면군 목록, 오른쪽은 규칙입니다.
+    규칙은 네 줄이면 충분합니다.</figcaption>
+</figure>
+
+<h4>규칙을 정하는 순서</h4>
+<div class="draw">
+  <b class="n">1단계 · 화면을 무리로 묶습니다</b>
+  프로토타입의 화면을 늘어놓고 성격이 같은 것끼리 묶습니다.
+  아홉 화면이면 대체로 다섯에서 일곱 무리가 나옵니다.
+</div>
+<div class="draw">
+  <b class="n">2단계 · 무리마다 영문 네 자를 붙입니다</b>
+  예약은 RESV, 시설은 FACL, 마이페이지는 MYPG 처럼 줄여 씁니다.
+  한글 발음을 그대로 옮기지 말고 영어 낱말을 줄입니다.
+</div>
+<div class="draw">
+  <b class="n">3단계 · 무리 안에서 001 부터 매깁니다</b>
+  화면이 하나뿐인 무리도 001 을 붙입니다.
+</div>
+<div class="draw">
+  <b class="n">4단계 · 표로 만들어 조원에게 돌립니다</b>
+  이 표가 곧 다음 단계의 화면정보 뼈대가 됩니다.
+</div>
+
+<p class="ex"><span class="x">감점</span> 화면정보에는 RESV-001, UI 기능정의에는 RSV-01</p>
+<p class="ex"><span class="o">권함</span> 두 곳 모두 RESV-001. 표에서 복사해 붙입니다</p>
+      </div>
+    </div>
+
+    <div class="step" id="st8">
+      <h3><i>8</i>화면 흐름도</h3>
+      <aside class="side">
+        <p class="pt">프로토타입의 연결을 그림 한 장으로 옮깁니다.</p>
+        <b class="sh">만드는 것</b>
+        <p class="v">흐름도 1장</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ① 01</p>
+        <b class="sh">도구</b>
+        <p class="v">draw.io</p>
+      </aside>
+      <div class="bd">
+<h4>화면 흐름도와 FLOWCHART 의 차이</h4>
+<p>이름이 비슷해 자주 헷갈립니다. 둘은 다루는 것이 다릅니다.</p>
+<table class="wide">
+  <tr><th style="width:130px">구분</th><th style="width:180px">칸에 들어가는 것</th><th>답하는 질문</th></tr>
+  <tr><td class="nm">화면 흐름도</td><td>화면 (SCREEN ID)</td>
+      <td>어느 화면에서 어느 화면으로 갑니까</td></tr>
+  <tr><td class="nm">FLOWCHART</td><td>처리 단계</td>
+      <td>한 화면 안에서 무슨 일이 어떤 순서로 일어납니까</td></tr>
+</table>
+<p>화면 흐름도는 서비스 전체에 한 장이고, FLOWCHART 는 판단이 들어 있는 화면마다 한 장입니다.</p>
+
+<figure>
+  <img src="img/ui_flow.png" alt="메인에서 시설 목록 · 시설 상세를 거쳐 로그인 판단을 지나 예약 신청 · 예약 완료 · 예약 내역으로 이어지는 화면 흐름도.">
+  <figcaption>화면 흐름도. 흰 칸은 화면, 회색 칸은 판단입니다.
+    로그인 판단의 아니오 갈래가 로그인 화면을 거쳐 다시 예약 신청으로 돌아오는 것을 보십시오.</figcaption>
+</figure>
+
+<h4>작도 절차</h4>
+<div class="draw">
+  <b class="n">1단계 · 프로토타입을 열고 실제로 눌러 봅니다</b>
+  첫 화면부터 예약이 끝날 때까지 한 번 눌러 보고, 지나간 화면을 순서대로 적습니다.
+  머리로 짐작해 그리면 프로토타입과 어긋납니다.
+</div>
+<div class="draw">
+  <b class="n">2단계 · 주 경로를 가로로 한 줄 놓습니다</b>
+  가장 흔한 경로를 왼쪽에서 오른쪽으로 놓습니다. 이 줄이 그림의 뼈대가 됩니다.
+</div>
+<div class="draw">
+  <b class="n">3단계 · 갈라지는 자리에 판단을 넣습니다</b>
+  로그인 여부, 권한, 잔여 여부처럼 길이 갈리는 자리입니다.
+  판단 칸은 회색으로 채워 화면과 구분합니다.
+</div>
+<div class="draw">
+  <b class="n">4단계 · 갈래마다 답을 적습니다</b>
+  나가는 선에 「예 · 아니오」 를 적습니다. 이것이 빠지면 읽는 사람이 방향을 알 수 없습니다.
+</div>
+<div class="draw">
+  <b class="n">5단계 · 되돌아오는 선을 그립니다</b>
+  로그인을 마친 뒤 원래 가려던 화면으로 돌아오는 선입니다.
+  이 선을 빠뜨리면 흐름이 끊긴 채로 끝납니다.
+</div>
+
+<div class="q">
+  <b class="t">확인</b>
+  <ol class="qa">
+    <li>화면정보에 있는 화면이 모두 흐름도에 나옵니까. 목록에는 있는데 그림에 없는 화면이 가장 잦은 누락입니다.</li>
+    <li>끝이 없는 화면이 있습니까. 들어가기만 하고 나오는 선이 없으면 막다른 길입니다.</li>
+    <li>모든 화면 칸에 SCREEN ID 가 적혀 있습니까.</li>
+  </ol>
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st9">
+      <h3><i>9</i>메뉴 구조</h3>
+      <aside class="side">
+        <p class="pt">프로토타입의 GNB 를 나무 모양으로 옮깁니다.</p>
+        <b class="sh">만드는 것</b>
+        <p class="v">메뉴 구조도 1장</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ① 02 · 03 · 04</p>
+        <b class="sh">주의</b>
+        <p class="v">깊이는 2단계를 기본으로</p>
+      </aside>
+      <div class="bd">
+<h4>세 항목이 한 그림을 봅니다</h4>
+<p>메뉴 구조 한 장이 채점 항목 세 개를 받습니다. 각각 보는 것이 다릅니다.</p>
+<table class="wide">
+  <tr><th style="width:80px">항목</th><th style="width:230px">보는 것</th><th>대비</th></tr>
+  <tr><td class="c">① 02</td><td>프로토타입과 같은가</td>
+      <td>프로토타입에 없는 메뉴를 넣지 않습니다</td></tr>
+  <tr><td class="c">① 03</td><td>사용자 요구사항을 만족하는가</td>
+      <td>요구사항 정의서의 기능이 어느 메뉴에 걸리는지 모두 확인합니다</td></tr>
+  <tr><td class="c">① 04</td><td>라이프스타일이 반영되어 있는가</td>
+      <td>페르소나가 가장 자주 쓸 메뉴를 앞에 둡니다</td></tr>
+</table>
+
+<figure>
+  <img src="img/ui_menu.png" alt="공공 체육시설 예약을 뿌리로, 시설 안내 · 예약 · 마이페이지 · 고객지원 네 대메뉴와 그 아래 하위 메뉴를 보인 메뉴 구조도.">
+  <figcaption>메뉴 구조도. 대메뉴 넷, 깊이 2단계입니다.
+    하위 메뉴 이름은 화면정보의 화면명과 같게 씁니다.</figcaption>
+</figure>
+
+<h4>깊이를 정하는 근거</h4>
+<p>깊이는 2단계를 기본으로 잡습니다. 3단계로 내려가려면 근거가 있어야 합니다.</p>
+<dl>
+  <dt>2단계로 두는 경우</dt>
+  <dd>하위 메뉴가 대메뉴마다 다섯 개 안쪽일 때입니다.
+      페르소나가 이동 중에 쓰는 사람이라면 누르는 횟수를 줄이는 쪽이 맞습니다.</dd>
+  <dt>3단계로 내리는 경우</dt>
+  <dd>하위 메뉴가 여덟 개를 넘어 한 화면에 다 보이지 않을 때입니다.
+      이때는 콘셉트 기획서에 「항목 수가 많아 한 단계 더 나눔」 이라고 근거를 적어 둡니다.</dd>
+</dl>
+
+<p class="ex"><span class="x">감점</span> 프로토타입에는 없는 「관심 시설」 메뉴가 구조도에 들어 있음</p>
+<p class="ex"><span class="o">권함</span> 프로토타입을 옆에 띄워 두고 메뉴 이름을 하나씩 옮겨 적습니다</p>
+      </div>
+    </div>
+
+    <div class="step" id="st10">
+      <h3><i>10</i>화면정보 (LIST OF SCREEN)</h3>
+      <aside class="side">
+        <p class="pt">화면을 한 줄씩 표로 만듭니다. 뒤 문서의 목차가 됩니다.</p>
+        <b class="sh">만드는 것</b>
+        <p class="v">화면 목록표 1장</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ① 05 · 06</p>
+      </aside>
+      <div class="bd">
+<h4>표의 구성</h4>
+<p>화면 하나가 한 줄입니다. 이 표의 줄 수가 곧 UI 기능정의의 쪽 수가 됩니다.</p>
+
+<figure>
+  <img src="img/ui_los.png" alt="아홉 화면의 번호 · SCREEN ID · 화면명 · 접근 권한 · 주요 표시 내용 · Depth 를 적은 화면정보 표.">
+  <figcaption>화면정보 (LIST OF SCREEN). 여섯 칸으로 이루어집니다.
+    「주요 표시 내용」 칸이 채점 항목 ① 05 가 보는 자리입니다.</figcaption>
+</figure>
+
+<h4>주요 표시 내용을 쓰는 법</h4>
+<p>채점 항목 <b>① 05</b> 는 <b>「화면정보에 표시되는 내용의 구조와 UI 화면이 일치하는가」</b> 를 봅니다.
+   프로토타입 화면을 열어 놓고 눈에 보이는 것을 순서대로 적습니다.</p>
+<p class="ex"><span class="x">약함</span> 시설을 볼 수 있는 화면</p>
+<p class="ex"><span class="o">권함</span> 지역 · 종목 필터 · 목록</p>
+<p>아래처럼 적으면 채점자가 프로토타입 화면과 한 눈에 대조할 수 있습니다.
+   기능을 설명하지 말고 화면에 놓인 것을 적습니다.</p>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  표를 다 채운 뒤 아무 줄이나 하나 골라, 프로토타입의 그 화면을 열고
+  적은 내용이 실제로 그 자리에 있는지 확인해 보십시오.
+  세 줄만 확인해도 어긋난 줄이 있으면 금방 드러납니다.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 4 · 스토리보드 상세</b><span>채점 묶음 ② 70점 · 점수가 몰려 있는 구간</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st11">
+      <h3><i>11</i>FLOWCHART</h3>
+      <aside class="side">
+        <p class="pt">중요한 화면의 처리 순서를 규격 도형으로 그립니다.</p>
+        <b class="sh">만드는 것</b>
+        <p class="v">FLOWCHART 2 ~ 3장</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ② 01 · 02 · 03</p>
+        <b class="sh">도구</b>
+        <p class="v">draw.io</p>
+      </aside>
+      <div class="bd">
+<h4>도형의 규격</h4>
+<p>FLOWCHART 는 도형마다 뜻이 정해져 있습니다.
+   채점 항목 <b>② 01</b> 이 <b>「각 항목별 도형을 올바르게 작성하였는가」</b> 를 봅니다.
+   도형을 섞어 쓰면 그 자리에서 감점됩니다.</p>
+
+<figure>
+  <img src="img/ui_fcsym.png" alt="단말 · 처리 · 판단 · 입출력 · 문서 · 연결자 여섯 도형의 모양과 쓰는 자리를 정리한 표.">
+  <figcaption>FLOWCHART 도형과 쓰임. 여섯 가지면 대부분의 화면을 그릴 수 있습니다.
+    판단을 네모로 그리는 실수가 가장 잦습니다.</figcaption>
+</figure>
+
+<h4>어느 화면을 그리는가</h4>
+<p>모든 화면을 그리지 않습니다. 안에서 판단이 일어나는 화면만 그립니다.
+   아홉 화면짜리 서비스라면 대개 두세 장입니다.</p>
+<ul>
+  <li>예약 신청 — 잔여 시간대가 있는지 판단합니다</li>
+  <li>로그인 — 아이디와 비밀번호가 맞는지 판단합니다</li>
+  <li>회원가입 — 중복 아이디인지 판단합니다</li>
+</ul>
+<p>반면 시설 목록처럼 불러와 보여 주기만 하는 화면은 그리지 않아도 됩니다.</p>
+
+<figure>
+  <img src="img/ui_fc.png" alt="예약 신청 화면의 처리 순서를 시작 · 입력 · 조회 · 판단 · 저장 · 표시 · 종료로 그린 FLOWCHART. 아니오 갈래는 메시지를 보이고 입력으로 되돌아갑니다.">
+  <figcaption>FLOWCHART 본보기 (RESV-001 예약 신청).
+    판단에서 나가는 두 선에 각각 「예 · 아니오」 가 적혀 있고,
+    아니오 갈래에도 사용자가 볼 메시지가 들어 있습니다.</figcaption>
+</figure>
+
+<h4>작도 절차</h4>
+<div class="draw">
+  <b class="n">1단계 · 시작과 종료를 먼저 놓습니다</b>
+  둥근 네모 두 개를 위아래에 놓고 사이를 채워 갑니다.
+</div>
+<div class="draw">
+  <b class="n">2단계 · 사용자가 넣는 값을 평행사변형으로 놓습니다</b>
+  날짜 · 시간대 · 인원처럼 화면에서 받는 값입니다.
+</div>
+<div class="draw">
+  <b class="n">3단계 · 시스템이 하는 일을 네모로 놓습니다</b>
+  조회 · 저장 · 계산처럼 눈에 보이지 않는 처리입니다.
+</div>
+<div class="draw">
+  <b class="n">4단계 · 갈라지는 자리에 마름모를 넣습니다</b>
+  마름모 안은 물음표로 끝나는 문장으로 적습니다.
+  「잔여 시간대가 있는가?」 처럼 예 · 아니오로 답할 수 있어야 합니다.
+</div>
+<div class="draw">
+  <b class="n">5단계 · 아니오 갈래에 메시지를 답니다</b>
+  채점 항목 <b>② 03</b> 이 <b>「적절한 판단기호에 의한 결과 메시지를 올바르게 표시하는가」</b> 를 봅니다.
+  아니오 갈래를 그냥 종료로 보내면 이 항목에서 감점됩니다.
+  사용자가 볼 문구를 따옴표에 넣어 적습니다.
+</div>
+<div class="draw">
+  <b class="n">6단계 · 되돌아오는 선을 그립니다</b>
+  메시지를 본 뒤 사용자는 다시 값을 넣게 됩니다.
+  그 선을 그려야 흐름이 닫힙니다.
+</div>
+
+<div class="warn">
+  마름모 안을 <b>「잔여 시간대 확인」</b> 처럼 명사로 적으면 판단인지 처리인지 구분되지 않습니다.
+  <b>「잔여 시간대가 있는가?」</b> 로 적습니다.
+  물음표가 붙어 있으면 나가는 선에 답을 적어야 한다는 것이 저절로 보입니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st12">
+      <h3><i>12</i>PERMISSION</h3>
+      <aside class="side">
+        <p class="pt">화면마다 누가 들어올 수 있는지를 표로 만듭니다.</p>
+        <b class="sh">만드는 것</b>
+        <p class="v">권한 표 1장</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ② 04</p>
+        <b class="sh">주의</b>
+        <p class="v">흐름도의 로그인 판단과 맞춥니다</p>
+      </aside>
+      <div class="bd">
+<h4>표의 구성</h4>
+<p>세로는 화면, 가로는 유저입니다. 유저는 세 종류로 잡는 것이 보통입니다.</p>
+<dl>
+  <dt>비회원</dt>
+  <dd>로그인하지 않은 사람입니다. 둘러보기와 가입까지만 됩니다.</dd>
+  <dt>회원</dt>
+  <dd>로그인한 사람입니다. 예약과 자기 정보 조회가 됩니다.
+      「본인 것만」 이라는 제한이 붙는 화면은 비고에 적습니다.</dd>
+  <dt>관리자</dt>
+  <dd>운영자입니다. 회원 권한에 더해 전체 조회와 승인이 됩니다.</dd>
+</dl>
+
+<figure>
+  <img src="img/ui_perm.png" alt="아홉 화면에 대해 비회원 · 회원 · 관리자의 접근 가능 여부를 O · × · — 로 표시하고 비고를 단 권한 표.">
+  <figcaption>PERMISSION. O 는 접근 가능, × 는 차단, — 는 해당 없음입니다.
+    비고 칸에 「본인 예약만」 처럼 조건을 답니다.</figcaption>
+</figure>
+
+<h4>흐름도와 맞추기</h4>
+<p>PERMISSION 의 × 자리는 화면 흐름도의 로그인 판단과 짝을 이룹니다.
+   예약 신청이 비회원에게 × 라면, 흐름도에는 예약 신청 앞에 로그인 판단이 있어야 합니다.
+   둘이 어긋나면 채점 항목 ② 04 에서 감점됩니다.</p>
+
+<h4>차단하는 세 가지 방법</h4>
+<p>× 라고만 적으면 개발자가 어떻게 막을지 알 수 없습니다. 비고에 방법까지 적습니다.</p>
+<dl>
+  <dt>다른 화면으로 보내기</dt>
+  <dd>비회원이 예약 신청을 열면 로그인 화면으로 보냅니다.
+      로그인을 마치면 원래 가려던 화면으로 되돌립니다.
+      가장 흔한 방법이고, 화면 흐름도의 판단과 짝을 이룹니다.</dd>
+  <dt>보이되 누르지 못하게 하기</dt>
+  <dd>버튼은 보이지만 흐리게 두고, 누르면 「로그인 후 이용할 수 있습니다」 를 띄웁니다.
+      서비스에 무엇이 있는지는 알려 주고 싶을 때 씁니다.</dd>
+  <dt>아예 감추기</dt>
+  <dd>관리자 메뉴처럼 그런 화면이 있다는 것조차 알릴 필요가 없을 때 씁니다.
+      메뉴에서 빼고 주소를 직접 쳐도 열리지 않게 합니다.</dd>
+</dl>
+<p class="ex"><span class="x">약함</span> 예약 신청 · 비회원 ×</p>
+<p class="ex"><span class="o">권함</span> 예약 신청 · 비회원 × · 비고 「LOGN-001 로 보내고 돌아올 주소를 남김」</p>
+
+<div class="q">
+  <b class="t">확인</b>
+  <ol class="qa">
+    <li>비회원 열에 × 가 하나도 없지 않습니까. 모두 열려 있는 서비스라면 로그인 화면이 왜 있는지 설명되지 않습니다.</li>
+    <li>관리자 전용 화면이 하나라도 있습니까. 없으면 운영자는 무엇으로 예약을 관리합니까.</li>
+    <li>로그인 화면이 회원에게도 O 로 되어 있지 않습니까. 이미 로그인한 사람이 로그인 화면을 열면 어디로 보낼지 비고에 적습니다.</li>
+  </ol>
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st13">
+      <h3><i>13</i>POLICY</h3>
+      <aside class="side">
+        <p class="pt">화면만 봐서는 알 수 없는 규칙을 숫자로 적습니다.</p>
+        <b class="sh">만드는 것</b>
+        <p class="v">정책 표 1장</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ② 05 (10점)</p>
+        <b class="sh">분량</b>
+        <p class="v">대여섯 줄이면 충분합니다</p>
+      </aside>
+      <div class="bd">
+<h4>정책이란 무엇인가</h4>
+<p>정책은 화면을 아무리 들여다봐도 알 수 없는 규칙입니다.
+   예약 버튼이 어디 있는지는 화면을 보면 압니다.
+   그러나 「며칠 뒤까지 예약할 수 있는가」 는 화면에 나오지 않습니다. 그런 것을 적는 자리입니다.</p>
+
+<figure>
+  <img src="img/ui_policy.png" alt="번호 · 적용 화면 · 정책명 · 내용으로 이루어진 일곱 줄짜리 정책 표.">
+  <figcaption>POLICY. 번호를 붙여 두면 UI 기능정의에서 <b>[P-01]</b> 처럼 끌어 쓸 수 있습니다.</figcaption>
+</figure>
+
+<h4>정책이 되는 것과 되지 않는 것</h4>
+<table class="wide">
+  <tr><th style="width:150px">구분</th><th>예</th></tr>
+  <tr><td class="nm">정책이 되는 것</td>
+      <td>예약 가능 기간 · 1인 예약 한도 · 취소 마감 시각 · 비밀번호 규칙 ·
+          개인정보 가리기 · 반려 사유 글자 수</td></tr>
+  <tr><td class="nm">정책이 아닌 것</td>
+      <td>버튼 색 (콘셉트 기획서) · 화면 이동 순서 (화면 흐름도) ·
+          입력칸 배치 (UI 기능정의)</td></tr>
+</table>
+
+<h4>쓰는 법</h4>
+<p>숫자와 조건을 분명히 적습니다. 문장이 흐릿하면 개발 단계에서 되묻게 되고,
+   그 자체가 정책을 쓴 뜻을 잃는 것입니다.</p>
+<p class="ex"><span class="x">감점</span> 예약은 적당한 기간 안에만 가능하다</p>
+<p class="ex"><span class="o">권함</span> 오늘부터 30일 이내의 날짜만 선택할 수 있습니다</p>
+<p class="ex"><span class="x">감점</span> 취소는 너무 늦지 않게 해야 한다</p>
+<p class="ex"><span class="o">권함</span> 이용 시작 24시간 전까지만 취소할 수 있습니다</p>
+
+<h4>정책을 찾아내는 네 가지 질문</h4>
+<p>무엇을 적어야 할지 떠오르지 않을 때는 화면마다 아래 네 가지를 물어봅니다.
+   대개 화면 하나에서 한두 줄씩 나옵니다.</p>
+<ol>
+  <li>얼마나 · 언제까지 — 며칠 뒤까지 예약되는가, 몇 시간 전까지 취소되는가,
+      한 사람이 몇 개까지 할 수 있는가</li>
+  <li>누가 보면 안 되는가 — 남의 이름 · 연락처 · 예약 내용을 어디까지 가리는가</li>
+  <li>겹치면 어떻게 되는가 — 같은 시간대를 두 사람이 동시에 누르면 누구 것이 되는가</li>
+  <li>값이 틀리면 어떻게 되는가 — 비밀번호 규칙, 글자 수 제한, 숫자 범위</li>
+</ol>
+<p>네 가지에서 나온 답을 적으면 대여섯 줄이 채워집니다.
+   열 줄을 넘길 필요는 없습니다. 정책이 많아지면 어느 것이 지켜졌는지 확인하기 어려워집니다.</p>
+
+<p class="cc">정책 번호는 <b>P-01</b> 처럼 매깁니다.
+  다음 단계에서 UI 기능정의를 쓸 때 이 번호를 그대로 끌어 씁니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st14">
+      <h3><i>14</i>UI 기능정의</h3>
+      <aside class="side">
+        <p class="pt">스토리보드의 본체입니다. 40점이 여기 있습니다.</p>
+        <b class="sh">만드는 것</b>
+        <p class="v">화면 수만큼의 쪽</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">채점 ② 06 · 07 · 08 · 09</p>
+        <b class="sh">한 쪽의 구성</b>
+        <p class="v">머리글 · 화면 · Description · CheckPoint</p>
+      </aside>
+      <div class="bd">
+<h4>한 쪽의 구성</h4>
+<p>화면 하나가 한 쪽입니다. 왼쪽에 화면, 오른쪽에 설명 두 표가 들어갑니다.</p>
+
+<figure>
+  <img src="img/ui_sb.png" alt="RESV-001 예약 신청 화면의 UI 기능정의 한 쪽. 왼쪽에 번호가 붙은 화면, 오른쪽에 Description 표와 CheckPoint 표가 있습니다.">
+  <figcaption>UI 기능정의 한 쪽 (RESV-001 예약 신청).
+    화면의 ①~⑤ 와 Description 의 ①~⑤ 가 하나씩 짝을 이룹니다.</figcaption>
+</figure>
+
+<h4>네 채점 항목이 각각 보는 것</h4>
+<table class="wide">
+  <tr><th style="width:70px">항목</th><th style="width:56px">배점</th><th>보는 것</th></tr>
+  <tr><td class="c">② 06</td><td class="c">10</td>
+      <td>붙인 화면이 프로토타입과 같은 모양인가</td></tr>
+  <tr><td class="c">② 07</td><td class="c">10</td>
+      <td>머리글의 SCREEN ID 가 화면정보의 ID 와 같은가</td></tr>
+  <tr><td class="c">② 08</td><td class="c">10</td>
+      <td>Description 이 항목별로 적절히 적혀 있는가</td></tr>
+  <tr><td class="c">② 09</td><td class="c">10</td>
+      <td>CheckPoint 가 올바르게 적혀 있는가</td></tr>
+</table>
+
+<h4>번호 붙이기</h4>
+<p>화면 위에 <b>①②③</b> 를 올리고 Description 에 같은 번호로 설명을 답니다.
+   번호는 사용자가 눈으로 훑는 순서, 곧 위에서 아래로 붙입니다.</p>
+<div class="draw">
+  <b class="n">1단계 · 화면을 붙입니다</b>
+  Figma 에서 PNG 로 복사해 붙입니다. 세로로 긴 화면은 번호를 붙일 자리가 들어가도록 잘라 씁니다.
+</div>
+<div class="draw">
+  <b class="n">2단계 · 사용자가 손대는 것에만 번호를 답니다</b>
+  입력칸 · 선택 항목 · 버튼입니다. 제목이나 안내 문구에는 붙이지 않습니다.
+  한 화면에 넷에서 여섯 개가 적당합니다.
+</div>
+<div class="draw">
+  <b class="n">3단계 · Description 을 채웁니다</b>
+  「무엇을 받는가 · 어떤 제한이 있는가 · 누르면 어디로 가는가」 를 적습니다.
+  제한이 정책에 걸리면 <b>[P-01]</b> 처럼 번호를 답니다.
+</div>
+<div class="draw">
+  <b class="n">4단계 · CheckPoint 를 채웁니다</b>
+  화면만 봐서는 알 수 없는 조건을 적습니다.
+  권한 · 이미 처리된 경우 · 값이 비었을 때처럼 예외 상황이 여기 들어갑니다.
+  한 화면에 두세 줄이면 충분합니다.
+</div>
+
+<h4>Description 과 CheckPoint 의 구분</h4>
+<p>둘을 섞어 쓰는 조가 많습니다. 기준은 간단합니다.</p>
+<dl>
+  <dt>Description</dt>
+  <dd>화면에 보이는 것에 대한 설명입니다. 번호가 가리키는 자리가 있습니다.
+      「달력에서 날짜를 고릅니다」 가 여기입니다.</dd>
+  <dt>CheckPoint</dt>
+  <dd>화면에 보이지 않는 조건입니다. 번호가 가리키는 자리가 없습니다.
+      「비로그인 상태로 들어오면 로그인 화면으로 보냅니다」 가 여기입니다.</dd>
+</dl>
+
+<h4>Description 을 쓰는 틀</h4>
+<p>한 줄에 세 가지를 담습니다. 세 가지가 다 필요한 것은 아니고,
+   그 번호에 해당하는 것만 씁니다.</p>
+<table class="wide">
+  <tr><th style="width:120px">담을 것</th><th style="width:260px">쓰는 말</th><th>예</th></tr>
+  <tr><td class="nm">받는 값</td><td>무엇을 · 어떤 방식으로</td>
+      <td>달력에서 날짜를 고릅니다</td></tr>
+  <tr><td class="nm">제한</td><td>범위 · 조건 · 정책 번호</td>
+      <td>오늘부터 30일 이내만 고를 수 있습니다 [P-01]</td></tr>
+  <tr><td class="nm">결과</td><td>누르면 어디로 · 무엇이 바뀌는지</td>
+      <td>누르면 RESV-002 로 이동합니다</td></tr>
+</table>
+<p class="ex"><span class="x">약함</span> 날짜를 선택하는 부분</p>
+<p class="ex"><span class="o">권함</span> 달력에서 날짜를 고릅니다. 오늘부터 30일 이내만 고를 수 있습니다. [P-01]</p>
+<p>위 문장은 명사로 끝나 무엇을 하라는 것인지 알 수 없습니다.
+   아래 문장은 개발자가 그대로 만들 수 있습니다.</p>
+
+<h4>CheckPoint 를 찾아내는 세 가지 기준</h4>
+<p>CheckPoint 칸을 비워 두는 조가 해마다 나옵니다. 10점짜리 항목입니다.
+   떠오르지 않을 때는 아래 세 가지를 차례로 물어봅니다.</p>
+<dl>
+  <dt>권한 — 이 화면에 못 들어오는 사람은 어떻게 됩니까</dt>
+  <dd>PERMISSION 표에서 이 화면 줄을 찾아 × 가 있으면 그 처리를 한 줄 적습니다.
+      「비로그인 상태로 들어오면 LOGN-001 로 보냅니다」 가 이렇게 나옵니다.</dd>
+  <dt>중복 — 이미 한 일을 또 하면 어떻게 됩니까</dt>
+  <dd>이미 예약한 사람이 또 예약을 누르는 경우, 이미 가입한 아이디로 또 가입하는 경우입니다.
+      POLICY 에 한도를 적어 두었다면 그 번호를 함께 답니다.</dd>
+  <dt>빈 값 — 아무것도 넣지 않고 누르면 어떻게 됩니까</dt>
+  <dd>버튼이 눌리지 않게 할 것인지, 눌리되 안내를 띄울 것인지를 정해 적습니다.</dd>
+</dl>
+<p>세 가지를 물으면 화면마다 최소 두 줄은 나옵니다. 나오지 않는 화면은
+   목록 화면처럼 사용자가 손댈 것이 없는 화면뿐입니다.</p>
+
+<h4>한 쪽을 끝까지 써 보기</h4>
+<p>RESV-001 한 쪽을 처음부터 끝까지 어떻게 채웠는지 따라가 봅니다.</p>
+<div class="draw">
+  <b class="n">머리글을 채웁니다</b>
+  화면정보 표에서 RESV-001 줄을 복사해 옵니다. ID · 화면명 · 권한 세 칸이 그대로 옵니다.
+  손으로 다시 치지 않습니다. 다시 치면 ② 07 에서 어긋납니다.
+</div>
+<div class="draw">
+  <b class="n">화면을 붙이고 사용자가 손댈 것을 셉니다</b>
+  시설명 · 날짜 · 시간대 · 인원 · 버튼. 다섯 개입니다. ①부터 ⑤까지 위에서 아래로 답니다.
+</div>
+<div class="draw">
+  <b class="n">① 시설명 — 받는 값만 있습니다</b>
+  앞 화면에서 넘어온 값이므로 「앞 화면(FACL-002)에서 고른 시설명을 그대로 받아 표시합니다」.
+  고칠 수 없다는 것도 함께 적습니다.
+</div>
+<div class="draw">
+  <b class="n">② 날짜 — 받는 값과 제한이 있습니다</b>
+  POLICY 를 열어 날짜와 관련된 줄을 찾습니다. P-01 이 있습니다. 번호를 답니다.
+</div>
+<div class="draw">
+  <b class="n">③ 시간대 — 제한이 화면 모양을 바꿉니다</b>
+  마감된 시간대를 감출 것인지 흐리게 둘 것인지 정합니다.
+  이 결정이 프로토타입 화면과 같아야 하므로 프로토타입을 확인하고 적습니다.
+</div>
+<div class="draw">
+  <b class="n">④ 인원 — 값이 틀렸을 때의 문구까지 적습니다</b>
+  「최대 20명까지 예약할 수 있습니다」 처럼 사용자가 볼 말을 그대로 넣습니다.
+</div>
+<div class="draw">
+  <b class="n">⑤ 버튼 — 결과를 적습니다</b>
+  언제 눌리는지와 누르면 어디로 가는지 두 가지입니다.
+</div>
+<div class="draw">
+  <b class="n">CheckPoint 세 줄을 답니다</b>
+  권한에서 한 줄(C-1), 중복에서 한 줄(C-2), 빈 값에서 한 줄(C-3)이 나왔습니다.
+</div>
+<p>여기까지 하면 한 쪽이 끝납니다. 익숙해지면 화면 하나에 10분 안팎이 걸립니다.
+   아홉 화면이면 두 시간 정도를 잡아 두면 됩니다.</p>
+
+<p class="ex"><span class="x">감점</span> CheckPoint 칸을 「—」 로 비워 둠</p>
+<p class="ex"><span class="o">권함</span> 권한 · 중복 · 빈 값 세 가지를 기준으로 한 줄씩 찾아 적습니다</p>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  화면 한 쪽을 완성한 뒤 조원에게 넘기고, 그 쪽만 보고 화면을 다시 만들 수 있는지 물어보십시오.
+  되묻는 질문이 나오면 그 질문의 답이 Description 이나 CheckPoint 에 빠진 것입니다.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 5 · 마무리</b><span>대조와 제출</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st15">
+      <h3><i>15</i>자가 점검</h3>
+      <aside class="side">
+        <p class="pt">채점표 순서대로 스스로 매겨 봅니다.</p>
+        <b class="sh">방법</b>
+        <p class="v">항목마다 근거 쪽 번호를 적습니다</p>
+        <b class="sh">시간</b>
+        <p class="v">30분</p>
+      </aside>
+      <div class="bd">
+<p>제출 전에 채점표를 그대로 옮겨 적고, 항목마다 근거가 되는 쪽 번호를 적습니다.
+   쪽 번호를 적을 수 없는 항목이 곧 빠진 항목입니다.</p>
+<table class="wide">
+  <tr><th style="width:70px">항목</th><th>확인할 것</th><th style="width:80px">근거 쪽</th></tr>
+  <tr><td class="c">① 01</td><td>프로토타입과 화면흐름도가 같은가</td><td></td></tr>
+  <tr><td class="c">① 02</td><td>프로토타입과 메뉴구조가 같은가</td><td></td></tr>
+  <tr><td class="c">① 03</td><td>사용자 요구사항을 만족하는 메뉴구조인가</td><td></td></tr>
+  <tr><td class="c">① 04</td><td>라이프스타일이 반영된 결과물인가</td><td></td></tr>
+  <tr><td class="c">① 05</td><td>화면정보의 내용 구조와 UI 화면이 맞는가</td><td></td></tr>
+  <tr><td class="c">① 06</td><td>화면정보에 SCREEN ID 가 올바르게 부여되었는가</td><td></td></tr>
+  <tr><td class="c">② 01</td><td>FLOWCHART 도형을 올바르게 썼는가</td><td></td></tr>
+  <tr><td class="c">② 02</td><td>FLOWCHART 의 흐름이 올바른가</td><td></td></tr>
+  <tr><td class="c">② 03</td><td>판단 기호의 결과 메시지를 표시하는가</td><td></td></tr>
+  <tr><td class="c">② 04</td><td>유저별 Permission 이 올바른가</td><td></td></tr>
+  <tr><td class="c">② 05</td><td>화면별 정책이 부여되어 있는가</td><td></td></tr>
+  <tr><td class="c">② 06</td><td>UI 기능정의에 프로토타입과 같은 화면이 있는가</td><td></td></tr>
+  <tr><td class="c">② 07</td><td>화면정보의 ID 와 UI 기능정의의 ID 가 같은가</td><td></td></tr>
+  <tr><td class="c">② 08</td><td>항목별 Description 이 적절한가</td><td></td></tr>
+  <tr><td class="c">② 09</td><td>UI 기능정의별 CheckPoint 가 올바른가</td><td></td></tr>
+</table>
+
+<div class="try">
+  <b class="t">해 보기</b>
+  ② 07 은 표 두 개를 나란히 놓고 ID 를 눈으로 맞춰 봅니다.
+  화면정보의 ID 열과 UI 기능정의 머리글을 순서대로 읽어 내려가면 어긋난 곳이 드러납니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st16">
+      <h3><i>16</i>통합과 제출</h3>
+      <aside class="side">
+        <p class="pt">파일 하나로 묶어 냅니다.</p>
+        <b class="sh">형식</b>
+        <p class="v">PPT</p>
+        <b class="sh">이름</b>
+        <p class="v">조 이름을 앞에 둡니다</p>
+      </aside>
+      <div class="bd">
+<p>작업지시서의 제출 방법은 <b>「각 항목 묶어서 PPT 로 제출」</b> 입니다.
+   항목별로 파일을 나누어 내면 채점자가 순서를 맞춰 보아야 하므로 불리합니다.</p>
+<div class="draw">
+  <b class="n">1단계 · 쪽 순서를 1단원의 표대로 맞춥니다</b>
+  표지 → 콘셉트 요약 → 화면 흐름도 → 메뉴 구조 → 화면정보 →
+  FLOWCHART → PERMISSION → POLICY → UI 기능정의 순입니다.
+</div>
+<div class="draw">
+  <b class="n">2단계 · 쪽 번호를 넣습니다</b>
+  자가 점검표에 적은 근거 쪽 번호와 맞아야 합니다.
+</div>
+<div class="draw">
+  <b class="n">3단계 · 글자 크기를 확인합니다</b>
+  Description 과 CheckPoint 는 12pt 아래로 내리지 않습니다.
+  채점자가 읽지 못하면 적어 둔 것이 없는 것과 같습니다.
+</div>
+<div class="draw">
+  <b class="n">4단계 · 파일 이름을 정하고 제출합니다</b>
+  「UI디자인_스토리보드_1조.pptx」 처럼 무엇을 낸 것인지 이름에서 보이게 합니다.
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ 3 ═══════ -->
+<h2 class="sec" id="g3">3. 주요 감점 요인</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">해마다 같은 자리에서 점수가 깎입니다.</p>
+    <b class="sh">가장 큰 것</b>
+    <p class="v">CheckPoint 를 비워 두는 것</p>
+    <b class="sh">가장 아까운 것</b>
+    <p class="v">ID 가 어긋나는 것</p>
+  </aside>
+  <div class="bd">
+<p>아래 여섯 가지가 해마다 되풀이되는 감점입니다.
+   모두 시간이 모자라서가 아니라 대조를 건너뛰어서 생깁니다.</p>
+
+<figure>
+  <img src="img/ui_bad.png" alt="ID 어긋남 · 프로토타입과 다름 · 판단 도형 오용 · 정책이 문장뿐 · CheckPoint 비움 · 권한 구분 없음 여섯 가지의 감점 모습과 보완 방법을 정리한 표.">
+  <figcaption>자주 나오는 감점과 보완. 왼쪽이 실제로 자주 나오는 모습,
+    오른쪽이 그것을 막는 방법입니다.</figcaption>
+</figure>
+
+<div class="warn">
+  ② 07 (ID 일치) · ② 09 (CheckPoint) 는 각각 10점입니다.
+  둘 다 어려워서 못 하는 항목이 아니라 확인을 안 해서 잃는 항목입니다.
+  제출 전 30분을 자가 점검에 쓰면 20점이 지켜집니다.
+</div>
+  </div>
+</div>
+
+<footer>
+  UI 디자인 · 4수준 · 72시간 · 담당 정우균 ·
+  (디지털컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E<br>
+  예제는 「공공 체육시설 예약 서비스」 이며 실제 조별 주제와 다릅니다.
+</footer>
+
+</div>
+
+<script>
+/* 빠른 이동 — 지금 보는 단원을 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"],a[href^="#g3"]'));
+  var tops = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+  function mark() {
+    var y = window.scrollY + 120, cur = -1;
+    for (var i = 0; i < tops.length; i++) { if (tops[i] && tops[i].offsetTop <= y) cur = i; }
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  window.addEventListener('scroll', mark, { passive: true });
+  mark();
+})();
+</script>

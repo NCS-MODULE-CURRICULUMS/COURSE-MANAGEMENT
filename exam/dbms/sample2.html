@@ -1,0 +1,524 @@
+<meta charset="utf-8"><title>SAMPLE_2 학생 제출용 빈칸 문제지 — 공공데이터 융합 DBMS 구축</title><style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;color:#000;
+       font-family:"Malgun Gothic","Segoe UI",-apple-system,sans-serif;line-height:1.7;font-size:15px}
+  .layout{display:flex;align-items:flex-start;max-width:1140px;margin:0 auto}
+  .wrap{max-width:860px;margin:0 auto;padding:34px 24px 80px}
+
+  /* 문서 머리 */
+  .kicker{font-size:11.5px;letter-spacing:.08em;color:#555;padding-bottom:6px;border-bottom:1px solid #000}
+  h1{margin:13px 0 4px;font-size:22px;font-weight:700;letter-spacing:-.01em}
+  .sub{color:#333;margin:0 0 8px;font-size:14px}
+  .meta{color:#555;font-size:12.5px;margin:0;padding-bottom:11px;border-bottom:2px solid #000}
+  .flow{border:1px solid #000;padding:10px 13px;margin:15px 0;font-size:13.5px}
+  .hint{font-size:12.5px;color:#666;margin:9px 0 0}
+
+  /* 절 */
+  section{padding:24px 0;border-top:1px solid #ccc;scroll-margin-top:56px}
+  section:first-of-type{border-top:none}
+  h2{margin:0;font-size:17px;font-weight:700;border-bottom:1px solid #000;padding-bottom:6px;overflow:hidden}
+  h2 .n{display:inline-block;min-width:23px;height:23px;line-height:21px;text-align:center;
+        border:1px solid #000;font-size:12px;margin-right:9px;vertical-align:2px;font-weight:700}
+  .badge{float:right;font-size:11.5px;font-weight:700;border:1px solid #000;padding:1px 9px;
+         background:#000;color:#fff;letter-spacing:.02em}
+  .badge.g{background:#fff;color:#000}
+  .lead{color:#555;margin:7px 0 10px;font-size:13px}
+
+  /* 지문 상자 */
+  .note{margin:11px 0;border:1px solid #999;padding:8px 12px;background:#fafafa}
+  .note .tag{display:block;font-weight:700;font-size:11px;letter-spacing:.05em;margin-bottom:3px;color:#000}
+  .note.warn{border-color:#000;border-left-width:4px;background:#f2f2f2}
+  .note p{margin:2px 0;font-size:13.5px}
+  .rule{font-weight:700;text-decoration:underline;text-underline-offset:2px}
+
+  /* 코드 · 표 */
+  pre{background:#f5f5f5;border:1px solid #ccc;padding:11px 13px;overflow:auto;
+      font-family:Consolas,"D2Coding",monospace;font-size:13px;line-height:1.7;margin:10px 0;color:#000}
+  pre .cmt{color:#777}
+  code{background:#eee;border:1px solid #ddd;padding:0 4px;font-family:Consolas,monospace;font-size:13px}
+  table{border-collapse:collapse;width:100%;margin:10px 0;font-size:13px}
+  th,td{border:1px solid #000;padding:6px 9px;text-align:left;vertical-align:middle}
+  th{background:#eee;font-weight:700}
+  ul,ol{margin:7px 0;padding-left:20px}li{margin:2px 0}
+
+  /* 문항 */
+  .q{margin:11px 0;padding:10px 13px;border:1px solid #ccc}
+  .q .qh{font-weight:700;font-size:13.5px;margin-bottom:6px}
+  .q .qh .no{border:1px solid #000;padding:0 5px;font-size:11px;margin-right:7px;font-weight:700}
+  .fill{font-size:13px;color:#333;margin:5px 0}
+
+  /* 빈칸 : 비었으면 점선, 채우면 실선 */
+  .b{border:none;border-bottom:1px dashed #777;background:transparent;font-family:inherit;
+     font-size:inherit;color:#000;padding:1px 4px;min-width:64px;outline:none}
+  .b::placeholder{color:#aaa;font-style:italic}
+  .b:focus{border-bottom:1px solid #000;background:#f0f0f0}
+  .b.ok{border-bottom:1px solid #000;font-weight:600}
+  pre .b{font-family:Consolas,"D2Coding",monospace;font-size:12.5px}
+  /* 표 안의 빈칸은 셀을 꽉 채운다 (예시 문구가 잘리지 않게) */
+  td .b{width:100%;min-width:0;border-bottom-style:solid;border-bottom-color:#bbb;padding:2px 3px}
+  td .b:focus,td .b.ok{border-bottom-color:#000}
+  .t{width:100%;border:1px solid #999;border-left:3px solid #999;background:transparent;padding:7px 9px;
+     font-family:inherit;font-size:14px;line-height:1.7;color:#000;outline:none;resize:vertical}
+  .t::placeholder{color:#aaa;font-style:italic}
+  .t:focus{border-left-color:#000;background:#f7f7f7}
+  .t.ok{border-left-color:#000;border-left-width:4px}
+
+  /* 기본정보 표 */
+  .info{margin:12px 0}
+  .info table{margin:0}
+  .info td:first-child{background:#eee;width:118px;font-weight:700}
+  .who{margin:12px 0;display:flex;gap:14px;flex-wrap:wrap;align-items:baseline}
+  .who label{font-size:13px;color:#555}
+  .who .b{min-width:104px}
+
+  /* 상단 바 */
+  .bar{position:sticky;top:0;z-index:30;background:#fff;border-bottom:2px solid #000;padding:8px 14px;
+       display:flex;align-items:center;gap:10px;font-size:12.5px}
+  .bar b{font-size:13px}
+  .bar .sp{flex:1}
+  .bar button{border:1px solid #000;background:#fff;padding:4px 10px;font-size:12.5px;
+              cursor:pointer;font-family:inherit;color:#000}
+  .bar button:hover{background:#000;color:#fff}
+  .prog{height:9px;width:132px;border:1px solid #000}
+  .prog i{display:block;height:100%;width:0;background:#000;transition:width .25s}
+  .svat{font-size:11.5px;color:#555}
+  .bar button:disabled{color:#aaa;border-color:#ccc;cursor:default}
+  .bar button:disabled:hover{background:#fff;color:#aaa}
+
+  /* 목차 */
+  .side{position:sticky;top:0;align-self:flex-start;flex:0 0 186px;max-height:100vh;overflow-y:auto;
+        padding:40px 12px 36px;border-right:1px solid #ccc;font-size:12.5px}
+  .side-title{font-weight:700;color:#555;font-size:11px;letter-spacing:.06em;margin-bottom:9px;padding-left:8px}
+  .side a{display:block;color:#000;text-decoration:none;padding:4px 8px;
+          border-left:2px solid transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .side a:hover{background:#f0f0f0}
+  .side a.act{border-left-color:#000;background:#eee;font-weight:700}
+
+  footer{color:#555;font-size:12.5px;margin-top:30px;border-top:1px solid #000;padding-top:10px}
+
+
+  .mask{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:80;
+        align-items:center;justify-content:center;padding:20px}
+  .mask.on{display:flex}
+  .modal{background:#fff;border:2px solid #000;max-width:760px;width:100%;
+         max-height:92vh;overflow:auto}
+  .modal h3{margin:0;padding:12px 16px;font-size:15px;border-bottom:2px solid #000}
+  .modal .mb{padding:16px}
+  .modal ol{margin:0 0 12px;padding-left:20px;font-size:13.5px}
+  .modal li{margin:5px 0}
+  .modal .why{border:1px solid #999;background:#fafafa;padding:8px 12px;font-size:12.5px;
+              color:#333;margin:0 0 14px}
+  .modal svg{display:block;width:100%;height:auto;border:1px solid #ccc;background:#fff}
+  .modal .mf{display:flex;align-items:center;gap:10px;padding:12px 16px;border-top:1px solid #000}
+  .modal .mf .sp{flex:1}
+  .modal .mf label{font-size:12.5px;color:#555}
+  .modal button{border:1px solid #000;background:#fff;color:#000;padding:5px 14px;
+                font-size:13px;cursor:pointer;font-family:inherit}
+  .modal button:hover{background:#000;color:#fff}
+  .modal button.go{background:#000;color:#fff}
+  .modal button.go:hover{background:#fff;color:#000}
+  @media print{.mask{display:none !important}}
+
+  @media (max-width:780px){
+    .layout{flex-direction:column}
+    .side{position:static;flex:none;width:100%;max-height:none;border-right:none;
+          border-bottom:1px solid #000;display:flex;flex-wrap:wrap;gap:2px;padding:12px}
+    .side-title{width:100%}
+  }
+  /* 실행화면 캡처 : 드래그드롭 */
+  .capgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0}
+  .cap{border:1px solid #ccc;padding:10px 12px}
+  .caph{font-weight:700;font-size:13px;margin-bottom:6px}
+  .dz{border:1px dashed #777;background:#fafafa;min-height:96px;display:flex;align-items:center;
+      justify-content:center;position:relative;cursor:pointer;overflow:hidden;margin-bottom:6px}
+  .dz .dzhint{color:#999;font-size:12px}
+  .dz .dzimg{display:none;max-width:100%;max-height:260px}
+  .dz .dzdel{display:none;position:absolute;top:4px;right:4px;border:1px solid #000;background:#fff;
+             color:#000;font-size:11px;padding:1px 6px;cursor:pointer;font-family:inherit}
+  .dz.on{border-style:solid;border-color:#000;background:#fff;cursor:default}
+  .dz.on .dzhint{display:none}
+  .dz.on .dzimg{display:block}
+  .dz.on.mine .dzdel{display:block}
+  .dz.over{border-color:#000;background:#eee}
+  .dz.over .dzhint{color:#000}
+  @media (max-width:760px){.capgrid{grid-template-columns:1fr}}
+
+  /* 인쇄용 사본 : 화면에선 숨고 인쇄할 때만 나옵니다.
+     input/textarea 는 보이는 영역까지만 인쇄되어 긴 답이 잘리므로 사본으로 대체합니다. */
+  .pv{display:none}
+
+  @media print{
+    /* 화면 안내 · 채점 배점 · 절 설명은 종이에 낼 필요가 없다 */
+    .bar,.side,.sub,.meta,.lead,.flow,.hint,.noprint,.badge{display:none}
+    /* .meta 가 갖고 있던 머리말 아래 구분선을 제목이 대신 갖는다 */
+    h1{border-bottom:2px solid #000;padding-bottom:10px;margin-bottom:0}
+    .layout{display:block}
+    body{font-size:10.5pt}
+    section{page-break-inside:avoid;border-top:1px solid #000}
+    .q{border-color:#000;page-break-inside:avoid}
+    .note{background:none}
+    /* 인쇄에는 가로 스크롤이 없습니다. 줄바꿈을 허용하지 않으면 코드가 오른쪽에서 잘립니다. */
+    pre{background:none;page-break-inside:avoid;overflow:visible;
+        white-space:pre-wrap;word-break:break-word}
+
+    .b,.t{display:none}
+    .pv{display:inline;border-bottom:1px solid #000;padding:0 3px;
+        white-space:pre-wrap;word-break:break-all;font-weight:600}
+    .pv:empty{display:inline-block;min-width:120px;height:1.35em;vertical-align:-.3em;font-weight:400}
+    td .pv{display:block;width:100%;border-bottom:none;min-height:1.4em;word-break:break-all}
+    .pv.blk{display:block;border:1px solid #000;border-bottom:1px solid #000;
+            padding:5px 7px;min-height:3.2em;font-weight:400;margin:2px 0}
+
+    /* 캡처는 인쇄에도 나옵니다. 비어 있는 상자는 종이 낭비라 감춥니다. */
+    .capgrid{display:block}
+    .cap{page-break-inside:avoid;border-color:#000;margin:8px 0}
+    .dz{border:1px solid #000;background:none;min-height:0}
+    .dz .dzdel{display:none}
+    .dz:not(.on){display:none}
+    .dz .dzimg{max-height:none}
+  }
+  body.ansmode .bar{background:#000;color:#fff}
+  body.ansmode .bar button{border-color:#fff;background:#000;color:#fff}
+  body.ansmode .bar button:hover{background:#fff;color:#000}
+  body.ansmode .b,body.ansmode .t{background:#f0f0f0}
+  #roleBadge{border:1px solid #000;padding:1px 8px;font-size:11.5px;font-weight:700}
+  body.ansmode #roleBadge{border-color:#fff}
+  .sitehead{border-bottom:1px solid #ccc;padding:8px 14px;font-size:12.5px;background:#fff;white-space:nowrap;overflow-x:auto}
+  .sitehead a{color:#000;text-decoration:none;border-bottom:1px solid #000}
+  .sitehead a:hover{background:#000;color:#fff;border-bottom-color:#000}
+  .sitehead .cur{color:#555}
+  .stick{position:sticky;top:0;z-index:30;background:#fff}
+  .stick .bar{position:static}
+  section{scroll-margin-top:96px}
+  @media print{.sitehead{display:none}}
+</style><div class="stick"><div class="sitehead"><a href="../../index.html">과목 목록</a> &nbsp;/&nbsp; <a href="../../courses/c1.html">평가 모듈 목록</a> &nbsp;/&nbsp; <a href="../../modules/m16.html">(비NCS 실기) 공공 데이터 융합 DBMS 구축</a> &nbsp;/&nbsp; <span class="cur">SAMPLE_2</span><span class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></span></div><div class="bar"><b>SAMPLE_2 빈칸 문제지</b><div class="prog"><i id="pi"></i></div><span id="pt">0 / 0</span><span class="sp"></span><span id="svAt" class="svat"></span><button id="bSave">중간저장</button><button id="bLoad">불러오기</button><span id="roleBadge">일반(학생)</span><button id="bAns">정답 보기</button><button id="bCopy">답안 전체 복사</button><button id="bPrint">인쇄 / PDF 저장</button><button id="bReset">초기화</button></div></div><div class="mask" id="pMask"><div class="modal"><h3>PDF 로 저장하기 전에 — 인쇄 창에서 확인할 것</h3><div class="mb"><ol><li><b>대상</b> 을 <b>"PDF로 저장"</b> 으로 바꿉니다. <b>"Microsoft Print to PDF" 로 두면 안 됩니다</b> — 글자가 그림처럼 박혀 검색·복사가 안 되고, 파일이 7배 커지고, 문서 제목의 한글이 깨집니다.</li><li><b>설정 더보기</b> 가 접혀 있으면 눌러서 펼칩니다.</li><li>맨 아래 <b>옵션</b> 의 <b>머리글과 바닥글</b> 체크를 <b>풉니다.</b></li></ol><div class="why">체크가 되어 있으면 모든 쪽의 위아래에 <b>날짜·문서 제목·주소·쪽번호</b> 가 찍힙니다. 브라우저가 붙이는 것이라 이 문서에서는 뺄 수 없습니다. 한 번 풀어 두면 다음부터 유지됩니다.</div>
+<svg viewBox="0 0 660 470" xmlns="http://www.w3.org/2000/svg" font-family="Malgun Gothic, sans-serif">
+  <rect x="0.5" y="0.5" width="659" height="469" fill="#fff" stroke="#e6e6e6"/>
+  <rect x="0" y="0" width="230" height="470" fill="#f4f4f4"/>
+  <rect x="24" y="16" width="182" height="438" fill="#fff" stroke="#ddd"/>
+  <text x="115" y="240" font-size="11" fill="#bbb" text-anchor="middle">미리보기</text>
+
+  <text x="252" y="30" font-size="14" font-weight="700">인쇄</text>
+  <text x="636" y="30" font-size="11.5" font-weight="700" text-anchor="end">용지 16장</text>
+
+  <text x="252" y="62" font-size="12" font-weight="700">대상</text>
+  <rect x="372" y="46" width="230" height="26" fill="#fff" stroke="#000" stroke-width="2"/>
+  <text x="384" y="63" font-size="11.5" fill="#888">Microsoft Print to PDF</text>
+  <text x="590" y="63" font-size="10" fill="#666">▼</text>
+  <circle cx="622" cy="59" r="11" fill="#000"/>
+  <text x="622" y="63" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">1</text>
+  <path d="M372 82 L372 96 L602 96" stroke="#000" stroke-width="1.5" fill="none"/>
+  <rect x="372" y="100" width="230" height="26" fill="#000"/>
+  <text x="384" y="118" font-size="12" fill="#fff" font-weight="700">PDF로 저장</text>
+  <text x="252" y="118" font-size="11.5" font-weight="700">이걸로 바꿉니다</text>
+
+  <text x="252" y="152" font-size="12" fill="#bbb">페이지</text>
+  <rect x="372" y="136" width="230" height="26" fill="#fff" stroke="#e3e3e3"/>
+  <text x="384" y="153" font-size="11.5" fill="#ccc">전체</text>
+  <text x="252" y="188" font-size="12" fill="#bbb">레이아웃</text>
+  <rect x="372" y="172" width="230" height="26" fill="#fff" stroke="#e3e3e3"/>
+  <text x="384" y="189" font-size="11.5" fill="#ccc">세로 방향</text>
+  <text x="252" y="224" font-size="12" fill="#bbb">컬러</text>
+  <rect x="372" y="208" width="230" height="26" fill="#fff" stroke="#e3e3e3"/>
+  <text x="384" y="225" font-size="11.5" fill="#ccc">컬러</text>
+
+  <line x1="240" y1="248" x2="650" y2="248" stroke="#e3e3e3"/>
+  <text x="252" y="272" font-size="12" font-weight="700">설정 더보기</text>
+  <circle cx="336" cy="268" r="9" fill="#fff" stroke="#000" stroke-width="1.5"/>
+  <text x="336" y="272" font-size="9" text-anchor="middle">▲</text>
+  <circle cx="368" cy="268" r="11" fill="#000"/>
+  <text x="368" y="272" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">2</text>
+  <text x="386" y="272" font-size="11.5" font-weight="700">접혀 있으면 눌러서 펼칩니다</text>
+  <line x1="240" y1="288" x2="650" y2="288" stroke="#e3e3e3"/>
+
+  <text x="252" y="314" font-size="12" fill="#bbb">용지 크기</text>
+  <rect x="372" y="298" width="230" height="26" fill="#fff" stroke="#e3e3e3"/>
+  <text x="384" y="315" font-size="11.5" fill="#ccc">A4</text>
+  <text x="252" y="350" font-size="12" fill="#bbb">여백</text>
+  <rect x="372" y="334" width="230" height="26" fill="#fff" stroke="#e3e3e3"/>
+  <text x="384" y="351" font-size="11.5" fill="#ccc">기본</text>
+  <text x="252" y="386" font-size="12" fill="#bbb">배율</text>
+  <rect x="372" y="370" width="230" height="26" fill="#fff" stroke="#e3e3e3"/>
+  <text x="384" y="387" font-size="11.5" fill="#ccc">기본값</text>
+
+  <text x="252" y="422" font-size="12" font-weight="700">옵션</text>
+  <rect x="372" y="411" width="14" height="14" fill="#fff" stroke="#000" stroke-width="2"/>
+  <text x="394" y="423" font-size="12" font-weight="700">머리글과 바닥글</text>
+  <circle cx="500" cy="418" r="11" fill="#000"/>
+  <text x="500" y="422" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">3</text>
+  <text x="518" y="422" font-size="11.5" font-weight="700">비어 있어야 합니다</text>
+  <rect x="372" y="437" width="14" height="14" fill="#fff" stroke="#e3e3e3"/>
+  <text x="394" y="449" font-size="12" fill="#ccc">배경 그래픽</text>
+</svg>
+</div><div class="mf"><label><input type="checkbox" id="pSkip"> 다시 보지 않기</label><span class="sp"></span><button id="pCancel">취소</button><button class="go" id="pGo">계속</button></div></div></div><div class="layout"><div class="side"><div class="side-title">목차</div><a href="#s0">0. 기본 정보</a><a href="#k1">1. 검색·확보 (5)</a><a href="#k2">2. 구조·척도 (5)</a><a href="#k3">3. 출처·갱신주기 (5)</a><a href="#k4">4. 품질 진단 (10)</a><a href="#k5">5. 타겟·독립변수 (5)</a><a href="#d1">6. 정제·가공·학습 (15)</a><a href="#d2">7. 모델 저장 (10)</a><a href="#d3">8. 모델 API (10)</a><a href="#d4">9. 이력 CRUD (15)</a><a href="#d5">10. 통합·인증 (10)</a><a href="#d6">11. 검증·해석 (10)</a></div><div class="wrap"><div class="kicker"><span class="noprint">학생 제출용 · </span>공공데이터 융합 DBMS 구축</div><h1>농산물 중금속 부적합 예측 — 작성 보고서</h1><p class="sub">공공데이터포털의 농산물 중금속 분석결과로 '이 검사에서 부적합이 나올까'를 맞히고, 그 모델을 서비스로 만듭니다.</p><p class="meta">문제해결시나리오 100점 · 공공데이터 융합 기초 30점 + 공공데이터 융합 DBMS 구축 70점</p><div class="flow"><b>작성 방법</b> — 각 단계의 <b>상세가이드.html</b>(01 / 02 / 03)을 보면서 직접 실행하고, <b>본인이 실행한 결과</b>를 빈칸에 채웁니다. 가이드의 값을 그대로 옮겨 적는 것이 아니라 <b>본인 화면에 나온 값</b>을 적습니다.</div><p class="hint">입력한 내용은 이 브라우저에 자동 저장됩니다. 다른 PC 에서는 이어지지 않으니 작성이 끝나면 반드시 <b>답안 전체 복사</b> 또는 <b>인쇄 / PDF 저장</b> 으로 보관할 것.<br>PDF 로 남기려면 <b>인쇄 / PDF 저장</b> 을 누른 뒤 인쇄 대화상자의 <b>대상(프린터)</b> 을 <b>"PDF로 저장"</b> 으로 고릅니다. 길게 쓴 서술도 잘리지 않고 전부 들어갑니다.<br><b>"Microsoft Print to PDF" 는 고르지 말 것</b> — 파일이 6배 커지고, 저장 직후 열면 "PDF 문서를 로드하지 못했습니다" 가 뜹니다(새로고침하면 열리기는 합니다).</p><section id="s0"><h2><span class="n">0</span>기본 정보</h2><p class="lead">평가도구의 기본정보와 같게 적습니다.</p><div class="who"><label>이름 <input class="b" data-k="name" data-q="이름" size="10" placeholder="" data-a="김OO" data-adm="1"></label><label>조 <input class="b" data-k="team" data-q="조" size="6" placeholder="" data-a="3" data-adm="1"></label><label>제출일 <input class="b" data-k="date" data-q="제출일" size="12" placeholder="" data-a="2026-07-21" data-adm="1"></label><label>GitHub REPO <input class="b" data-k="repo" data-q="GitHub REPO" size="34" placeholder="https://github.com/..." data-a="https://github.com/hong/public-data-dbms" data-adm="1"></label></div><div class="info"><table><tr><td>과정명</td><td>(디지털 컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E</td></tr><tr><td>능력단위</td><td>공공데이터 융합 DBMS 구축 / 7수준</td></tr><tr><td>평가방법</td><td>문제해결시나리오 (100점)</td></tr><tr><td>평가일자</td><td>2026-07-21 (09:00 ~ 18:00)</td></tr></table></div><div class="note warn"><span class="tag">제출방법</span><p>PPT 제출 (실행화면 캡처 포함) · 소스 폴더(01 / 02 / 03) GITHUB REPO 링크 제출</p></div></section><section id="k1"><h2><span class="n">1</span>공공데이터 검색·확보<span class="badge">5점</span></h2><p class="lead">채점기준 — 분석 목적에 적합한 공공데이터를 공공데이터포털에서 검색하고 확보할 수 있다.</p><div class="q"><div class="qh"><span class="no">1-1</span>어떤 데이터를 골랐는가</div><p class="fill">데이터셋명 <input class="b" data-k="ds" data-q="데이터셋명" size="34" placeholder="예: 농산물 중금속 분석결과" data-a="농산물 중금속 분석결과"></p><p class="fill">공공데이터포털 URL <input class="b" data-k="url" data-q="URL" size="46" placeholder="https://www.data.go.kr/data/______/fileData.do" data-a="https://www.data.go.kr/data/15047544/fileData.do"></p><p class="fill">검색에 쓴 키워드 <input class="b" data-k="kw" data-q="검색 키워드" size="18" placeholder="예: 중금속" data-a="중금속"> &nbsp; 확장자 필터 <input class="b" data-k="ext" data-q="확장자" size="6" placeholder="CSV" data-a="CSV"></p></div><div class="q"><div class="qh"><span class="no">1-2</span>왜 이 데이터를 골랐는가 (선정 이유)</div><textarea class="t" data-k="why" data-q="선정 이유" rows="3" placeholder="무엇을 예측하려고 이 데이터를 골랐는지, 그 목적에 이 데이터가 왜 적합한지 씁니다." data-a="농산물이 중금속 검사에서 부적합이 나올지 미리 가늠하면 어느 품목·지역을 먼저 검사할지 정하는 데 쓸 수 있다. 검사 1건이 1행이고 분석결과 열로 이진 타겟을 만들 수 있으며, 품목·수거단계·재배양식·생산지처럼 검사 전에 알 수 있는 항목이 함께 있습니다." data-adm="1"></textarea></div><div class="q"><div class="qh"><span class="no">1-3</span>데이터 선정 조건 3가지를 만족하는지 확인</div><p class="fill">행 단위 데이터인가(1행 = <input class="b" data-k="unit" data-q="1행의 의미" size="12" placeholder="예: 검사 1건" data-a="검사 1건">) <input class="b" data-k="cond1" data-q="행 단위 확인" size="8" placeholder="예 / 아니오" data-a="예"></p><p class="fill">타겟이 두 가지 값(이진분류)이 되는가 <input class="b" data-k="cond2" data-q="이진 타겟 가능" size="8" placeholder="예 / 아니오" data-a="예"></p><p class="fill">통계·집계표가 아닌가 <input class="b" data-k="cond3" data-q="집계표 아님" size="8" placeholder="예 / 아니오" data-a="예"></p></div></section><section id="k2"><h2><span class="n">2</span>구조·유형·척도 파악<span class="badge">5점</span></h2><p class="lead">채점기준 — 확보한 데이터의 구조(행·열), 유형, 척도를 파악하고 분석 가능 여부를 판단할 수 있다.</p><div class="q"><div class="qh"><span class="no">2-1</span>구조 — 실행 결과를 보고 채웁니다</div><pre>df = pd.read_csv('data/<input class="b" data-k="csv" data-q="CSV 파일명" size="26" placeholder="농산물_중금속_분석결과.csv" data-a="농산물_중금속_분석결과.csv">', encoding='<input class="b" data-k="enc" data-q="인코딩" size="7" placeholder="cp949" data-a="cp949">')
+print('데이터 크기(행, 열):', df.<input class="b" data-k="shape" data-q="크기 속성" size="6" placeholder="shape" data-a="shape">)</pre><p class="fill">행 <input class="b" data-k="rows" data-q="행 수" size="8" placeholder="" data-a="68,106"> 개 &nbsp; 열 <input class="b" data-k="cols" data-q="열 수" size="5" placeholder="" data-a="9"> 개</p></div><div class="q"><div class="qh"><span class="no">2-2</span>주요 열의 유형·척도</div><table><tr><th>열 이름</th><th>유형(문자/숫자/날짜)</th><th>척도(명목/순서/등간/비율)</th><th>입력으로 쓸까</th></tr><tr><td><input class="b" data-k="c1_n" data-q="열1 이름" size="12" placeholder="" data-a="품목명"></td><td><input class="b" data-k="c1_t" data-q="열1 유형" size="8" placeholder="" data-a="문자"></td><td><input class="b" data-k="c1_s" data-q="열1 척도" size="8" placeholder="" data-a="명목"></td><td><input class="b" data-k="c1_u" data-q="열1 사용여부" size="8" placeholder="" data-a="사용(상위 30 + 기타)"></td></tr><tr><td><input class="b" data-k="c2_n" data-q="열2 이름" size="12" placeholder="" data-a="수거단계"></td><td><input class="b" data-k="c2_t" data-q="열2 유형" size="8" placeholder="" data-a="문자"></td><td><input class="b" data-k="c2_s" data-q="열2 척도" size="8" placeholder="" data-a="명목"></td><td><input class="b" data-k="c2_u" data-q="열2 사용여부" size="8" placeholder="" data-a="사용"></td></tr><tr><td><input class="b" data-k="c3_n" data-q="열3 이름" size="12" placeholder="" data-a="생산자 주소"></td><td><input class="b" data-k="c3_t" data-q="열3 유형" size="8" placeholder="" data-a="문자"></td><td><input class="b" data-k="c3_s" data-q="열3 척도" size="8" placeholder="" data-a="명목"></td><td><input class="b" data-k="c3_u" data-q="열3 사용여부" size="8" placeholder="" data-a="시도만 추출해 사용"></td></tr><tr><td><input class="b" data-k="c4_n" data-q="열4 이름" size="12" placeholder="" data-a="재배면적"></td><td><input class="b" data-k="c4_t" data-q="열4 유형" size="8" placeholder="" data-a="숫자"></td><td><input class="b" data-k="c4_s" data-q="열4 척도" size="8" placeholder="" data-a="비율"></td><td><input class="b" data-k="c4_u" data-q="열4 사용여부" size="8" placeholder="" data-a="사용(결측 채움)"></td></tr><tr><td><input class="b" data-k="c5_n" data-q="열5 이름" size="12" placeholder="" data-a="분석결과"></td><td><input class="b" data-k="c5_t" data-q="열5 유형" size="8" placeholder="" data-a="문자"></td><td><input class="b" data-k="c5_s" data-q="열5 척도" size="8" placeholder="" data-a="명목"></td><td><input class="b" data-k="c5_u" data-q="열5 사용여부" size="8" placeholder="" data-a="제외(타겟 재료)"></td></tr></table></div><div class="q"><div class="qh"><span class="no">2-3</span>분석 가능하다고 판단한 근거</div><textarea class="t" data-k="judge" data-q="분석 가능 판단 근거" rows="2" placeholder="행 수가 충분한가, 입력이 될 열이 있는가, 타겟을 만들 수 있는가." data-a="68,106행이면 충분하지만 양성이 1.12% 뿐이라 불균형을 감안해야 합니다. 명목형 4개와 수치형 3개를 입력으로 쓸 수 있고 분석결과로 이진 타겟을 만들 수 있어 분석 가능합니다. 다만 표기 불일치와 결측이 많아 정제가 반드시 필요합니다." data-adm="1"></textarea></div></section><section id="k3"><h2><span class="n">3</span>출처·제공기관·갱신주기·이용허락범위<span class="badge">5점</span></h2><p class="lead">채점기준 — 데이터의 출처, 제공기관, 갱신주기, 이용허락범위를 확인하고 명시할 수 있다.</p><div class="note say"><span class="tag">찾는 곳</span><p>공공데이터포털 데이터 상세페이지의 <b>파일데이터 정보</b> 표에 제공기관·갱신주기·이용허락범위가 모두 적혀 있습니다.</p></div><div class="q"><div class="qh"><span class="no">3-1</span>상세페이지에서 그대로 옮겨 적습니다</div><div class="info"><table><tr><td>출처</td><td><input class="b" data-k="src" data-q="출처" size="40" placeholder="공공데이터포털(data.go.kr) — 데이터셋명 [일련번호]" data-a="공공데이터포털(data.go.kr) — 농산물 중금속 분석결과 [15047544]" data-adm="1"></td></tr><tr><td>제공기관</td><td><input class="b" data-k="org" data-q="제공기관" size="30" placeholder="예: 농림축산식품부 국립농산물품질관리원" data-a="농림축산식품부 국립농산물품질관리원" data-adm="1"></td></tr><tr><td>갱신주기</td><td><input class="b" data-k="cyc" data-q="갱신주기" size="12" placeholder="연간 / 반기 / 분기 / 수시" data-a="반기" data-adm="1"></td></tr><tr><td>이용허락범위</td><td><input class="b" data-k="lic" data-q="이용허락범위" size="20" placeholder="제한 없음 / 제한 있음" data-a="제한 없음" data-adm="1"></td></tr><tr><td>전체 건수</td><td><input class="b" data-k="cnt" data-q="전체 건수" size="14" placeholder="" data-a="68,106건" data-adm="1"></td></tr><tr><td>등록일 / 수정일</td><td><input class="b" data-k="upd" data-q="등록일/수정일" size="24" placeholder="" data-a="2026-04-23 / 2026-06-18" data-adm="1"></td></tr></table></div></div></section><section id="k4"><h2><span class="n">4</span>품질 진단<span class="badge">10점</span></h2><p class="lead">채점기준 — 데이터의 품질(결측치, 이상치, 표기 불일치, 희소 범주)을 진단하고 정제 방향을 수립할 수 있다.</p><div class="note warn"><span class="tag">배점이 가장 큰 항목</span><p>네 가지를 <b>모두</b> 수치로 제시해야 합니다. 「없음」 도 확인해 봤다는 근거(코드·출력)가 있어야 인정됩니다.</p></div><div class="q"><div class="qh"><span class="no">4-1</span>결측치 — 몇 개인지 세어서 적습니다</div><pre>print(df.<input class="b" data-k="na1" data-q="결측 확인 함수" size="8" placeholder="isnull" data-a="isnull">().<input class="b" data-k="na2" data-q="합계 함수" size="5" placeholder="sum" data-a="sum">())</pre><p class="fill">결측이 있는 열과 개수(비율) <input class="b" data-k="na_res" data-q="결측 열과 개수" size="46" placeholder="예: 재배면적 19,932개(29.3%), 조사물량 12,975개(19.0%)" data-a="재배면적 19,932개(29.3%), 조사물량 12,975개(19.0%)"></p><p class="fill">처리 방향 <input class="b" data-k="na_plan" data-q="결측 처리 방향" size="46" placeholder="제거 / 중앙값 채우기 / 그대로 두기 — 어느 것이고 왜" data-a="제거하면 3할이 날아가므로 중앙값으로 채웁니다. 단 분할한 뒤 학습 데이터의 중앙값으로 채웁니다"></p></div><div class="q"><div class="qh"><span class="no">4-2</span>이상치 — 수치형 열의 분포를 보고 판단합니다</div><pre>print(df[[<input class="b" data-k="out1" data-q="수치형 열 목록" size="22" placeholder="'열1','열2'" data-a="'재배면적','조사물량'">]].<input class="b" data-k="out2" data-q="요약통계 함수" size="8" placeholder="describe" data-a="describe">())   <span class="cmt"># 최소·최대·사분위수 확인</span></pre><p class="fill">이상해 보이는 값이 있는 열과 근거 <input class="b" data-k="out_res" data-q="이상치 판단" size="46" placeholder="" data-a="재배면적 최대 10,000㎡, 조사물량 최대 15,000kg 로 큰 값이 있으나 실제 대농가 값이라 오류가 아니다"></p><p class="fill">처리 방향(제거 / 유지 / 상한 자르기)과 이유 <input class="b" data-k="out_plan" data-q="이상치 처리 방향" size="46" placeholder="" data-a="유지 — 트리 모델이라 극단값에 크게 흔들리지 않습니다"></p></div><div class="q"><div class="qh"><span class="no">4-3</span>표기 불일치 — 같은 것이 두 이름으로 적혀 있지 않은가</div><pre>print(df['<input class="b" data-k="mm_col" data-q="확인할 열" size="12" placeholder="" data-a="시도">'].<input class="b" data-k="mm_fn" data-q="값 세는 함수" size="12" placeholder="value_counts" data-a="value_counts">())   <span class="cmt"># 값을 전부 찍어 눈으로 확인</span></pre><p class="fill">불일치 사례 <input class="b" data-k="mm_res" data-q="불일치 사례" size="46" placeholder="예: '충남' 과 '충청남도' 가 따로 집계됨" data-a="'충남'(5,933)과 '충청남도'(5,316)가 따로 집계됨. 경북/경상북도 등 16개 시도가 같은 문제"></p><p class="fill">통일 후 범주 수 <input class="b" data-k="mm_before" data-q="통일 전" size="5" placeholder="" data-a="33"> 종 → <input class="b" data-k="mm_after" data-q="통일 후" size="5" placeholder="" data-a="17"> 종</p></div><div class="q"><div class="qh"><span class="no">4-4</span>희소 범주 — 몇 건 안 되는 범주가 많지 않은가</div><pre>for c in [<input class="b" data-k="sp_cols" data-q="범주형 열 목록" size="26" placeholder="" data-a="'품목명','수거단계','재배양식','시도'">]:
+    print(c, df[c].<input class="b" data-k="sp_fn" data-q="고유값 수 함수" size="8" placeholder="nunique" data-a="nunique">(), '종')</pre><p class="fill">범주가 많은 열과 종 수 <input class="b" data-k="sp_res" data-q="범주 종 수" size="46" placeholder="예: 품목명 518종, 시도 33종" data-a="품목명 518종, 수거단계 4종, 재배양식 10종, 시도 17종"></p><p class="fill">묶는 기준(상위 N개 + 기타) <input class="b" data-k="sp_plan" data-q="희소범주 처리" size="40" placeholder="예: 상위 N개 + 기타" data-a="품목은 상위 30개 + 기타(기타 비중 24.0%), 재배양식은 상위 5개 + 기타"></p></div><div class="q"><div class="qh"><span class="no">4-5</span>정제 방향 정리</div><textarea class="t" data-k="clean_plan" data-q="정제 방향 종합" rows="3" placeholder="위 네 가지 진단을 근거로 무엇을 어떤 순서로 정제할지 씁니다." data-a="① 문자열 앞뒤 공백 제거 ② 생산자 주소에서 시도 추출 후 축약형을 정식 명칭으로 통일(33종→17종) ③ 품목 518종을 상위 30개 + 기타로 묶기 ④ 등록일자에서 월 파생 ⑤ 재배면적·조사물량의 결측은 여기서 채우지 않고, 8:2 분할 뒤 학습 데이터의 중앙값으로 채웁니다." data-adm="1"></textarea></div></section><section id="k5"><h2><span class="n">5</span>타겟 정의·독립변수 선별<span class="badge">5점</span></h2><p class="lead">채점기준 — 분석 목적에 맞는 타겟(종속변수)을 정의하고 활용할 독립변수를 선별할 수 있다.</p><div class="q"><div class="qh"><span class="no">5-1</span>타겟(종속변수) 정의</div><pre>TARGET = '<input class="b" data-k="tgt" data-q="타겟 열 이름" size="12" placeholder="부적합" data-a="부적합">'
+LABELS = ['<input class="b" data-k="lab0" data-q="0 라벨" size="10" placeholder="적합" data-a="적합">', '<input class="b" data-k="lab1" data-q="1 라벨" size="10" placeholder="부적합" data-a="부적합">']
+df[TARGET] = (<input class="b" data-k="tgt_expr" data-q="타겟 만드는 식" size="40" placeholder="예: ~df['분석결과'].astype(str).str.startswith('적합')" data-a="~df['분석결과'].astype(str).str.startswith('적합')">).astype(int)</pre><p class="fill">정의 기준을 말로 쓰면 <input class="b" data-k="tgt_why" data-q="타겟 정의 기준" size="46" placeholder="예: 분석결과가 '적합' 으로 시작하지 않으면 부적합(1)" data-a="분석결과가 '적합'으로 시작하지 않으면 부적합(1). '부적합 (폐기)' 749건 + '부적합(회수폐기…)' 12건"></p></div><div class="q"><div class="qh"><span class="no">5-2</span>클래스 분포 — 균형인가 불균형인가</div><p class="fill">0(<input class="b" data-k="d_l0" data-q="0 라벨명" size="8" placeholder="" data-a="적합">) <input class="b" data-k="d_n0" data-q="0 건수" size="8" placeholder="" data-a="67,345"> 건 &nbsp; 1(<input class="b" data-k="d_l1" data-q="1 라벨명" size="8" placeholder="" data-a="부적합">) <input class="b" data-k="d_n1" data-q="1 건수" size="8" placeholder="" data-a="761"> 건 &nbsp; 양성 비율 <input class="b" data-k="d_rate" data-q="양성 비율" size="6" placeholder="" data-a="1.12"> %</p><p class="fill">이 분포가 뒤(분할·학습·지표)에 미치는 영향 <input class="b" data-k="d_effect" data-q="분포의 영향" size="44" placeholder="예: 불균형이라 정확도는 못 믿는다 / 균형이라 정확도를 봐도 됩니다" data-a="심한 불균형이라 정확도는 못 믿습니다. stratify 로 분할하고 class_weight 를 줍니다"></p></div><div class="q"><div class="qh"><span class="no">5-3</span>데이터 누수가 되는 컬럼을 제외한 근거</div><div class="note warn"><span class="tag">누수 주의</span><p>타겟을 구성하는 컬럼과 사건 종료 후 확정되는 사후 결과값은 <b>반드시</b> 입력에서 뺍니다. ROC-AUC 가 0.99 처럼 비정상적으로 높으면 누수를 의심합니다.</p></div><p class="fill">뺀 컬럼 <input class="b" data-k="leak_cols" data-q="제외한 컬럼" size="40" placeholder="예: 분석결과" data-a="분석결과"></p><p class="fill">뺀 이유 <input class="b" data-k="leak_why" data-q="제외 이유" size="46" placeholder="타겟을 만든 바로 그 열이라 넣으면 정답을 알려주는 셈" data-a="타겟을 만든 열 자쳅니다. 넣으면 정답을 그대로 알려주는 셈이 됩니다"></p></div><div class="q"><div class="qh"><span class="no">5-4</span>남긴 독립변수와 선정 근거</div><p class="fill">최종 입력 <input class="b" data-k="nfeat" data-q="입력 개수" size="4" placeholder="" data-a="7"> 개 : <input class="b" data-k="feats" data-q="입력 목록" size="46" placeholder="예: item, stage, method, sido, month, area, volume" data-a="item, stage, method, sido, month, area, volume"></p><textarea class="t" data-k="feat_why" data-q="독립변수 선정 근거" rows="2" placeholder="예측 시점에 이미 알 수 있는 값인가? 왜 이 열들이 타겟과 관련 있다고 보는가?" data-a="모두 검사를 하기 전에 알 수 있는 값입니다. 무엇을(품목) 어느 단계에서(수거단계) 어떻게 기른 것을(재배양식) 어디서(시도) 언제(월) 얼마나(면적·물량) 수거했는지가 부적합과 관련이 있다고 보았습니다. 실제로 수거단계별 부적합률이 생산 1.55% vs 유통/판매 0.06% 로 26배 갈렸습니다." data-adm="1"></textarea></div></section><section id="d1"><h2><span class="n">6</span>정제·가공하여 분석 가능한 형태로 구축<span class="badge g">15점</span></h2><p class="lead">채점기준 — 확보한 공공데이터를 정제·가공하여 분석 가능한 형태로 구축할 수 있다.</p><div class="q"><div class="qh"><span class="no">6-1</span>표기 통일</div><pre><input class="b" data-k="u_dict" data-q="매핑 딕셔너리 이름" size="8" placeholder="" data-a="SIDO"> = {<input class="b" data-k="u_pairs" data-q="매핑 쌍" size="34" placeholder="'충남': '충청남도', ..." data-a="'충남': '충청남도', '경북': '경상북도', ...">}
+df['<input class="b" data-k="u_col1" data-q="대상 열" size="8" placeholder="" data-a="시도">'] = df['<input class="b" data-k="u_col2" data-q="대상 열" size="8" placeholder="" data-a="시도">'].<input class="b" data-k="u_fn" data-q="치환 함수" size="8" placeholder="replace" data-a="replace">(<input class="b" data-k="u_arg" data-q="인자" size="8" placeholder="" data-a="SIDO">)</pre><p class="fill">결과 <input class="b" data-k="u_b" data-q="통일 전" size="5" placeholder="" data-a="33"> 종 → <input class="b" data-k="u_a" data-q="통일 후" size="5" placeholder="" data-a="17"> 종</p></div><div class="q"><div class="qh"><span class="no">6-2</span>희소 범주 묶기</div><pre>top = df['<input class="b" data-k="g_col" data-q="대상 열" size="10" placeholder="" data-a="품목명">'].value_counts().<input class="b" data-k="g_head" data-q="상위 N 함수" size="5" placeholder="head" data-a="head">(<input class="b" data-k="g_n" data-q="N" size="3" placeholder="" data-a="30">).index
+df['<input class="b" data-k="g_new" data-q="새 열 이름" size="8" placeholder="" data-a="품목">'] = np.<input class="b" data-k="g_where" data-q="조건 함수" size="6" placeholder="where" data-a="where">(df['<input class="b" data-k="g_col2" data-q="대상 열" size="8" placeholder="" data-a="품목명">'].<input class="b" data-k="g_isin" data-q="포함 검사" size="5" placeholder="isin" data-a="isin">(top), df['<input class="b" data-k="g_col3" data-q="대상 열" size="8" placeholder="" data-a="품목명">'], '<input class="b" data-k="g_else" data-q="나머지 라벨" size="5" placeholder="기타" data-a="기타">')</pre></div><div class="q"><div class="qh"><span class="no">6-3</span>인코딩 — 글자를 숫자로</div><div class="note say"><span class="tag">중요</span><p>코드 열 이름은 <b>영문</b>으로 만듭니다. 이 이름이 그대로 API 의 JSON 키가 되는데 한글 키는 터미널·도구에서 인코딩이 깨져 오류가 납니다. 보이는 이름은 <code>label</code> 이 담당합니다.</p><p>인코딩 순서는 <code>feature_spec.json</code> 의 <code>options</code> 배열과 <b>반드시 일치</b>해야 합니다. 화면은 선택지의 <b>인덱스</b>를 보내기 때문입니다.</p></div><pre>OPTIONS[c] = <input class="b" data-k="e_sort" data-q="정렬 함수" size="6" placeholder="sorted" data-a="sorted">(df[c].astype(str).unique())
+df[CODE[c]] = df[c].astype(str).map({v: i for i, v in <input class="b" data-k="e_enum" data-q="인덱스 함수" size="9" placeholder="enumerate" data-a="enumerate">(OPTIONS[c])})</pre><p class="fill">정렬 함수 · 인덱스 부여 함수를 채운 이유 <input class="b" data-k="e_why" data-q="인코딩 순서 이유" size="44" placeholder="options 배열 순서와 코드가 어긋나면 어떻게 되는가" data-a="options 순서와 코드가 어긋나면 화면에서 고른 것과 다른 값으로 예측됩니다"></p></div><div class="q"><div class="qh"><span class="no">6-4</span>8:2 분할 — 클래스 분포를 고려합니다</div><pre>X_tr, X_te, y_tr, y_te = train_test_split(
+    X, y, test_size=<input class="b" data-k="sp_size" data-q="test_size" size="5" placeholder="0.2" data-a="0.2">, random_state=42, <input class="b" data-k="sp_str" data-q="층화 옵션" size="8" placeholder="stratify" data-a="stratify">=y)</pre><p class="fill">학습 <input class="b" data-k="sp_tr" data-q="학습 행수" size="8" placeholder="" data-a="54,484"> 행 / 검증 <input class="b" data-k="sp_te" data-q="검증 행수" size="8" placeholder="" data-a="13,622"> 행</p><p class="fill"><input class="b" data-k="sp_str2" data-q="층화 옵션" size="8" placeholder="stratify" data-a="stratify"> 를 쓴 이유 <input class="b" data-k="sp_why" data-q="층화 이유" size="40" placeholder="쓰지 않으면 무엇이 문제인가" data-a="양성이 1.12% 뿐이라 안 쓰면 검증에 부적합이 거의 안 들어갈 수 있다"></p></div><div class="q"><div class="qh"><span class="no">6-5</span>결측치 채우기는 언제 하는가</div><div class="note warn"><span class="tag">누수 주의</span><p>중앙값·평균으로 채울 때 <b>전체 데이터의 중앙값</b>을 쓰면 검증 데이터의 정보가 학습에 새어 듭니다. 반드시 <b>분할한 뒤 학습 데이터의 값</b>으로 채웁니다.</p></div><p class="fill">채우기를 분할 <input class="b" data-k="fill_when" data-q="분할 전/후" size="6" placeholder="전 / 후" data-a="후"> 에 한 이유 <input class="b" data-k="fill_why" data-q="채우기 시점 이유" size="44" placeholder="" data-a="전체 중앙값을 쓰면 검증 데이터의 정보가 학습에 새어 듭니다. 학습 데이터의 중앙값(면적 1432, 물량 500)으로 채웠습니다"></p></div><div class="q"><div class="qh"><span class="no">6-6</span>학습</div><pre>model = RandomForestClassifier(n_estimators=100, max_depth=8,
+                               random_state=42<input class="b" data-k="m_cw" data-q="class_weight 옵션" size="26" placeholder=", class_weight='balanced'" data-a=", class_weight='balanced'">)
+model.fit(<input class="b" data-k="m_x" data-q="학습 입력" size="6" placeholder="X_tr" data-a="X_tr">, <input class="b" data-k="m_y" data-q="학습 정답" size="6" placeholder="y_tr" data-a="y_tr">)</pre><p class="fill">class_weight 를 쓴 / 쓰지 않은 이유 <input class="b" data-k="m_cw_why" data-q="class_weight 를 쓴/쓰지 않은 이유" size="52" placeholder="양성이 1.12% 뿐인데 이 옵션이 없으면 모델이 어떻게 되나" data-a="양성이 1.12% 뿐이라 안 주면 전부 '적합'으로만 찍어 부적합을 하나도 못 잡습니다"></p></div><div class="q"><div class="qh"><span class="no">6-7</span>성능지표 4종과 지표 선택의 근거</div><pre>acc = <input class="b" data-k="f_acc" data-q="정확도 함수" size="12" placeholder="accuracy_score" data-a="accuracy_score">(y_te, pred)
+auc = <input class="b" data-k="f_auc" data-q="AUC 함수" size="12" placeholder="roc_auc_score" data-a="roc_auc_score">(y_te, proba)
+print(<input class="b" data-k="f_rep" data-q="리포트 함수" size="18" placeholder="classification_report" data-a="classification_report">(y_te, pred, target_names=LABELS))   <span class="cmt"># Precision·Recall</span></pre><table><tr><th>지표</th><th>값</th><th>이 값을 어떻게 읽는가</th></tr><tr><td>정확도</td><td><input class="b" data-k="v_acc" data-q="정확도 값" size="7" placeholder="" data-a="0.6519"></td><td><input class="b" data-k="r_acc" data-q="정확도 해석" size="30" placeholder="" data-a="기준선 0.9888 보다 낮다 — 믿을 수 없습니다"></td></tr><tr><td>ROC-AUC</td><td><input class="b" data-k="v_auc" data-q="ROC-AUC 값" size="7" placeholder="" data-a="0.8147"></td><td><input class="b" data-k="r_auc" data-q="AUC 해석" size="30" placeholder="" data-a="0.5(찍기)보다 훨씬 높다 — 실력이 있습니다"></td></tr><tr><td>Precision(양성)</td><td><input class="b" data-k="v_pre" data-q="Precision 값" size="7" placeholder="" data-a="0.03"></td><td><input class="b" data-k="r_pre" data-q="Precision 해석" size="30" placeholder="" data-a="부적합이라 한 것 중 3%만 맞다 — 헛짚음이 많습니다"></td></tr><tr><td>Recall(양성)</td><td><input class="b" data-k="v_rec" data-q="Recall 값" size="7" placeholder="" data-a="0.86"></td><td><input class="b" data-k="r_rec" data-q="Recall 해석" size="30" placeholder="" data-a="실제 부적합의 86%를 잡아냈습니다"></td></tr></table><p class="fill">전부 다수 클래스로 찍었을 때의 정확도(기준선) <input class="b" data-k="v_base" data-q="기준선 정확도" size="7" placeholder="" data-a="0.9888"></p><textarea class="t" data-k="metric_why" data-q="주지표 선택의 근거" rows="3" placeholder="양성이 1.12% 뿐이라 정확도는 왜 못 믿는가? 그래서 어떤 지표를 주지표로 삼았고 왜인가? 이 서비스에서 놓치면 안 되는 것은 무엇인가(Precision 과 Recall 중 무엇이 중요한가)?" data-a="양성이 1.12% 뿐이라 전부 '적합'으로만 찍어도 정확도가 0.9888 이 나옵니다. 즉 정확도는 아무것도 못 맞혀도 높게 나오므로 이 데이터에서는 믿을 수 없습니다. 그래서 ROC-AUC(0.8147)를 주지표로 삼았습니다. 부적합을 놓치면 중금속 농산물이 그대로 유통되고, 헛짚으면 재검사를 한 번 더 하는 데 그칩니다. 따라서 Precision(0.03)이 낮은 것을 감수하고 Recall(0.86)을 택했습니다. 이 서비스는 '한 번 더 검사할 대상을 고르는' 용도이므로 이 선택이 맞습니다." data-adm="1"></textarea></div></section><section id="d2"><h2><span class="n">7</span>모델·입력정의서 저장<span class="badge g">10점</span></h2><p class="lead">채점기준 — 분석 모델을 학습시키고 결과물을 모델 파일(model.pkl)과 입력 정의서(feature_spec.json)로 저장할 수 있다.</p><div class="q"><div class="qh"><span class="no">7-1</span>저장 코드</div><pre><input class="b" data-k="sv_lib" data-q="저장 라이브러리" size="7" placeholder="joblib" data-a="joblib">.dump(model, '../02/<input class="b" data-k="sv_pkl" data-q="모델 파일명" size="11" placeholder="model.pkl" data-a="model.pkl">')
+
+spec = {'title': <input class="b" data-k="sv_title" data-q="제목 변수" size="7" placeholder="TITLE" data-a="TITLE">, 'target_labels': LABELS,
+        'accuracy': round(acc, 4), 'roc_auc': round(auc, 4),
+        'features': FEATURES}
+json.dump(spec, open('../02/<input class="b" data-k="sv_json" data-q="입력정의서 파일명" size="18" placeholder="feature_spec.json" data-a="feature_spec.json">', 'w', encoding='utf-8'), ensure_ascii=<input class="b" data-k="sv_ascii" data-q="한글 보존 옵션" size="6" placeholder="False" data-a="False">)</pre></div><div class="q"><div class="qh"><span class="no">7-2</span>feature_spec.json 에 들어가는 4가지 키</div><p class="fill">각 입력마다 <input class="b" data-k="sp_k1" data-q="키1" size="7" placeholder="name" data-a="name"> · <input class="b" data-k="sp_k2" data-q="키2" size="7" placeholder="label" data-a="label"> · <input class="b" data-k="sp_k3" data-q="키3" size="7" placeholder="kind" data-a="kind"> · <input class="b" data-k="sp_k4" data-q="키4" size="8" placeholder="options" data-a="options"></p><p class="fill">이 파일이 왜 필요한가 <input class="b" data-k="sp_use" data-q="spec 의 용도" size="46" placeholder="03 의 입력 화면이 이 파일을 읽어 무엇을 하는가" data-a="03 의 입력 화면이 이 파일을 읽어 폼을 자동으로 만듭니다"></p></div><div class="q"><div class="qh"><span class="no">7-3</span>버전 일치 — 저장 환경과 서비스 환경</div><div class="note warn"><span class="tag">구축 요건</span><p>requirements.txt 의 버전은 모델을 학습한 환경과 <b>일치</b>해야 합니다. 다르면 02 서버가 <code>ModuleNotFoundError</code> 로 뜨지 않습니다.</p></div><table><tr><th>라이브러리</th><th>학습 환경(01 출력)</th><th>requirements.txt</th><th>일치</th></tr><tr><td>python</td><td><input class="b" data-k="ve1_a" data-q="python 학습환경" size="9" placeholder="" data-a="3.11.0"></td><td><input class="b" data-k="ve1_b" data-q="python requirements" size="9" placeholder="" data-a="3.11-slim"></td><td><input class="b" data-k="ve1_c" data-q="python 일치여부" size="5" placeholder="" data-a="일치"></td></tr><tr><td>numpy</td><td><input class="b" data-k="ve2_a" data-q="numpy 학습환경" size="9" placeholder="" data-a="2.4.6"></td><td><input class="b" data-k="ve2_b" data-q="numpy requirements" size="9" placeholder="" data-a="2.4.6"></td><td><input class="b" data-k="ve2_c" data-q="numpy 일치여부" size="5" placeholder="" data-a="일치"></td></tr><tr><td>pandas</td><td><input class="b" data-k="ve3_a" data-q="pandas 학습환경" size="9" placeholder="" data-a="3.0.3"></td><td><input class="b" data-k="ve3_b" data-q="pandas requirements" size="9" placeholder="" data-a="3.0.3"></td><td><input class="b" data-k="ve3_c" data-q="pandas 일치여부" size="5" placeholder="" data-a="일치"></td></tr><tr><td>scikit-learn</td><td><input class="b" data-k="ve4_a" data-q="scikit-learn 학습환경" size="9" placeholder="" data-a="1.9.0"></td><td><input class="b" data-k="ve4_b" data-q="scikit-learn requirements" size="9" placeholder="" data-a="1.9.0"></td><td><input class="b" data-k="ve4_c" data-q="scikit-learn 일치여부" size="5" placeholder="" data-a="일치"></td></tr><tr><td>joblib</td><td><input class="b" data-k="ve5_a" data-q="joblib 학습환경" size="9" placeholder="" data-a="1.5.3"></td><td><input class="b" data-k="ve5_b" data-q="joblib requirements" size="9" placeholder="" data-a="1.5.3"></td><td><input class="b" data-k="ve5_c" data-q="joblib 일치여부" size="5" placeholder="" data-a="일치"></td></tr></table></div></section><section id="d3"><h2><span class="n">8</span>모델 API 서비스<span class="badge g">10점</span></h2><p class="lead">채점기준 — 저장된 모델을 API 로 서비스하고 예측 결과를 반환하는 엔드포인트를 구현할 수 있다.</p><div class="q"><div class="qh"><span class="no">8-1</span>엔드포인트 3개</div><table><tr><th>메서드</th><th>경로</th><th>하는 일</th><th>응답에 무엇이 담기나</th></tr><tr><td>GET</td><td><input class="b" data-k="ep_h" data-q="health 경로" size="10" placeholder="/health" data-a="/health"></td><td>서버가 살아있는지</td><td><input class="b" data-k="ep_hr" data-q="health 응답" size="20" placeholder="" data-a="status UP, 모델 제목"></td></tr><tr><td>GET</td><td><input class="b" data-k="ep_s" data-q="spec 경로" size="10" placeholder="/spec" data-a="/spec"></td><td>입력 정의 제공</td><td><input class="b" data-k="ep_sr" data-q="spec 응답" size="20" placeholder="" data-a="title, target_labels, features"></td></tr><tr><td>POST</td><td><input class="b" data-k="ep_p" data-q="predict 경로" size="10" placeholder="/predict" data-a="/predict"></td><td>예측(저장 안 함)</td><td><input class="b" data-k="ep_pr" data-q="predict 응답" size="20" placeholder="라벨 · 확률" data-a="prediction, label, proba"></td></tr></table></div><div class="q"><div class="qh"><span class="no">8-2</span>예측 코드</div><pre>df = pd.DataFrame([input_data])
+return model.<input class="b" data-k="pr_1" data-q="예측 함수" size="10" placeholder="predict" data-a="predict">(df)[0], model.<input class="b" data-k="pr_2" data-q="확률 함수" size="14" placeholder="predict_proba" data-a="predict_proba">(df)[0]</pre><p class="fill">두 번째 함수가 돌려주는 것 <input class="b" data-k="pr_what" data-q="predict_proba 반환" size="30" placeholder="" data-a="클래스별 확률 배열 [0일 확률, 1일 확률]"></p><p class="fill">요청 본문에 담는 값은 선택지의 <input class="b" data-k="pr_idx" data-q="무엇을 보내나" size="8" placeholder="인덱스" data-a="인덱스"> 다 (문자열이 아니다). 그 이유 <input class="b" data-k="pr_why" data-q="인덱스를 보내는 이유" size="34" placeholder="" data-a="모델이 인코딩된 숫자로 학습했습니다. 문자열을 보내면 500 이 납니다"></p></div><div class="q"><div class="qh"><span class="no">8-3</span>오류 처리</div><p class="fill">없는 이력을 조회하면 <input class="b" data-k="er_name" data-q="상태코드 이름" size="10" placeholder="404 Not Found" data-a="404 Not Found"> 를 돌려줘야 합니다. 그 코드 <input class="b" data-k="er_code" data-q="상태코드" size="5" placeholder="404" data-a="404"></p><pre>if row is None:
+    raise <input class="b" data-k="er_exc" data-q="예외 클래스" size="14" placeholder="HTTPException" data-a="HTTPException">(status_code=<input class="b" data-k="er_code2" data-q="상태코드" size="5" placeholder="" data-a="404">, detail='해당 예측 이력이 없습니다')</pre><p class="fill">직접 호출해 확인한 결과 <input class="b" data-k="er_test" data-q="확인 결과" size="40" placeholder="예: GET /predictions/999999 -&gt; 404" data-a="GET /predictions/999999 -&gt; 404 해당 예측 이력이 없습니다"></p></div><div class="q"><div class="qh"><span class="no">8-4</span>포트와 Swagger</div><p class="fill">이 모델 API 의 포트 <input class="b" data-k="port" data-q="포트" size="6" placeholder="8002" data-a="8002"> &nbsp; Swagger 주소 <input class="b" data-k="swag" data-q="Swagger URL" size="26" placeholder="http://localhost:____/docs" data-a="http://localhost:8002/docs"></p><p class="fill">Swagger 에 보이는 엔드포인트 총 <input class="b" data-k="ep_cnt" data-q="엔드포인트 수" size="4" placeholder="" data-a="8"> 개</p></div></section><section id="d4"><h2><span class="n">9</span>예측 이력 CRUD<span class="badge g">15점</span></h2><p class="lead">채점기준 — 예측 이력을 데이터베이스에 저장하고 조회·수정·삭제(CRUD)하는 기능을 구현할 수 있다.</p><div class="q"><div class="qh"><span class="no">9-1</span>CRUD 엔드포인트 5개</div><table><tr><th>기능</th><th>메서드</th><th>경로</th><th>확인한 결과</th></tr><tr><td>C 생성</td><td><input class="b" data-k="cr_m" data-q="생성 메서드" size="6" placeholder="POST" data-a="POST"></td><td><input class="b" data-k="cr_p" data-q="생성 경로" size="18" placeholder="/predictions" data-a="/predictions"></td><td><input class="b" data-k="cr_r" data-q="생성 결과" size="16" placeholder="예: 201, id=1" data-a="201, id=1"></td></tr><tr><td>R 목록</td><td><input class="b" data-k="rl_m" data-q="목록 메서드" size="6" placeholder="GET" data-a="GET"></td><td><input class="b" data-k="rl_p" data-q="목록 경로" size="18" placeholder="" data-a="/predictions"></td><td><input class="b" data-k="rl_r" data-q="목록 결과" size="16" placeholder="" data-a="200, 목록 2건"></td></tr><tr><td>R 단건</td><td><input class="b" data-k="ro_m" data-q="단건 메서드" size="6" placeholder="" data-a="GET"></td><td><input class="b" data-k="ro_p" data-q="단건 경로" size="18" placeholder="/predictions/{id}" data-a="/predictions/{pid}"></td><td><input class="b" data-k="ro_r" data-q="단건 결과" size="16" placeholder="" data-a="200, 단건"></td></tr><tr><td>U 수정</td><td><input class="b" data-k="up_m" data-q="수정 메서드" size="6" placeholder="PUT" data-a="PUT"></td><td><input class="b" data-k="up_p" data-q="수정 경로" size="18" placeholder="" data-a="/predictions/{pid}"></td><td><input class="b" data-k="up_r" data-q="수정 결과" size="16" placeholder="" data-a="200, 재예측됨"></td></tr><tr><td>D 삭제</td><td><input class="b" data-k="de_m" data-q="삭제 메서드" size="6" placeholder="DELETE" data-a="DELETE"></td><td><input class="b" data-k="de_p" data-q="삭제 경로" size="18" placeholder="" data-a="/predictions/{pid}"></td><td><input class="b" data-k="de_r" data-q="삭제 결과" size="16" placeholder="" data-a="200, deleted 1"></td></tr></table></div><div class="q"><div class="qh"><span class="no">9-2</span>수정 시 재예측 — 구축 요건</div><div class="note warn"><span class="tag">구축 요건</span><p>이력 수정 시 값만 바꾸는 것이 아니라 <b>새 입력으로 다시 예측</b>되어 결과가 갱신되어야 합니다.</p></div><pre>@app.put('/predictions/{pid}')
+def update_prediction(pid: int, req: PredictRequest):
+    result = <input class="b" data-k="u_fn2" data-q="재예측 함수" size="10" placeholder="run_model" data-a="run_model">(req.features)   <span class="cmt"># 여기서 다시 예측합니다</span>
+    ...</pre><p class="fill">수정 전 라벨 <input class="b" data-k="u_l1" data-q="수정 전 라벨" size="8" placeholder="" data-a="적합"> (확률 <input class="b" data-k="u_p1" data-q="수정 전 확률" size="7" placeholder="" data-a="0.9998">) → 수정 후 라벨 <input class="b" data-k="u_l2" data-q="수정 후 라벨" size="8" placeholder="" data-a="부적합"> (확률 <input class="b" data-k="u_p2" data-q="수정 후 확률" size="7" placeholder="" data-a="0.5898">)</p><p class="fill">이 함수를 호출하지 않으면 무엇이 잘못되나 <input class="b" data-k="u_why2" data-q="재예측 안 하면" size="44" placeholder="" data-a="입력만 바뀌고 결과는 옛 예측이 남아 이력이 서로 안 맞게 됩니다"></p></div><div class="q"><div class="qh"><span class="no">9-3</span>저장 확인</div><p class="fill">이력이 저장되는 곳 <input class="b" data-k="db_where" data-q="저장 위치" size="30" placeholder="예: 02/store.py 의 sqlite DB" data-a="02/store.py 의 sqlite DB (predictions 테이블)"></p><p class="fill">삭제 후 다시 조회하면 <input class="b" data-k="db_after" data-q="삭제 후 조회" size="24" placeholder="예: 404" data-a="404"></p></div></section><section id="d5"><h2><span class="n">10</span>컨테이너 통합·인증<span class="badge g">10점</span></h2><p class="lead">채점기준 — 컨테이너 기반으로 데이터베이스·서버·화면을 통합 구축하고 인증이 적용된 서비스를 구성할 수 있다.</p><div class="q"><div class="qh"><span class="no">10-1</span>docker compose 로 뜨는 컨테이너 5개</div><table><tr><th>서비스</th><th>컨테이너명</th><th>포트</th><th>하는 일</th></tr><tr><td>DB</td><td><input class="b" data-k="ct1_n" data-q="DB 컨테이너명" size="14" placeholder="" data-a="db-container"></td><td><input class="b" data-k="ct1_p" data-q="DB 포트" size="8" placeholder="" data-a="3330:3306"></td><td><input class="b" data-k="ct1_r" data-q="DB 역할" size="18" placeholder="" data-a="MySQL, 회원 정보"></td></tr><tr><td>Redis</td><td><input class="b" data-k="ct2_n" data-q="Redis 컨테이너명" size="14" placeholder="" data-a="redis-container"></td><td><input class="b" data-k="ct2_p" data-q="Redis 포트" size="8" placeholder="" data-a="6380:6379"></td><td><input class="b" data-k="ct2_r" data-q="Redis 역할" size="18" placeholder="" data-a="캐시"></td></tr><tr><td>ML</td><td><input class="b" data-k="ct3_n" data-q="ML 컨테이너명" size="14" placeholder="" data-a="ml-container"></td><td><input class="b" data-k="ct3_p" data-q="ML 포트" size="8" placeholder="" data-a="8002:8002"></td><td><input class="b" data-k="ct3_r" data-q="ML 역할" size="18" placeholder="" data-a="FastAPI, model.pkl 예측"></td></tr><tr><td>BN</td><td><input class="b" data-k="ct4_n" data-q="BN 컨테이너명" size="14" placeholder="" data-a="bn-container"></td><td><input class="b" data-k="ct4_p" data-q="BN 포트" size="8" placeholder="" data-a="8080:8080"></td><td><input class="b" data-k="ct4_r" data-q="BN 역할" size="18" placeholder="" data-a="Spring Boot, 인증 + ML 중계"></td></tr><tr><td>FN</td><td><input class="b" data-k="ct5_n" data-q="FN 컨테이너명" size="14" placeholder="" data-a="fn-container"></td><td><input class="b" data-k="ct5_p" data-q="FN 포트" size="8" placeholder="" data-a="3000:80"></td><td><input class="b" data-k="ct5_r" data-q="FN 역할" size="18" placeholder="" data-a="React 화면"></td></tr></table><p class="fill">기동 명령 <input class="b" data-k="dc_cmd" data-q="기동 명령" size="30" placeholder="docker compose ..." data-a="docker compose up -d --build"></p></div><div class="q"><div class="qh"><span class="no">10-2</span>BN 이 ML 을 부르는 주소</div><pre>@Value("${ml.url:http://<input class="b" data-k="ml_host" data-q="ML 호스트" size="14" placeholder="ml-container" data-a="ml-container">:<input class="b" data-k="ml_port" data-q="ML 포트" size="6" placeholder="8002" data-a="8002">}")
+private String mlUrl;</pre><p class="fill">localhost 가 아니라 컨테이너 이름을 쓰는 이유 <input class="b" data-k="ml_why" data-q="컨테이너 이름 이유" size="44" placeholder="" data-a="컨테이너 안에서 localhost 는 자기 자신입니다. 같은 네트워크의 서비스명으로 불러야 합니다"></p></div><div class="q"><div class="qh"><span class="no">10-3</span>인증 — 구축 요건</div><div class="note warn"><span class="tag">구축 요건</span><p><code>/api/**</code> 경로는 <b>로그인해야 호출</b>되어야 합니다(템플릿의 인증 설정 유지).</p></div><p class="fill">로그인 전에 <code>/api/spec</code> 을 부르면 상태코드 <input class="b" data-k="au_code" data-q="미인증 상태코드" size="5" placeholder="401" data-a="401"></p><p class="fill">로그인 전에 예측 화면에 들어가면 어떻게 되나 <input class="b" data-k="au_screen" data-q="미인증 화면" size="34" placeholder="" data-a="예측 폼이 뜨지 않고 로그인 페이지로 이동합니다"></p><p class="fill">SecurityConfig 에서 이걸 강제하는 한 줄 <input class="b" data-k="au_line" data-q="SecurityConfig 설정" size="34" placeholder="auth.anyRequest()..." data-a="auth.anyRequest().authenticated()"></p></div><div class="q"><div class="qh"><span class="no">10-4</span>입력 화면 자동 생성 — 구축 요건</div><div class="note warn"><span class="tag">구축 요건</span><p>입력 화면은 <code>feature_spec.json</code> 을 읽어 <b>자동 생성</b>되어야 합니다(하드코딩 불가).</p></div><pre>{spec.<input class="b" data-k="fm_arr" data-q="spec 배열 키" size="9" placeholder="features" data-a="features">.map((f) =&gt; (
+    f.kind === '<input class="b" data-k="fm_kind" data-q="숫자형 kind 값" size="5" placeholder="num" data-a="num">' ? &lt;input type="number" .../&gt;
+                     : &lt;select&gt;{f.<input class="b" data-k="fm_opt" data-q="선택지 키" size="8" placeholder="options" data-a="options">.map((o, i) =&gt; &lt;option value={i}&gt;{o}&lt;/option&gt;)}&lt;/select&gt;
+))}</pre><p class="fill">이 화면에 자동으로 생긴 입력 칸 <input class="b" data-k="fm_all" data-q="입력 칸 수" size="4" placeholder="" data-a="7"> 개 (select <input class="b" data-k="fm_sel" data-q="select 수" size="4" placeholder="" data-a="4"> + number <input class="b" data-k="fm_num" data-q="number 수" size="4" placeholder="" data-a="3">)</p></div></section><section id="d6"><h2><span class="n">11</span>동작 검증·결과 해석<span class="badge g">10점</span></h2><p class="lead">채점기준 — 구축한 서비스의 동작을 검증하고 분석 결과를 해석·설명할 수 있다.</p><div class="q"><div class="qh"><span class="no">11-1</span>실행화면 캡처 (PPT 에 넣을 것)</div><div class="note say"><span class="tag">넣는 법</span><p>캡처한 이미지 파일을 아래 상자에 <b>끌어다 놓습니다</b>(상자를 눌러 파일을 골라도 됩니다). 넣은 이미지는 이 브라우저에 저장되고 인쇄·PDF 에도 함께 나옵니다.</p></div><div class="capgrid"><div class="cap"><div class="caph">1. 품질 진단 타겟 분포</div><div class="dz" data-img="cap1" data-aimg="img/sample2/01-1.png"><span class="dzhint">이미지를 끌어다 놓기</span><img class="dzimg" alt=""><button type="button" class="dzdel">지우기</button></div><p class="fill">파일명 <input class="b" data-k="cap1_f" data-q="품질 진단 타겟 분포 파일명" size="22" placeholder="" data-a="01-1_타겟분포.png"></p><p class="fill">확인한 것 <input class="b" data-k="cap1_c" data-q="품질 진단 타겟 분포 확인내용" size="24" placeholder="" data-a="적합 67,345 vs 부적합 761 — 양성 1.12% 불균형"></p></div><div class="cap"><div class="caph">2. ROC 곡선</div><div class="dz" data-img="cap2" data-aimg="img/sample2/01-2.png"><span class="dzhint">이미지를 끌어다 놓기</span><img class="dzimg" alt=""><button type="button" class="dzdel">지우기</button></div><p class="fill">파일명 <input class="b" data-k="cap2_f" data-q="ROC 곡선 파일명" size="22" placeholder="" data-a="01-2_ROC곡선.png"></p><p class="fill">확인한 것 <input class="b" data-k="cap2_c" data-q="ROC 곡선 확인내용" size="24" placeholder="" data-a="ROC-AUC 0.8147"></p></div><div class="cap"><div class="caph">3. Swagger</div><div class="dz" data-img="cap3" data-aimg="img/sample2/02-1.png"><span class="dzhint">이미지를 끌어다 놓기</span><img class="dzimg" alt=""><button type="button" class="dzdel">지우기</button></div><p class="fill">파일명 <input class="b" data-k="cap3_f" data-q="Swagger 파일명" size="22" placeholder="" data-a="02-1_Swagger.png"></p><p class="fill">확인한 것 <input class="b" data-k="cap3_c" data-q="Swagger 확인내용" size="24" placeholder="" data-a="엔드포인트 8개"></p></div><div class="cap"><div class="caph">4. 로그인</div><div class="dz" data-img="cap4" data-aimg="img/sample2/03-3.png"><span class="dzhint">이미지를 끌어다 놓기</span><img class="dzimg" alt=""><button type="button" class="dzdel">지우기</button></div><p class="fill">파일명 <input class="b" data-k="cap4_f" data-q="로그인 파일명" size="22" placeholder="" data-a="03-3_로그인.png"></p><p class="fill">확인한 것 <input class="b" data-k="cap4_c" data-q="로그인 확인내용" size="24" placeholder="" data-a="로그인해야 예측 가능"></p></div><div class="cap"><div class="caph">5. 예측 폼(자동생성)</div><div class="dz" data-img="cap5" data-aimg="img/sample2/03-4.png"><span class="dzhint">이미지를 끌어다 놓기</span><img class="dzimg" alt=""><button type="button" class="dzdel">지우기</button></div><p class="fill">파일명 <input class="b" data-k="cap5_f" data-q="예측 폼(자동생성) 파일명" size="22" placeholder="" data-a="03-4_예측폼_자동생성.png"></p><p class="fill">확인한 것 <input class="b" data-k="cap5_c" data-q="예측 폼(자동생성) 확인내용" size="24" placeholder="" data-a="spec 을 읽어 폼이 자동 생성됨"></p></div><div class="cap"><div class="caph">6. 예측 결과</div><div class="dz" data-img="cap6" data-aimg="img/sample2/03-5.png"><span class="dzhint">이미지를 끌어다 놓기</span><img class="dzimg" alt=""><button type="button" class="dzdel">지우기</button></div><p class="fill">파일명 <input class="b" data-k="cap6_f" data-q="예측 결과 파일명" size="22" placeholder="" data-a="03-5_고위험_예측결과.png"></p><p class="fill">확인한 것 <input class="b" data-k="cap6_c" data-q="예측 결과 확인내용" size="24" placeholder="" data-a="가을무·유통/판매·경기도 -&gt; 부적합 0.5898"></p></div><div class="cap"><div class="caph">7. 이력 수정 후</div><div class="dz" data-img="cap7" data-aimg="img/sample2/03-8.png"><span class="dzhint">이미지를 끌어다 놓기</span><img class="dzimg" alt=""><button type="button" class="dzdel">지우기</button></div><p class="fill">파일명 <input class="b" data-k="cap7_f" data-q="이력 수정 후 파일명" size="22" placeholder="" data-a="03-8_수정후.png"></p><p class="fill">확인한 것 <input class="b" data-k="cap7_c" data-q="이력 수정 후 확인내용" size="24" placeholder="" data-a="수정 시 새 입력으로 재예측됨"></p></div><div class="cap"><div class="caph">8. 삭제 후</div><div class="dz" data-img="cap8" data-aimg="img/sample2/03-9.png"><span class="dzhint">이미지를 끌어다 놓기</span><img class="dzimg" alt=""><button type="button" class="dzdel">지우기</button></div><p class="fill">파일명 <input class="b" data-k="cap8_f" data-q="삭제 후 파일명" size="22" placeholder="" data-a="03-9_삭제후.png"></p><p class="fill">확인한 것 <input class="b" data-k="cap8_c" data-q="삭제 후 확인내용" size="24" placeholder="" data-a="삭제 후 이력이 줄어듦"></p></div></div></div><div class="q"><div class="qh"><span class="no">11-2</span>예측 결과를 데이터 근거로 해석</div><div class="note say"><span class="tag">이게 핵심입니다</span><p>"모델이 그렇게 나왔습니다" 는 해석이 아니다. <b>품질 진단 단계에서 본 수치</b>와 <b>특성 중요도</b>를 근거로 왜 그런 결과가 나왔는지 설명해야 합니다.</p></div><p class="fill">높게 나온 입력 조합 <input class="b" data-k="hi_in" data-q="고위험 입력" size="40" placeholder="예: 품목=가을무 / 수거단계=유통·판매 / ..." data-a="품목=가을무(김장무) / 수거단계=유통/판매 / 재배양식=기타 / 경기도 / 11월 / 10000㎡ / 100kg"> → 결과 <input class="b" data-k="hi_lab" data-q="결과 라벨" size="8" placeholder="" data-a="부적합"> (확률 <input class="b" data-k="hi_p" data-q="확률" size="7" placeholder="" data-a="0.5898">)</p><p class="fill">낮게 나온 입력 조합 <input class="b" data-k="lo_in" data-q="저위험 입력" size="40" placeholder="예: 품목=딸기 / 수거단계=출하 / ..." data-a="품목=딸기 / 수거단계=출하 / 재배양식=친환경(인증) 유기 / 인천광역시 / 5월 / 1432㎡ / 100kg"> → 결과 <input class="b" data-k="lo_lab" data-q="결과 라벨" size="8" placeholder="" data-a="적합"> (확률 <input class="b" data-k="lo_p" data-q="확률" size="7" placeholder="" data-a="0.9998">)</p><textarea class="t" data-k="interp" data-q="결과 해석" rows="4" placeholder="품질 진단에서 본 범주별 부적합률(예: 수거단계 생산 vs 유통·판매)을 근거로 왜 이런 예측이 나왔는지 설명합니다." data-a="품질 진단에서 본 수치와 맞습니다. 수거단계별 부적합률이 생산 1.55% vs 유통/판매 0.06% 로 26배, 품목은 백태 3.63%(3.25배)·멥쌀 2.08% 같은 곡물이 높고 딸기 등은 낮았습니다. 재배양식은 친환경 인증이 0.00% 였습니다. 저위험으로 넣은 조합은 '딸기 + 친환경 유기 + 출하'라 세 조건이 모두 안전한 쪽이어서 '적합' 0.9998 이 나온 것이 설명됩니다." data-adm="1"></textarea></div><div class="q"><div class="qh"><span class="no">11-3</span>특성 중요도와 대조</div><pre>imp = pd.Series(model.<input class="b" data-k="fi_attr" data-q="중요도 속성" size="20" placeholder="feature_importances_" data-a="feature_importances_">, index=X.columns).sort_values(ascending=False)</pre><p class="fill">1위 <input class="b" data-k="fi1" data-q="1위 이름" size="10" placeholder="" data-a="stage"> (<input class="b" data-k="fi1v" data-q="값" size="6" placeholder="" data-a="0.231">) &nbsp; 2위 <input class="b" data-k="fi2" data-q="2위 이름" size="10" placeholder="" data-a="month"> (<input class="b" data-k="fi2v" data-q="값" size="6" placeholder="" data-a="0.204">) &nbsp; 3위 <input class="b" data-k="fi3" data-q="3위 이름" size="10" placeholder="" data-a="volume"> (<input class="b" data-k="fi3v" data-q="값" size="6" placeholder="" data-a="0.172">)</p><textarea class="t" data-k="fi_why" data-q="인사이트와 모델이 일치하는가" rows="3" placeholder="품질 진단에서 양성비율 차이가 컸던 항목이 중요도 상위에 왔는가? 어긋난다면 왜 그런가?" data-a="일치하는 것도 어긋나는 것도 있습니다. 26배 차이가 났던 수거단계(stage)가 모델에서도 1위(0.231)로 일치합니다. 반면 재배양식(method)은 '친환경 인증 부적합 0.00%' 라는 가장 극적인 차이를 보였는데 중요도는 0.023 으로 꼴찝니다. 인증 건수를 다 합쳐도 2,790건, 전체의 4% 뿐이라 전체를 가르는 데는 쓸모가 적기 때문입니다. 비율 차이(어떤 조건이 위험한가)와 중요도(전체를 가르는 데 쓸모 있나)는 다른 질문이라 둘 다 맞는 결과로 읽었습니다." data-adm="1"></textarea></div><div class="q"><div class="qh"><span class="no">11-4</span>모델의 한계</div><textarea class="t" data-k="limit" data-q="한계와 개선 방향" rows="3" placeholder="왜 이 정도 성능에 그쳤는가를 데이터 근거로 씁니다. 무엇을 더 넣으면 나아질까(단, 누수가 아닌 것으로)." data-a="ROC-AUC 0.8147 로 세 샘플 중 가장 높지만 Precision 이 0.03 입니다. 양성이 761건 뿐이라 Recall 을 올리면 헛짚음이 크게 늘 수밖에 없습니다. 또 재배면적·조사물량은 결측이 3할이라 중앙값으로 채운 값이 많아 신호가 약합니다. 토양 중금속 측정치나 인근 폐광산 거리 같은 검사 전에 알 수 있는 정보를 넣으면 나아질 것입니다. 단 분석결과 자체는 누수라 넣으면 안 됩니다." data-adm="1"></textarea></div></section><footer>공공데이터 융합 DBMS 구축 / 7수준 · 문제해결시나리오(100점) · 평가자 정우균<br>제출: PPT(실행화면 캡처 포함) + 소스 폴더(01 / 02 / 03) GITHUB REPO 링크</footer></div></div><script src="../../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../../");</script>
+<script>
+(function(){
+  var KEY='ws_SAMPLE_2_v1';
+  var els=[].slice.call(document.querySelectorAll('.b[data-k],.t[data-k]'));
+  var ansOn=false;   // 정답 보기 상태. 켜져 있으면 학생 답을 덮어쓰지 않습니다.
+  function save(){if(ansOn)return;
+    var d={};els.forEach(function(e){if(e.value)d[e.dataset.k]=e.value;});
+    try{localStorage.setItem(KEY,JSON.stringify(d));}catch(err){}}
+  function load(){try{var d=JSON.parse(localStorage.getItem(KEY)||'{}');
+    els.forEach(function(e){if(d[e.dataset.k])e.value=d[e.dataset.k];});}catch(err){}}
+  function prog(){var n=els.filter(function(e){return e.value.trim();}).length;
+    document.getElementById('pi').style.width=(n/els.length*100)+'%';
+    document.getElementById('pt').textContent=n+' / '+els.length;
+    els.forEach(function(e){e.classList.toggle('ok',!!e.value.trim());});}
+
+  // 인쇄용 사본. input/textarea 는 보이는 만큼만 인쇄되어 긴 답이 잘립니다.
+  // 값이 바뀔 때마다 사본을 맞춰 두면 인쇄(PDF)에 전체가 나옵니다.
+  function mirror(e){
+    var m=e.nextElementSibling;
+    if(!m||!m.classList.contains('pv')){
+      m=document.createElement('span');
+      m.className='pv'+(e.tagName==='TEXTAREA'?' blk':'');
+      e.parentNode.insertBefore(m,e.nextSibling);
+    }
+    m.textContent=e.value;
+  }
+  function mirrorAll(){els.forEach(mirror);}
+
+  els.forEach(function(e){e.addEventListener('input',function(){save();prog();mirror(e);});});
+  load();prog();mirrorAll();
+
+  /* ---------- 실행화면 캡처 : 드래그드롭 ---------- */
+  var IKEY='ws_SAMPLE_2_img_v1';
+  var dzs=[].slice.call(document.querySelectorAll('.dz[data-img]'));
+  var ansImg=false;                        // 지금 정답 이미지를 보여 줄 상황인가
+
+  // dataset.user = 학생이 넣은 이미지(정답 표시가 건드리지 않습니다)
+  function imgSave(){
+    var d={};
+    dzs.forEach(function(z){ if(z.dataset.user) d[z.dataset.img]=z.dataset.user; });
+    try{localStorage.setItem(IKEY,JSON.stringify(d));}catch(err){
+      alert('이미지가 많아 저장하지 못했습니다. 몇 장 지우고 다시 넣어 주세요.');
+    }
+  }
+  // 무엇을 보여줄지 한 곳에서 정한다 : 내가 넣은 것 > 정답 이미지 > 빈 상자
+  function paintImg(z){
+    var im=z.querySelector('.dzimg'), src='', mine=false;
+    if(z.dataset.user){ src=z.dataset.user; mine=true; }
+    else if(ansImg && z.dataset.aimg){ src=z.dataset.aimg; }
+    if(src){ im.src=src; z.classList.add('on'); }
+    else { im.removeAttribute('src'); z.classList.remove('on'); }
+    z.classList.toggle('mine',mine);
+  }
+  function paintAllImg(){ dzs.forEach(paintImg); }
+  function takeFile(z,f){
+    if(!f||!/^image\//.test(f.type)){ alert('이미지 파일만 넣을 수 있습니다.'); return; }
+    var r=new FileReader();
+    r.onload=function(){ z.dataset.user=r.result; paintImg(z); imgSave(); };
+    r.readAsDataURL(f);
+  }
+  dzs.forEach(function(z){
+    // 정답 보기 중에도 넣을 수 있다. 넣은 것은 항상 학생 것으로 저장됩니다.
+    z.addEventListener('dragover',function(e){e.preventDefault();z.classList.add('over');});
+    z.addEventListener('dragleave',function(){z.classList.remove('over');});
+    z.addEventListener('drop',function(e){
+      e.preventDefault(); z.classList.remove('over');
+      takeFile(z,e.dataTransfer.files && e.dataTransfer.files[0]);
+    });
+    z.addEventListener('click',function(e){
+      if(e.target.classList.contains('dzdel')) return;
+      if(z.dataset.user) return;                      // 내 이미지가 있으면 '지우기' 부터
+      var i=document.createElement('input'); i.type='file'; i.accept='image/*';
+      i.onchange=function(){ takeFile(z,i.files[0]); };
+      i.click();
+    });
+    z.querySelector('.dzdel').addEventListener('click',function(e){
+      e.stopPropagation();
+      delete z.dataset.user; paintImg(z); imgSave();  // 정답 이미지가 있으면 그게 다시 보입니다
+    });
+  });
+  try{
+    var d0=JSON.parse(localStorage.getItem(IKEY)||'{}');
+    dzs.forEach(function(z){ if(d0[z.dataset.img]) z.dataset.user=d0[z.dataset.img]; });
+  }catch(err){}
+  paintAllImg();
+
+  // 인쇄 중에는 문서 제목을 비웁니다.
+  //  - 브라우저 머리글의 제목 자리가 비어 'SAMPLE_2 ...' 가 찍히지 않습니다
+  //  - PDF 메타데이터 제목도 비어 한글 깨짐(Microsoft Print to PDF)이 생기지 않습니다
+  // 화면·탭 제목은 그대로 한글이고, 문서의 진짜 제목은 1쪽 본문에 있습니다.
+  // 인쇄 중에는 문서 제목을 바꿉니다.
+  //  - 브라우저 머리글에 'SAMPLE_2 ...' 가 찍히지 않게 합니다
+  //  - 빈 값으로 두면 Chrome 이 그 자리에 URL 을 대신 넣으므로 비우지 않습니다
+  //  - PDF 메타데이터 제목도 이 값이 됩니다
+  var TITLE_SCREEN=document.title;
+  var TITLE_PRINT='공공데이터 융합 DBMS 구축';
+  function onBefore(){mirrorAll();document.title=TITLE_PRINT;}
+  function onAfter(){document.title=TITLE_SCREEN;}
+  window.addEventListener('beforeprint',onBefore);
+  window.addEventListener('afterprint',onAfter);
+
+  /* ---------- PDF 저장 안내 ---------- */
+  var SKIPKEY='exam_print_skip';
+  var pMask=document.getElementById('pMask');
+  function doPrint(){ onBefore(); window.print(); }
+  document.getElementById('bPrint').onclick=function(){
+    var skip=false;
+    try{ skip=localStorage.getItem(SKIPKEY)==='1'; }catch(e){}
+    if(skip){ doPrint(); return; }
+    pMask.classList.add('on');
+  };
+  document.getElementById('pGo').onclick=function(){
+    if(document.getElementById('pSkip').checked){
+      try{ localStorage.setItem(SKIPKEY,'1'); }catch(e){}
+    }
+    pMask.classList.remove('on');
+    setTimeout(doPrint, 60);            // 모달이 화면에서 사라진 뒤 인쇄합니다
+  };
+  document.getElementById('pCancel').onclick=function(){ pMask.classList.remove('on'); };
+  pMask.addEventListener('click',function(e){ if(e.target===pMask) pMask.classList.remove('on'); });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape' && pMask.classList.contains('on')) pMask.classList.remove('on');
+  });
+
+  /* ---------- 중간저장 / 불러오기 ----------
+     자동 저장과 별개로, 학생이 원하는 시점을 통째로 남겨 둡니다.
+     되돌리고 싶을 때 '불러오기' 로 그 시점으로 돌아갑니다. */
+  var SKEY='ws_SAMPLE_2_snap_v1';
+  var svAt=document.getElementById('svAt');
+  function stamp(t){
+    var d=new Date(t);
+    function p(n){return (n<10?'0':'')+n;}
+    return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes());
+  }
+  function snapRead(){ try{return JSON.parse(localStorage.getItem(SKEY)||'null');}catch(e){return null;} }
+  function paintSnap(){
+    var s=snapRead();
+    svAt.textContent = s ? '중간저장 '+stamp(s.t) : '';
+    document.getElementById('bLoad').disabled = !s;
+  }
+  document.getElementById('bSave').onclick=function(){
+    if(ansOn){ alert('정답 보기를 끈 뒤 저장해 주세요. 지금 저장하면 정답까지 함께 저장됩니다.'); return; }
+    var d={}, i={};
+    els.forEach(function(e){ if(e.value) d[e.dataset.k]=e.value; });
+    dzs.forEach(function(z){ if(z.dataset.user) i[z.dataset.img]=z.dataset.user; });
+    try{
+      localStorage.setItem(SKEY, JSON.stringify({t:Date.now(), d:d, i:i}));
+    }catch(err){
+      alert('저장 공간이 부족합니다. 캡처 이미지를 몇 장 빼고 다시 저장해 주세요.'); return;
+    }
+    paintSnap();
+    var b=document.getElementById('bSave'); b.textContent='저장됨';
+    setTimeout(function(){b.textContent='중간저장';},1200);
+  };
+  document.getElementById('bLoad').onclick=function(){
+    var s=snapRead();
+    if(!s){ alert('중간저장한 내용이 없습니다.'); return; }
+    if(!confirm(stamp(s.t)+' 에 중간저장한 내용으로 되돌립니다. 지금 작성한 내용은 사라집니다. 계속할까요?')) return;
+    if(ansOn) document.getElementById('bAns').click();     // 정답 보기를 먼저 끕니다
+    els.forEach(function(e){ e.value = s.d[e.dataset.k] || ''; });
+    dzs.forEach(function(z){
+      if(s.i[z.dataset.img]) z.dataset.user=s.i[z.dataset.img];
+      else delete z.dataset.user;
+    });
+    save(); imgSave(); prog(); mirrorAll(); paintAllImg();
+  };
+  paintSnap();
+
+  // 정답 보기 토글 (웹 페이지 판에만 #bAns 가 있습니다)
+  // 관리자는 전부, 일반(학생)은 data-adm 이 붙지 않은 칸만 채웁니다.
+  //   data-adm = 학생이 직접 써야 하는 칸(서술형·출처 표·기본 정보).
+  // OPEN_ALL 이 켜진 샘플은 보기 모드와 상관없이 정답을 전부 보여줍니다(정답 예시용).
+  var OPEN_ALL=false;
+  var bAns=document.getElementById('bAns');
+  if(bAns){
+    var backup=null;
+    function isAdmin(){return OPEN_ALL || (window.EXAM_AUTH && window.EXAM_AUTH.isAdmin());}
+    function paintRole(){
+      var rb=document.getElementById('roleBadge');
+      if(rb) rb.textContent=window.EXAM_AUTH?window.EXAM_AUTH.label():'일반(학생)';
+    }
+    bAns.onclick=function(){
+      if(!ansOn){
+        backup=els.map(function(e){return e.value;});      // 학생이 쓰던 답 보관
+        var adm=isAdmin();
+        els.forEach(function(e){
+          if(!adm && e.dataset.adm) return;                 // 학생이 직접 써야 하는 칸
+          e.value=e.dataset.a||'';
+        });
+        ansImg=adm; paintAllImg();          // 캡처 정답은 관리자에게만
+        ansOn=true; bAns.textContent='정답 숨기기';
+        document.body.classList.add('ansmode');
+        document.body.classList.toggle('admmode',adm);
+      }else{
+        ansOn=false;                                        // 먼저 꺼야 save 가 동작합니다
+        els.forEach(function(e,i){e.value=backup[i];});
+        ansImg=false; paintAllImg();        // 정답 이미지를 걷고 학생 것만 남깁니다
+        bAns.textContent='정답 보기';
+        document.body.classList.remove('ansmode');
+        document.body.classList.remove('admmode');
+      }
+      prog();mirrorAll();
+    };
+    paintRole();
+    window.addEventListener('storage',function(){if(!ansOn)paintRole();});
+  }
+  document.getElementById('bReset').onclick=function(){
+    if(!confirm('입력한 내용을 모두 지웁니다. 계속할까요?'))return;
+    els.forEach(function(e){e.value='';});save();prog();mirrorAll();};
+  function headText(h){
+    // <h2><span class=n>1</span>제목<span class=badge>5점</span></h2> -> "1. 제목 (5점)"
+    var no=h.querySelector('.n'), bd=h.querySelector('.badge'), t='';
+    h.childNodes.forEach(function(n){ if(n.nodeType===3) t+=n.textContent; });
+    t=t.trim();
+    return (no?no.textContent.trim()+'. ':'')+t+(bd?' ('+bd.textContent.trim()+')':'');
+  }
+  document.getElementById('bCopy').onclick=function(){
+    var out=[];
+    document.querySelectorAll('section').forEach(function(s){
+      var h=s.querySelector('h2'); if(!h)return;
+      out.push('\n===== '+headText(h)+' =====');
+      // .q 안팎을 가리지 않고 문서 순서대로 모은다 (이름/조/REPO 는 .q 밖에 있습니다)
+      s.querySelectorAll('.qh, .b[data-k], .t[data-k]').forEach(function(e){
+        if(e.classList.contains('qh')){ out.push('\n['+e.textContent.trim()+']'); return; }
+        out.push('  - '+(e.dataset.q||e.dataset.k)+' : '+(e.value.trim()||'(미작성)'));
+      });
+    });
+    var txt=out.join('\n');
+    navigator.clipboard.writeText(txt).then(function(){
+      var b=document.getElementById('bCopy');b.textContent='복사됨';
+      setTimeout(function(){b.textContent='답안 전체 복사';},1200);
+    },function(){alert('복사 실패. 직접 선택해 복사하세요.');});
+  };
+  // 퀵메뉴 현재 위치
+  var links=[].slice.call(document.querySelectorAll('.side a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  window.addEventListener('scroll',function(){
+    var y=window.scrollY+120,cur=0;
+    secs.forEach(function(s,i){if(s&&s.offsetTop<=y)cur=i;});
+    links.forEach(function(a,i){a.classList.toggle('act',i===cur);});
+  });
+})();
+</script>
+<script>EXAM_AUTH.paintTop("../../");</script>

@@ -1,0 +1,1092 @@
+<meta charset="utf-8"><title>서버프로그램 구현 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<style>
+  /* 이 교안에만 있는 것 — 코드 보기 */
+  .bd pre{margin:14px 0;font-family:Consolas,"D2Coding",monospace;font-size:13px;
+          line-height:1.75;border:1px solid #ccc;border-left:3px solid #000;
+          padding:13px 16px;background:#fafafa;overflow-x:auto;white-space:pre}
+  .bd pre b{background:#e6e6e6;font-weight:700}
+  .bd pre i{font-style:normal;color:#777}
+  .bd code{font-family:Consolas,"D2Coding",monospace;font-size:14px;
+           background:#f2f2f2;padding:1px 5px}
+  aside.side code{font-family:Consolas,monospace;font-size:11px;background:#f2f2f2;padding:0 3px}
+</style>
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small><a href="../courses/c2.html">능력단위 모듈 목록</a> / <a href="../modules/c2-m12.html">서버프로그램 구현</a> / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">개발환경</i>
+  <a href="#st1"><b>1</b><span>완성 산출물의 확인</span></a>
+  <a href="#st2"><b>2</b><span>받는 프로젝트 EX01</span></a>
+  <a href="#st3"><b>3</b><span>개발환경 명세</span></a>
+  <a href="#st4"><b>4</b><span>형상관리 방침</span></a>
+  <i class="qg">공통 모듈</i>
+  <a href="#st5"><b>5</b><span>세 계층으로 나누기</span></a>
+  <a href="#st6"><b>6</b><span>무엇이 공통인가</span></a>
+  <a href="#st7"><b>7</b><span>Entity 와 DTO</span></a>
+  <a href="#st8"><b>8</b><span>Repository</span></a>
+  <a href="#st9"><b>9</b><span>테스트 케이스 명세</span></a>
+  <i class="qg">서버 프로그램</i>
+  <a href="#st10"><b>10</b><span>업무 프로세스 맵</span></a>
+  <a href="#st11"><b>11</b><span>Service 구현</span></a>
+  <a href="#st12"><b>12</b><span>REST 컨트롤러</span></a>
+  <a href="#st13"><b>13</b><span>트랜잭션</span></a>
+  <a href="#st14"><b>14</b><span>보안 취약성 제거</span></a>
+  <i class="qg">배치 프로그램</i>
+  <a href="#st15"><b>15</b><span>스케줄 배치</span></a>
+  <a href="#st16"><b>16</b><span>산출물 정리</span></a>
+  <i class="qg">감점</i>
+  <a href="#g3"><b>!</b><span>주요 감점 요인</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>서버프로그램 구현 — 준비 교안</h1>
+<p class="sub">능력단위 서버프로그램 구현 (2001020211_23v6) / 5수준 · 평가방법 포트폴리오 (100점)</p>
+
+<!-- ═══════ 0 ═══════ -->
+<h2 class="sec" id="g0">0. 제출물의 구성과 배점</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">화면이 없는 과제입니다. 응답이 곧 화면입니다.</p>
+    <b class="sh">제출 형식</b>
+    <p class="v">저장소 · Postman 캡처 · 문서 넷</p>
+    <b class="sh">참고</b>
+    <p class="src">작업지시서 · EX01 프로젝트</p>
+  </aside>
+  <div class="bd">
+<p>과제는 하나입니다. <b>미완성 프로젝트 EX01 의 빈 메서드를 채우는 것</b>입니다.
+   상품을 다루는 REST API 를 만들고, 일괄 등록과 품절 점검 배치까지 돌게 합니다.
+   앞 교과와 크게 다른 점이 둘입니다.
+   <b>화면이 없고</b>, <b>테스트 코드를 직접 써야</b> 합니다.</p>
+<table class="wide">
+  <tr><th style="width:52px">묶음</th><th style="width:180px">능력단위요소</th>
+      <th>무엇을 하는가</th><th style="width:56px">배점</th></tr>
+  <tr><td class="c">①</td><td>개발환경 구축하기</td>
+      <td>의존성 · 설정 파일 · 기동 · 형상관리 방침과 운영</td><td class="c">20</td></tr>
+  <tr><td class="c">②</td><td>공통 모듈 구현하기</td>
+      <td>공통 요소 도출 · 패키지 배치 · 계층 분리 · 테스트 케이스 명세</td>
+      <td class="c">25</td></tr>
+  <tr><td class="c">③</td><td>서버 프로그램 구현하기</td>
+      <td>업무 프로세스 맵 · REST CRUD · 트랜잭션 · 보안 · 테스트</td>
+      <td class="c">35</td></tr>
+  <tr><td class="c">④</td><td>배치 프로그램 구현하기</td>
+      <td>스케줄 배치 · 일괄 등록 · 전체 롤백 · 배치 테스트</td>
+      <td class="c">20</td></tr>
+</table>
+<p>스무 항목 100점이고 항목마다 <b>3점에서 8점까지</b> 다릅니다.
+   가장 큰 항목이 <b>REST CRUD 다섯 종(8점)</b> 과
+   <b>보안 취약성 제거(8점)</b> 입니다.
+   가장 작은 것은 3점짜리 셋 — 형상관리 운영 · 배치 조회 트랜잭션 · 배치 테스트입니다.</p>
+
+<div class="warn">
+  제출물이 셋입니다. <b>저장소 주소</b>, <b>Postman 과 콘솔 캡처</b>,
+  그리고 <b>문서 넷</b>(개발환경 명세서 · 형상관리 방침 · 업무프로세스맵 · 테스트케이스 명세서)
+  입니다. 코드만 내고 문서를 빠뜨리면
+  <b>항목 1 · 4 · 10 · 11 이 통째로</b> 빠집니다. 합쳐 19점입니다.
+</div>
+  </div>
+</div>
+
+<!-- ═══════ 1 ═══════ -->
+<h2 class="sec" id="g1">1. 서버프로그램 구현의 범위</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">갖추고 · 나누고 · 만들고 · 돌립니다.</p>
+    <b class="sh">능력단위요소</b>
+    <p class="v">환경 · 공통 모듈 · 서버 · 배치</p>
+    <b class="sh">기술</b>
+    <p class="v">Spring Boot REST · JPA · @Scheduled</p>
+  </aside>
+  <div class="bd">
+<p>앞 교과 「애플리케이션 설계」 가 어디에 무엇을 둘지를 다뤘다면,
+   이 교과는 그대로 만들어 돌리는 일을 다룹니다.
+   그래서 요소가 넷으로 늘었고, 각 요소가 16시간씩 고르게 나뉘어 있습니다.</p>
+
+<dl>
+  <dt>개발환경 구축하기</dt>
+  <dd>필요한 것을 검토해 갖추고, 설치하고 설정하고, 형상관리 체계를 세웁니다.
+      코드를 한 줄도 쓰지 않는 단계인데 20점입니다.
+      <b>문서 두 장</b>(개발환경 명세서 · 형상관리 방침)이 여기서 나옵니다.</dd>
+  <dt>공통 모듈 구현하기</dt>
+  <dd>여러 곳이 같이 쓰는 것을 뽑아 만들고, 결합도를 낮추고 응집도를 높이며,
+      <b>테스트할 수 있는 조건을 명세</b>합니다.
+      앞 교과에서 「설계」 였던 것을 여기서는 「구현」 합니다.</dd>
+  <dt>서버 프로그램 구현하기</dt>
+  <dd>업무 프로세스를 확인하고 그대로 만듭니다.
+      배점이 가장 큰 묶음이며, <b>보안 취약성 제거</b>가 여기 들어 있습니다.</dd>
+  <dt>배치 프로그램 구현하기</dt>
+  <dd>사람이 부르지 않아도 때가 되면 스스로 도는 프로그램을 만듭니다.
+      주기로 도는 품절 점검과, 한 번에 여러 건을 처리하는 일괄 등록 둘입니다.</dd>
+</dl>
+
+<table class="wide">
+  <tr><th style="width:70px">수행준거</th><th style="width:260px">준거의 말</th>
+      <th>이 평가에서</th></tr>
+  <tr><td class="c">1.1</td><td>하드웨어 및 소프트웨어의 필요 사항을 검토하고 준비를 수행</td>
+      <td>의존성 다섯을 골라 <code>build.gradle</code> 에 넣습니다</td></tr>
+  <tr><td class="c">1.2</td><td>하드웨어 및 소프트웨어를 설치하고 설정하여 개발환경을 구축</td>
+      <td>설정 파일 둘로 DB 와 포트를 잡고 기동합니다</td></tr>
+  <tr><td class="c">1.3</td><td>형상관리 방침에 따라 형상관리 환경을 구축</td>
+      <td>브랜치 전략과 커밋 규칙을 세워 실제로 지킵니다</td></tr>
+  <tr><td class="c">2.1</td><td>상세 설계를 기반으로 공통 모듈을 작성</td>
+      <td>공통 응답 · 전역 예외 · 업무 예외 · DTO 를 만듭니다</td></tr>
+  <tr><td class="c">2.2</td><td>결합도는 줄이고 응집도를 높인 공통 모듈을 구현</td>
+      <td>컨트롤러는 Service 만, Service 는 Repository 만 부릅니다</td></tr>
+  <tr><td class="c">2.3</td><td>테스트 케이스를 작성하고 테스트 조건을 명세화</td>
+      <td>입력과 기대 결과를 적은 표 + JUnit 코드</td></tr>
+  <tr><td class="c">3.1</td><td>업무 프로세스 맵과 세부 업무 프로세스를 확인</td>
+      <td>요청 → 검증 → Service → Repository → DB 를 그립니다</td></tr>
+  <tr><td class="c">3.2</td><td>세부 업무 프로세스를 기반으로 업무 프로그램을 구현</td>
+      <td>REST CRUD 다섯 종을 만듭니다</td></tr>
+  <tr><td class="c">3.3</td><td>잠재적 보안 취약성이 제거되도록 서버 프로그램을 구현</td>
+      <td>음수 차단 · 파라미터 바인딩 · 예외 민감정보 비노출</td></tr>
+  <tr><td class="c">3.4</td><td>내부 기능과 인터페이스에 대해 테스트를 수행</td>
+      <td>JUnit 과 Postman 둘 다로 확인합니다</td></tr>
+  <tr><td class="c">4.1</td><td>배치 프로그램 구현 기술에 부합하는 배치 프로그램을 구현</td>
+      <td><code>@EnableScheduling</code> + <code>@Scheduled</code> 로 품절 점검</td></tr>
+  <tr><td class="c">4.2</td><td>하위 시스템 간 연동 시 안정적이고 안전하게 동작</td>
+      <td>일괄 등록을 한 트랜잭션으로 · 중간 실패 시 전체 롤백</td></tr>
+  <tr><td class="c">4.3</td><td>개발된 배치 프로그램을 테스트</td>
+      <td><code>ProductBatchTest</code> 한 가지</td></tr>
+</table>
+<p>준거 열셋이 채점 항목 스물로 쪼개져 있습니다.
+   눈여겨볼 것은 <b>「테스트」 라는 말이 세 번</b> 나온다는 점입니다(2.3 · 3.4 · 4.3).
+   테스트를 안 쓰면 세 군데에서 <b>합쳐 14점</b>을 잃습니다.</p>
+  </div>
+</div>
+
+<!-- ═══════ 2 ═══════ -->
+<h2 class="sec" id="g2">2. 산출물 작성 실습</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">환경 → 공통 → 서버 → 배치 순입니다.</p>
+    <b class="sh">예제</b>
+    <p class="v">EX01 S-Product 상품 관리</p>
+    <b class="sh">채울 것</b>
+    <p class="v">다섯 파일 + 테스트 둘</p>
+  </aside>
+  <div class="bd">
+<p>네 단계로 나누었고, 능력단위요소와 그대로 짝이 맞습니다.
+   앞 두 단계는 코드를 조금 쓰고 문서를 많이 쓰며,
+   뒤 두 단계는 거의 코드만 씁니다.</p>
+<p>예제는 상품을 다루는 REST API 입니다.
+   목록 · 단건 · 등록 · 수정 · 삭제 다섯에 일괄 등록이 하나 더 붙고,
+   재고가 0 인 상품을 주기로 세는 배치가 하나 있습니다.
+   검색 · 로그인 · 화면은 없습니다.</p>
+<p>순서에 이유가 있습니다. Repository 가 있어야 Service 가 부를 것이 생기고,
+   Service 가 있어야 컨트롤러가 위임할 곳이 생깁니다.
+   안에서 바깥으로 만들되, 배치는 Repository 만 있으면 되므로
+   중간에 막히면 배치를 먼저 해도 됩니다.</p>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 1 · 개발환경 구축</b><span>능력단위요소 ① · 채점 1 ~ 5 · 20점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st1">
+      <h3><i>1</i>완성 산출물의 확인</h3>
+      <aside class="side">
+        <p class="pt">JSON 응답과 콘솔 로그가 화면입니다.</p>
+        <b class="sh">캡처</b>
+        <p class="v">다섯 컷</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/sv_api.png" alt="Postman 응답 세 컷. 목록 조회가 200 으로 상품 세 건과 쪽 정보를 돌려주는 화면, 등록이 200 으로 새 id 와 상품 등록 성공 메시지를 돌려주는 화면, 그리고 이름이 비고 가격이 음수인 요청이 400 으로 칸마다 검증 메시지를 돌려주는 화면.">
+  <figcaption>완성했을 때의 응답. 상태 코드가 함께 찍히게 잘라 냅니다.</figcaption>
+</figure>
+
+<h4>화면이 없다는 것</h4>
+<p>브라우저로 열어 볼 화면이 없습니다.
+   주소창에 <code>/api/products</code> 를 쳐 보면 JSON 이 그대로 뜹니다.
+   그것이 이 프로그램의 출력 전부입니다.
+   그래서 Postman 같은 도구로 요청을 보내고 응답을 봅니다.</p>
+<p>GET 은 주소창으로도 되지만 POST · PUT · DELETE 는 안 됩니다.
+   본문에 JSON 을 실어 보내야 하기 때문입니다.
+   Postman 을 못 쓰는 환경이면 <code>curl</code> 로도 됩니다.</p>
+
+<pre><i># 브라우저로는 목록만 볼 수 있습니다</i>
+http://localhost:8090/api/products
+
+<i># 등록은 본문을 실어 보내야 합니다</i>
+curl -X <b>POST</b> http://localhost:8090/api/products \
+     -H "Content-Type: application/json" \
+     -d "{\"name\":\"USB 허브\",\"price\":19000,\"stock\":50,\"category\":\"PC주변기기\"}"</pre>
+
+<h4>내는 것 세 가지</h4>
+<table>
+  <tr><th style="width:170px">제출물</th><th style="width:230px">무엇을</th><th>덮는 채점 항목</th></tr>
+  <tr><td class="g">GitHub 저장소 주소</td><td>완성한 프로젝트 · 커밋 이력</td>
+      <td>4 · 5</td></tr>
+  <tr><td class="g">캡처 PDF 또는 PPT</td>
+      <td>목록 · 등록 · bulk · 검증 실패 · 배치 로그</td>
+      <td>12 · 14 · 16 · 17</td></tr>
+  <tr><td class="g">문서 넷</td>
+      <td>개발환경 명세서 · 형상관리 방침 · 업무프로세스맵 · 테스트케이스 명세서</td>
+      <td>1 · 4 · 10 · 11</td></tr>
+</table>
+<p>문서 넷이 <b>19점</b>을 받칩니다.
+   코드를 다 만들고도 문서를 안 내면 80점을 못 넘습니다.
+   문서라고 해서 길게 쓸 것 없이 표 한 장씩이면 됩니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>받는 프로젝트 EX01</h3>
+      <aside class="side">
+        <p class="pt">골격은 다 서 있고 속만 비어 있습니다.</p>
+        <b class="sh">채울 곳</b>
+        <p class="v">다섯 파일 + 테스트 둘</p>
+        <b class="sh">먼저</b>
+        <p class="v"><code>db/schema.sql</code></p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/sv_tree.png" alt="EX01 프로젝트 폴더 구조. Config · Batch · Controller · Exception · Domain 아래 파일들이 나열되어 있고, 채워야 할 다섯 파일과 테스트 둘이 진하게 표시되어 있다. 나머지는 제공됨으로 흐리게 표시되어 있다. 옆에 파일별로 무엇을 채우는지 정리한 표가 있다.">
+  <figcaption>EX01 프로젝트 구조. 진하게 표시한 것만 채웁니다.</figcaption>
+</figure>
+
+<h4>제공물을 먼저 읽습니다</h4>
+<p>앞 교과와 달리 <b>제공되는 것이 많습니다</b>.
+   Entity · 인터페이스 · 업무 예외 · 전역 핸들러 · 스케줄러가 이미 들어 있습니다.
+   그래서 코드를 쓰기 전에 읽는 시간이 필요합니다.
+   그 가운데 <code>ProductService</code> 인터페이스를 먼저 보십시오.
+   거기 적힌 메서드 이름과 반환형이 <b>구현의 설계도</b>이기 때문입니다.</p>
+
+<pre><i>// ProductService — 제공되는 인터페이스. 이대로 만들면 됩니다.</i>
+public interface ProductService {
+    ProductDTO <b>register</b>(ProductDTO dto);              <i>// 등록</i>
+    ProductDTO <b>modify</b>(Long id, ProductDTO dto);       <i>// 수정</i>
+    void       <b>remove</b>(Long id);                       <i>// 삭제</i>
+    ProductDTO <b>get</b>(Long id);                          <i>// 단건</i>
+    Page&lt;ProductDTO&gt; <b>list</b>(Pageable pageable);        <i>// 목록</i>
+    int        <b>registerBulk</b>(List&lt;ProductDTO&gt; list);   <i>// 일괄</i>
+}</pre>
+
+<h4>띄워 보기</h4>
+<p>MySQL 의 <code>testdb</code> 에 <code>db/schema.sql</code> 을 실행하고
+   <code>gradlew.bat bootRun</code> 으로 띄웁니다.
+   앞 교과와 달리 기동은 됩니다. 화면이 없으니 500 이 날 화면도 없습니다.
+   대신 <code>/api/products</code> 를 부르면
+   <code>UnsupportedOperationException</code> 이 500 으로 돌아옵니다.</p>
+
+<div class="warn">
+  이 상태의 응답도 <b>완료 전 캡처</b>로 남겨 두십시오.
+  목록 · 등록이 500 으로 오는 두 컷이면 충분합니다.
+  구현한 뒤에는 다시 만들 수 없습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st3">
+      <h3><i>3</i>개발환경 명세</h3>
+      <aside class="side">
+        <p class="pt">의존성 다섯과 설정 파일 둘입니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">1 · 2 · 3 · 13점</p>
+        <b class="sh">문서</b>
+        <p class="v">개발환경_명세서</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/sv_env.png" alt="build.gradle 의 의존성 다섯과 application.properties · application-dev.properties 설정, 그리고 의존성마다 왜 넣는지 정리한 표와 JDK 21 · Spring Boot 3.5 · MySQL 8 · 포트 8090 을 정리한 환경 표.">
+  <figcaption>개발환경 명세. 의존성 다섯과 설정 파일 둘입니다.</figcaption>
+</figure>
+
+<h4>왜 다섯인가</h4>
+<p>의존성은 필요한 것만 넣습니다. 많이 넣을수록 좋은 것이 아닙니다.
+   REST 를 하려면 <code>web</code>, 데이터베이스를 쓰려면 <code>data-jpa</code>,
+   <code>@Valid</code> 를 쓰려면 <code>validation</code> 이 있어야 합니다.
+   <code>lombok</code> 은 군더더기를 줄이고, <code>mysql-connector-j</code> 는 드라이버입니다.</p>
+<p>채점 항목 1 이 <b>「검토하여 구성할 수 있는가」</b> 입니다.
+   넣은 것이 아니라 왜 넣었는지를 봅니다.
+   명세서에 의존성마다 한 줄씩 까닭을 적어 두면 그것으로 끝납니다.</p>
+
+<h4>설정 파일이 둘인 까닭</h4>
+<p><code>application.properties</code> 에 <code>spring.profiles.active=dev</code> 한 줄이 있고,
+   실제 값은 <code>application-dev.properties</code> 에 있습니다.
+   나중에 운영 환경이 생기면 <code>-prod</code> 파일을 하나 더 만들고
+   그 한 줄만 바꾸면 됩니다. 코드는 건드리지 않습니다.</p>
+
+<pre><i># JPA 설정 세 줄의 뜻</i>
+spring.jpa.hibernate.<b>ddl-auto=none</b>
+    <i># 테이블을 자동으로 만들거나 지우지 않습니다.</i>
+    <i># create 로 두면 다시 띄울 때마다 자료가 사라집니다.</i>
+
+spring.jpa.<b>show-sql=true</b>
+    <i># 나가는 SQL 을 콘솔에 찍습니다. 물음표 바인딩을 눈으로 확인할 수 있습니다.</i>
+
+spring.jpa.properties.hibernate.<b>format_sql=true</b>
+    <i># 한 줄로 붙어 나오는 SQL 을 보기 좋게 줄바꿈해 줍니다.</i></pre>
+
+<div class="warn">
+  <code>ddl-auto</code> 를 <code>create</code> 나 <code>update</code> 로 바꾸지 마십시오.
+  <code>schema.sql</code> 로 만든 테이블을 JPA 가 <b>제 마음대로 고치거나 지웁니다</b>.
+  기동할 때마다 seed 가 사라져 목록이 비어 보이면 이것부터 확인하십시오.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st4">
+      <h3><i>4</i>형상관리 방침</h3>
+      <aside class="side">
+        <p class="pt">적은 대로 실제로 했는지를 봅니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">4 · 5 · 7점</p>
+        <b class="sh">증거</b>
+        <p class="v"><code>git log --oneline</code></p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/sv_scm.png" alt="원격 저장소 · 기본 브랜치 · 작업 브랜치 · 커밋 규칙 · 합치기 · 올리지 않을 것 여섯 가지 방침을 정리한 표와, git init 부터 브랜치를 나눠 커밋하고 테스트한 뒤 머지하고 푸시해 git log 로 확인하기까지의 명령 기록.">
+  <figcaption>형상관리 방침과 실제 명령. 로그 한 장이 두 항목을 받칩니다.</figcaption>
+</figure>
+
+<h4>방침과 운영은 다른 항목입니다</h4>
+<p>채점 항목 4 는 <b>방침을 세워 글로 적었는가</b>,
+   항목 5 는 <b>그 방침대로 실제로 했는가</b> 입니다.
+   둘이 따로 매겨지므로 한쪽만 해서는 절반입니다.</p>
+<p>가장 자주 나오는 어긋남은 이렇습니다.
+   방침에는 「기능 단위로 커밋한다」 고 적어 놓고
+   실제로는 <b>다 만든 뒤 「완성」 이라는 커밋 하나</b>만 남깁니다.
+   채점자는 <code>git log</code> 를 봅니다. 거기서 바로 드러납니다.</p>
+
+<h4>커밋 메시지 쓰는 법</h4>
+<table>
+  <tr><th style="width:46%">이렇게 쓰면</th><th>이렇게 씁니다</th></tr>
+  <tr><td class="k">수정</td><td class="k">ProductRepository 쿼리메서드 세 개 추가</td></tr>
+  <tr><td class="k">완성</td><td class="k">ProductServiceImpl 트랜잭션 적용</td></tr>
+  <tr><td class="k">ㅁㄴㅇㄹ</td><td class="k">일괄등록 전체 롤백 테스트 추가</td></tr>
+</table>
+<p>규칙은 둘이면 됩니다. 무엇을 했는지 명사로 시작하고,
+   <b>한 커밋에 한 가지 일만</b> 담습니다.
+   이렇게 해 두면 나중에 무엇이 언제 들어갔는지 찾기 쉽고,
+   채점자에게도 진행 과정이 그대로 보입니다.</p>
+
+<h4>올리지 말아야 할 것</h4>
+<pre><i># .gitignore 에 이미 들어 있습니다. 지우지 마십시오.</i>
+build/          <i># 빌드 결과 — 받는 사람이 다시 만들면 됩니다</i>
+.gradle/        <i># Gradle 이 쓰는 임시 파일</i>
+.idea/  *.iml   <i># IDE 설정 — 사람마다 다릅니다</i></pre>
+<p>이것들이 올라가 있으면 저장소가 수십 메가로 부풀고,
+   받는 사람 환경에서 충돌이 납니다.
+   올라간 것을 뒤늦게 지우면 이력에는 남으므로,
+   첫 커밋 전에 확인하는 것이 가장 깔끔합니다.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 2 · 공통 모듈 구현</b><span>능력단위요소 ② · 채점 6 ~ 10 · 25점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st5">
+      <h3><i>5</i>세 계층으로 나누기</h3>
+      <aside class="side">
+        <p class="pt">Service 가 새로 생겼습니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">8 · 9 · 10점</p>
+        <b class="sh">계층</b>
+        <p class="v">Controller · Service · Repository</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/sv_arch.png" alt="Postman 에서 시작해 ProductRestController · ProductServiceImpl · ProductRepository 를 차례로 거쳐 MySQL testdb 에 닿는 흐름도. 아래쪽에 ProductDTO · MyBizException · Product 가 각 계층에 딸려 있고, 전역 예외 핸들러와 스케줄 배치가 점선으로 표시되어 있다.">
+  <figcaption>세 계층. 컨트롤러는 Repository 를 직접 부르지 않습니다.</figcaption>
+</figure>
+
+<h4>앞 교과와 무엇이 다른가</h4>
+<p>앞 교과에는 Service 가 없었고 컨트롤러가 DAO 를 바로 불렀습니다.
+   여기서는 <b>가운데에 Service 가 들어옵니다</b>.
+   한 층이 늘어난 만큼 코드가 길어지는데, 그럴 만한 까닭이 있습니다.</p>
+<p>「같은 상품명이 이미 있으면 등록을 거절한다」 는 규칙을 생각해 보십시오.
+   이 규칙은 <b>화면이 바뀌어도 데이터베이스가 바뀌어도 그대로</b>입니다.
+   컨트롤러에 두면 화면이 늘 때마다 베껴야 하고,
+   Repository 에 두면 데이터베이스를 바꿀 때 같이 흔들립니다.
+   양쪽 다 아닌 가운데에 두는 것이 Service 입니다.</p>
+
+<h4>계층마다 아는 것과 모르는 것</h4>
+<table>
+  <tr><th style="width:180px">계층</th><th style="width:230px">아는 것</th><th>모르는 것</th></tr>
+  <tr><td class="k">ProductRestController</td>
+      <td>HTTP 방식 · 경로 · 상태 코드 · Service</td>
+      <td><b>SQL · 업무 규칙 · Entity</b></td></tr>
+  <tr><td class="k">ProductServiceImpl</td>
+      <td>업무 규칙 · 트랜잭션 · Repository · Entity</td>
+      <td><b>HTTP · 상태 코드</b></td></tr>
+  <tr><td class="k">ProductRepository</td>
+      <td>테이블 · 조회 조건</td>
+      <td>업무 규칙과 HTTP 를 모두 모릅니다</td></tr>
+</table>
+
+<h4>스스로 점검하는 법</h4>
+<p>완성한 뒤 두 가지만 찾아보면 됩니다.</p>
+<ol>
+  <li><code>ProductRestController</code> 안에 <code>productRepository</code> 가 <b>없어야</b> 합니다.
+      있으면 채점 항목 8 을 잃습니다.</li>
+  <li><code>ProductServiceImpl</code> 안에 <code>ResponseEntity</code> 나
+      <code>HttpStatus</code> 가 <b>없어야</b> 합니다.
+      있으면 항목 9 를 잃습니다.</li>
+</ol>
+<p>두 낱말을 프로젝트 전체에서 찾아보는 데 일 분이면 됩니다.
+   <b>10점이 이 일 분에 달려 있습니다.</b></p>
+      </div>
+    </div>
+
+    <div class="step" id="st6">
+      <h3><i>6</i>무엇이 공통인가</h3>
+      <aside class="side">
+        <p class="pt">패키지가 열 갈래로 늘었습니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">6 · 7 · 10점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/sv_common.png" alt="공통 응답 모양 · 전역 예외 처리 · 업무 예외 · 자료 구조 · 업무 규칙의 자리 · 배치 켜기 여섯 가지 공통 요소를 무엇으로 어디에 두는지 정리한 표와, 열 갈래로 나뉜 패키지 목록.">
+  <figcaption>공통 요소 식별표. 「이것을 누가 부르는가」 로 자리를 정합니다.</figcaption>
+</figure>
+
+<h4>공통 응답 모양</h4>
+<p>이 과제에서 새로 생긴 공통 요소가 <b>응답의 생김새</b>입니다.
+   등록도 수정도 삭제도 모두 <code>message</code> 를 담은 <code>Map</code> 을 돌려줍니다.
+   받는 쪽에서 보면 언제나 같은 자리에 같은 것이 있습니다.
+   이것이 약속이고, 약속이 있으면 클라이언트를 만들기 쉬워집니다.</p>
+
+<pre><i>// 성공했을 때 — 어느 매핑이든 같은 모양</i>
+{ "data": { ⋯ }, "message": "상품 등록 성공!" }
+
+<i>// 검증에 걸렸을 때 — 필드 이름이 그대로 키가 됩니다</i>
+{ "name": "상품명은 필수 항목입니다.", "price": "가격은 0 이상이어야 합니다." }
+
+<i>// 업무 규칙을 어겼을 때 — 전역 핸들러가 만듭니다</i>
+{ "error": "이미 존재하는 상품명입니다: 무선 마우스" }</pre>
+
+<h4>업무 예외를 따로 만드는 까닭</h4>
+<p><code>MyBizException</code> 은 <b>우리가 만든 예외</b>입니다.
+   자바가 주는 예외를 쓰지 않고 새로 만든 까닭이 있습니다.
+   <code>IllegalArgumentException</code> 같은 것은 다른 곳에서도 납니다.
+   내가 일부러 던진 것인지 라이브러리 안에서 난 것인지 구별이 안 됩니다.</p>
+<p>이름이 하나 있으면 전역 핸들러에서 이것만 골라 400 으로 내보낼 수 있습니다.
+   나머지는 500 으로 갑니다. 이 구분이 곧 설계입니다.</p>
+
+<pre>@ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "잘못된 비즈니스 요청입니다.")
+public class MyBizException extends <b>RuntimeException</b> {   <i>// 확인 예외가 아닙니다</i>
+    public MyBizException(String message) { super(message); }
+}</pre>
+<p><code>RuntimeException</code> 을 물려받았다는 점을 눈여겨보십시오.
+   <b>트랜잭션이 이 계열만 자동으로 되돌리기</b> 때문입니다.
+   <code>Exception</code> 을 바로 물려받으면 일괄 등록 롤백이 안 됩니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st7">
+      <h3><i>7</i>Entity 와 DTO</h3>
+      <aside class="side">
+        <p class="pt">거의 같은데 굳이 둘로 나눕니다.</p>
+        <b class="sh">채우는 곳</b>
+        <p class="v"><code>toEntity</code> · <code>from</code></p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/sv_dto.png" alt="Product 엔티티와 ProductDTO 의 코드를 나란히 놓은 그림. 엔티티에는 @Entity 와 @Table 과 @Id 와 @Column 이 붙고, DTO 에는 검증 어노테이션과 toEntity · from 변환 메서드가 있다. 아래에 왜 둘로 나누는지 등 네 가지를 정리한 표가 있다.">
+  <figcaption>Entity 와 DTO. 변환 메서드 둘만 채우면 됩니다.</figcaption>
+</figure>
+
+<h4>필드가 같은데 왜 나누는가</h4>
+<p>둘의 필드가 똑같습니다. 합치고 싶어지는 것이 당연합니다.
+   합치면 무슨 일이 생기는지 두 가지만 보십시오.</p>
+<ol>
+  <li>테이블에 컬럼을 하나 더하면 API 응답이 저절로 바뀝니다.
+      받는 쪽에 알리지도 못한 채로요.</li>
+  <li>비밀번호 같은 <b>내보내면 안 되는 컬럼</b>이 생기면
+      Entity 를 그대로 내보낼 수 없게 됩니다. 그때 가서 나누면 고칠 곳이 많습니다.</li>
+</ol>
+<p>지금은 상품이라 내보내면 안 될 것이 없습니다.
+   그래도 나눠 두는 까닭은 나중을 위해서이고,
+   채점 항목 6 이 「자료 구조를 공통 모듈로 도출」 이라 한 것도 이 뜻입니다.</p>
+
+<h4>int 가 아니라 Integer</h4>
+<p>가격과 재고가 <code>Integer</code> 인 것이 눈에 걸립니다.
+   <code>int</code> 로 두면 <b>값을 안 보냈을 때 0 이 됩니다</b>.
+   그러면 <code>@NotNull</code> 이 걸리지 않고,
+   <b>「가격을 안 적은 것」</b> 과 <b>「가격이 0 원인 것」</b> 을 구별할 수 없습니다.</p>
+
+<pre><i>// int 일 때 — 가격을 빼고 보내면</i>
+{ "name": "시험", "stock": 5, "category": "C" }
+  → price = <b>0</b> 으로 통과합니다. 0 원짜리 상품이 등록됩니다.
+
+<i>// Integer 일 때</i>
+  → price = <b>null</b> → @NotNull 이 걸려 400 이 나갑니다.</pre>
+
+<h4>변환 메서드 둘</h4>
+<p><code>toEntity()</code> 는 DTO 를 Entity 로,
+   <code>from(Product)</code> 은 Entity 를 DTO 로 바꿉니다.
+   <code>from</code> 이 <code>static</code> 인 까닭은
+   아직 DTO 가 없는 상태에서 부르기 때문입니다.
+   <code>ProductDTO.from(entity)</code> 처럼 클래스 이름으로 부릅니다.</p>
+<p>목록에서는 이렇게 쓰입니다.
+   <code>.map(ProductDTO::from)</code> — Entity 가 든 페이지를 DTO 가 든 페이지로
+   통째로 바꿉니다. 한 줄로 끝납니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st8">
+      <h3><i>8</i>Repository</h3>
+      <aside class="side">
+        <p class="pt">이름만 적으면 구현이 생깁니다.</p>
+        <b class="sh">채우는 곳</b>
+        <p class="v">쿼리메서드 셋</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/sv_repo.png" alt="ProductRepository 인터페이스 코드. JpaRepository 를 물려받고 existsByName · existsByNameAndIdNot · countByStock 세 메서드를 본문 없이 선언한다. 옆에 메서드 이름의 조각이 각각 무슨 뜻인지 정리한 표가 있고, 아래에 실제로 만들어지는 SQL 이 물음표 바인딩으로 나온다.">
+  <figcaption>Repository. 본문이 없는데 동작합니다.</figcaption>
+</figure>
+
+<h4>본문 없이 동작하는 까닭</h4>
+<p>인터페이스에 메서드 이름만 적었는데 동작합니다.
+   Spring Data JPA 가 <b>기동할 때 이름을 읽어 구현 클래스를 만들어</b> 줍니다.
+   그래서 이름을 규칙대로 지어야 하고, 틀리면 <b>기동할 때 바로 오류</b>가 납니다.
+   조용히 잘못될 일이 없다는 점이 오히려 편합니다.</p>
+
+<pre><i>// 이름을 틀렸을 때 실제로 나오는 오류</i>
+No property 'stok' found for type 'Product'
+Did you mean <b>'stock'</b>?
+
+<i>// Entity 의 필드 이름을 씁니다. 컬럼 이름이 아닙니다.</i>
+countByCreateAt(...)   <b>○</b>   Product 의 필드가 createAt 이므로
+countByCreate_at(...)  <b>×</b>   컬럼 이름으로 쓰면 못 찾습니다</pre>
+
+<h4>세 개만 더 적는 까닭</h4>
+<p><code>JpaRepository</code> 를 물려받는 것만으로
+   저장 · 단건 조회 · 전체 조회 · 삭제 · 존재 확인 · 건수가 이미 들어옵니다.
+   그런데 이 과제의 업무 규칙이 <b>그것만으로는 안 되는 것 셋</b>을 요구합니다.</p>
+<table>
+  <tr><th style="width:230px">메서드</th><th style="width:170px">언제 쓰는가</th><th>없으면</th></tr>
+  <tr><td class="k">existsByName</td><td>등록할 때</td>
+      <td>같은 이름의 상품이 여러 개 생깁니다</td></tr>
+  <tr><td class="k">existsByNameAndIdNot</td><td>수정할 때</td>
+      <td><b>자기 이름으로 고치는 것도 막힙니다</b></td></tr>
+  <tr><td class="k">countByStock</td><td>배치가 돌 때</td>
+      <td>전부 가져와 세어야 해 느립니다</td></tr>
+</table>
+<p>가운데 것이 까다롭습니다. 수정할 때 그냥 <code>existsByName</code> 을 쓰면,
+   이름을 안 바꾸고 가격만 고치려 해도 「이미 있는 이름」 이라며 막힙니다.
+   자기 자신을 빼야 하므로 <code>AndIdNot</code> 이 붙습니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st9">
+      <h3><i>9</i>테스트 케이스 명세</h3>
+      <aside class="side">
+        <p class="pt">표와 코드가 짝을 이뤄야 합니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">10 · 15 · 20 · 14점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/sv_test.png" alt="TC-01 부터 TC-05 까지 테스트 케이스 명세표와, 일괄 등록 중간 실패 전체 롤백을 확인하는 JUnit 코드, 그리고 gradlew test 를 돌려 세 케이스가 모두 통과한 콘솔 기록.">
+  <figcaption>테스트 케이스 명세와 단위 테스트. 셋을 합치면 14점입니다.</figcaption>
+</figure>
+
+<h4>테스트가 세 항목에 걸려 있습니다</h4>
+<p>채점 항목 10 · 15 · 20 이 모두 테스트를 봅니다.
+   합쳐 14점이라 <b>어느 한 항목보다 크게</b> 걸려 있습니다.
+   그런데 시간이 모자라면 가장 먼저 빠지는 것이 테스트입니다.
+   테스트를 먼저 쓰라는 뜻이 아니라, 마지막에 남기지 말라는 뜻입니다.</p>
+
+<h4>명세서와 코드는 따로 매겨집니다</h4>
+<p>항목 10 은 <b>「테스트 조건을 명세화」</b> 입니다. 코드가 아니라 표입니다.
+   무엇을 시험하는지, 무엇을 넣는지, 무엇이 나와야 하는지 세 칸이면 됩니다.
+   항목 15 와 20 이 <b>실제로 돌려 보았는가</b> 입니다.</p>
+
+<h4>@Transactional 을 테스트에 붙이는 까닭</h4>
+<pre>@SpringBootTest
+<b>@Transactional</b>          <i>// 테스트가 끝나면 넣은 것이 되돌아갑니다</i>
+class ProductServiceTest { ⋯ }</pre>
+<p>이것이 없으면 테스트를 돌릴 때마다 상품이 쌓입니다.
+   두 번째 실행부터는 이름이 중복되어 실패합니다.
+   붙여 두면 테스트가 끝날 때 전부 되돌아가 언제 돌려도 같은 결과가 나옵니다.</p>
+<p>이름에 <code>System.nanoTime()</code> 을 붙이는 것도 같은 까닭입니다.
+   돌릴 때마다 다른 이름이 되어 앞에 남은 자료와 부딪히지 않습니다.</p>
+
+<h4>무엇을 시험할지 고르는 법</h4>
+<p>다 시험할 수는 없습니다. <b>규칙이 있는 곳</b>을 고릅니다.
+   「같은 이름이면 거절한다」 · 「하나라도 실패하면 전부 취소한다」 처럼
+   <b>if 가 있는 곳</b>이 시험할 곳입니다.
+   그냥 저장하고 돌려주기만 하는 곳은 시험해도 얻는 것이 적습니다.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 3 · 서버 프로그램 구현</b><span>능력단위요소 ③ · 채점 11 ~ 15 · 35점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st10">
+      <h3><i>10</i>업무 프로세스 맵</h3>
+      <aside class="side">
+        <p class="pt">코드를 쓰기 전에 표부터 채웁니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">11 · 6점</p>
+        <b class="sh">문서</b>
+        <p class="v">업무프로세스맵</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/sv_map.png" alt="요청에서 검증 · 업무 규칙 · 저장 · DB 를 거쳐 응답까지 여섯 칸으로 이어지는 업무 프로세스 맵과, 등록 · 수정 · 삭제 · 단건 · 목록 · 일괄 여섯 업무의 규칙과 메서드와 처리 차례를 정리한 표.">
+  <figcaption>업무 프로세스 맵과 세부 프로세스 여섯.</figcaption>
+</figure>
+
+<h4>맵과 세부는 서로 다릅니다</h4>
+<p>채점 항목 11 이 <b>「맵과 세부 업무 프로세스를 확인 · 정리」</b> 입니다.
+   맵은 한 요청이 지나가는 큰 길 하나이고,
+   세부는 업무마다 다른 사정입니다.
+   등록은 이름이 겹치는지 보고, 수정은 자기를 뺀 나머지에서 보고,
+   삭제는 그 번호가 있는지만 봅니다.</p>
+
+<h4>표를 먼저 채우면 코드가 쉬워집니다</h4>
+<p>세부 표의 「차례」 칸이 곧 Service 메서드의 본문입니다.
+   「findById → existsByNameAndIdNot → 값 변경 → 200」 이라고 적어 두면
+   그대로 옮기면 됩니다.
+   코드를 쓰다가 순서를 헷갈리는 일이 없어집니다.</p>
+
+<pre><i>// 표에 적은 차례</i>
+findById → existsByNameAndIdNot → 값 변경 → 200
+
+<i>// 그대로 옮긴 코드</i>
+Product entity = productRepository.<b>findById</b>(id)
+        .orElseThrow(() -&gt; new MyBizException("상품을 찾을 수 없습니다. id=" + id));
+if (productRepository.<b>existsByNameAndIdNot</b>(dto.getName(), id))
+    throw new MyBizException("이미 존재하는 상품명입니다: " + dto.getName());
+entity.setName(dto.getName());            <i>// 값 변경</i>
+⋯
+return ProductDTO.from(entity);           <i>// 컨트롤러가 200 으로 감쌉니다</i></pre>
+
+<h4>순서가 뒤바뀌면</h4>
+<p>중복 검사를 먼저 하고 <code>findById</code> 를 나중에 하면 어떻게 될까요.
+   없는 번호로 수정을 요청했을 때
+   <b>「이미 있는 이름입니다」</b> 라는 엉뚱한 답이 나갑니다.
+   <b>있는지부터 보고</b> 규칙을 따지는 것이 맞습니다.
+   표에 순서를 적어 두는 값이 이런 데서 나옵니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st11">
+      <h3><i>11</i>Service 구현</h3>
+      <aside class="side">
+        <p class="pt">업무 규칙이 전부 여기 모입니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">9 · 12 · 13점</p>
+        <b class="sh">메서드</b>
+        <p class="v">여섯</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/sv_service.png" alt="ProductServiceImpl 의 register · modify · list 코드. 각 메서드에 @Transactional 이 붙고, 규칙을 먼저 검사해 어기면 MyBizException 을 던진 뒤 Repository 를 부르는 모양이다. 아래에 업무 규칙의 자리 · save 가 없는 수정 · orElseThrow · readOnly 네 가지를 설명한 표가 있다.">
+  <figcaption>ProductServiceImpl. 여섯 메서드가 모두 같은 모양입니다.</figcaption>
+</figure>
+
+<h4>여섯 메서드가 한 가지 모양입니다</h4>
+<p>규칙을 먼저 보고, 어기면 던지고, 통과하면 Repository 를 부릅니다.
+   이 순서를 지키면 컨트롤러가 예외를 잡을 필요가 없어집니다.
+   던진 예외는 전역 핸들러가 받아 400 으로 내보내기 때문입니다.</p>
+
+<h4>save 를 안 부르는 수정</h4>
+<p><code>modify</code> 를 보면 <code>save</code> 가 없습니다.
+   빠뜨린 것이 아니라 <b>안 불러도 되기 때문</b>입니다.
+   <code>findById</code> 로 꺼낸 객체는 JPA 가 관리하는 <b>영속 상태</b>입니다.
+   값만 바꿔 두면 트랜잭션이 끝날 때 JPA 가 바뀐 것을 알아채고
+   UPDATE 를 보냅니다. 이것을 <b>변경 감지</b>라 합니다.</p>
+
+<pre><i>// 콘솔에서 확인할 수 있습니다 — show-sql=true 일 때</i>
+Hibernate: select p1_0.id, p1_0.category, ⋯ from tbl_product p1_0 where p1_0.id=?
+Hibernate: select count(p1_0.id) from tbl_product p1_0 where p1_0.name=? and p1_0.id&lt;&gt;?
+<b>Hibernate: update tbl_product set category=?, name=?, price=?, stock=? where id=?</b>
+                                                  <i>// save 를 안 불렀는데 나갑니다</i></pre>
+
+<p><code>save</code> 를 불러도 틀리지는 않습니다. 다만 몰라서 부른 것과
+   알고도 부른 것은 다릅니다.
+   영속 상태가 아닌 객체(예: 새로 만든 것)는 <code>save</code> 가 있어야 합니다.
+   그래서 <code>register</code> 에는 <code>save</code> 가 있고
+   <code>modify</code> 에는 없습니다.</p>
+
+<h4>readOnly 를 붙이는 곳</h4>
+<table>
+  <tr><th style="width:190px">메서드</th><th style="width:230px">붙이는 것</th><th>까닭</th></tr>
+  <tr><td class="k">register · modify · remove</td><td class="k">@Transactional</td>
+      <td>값을 바꿉니다</td></tr>
+  <tr><td class="k">registerBulk</td><td class="k">@Transactional</td>
+      <td>여러 건을 한 묶음으로 바꿉니다</td></tr>
+  <tr><td class="k">get · list</td><td class="k">@Transactional(readOnly = true)</td>
+      <td>읽기만 하므로 변경 감지를 건너뜁니다</td></tr>
+</table>
+      </div>
+    </div>
+
+    <div class="step" id="st12">
+      <h3><i>12</i>REST 컨트롤러</h3>
+      <aside class="side">
+        <p class="pt">경로는 하나, 방식이 다섯입니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">12 · 8점</p>
+        <b class="sh">경로</b>
+        <p class="v"><code>/api/products</code></p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/sv_ctrl.png" alt="GET · POST · PUT · DELETE 여섯 매핑이 어떤 경로에서 무엇을 하고 무엇을 돌려주는지 정리한 표와, 등록 매핑의 전체 코드. @RequestBody 와 @Valid 로 JSON 을 받아 검증하고 실패하면 400, 통과하면 200 을 돌려준다.">
+  <figcaption>REST 컨트롤러. 같은 경로에 방식만 달리 걸어 둡니다.</figcaption>
+</figure>
+
+<h4>REST 라는 생김새</h4>
+<p>앞 교과에서는 <code>/member/add</code> · <code>/member/list</code> 처럼
+   <b>경로에 동사</b>를 넣었습니다.
+   REST 는 경로에 <b>대상만</b> 적고 무엇을 할지는 <b>HTTP 방식</b>으로 나타냅니다.</p>
+<table>
+  <tr><th style="width:140px">앞 교과 방식</th><th style="width:200px">REST 방식</th><th>하는 일</th></tr>
+  <tr><td class="k">/product/list</td><td class="k">GET /api/products</td><td>목록</td></tr>
+  <tr><td class="k">/product/add</td><td class="k">POST /api/products</td><td>등록</td></tr>
+  <tr><td class="k">/product/edit?id=3</td><td class="k">PUT /api/products/3</td><td>수정</td></tr>
+  <tr><td class="k">/product/del?id=3</td><td class="k">DELETE /api/products/3</td><td>삭제</td></tr>
+</table>
+<p>경로가 짧아지고 규칙이 뚜렷해집니다.
+   주문이 생기면 <code>/api/orders</code> 가 될 것이 보지 않아도 짐작됩니다.</p>
+
+<h4>@RestController 의 뜻</h4>
+<p><code>@Controller</code> 였다면 돌려준 문자열을 화면 이름으로 찾았습니다.
+   <code>@RestController</code> 는 <b>돌려준 값을 그대로 본문</b>으로 씁니다.
+   객체를 돌려주면 JSON 으로 바꿔 내보냅니다.</p>
+
+<h4>상태 코드를 골라 쓰기</h4>
+<pre><i>// 검증에 걸렸을 때 — 400</i>
+return ResponseEntity.status(<b>HttpStatus.BAD_REQUEST</b>).body(body);
+
+<i>// 잘 됐을 때 — 200</i>
+return ResponseEntity.status(<b>HttpStatus.OK</b>).body(body);</pre>
+<p>둘을 갈라 쓰지 않으면 곤란해집니다.
+   무엇이 잘못돼도 200 을 내보내면 <b>받는 쪽이 성공한 줄 압니다</b>.
+   화면이 없는 API 라 사람이 눈으로 알아채지 못하므로,
+   <b>상태 코드가 유일한 신호</b>입니다.</p>
+<p>업무 규칙을 어겼을 때는 컨트롤러가 아무것도 안 합니다.
+   Service 가 던진 <code>MyBizException</code> 을 전역 핸들러가 받아
+   <b>400 으로 내보냅니다</b>. 컨트롤러는 검증 실패만 다룹니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st13">
+      <h3><i>13</i>트랜잭션</h3>
+      <aside class="side">
+        <p class="pt">전부 아니면 전무입니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">13 · 17 · 18 · 16점</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/sv_tx.png" alt="registerBulk 메서드 코드와, 세 건 중 둘째가 중복일 때 첫째까지 되돌아가 한 건도 저장되지 않는 콘솔 기록. 아래에 트랜잭션의 범위 · 던지는 예외의 종류 · 절반만 들어가면 안 되는 까닭 · 붙이는 자리를 정리한 표가 있다.">
+  <figcaption>트랜잭션과 전체 롤백. 세 항목 16점이 여기 걸려 있습니다.</figcaption>
+</figure>
+
+<h4>세 항목이 한 줄에 달려 있습니다</h4>
+<p>채점 항목 13(정합성 보장) · 17(일괄 등록을 한 트랜잭션으로) ·
+   18(중간 실패 시 전체 롤백) 이 모두 <code>@Transactional</code> 을 봅니다.
+   합쳐 16점입니다. <b>한 줄을 빠뜨리면 셋이 함께 빠집니다.</b></p>
+
+<h4>어디부터 어디까지가 한 묶음인가</h4>
+<p><code>@Transactional</code> 이 붙은 <b>메서드가 시작할 때 열리고
+   끝날 때 닫힙니다</b>. 가운데서 예외가 밖으로 나가면
+   그때까지 한 일이 전부 되돌아갑니다.</p>
+<p>그래서 <code>registerBulk</code> 에서 둘째 건이 중복이면
+   <b>첫째 건까지 사라집니다</b>.
+   저장은 이미 됐는데 아직 확정이 안 된 상태였기 때문입니다.</p>
+
+<h4>되돌리는 조건</h4>
+<pre><i>// 되돌립니다 — RuntimeException 계열</i>
+throw new MyBizException("⋯");          <b>○</b>
+throw new IllegalStateException("⋯");   <b>○</b>
+
+<i>// 안 되돌립니다 — 확인 예외(checked)</i>
+throw new IOException("⋯");             <b>×</b>  <i>// 기본 설정에서는 커밋됩니다</i>
+
+<i>// 굳이 되돌리려면 적어 주어야 합니다</i>
+@Transactional(<b>rollbackFor = Exception.class</b>)</pre>
+<p>이것이 <code>MyBizException</code> 이 <code>RuntimeException</code> 을
+   물려받은 까닭입니다. 별생각 없이 <code>Exception</code> 을 물려받으면
+   <b>일괄 등록 롤백이 조용히 안 됩니다</b>.
+   테스트를 돌려 보기 전에는 눈치채기 어렵습니다.</p>
+
+<h4>붙이는 자리</h4>
+<p>컨트롤러나 Repository 가 아니라 <b>Service 메서드</b>에 붙입니다.
+   컨트롤러에 붙이면 검증 실패까지 트랜잭션 안에 들어오고,
+   Repository 에 붙이면 한 건마다 따로 열려 묶이지 않습니다.
+   「한 업무의 시작과 끝」 이 Service 메서드이므로 거기가 맞습니다.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st14">
+      <h3><i>14</i>보안 취약성 제거</h3>
+      <aside class="side">
+        <p class="pt">세 가지를 모두 보여야 합니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">14 · 8점</p>
+        <b class="sh">셋</b>
+        <p class="v">검증 · 바인딩 · 비노출</p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/sv_sec.png" alt="음수 차단을 위한 @Min 어노테이션, JPA 가 물음표로 만들어 주는 바인딩, 그리고 전역 핸들러에서 예외를 한 문장으로 바꿔 내보내는 코드. 아래에 네 가지 취약점과 막는 방법을 정리한 표와, 실제로 음수와 SQL 문자열을 넣어 본 콘솔 기록이 있다.">
+  <figcaption>보안 취약성 제거 셋. 하나라도 빠지면 8점을 잃습니다.</figcaption>
+</figure>
+
+<h4>문턱에서 막기</h4>
+<p>가격이 음수인 상품은 있을 수 없습니다.
+   이것을 어디서 막을까요.
+   Service 에서 <code>if (price &lt; 0) throw ⋯</code> 로 막을 수도 있지만,
+   <b>더 바깥에서 막는 편이 낫습니다</b>.
+   <code>@Min(0)</code> 은 컨트롤러에 들어오기도 전에 걸러 냅니다.</p>
+<p>바깥에서 막으면 안쪽 코드가 간단해집니다.
+   Service 는 값이 이미 말이 된다고 믿고 업무 규칙만 봅니다.
+   검증과 업무 규칙이 섞이지 않는 것도 이 덕분입니다.</p>
+
+<h4>바인딩은 저절로 됩니다</h4>
+<p>JPA 를 쓰면 SQL 을 직접 쓰지 않으므로
+   문자열을 이어 붙일 일 자체가 없습니다.
+   쿼리메서드가 만들어 내는 SQL 은 <b>언제나 물음표</b>입니다.</p>
+<p>다만 저절로 된다는 것을 아는 것과 보고서에 적는 것은 다릅니다.
+   <code>show-sql=true</code> 로 찍힌 로그에서
+   <code>where p1_0.name=?</code> 부분을 캡처해 두면 증거가 됩니다.</p>
+
+<h4>밖으로 내보내지 않을 것</h4>
+<table>
+  <tr><th style="width:230px">이렇게 내보내면</th><th>무엇이 새어 나가는가</th></tr>
+  <tr><td class="k">스택 트레이스 전체</td>
+      <td>패키지 구조 · 파일 경로 · 라이브러리 버전</td></tr>
+  <tr><td class="k">SQLException 메시지</td>
+      <td>테이블 이름 · 컬럼 이름 · 제약 조건 이름</td></tr>
+  <tr><td class="k">「비밀번호가 틀렸습니다」</td>
+      <td>그 아이디는 <b>있다</b>는 사실</td></tr>
+</table>
+<p>마지막 것이 재미있습니다. 친절하려다 정보를 흘리는 경우입니다.
+   이 과제에는 로그인이 없지만 생각해 둘 만합니다.</p>
+<p>전역 핸들러는 두 갈래입니다.
+   <code>MyBizException</code> 은 <b>메시지를 그대로</b> 내보냅니다.
+   내가 적은 문장이니 안전합니다.
+   나머지는 <b>「서버 처리 중 오류가 발생했습니다.」</b> 한 문장으로 바꿉니다.
+   자세한 것은 서버 로그에만 남습니다.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 4 · 배치 프로그램 구현</b><span>능력단위요소 ④ · 채점 16 ~ 20 · 20점</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st15">
+      <h3><i>15</i>스케줄 배치</h3>
+      <aside class="side">
+        <p class="pt">사람이 부르지 않아도 스스로 돕니다.</p>
+        <b class="sh">채점 항목</b>
+        <p class="v">16 · 19 · 8점</p>
+        <b class="sh">채우는 곳</b>
+        <p class="v"><code>checkSoldOut</code></p>
+      </aside>
+      <div class="bd">
+
+<figure>
+  <img src="img/sv_batch.png" alt="BatchConfig 의 @EnableScheduling 과 ProductBatch 의 @Scheduled 및 checkSoldOut 코드, 그리고 기동한 뒤 콘솔에 품절 점검 로그가 찍히고 재고를 0 으로 바꾸자 숫자가 1 로 바뀌는 기록. 아래에 fixedDelay 와 fixedRate 의 차이 등 네 가지를 정리한 표가 있다.">
+  <figcaption>스케줄 배치. 숫자가 0 에서 1 로 바뀌는 두 줄이 증거입니다.</figcaption>
+</figure>
+
+<h4>배치란 무엇인가</h4>
+<p>지금까지 만든 것은 전부 <b>누가 불러야</b> 돌았습니다.
+   브라우저가 요청을 보내야 컨트롤러가 움직였습니다.
+   배치는 다릅니다. <b>때가 되면 스스로 돕니다.</b></p>
+<p>왜 필요한가. 재고가 0 이 된 것을 누가 알려 줄까요.
+   사람이 하루에 한 번 목록을 훑어볼 수도 있지만,
+   프로그램이 일 분마다 세어 주면 사람은 다른 일을 할 수 있습니다.
+   이것이 배치의 값입니다.</p>
+
+<h4>어노테이션 두 개</h4>
+<table>
+  <tr><th style="width:220px">어노테이션</th><th style="width:200px">어디에</th><th>하는 일</th></tr>
+  <tr><td class="k">@EnableScheduling</td><td class="k">BatchConfig</td>
+      <td>스케줄러를 켭니다. <b>없으면 아무것도 안 돕니다</b></td></tr>
+  <tr><td class="k">@Scheduled</td><td class="k">돌릴 메서드</td>
+      <td>얼마마다 돌지 정합니다</td></tr>
+</table>
+<p>따로 라이브러리를 넣지 않습니다. <b>스프링에 들어 있는 것</b>을 켜는 것뿐입니다.
+   작업지시서에도 「Spring 기본, 라이브러리 추가 없음」 이라 적혀 있습니다.
+   Spring Batch 라는 별도 기술이 있지만 <b>이 과제의 범위가 아닙니다</b>.</p>
+
+<h4>주기를 정하는 두 가지</h4>
+<pre>@Scheduled(<b>fixedDelay</b> = 60000)    <i>// 끝난 뒤부터 60초 세고 다시 시작</i>
+@Scheduled(<b>fixedRate</b> = 60000)     <i>// 시작한 뒤부터 60초 — 앞의 것이 안 끝나도</i>
+
+<i>// 이 과제가 쓰는 것 — 설정 파일에서 읽되 없으면 60000</i>
+@Scheduled(fixedDelayString = "<b>${batch.soldout.delay:60000}</b>")</pre>
+<p>일이 오래 걸릴 수 있으면 <code>fixedDelay</code> 가 안전합니다.
+   <code>fixedRate</code> 는 앞의 것이 안 끝났는데 다음 것이 시작될 수 있습니다.</p>
+<p>시연할 때는 <code>application-dev.properties</code> 에
+   <code>batch.soldout.delay=10000</code> 을 넣어 10초로 줄이면
+   기다리지 않고 보여 줄 수 있습니다.</p>
+
+<h4>readOnly 한 줄이 3점</h4>
+<p>채점 항목 19 가 <b>「checkSoldOut 을 @Transactional(readOnly=true)로」</b> 입니다.
+   세기만 하고 바꾸지 않는 메서드이므로 읽기 전용으로 두는 것이 맞습니다.
+   <b>어노테이션 한 줄이 3점</b>이니 빠뜨리지 마십시오.</p>
+      </div>
+    </div>
+
+    <div class="step" id="st16">
+      <h3><i>16</i>산출물 정리</h3>
+      <aside class="side">
+        <p class="pt">코드 · 캡처 · 문서 셋을 맞춥니다.</p>
+        <b class="sh">문서</b>
+        <p class="v">넷</p>
+      </aside>
+      <div class="bd">
+
+<h4>문서 넷은 표 한 장씩입니다</h4>
+<table>
+  <tr><th style="width:200px">문서</th><th style="width:230px">무엇을 적는가</th>
+      <th>덮는 채점 항목</th></tr>
+  <tr><td class="g">개발환경_명세서</td>
+      <td>의존성 다섯과 까닭 · 설정 파일 둘 · JDK · DB · 포트</td>
+      <td>1 · 2 · 3</td></tr>
+  <tr><td class="g">형상관리_방침</td>
+      <td>저장소 · 브랜치 전략 · 커밋 규칙 · 제외 대상</td>
+      <td>4 · 5</td></tr>
+  <tr><td class="g">업무프로세스맵</td>
+      <td>큰 길 한 줄 + 업무 여섯의 규칙과 차례</td>
+      <td>11</td></tr>
+  <tr><td class="g">테스트케이스_명세서</td>
+      <td>번호 · 무엇을 · 입력 · 기대 결과</td>
+      <td>10</td></tr>
+</table>
+
+<h4>캡처 다섯 컷</h4>
+<ol>
+  <li>목록 — <code>GET /api/products</code> 200 과 쪽 정보</li>
+  <li>등록 — <code>POST</code> 200 과 새로 받은 id</li>
+  <li>검증 실패 — 이름 빈 값 · 음수 가격으로 400 과 칸별 메시지</li>
+  <li>일괄 등록 — 성공한 것과 <b>중복으로 400 이 난 것</b> 둘</li>
+  <li>배치 로그 — 콘솔의 <code>[Batch]</code> 줄, 숫자가 바뀌는 두 줄</li>
+</ol>
+<p>네 번째에서 <b>실패한 쪽을 빠뜨리기 쉽습니다</b>.
+   성공만 보이면 「한 트랜잭션인지」 를 증명하지 못합니다.
+   중복을 섞어 올려 400 이 나고, 그 뒤 목록에 아무것도 안 늘어난 것까지
+   보여야 항목 18 이 들어옵니다.</p>
+
+<h4>제출 직전 점검 일곱</h4>
+<ol>
+  <li><code>ProductRestController</code> 안에 <code>productRepository</code> 가 없는가</li>
+  <li><code>ProductServiceImpl</code> 안에 <code>ResponseEntity</code> 가 없는가</li>
+  <li>Service 의 여섯 메서드에 <code>@Transactional</code> 이 다 붙었는가</li>
+  <li><code>checkSoldOut</code> 에 <code>readOnly = true</code> 가 붙었는가</li>
+  <li><code>gradlew test</code> 가 통과하는가</li>
+  <li><code>git log --oneline</code> 이 기능 단위로 나뉘어 있는가</li>
+  <li>문서 넷이 다 있는가</li>
+</ol>
+<p>일곱 가지를 훑는 데 십 분이면 됩니다.
+   그 십 분이 <b>합쳐 삼십 점 넘게</b> 지킵니다.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ 3 ═══════ -->
+<h2 class="sec" id="g3">3. 주요 감점 요인</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">한 줄이 빠지면 세 항목이 같이 빠집니다.</p>
+    <b class="sh">가장 큰 것</b>
+    <p class="v">@Transactional 누락</p>
+    <b class="sh">가장 아까운 것</b>
+    <p class="v">테스트를 안 돌림</p>
+  </aside>
+  <div class="bd">
+<p>아래 여덟 가지가 되풀이되는 감점입니다.
+   이 교과는 <b>한 가지가 여러 항목에 걸려 있습니다</b>.
+   <code>@Transactional</code> 한 줄이 16점,
+   테스트가 14점,
+   계층 분리가 10점입니다.
+   <b>세 가지만 지켜도 40점</b>이 확보됩니다.</p>
+
+<figure>
+  <img src="img/sv_bad.png" alt="컨트롤러가 Repository 호출 · @Transactional 없음 · int 로 받은 price · 예외를 그대로 노출 · 수정에서 save 호출 · 배치 로그가 한 번만 · 테스트를 안 돌림 · 커밋이 한 덩이 여덟 가지의 감점 모습과 보완 방법을 정리한 표.">
+  <figcaption>자주 나오는 감점과 보완. 왼쪽이 실제로 자주 나오는 모습입니다.</figcaption>
+</figure>
+
+<div class="warn">
+  시간이 모자랄 때 가장 먼저 버려지는 것이 <b>테스트와 문서</b>입니다.
+  그런데 이 둘이 합쳐 <b>33점</b>입니다.
+  코드를 한 기능 덜 만들더라도
+  <b>테스트 세 개와 문서 네 장은 남기십시오</b>.
+  그 편이 점수가 높습니다.
+</div>
+  </div>
+</div>
+
+<footer>
+  서버프로그램 구현 · 5수준 · 64시간 · 담당 정우균 ·
+  (디지털컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E<br>
+  예제는 평가도구 작업지시서의 EX01 S-Product 이며, 제공되는 프로젝트와 클래스 이름은
+  실제 평가에서 달라질 수 있습니다.
+</footer>
+
+</div>
+
+<script>
+/* 빠른 이동 — 지금 보는 단원을 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"],a[href="#g3"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+  function mark() {
+    var y = window.pageYOffset + 90, cur = -1;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function () { mark(); tick = false; });
+  });
+  mark();
+})();
+</script>
