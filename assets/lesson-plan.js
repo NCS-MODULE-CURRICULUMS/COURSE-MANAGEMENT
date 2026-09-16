@@ -13,6 +13,7 @@
 window.CM_LESSON_PLAN = {
   src: "파이썬_표준강의교안_샘플.xlsx · 코리아AI아카데미 표준안 v1.0",
   file: "../docs/파이썬_표준강의교안_샘플.xlsx",
+  view: "../docs/표준강의교안-샘플.html",
   sheets: [
     {
       id: "outline", no: "①", name: "교과개요",

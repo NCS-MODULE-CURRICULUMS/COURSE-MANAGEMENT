@@ -94,12 +94,13 @@
   /* 3. 표준 강의 교안 6개 시트 */
   var LP = window.CM_LESSON_PLAN || {sheets:[], rules:[]};
   document.getElementById('lpSrc').textContent = LP.src || '';
-  document.getElementById('lpCards').innerHTML = LP.sheets.map(function(s){
+  document.getElementById('lpCards').innerHTML = LP.sheets.map(function(s, i){
     var tags = (s.simsa ? '<span class="tag">심사 증빙</span>' : '') +
                (s.student ? '<span class="tag">훈련생 배포</span>' : '');
     return card(esc(s.no + ' ' + s.name) + tags, s.what,
       [['핵심 항목', s.keys.join(' / ')], ['작성 주체', s.who]],
-      '<a class="btn" href="' + LP.file + '" download>양식 내려받기</a>');
+      '<a class="btn" href="' + LP.view + '#s' + (i + 1) + '">양식 보기</a>' +
+      '<a class="btn" href="' + LP.file + '" download>xlsx</a>');
   }).join('');
   document.getElementById('lpRules').innerHTML =
     (LP.rules || []).map(function(r){ return '<li>' + esc(r) + '</li>'; }).join('');

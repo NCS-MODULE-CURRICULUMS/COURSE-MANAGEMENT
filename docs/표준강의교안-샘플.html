@@ -1,0 +1,363 @@
+<meta charset="utf-8"><title>표준 강의 교안 양식</title>
+<link rel="stylesheet" href="../assets/site.css">
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>자료 / 표준 강의 교안 양식</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div>
+<div class="nav" id="tabs"><a href="#s0" data-i="0" class="act">작성안내</a><a href="#s1" data-i="1">교과개요</a><a href="#s2" data-i="2">NCS매핑</a><a href="#s3" data-i="3">주차별계획</a><a href="#s4" data-i="4">차시별지도안</a><a href="#s5" data-i="5">평가계획</a><a href="#s6" data-i="6">훈련생안내</a></div>
+</div>
+<script>EXAM_AUTH.paintTop("../");</script>
+<style>
+  .sub2{font-size:15px;margin:22px 0 8px;padding-bottom:6px;border-bottom:1px solid #000;font-weight:700}
+  .memo{font-size:12.5px;line-height:1.7;color:#555}
+  .tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table.xl{font-size:12px;table-layout:auto}
+  table.xl td{border:1px solid #999;padding:5px 7px;text-align:left;vertical-align:top;
+               line-height:1.6;min-width:58px}
+  table.xl td.in{background:#fffbe6}        /* 작성자 입력칸 */
+  table.xl td.lb{background:#f0f0f0;font-weight:700;white-space:nowrap}  /* 항목 라벨 */
+  table.xl td.gr{background:#eef6ee}        /* 심사·인증 중점 */
+  table.xl td.bd{font-weight:700}
+  .lgd{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;margin:12px 0;
+        border:1px solid #000;padding:9px 13px}
+  .lgd i{display:inline-block;width:13px;height:13px;border:1px solid #999;
+         vertical-align:-2px;margin-right:5px}
+  .bar{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}
+  .bar a,.bar button{border:1px solid #000;background:#fff;color:#000;padding:5px 14px;
+              font-size:12.5px;cursor:pointer;font-family:inherit;text-decoration:none}
+  .bar a:hover,.bar button:hover{background:#000;color:#fff}
+  [hidden]{display:none}
+  @media print{.top,.bar,.lgd{display:none} .pane[hidden]{display:block}}
+</style>
+<div class="wrap">
+<h1>표준 강의 교안 양식</h1>
+<p class="sub">교과목 운영계획서 · 코리아AI아카데미 표준안 v1.0 · 과정평가형 · 일반국비(계좌제) · KDT 공통</p>
+
+<div class="lgd">
+  <span><i style="background:#fffbe6"></i>작성자 입력칸</span>
+  <span><i style="background:#f0f0f0"></i>항목 라벨 — 수정하지 않음</span>
+  <span><i style="background:#fff"></i>자동 계산 — 수정하지 않음</span>
+  <span><i style="background:#eef6ee"></i>심사 · 인증 중점 확인</span>
+</div>
+
+<div class="bar">
+  <a href="파이썬_표준강의교안_샘플.xlsx" download>xlsx 내려받기</a>
+  <button id="bAll" type="button">전체 시트 펼치기</button>
+  <button id="bPrint" type="button">인쇄 · PDF</button>
+</div>
+
+<section id="s0" class="pane"><h2 class="sub2">작성안내</h2><div class="tscroll"><table class="xl">
+<tr><td colspan="6" class="bd">표준 강의 교안(교과목 운영계획서) 양식 — 작성 안내</td></tr>
+<tr><td colspan="6">코리아AI아카데미 표준안 v1.0 | 과정평가형·일반 국비(계좌제)·KDT 공통 | 심사·인증 증빙 및 훈련생 안내 겸용</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td class="bd">1. 색상 범례</td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td class="in">노란 배경 + 파란 글씨</td><td>작성자가 직접 입력하는 칸 (샘플 값이 미리 채워져 있음 → 과목에 맞게 교체)</td><td></td><td></td><td></td></tr>
+<tr><td></td><td class="lb">회색 배경</td><td>항목 라벨 — 수정하지 않음</td><td></td><td></td><td></td></tr>
+<tr><td></td><td>흰 배경 검정 글씨</td><td>수식(자동 계산) — 수정하지 않음. 시간 합계·비중 합계·NCS 시간 배분이 자동 계산됨</td><td></td><td></td><td></td></tr>
+<tr><td></td><td class="gr">연두 배경</td><td>심사·인증 시 중점 확인 항목 (필수 기재)</td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td class="bd">2. 시트 구성과 용도</td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td class="bd">시트</td><td class="bd">내용</td><td class="bd">증빙(심사)</td><td class="bd">훈련생 안내</td><td class="bd">작성 주체</td></tr>
+<tr><td></td><td>① 교과개요</td><td>교과목 기본정보·훈련유형·목표·강사·교재·장비·결재란 (표지 겸용)</td><td>●</td><td>○</td><td>교과 담당강사</td></tr>
+<tr><td></td><td>② NCS매핑</td><td>NCS 능력단위·요소·수행준거와 차시 연결, 요소별 편성시간 자동 집계</td><td>●</td><td>-</td><td>교과 담당강사</td></tr>
+<tr><td></td><td>③ 주차별계획</td><td>차시별 학습내용·이론/실습 시간·평가 시점·능력단위요소 코드</td><td>●</td><td>●</td><td>교과 담당강사</td></tr>
+<tr><td></td><td>④ 차시별지도안</td><td>차시별 도입-전개-정리 단계의 교수학습활동·시간·자료·평가</td><td>●</td><td>-</td><td>교과 담당강사</td></tr>
+<tr><td></td><td>⑤ 평가계획</td><td>평가방법·비중·시기, 채점 루브릭, 이수·재평가 기준(유형별)</td><td>●</td><td>●</td><td>담당강사 + 교무</td></tr>
+<tr><td></td><td>⑥ 훈련생안내</td><td>훈련생 배포용 1페이지 요약(목표·준비물·과제·출결·평가·문의)</td><td>-</td><td>●</td><td>교무 행정</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td class="bd">3. 작성 원칙</td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td colspan="5">1. 훈련시간 단위: 1시간 = 50분 수업 + 10분 휴식(기관 규정에 따름). 총 훈련시간은 ③주차별계획의 합계가 기준이며 ①·②·⑥에 자동 반영된다.</td></tr>
+<tr><td></td><td colspan="5">2. 훈련유형별 필수 항목: 과정평가형 → ②NCS매핑 + ⑤능력단위별 내부평가(100점 환산) 필수 / KDT → ⑤프로젝트(실무)평가 및 ③프로젝트 차시 필수 / 일반 국비 → ①·③·⑤ 필수, ②는 NCS 기반 과정일 때 작성.</td></tr>
+<tr><td></td><td colspan="5">3. NCS 코드는 ncs.go.kr에서 최신 버전(예: _20v4)을 확인해 기재하고, 개정 시 코드·버전을 함께 갱신한다.</td></tr>
+<tr><td></td><td colspan="5">4. 차시별지도안은 &#x27;실제 수업에서 무엇을 어떻게 했는지&#x27;가 드러나야 하며, 현장 모니터링 시 훈련일지·출석부와 대조되므로 ③주차별계획과 차시 번호를 일치시킨다.</td></tr>
+<tr><td></td><td colspan="5">5. 평가 비중 합계는 100%가 되어야 하며(⑤ 자동 검증), 평가 문항·루브릭은 수행준거 문장에서 도출한다.</td></tr>
+<tr><td></td><td colspan="5">6. 훈련생 배포 시에는 ⑥훈련생안내 시트만 PDF로 출력해 전달하고, 심사 제출 시에는 전체 시트를 인쇄한다(각 시트 A4 가로 인쇄 설정 완료).</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td class="bd">4. 참고 근거</td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td colspan="5">과정평가형 이수기준: 능력단위별 출석률 75% 이상 + 모든 내부평가 참여, 능력단위별 100점 환산, 지필·실무평가 병행, 내·외부평가 1:1 반영 평균 80점 이상 합격 [출처: 큐넷 과정평가형자격 운영절차 c.q-net.or.kr]</td></tr>
+<tr><td></td><td colspan="5">NCS 분류: 20.정보통신 &gt; 01.정보기술 &gt; 02.정보기술개발 &gt; 03.응용SW엔지니어링 &gt; 프로그래밍 언어 활용(2001020215_20v4) — 세부 코드·버전은 ncs.go.kr에서 최종 확인 필요 [출처: NCS 국가직무능력표준 ncs.go.kr]</td></tr>
+<tr><td></td><td colspan="5">KDT 심사: 훈련내용의 실무·프로젝트 중심 구성, 강사 요건(선도기업 아카데미의 경우 현직자 참여 80% 이상), 취업률(수료 6개월 후 산정) 등을 종합 심사 [출처: 대한민국 정책브리핑 korea.kr]</td></tr>
+</table></div></section><section id="s1" class="pane" hidden><h2 class="sub2">교과개요</h2><div class="tscroll"><table class="xl">
+<tr><td colspan="8" class="bd">강의 교안 (교과목 운영계획서)</td></tr>
+<tr><td colspan="8">훈련기관: 코리아AI아카데미 | 문서번호: KAA-LP-2026-PY01 | 작성일: 2026-09-09</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="4" class="bd">1. 교과목 기본 정보</td><td></td><td class="lb">결재</td><td class="lb">담당강사</td><td class="lb">교무팀장</td></tr>
+<tr><td class="lb">훈련과정명</td><td class="in">AI 융합 파이썬 백엔드 개발자 양성과정 (예시)</td><td class="lb">훈련유형</td><td class="in">☑ 과정평가형  ☑ 일반국비(계좌제)  ☑ KDT</td><td></td><td rowspan="2" class="lb"></td><td class="in">(서명)</td><td class="in">(서명)</td></tr>
+<tr><td class="lb">교과목명</td><td class="in">파이썬 프로그래밍 기초</td><td class="lb">교과목 코드</td><td class="in">PY-101</td><td></td><td colspan="2" class="in">결재일:          .    .</td></tr>
+<tr><td class="lb">훈련기간</td><td class="in">2026-10-05 ~ 2026-10-16 (2주, 10일)</td><td class="lb">교육시간</td><td class="in">월~금 09:00 ~ 13:00 (1일 4시간)</td><td></td><td class="lb">부원장</td><td class="in">(서명)</td><td class="in"></td></tr>
+<tr><td class="lb">담당강사</td><td class="in">홍길동 (정보처리기사, 파이썬 실무 8년)</td><td class="lb">보조강사/멘토</td><td class="in">김멘토 (실습 보조, 과제 피드백)</td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="lb">훈련장소</td><td class="in">본원 3층 실습실 A (PC 25대)</td><td class="lb">정원</td><td class="in">20명</td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="lb">총 훈련시간</td><td class="bd">40</td><td class="lb">이론 / 실습</td><td>12.5시간 / 27.5시간</td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="lb">평가 시간(포함)</td><td>2</td><td class="lb">실습 비율</td><td>0.6875</td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="8" class="bd">2. NCS 분류 및 능력단위</td></tr>
+<tr><td class="lb">NCS 분류</td><td colspan="3" class="in">20.정보통신 &gt; 01.정보기술 &gt; 02.정보기술개발 &gt; 03.응용SW엔지니어링</td><td class="lb">능력단위(코드)</td><td colspan="3" class="in">프로그래밍 언어 활용 (2001020215_20v4) — 수준 3</td></tr>
+<tr><td class="lb">능력단위요소</td><td colspan="7" class="in">① 기본문법 활용하기  ② 언어특성 활용하기  ③ 라이브러리 활용하기  (요소별 편성시간은 ②NCS매핑 시트 자동 집계)</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="8" class="bd">3. 교육 목표 및 내용</td></tr>
+<tr><td class="lb">교과 목표(총괄)</td><td colspan="7" class="gr">파이썬의 기본 문법과 언어 특성을 이해하고, 표준·외부 라이브러리를 활용하여 데이터 처리 및 소규모 응용 프로그램을 독립적으로 설계·구현·발표할 수 있다.</td></tr>
+<tr><td rowspan="4" class="lb">세부 학습목표</td><td colspan="7" class="in">1) 변수·자료형·연산자·제어문·자료구조·함수를 활용하여 요구사항에 맞는 프로그램을 작성할 수 있다. (요소①)</td></tr>
+<tr><td colspan="7" class="in">2) 모듈화, 예외처리, 객체지향(클래스·상속) 등 파이썬의 언어 특성을 적용하여 유지보수 가능한 코드를 작성할 수 있다. (요소②)</td></tr>
+<tr><td colspan="7" class="in">3) 표준 라이브러리와 외부 패키지(pandas, matplotlib 등)를 검색·설치·활용하여 파일 및 데이터를 처리하고 시각화할 수 있다. (요소③)</td></tr>
+<tr><td colspan="7" class="in">4) 팀 단위 미니 프로젝트를 기획·구현·발표하고 Git으로 산출물을 관리할 수 있다. (KDT 프로젝트 역량)</td></tr>
+<tr><td class="lb">선수학습/입과요건</td><td colspan="7" class="in">컴퓨터 기본 조작 가능자. 프로그래밍 경험 불필요(입과 전 사전 진단 테스트 실시, 미달자는 사전 학습 자료 제공)</td></tr>
+<tr><td class="lb">교수학습 방법</td><td colspan="7" class="in">이론 강의(30%) + 라이브 코딩 실습(50%) + 팀 프로젝트/발표(20%). 매 차시 실습 과제, 격주 형성평가, 종료 시 능력단위 내부평가</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="8" class="bd">4. 교재·장비·자료</td></tr>
+<tr><td class="lb">주교재</td><td colspan="3" class="in">자체 제작 교안(PDF) + 실습 노트북(Jupyter)</td><td class="lb">부교재/참고</td><td colspan="3" class="in">파이썬 공식 문서 docs.python.org, NCS 학습모듈 &#x27;프로그래밍 언어 활용&#x27;</td></tr>
+<tr><td class="lb">SW/개발환경</td><td colspan="3" class="in">Python 3.12, VS Code, Jupyter, Git/GitHub, pandas, matplotlib</td><td class="lb">HW/장비</td><td colspan="3" class="in">실습용 PC 25대(8GB↑), 빔프로젝터, 전자칠판, 화이트보드</td></tr>
+<tr><td class="lb">LMS/소통 채널</td><td colspan="7" class="in">기관 LMS(과제 제출·출결), 슬랙 채널(질의응답, 공지)</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="8" class="bd">5. 평가 개요 (상세는 ⑤평가계획)</td></tr>
+<tr><td class="lb">평가 방법</td><td colspan="7">형성평가(퀴즈) 10% / 실습과제 30% / 지필평가 20% / 실무평가(프로젝트) 40%</td></tr>
+<tr><td class="lb">이수 기준</td><td colspan="7" class="gr">출석률 80% 이상(과정평가형: 능력단위별 75% 이상) + 모든 내부평가 참여 + 종합 60점 이상. 능력단위별 100점 환산 성적을 별도 산출</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="lb">비고/특이사항</td><td colspan="7" class="in">본 교과 종료 후 &#x27;웹 백엔드(Django)&#x27; 교과로 연계. 프로젝트 산출물은 GitHub 저장소 링크로 제출·보관(증빙용).</td></tr>
+</table></div></section><section id="s2" class="pane" hidden><h2 class="sub2">NCS매핑</h2><div class="tscroll"><table class="xl">
+<tr><td colspan="8" class="bd">② NCS 능력단위 매핑표</td></tr>
+<tr><td colspan="8">능력단위: 프로그래밍 언어 활용 (2001020215_20v4) | 요소별 편성시간은 ③주차별계획의 &#x27;NCS요소&#x27; 열에서 자동 집계 | 코드·버전은 ncs.go.kr에서 최종 확인</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="bd">능력단위요소(코드)</td><td class="bd">수행준거 번호</td><td class="bd">수행준거 (NCS 원문 기준으로 기재)</td><td class="bd">연계 차시</td><td class="bd">편성시간(h)</td><td class="bd">비율</td><td class="bd">평가 방법</td><td class="bd">평가 차시</td></tr>
+<tr><td rowspan="3" class="gr">기본문법 활용하기<br>(2001020215_20v4.1)</td><td class="in">1.1</td><td class="in">응용소프트웨어 개발에 필요한 프로그래밍 언어의 데이터 타입, 변수, 연산자를 활용하여 프로그램을 작성할 수 있다.</td><td rowspan="3" class="in">1~7차시</td><td rowspan="3">14</td><td rowspan="3">0.35</td><td rowspan="3" class="in">형성평가①, 실습과제</td><td rowspan="3" class="in">7차시</td></tr>
+<tr><td class="in">1.2</td><td class="in">조건문·반복문 등 제어문을 활용하여 프로그램의 흐름을 구성할 수 있다.</td></tr>
+<tr><td class="in">1.3</td><td class="in">배열(리스트)·딕셔너리 등 자료구조를 활용하여 데이터를 저장·처리할 수 있다.</td></tr>
+<tr><td rowspan="3" class="gr">언어특성 활용하기<br>(2001020215_20v4.2)</td><td class="in">2.1</td><td class="in">함수·프로시저를 정의하고 매개변수와 반환값을 활용하여 모듈화된 프로그램을 작성할 수 있다.</td><td rowspan="3" class="in">8~9, 11, 13~14차시</td><td rowspan="3">10</td><td rowspan="3">0.25</td><td rowspan="3" class="in">형성평가②, 실습과제</td><td rowspan="3" class="in">14차시</td></tr>
+<tr><td class="in">2.2</td><td class="in">예외처리 기법을 적용하여 오류에 안정적인 프로그램을 작성할 수 있다.</td></tr>
+<tr><td class="in">2.3</td><td class="in">객체지향 언어의 클래스·상속·다형성 특성을 활용하여 프로그램을 작성할 수 있다.</td></tr>
+<tr><td rowspan="2" class="gr">라이브러리 활용하기<br>(2001020215_20v4.3)</td><td class="in">3.1</td><td class="in">표준 라이브러리를 검색·활용하여 프로그램에 필요한 기능을 구현할 수 있다.</td><td rowspan="2" class="in">10, 12, 15~17차시</td><td rowspan="2">10</td><td rowspan="2">0.25</td><td rowspan="2" class="in">실습과제, 지필평가</td><td rowspan="2" class="in">20차시</td></tr>
+<tr><td class="in">3.2</td><td class="in">외부 라이브러리를 설치·활용하여 파일·데이터 처리 및 시각화 기능을 구현할 수 있다.</td></tr>
+<tr><td class="gr">종합(프로젝트)<br>요소 ①②③ 통합</td><td class="in">P</td><td class="in">요구사항을 분석하고 기본문법·언어특성·라이브러리를 종합 활용하여 소규모 응용 프로그램을 구현·발표할 수 있다.</td><td class="in">18~20차시</td><td>6</td><td>0.15</td><td class="in">실무평가(프로젝트), 지필평가</td><td class="in">20차시</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="4" class="lb">합계</td><td class="bd">40</td><td class="bd">1</td><td colspan="2" class="bd">✔ 주차별계획 총시간과 일치</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="8">※ 수행준거 문장은 NCS 포털(ncs.go.kr)의 능력단위 원문을 그대로 옮겨 적는다. 위 문장은 샘플용 요약본이며, 심사 제출 전 원문·버전으로 교체할 것. 과정평가형은 능력단위별 편성시간과 내부평가 시기가 편성기준과 일치해야 한다.</td></tr>
+</table></div></section><section id="s3" class="pane" hidden><h2 class="sub2">주차별계획</h2><div class="tscroll"><table class="xl">
+<tr><td colspan="10" class="bd">③ 주차별·차시별 훈련 계획</td></tr>
+<tr><td colspan="10">교과목: 파이썬 프로그래밍 기초 | 총 40시간 (10일 × 4시간, 1일 2차시 × 2시간) | 평가 차시는 훈련시간에 포함</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="bd">일차</td><td class="bd">차시</td><td class="bd">단원(대주제)</td><td class="bd">학습내용(소주제·활동)</td><td class="bd">이론(h)</td><td class="bd">실습(h)</td><td class="bd">평가(h)</td><td class="bd">소계(h)</td><td class="bd">평가/과제</td><td class="bd">NCS요소</td></tr>
+<tr><td class="in">1</td><td class="in">1</td><td class="in">파이썬 개요·개발환경</td><td class="in">파이썬 특징과 활용 분야, Python/VS Code/Jupyter 설치, 첫 프로그램 실행, Git 계정 생성</td><td class="in">1</td><td class="in">1</td><td class="in">0</td><td>2</td><td class="in"></td><td class="in">2001020215_20v4.1</td></tr>
+<tr><td class="in">1</td><td class="in">2</td><td class="in">변수와 자료형</td><td class="in">변수·상수, 숫자/문자열/불리언, 형변환, 산술·비교·논리 연산자, 입출력(input/print)</td><td class="in">1</td><td class="in">1</td><td class="in">0</td><td>2</td><td class="in"></td><td class="in">2001020215_20v4.1</td></tr>
+<tr><td class="in">2</td><td class="in">3</td><td class="in">문자열 처리</td><td class="in">인덱싱·슬라이싱, 문자열 메서드, f-string 포매팅, 이스케이프</td><td class="in">0.5</td><td class="in">1.5</td><td class="in">0</td><td>2</td><td class="in"></td><td class="in">2001020215_20v4.1</td></tr>
+<tr><td class="in">2</td><td class="in">4</td><td class="in">조건문</td><td class="in">if/elif/else, 중첩 조건, 논리 연산 결합, 조건식 활용 실습(성적 계산기)</td><td class="in">0.5</td><td class="in">1.5</td><td class="in">0</td><td>2</td><td class="in"></td><td class="in">2001020215_20v4.1</td></tr>
+<tr><td class="in">3</td><td class="in">5</td><td class="in">반복문</td><td class="in">for/while, range, break/continue, 중첩 반복, 패턴 출력 실습</td><td class="in">0.5</td><td class="in">1.5</td><td class="in">0</td><td>2</td><td class="in"></td><td class="in">2001020215_20v4.1</td></tr>
+<tr><td class="in">3</td><td class="in">6</td><td class="in">리스트와 튜플</td><td class="in">리스트 생성·수정·메서드, 튜플, 리스트 컴프리헨션, 정렬</td><td class="in">0.5</td><td class="in">1.5</td><td class="in">0</td><td>2</td><td class="in"></td><td class="in">2001020215_20v4.1</td></tr>
+<tr><td class="in">4</td><td class="in">7</td><td class="in">딕셔너리와 집합</td><td class="in">key-value 구조, 딕셔너리 메서드, 집합 연산, 자료구조 선택 기준</td><td class="in">0.5</td><td class="in">1.5</td><td class="in">0</td><td>2</td><td class="in">형성평가①</td><td class="in">2001020215_20v4.1</td></tr>
+<tr><td class="in">4</td><td class="in">8</td><td class="in">함수 기초</td><td class="in">함수 정의·호출, 매개변수·반환값, 기본값·가변 인자, 독스트링</td><td class="in">1</td><td class="in">1</td><td class="in">0</td><td>2</td><td class="in"></td><td class="in">2001020215_20v4.2</td></tr>
+<tr><td class="in">5</td><td class="in">9</td><td class="in">함수 심화</td><td class="in">스코프(global/nonlocal), 람다, 재귀, 고차함수(map/filter), 타입 힌트</td><td class="in">1</td><td class="in">1</td><td class="in">0</td><td>2</td><td class="in"></td><td class="in">2001020215_20v4.2</td></tr>
+<tr><td class="in">5</td><td class="in">10</td><td class="in">모듈과 패키지</td><td class="in">import 구조, 표준 라이브러리(math, random, datetime, os), 사용자 모듈 작성</td><td class="in">0.5</td><td class="in">1.5</td><td class="in">0</td><td>2</td><td class="in"></td><td class="in">2001020215_20v4.3</td></tr>
+<tr><td class="in">6</td><td class="in">11</td><td class="in">예외 처리</td><td class="in">try/except/else/finally, 예외 계층, 사용자 정의 예외, 방어적 코딩</td><td class="in">1</td><td class="in">1</td><td class="in">0</td><td>2</td><td class="in"></td><td class="in">2001020215_20v4.2</td></tr>
+<tr><td class="in">6</td><td class="in">12</td><td class="in">파일 입출력</td><td class="in">텍스트/CSV/JSON 읽기·쓰기, with 문, 인코딩, 로그 파일 처리 실습</td><td class="in">0.5</td><td class="in">1.5</td><td class="in">0</td><td>2</td><td class="in"></td><td class="in">2001020215_20v4.3</td></tr>
+<tr><td class="in">7</td><td class="in">13</td><td class="in">클래스와 객체</td><td class="in">클래스 정의, __init__, 인스턴스/클래스 변수, 메서드, 캡슐화</td><td class="in">1</td><td class="in">1</td><td class="in">0</td><td>2</td><td class="in"></td><td class="in">2001020215_20v4.2</td></tr>
+<tr><td class="in">7</td><td class="in">14</td><td class="in">상속과 다형성</td><td class="in">상속, 메서드 오버라이딩, super(), 특수 메서드(__str__, __len__), 객체지향 설계 실습</td><td class="in">1</td><td class="in">1</td><td class="in">0</td><td>2</td><td class="in">형성평가②</td><td class="in">2001020215_20v4.2</td></tr>
+<tr><td class="in">8</td><td class="in">15</td><td class="in">외부 라이브러리 활용</td><td class="in">pip·가상환경(venv), requests로 공개 API 호출, 패키지 문서 읽는 법</td><td class="in">0.5</td><td class="in">1.5</td><td class="in">0</td><td>2</td><td class="in"></td><td class="in">2001020215_20v4.3</td></tr>
+<tr><td class="in">8</td><td class="in">16</td><td class="in">데이터 처리(pandas 기초)</td><td class="in">DataFrame 생성·조회·필터·집계, CSV 데이터 정제 실습</td><td class="in">0.5</td><td class="in">1.5</td><td class="in">0</td><td>2</td><td class="in"></td><td class="in">2001020215_20v4.3</td></tr>
+<tr><td class="in">9</td><td class="in">17</td><td class="in">데이터 시각화</td><td class="in">matplotlib 기본 차트(막대·선·산점도), 제목·축·범례, 결과 저장</td><td class="in">0.5</td><td class="in">1.5</td><td class="in">0</td><td>2</td><td class="in"></td><td class="in">2001020215_20v4.3</td></tr>
+<tr><td class="in">9</td><td class="in">18</td><td class="in">미니 프로젝트 기획·설계</td><td class="in">팀 편성, 주제 선정(공공데이터 분석/간단 CLI 앱), 요구사항·기능 명세, Git 저장소 구성</td><td class="in">0.5</td><td class="in">1.5</td><td class="in">0</td><td>2</td><td class="in"></td><td class="in">프로젝트(①②③)</td></tr>
+<tr><td class="in">10</td><td class="in">19</td><td class="in">미니 프로젝트 구현</td><td class="in">기능 구현, 코드 리뷰, 예외처리·리팩토링, README 작성</td><td class="in">0</td><td class="in">2</td><td class="in">0</td><td>2</td><td class="in"></td><td class="in">프로젝트(①②③)</td></tr>
+<tr><td class="in">10</td><td class="in">20</td><td class="in">프로젝트 발표 및 내부평가</td><td class="in">팀별 발표(10분)·피드백, 지필평가(40분), 실무평가(코딩 과제 60분)</td><td class="in">0</td><td class="in">0</td><td class="in">2</td><td>2</td><td class="in">지필+실무평가</td><td class="in">프로젝트(①②③)</td></tr>
+<tr><td colspan="4" class="lb">합계 (총 훈련시간)</td><td class="bd">12.5</td><td class="bd">25.5</td><td class="bd">2</td><td class="bd">40</td><td colspan="2" class="bd">✔ 계획시간 일치</td></tr>
+<tr><td colspan="4" class="lb">분류 집계 → 이론 / 실습(평가 포함) / 총계</td><td class="lb"></td><td class="bd">12.5</td><td class="bd">27.5</td><td class="bd">40</td><td colspan="2">※ 실습 비율 = G26/H26</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="10">※ 작성 요령: 차시 번호는 ④차시별지도안·훈련일지와 동일하게 유지. 평가(h)는 평가 실시 시간만 기재(훈련시간 포함). NCS요소 열은 능력단위요소 코드 또는 &#x27;프로젝트&#x27;로 표기하며 ②NCS매핑에서 자동 집계됨.</td></tr>
+</table></div></section><section id="s4" class="pane" hidden><h2 class="sub2">차시별지도안</h2><div class="tscroll"><table class="xl">
+<tr><td colspan="8" class="bd">④ 차시별 상세 지도안</td></tr>
+<tr><td colspan="8">차시 = 2시간(120분: 50분 수업 + 10분 휴식 × 2) | 도입 → 전개 → 정리 | ③주차별계획과 차시 번호 일치</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="bd">차시</td><td class="bd">학습주제 / 학습목표</td><td class="bd">단계</td><td class="bd">시간(분)</td><td class="bd">교수·학습 활동 (강사 ↔ 훈련생)</td><td class="bd">교수자료·도구</td><td class="bd">평가·과제</td><td class="bd">비고</td></tr>
+<tr><td rowspan="3" class="gr">1</td><td rowspan="3" class="in">파이썬 개요와 개발환경 구축 / 개발환경을 설치하고 첫 프로그램을 실행할 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">오리엔테이션(교과 목표·평가·출결 안내), 파이썬 활용 사례 소개, 사전 진단 결과 공유</td><td class="in">교과개요, 훈련생안내 시트, 사례 영상</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[강사] Python·VS Code·Jupyter 설치 시연 → [훈련생] 개별 설치, print(&#x27;Hello&#x27;) 실행, Git 계정 생성 → [강사] 순회 점검·오류 해결</td><td class="in">설치 가이드 PDF, 체크리스트</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">설치 체크리스트 제출, 다음 차시 예고</td><td class="in">LMS 체크리스트</td><td class="in">체크리스트</td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">2</td><td rowspan="3" class="in">변수와 자료형, 연산자 / 변수와 기본 자료형을 선언하고 연산자로 값을 계산할 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">전 차시 복습 퀴즈(3문항), 일상 속 데이터 유형 예시로 자료형 동기 유발</td><td class="in">슬라이드, 퀴즈(멘티미터)</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[강사] 변수·자료형·형변환·연산자 라이브 코딩 → [훈련생] 따라하기 → 실습: BMI 계산기, 거스름돈 계산 → 페어 코드 리뷰</td><td class="in">실습 노트북 02, 실습 문제지</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">핵심 정리, 실습과제 02(온도 변환기) 공지</td><td class="in">LMS 과제</td><td class="in">실습과제 02 (LMS 제출)</td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">3</td><td rowspan="3" class="in">문자열 처리 / 문자열 메서드와 포매팅으로 텍스트를 가공할 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">과제 02 우수 코드 공유, 문자열 처리 실무 사례(로그·이름 정제)</td><td class="in">과제 피드백 자료</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[강사] 인덱싱·슬라이싱·메서드·f-string 시연 → [훈련생] 실습: 이메일 도메인 추출, 주민번호 마스킹, 문자열 역순 판별</td><td class="in">실습 노트북 03</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">정리 퀴즈, 실습과제 03 공지</td><td class="in">LMS 과제</td><td class="in">실습과제 03 (LMS 제출)</td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">4</td><td rowspan="3" class="in">조건문 / 조건에 따라 프로그램 흐름을 분기할 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">순서도로 분기 개념 소개, &#x27;성적 등급 판정&#x27; 문제 제시</td><td class="in">순서도 슬라이드</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[강사] if/elif/else·중첩·논리 결합 시연 → [훈련생] 실습: 성적 계산기, 윤년 판별, 로그인 검증 → 코드 리뷰</td><td class="in">실습 노트북 04</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">자주 하는 실수(들여쓰기·비교연산) 정리, 과제 04 공지</td><td class="in">LMS 과제</td><td class="in">실습과제 04 (LMS 제출)</td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">5</td><td rowspan="3" class="in">반복문 / 반복문으로 반복 작업을 자동화할 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">반복 자동화 사례(엑셀 반복작업 대체) 소개</td><td class="in">사례 슬라이드</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[강사] for/while·range·break/continue·중첩 반복 시연 → [훈련생] 실습: 구구단, 별 패턴, 소수 찾기, 숫자 맞히기 게임</td><td class="in">실습 노트북 05</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">정리 퀴즈, 과제 05 공지</td><td class="in">LMS 과제</td><td class="in">실습과제 05 (LMS 제출)</td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">6</td><td rowspan="3" class="in">리스트와 튜플 / 리스트를 생성·수정하고 컴프리헨션으로 처리할 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">여러 값을 하나의 변수로 관리해야 하는 상황 제시</td><td class="in">슬라이드</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[강사] 리스트 메서드·슬라이싱·정렬·컴프리헨션 시연 → [훈련생] 실습: 성적 통계, 중복 제거, 장바구니 프로그램</td><td class="in">실습 노트북 06</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">리스트 vs 튜플 비교 정리, 과제 06 공지</td><td class="in">LMS 과제</td><td class="in">실습과제 06 (LMS 제출)</td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">7</td><td rowspan="3" class="in">딕셔너리와 집합 / 상황에 맞는 자료구조를 선택해 데이터를 처리할 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">형성평가① 안내(범위: 1~7차시)</td><td class="in">평가 안내문</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[강사] 딕셔너리·집합 연산 시연 → [훈련생] 실습: 단어 빈도 세기, 학생 명부 관리 → 형성평가①(객관식 10문항 + 코딩 2문항, 40분)</td><td class="in">실습 노트북 07, 형성평가① 문항</td><td class="in">형성평가① 5%</td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">평가 결과 즉시 피드백, 자료구조 선택 기준 정리</td><td class="in">평가 결과표</td><td class="in"></td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">8</td><td rowspan="3" class="in">함수 기초 / 함수를 정의·호출하고 매개변수와 반환값을 활용할 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">형성평가① 오답 해설, 반복 코드의 문제점 제시</td><td class="in">오답 해설 자료</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[강사] 함수 정의·호출·기본값·가변인자·독스트링 시연 → [훈련생] 실습: 계산기 함수, 성적 처리 함수 리팩토링</td><td class="in">실습 노트북 08</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">정리, 과제 08 공지</td><td class="in">LMS 과제</td><td class="in">실습과제 08 (LMS 제출)</td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">9</td><td rowspan="3" class="in">함수 심화 / 스코프·람다·재귀·고차함수를 활용할 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">전 차시 과제 코드 리뷰</td><td class="in">과제 코드</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[강사] global/nonlocal·람다·재귀·map/filter·타입 힌트 시연 → [훈련생] 실습: 팩토리얼·피보나치, 정렬 키 함수, 데이터 필터링</td><td class="in">실습 노트북 09</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">정리 퀴즈, 과제 09 공지</td><td class="in">LMS 과제</td><td class="in">실습과제 09 (LMS 제출)</td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">10</td><td rowspan="3" class="in">모듈과 패키지 / 표준 라이브러리와 사용자 모듈을 활용할 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">&#x27;바퀴를 다시 만들지 말라&#x27; — 라이브러리 활용 동기 부여</td><td class="in">슬라이드</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[강사] import 구조·math/random/datetime/os 시연 → [훈련생] 실습: 로또 생성기, D-day 계산기, 파일 목록 정리, 사용자 모듈 분리</td><td class="in">실습 노트북 10, 공식 문서</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">공식 문서 읽는 법 정리, 과제 10 공지</td><td class="in">LMS 과제</td><td class="in">실습과제 10 (LMS 제출)</td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">11</td><td rowspan="3" class="in">예외 처리 / 예외를 처리하여 안정적인 프로그램을 작성할 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">실행 중 오류 사례 시연(0 나누기, 파일 없음)</td><td class="in">오류 화면</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[강사] try/except/else/finally·예외 계층·사용자 정의 예외 시연 → [훈련생] 실습: 입력 검증기, 안전한 나눗셈, 계좌 예외 설계</td><td class="in">실습 노트북 11</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">방어적 코딩 체크리스트 정리, 과제 11 공지</td><td class="in">LMS 과제</td><td class="in">실습과제 11 (LMS 제출)</td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">12</td><td rowspan="3" class="in">파일 입출력 / 텍스트·CSV·JSON 파일을 읽고 쓸 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">데이터가 파일로 오가는 실무 흐름 소개</td><td class="in">슬라이드</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[강사] open/with·CSV·JSON 처리 시연 → [훈련생] 실습: 로그 파일 분석, 학생 명부 CSV 저장·불러오기, 설정 JSON 처리</td><td class="in">실습 노트북 12, 샘플 데이터</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">인코딩 문제 정리, 과제 12 공지</td><td class="in">LMS 과제</td><td class="in">실습과제 12 (LMS 제출)</td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">13</td><td rowspan="3" class="in">클래스와 객체 / 클래스를 정의하고 객체를 생성·활용할 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">현실 사물 → 객체 모델링 예시(자동차, 계좌)</td><td class="in">슬라이드</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[강사] class·__init__·인스턴스/클래스 변수·메서드·캡슐화 시연 → [훈련생] 실습: 은행 계좌 클래스, 학생 클래스 설계</td><td class="in">실습 노트북 13</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">정리 퀴즈, 과제 13 공지</td><td class="in">LMS 과제</td><td class="in">실습과제 13 (LMS 제출)</td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">14</td><td rowspan="3" class="in">상속과 다형성 / 상속·오버라이딩·특수 메서드로 객체지향 설계를 할 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">형성평가② 안내(범위: 8~14차시)</td><td class="in">평가 안내문</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[강사] 상속·super()·오버라이딩·__str__ 시연 → [훈련생] 실습: 도형 클래스 계층, 게임 캐릭터 설계 → 형성평가②(40분)</td><td class="in">실습 노트북 14, 형성평가② 문항</td><td class="in">형성평가② 5%</td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">평가 피드백, 객체지향 설계 원칙 정리</td><td class="in">평가 결과표</td><td class="in"></td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">15</td><td rowspan="3" class="in">외부 라이브러리 활용 / pip·가상환경으로 외부 패키지를 설치·활용할 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">형성평가② 오답 해설, PyPI 소개</td><td class="in">오답 해설 자료</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[강사] venv·pip·requests API 호출 시연 → [훈련생] 실습: 공공데이터 API(날씨·미세먼지) 호출 및 JSON 파싱</td><td class="in">실습 노트북 15, API 키 안내</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">패키지 문서 읽기 정리, 과제 15 공지</td><td class="in">LMS 과제</td><td class="in">실습과제 15 (LMS 제출)</td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">16</td><td rowspan="3" class="in">데이터 처리(pandas 기초) / DataFrame으로 데이터를 조회·정제·집계할 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">엑셀 vs pandas 비교 시연</td><td class="in">슬라이드</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[강사] DataFrame 생성·필터·groupby·결측 처리 시연 → [훈련생] 실습: 매출 CSV 정제·집계, 상위 N 추출</td><td class="in">실습 노트북 16, 샘플 CSV</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">정리, 과제 16 공지</td><td class="in">LMS 과제</td><td class="in">실습과제 16 (LMS 제출)</td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">17</td><td rowspan="3" class="in">데이터 시각화 / matplotlib으로 차트를 그리고 저장할 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">좋은 차트·나쁜 차트 사례 토의</td><td class="in">사례 슬라이드</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[강사] 막대·선·산점도·서식·저장 시연 → [훈련생] 실습: 16차시 집계 결과 시각화, 리포트 이미지 생성</td><td class="in">실습 노트북 17</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">프로젝트 주제 사전 안내, 과제 17 공지</td><td class="in">프로젝트 안내문</td><td class="in">실습과제 17 (LMS 제출)</td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">18</td><td rowspan="3" class="in">미니 프로젝트 기획·설계 / 요구사항을 정의하고 프로젝트 구조를 설계할 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">팀 편성(3~4인), 주제 후보 제시(공공데이터 분석 리포트, CLI 가계부, 도서관리 등)</td><td class="in">프로젝트 가이드</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[훈련생] 주제 선정·요구사항 명세·기능 분담·Git 저장소 생성 → [강사] 팀별 설계 코칭, 범위 조정</td><td class="in">설계 템플릿, GitHub</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">설계서 초안 제출</td><td class="in">LMS 제출</td><td class="in">설계서(프로젝트 평가 반영)</td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">19</td><td rowspan="3" class="in">미니 프로젝트 구현 / 설계에 따라 기능을 구현하고 코드 리뷰를 수행할 수 있다.</td><td class="lb">도입</td><td class="in">15</td><td class="in">팀별 진행 상황 공유(스탠드업 5분)</td><td class="in">-</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">90</td><td class="in">[훈련생] 기능 구현·통합·예외처리·README 작성 → [강사] 팀별 순회 코드 리뷰, 디버깅 지원 → 발표 자료 준비</td><td class="in">GitHub, 코드 리뷰 체크리스트</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">15</td><td class="in">발표 순서·평가 기준(루브릭) 공지</td><td class="in">평가계획 시트</td><td class="in">-</td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td rowspan="3" class="gr">20</td><td rowspan="3" class="in">프로젝트 발표 및 내부평가 / 산출물을 발표하고 능력단위 평가에 응시할 수 있다.</td><td class="lb">도입</td><td class="in">10</td><td class="in">발표·평가 진행 안내, 평가 유의사항 고지</td><td class="in">평가 안내문</td><td class="in"></td><td class="in"></td></tr>
+<tr><td class="lb">전개</td><td class="in">100</td><td class="in">[훈련생] 팀별 발표 10분 + 질의응답 → 지필평가(40분, 객관식·단답) → 실무평가(60분, 코딩 과제) → [강사] 루브릭 채점</td><td class="in">지필평가지, 실무평가 과제, 루브릭</td><td class="in">지필 20% / 실무 40%</td><td class="in"></td></tr>
+<tr><td class="lb">정리</td><td class="in">10</td><td class="in">성적 안내 일정·재평가 기준 고지, 교과 마무리 및 후속 교과 연계 안내</td><td class="in">-</td><td class="in"></td><td class="in"></td></tr>
+<tr><td colspan="2" class="lb"></td><td class="lb">소계</td><td class="bd">120</td><td colspan="4">✔ 120분(2h) 구성</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="8">※ 활동란은 &#x27;[강사] 시연 → [훈련생] 실습 → 피드백&#x27; 흐름이 드러나게 작성. 현장 모니터링 시 훈련일지·출석부·LMS 제출 기록과 대조되므로 실제 운영 내용과 일치하도록 수업 후 비고란에 변경사항을 기록한다.</td></tr>
+</table></div></section><section id="s5" class="pane" hidden><h2 class="sub2">평가계획</h2><div class="tscroll"><table class="xl">
+<tr><td colspan="8" class="bd">⑤ 평가 계획 (내부평가)</td></tr>
+<tr><td colspan="8">평가 비중 합계 100% 자동 검증 | 과정평가형: 능력단위별 100점 환산 · 지필/실무 병행 · 평가시간은 훈련시간에 포함 | KDT: 프로젝트(실무)평가 중심</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="8" class="bd">1. 평가 방법 및 비중</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td class="bd">No</td><td class="bd">평가 방법</td><td class="bd">비중</td><td class="bd">평가시간(h)</td><td class="bd">시기(차시)</td><td class="bd">평가 내용·문항 구성</td><td class="bd">평가 대상 능력단위요소</td><td class="bd">평가 도구/증빙</td></tr>
+<tr><td>1</td><td class="in">형성평가(퀴즈)</td><td class="in">0.1</td><td class="in">0</td><td class="in">7·14차시</td><td class="in">객관식 10문항 + 코딩 2문항 × 2회 (각 5%), 40분, 수업 중 실시</td><td class="in">요소①(7차시), 요소②(14차시)</td><td class="in">평가지, 답안, 결과표</td></tr>
+<tr><td>2</td><td class="in">실습과제</td><td class="in">0.3</td><td class="in">0</td><td class="in">매 차시</td><td class="in">차시별 LMS 제출 과제 15건, 체크리스트 채점(제출·동작·코드품질)</td><td class="in">요소①②③</td><td class="in">LMS 제출 기록, 채점표</td></tr>
+<tr><td>3</td><td class="in">지필평가</td><td class="in">0.2</td><td class="in">1</td><td class="in">20차시</td><td class="in">객관식 20문항 + 단답 5문항 + 코드 해석 5문항, 40분</td><td class="in">요소①②③ 전체</td><td class="in">평가지, 답안지, 성적표</td></tr>
+<tr><td>4</td><td class="in">실무평가(프로젝트)</td><td class="in">0.4</td><td class="in">1</td><td class="in">18~20차시</td><td class="in">팀 프로젝트 산출물(설계서·코드·README) + 발표 + 개인 코딩 과제(60분), 루브릭 채점</td><td class="in">요소①②③ 통합</td><td class="in">GitHub 링크, 발표자료, 루브릭 채점표</td></tr>
+<tr><td colspan="2" class="lb">합계</td><td class="bd">1</td><td class="bd">2</td><td colspan="4" class="bd">✔ 비중 합계 100%</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="3" class="lb">평가 시간 합계(훈련시간 포함) →</td><td class="bd">2</td><td colspan="4">✔ 주차별계획 평가시간과 일치</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="8" class="bd">2. 실무평가(프로젝트) 채점 루브릭</td></tr>
+<tr><td class="bd">No</td><td class="bd">평가 항목</td><td class="bd">배점</td><td class="bd">우수(90~100%)</td><td class="bd">보통(70~89%)</td><td class="bd">미흡(~69%)</td><td class="bd">관련 수행준거</td><td class="bd">채점 근거</td></tr>
+<tr><td>1</td><td class="in">요구사항 분석·설계</td><td class="in">15</td><td class="in">요구사항·기능 명세가 명확하고 설계서와 구현이 일치</td><td class="in">명세는 있으나 일부 기능 누락·불일치</td><td class="in">설계서 미흡 또는 미제출</td><td class="in">P</td><td class="in">설계서</td></tr>
+<tr><td>2</td><td class="in">기본문법·자료구조 활용</td><td class="in">20</td><td class="in">적절한 자료구조·제어문을 선택, 오류 없이 동작</td><td class="in">동작하나 비효율적 구조·일부 오류</td><td class="in">핵심 기능 미동작</td><td class="in">1.1~1.3</td><td class="in">코드</td></tr>
+<tr><td>3</td><td class="in">함수화·객체지향·예외처리</td><td class="in">20</td><td class="in">기능이 함수/클래스로 모듈화되고 예외처리가 적용됨</td><td class="in">일부만 모듈화, 예외처리 제한적</td><td class="in">단일 스크립트, 예외처리 없음</td><td class="in">2.1~2.3</td><td class="in">코드</td></tr>
+<tr><td>4</td><td class="in">라이브러리 활용·데이터 처리</td><td class="in">15</td><td class="in">표준·외부 라이브러리를 목적에 맞게 활용, 결과 정확</td><td class="in">라이브러리 사용은 하나 활용도 낮음</td><td class="in">라이브러리 미활용</td><td class="in">3.1~3.2</td><td class="in">코드·실행결과</td></tr>
+<tr><td>5</td><td class="in">코드 품질·문서화(README·Git)</td><td class="in">10</td><td class="in">명명·주석·README 충실, 커밋 이력 규칙적</td><td class="in">README 있으나 미흡, 커밋 불규칙</td><td class="in">문서·이력 없음</td><td class="in">P</td><td class="in">GitHub</td></tr>
+<tr><td>6</td><td class="in">발표·협업</td><td class="in">10</td><td class="in">역할 분담 명확, 발표 논리적, 질의응답 적절</td><td class="in">발표는 하나 역할·근거 불명확</td><td class="in">발표 미참여</td><td class="in">P</td><td class="in">발표·관찰</td></tr>
+<tr><td>7</td><td class="in">개인 코딩 과제(60분)</td><td class="in">10</td><td class="in">요구 기능 전부 구현·테스트 통과</td><td class="in">일부 구현</td><td class="in">미구현</td><td class="in">1~3 종합</td><td class="in">제출 코드</td></tr>
+<tr><td colspan="2" class="lb">배점 합계</td><td class="bd">100</td><td colspan="5" class="bd">✔ 100점 만점</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="8" class="bd">3. 이수·재평가 기준 (훈련유형별)</td></tr>
+<tr><td class="bd"></td><td class="bd">훈련유형</td><td colspan="2" class="bd">출석 기준</td><td class="bd">성적 기준</td><td class="bd">재평가/보충</td><td class="bd">성적 산출</td><td class="bd">근거</td></tr>
+<tr><td class="lb"></td><td class="in">과정평가형</td><td colspan="2" class="in">능력단위별 출석률 75% 이상</td><td class="in">능력단위별 100점 환산, 모든 내부평가 참여 필수</td><td class="in">미참여·미달 시 1회 재평가(동일 난이도 대체 문항), 재평가 결과로 대체</td><td class="in">내부평가 성적은 외부평가와 1:1 반영, 평균 80점 이상 합격</td><td class="in">큐넷 과정평가형 운영절차</td></tr>
+<tr><td class="lb"></td><td class="in">일반 국비(계좌제)</td><td colspan="2" class="in">교과 출석률 80% 이상 (과정 전체 기준 준용)</td><td class="in">종합 60점 이상</td><td class="in">60점 미만 시 보충학습 후 재평가 1회</td><td class="in">가중 합산 100점 만점, 수료 시 성적증명 발급</td><td class="in">기관 학칙·훈련규정</td></tr>
+<tr><td class="lb"></td><td class="in">KDT</td><td colspan="2" class="in">교과 출석률 80% 이상</td><td class="in">프로젝트(실무)평가 필수 참여, 종합 60점 이상</td><td class="in">프로젝트 미제출 시 개인 과제로 대체 평가</td><td class="in">역량 진단 결과와 함께 훈련생 포트폴리오에 반영</td><td class="in">기관 KDT 운영계획</td></tr>
+<tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="8">※ 능력단위별 100점 환산 예시: 요소① = (형성평가① + 관련 실습과제 + 지필 해당 문항 + 루브릭 항목2) 득점 합 ÷ 만점 × 100. 산출식은 교무와 협의해 확정하고 성적표 양식에 명시한다.</td></tr>
+</table></div></section><section id="s6" class="pane" hidden><h2 class="sub2">훈련생안내</h2><div class="tscroll"><table class="xl">
+<tr><td colspan="4" class="bd">⑥ 훈련생 안내문 — 파이썬 프로그래밍 기초</td></tr>
+<tr><td colspan="4">이 페이지만 인쇄/PDF로 배포합니다. 기본 정보는 다른 시트에서 자동으로 가져옵니다.</td></tr>
+<tr><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="4" class="bd">1. 교과 기본 정보</td></tr>
+<tr><td class="lb">훈련과정</td><td>AI 융합 파이썬 백엔드 개발자 양성과정 (예시)</td><td class="lb">교과목</td><td>파이썬 프로그래밍 기초</td></tr>
+<tr><td class="lb">훈련기간</td><td>2026-10-05 ~ 2026-10-16 (2주, 10일)</td><td class="lb">교육시간</td><td>월~금 09:00 ~ 13:00 (1일 4시간)</td></tr>
+<tr><td class="lb">담당강사</td><td>홍길동 (정보처리기사, 파이썬 실무 8년)</td><td class="lb">보조강사/멘토</td><td>김멘토 (실습 보조, 과제 피드백)</td></tr>
+<tr><td class="lb">강의실</td><td>본원 3층 실습실 A (PC 25대)</td><td class="lb">총 훈련시간</td><td>40시간 (이론 12.5h / 실습 27.5h)</td></tr>
+<tr><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="4" class="bd">2. 이 교과를 마치면</td></tr>
+<tr><td colspan="4">1) 변수·자료형·연산자·제어문·자료구조·함수를 활용하여 요구사항에 맞는 프로그램을 작성할 수 있다. (요소①)</td></tr>
+<tr><td colspan="4">2) 모듈화, 예외처리, 객체지향(클래스·상속) 등 파이썬의 언어 특성을 적용하여 유지보수 가능한 코드를 작성할 수 있다. (요소②)</td></tr>
+<tr><td colspan="4">3) 표준 라이브러리와 외부 패키지(pandas, matplotlib 등)를 검색·설치·활용하여 파일 및 데이터를 처리하고 시각화할 수 있다. (요소③)</td></tr>
+<tr><td colspan="4">4) 팀 단위 미니 프로젝트를 기획·구현·발표하고 Git으로 산출물을 관리할 수 있다. (KDT 프로젝트 역량)</td></tr>
+<tr><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="4" class="bd">3. 준비물 및 학습 환경</td></tr>
+<tr><td class="lb">준비물</td><td colspan="3" class="in">개인 노트북 지참 권장(없을 경우 실습실 PC 사용), USB 또는 클라우드 저장공간, 필기도구</td></tr>
+<tr><td class="lb">사전 설치</td><td colspan="3" class="in">Python 3.12, VS Code, GitHub 계정 — 1차시에 함께 설치하므로 미리 못 해도 괜찮습니다</td></tr>
+<tr><td class="lb">소통 채널</td><td colspan="3">기관 LMS(과제 제출·출결), 슬랙 채널(질의응답, 공지)</td></tr>
+<tr><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="4" class="bd">4. 수업 진행 순서 (요약)</td></tr>
+<tr><td class="bd">일차</td><td class="bd">오전 1교시(차시·주제)</td><td class="bd">일차</td><td class="bd">오전 2교시(차시·주제)</td></tr>
+<tr><td class="lb">1일차</td><td>1차시  파이썬 개요·개발환경</td><td class="lb">1일차</td><td>2차시  변수와 자료형</td></tr>
+<tr><td class="lb">2일차</td><td>3차시  문자열 처리</td><td class="lb">2일차</td><td>4차시  조건문</td></tr>
+<tr><td class="lb">3일차</td><td>5차시  반복문</td><td class="lb">3일차</td><td>6차시  리스트와 튜플</td></tr>
+<tr><td class="lb">4일차</td><td>7차시  딕셔너리와 집합</td><td class="lb">4일차</td><td>8차시  함수 기초</td></tr>
+<tr><td class="lb">5일차</td><td>9차시  함수 심화</td><td class="lb">5일차</td><td>10차시  모듈과 패키지</td></tr>
+<tr><td class="lb">6일차</td><td>11차시  예외 처리</td><td class="lb">6일차</td><td>12차시  파일 입출력</td></tr>
+<tr><td class="lb">7일차</td><td>13차시  클래스와 객체</td><td class="lb">7일차</td><td>14차시  상속과 다형성</td></tr>
+<tr><td class="lb">8일차</td><td>15차시  외부 라이브러리 활용</td><td class="lb">8일차</td><td>16차시  데이터 처리(pandas 기초)</td></tr>
+<tr><td class="lb">9일차</td><td>17차시  데이터 시각화</td><td class="lb">9일차</td><td>18차시  미니 프로젝트 기획·설계</td></tr>
+<tr><td class="lb">10일차</td><td>19차시  미니 프로젝트 구현</td><td class="lb">10일차</td><td>20차시  프로젝트 발표 및 내부평가</td></tr>
+<tr><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="4" class="bd">5. 과제·평가·출결 안내</td></tr>
+<tr><td class="lb">과제</td><td colspan="3" class="in">매 차시 실습과제를 LMS에 다음 수업 전까지 제출합니다. 지각 제출은 감점, 미제출은 0점 처리됩니다.</td></tr>
+<tr><td class="lb">평가</td><td colspan="3">형성평가(퀴즈) 10% / 실습과제 30% / 지필평가 20% / 실무평가(프로젝트) 40%</td></tr>
+<tr><td class="lb">평가 일정</td><td colspan="3" class="in">형성평가: 7차시·14차시 수업 중 40분 / 지필·실무평가: 20차시(마지막 날) / 프로젝트 발표: 20차시</td></tr>
+<tr><td class="lb">이수 기준</td><td colspan="3">출석률 80% 이상(과정평가형: 능력단위별 75% 이상) + 모든 내부평가 참여 + 종합 60점 이상. 능력단위별 100점 환산 성적을 별도 산출</td></tr>
+<tr><td class="lb">출결</td><td colspan="3" class="in">수업 시작·종료 시 출결 체크(카드/QR). 지각·조퇴 3회 = 결석 1회. 훈련수당·수료 요건과 직결되므로 사유 발생 시 반드시 사전 연락.</td></tr>
+<tr><td class="lb">재평가</td><td colspan="3" class="in">평가 미참여 또는 기준 미달 시 1회 재평가 기회가 제공됩니다(일정은 별도 안내).</td></tr>
+<tr><td></td><td></td><td></td><td></td></tr>
+<tr><td colspan="4" class="bd">6. 문의</td></tr>
+<tr><td class="lb">강사</td><td class="in">홍길동 강사 / 슬랙 DM 또는 수업 전후 질의</td><td class="lb">교무/행정</td><td class="in">코리아AI아카데미 교무팀 02-000-0000</td></tr>
+</table></div></section>
+
+<footer>원본: 파이썬_표준강의교안_샘플.xlsx · 담당 정우균</footer>
+</div>
+<script>
+(function(){
+  var tabs = document.getElementById('tabs'),
+      links = [].slice.call(tabs.querySelectorAll('a')),
+      panes = [].slice.call(document.querySelectorAll('.pane')),
+      all = false;
+  function show(i){
+    all = false;
+    panes.forEach(function(p, j){ p.hidden = (j !== i); });
+    links.forEach(function(a, j){ a.className = (j === i) ? 'act' : ''; });
+    document.getElementById('bAll').textContent = '전체 시트 펼치기';
+  }
+  links.forEach(function(a, i){
+    a.onclick = function(e){ e.preventDefault(); show(i); window.scrollTo(0, 0); };
+  });
+  document.getElementById('bAll').onclick = function(){
+    all = !all;
+    panes.forEach(function(p){ p.hidden = !all && p.id !== 's0'; });
+    links.forEach(function(a, j){ a.className = (!all && j === 0) ? 'act' : ''; });
+    this.textContent = all ? '한 시트만 보기' : '전체 시트 펼치기';
+  };
+  document.getElementById('bPrint').onclick = function(){ window.print(); };
+})();
+</script>

@@ -17,7 +17,7 @@ window.CM_SECTIONS = [
   { group:"평가도구", name:"평가계획서 · 평가표 생성기", desc:"능력단위별 평가방법·배점·루브릭을 만들어 인쇄/저장", page:"tools/t02.html" },
   { group:"평가도구", name:"훈련과정 자가점검표", desc:"심사 신청 전 기본요건·과정적정성 셀프 체크", page:"tools/t03.html" },
 
-  { group:"자료", name:"표준 강의 교안 양식", desc:"교과목 운영계획서 6개 시트 — 과정평가형·국비·KDT 공통 (xlsx)", page:"docs/파이썬_표준강의교안_샘플.xlsx" },
+  { group:"자료", name:"표준 강의 교안 양식", desc:"교과목 운영계획서 6개 시트 — 브라우저에서 바로 보고 xlsx 로 내려받기", page:"docs/표준강의교안-샘플.html" },
   { group:"자료", name:"NCS 분류체계 (20.정보통신)", desc:"세분류 123건 · 능력단위 1,254건 원본 데이터", page:"https://github.com/NCS-MODULE-CURRICULUMS/NCS-CATALOG" },
   { group:"자료", name:"로그인 해시 생성기", desc:"이 사이트의 아이디·비밀번호를 바꿀 때 사용", page:"tools/hash.html", adm:true }
 ];
