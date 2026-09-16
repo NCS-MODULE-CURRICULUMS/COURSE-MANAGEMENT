@@ -1,12 +1,6 @@
 /* 과정 목록.
  * index.html 의 [설정 파일 저장] 이 이 파일을 덮어씁니다. 손으로 고쳐도 됩니다.
  * 고친 뒤 git 에 올려야 모두에게 적용됩니다.
- *
- *   id     : 과정 구분자
- *   name   : 과정명
- *   ncs    : 앵커 NCS 세분류
- *   period : 기간      hours : 시간      tc : 담당
- *   page   : 들어갈 페이지. 비우면 '준비 중' 카드가 됩니다
  */
 window.CM_COURSES = [
   {
@@ -17,5 +11,14 @@ window.CM_COURSES = [
     "hours": "160시간",
     "tc": "정*균",
     "page": "courses/c1.html"
+  },
+  {
+    "id": "c2",
+    "name": "(디지털 컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E",
+    "ncs": "20010202 응용SW엔지니어링 외",
+    "period": "2026-02-24 ~ 2026-08-12",
+    "hours": "900시간",
+    "tc": "정우균",
+    "page": "courses/c2.html"
   }
 ];
