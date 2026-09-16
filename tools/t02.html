@@ -226,18 +226,33 @@
     var d = null;
     try{ d = JSON.parse(localStorage.getItem(PLAN) || 'null'); }catch(e){}
     if(!d || !d.state){ alert('편성표 생성기에서 저장된 내용이 없습니다.'); return; }
-    var n = 0;
+    var n = 0, firstCode = null;
     Object.keys(d.state).forEach(function(k){
       if(d.state[k] && d.state[k].on){
         state[k] = state[k] || {};
         state[k].on = true;
+        if(!firstCode) firstCode = k.slice(0, 8);   // 능력단위코드 앞 8자리 = 세분류코드
         n++;
       }
     });
     if(d.cn && !document.getElementById('cn').value) document.getElementById('cn').value = d.cn;
-    save(); draw();
-    alert('편성표에서 ' + n + '개 능력단위를 불러왔습니다.');
+    save();
+    /* 불러온 능력단위가 있는 세분류로 화면을 옮겨 줍니다.
+       그러지 않으면 "불러왔습니다" 만 뜨고 체크된 것이 안 보입니다. */
+    if(firstCode) goTo(firstCode); else draw();
+    alert('편성표에서 ' + n + '개 능력단위를 불러왔습니다.' +
+          (n ? ' 여러 세분류에서 골랐다면 세분류를 바꿔 가며 확인하세요.' : ''));
   };
+
+  /* 세분류코드(8자리)로 중·소·세분류 선택을 한 번에 맞춥니다. */
+  function goTo(code){
+    var t = null;
+    for(var i = 0; i < TAX.length; i++){ if(TAX[i]['세분류코드'] === code){ t = TAX[i]; break; } }
+    if(!t){ draw(); return; }
+    $m.value = t['중분류코드']; fillS();
+    $s.value = t['소분류코드']; fillD();
+    $d.value = code; fillU();
+  }
   document.getElementById('cn').oninput = save;
   document.getElementById('pass').oninput = save;
   document.getElementById('bPrint').onclick = function(){ window.print(); };
