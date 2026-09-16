@@ -30,6 +30,9 @@
 </div>
 </div>
 
+<style>
+  .sub2{font-size:15px;margin:26px 0 8px;padding-bottom:6px;border-bottom:1px solid #000;font-weight:700}
+</style>
 <script src="assets/courses.js"></script>
 <script src="assets/sections.js"></script>
 <script>
@@ -41,7 +44,7 @@
   function courses(){
     var cs = window.CM_COURSES || [];
     if(!cs.length) return '';
-    var h = '<h2 style="margin:26px 0 10px;font-size:17px">운영 과정</h2><div class="cgrid">';
+    var h = '<h2 class="sub2">운영 과정</h2><div class="cgrid">';
     cs.forEach(function(c){
       var meta = '<dl>' +
         (c.ncs ? '<dt>NCS</dt><dd>' + esc(c.ncs) + '</dd>' : '') +
@@ -66,7 +69,7 @@
     });
     var h=courses();
     gs.forEach(function(g){
-      h+='<h2 style="margin:26px 0 10px;font-size:17px">'+esc(g)+'</h2><div class="cgrid">';
+      h+='<h2 class="sub2">'+esc(g)+'</h2><div class="cgrid">';
       by[g].forEach(function(s){
         var meta='<dl><dt>내용</dt><dd>'+esc(s.desc||'-')+'</dd></dl>';
         if(s.page)

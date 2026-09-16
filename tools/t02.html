@@ -8,23 +8,35 @@
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
 <style>
+  .sub2{font-size:15px;margin:26px 0 8px;padding-bottom:6px;border-bottom:1px solid #000;font-weight:700}
   .pick{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin:14px 0}
-  .pick label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:#555}
-  .pick select,.pick input{padding:7px 9px;border:1px solid #cfd6e0;border-radius:6px;font-size:13.5px}
-  .pick select{min-width:190px;max-width:100%}
-  .bar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
-  .bar button{padding:8px 14px;border:1px solid #1b4b8f;background:#1b4b8f;color:#fff;
-              border-radius:6px;cursor:pointer;font-size:13px}
-  .bar button.g{background:#fff;color:#1b4b8f}
-  .bar button:hover{opacity:.85}
-  .mths{display:flex;flex-wrap:wrap;gap:3px 10px}
-  .mths label{font-size:12px;color:#444;white-space:nowrap}
-  td.sc input{width:64px;padding:4px 6px;border:1px solid #cfd6e0;border-radius:5px;text-align:right}
-  tr.off{opacity:.4}
+  .pick label{display:flex;flex-direction:column;gap:3px;font-size:11.5px;color:#555}
+  .pick select,.pick input{border:1px solid #999;padding:5px 8px;font-family:inherit;
+                           font-size:12.5px;outline:none;max-width:100%}
+  .pick select:focus,.pick input:focus{border-color:#000}
+  .pick select{min-width:190px}
+  td.c{text-align:center}
+  td.h input,td.lv input{border:1px solid #999;padding:3px 5px;font-family:inherit;
+                         font-size:12px;outline:none;text-align:right}
+  td.h input:focus,td.lv input:focus{border-color:#000}
+  td.h input{width:70px}
+  td.lv input{width:46px;text-align:center}
+  tr.off{color:#888}
+  tr.off td.nm{color:#888}
+  .bar{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}
+  .bar button{border:1px solid #000;background:#000;color:#fff;padding:5px 14px;
+              font-size:12.5px;cursor:pointer;font-family:inherit}
+  .bar button.g{background:#fff;color:#000}
+  .bar button:hover{background:#000;color:#fff}
+  .bar button.g:hover{background:#000;color:#fff}
+  .mths{display:flex;flex-wrap:wrap;gap:2px 10px}
+  .mths label{font-size:11.5px;color:#333;white-space:nowrap}
+  td.sc2 input{border:1px solid #999;padding:3px 5px;font-family:inherit;font-size:12px;
+               outline:none;text-align:right;width:62px}
+  td.sc2 input:focus{border-color:#000}
   .rub{margin:26px 0}
   .rub table{table-layout:fixed}
-  .rub td{vertical-align:top;font-size:12.5px;line-height:1.5}
-  .warn{color:#b03030}
+  .rub td{vertical-align:top;font-size:12.5px;line-height:1.55}
   @media print{.top,.pick,.bar,.note{display:none}}
 </style>
 <div class="wrap">
@@ -57,7 +69,7 @@
 </tr></thead><tbody id="tbody"><tr><td colspan="5">데이터를 불러오는 중…</td></tr></tbody></table>
 
 <div class="rub">
-  <h2 style="font-size:17px;margin:0 0 8px">평가 루브릭 (4단계 기준)</h2>
+  <h2 class="sub2">평가 루브릭 (4단계 기준)</h2>
   <p class="sub" style="margin:0 0 10px">능력단위별 수행준거를 아래 척도에 맞춰 판정합니다. 그대로 인쇄해 채점표로 씁니다.</p>
   <table><thead><tr>
     <th style="width:88px">척도</th><th style="width:74px">환산</th><th>판정 기준</th>
@@ -167,7 +179,7 @@
         '<td class="pre">' + esc(k) + '</td>' +
         '<td class="nm">' + esc(u['능력단위명']) + '</td>' +
         '<td><div class="mths">' + chk + '</div></td>' +
-        '<td class="sc"><input class="sc" type="number" min="0" max="100" value="' + esc(st.sc || '') + '"></td>' +
+        '<td class="sc2"><input class="sc" type="number" min="0" max="100" value="' + esc(st.sc || '') + '"></td>' +
         '</tr>';
     }).join('');
     bind();
@@ -288,7 +300,7 @@
     load(); fillM();
   }).catch(function(){
     document.getElementById('tbody').innerHTML =
-      '<tr><td colspan="5" class="warn">데이터를 불러오지 못했습니다. ' +
+      '<tr><td colspan="5">데이터를 불러오지 못했습니다. ' +
       'GitHub Pages 주소로 여세요.</td></tr>';
   });
 })();

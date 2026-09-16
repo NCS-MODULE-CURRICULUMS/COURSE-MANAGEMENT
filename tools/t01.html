@@ -9,21 +9,28 @@
 <script>EXAM_AUTH.paintTop("../");</script>
 <style>
   .pick{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;margin:14px 0}
-  .pick label{display:flex;flex-direction:column;gap:4px;font-size:12.5px;color:#555}
-  .pick select,.pick input{padding:7px 9px;border:1px solid #cfd6e0;border-radius:6px;font-size:13.5px}
-  .pick select{min-width:190px;max-width:100%}
-  .sum{display:flex;gap:18px;flex-wrap:wrap;background:#f7f9fc;border:1px solid #e2e8f0;
-       border-radius:8px;padding:12px 14px;margin:14px 0;font-size:13.5px}
-  .sum b{font-size:18px;color:#1b4b8f;margin-left:4px}
-  td.h input{width:72px;padding:4px 6px;border:1px solid #cfd6e0;border-radius:5px;text-align:right}
-  td.lv input{width:48px;padding:4px 6px;border:1px solid #cfd6e0;border-radius:5px;text-align:center}
-  tr.off{opacity:.4}
-  .bar{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
-  .bar button{padding:8px 14px;border:1px solid #1b4b8f;background:#1b4b8f;color:#fff;
-              border-radius:6px;cursor:pointer;font-size:13px}
-  .bar button.g{background:#fff;color:#1b4b8f}
-  .bar button:hover{opacity:.85}
-  .warn{color:#b03030}
+  .pick label{display:flex;flex-direction:column;gap:3px;font-size:11.5px;color:#555}
+  .pick select,.pick input{border:1px solid #999;padding:5px 8px;font-family:inherit;
+                           font-size:12.5px;outline:none;max-width:100%}
+  .pick select:focus,.pick input:focus{border-color:#000}
+  .pick select{min-width:190px}
+  .sum{display:flex;gap:20px;flex-wrap:wrap;border:1px solid #000;
+       padding:10px 14px;margin:14px 0;font-size:12.5px;background:#fafafa}
+  .sum b{font-size:16px;margin-left:4px}
+  td.c{text-align:center}
+  td.h input,td.lv input{border:1px solid #999;padding:3px 5px;font-family:inherit;
+                         font-size:12px;outline:none;text-align:right}
+  td.h input:focus,td.lv input:focus{border-color:#000}
+  td.h input{width:70px}
+  td.lv input{width:46px;text-align:center}
+  tr.off{color:#888}
+  tr.off td.nm{color:#888}
+  .bar{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}
+  .bar button{border:1px solid #000;background:#000;color:#fff;padding:5px 14px;
+              font-size:12.5px;cursor:pointer;font-family:inherit}
+  .bar button.g{background:#fff;color:#000}
+  .bar button:hover{background:#000;color:#fff}
+  .bar button.g:hover{background:#000;color:#fff}
   @media print{.top,.pick,.bar,.note{display:none}}
 </style>
 <div class="wrap">
@@ -32,7 +39,7 @@
 
 <div class="note"><b>쓰는 법</b> — 세분류를 고르면 그 직무의 능력단위가 모두 나옵니다.
 편성할 것만 체크하고 <b>훈련시간</b>을 넣으세요. 합계와 NCS 적용비율이 자동으로 계산됩니다.
-<span class="warn">훈련시간에 선수학습 · 개인학습 · 복습 · 시험준비 시간은 넣지 않습니다.</span>
+<b>훈련시간에 선수학습 · 개인학습 · 복습 · 시험준비 시간은 넣지 않습니다.</b>
 입력값은 이 브라우저에 자동 저장됩니다.
 </div>
 
@@ -272,7 +279,7 @@
     fillM();
   }).catch(function(){
     document.getElementById('tbody').innerHTML =
-      '<tr><td colspan="5" class="warn">데이터를 불러오지 못했습니다. ' +
+      '<tr><td colspan="5">데이터를 불러오지 못했습니다. ' +
       'file:// 로 직접 열면 브라우저가 막습니다 — GitHub Pages 주소로 여세요.</td></tr>';
   });
 })();

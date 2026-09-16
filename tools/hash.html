@@ -8,16 +8,21 @@
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
 <style>
+  .sub2{font-size:15px;margin:26px 0 8px;padding-bottom:6px;border-bottom:1px solid #000;font-weight:700}
+  .bar{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0}
+  .bar button{border:1px solid #000;background:#000;color:#fff;padding:5px 14px;
+              font-size:12.5px;cursor:pointer;font-family:inherit}
+  .bar button.g{background:#fff;color:#000}
+  .bar button:hover{background:#000;color:#fff}
+  .bar button.g:hover{background:#000;color:#fff}
   .box{max-width:620px}
-  .box label{display:block;font-size:12.5px;color:#555;margin:12px 0 4px}
-  .box input{width:100%;padding:9px 11px;border:1px solid #cfd6e0;border-radius:6px;font-size:14px}
-  .out{margin-top:16px;padding:12px 14px;background:#f7f9fc;border:1px solid #e2e8f0;border-radius:8px;
-       font-family:ui-monospace,Consolas,monospace;font-size:12.5px;word-break:break-all;min-height:20px}
-  .bar{display:flex;gap:8px;margin-top:12px}
-  .bar button{padding:8px 14px;border:1px solid #1b4b8f;background:#1b4b8f;color:#fff;
-              border-radius:6px;cursor:pointer;font-size:13px}
-  .bar button.g{background:#fff;color:#1b4b8f}
-  .warn{color:#b03030}
+  .box label{display:block;font-size:11.5px;color:#555;margin:12px 0 3px}
+  .box input{width:100%;border:1px solid #999;padding:7px 9px;font-family:inherit;
+             font-size:13px;outline:none}
+  .box input:focus{border-color:#000}
+  .out{margin-top:14px;border:1px solid #000;padding:10px 13px;background:#fafafa;
+       font-family:ui-monospace,Consolas,monospace;font-size:12px;
+       word-break:break-all;min-height:18px}
 </style>
 <div class="wrap">
 <h1>로그인 해시 생성기</h1>
@@ -25,8 +30,8 @@
 
 <div class="note">
 <b>이 로그인은 보안 장치가 아닙니다.</b> 정적 사이트라서 해시가 <code>assets/auth.js</code> 에 그대로
-공개되고, 짧은 비밀번호는 대입으로 뚫립니다. <span class="warn">채점 정답 · 평가문항 원본처럼
-새어 나가면 안 되는 것은 이 사이트에 올리지 말고 <code>.gitignore</code> 로 막으세요.</span>
+공개되고, 짧은 비밀번호는 대입으로 뚫립니다. <b>채점 정답 · 평가문항 원본처럼
+새어 나가면 안 되는 것은 이 사이트에 올리지 말고 <code>.gitignore</code> 로 막으세요.</b>
 이 로그인은 학생이 우연히 들어오는 것을 막는 <b>가림막</b> 정도로만 씁니다.
 </div>
 
@@ -41,7 +46,7 @@
   </div>
   <div class="out" id="out"></div>
 
-  <h2 style="font-size:16px;margin:26px 0 8px">바꾸는 방법</h2>
+  <h2 class="sub2">바꾸는 방법</h2>
   <ol style="font-size:13.5px;line-height:1.9;padding-left:20px">
     <li>위에서 아이디 · 비밀번호를 넣고 해시를 만듭니다. (비밀번호는 이 브라우저 밖으로 나가지 않습니다)</li>
     <li><code>assets/auth.js</code> 를 엽니다.</li>
