@@ -147,7 +147,7 @@
 <h4>1.1 현행 시스템 분석의 개념</h4>
 
 <div class="kv">
-  <b>학습 목표</b><span>현행 시스템의 조사 항목 여섯 가지를 설명할 수 있다.<br>
+  <b>학습 목표</b><span>운행환경 조사 항목 일곱 가지를 설명할 수 있다.<br>
   자신의 PC 를 대상으로 조사를 수행하고 조사표를 작성할 수 있다.</span>
 </div>
 
@@ -166,37 +166,46 @@
 
 <h4>1.2 조사 항목</h4>
 
-<p>현행 시스템 조사표는 여섯 개 항목으로 구성됩니다. 각 항목의 의미와 확인 방법은
+<p>운행환경 조사표는 일곱 개 항목으로 구성됩니다. 이 일곱 줄이 채점 항목
+   ① 01 ~ 05 에 대응하며 배점은 25점입니다. 각 항목의 의미와 확인 방법은
    다음 표와 같습니다. 확인 방법은 Windows 환경을 기준으로 정리하였습니다.</p>
 
 <table class="wide">
-  <tr><th style="width:96px">조사 항목</th><th style="width:210px">의미</th>
+  <tr><th style="width:118px">조사 항목</th><th style="width:230px">의미</th>
       <th style="width:150px">예</th><th>확인 방법</th></tr>
   <tr><td class="c">운영체제<br><small>OS</small></td>
       <td>컴퓨터의 자원을 관리하고 응용 프로그램의 실행 환경을 제공하는 소프트웨어</td>
-      <td>Windows 11<br>Rocky Linux 9</td>
+      <td>Linux (CentOS 7)</td>
       <td>⊞ + R 을 누른 뒤 <code>winver</code> 입력</td></tr>
-  <tr><td class="c">DBMS</td>
+  <tr><td class="c">데이터베이스<br><small>DBMS</small></td>
       <td>데이터를 저장하고 검색·변경할 수 있도록 관리하는 소프트웨어</td>
-      <td>MySQL 8.0<br>Oracle 19c</td>
+      <td>MySQL 5.7</td>
       <td>명령 프롬프트에서 <code>mysql --version</code></td></tr>
   <tr><td class="c">미들웨어<br><small>WAS</small></td>
-      <td>웹 요청을 받아 응용 프로그램을 실행하고 결과를 반환하는 소프트웨어</td>
-      <td>Tomcat 10<br>Nginx</td>
+      <td>웹 요청을 받아 서블릿 등 프로그램을 실행하고 결과를 반환하는 서버</td>
+      <td>Apache Tomcat 8.5</td>
       <td>브라우저에서 <code>localhost:8080</code> 접속</td></tr>
-  <tr><td class="c">개발 언어 ·<br>프레임워크</td>
-      <td>응용 프로그램을 작성한 언어와 그 언어로 개발을 돕는 구조</td>
-      <td>Java 17 / Spring<br>Python 3.12</td>
-      <td><code>java -version</code><br><code>python --version</code></td></tr>
-  <tr><td class="c">형상관리</td>
+  <tr><td class="c">사용 언어</td>
+      <td>응용 프로그램을 작성한 언어. 프레임워크가 있으면 함께 적는다</td>
+      <td>Java 서블릿, JSP 기반</td>
+      <td><code>java -version</code></td></tr>
+  <tr><td class="c">IDE</td>
+      <td>소스 코드를 작성하고 실행·디버깅하는 개발 도구</td>
+      <td>이클립스, 인텔리제이</td>
+      <td>설치된 프로그램 목록에서 확인</td></tr>
+  <tr><td class="c">형상 관리 도구</td>
       <td>소스 코드의 변경 이력을 기록하고 이전 상태로 되돌릴 수 있게 하는 도구</td>
-      <td>Git, GitHub</td>
+      <td>Git / GitHub</td>
       <td><code>git --version</code></td></tr>
-  <tr><td class="c">망 구성</td>
-      <td>시스템이 연결된 네트워크의 형태와 외부 접근 허용 범위</td>
-      <td>사내망, 방화벽</td>
+  <tr><td class="c">네트워크 환경</td>
+      <td>망 구성과 보안 장비. 없으면 없다고 적는다</td>
+      <td>내부망, 방화벽 없음</td>
       <td><code>ipconfig</code></td></tr>
 </table>
+
+<div class="warn"><b>주의</b> — 종류만 적고 <b>판(버전)</b>을 빼면 감점됩니다.
+  「MySQL」이 아니라 「MySQL 5.7」이라고 적습니다.
+  해당 장비나 도구가 없는 경우에는 빈칸으로 두지 말고 「없음」이라고 적습니다.</div>
 
 <div class="note"><b>용어</b> —
   <b>WAS</b>(Web Application Server)는 웹 서버와 달리 프로그램을 실행합니다.
@@ -343,30 +352,21 @@ Windows IP 구성
 
 <h4>1.5 조사표 작성</h4>
 
-<p>조사 결과는 세 개의 열로 정리합니다. 조사 항목, 조사 결과, 그리고
-   그 결과로부터 판단할 수 있는 제약 사항입니다.
-   다음은 평가에서 제공되는 도서 대여 시스템을 조사한 예입니다.</p>
+<p>조사 결과는 다음과 같은 형식으로 정리하여 제출합니다.
+   실제 평가에서 제공되는 도서 대여 시스템을 조사한 예입니다.
+   일곱 줄이 모두 채워져야 하며, 각 줄이 채점 항목에 대응합니다.</p>
 
-<table class="wide">
-  <tr><th style="width:96px">조사 항목</th><th style="width:190px">조사 결과</th>
-      <th>판단할 수 있는 제약 사항</th></tr>
-  <tr><td class="c">운영체제</td><td>Windows 11 Pro 23H2</td>
-      <td>Linux 전용 도구는 사용할 수 없다</td></tr>
-  <tr><td class="c">DBMS</td><td>MySQL 8.0.36</td>
-      <td>SQL 문법은 MySQL 기준을 따른다. Oracle 전용 함수는 사용할 수 없다</td></tr>
-  <tr><td class="c">미들웨어</td><td>Tomcat 10.1 (8080)</td>
-      <td>8080 포트가 이미 사용 중이다. 추가 기능도 동일 서버에 배포한다</td></tr>
-  <tr><td class="c">개발 언어</td><td>Java 17, Spring Boot 3.2</td>
-      <td>추가 기능도 동일한 언어와 버전으로 개발한다</td></tr>
-  <tr><td class="c">형상관리</td><td>Git (GitHub)</td>
-      <td>소스 코드를 내려받아 수정한 뒤 이력을 남길 수 있다</td></tr>
-  <tr><td class="c">망 구성</td><td>사내망, 외부 접근 차단</td>
-      <td>외부 API 를 호출할 수 없다. 필요한 데이터는 내부에서 확보한다</td></tr>
-</table>
+<figure class="fig">
+  <div class="shot"><img src="img/rq_os.png"
+       alt="운행환경 조사표 작성 예시. 일곱 줄이 채점 항목 01~05 에 대응한다"></div>
+  <figcaption>[그림 1-3] 운행환경 조사표 작성 예시 (평가도구 작업지시서 기준)</figcaption>
+</figure>
 
-<div class="warn"><b>주의</b> — 세 번째 열이 이 조사표의 핵심입니다.
-  조사는 환경을 기록하는 작업이 아니라, 그 환경에서 <b>무엇이 가능하고 무엇이 불가능한지</b>를
-  판단하는 작업입니다. 평가자 체크리스트도 이 열을 기준으로 채점합니다.</div>
+<div class="note"><b>생각해 보기</b> — 조사표를 채우는 것으로 끝내지 말고,
+  각 줄에서 <b>무엇이 가능하고 무엇이 불가능해지는지</b>를 함께 생각해 봅니다.
+  예를 들어 DBMS 가 MySQL 5.7 이면 Oracle 전용 함수를 쓸 수 없고,
+  네트워크가 내부망이면 외부 API 를 호출할 수 없습니다.
+  이 판단이 이후 「요구사항 확인」과 「분석모델 확인」의 근거가 됩니다.</div>
 
 <div class="lab">
   <b class="t">실습 1-2</b>
@@ -374,13 +374,14 @@ Windows IP 구성
   <p><b>목적</b> — 조사 결과를 문서와 다이어그램으로 산출합니다.</p>
   <p><b>절차</b></p>
   <ol>
-    <li>스프레드시트를 실행하고 「조사 항목 / 조사 결과 / 판단할 수 있는 제약 사항」
-        세 개의 열을 작성합니다.</li>
-    <li>운영체제, DBMS, 미들웨어, 개발 언어, 형상관리, 망 구성의 여섯 행을 만듭니다.</li>
+    <li>스프레드시트를 실행하고 [그림 1-3] 과 같이
+        「구분 / 조사 결과 / 적는 요령」 세 개의 열을 작성합니다.</li>
+    <li>운영체제, 데이터베이스, 미들웨어, 사용 언어, IDE, 형상 관리 도구,
+        네트워크 환경의 <b>일곱 행</b>을 만듭니다.</li>
     <li>「조사 결과」 열을 채웁니다. 평가에서 제공된 현행 시스템 파일을 사용하며,
         연습 단계에서는 실습 1-1 에서 조사한 자신의 PC 값을 사용합니다.</li>
-    <li>「판단할 수 있는 제약 사항」 열을 채웁니다. 각 행마다 한 문장씩,
-        「그러므로 ○○ 는 할 수 없다」 또는 「○○ 로 맞추어야 한다」 형태로 서술합니다.</li>
+    <li>종류와 함께 <b>판(버전)</b>을 반드시 적습니다.
+        해당 사항이 없으면 「없음」이라고 적고 빈칸으로 두지 않습니다.</li>
     <li><a href="https://app.diagrams.net">app.diagrams.net</a> 에 접속합니다.
         저장 위치를 묻는 창이 나타나면 <b>Device</b> 를 선택하고,
         <b>Create New Diagram</b> → <b>Blank Diagram</b> 을 차례로 누릅니다.
@@ -397,9 +398,10 @@ Windows IP 구성
 
 <div class="try">
   <b class="t">정리</b>
-  현행 시스템 분석은 운영체제·DBMS·미들웨어·개발 언어·형상관리·망 구성의
-  여섯 항목을 조사하는 작업입니다. 조사표에는 결과와 함께 그로부터 판단되는
-  제약 사항을 반드시 함께 기록하며, 계층 구성도로 시각화하여 제출합니다.
+  현행 시스템 분석은 운영체제 · 데이터베이스 · 미들웨어 · 사용 언어 · IDE ·
+  형상 관리 도구 · 네트워크 환경의 일곱 항목을 조사하는 작업입니다.
+  조사 결과에는 종류와 판(버전)을 함께 적으며, 일곱 줄이 그대로 채점 항목
+  ① 01 ~ 05 의 25점에 대응합니다.
 </div>
 
 <p>네 산출물은 <b>앞의 것이 뒤의 것의 재료</b>가 됩니다.
