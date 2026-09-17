@@ -295,25 +295,26 @@
   }
 
   function askFolder(meta) {
-    say('<b>PDF 를 어디서 읽을지 한 번만 정해 주세요.</b>' +
+    say('<b class="pv-h">PDF 가 있는 폴더를 한 번만 고르면 됩니다</b>' +
+      '<p class="pv-row"><button type="button" class="pv-b big" data-a="pick">' +
+      '폴더 고르기</button></p>' +
+      '<p><code>' + esc(meta.p[0]) + '</code> 이 들어 있는 <b>상위 폴더</b>를 고르세요. ' +
+      '한 번 고르면 이 브라우저가 기억해서 <b>다음부터는 묻지 않고 바로 열립니다.</b></p>' +
+
+      '<hr class="pv-hr">' +
+      '<p class="pv-s">· 아예 안 묻게 하려면 — 조직 폴더에서 아래를 실행하고 ' +
+      '<code>http://127.0.0.1:8765/</code> 로 들어가세요.<br>' +
+      '<code>python COURSE-MANAGEMENT/tools/pdf-server.py</code> ' +
+      '<a href="' + (window.CM_BASE || "") + 'tools/pdf-server.py" download>내려받기</a><br>' +
+      '<small>지금 보고 계신 주소로는 브라우저가 내 PC 접속을 막아 안 됩니다.</small></p>' +
+      (ncsLink(meta) ? '<p class="pv-s">· 아직 파일이 없으면 — ' +
+        '<a href="' + esc(ncsLink(meta)) + '">ncs.go.kr 에서 받기</a></p>' : "") +
+      '<details class="pv-s"><summary>왜 폴더를 고르나요?</summary>' +
       '<p>학습모듈은 <b>공공누리 제2유형</b>(출처표시·상업적 이용 금지)이고, 그 안에 ' +
       '국가가 저작재산권을 갖지 않은 도표·사진이 섞여 있어 배포·공중송신에 원작자 동의가 ' +
-      '필요합니다. 그래서 원문을 사이트에 올려 두지 않고, 이 PC 에 받아 둔 파일을 ' +
-      '그대로 엽니다 — 읽기만 하고 어디로도 보내지 않습니다.</p>' +
-
-      '<p><b>1. 지금 바로</b> — 폴더를 고르면 이 브라우저가 기억해서 다음부터 ' +
-      '묻지 않습니다. <code>' + esc(meta.p[0]) + '</code> 이 들어 있는 <b>상위 폴더</b>를 ' +
-      '고르세요.</p>' +
-      '<p class="pv-row"><button type="button" class="pv-b" data-a="pick">폴더 고르기</button>' +
-      (ncsLink(meta) ? ' <a class="pv-b" href="' + esc(ncsLink(meta)) +
-        '">ncs.go.kr 에서 받기</a>' : "") + '</p>' +
-
-      '<p><b>2. 아예 묻지 않게</b> — 조직 폴더에서 아래를 실행하고 ' +
-      '<code>http://127.0.0.1:8765/</code> 로 들어가면 폴더도 안 묻습니다. ' +
-      '(지금 보고 계신 주소로는 브라우저가 내 PC 접속을 막아서 안 됩니다.)</p>' +
-      '<p><code>python COURSE-MANAGEMENT/tools/pdf-server.py</code></p>' +
-      '<p class="pv-row">' +
-      '<a class="pv-b" href="' + (window.CM_BASE || "") + 'tools/pdf-server.py" download>서버 내려받기</a></p>');
+      '필요합니다. 그래서 원문을 사이트에 올려 두지 않습니다(291개 3.0GB 이기도 합니다). ' +
+      '대신 이 PC 에 받아 둔 파일을 그대로 엽니다 — 읽기만 하고 어디로도 보내지 ' +
+      '않습니다.</p></details>');
   }
 
   function open(code) {

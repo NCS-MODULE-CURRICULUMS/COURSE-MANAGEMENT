@@ -220,7 +220,14 @@ footer{margin-top:34px;border-top:1px solid #000;padding-top:10px;color:#555;fon
 .pv-x{margin-left:4px}
 .pv-body{flex:1;overflow:auto;background:#f2f2f2;padding:16px;text-align:center}
 .pv-cv{display:none;margin:0 auto;max-width:100%;height:auto;border:1px solid #999;background:#fff}
-.pv-msg{max-width:560px;margin:40px auto;text-align:left;font-size:13px;line-height:1.7}
+.pv-msg{max-width:520px;margin:44px auto;text-align:left;font-size:13px;line-height:1.7}
+.pv-h{display:block;font-size:16px;margin-bottom:16px}
+.pv-b.big{padding:9px 26px;font-size:14px;font-weight:700}
+.pv-hr{border:none;border-top:1px solid #ccc;margin:26px 0 14px}
+.pv-s{font-size:12px;color:#555;line-height:1.8}
+.pv-s code{font-size:11.5px}
+.pv-s summary{cursor:pointer}
+.pv-s small{color:#888}
 .pv-msg p{margin:10px 0;color:#555}
 .pv-msg code{font-size:12px;word-break:break-all}
 .pv-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
