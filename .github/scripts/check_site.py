@@ -144,6 +144,18 @@ for sec in (jsvar("sections.js", "CM_SECTIONS") or []):
         hub.add(pg)
         if not (ROOT / pg).exists():
             err(f"sections.js: '{sec.get('name')}' 의 page '{pg}' 가 없습니다")
+# 커리큘럼 도메인 카드도 index.html 이 curriculum.js 로 그린다.
+# 그 아래 세분류 페이지는 도메인 페이지가 직접 링크하므로 링크 검사가 잡는다.
+PRIVATE = set()
+for d in (jsvar("curriculum.js", "CM_CURRICULUM") or []):
+    pg = d.get("page", "")
+    if pg:
+        hub.add(pg)
+        if not (ROOT / pg).exists():
+            err(f"curriculum.js: '{d.get('label')}' 의 page '{pg}' 가 없습니다")
+    if d.get("repo"):
+        PRIVATE.add(d["repo"])
+
 lp = jsvar("lesson-plan.js", "CM_LESSON_PLAN") or {}
 for k in ("view", "file"):
     v = (lp.get(k) or "").lstrip("./")
@@ -162,6 +174,10 @@ for p in sorted((ROOT / "modules").glob("*.html")):
 
 # ── 3. 링크 검사 — 깨진 곳 · 과정 교차 · 외부 ──────────────────────
 REF = re.compile(r'(?:href|src)\s*=\s*"([^"]+)"')
+# class 에 sc 가 붙은 덩어리 — body:not(.admin) 에서 숨겨지는 관리자 전용 영역
+SC_BLOCK = re.compile(
+    r'<(p|div|span|li|td|section)\b[^>]*class="[^"]*\bsc\b[^"]*"[^>]*>.*?</\1>',
+    re.S | re.I)
 STRIP = ("script", "code", "pre")          # 그 안은 예제 코드라 링크가 아니다
 n_ref = 0
 
@@ -175,6 +191,14 @@ for p in sorted(ROOT.rglob("*.html")):
     s = s.replace("&lt;", "<").replace("&gt;", ">")
     for tag in STRIP:
         s = re.sub(rf"<{tag}\b[^>]*>.*?</{tag}>", "", s, flags=re.S | re.I)
+
+    # 비공개 저장소 링크는 관리자에게만 보이는 .sc 안에 있어야 한다.
+    # 밖에 있으면 로그인만 한 훈련생에게 열리지 않는 주소를 보여 주게 된다.
+    if PRIVATE:
+        open_part = SC_BLOCK.sub("", p.read_text(encoding="utf-8", errors="replace"))
+        for h in REF.findall(open_part):
+            if h.startswith("http") and any("/" + r in h for r in PRIVATE):
+                err(f"{rel} → {h[:80]} — 비공개 저장소 링크가 .sc 밖에 있습니다")
 
     src_course = owner.get(rel)
     for h in REF.findall(s):

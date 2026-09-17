@@ -34,6 +34,7 @@
   .sub2{font-size:15px;margin:26px 0 8px;padding-bottom:6px;border-bottom:1px solid #000;font-weight:700}
 </style>
 <script src="assets/courses.js"></script>
+<script src="assets/curriculum.js"></script>
 <script src="assets/sections.js"></script>
 <script>
 (function(){
@@ -60,6 +61,27 @@
     return h + '</div>';
   }
 
+  /* 커리큘럼 카드 — 편성 전의 능력단위 재고. 운영 과정과 성격이 달라 따로 둡니다.
+     assets/curriculum.js 는 gen_curriculum.py 가 만듭니다. */
+  function curriculum(){
+    var ds = window.CM_CURRICULUM || [];
+    if(!ds.length) return '';
+    var t = ds.reduce(function(a,d){ return {u:a.u+d.units, s:a.s+d.subs, p:a.p+d.placed}; },
+                      {u:0,s:0,p:0});
+    var h = '<h2 class="sub2">커리큘럼<span class="cnt">세분류 ' + t.s + ' · 능력단위 ' +
+            t.u + ' · 편성 ' + t.p + ' · 미편성 ' + (t.u - t.p) + '</span></h2><div class="cgrid">';
+    ds.forEach(function(d){
+      var meta = '<dl>' +
+        '<dt>세분류</dt><dd>' + d.subs + '개</dd>' +
+        '<dt>단위</dt><dd>' + d.units + '개 (편성 ' + d.placed + ')</dd>' +
+        '<dt>교안</dt><dd>작성 ' + d.wip + ' / 골격 ' + (d.units - d.wip) + '</dd>' +
+        '<dt>모듈</dt><dd>' + d.pdf + '건</dd></dl>';
+      h += '<div class="cwrap"><a class="ccard" href="' + esc(d.page) + '"><h3>' +
+           esc(d.label) + '</h3>' + meta + '<span class="go">세분류 보기</span></a></div>';
+    });
+    return h + '</div>';
+  }
+
   function draw(){
     var adm=EXAM_AUTH.isAdmin(), gs=[], by={};
     (window.CM_SECTIONS||[]).forEach(function(s){
@@ -67,7 +89,7 @@
       if(!by[s.group]){ by[s.group]=[]; gs.push(s.group); }
       by[s.group].push(s);
     });
-    var h=courses();
+    var h=courses()+curriculum();
     gs.forEach(function(g){
       h+='<h2 class="sub2">'+esc(g)+'</h2><div class="cgrid">';
       by[g].forEach(function(s){
