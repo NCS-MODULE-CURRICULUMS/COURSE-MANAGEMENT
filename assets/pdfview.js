@@ -363,6 +363,25 @@
       });
   }
 
+  /* 표의 학습모듈 칸은 기본이 '—' 다. 로컬 서버로 열었을 때만 단추로 바꾼다.
+     배포 주소에서는 원문에 닿을 길이 없으므로 눌러도 안 되는 단추를 보여 주지 않는다. */
+  function arm() {
+    var cells = document.querySelectorAll("[data-lm]");
+    if (!cells.length) return;
+    localUp().then(function (up) {
+      if (!up) return;
+      Array.prototype.forEach.call(cells, function (c) {
+        var code = c.getAttribute("data-lm");
+        var a = document.createElement("a");
+        a.className = "btn";
+        a.href = "#";
+        a.setAttribute("data-pdf", code);
+        a.textContent = "PDF";
+        c.replaceWith(a);
+      });
+    });
+  }
+
   window.CM_PDFVIEW = { open: open };
   document.addEventListener("click", function (e) {
     var a = e.target.closest && e.target.closest("[data-pdf]");
@@ -370,4 +389,9 @@
     e.preventDefault();
     open(a.getAttribute("data-pdf"));
   });
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", arm);
+  } else {
+    arm();
+  }
 })();
