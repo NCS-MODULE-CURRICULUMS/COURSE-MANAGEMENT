@@ -15,8 +15,10 @@
 
   var DB = "ncs-pdf", STORE = "h", KEY = "root";
   var NCS = "https://www.ncs.go.kr/unity/hth01/hth0101/downloadFile.do";
+  var LOCAL = "http://127.0.0.1:8765";        // tools/pdf-server.py
   var pdfjs = null, root = null, task = null, doc = null, blob = null;
   var page = 1, scale = 1.2, rendering = false, pending = null;
+  var local = null;                           // null 아직 안 봄 · true 켜짐 · false 없음
 
   function esc(s) {
     return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
@@ -100,6 +102,7 @@
       else if (a === "out") zoom(-0.25);
       else if (a === "pick") pick();
       else if (a === "grant") grant();
+      else if (a === "retry") { local = null; if (wanted) open(wanted); }
     });
     document.addEventListener("keydown", function (e) {
       if (!el.wrap.classList.contains("on")) return;
@@ -182,12 +185,31 @@
     render();
   }
 
-  function show(file, meta) {
+  /* 로컬 서버(tools/pdf-server.py)가 떠 있으면 폴더를 묻지 않고 바로 연다.
+     한 번만 확인하고 그 결과를 이 페이지가 살아 있는 동안 쓴다. */
+  function localUp() {
+    if (local !== null) return Promise.resolve(local);
+    var t = setTimeout(function () {}, 0);
+    var ctl = window.AbortController ? new AbortController() : null;
+    if (ctl) t = setTimeout(function () { ctl.abort(); }, 700);
+    return fetch(LOCAL + "/ping", { signal: ctl && ctl.signal, cache: "no-store" })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (j) { local = !!(j && j.ok); return local; })
+      .catch(function () { local = false; return false; })
+      .finally(function () { clearTimeout(t); });
+  }
+
+  function localURL(meta) {
+    return LOCAL + "/file?p=" + encodeURIComponent(meta.p.join("/"));
+  }
+
+  function show(src, meta) {
     say("PDF 를 여는 중… <small>" + esc(meta.n) + " · " + meta.mb + " MB</small>");
     return lib().then(function (m) {
-      if (blob) URL.revokeObjectURL(blob);
-      blob = URL.createObjectURL(file);
-      return m.getDocument({ url: blob }).promise;
+      if (blob) { URL.revokeObjectURL(blob); blob = null; }
+      var url = src;
+      if (typeof src !== "string") { blob = URL.createObjectURL(src); url = blob; }
+      return m.getDocument({ url: url }).promise;
     }).then(function (d) {
       doc = d; page = 1;
       el.num.textContent = d.numPages;
@@ -228,12 +250,35 @@
       '<button type="button" class="pv-b" data-a="pick">다른 폴더 고르기</button></p>');
   }
 
+  /* Chrome/Edge 가 아니면 폴더 고르기를 못 한다 — 로컬 서버 쪽만 안내한다. */
+  function askServer(meta) {
+    say('<b>이 브라우저는 폴더 열기를 지원하지 않습니다.</b>' +
+      '<p>대신 조직 폴더에서 아래 한 줄을 실행해 두면 어느 브라우저에서든 ' +
+      'PDF 가 바로 열립니다.</p>' +
+      '<p><code>python COURSE-MANAGEMENT/tools/pdf-server.py</code></p>' +
+      '<p class="pv-row">' +
+      '<a class="pv-b" href="' + (window.CM_BASE || "") + 'tools/pdf-server.py" download>서버 내려받기</a>' +
+      '<button type="button" class="pv-b" data-a="retry">켰습니다 · 다시 시도</button>' +
+      (ncsLink(meta) ? ' <a class="pv-b" href="' + esc(ncsLink(meta)) +
+        '">ncs.go.kr 에서 받기</a>' : "") + '</p>');
+  }
+
   function askFolder(meta) {
-    say('<b>PDF 가 있는 폴더를 한 번 알려 주세요.</b>' +
-      '<p>학습모듈 원문은 한국직업능력연구원 저작물이라 이 사이트에 올려 두지 않습니다. ' +
-      '대신 이 PC 에 받아 둔 파일을 그대로 엽니다 — 읽기만 하고 어디로도 보내지 않습니다.</p>' +
-      '<p>커리큘럼 저장소들을 담고 있는 <b>상위 폴더</b>를 고르세요 ' +
-      '(<code>' + esc(meta.p[0]) + '</code> 이 들어 있는 폴더).</p>' +
+    say('<b>PDF 를 어디서 읽을지 한 번만 정해 주세요.</b>' +
+      '<p>학습모듈은 <b>공공누리 제2유형</b>(출처표시·상업적 이용 금지)이고, 그 안에 ' +
+      '국가가 저작재산권을 갖지 않은 도표·사진이 섞여 있어 배포·공중송신에 원작자 동의가 ' +
+      '필요합니다. 그래서 원문을 사이트에 올려 두지 않고, 이 PC 에 받아 둔 파일을 ' +
+      '그대로 엽니다 — 읽기만 하고 어디로도 보내지 않습니다.</p>' +
+
+      '<p><b>1. 늘 바로 열리게</b> — 조직 폴더에서 한 줄 실행해 두면 이 창이 다시 ' +
+      '뜨지 않습니다.</p>' +
+      '<p><code>python COURSE-MANAGEMENT/tools/pdf-server.py</code></p>' +
+      '<p class="pv-row">' +
+      '<a class="pv-b" href="' + (window.CM_BASE || "") + 'tools/pdf-server.py" download>서버 내려받기</a>' +
+      '<button type="button" class="pv-b" data-a="retry">켰습니다 · 다시 시도</button></p>' +
+
+      '<p><b>2. 지금 한 번만</b> — 폴더를 고르면 이 브라우저가 기억합니다 ' +
+      '(<code>' + esc(meta.p[0]) + '</code> 이 들어 있는 상위 폴더).</p>' +
       '<p class="pv-row"><button type="button" class="pv-b" data-a="pick">폴더 고르기</button>' +
       (ncsLink(meta) ? ' <a class="pv-b" href="' + esc(ncsLink(meta)) +
         '">ncs.go.kr 에서 받기</a>' : "") + '</p>');
@@ -249,31 +294,31 @@
     el.title.textContent = meta.n.replace(/\.pdf$/i, "");
     wanted = code;
 
-    if (!supported()) {
-      return say('<b>이 브라우저는 폴더 열기를 지원하지 않습니다.</b>' +
-        '<p>Chrome 이나 Edge 에서 열면 PDF 를 바로 볼 수 있습니다. ' +
-        '지금은 아래에서 원문을 받으세요.</p>' +
-        (ncsLink(meta) ? '<p class="pv-row"><a class="pv-b" href="' + esc(ncsLink(meta)) +
-          '">ncs.go.kr 에서 받기</a></p>' : ""));
-    }
-
     say("여는 중…");
-    (root ? Promise.resolve(root)
-          : loadRoot().then(function (h) {
-              if (!h) return null;
-              return perm(h).then(function (st) {
-                if (st === "granted") return h;
-                return st === "prompt" ? "ask" : null;
-              });
-            }))
+    localUp().then(function (up) {
+      if (up) return "local";                    // 서버가 떠 있으면 폴더는 건너뛴다
+      if (!supported()) return "nofs";           // 폴더 열기가 안 되는 브라우저
+      if (root) return root;
+      return loadRoot().then(function (h) {
+        if (!h) return null;
+        return perm(h).then(function (st) {
+          if (st === "granted") return h;
+          return st === "prompt" ? "ask" : null;
+        });
+      });
+    })
       .then(function (h) {
+        if (h === "local") return localURL(meta);
+        if (h === "nofs") { askServer(meta); return null; }
         if (h === "ask") { askGrant(meta); return null; }
         if (!h) { askFolder(meta); return null; }
         root = h;
         return resolve(h, meta.p).then(function (fh) { return fh.getFile(); });
       })
-      .then(function (file) { if (file) return show(file, meta); })
+      .then(function (src) { if (src) return show(src, meta); })
       .catch(function (e) {
+        // 서버는 떠 있는데 그 폴더에 파일이 없을 수 있다 — 조용히 폴더 쪽으로 물러난다
+        if (local) { local = false; return open(code); }
         var miss = e && (e.name === "NotFoundError" || e.name === "TypeMismatchError");
         say("<b>" + (miss ? "그 폴더에서 파일을 찾지 못했습니다." : "파일을 열지 못했습니다.") + "</b>" +
           '<p><code>' + esc(meta.p.join("/")) + '</code></p>' +
