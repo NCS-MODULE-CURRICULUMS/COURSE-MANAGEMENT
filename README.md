@@ -54,6 +54,29 @@ c2 는 NCS_EXAM_PAGE 에서 운영한 과정을 **자료까지 통째로** 가�
 `assets/locks-<과정id>.js` 의 `true` 는 **잠김** — 일반(학생) 계정은 그 능력단위 상세를 열 수 없습니다.
 표의 `잠김/열림` 버튼으로 바꾸고 역시 [설정 파일 저장] → push 로 반영합니다.
 
+## 구조 검사
+
+```bash
+python .github/scripts/check_site.py          # 정적 검사
+python .github/scripts/check_site.py --live https://ncs-module-curriculums.github.io/COURSE-MANAGEMENT/
+```
+
+푸시·PR 때 자동으로 돌고, 매주 월요일에는 배포본까지 확인합니다.
+
+**무엇을 잡는가**
+
+| 검사 | 왜 |
+|---|---|
+| **과정 교차 링크** | c2 페이지가 c1 과정으로 넘어가던 사고가 실제로 있었다. 파일이 있으니 404 가 안 나서 링크 검사를 통과했다 |
+| 깨진 내부 참조 | `<script>` · `<code>` · `<pre>` 안의 예제 코드는 제외 |
+| 원본 사이트 링크 | 자료를 이 저장소로 가져왔으므로 더는 가리키면 안 된다 |
+| 데이터 ↔ 파일 | `courses.js` · `modules-cN.js` · `locks-cN.js` · `items-cN.js` · `sections.js` 의 경로가 실재하는지, 잠금 키가 모듈과 맞는지 |
+| 모듈 파일명 | `modules/c<과정>-m<번호>.html` 규칙 |
+| 고아 페이지 | 어디서도 연결되지 않는 문서 (js 로만 연결되는 것은 제외) |
+| 정답 · 개인정보 | `answers/` · `students/` · `private/` · `plan/` 에 파일이 들어왔는지 |
+
+`--live` 는 캐시를 우회해서 확인합니다. 캐시를 안 끄면 고친 것도 안 고쳐진 것처럼 보입니다.
+
 ## 배포
 
 빌드 없음. **GitHub Pages — `main` 브랜치 루트(`/`)** 에서 그대로 서비스합니다.

@@ -1,0 +1,27 @@
+name: 사이트 구조 검사
+
+on:
+  push:
+    paths: ["**.html", "assets/**", ".github/**"]
+  pull_request:
+  schedule:
+    - cron: "0 20 * * 1"   # 매주 월요일 05:00 KST — 배포본까지 확인
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: 정적 검사
+        run: python .github/scripts/check_site.py
+
+      # 예약 실행 때만 — 배포본이 실제로 살아 있는지 (캐시 우회)
+      - name: 배포본 확인
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: >
+          python .github/scripts/check_site.py --live
+          https://ncs-module-curriculums.github.io/COURSE-MANAGEMENT/
