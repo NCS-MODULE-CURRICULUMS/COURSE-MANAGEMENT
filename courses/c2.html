@@ -71,7 +71,7 @@
   var MKEY = 'cm_modules_' + CID, LKEY = 'cm_locks_' + CID;
   var COLS = [['name','능력단위','text'],['code','능력단위코드','text'],['tc','강사','text'],
               ['sd','시작일','date'],['ed','종료일','date'],['ev','본평가','date'],
-              ['page','상세','text']];
+              ['page','상세','text'],['lp','표준 교안','text']];
   var editing = -1;
 
   var course = (window.CM_COURSES || []).filter(function(c){ return c.id === CID; })[0] || {};
@@ -137,7 +137,7 @@
     var v = list(), adm = EXAM_AUTH.isAdmin(), h = '';
     h += '<tr><th>능력단위</th><th>코드</th><th>강사</th>' +
          '<th>시작일</th><th>종료일</th><th>본평가</th>' +
-         '<th>준비 교안</th><th>평가 자료</th></tr>';
+         '<th>준비 교안</th><th>평가 자료</th><th>표준 교안</th></tr>';
 
     v.forEach(function(m, i){
       if(adm && i === editing){
@@ -150,11 +150,11 @@
                  '" value="' + esc(val) + '"></td>';
         });
         h += '<tr class="med">' + tds + '</tr>' +
-             '<tr class="med"><td colspan="8" class="mrow">' +
+             '<tr class="med"><td colspan="9" class="mrow">' +
              '<button class="mok" data-i="' + i + '" type="button">저장</button>' +
              '<button class="mno" type="button">취소</button>' +
              '<span class="mhint">날짜가 아닌 값(예: -)은 그대로 적습니다. ' +
-             '상세는 modules/mNN.html</span></td></tr>';
+             '표준 교안은 비워 두면 양식 보기로 갑니다</span></td></tr>';
         return;
       }
       var lk = locked(m.id), shut = (!adm && lk), pg = m.page || '';
@@ -162,6 +162,11 @@
         ? '<a class="mlink" href="../' + esc(pg) + '">' + esc(m.name) + '</a>'
         : '<span class="mlink d">' + esc(m.name) + '</span>';
       // 상세는 능력단위명 자체가 링크다. 단추를 또 두면 같은 곳이 두 번 생긴다.
+      // 표준 강의 교안 — 이 교과 것이 있으면 그리로, 없으면 양식을 보여 준다
+      var lpbtn = (m.lp && !shut)
+        ? '<a class="btn" href="../' + esc(m.lp) + '">교안</a>'
+        : (m.lp ? '<a class="btn d">교안</a>'
+                : '<a class="btn" href="../docs/표준강의교안-샘플.html">양식</a>');
       // 준비 교안 — 파일이 하나뿐이라 바로 연다
       var hasG = !!(window.CM_GUIDES || {})[m.id];
       var gbtn = (hasG && !shut)
@@ -184,7 +189,8 @@
            '<td class="c">' + esc(m.sd) + '</td><td class="c">' + esc(m.ed) + '</td>' +
            '<td class="c">' + esc(m.ev || '-') + '</td>' +
            '<td class="tdb">' + gbtn + '</td>' +
-           '<td class="tdb">' + ebtn + tools + '</td></tr>';
+           '<td class="tdb">' + ebtn + '</td>' +
+           '<td class="tdb">' + lpbtn + tools + '</td></tr>';
     });
     document.getElementById('mtable').innerHTML = h;
     var _t = document.getElementById('mtable');
@@ -241,7 +247,7 @@
              code: document.getElementById('mCode').value.trim(),
              tc: document.getElementById('mTc').value.trim(),
              sd: document.getElementById('mSd').value, ed: document.getElementById('mEd').value,
-             ev: '-', page: '' });
+             ev: '-', page: '', lp: '' });
     save(v); mf.reset(); setDefaultDates(); draw();
     document.getElementById('mMsg').textContent =
       id + ' 을 추가했습니다. 상세 페이지가 있으면 수정에서 modules/' + id + '.html 을 적습니다. ' +

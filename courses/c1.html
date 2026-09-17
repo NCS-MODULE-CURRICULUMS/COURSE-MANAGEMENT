@@ -71,7 +71,7 @@
   var COLS = [['name','능력단위','text'],['code','능력단위코드','text'],['lv','수준','text'],
               ['hr','시간','text'],['tc','강사','text'],['sd','시작일','date'],['ed','종료일','date'],
               ['ev','본평가','date'],['ab','결석자평가','date'],['re','재평가','date'],
-              ['ev_method','평가방법','text'],['page','상세','text']];
+              ['ev_method','평가방법','text'],['lp','표준 교안','text']];
   var editing = -1;
 
   var course = (window.CM_COURSES || []).filter(function(c){ return c.id === CID; })[0] || {};
@@ -135,7 +135,7 @@
          '<th>시간</th><th>강사</th>' +
          '<th>시작일</th><th>종료일</th>' +
          '<th>본평가</th><th class="sc">결석자평가</th>' +
-         '<th class="sc">재평가</th><th>평가방법</th><th>상세</th></tr>';
+         '<th class="sc">재평가</th><th>평가방법</th><th>표준 교안</th></tr>';
 
     v.forEach(function(m, i){
       if(adm && i === editing){
@@ -152,16 +152,18 @@
              '<button class="mok" data-i="' + i + '" type="button">저장</button>' +
              '<button class="mno" type="button">취소</button>' +
              '<span class="mhint">날짜가 아닌 값(예: -)은 그대로 적습니다. ' +
-             '상세는 modules/mNN.html</span></td></tr>';
+             '표준 교안은 비워 두면 양식 보기로 갑니다</span></td></tr>';
         return;
       }
       var lk = locked(m.id), shut = (!adm && lk), pg = m.page || '';
       var nm = (pg && !shut)
         ? '<a class="mlink" href="../' + esc(pg) + '">' + esc(m.name) + '</a>'
         : '<span class="mlink d">' + esc(m.name) + '</span>';
-      var btn = (pg && !shut)
-        ? '<a class="btn" href="../' + esc(pg) + '">상세</a>'
-        : '<a class="btn d">상세</a>';
+      // 표준 강의 교안 — 이 교과 것이 있으면 그리로, 없으면 양식을 보여 준다
+      var lpbtn = (m.lp && !shut)
+        ? '<a class="btn" href="../' + esc(m.lp) + '">교안</a>'
+        : (m.lp ? '<a class="btn d">교안</a>'
+                : '<a class="btn" href="../docs/표준강의교안-샘플.html">양식</a>');
       var tools = adm
         ? '<button class="lk' + (lk ? ' on' : '') + '" data-m="' + esc(m.id) + '" type="button">' +
           (lk ? '잠김' : '열림') + '</button>' +
@@ -177,7 +179,7 @@
            '<td class="c sc">' + esc(m.ab || '-') + '</td>' +
            '<td class="c sc">' + esc(m.re || '-') + '</td>' +
            '<td>' + esc(m.ev_method) + '</td>' +
-           '<td class="tdb">' + btn + tools + '</td></tr>';
+           '<td class="tdb">' + lpbtn + tools + '</td></tr>';
     });
     document.getElementById('mtable').innerHTML = h;
     var _t = document.getElementById('mtable');
@@ -234,7 +236,7 @@
              code: document.getElementById('mCode').value.trim(), lv: '', hr: '',
              tc: document.getElementById('mTc').value.trim(),
              sd: document.getElementById('mSd').value, ed: document.getElementById('mEd').value,
-             ev: '-', ab: '-', re: '-', ev_method: '', page: '' });
+             ev: '-', ab: '-', re: '-', ev_method: '', page: '', lp: '' });
     save(v); mf.reset(); setDefaultDates(); draw();
     document.getElementById('mMsg').textContent =
       id + ' 을 추가했습니다. 상세 페이지가 있으면 수정에서 modules/' + id + '.html 을 적습니다. ' +

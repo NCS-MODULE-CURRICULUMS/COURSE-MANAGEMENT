@@ -7,6 +7,7 @@
  *   tc   : 강사               sd/ed: 시작일 / 종료일
  *   ev   : 본평가   ab : 결석자평가   re : 재평가
  *   ev_method : 평가방법      page : 상세 페이지
+ *   lp   : 이 교과의 표준 강의 교안 경로. 비우면 양식 보기로 갑니다
  */
 window.CM_MODULES = [
   {
@@ -22,7 +23,8 @@ window.CM_MODULES = [
     "ab": "-",
     "re": "-",
     "ev_method": "사례연구 · 구두발표",
-    "page": "modules/c1-m01.html"
+    "page": "modules/c1-m01.html",
+    "lp": ""
   },
   {
     "id": "m02",
@@ -37,7 +39,8 @@ window.CM_MODULES = [
     "ab": "-",
     "re": "-",
     "ev_method": "포트폴리오 · 평가자 질문",
-    "page": "modules/c1-m02.html"
+    "page": "modules/c1-m02.html",
+    "lp": ""
   },
   {
     "id": "m03",
@@ -52,7 +55,8 @@ window.CM_MODULES = [
     "ab": "-",
     "re": "-",
     "ev_method": "포트폴리오 · 평가자 체크리스트",
-    "page": "modules/c1-m03.html"
+    "page": "modules/c1-m03.html",
+    "lp": ""
   },
   {
     "id": "m04",
@@ -67,7 +71,8 @@ window.CM_MODULES = [
     "ab": "-",
     "re": "-",
     "ev_method": "작업장평가 · 일지/저널",
-    "page": "modules/c1-m04.html"
+    "page": "modules/c1-m04.html",
+    "lp": ""
   },
   {
     "id": "m05",
@@ -82,7 +87,8 @@ window.CM_MODULES = [
     "ab": "-",
     "re": "-",
     "ev_method": "포트폴리오 · 평가자 질문",
-    "page": "modules/c1-m05.html"
+    "page": "modules/c1-m05.html",
+    "lp": ""
   },
   {
     "id": "m06",
@@ -97,7 +103,8 @@ window.CM_MODULES = [
     "ab": "-",
     "re": "-",
     "ev_method": "포트폴리오 · 문제해결 시나리오",
-    "page": "modules/c1-m06.html"
+    "page": "modules/c1-m06.html",
+    "lp": ""
   },
   {
     "id": "m07",
@@ -112,7 +119,8 @@ window.CM_MODULES = [
     "ab": "-",
     "re": "-",
     "ev_method": "작업장평가 · 평가자 체크리스트",
-    "page": "modules/c1-m07.html"
+    "page": "modules/c1-m07.html",
+    "lp": ""
   },
   {
     "id": "m08",
@@ -127,7 +135,8 @@ window.CM_MODULES = [
     "ab": "-",
     "re": "-",
     "ev_method": "문제해결 시나리오 · 평가자 체크리스트",
-    "page": "modules/c1-m08.html"
+    "page": "modules/c1-m08.html",
+    "lp": ""
   },
   {
     "id": "m09",
@@ -142,6 +151,7 @@ window.CM_MODULES = [
     "ab": "-",
     "re": "-",
     "ev_method": "작업장평가 · 포트폴리오",
-    "page": "modules/c1-m09.html"
+    "page": "modules/c1-m09.html",
+    "lp": ""
   }
 ];

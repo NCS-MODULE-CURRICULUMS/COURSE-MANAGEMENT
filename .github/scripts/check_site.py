@@ -96,6 +96,10 @@ for c in courses:
             owner[m["page"]] = cid
             if not (ROOT / m["page"]).exists():
                 err(f"modules-{cid}.js: {m['id']} 의 page '{m['page']}' 가 없습니다")
+        if m.get("lp"):                      # 표준 강의 교안 — 비우면 양식으로 보낸다
+            owner.setdefault(m["lp"], cid)
+            if not (ROOT / m["lp"]).exists():
+                err(f"modules-{cid}.js: {m['id']} 의 lp '{m['lp']}' 가 없습니다")
 
     # 잠금 키가 모듈과 맞는지
     locks = jsvar(f"locks-{cid}.js", "CM_LOCKS")

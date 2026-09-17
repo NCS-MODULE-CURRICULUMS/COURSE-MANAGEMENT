@@ -1,6 +1,7 @@
 /* (디지털 컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E 의 능력단위 모듈.
  * courses/c2.html 의 [설정 파일 저장] 이 이 파일을 덮어씁니다. 손으로 고쳐도 됩니다.
  * 고친 뒤 git 에 올려야 모두에게 적용됩니다.
+ *   lp   : 이 교과의 표준 강의 교안 경로. 비우면 양식 보기로 갑니다
  */
 window.CM_MODULES = [
   {
@@ -12,7 +13,8 @@ window.CM_MODULES = [
     "sd": "2026-02-24",
     "ed": "2026-03-05",
     "ev": "2026-03-05",
-    "page": "modules/c2-m01.html"
+    "page": "modules/c2-m01.html",
+    "lp": ""
   },
   {
     "id": "m02",
@@ -23,7 +25,8 @@ window.CM_MODULES = [
     "sd": "2026-03-05",
     "ed": "2026-03-18",
     "ev": "2026-03-18",
-    "page": "modules/c2-m02.html"
+    "page": "modules/c2-m02.html",
+    "lp": ""
   },
   {
     "id": "m03",
@@ -34,7 +37,8 @@ window.CM_MODULES = [
     "sd": "2026-03-18",
     "ed": "2026-03-27",
     "ev": "2026-03-27",
-    "page": "modules/c2-m03.html"
+    "page": "modules/c2-m03.html",
+    "lp": ""
   },
   {
     "id": "m04",
@@ -45,7 +49,8 @@ window.CM_MODULES = [
     "sd": "2026-03-30",
     "ed": "2026-04-06",
     "ev": "2026-04-06",
-    "page": "modules/c2-m04.html"
+    "page": "modules/c2-m04.html",
+    "lp": ""
   },
   {
     "id": "m05",
@@ -56,7 +61,8 @@ window.CM_MODULES = [
     "sd": "2026-04-07",
     "ed": "2026-04-14",
     "ev": "2026-04-14",
-    "page": "modules/c2-m05.html"
+    "page": "modules/c2-m05.html",
+    "lp": ""
   },
   {
     "id": "m06",
@@ -67,7 +73,8 @@ window.CM_MODULES = [
     "sd": "2026-04-14",
     "ed": "2026-04-20",
     "ev": "2026-04-20",
-    "page": "modules/c2-m06.html"
+    "page": "modules/c2-m06.html",
+    "lp": ""
   },
   {
     "id": "m07",
@@ -78,7 +85,8 @@ window.CM_MODULES = [
     "sd": "2026-04-20",
     "ed": "2026-04-27",
     "ev": "2026-04-27",
-    "page": "modules/c2-m07.html"
+    "page": "modules/c2-m07.html",
+    "lp": ""
   },
   {
     "id": "m08",
@@ -89,7 +97,8 @@ window.CM_MODULES = [
     "sd": "2026-04-27",
     "ed": "2026-05-11",
     "ev": "2026-05-11",
-    "page": "modules/c2-m08.html"
+    "page": "modules/c2-m08.html",
+    "lp": ""
   },
   {
     "id": "m09",
@@ -100,7 +109,8 @@ window.CM_MODULES = [
     "sd": "2026-05-11",
     "ed": "2026-05-19",
     "ev": "2026-05-19",
-    "page": "modules/c2-m09.html"
+    "page": "modules/c2-m09.html",
+    "lp": ""
   },
   {
     "id": "m10",
@@ -111,7 +121,8 @@ window.CM_MODULES = [
     "sd": "2026-05-19",
     "ed": "2026-05-27",
     "ev": "2026-05-27",
-    "page": "modules/c2-m10.html"
+    "page": "modules/c2-m10.html",
+    "lp": ""
   },
   {
     "id": "m11",
@@ -122,7 +133,8 @@ window.CM_MODULES = [
     "sd": "2026-05-27",
     "ed": "2026-06-08",
     "ev": "2026-06-08",
-    "page": "modules/c2-m11.html"
+    "page": "modules/c2-m11.html",
+    "lp": ""
   },
   {
     "id": "m12",
@@ -133,7 +145,8 @@ window.CM_MODULES = [
     "sd": "2026-06-08",
     "ed": "2026-06-18",
     "ev": "2026-06-18",
-    "page": "modules/c2-m12.html"
+    "page": "modules/c2-m12.html",
+    "lp": ""
   },
   {
     "id": "m13",
@@ -144,7 +157,8 @@ window.CM_MODULES = [
     "sd": "2026-06-18",
     "ed": "2026-06-25",
     "ev": "2026-06-25",
-    "page": "modules/c2-m13.html"
+    "page": "modules/c2-m13.html",
+    "lp": ""
   },
   {
     "id": "m14",
@@ -155,7 +169,8 @@ window.CM_MODULES = [
     "sd": "2026-06-25",
     "ed": "2026-07-02",
     "ev": "2026-07-02",
-    "page": "modules/c2-m14.html"
+    "page": "modules/c2-m14.html",
+    "lp": ""
   },
   {
     "id": "m15",
@@ -166,7 +181,8 @@ window.CM_MODULES = [
     "sd": "2026-07-02",
     "ed": "2026-07-08",
     "ev": "2026-07-08",
-    "page": "modules/c2-m15.html"
+    "page": "modules/c2-m15.html",
+    "lp": ""
   },
   {
     "id": "m16",
@@ -177,7 +193,8 @@ window.CM_MODULES = [
     "sd": "2026-07-08",
     "ed": "2026-07-21",
     "ev": "-",
-    "page": "modules/c2-m16.html"
+    "page": "modules/c2-m16.html",
+    "lp": ""
   },
   {
     "id": "m17",
@@ -188,6 +205,7 @@ window.CM_MODULES = [
     "sd": "2026-07-21",
     "ed": "2026-08-12",
     "ev": "-",
-    "page": "modules/c2-m17.html"
+    "page": "modules/c2-m17.html",
+    "lp": ""
   }
 ];
