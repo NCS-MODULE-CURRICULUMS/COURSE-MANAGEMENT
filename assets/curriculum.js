@@ -9,7 +9,7 @@ window.CM_CURRICULUM = [
     "page": "curriculum/web-app.html",
     "subs": 4,
     "units": 61,
-    "wip": 0,
+    "wip": 27,
     "pdf": 61,
     "placed": 14,
     "lv": "2~8"
