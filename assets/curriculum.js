@@ -11,7 +11,8 @@ window.CM_CURRICULUM = [
     "units": 61,
     "wip": 0,
     "pdf": 61,
-    "placed": 14
+    "placed": 14,
+    "lv": "2~8"
   },
   {
     "id": "security",
@@ -22,7 +23,8 @@ window.CM_CURRICULUM = [
     "units": 75,
     "wip": 0,
     "pdf": 69,
-    "placed": 0
+    "placed": 0,
+    "lv": "3~8"
   },
   {
     "id": "cloud-infra",
@@ -33,7 +35,8 @@ window.CM_CURRICULUM = [
     "units": 52,
     "wip": 0,
     "pdf": 52,
-    "placed": 0
+    "placed": 0,
+    "lv": "3~7"
   },
   {
     "id": "ai-data",
@@ -44,6 +47,7 @@ window.CM_CURRICULUM = [
     "units": 94,
     "wip": 9,
     "pdf": 74,
-    "placed": 9
+    "placed": 9,
+    "lv": "3~7"
   }
 ];

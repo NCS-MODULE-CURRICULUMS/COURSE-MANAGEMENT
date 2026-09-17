@@ -74,6 +74,7 @@
       var meta = '<dl>' +
         '<dt>세분류</dt><dd>' + d.subs + '개</dd>' +
         '<dt>단위</dt><dd>' + d.units + '개 (편성 ' + d.placed + ')</dd>' +
+        '<dt>수준</dt><dd>' + esc(d.lv || '—') + '</dd>' +
         '<dt>교안</dt><dd>작성 ' + d.wip + ' / 골격 ' + (d.units - d.wip) + '</dd>' +
         '<dt>모듈</dt><dd>' + d.pdf + '건</dd></dl>';
       h += '<div class="cwrap"><a class="ccard" href="' + esc(d.page) + '"><h3>' +
