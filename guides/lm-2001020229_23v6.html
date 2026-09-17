@@ -1,0 +1,825 @@
+<meta charset="utf-8"><title>소프트웨어개발 방법론 활용 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+<script>window.CM_BASE="../";</script>
+<script src="../assets/modules-pdf.js"></script>
+<script defer src="../assets/pdfview.js"></script>
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
+  <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
+  / 소프트웨어개발 방법론 활용 / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">소프트웨어개발 방법론 선정하기</i><a href="#st1"><b>1</b><span>상용 소프트웨어</span></a><a href="#st2"><b>2</b><span>상용 소프트웨어의 분류 체계</span></a><a href="#st3"><b>3</b><span>응용소프트웨어</span></a><a href="#st4"><b>4</b><span>응용소프트웨어의 개요</span></a><a href="#st5"><b>5</b><span>응용소프트웨어의 분류</span></a><a href="#st6"><b>6</b><span>응용소프트웨어의 종류별 특성</span></a><a href="#st7"><b>7</b><span>사무용 소프트웨어</span></a><a href="#st8"><b>8</b><span>기업용 소프트웨어</span></a><a href="#st9"><b>9</b><span>협업용 소프트웨어</span></a><a href="#st10"><b>10</b><span>교육용 소프트웨어</span></a><a href="#st11"><b>11</b><span>게임용 소프트웨어</span></a><a href="#st12"><b>12</b><span>산업 특화 소프트웨어</span></a><a href="#st13"><b>13</b><span>디지털 콘텐츠용 소프트웨어</span></a><a href="#st14"><b>14</b><span>엔지니어링/과학용 소프트웨어</span></a><a href="#st15"><b>15</b><span>서비스 지원용 소프트웨어</span></a><a href="#st16"><b>16</b><span>생체 인식 소프트웨어</span></a><a href="#st17"><b>17</b><span>소프트웨어개발 방법론</span></a><a href="#st18"><b>18</b><span>소프트웨어개발 방법론의 특징과 절차</span></a><a href="#st19"><b>19</b><span>소프트웨어개발 방법론의 특징</span></a><a href="#st20"><b>20</b><span>소프트웨어개발 방법론의 절차</span></a><a href="#st21"><b>21</b><span>소프트웨어 사업비의 종류</span></a><i class="qg">소프트웨어개발 방법론 테일러링하기</i><a href="#st22"><b>22</b><span>프로젝트의 정의와 관리</span></a><a href="#st23"><b>23</b><span>프로젝트의 정의</span></a><a href="#st24"><b>24</b><span>프로젝트의 관리</span></a><a href="#st25"><b>25</b><span>생명주기 모델과 컴포넌트 기반 방법론</span></a><a href="#st26"><b>26</b><span>생명주기 모델</span></a><a href="#st27"><b>27</b><span>컴포넌트 기반 개발 방법론</span></a><a href="#st28"><b>28</b><span>응용소프트웨어개발 방법론의 프레임워크</span></a><a href="#st29"><b>29</b><span>테일러링을 위한 요구사항</span></a><a href="#st30"><b>30</b><span>테일러링을 위한 품질 관리</span></a><a href="#st31"><b>31</b><span>ISO 12207 표준</span></a><a href="#st32"><b>32</b><span>CMMI 모델</span></a><a href="#st33"><b>33</b><span>SPICE 모델</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>소프트웨어개발 방법론 활용 — 준비 교안</h1>
+<p class="sub">능력단위 <code>2001020229_23v6</code> · 6수준 ·
+32시간 · 단계 33개 · 평가 문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+
+<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">응용소프트웨어 특성에 따라 정형화된 개발 방법론을 선정하고, 프로젝트 특성에 맞도록 테일러링하여 응용 소프트웨어 개발에 활용할 수 있다.</p>
+    <b class="sh">선수학습</b>
+    <p class="v">애플리케이션 테스트 수행(2001020227_23v6), 화면 구현(2001020225_23v6), 애플리케이션 테스트 관리(2001020226_23v6), 화면 설계(2001020224_23v6)</p>
+    <b class="sh">원문</b>
+    <p class="src">LM2001020229_23v6_.소프트웨어개발 방법론 활용_20251108.pdf (97쪽)</p>
+  </aside>
+  <div class="bd">
+<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
+   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
+   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
+<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
+   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
+   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+
+<h4>핵심 용어</h4>
+<p>응용소프트웨어 특성 작성, 개발 방법론 선정, 개발 방법론 결정, 작성 산출물 적용, 소프트웨어개발 방법 론 테일러링하기</p>
+
+<h4>능력단위요소</h4>
+<table class="wide">
+  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
+      <th>학습 내용</th><th style="width:74px">단계</th></tr>
+  <tr><td class="c">1</td><td>소프트웨어개발 방법론 선정하기</td><td>응용소프트웨어 특성 작성 · 개발 방법론 선정</td><td class="c">21</td></tr>
+  <tr><td class="c">2</td><td>소프트웨어개발 방법론 테일러링하기</td><td>개발 방법론 결정 · 작성 산출물 적용</td><td class="c">12</td></tr>
+</table>
+
+<div class="try">
+  <b class="t">쓰는 법</b>
+  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
+  한 단계가 대략 수업 10~20분에 해당합니다.
+</div>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>1. 소프트웨어개발 방법론 선정하기</b><span>능력단위요소 · <code>2001020229_23v6.1</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st1">
+      <h3><i>1</i>상용 소프트웨어</h3>
+      <aside class="side">
+        <p class="pt">응용소프트웨어 특성 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하여야 할 응용소프트웨어의 특성을 파악하여 정형화된 개발 방법론 선정 기준으로 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>상용 소프트웨어</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>상용 소프트웨어의 분류 체계</h3>
+      <aside class="side">
+        <p class="pt">응용소프트웨어 특성 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하여야 할 응용소프트웨어의 특성을 파악하여 정형화된 개발 방법론 선정 기준으로 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>상용 소프트웨어의 분류 체계</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st3">
+      <h3><i>3</i>응용소프트웨어</h3>
+      <aside class="side">
+        <p class="pt">응용소프트웨어 특성 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하여야 할 응용소프트웨어의 특성을 파악하여 정형화된 개발 방법론 선정 기준으로 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>응용소프트웨어</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st4">
+      <h3><i>4</i>응용소프트웨어의 개요</h3>
+      <aside class="side">
+        <p class="pt">응용소프트웨어 특성 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하여야 할 응용소프트웨어의 특성을 파악하여 정형화된 개발 방법론 선정 기준으로 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>응용소프트웨어의 개요</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st5">
+      <h3><i>5</i>응용소프트웨어의 분류</h3>
+      <aside class="side">
+        <p class="pt">응용소프트웨어 특성 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하여야 할 응용소프트웨어의 특성을 파악하여 정형화된 개발 방법론 선정 기준으로 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>응용소프트웨어의 분류</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st6">
+      <h3><i>6</i>응용소프트웨어의 종류별 특성</h3>
+      <aside class="side">
+        <p class="pt">응용소프트웨어 특성 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하여야 할 응용소프트웨어의 특성을 파악하여 정형화된 개발 방법론 선정 기준으로 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>응용소프트웨어의 종류별 특성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st7">
+      <h3><i>7</i>사무용 소프트웨어</h3>
+      <aside class="side">
+        <p class="pt">응용소프트웨어 특성 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하여야 할 응용소프트웨어의 특성을 파악하여 정형화된 개발 방법론 선정 기준으로 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>사무용 소프트웨어</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st8">
+      <h3><i>8</i>기업용 소프트웨어</h3>
+      <aside class="side">
+        <p class="pt">응용소프트웨어 특성 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하여야 할 응용소프트웨어의 특성을 파악하여 정형화된 개발 방법론 선정 기준으로 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>기업용 소프트웨어</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st9">
+      <h3><i>9</i>협업용 소프트웨어</h3>
+      <aside class="side">
+        <p class="pt">응용소프트웨어 특성 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하여야 할 응용소프트웨어의 특성을 파악하여 정형화된 개발 방법론 선정 기준으로 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>협업용 소프트웨어</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st10">
+      <h3><i>10</i>교육용 소프트웨어</h3>
+      <aside class="side">
+        <p class="pt">응용소프트웨어 특성 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하여야 할 응용소프트웨어의 특성을 파악하여 정형화된 개발 방법론 선정 기준으로 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>교육용 소프트웨어</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st11">
+      <h3><i>11</i>게임용 소프트웨어</h3>
+      <aside class="side">
+        <p class="pt">응용소프트웨어 특성 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하여야 할 응용소프트웨어의 특성을 파악하여 정형화된 개발 방법론 선정 기준으로 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>게임용 소프트웨어</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st12">
+      <h3><i>12</i>산업 특화 소프트웨어</h3>
+      <aside class="side">
+        <p class="pt">응용소프트웨어 특성 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하여야 할 응용소프트웨어의 특성을 파악하여 정형화된 개발 방법론 선정 기준으로 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>산업 특화 소프트웨어</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st13">
+      <h3><i>13</i>디지털 콘텐츠용 소프트웨어</h3>
+      <aside class="side">
+        <p class="pt">응용소프트웨어 특성 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하여야 할 응용소프트웨어의 특성을 파악하여 정형화된 개발 방법론 선정 기준으로 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>디지털 콘텐츠용 소프트웨어</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st14">
+      <h3><i>14</i>엔지니어링/과학용 소프트웨어</h3>
+      <aside class="side">
+        <p class="pt">응용소프트웨어 특성 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하여야 할 응용소프트웨어의 특성을 파악하여 정형화된 개발 방법론 선정 기준으로 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>엔지니어링/과학용 소프트웨어</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st15">
+      <h3><i>15</i>서비스 지원용 소프트웨어</h3>
+      <aside class="side">
+        <p class="pt">응용소프트웨어 특성 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하여야 할 응용소프트웨어의 특성을 파악하여 정형화된 개발 방법론 선정 기준으로 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>서비스 지원용 소프트웨어</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st16">
+      <h3><i>16</i>생체 인식 소프트웨어</h3>
+      <aside class="side">
+        <p class="pt">응용소프트웨어 특성 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하여야 할 응용소프트웨어의 특성을 파악하여 정형화된 개발 방법론 선정 기준으로 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>생체 인식 소프트웨어</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st17">
+      <h3><i>17</i>소프트웨어개발 방법론</h3>
+      <aside class="side">
+        <p class="pt">개발 방법론 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="27">원문 14쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정형화된 개발 방법론의 특징을 고려하여 응용소프트웨어 특성에 맞는 개발 방법론을 선정할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어개발 방법론</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 14쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st18">
+      <h3><i>18</i>소프트웨어개발 방법론의 특징과 절차</h3>
+      <aside class="side">
+        <p class="pt">개발 방법론 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="28">원문 15쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정형화된 개발 방법론의 특징을 고려하여 응용소프트웨어 특성에 맞는 개발 방법론을 선정할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어개발 방법론의 특징과 절차</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 15쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st19">
+      <h3><i>19</i>소프트웨어개발 방법론의 특징</h3>
+      <aside class="side">
+        <p class="pt">개발 방법론 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="28">원문 15쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정형화된 개발 방법론의 특징을 고려하여 응용소프트웨어 특성에 맞는 개발 방법론을 선정할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어개발 방법론의 특징</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 15쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st20">
+      <h3><i>20</i>소프트웨어개발 방법론의 절차</h3>
+      <aside class="side">
+        <p class="pt">개발 방법론 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="29">원문 16쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정형화된 개발 방법론의 특징을 고려하여 응용소프트웨어 특성에 맞는 개발 방법론을 선정할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어개발 방법론의 절차</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 16쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st21">
+      <h3><i>21</i>소프트웨어 사업비의 종류</h3>
+      <aside class="side">
+        <p class="pt">개발 방법론 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="29">원문 16쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정형화된 개발 방법론의 특징을 고려하여 응용소프트웨어 특성에 맞는 개발 방법론을 선정할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어 사업비의 종류</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 16쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lv">
+  <div class="lvh"><b>2. 소프트웨어개발 방법론 테일러링하기</b><span>능력단위요소 · <code>2001020229_23v6.2</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st22">
+      <h3><i>22</i>프로젝트의 정의와 관리</h3>
+      <aside class="side">
+        <p class="pt">개발 방법론 결정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="44">원문 31쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>프로젝트의 일정, 비용, 투입 자원과 재사용 현황을 고려하여 반복 전략을 개발 방법론에 반영 할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>프로젝트의 정의와 관리</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 31쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st23">
+      <h3><i>23</i>프로젝트의 정의</h3>
+      <aside class="side">
+        <p class="pt">개발 방법론 결정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="44">원문 31쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>프로젝트의 일정, 비용, 투입 자원과 재사용 현황을 고려하여 반복 전략을 개발 방법론에 반영 할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>프로젝트의 정의</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 31쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st24">
+      <h3><i>24</i>프로젝트의 관리</h3>
+      <aside class="side">
+        <p class="pt">개발 방법론 결정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="44">원문 31쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>프로젝트의 일정, 비용, 투입 자원과 재사용 현황을 고려하여 반복 전략을 개발 방법론에 반영 할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>프로젝트의 관리</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 31쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st25">
+      <h3><i>25</i>생명주기 모델과 컴포넌트 기반 방법론</h3>
+      <aside class="side">
+        <p class="pt">개발 방법론 결정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="44">원문 31쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>프로젝트의 일정, 비용, 투입 자원과 재사용 현황을 고려하여 반복 전략을 개발 방법론에 반영 할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>생명주기 모델과 컴포넌트 기반 방법론</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 31쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st26">
+      <h3><i>26</i>생명주기 모델</h3>
+      <aside class="side">
+        <p class="pt">개발 방법론 결정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="44">원문 31쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>프로젝트의 일정, 비용, 투입 자원과 재사용 현황을 고려하여 반복 전략을 개발 방법론에 반영 할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>생명주기 모델</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 31쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st27">
+      <h3><i>27</i>컴포넌트 기반 개발 방법론</h3>
+      <aside class="side">
+        <p class="pt">개발 방법론 결정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="45">원문 32쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>프로젝트의 일정, 비용, 투입 자원과 재사용 현황을 고려하여 반복 전략을 개발 방법론에 반영 할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>컴포넌트 기반 개발 방법론</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 32쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st28">
+      <h3><i>28</i>응용소프트웨어개발 방법론의 프레임워크</h3>
+      <aside class="side">
+        <p class="pt">작성 산출물 적용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="64">원문 51쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발에 사용할 표준으로 활동 및 절차 수행에 필요한 기법과 표준, 산출물 표준 양식 및 작성 기법, 적용 도구를 정립할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>응용소프트웨어개발 방법론의 프레임워크</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 51쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st29">
+      <h3><i>29</i>테일러링을 위한 요구사항</h3>
+      <aside class="side">
+        <p class="pt">작성 산출물 적용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="65">원문 52쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발에 사용할 표준으로 활동 및 절차 수행에 필요한 기법과 표준, 산출물 표준 양식 및 작성 기법, 적용 도구를 정립할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>테일러링을 위한 요구사항</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 52쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st30">
+      <h3><i>30</i>테일러링을 위한 품질 관리</h3>
+      <aside class="side">
+        <p class="pt">작성 산출물 적용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="65">원문 52쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발에 사용할 표준으로 활동 및 절차 수행에 필요한 기법과 표준, 산출물 표준 양식 및 작성 기법, 적용 도구를 정립할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>테일러링을 위한 품질 관리</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 52쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st31">
+      <h3><i>31</i>ISO 12207 표준</h3>
+      <aside class="side">
+        <p class="pt">작성 산출물 적용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="65">원문 52쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발에 사용할 표준으로 활동 및 절차 수행에 필요한 기법과 표준, 산출물 표준 양식 및 작성 기법, 적용 도구를 정립할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>ISO 12207 표준</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 52쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st32">
+      <h3><i>32</i>CMMI 모델</h3>
+      <aside class="side">
+        <p class="pt">작성 산출물 적용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="66">원문 53쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발에 사용할 표준으로 활동 및 절차 수행에 필요한 기법과 표준, 산출물 표준 양식 및 작성 기법, 적용 도구를 정립할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>CMMI 모델</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 53쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st33">
+      <h3><i>33</i>SPICE 모델</h3>
+      <aside class="side">
+        <p class="pt">작성 산출물 적용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020229_23v6" data-page="66">원문 53쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발에 사용할 표준으로 활동 및 절차 수행에 필요한 기법과 표준, 산출물 표준 양식 및 작성 기법, 적용 도구를 정립할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>SPICE 모델</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 53쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
+원문 LM2001020229_23v6_.소프트웨어개발 방법론 활용_20251108.pdf</footer>
+</div>
+<script>
+/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+  function mark() {
+    var y = window.pageYOffset + 90, cur = -1;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function () { mark(); tick = false; });
+  });
+  mark();
+})();
+</script>

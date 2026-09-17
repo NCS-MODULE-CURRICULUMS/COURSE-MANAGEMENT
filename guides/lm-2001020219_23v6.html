@@ -1,0 +1,1319 @@
+<meta charset="utf-8"><title>애플리케이션 요구사항 분석 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+<script>window.CM_BASE="../";</script>
+<script src="../assets/modules-pdf.js"></script>
+<script defer src="../assets/pdfview.js"></script>
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
+  <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
+  / 애플리케이션 요구사항 분석 / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">요구사항 도출하기</i><a href="#st1"><b>1</b><span>소프트웨어 요구사항</span></a><a href="#st2"><b>2</b><span>요구사항의 정의</span></a><a href="#st3"><b>3</b><span>요구사항의 중요성</span></a><a href="#st4"><b>4</b><span>요구사항의 유형</span></a><a href="#st5"><b>5</b><span>사용자 요구사항(User Requirements)</span></a><a href="#st6"><b>6</b><span>시스템 요구사항(System Requirements)</span></a><a href="#st7"><b>7</b><span>기능 요구사항(Functional Requirements)</span></a><a href="#st8"><b>8</b><span>비기능 요구사항(Non-Functional Requirements)</span></a><a href="#st9"><b>9</b><span>요구사항 도출을 위한 자료 수집</span></a><a href="#st10"><b>10</b><span>요구사항 개발 및 도출</span></a><a href="#st11"><b>11</b><span>요구사항의 개발 프로세스</span></a><a href="#st12"><b>12</b><span>요구사항 도출</span></a><a href="#st13"><b>13</b><span>요구사항 정리와 기록</span></a><a href="#st14"><b>14</b><span>자료 정리</span></a><a href="#st15"><b>15</b><span>요약 보고</span></a><a href="#st16"><b>16</b><span>정리된 자료의 접근 통제</span></a><i class="qg">요구사항 분석하기</i><a href="#st17"><b>17</b><span>기능 요구사항 분석 기법</span></a><a href="#st18"><b>18</b><span>기능 분할</span></a><a href="#st19"><b>19</b><span>유스케이스와 사용자 스토리</span></a><a href="#st20"><b>20</b><span>유스케이스 접근법</span></a><a href="#st21"><b>21</b><span>개념 모델링(Conceptual Modeling)</span></a><a href="#st22"><b>22</b><span>요구사항 분류</span></a><a href="#st23"><b>23</b><span>요구사항 우선순위 할당</span></a><a href="#st24"><b>24</b><span>우선순위 할당</span></a><a href="#st25"><b>25</b><span>우선순위 할당 기법</span></a><a href="#st26"><b>26</b><span>가치와 비용, 위험에 따른 우선순위</span></a><a href="#st27"><b>27</b><span>요구사항 협상(Requirement Negotiation)</span></a><i class="qg">요구사항 명세화하기</i><a href="#st28"><b>28</b><span>요구사항 문서화</span></a><a href="#st29"><b>29</b><span>비즈니스 요구사항 문서화</span></a><a href="#st30"><b>30</b><span>비즈니스 규칙 문서화</span></a><a href="#st31"><b>31</b><span>사용자 요구사항 문서화</span></a><a href="#st32"><b>32</b><span>기능적 요구사항 문서화</span></a><a href="#st33"><b>33</b><span>품질 속성 문서화</span></a><a href="#st34"><b>34</b><span>외부 인터페이스 문서화</span></a><a href="#st35"><b>35</b><span>제약 조건 문서화</span></a><a href="#st36"><b>36</b><span>데이터 요구사항 문서화</span></a><a href="#st37"><b>37</b><span>솔루션(solution) 아이디어 문서화</span></a><a href="#st38"><b>38</b><span>소프트웨어 요구사항명세서</span></a><a href="#st39"><b>39</b><span>소프트웨어 요구사항명세서 정의</span></a><a href="#st40"><b>40</b><span>요구사항 명명하기</span></a><a href="#st41"><b>41</b><span>불완전한 요구사항 다루기</span></a><a href="#st42"><b>42</b><span>사용자 인터페이스와 SRS</span></a><a href="#st43"><b>43</b><span>소프트웨어 요구사항명세서 템플릿</span></a><a href="#st44"><b>44</b><span>전반적인 설명</span></a><a href="#st45"><b>45</b><span>시스템 기능</span></a><a href="#st46"><b>46</b><span>데이터 요구사항</span></a><a href="#st47"><b>47</b><span>외부 인터페이스 요구사항</span></a><a href="#st48"><b>48</b><span>품질 속성</span></a><i class="qg">요구사항 검증하기</i><a href="#st49"><b>49</b><span>소프트웨어 요구사항 검증</span></a><a href="#st50"><b>50</b><span>SW 요구사항 검증</span></a><a href="#st51"><b>51</b><span>SW 요구사항 검증(Verification)과 확인(Validation)의 차이</span></a><a href="#st52"><b>52</b><span>SW 요구사항 검증 범위</span></a><a href="#st53"><b>53</b><span>SW 요구사항 검증 기준</span></a><a href="#st54"><b>54</b><span>요구사항 검증 기법</span></a><a href="#st55"><b>55</b><span>ISO/IEC 25010 – 시스템 및 SW 품질 요구사항 및 평가 모델</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>애플리케이션 요구사항 분석 — 준비 교안</h1>
+<p class="sub">능력단위 <code>2001020219_23v6</code> · 7수준 ·
+32시간 · 단계 55개 · 평가 서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+
+<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">구현하고자 하는 애플리케이션의 요구사항을 도출, 분석, 명세화 및 요구사항 검증을 수행할 수 있다.</p>
+    <b class="sh">선수학습</b>
+    <p class="v">요구사항 확인(2001020224_23v5), 시스템SW 요구사항 분석(2001020801_23v4)</p>
+    <b class="sh">원문</b>
+    <p class="src">LM2001020219_23v6_애플리케이션 요구사항 분석_20251108.pdf (126쪽)</p>
+  </aside>
+  <div class="bd">
+<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
+   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
+   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
+<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
+   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
+   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+
+<h4>핵심 용어</h4>
+<p>요구사항 도출, 요구사항 도출 기법, 기능 요구사항, 비기능 요구사항, 요구사항 분석, 요구사항명세서, 요구사항 검증</p>
+
+<h4>능력단위요소</h4>
+<table class="wide">
+  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
+      <th>학습 내용</th><th style="width:74px">단계</th></tr>
+  <tr><td class="c">1</td><td>요구사항 도출하기</td><td>요구사항 도출</td><td class="c">16</td></tr>
+  <tr><td class="c">2</td><td>요구사항 분석하기</td><td>요구사항 분석</td><td class="c">11</td></tr>
+  <tr><td class="c">3</td><td>요구사항 명세화하기</td><td>요구사항 명세</td><td class="c">21</td></tr>
+  <tr><td class="c">4</td><td>요구사항 검증하기</td><td>요구사항 검증</td><td class="c">7</td></tr>
+</table>
+
+<div class="try">
+  <b class="t">쓰는 법</b>
+  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
+  한 단계가 대략 수업 10~20분에 해당합니다.
+</div>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>1. 요구사항 도출하기</b><span>능력단위요소 · <code>2001020219_23v6.1</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st1">
+      <h3><i>1</i>소프트웨어 요구사항</h3>
+      <aside class="side">
+        <p class="pt">요구사항 도출</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어 요구사항</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>요구사항의 정의</h3>
+      <aside class="side">
+        <p class="pt">요구사항 도출</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>요구사항의 정의</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st3">
+      <h3><i>3</i>요구사항의 중요성</h3>
+      <aside class="side">
+        <p class="pt">요구사항 도출</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>요구사항의 중요성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st4">
+      <h3><i>4</i>요구사항의 유형</h3>
+      <aside class="side">
+        <p class="pt">요구사항 도출</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>요구사항의 유형</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st5">
+      <h3><i>5</i>사용자 요구사항(User Requirements)</h3>
+      <aside class="side">
+        <p class="pt">요구사항 도출</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>사용자 요구사항(User Requirements)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st6">
+      <h3><i>6</i>시스템 요구사항(System Requirements)</h3>
+      <aside class="side">
+        <p class="pt">요구사항 도출</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>시스템 요구사항(System Requirements)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st7">
+      <h3><i>7</i>기능 요구사항(Functional Requirements)</h3>
+      <aside class="side">
+        <p class="pt">요구사항 도출</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>기능 요구사항(Functional Requirements)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st8">
+      <h3><i>8</i>비기능 요구사항(Non-Functional Requirements)</h3>
+      <aside class="side">
+        <p class="pt">요구사항 도출</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>비기능 요구사항(Non-Functional Requirements)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st9">
+      <h3><i>9</i>요구사항 도출을 위한 자료 수집</h3>
+      <aside class="side">
+        <p class="pt">요구사항 도출</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>요구사항 도출을 위한 자료 수집</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st10">
+      <h3><i>10</i>요구사항 개발 및 도출</h3>
+      <aside class="side">
+        <p class="pt">요구사항 도출</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>요구사항 개발 및 도출</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st11">
+      <h3><i>11</i>요구사항의 개발 프로세스</h3>
+      <aside class="side">
+        <p class="pt">요구사항 도출</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>요구사항의 개발 프로세스</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st12">
+      <h3><i>12</i>요구사항 도출</h3>
+      <aside class="side">
+        <p class="pt">요구사항 도출</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>요구사항 도출</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st13">
+      <h3><i>13</i>요구사항 정리와 기록</h3>
+      <aside class="side">
+        <p class="pt">요구사항 도출</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="21">원문 8쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>요구사항 정리와 기록</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 8쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st14">
+      <h3><i>14</i>자료 정리</h3>
+      <aside class="side">
+        <p class="pt">요구사항 도출</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="21">원문 8쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>자료 정리</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 8쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st15">
+      <h3><i>15</i>요약 보고</h3>
+      <aside class="side">
+        <p class="pt">요구사항 도출</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="21">원문 8쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>요약 보고</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 8쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st16">
+      <h3><i>16</i>정리된 자료의 접근 통제</h3>
+      <aside class="side">
+        <p class="pt">요구사항 도출</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="21">원문 8쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>정리된 자료의 접근 통제</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 8쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lv">
+  <div class="lvh"><b>2. 요구사항 분석하기</b><span>능력단위요소 · <code>2001020219_23v6.2</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st17">
+      <h3><i>17</i>기능 요구사항 분석 기법</h3>
+      <aside class="side">
+        <p class="pt">요구사항 분석</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="46">원문 33쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항 분석과 협상을 위해 도출한 요구사항을 기능적 요구사항과 비기능적 요구사항으로 분류할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>기능 요구사항 분석 기법</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 33쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st18">
+      <h3><i>18</i>기능 분할</h3>
+      <aside class="side">
+        <p class="pt">요구사항 분석</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="46">원문 33쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항 분석과 협상을 위해 도출한 요구사항을 기능적 요구사항과 비기능적 요구사항으로 분류할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>기능 분할</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 33쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st19">
+      <h3><i>19</i>유스케이스와 사용자 스토리</h3>
+      <aside class="side">
+        <p class="pt">요구사항 분석</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="46">원문 33쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항 분석과 협상을 위해 도출한 요구사항을 기능적 요구사항과 비기능적 요구사항으로 분류할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>유스케이스와 사용자 스토리</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 33쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st20">
+      <h3><i>20</i>유스케이스 접근법</h3>
+      <aside class="side">
+        <p class="pt">요구사항 분석</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="47">원문 34쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항 분석과 협상을 위해 도출한 요구사항을 기능적 요구사항과 비기능적 요구사항으로 분류할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>유스케이스 접근법</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 34쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st21">
+      <h3><i>21</i>개념 모델링(Conceptual Modeling)</h3>
+      <aside class="side">
+        <p class="pt">요구사항 분석</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="48">원문 35쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항 분석과 협상을 위해 도출한 요구사항을 기능적 요구사항과 비기능적 요구사항으로 분류할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>개념 모델링(Conceptual Modeling)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 35쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st22">
+      <h3><i>22</i>요구사항 분류</h3>
+      <aside class="side">
+        <p class="pt">요구사항 분석</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="49">원문 36쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항 분석과 협상을 위해 도출한 요구사항을 기능적 요구사항과 비기능적 요구사항으로 분류할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>요구사항 분류</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 36쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st23">
+      <h3><i>23</i>요구사항 우선순위 할당</h3>
+      <aside class="side">
+        <p class="pt">요구사항 분석</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="49">원문 36쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항 분석과 협상을 위해 도출한 요구사항을 기능적 요구사항과 비기능적 요구사항으로 분류할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>요구사항 우선순위 할당</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 36쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st24">
+      <h3><i>24</i>우선순위 할당</h3>
+      <aside class="side">
+        <p class="pt">요구사항 분석</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="49">원문 36쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항 분석과 협상을 위해 도출한 요구사항을 기능적 요구사항과 비기능적 요구사항으로 분류할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>우선순위 할당</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 36쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st25">
+      <h3><i>25</i>우선순위 할당 기법</h3>
+      <aside class="side">
+        <p class="pt">요구사항 분석</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="49">원문 36쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항 분석과 협상을 위해 도출한 요구사항을 기능적 요구사항과 비기능적 요구사항으로 분류할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>우선순위 할당 기법</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 36쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st26">
+      <h3><i>26</i>가치와 비용, 위험에 따른 우선순위</h3>
+      <aside class="side">
+        <p class="pt">요구사항 분석</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="50">원문 37쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항 분석과 협상을 위해 도출한 요구사항을 기능적 요구사항과 비기능적 요구사항으로 분류할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>가치와 비용, 위험에 따른 우선순위</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 37쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st27">
+      <h3><i>27</i>요구사항 협상(Requirement Negotiation)</h3>
+      <aside class="side">
+        <p class="pt">요구사항 분석</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="50">원문 37쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항 분석과 협상을 위해 도출한 요구사항을 기능적 요구사항과 비기능적 요구사항으로 분류할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>요구사항 협상(Requirement Negotiation)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 37쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lv">
+  <div class="lvh"><b>3. 요구사항 명세화하기</b><span>능력단위요소 · <code>2001020219_23v6.3</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st28">
+      <h3><i>28</i>요구사항 문서화</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="70">원문 57쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>요구사항 문서화</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 57쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st29">
+      <h3><i>29</i>비즈니스 요구사항 문서화</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="71">원문 58쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>비즈니스 요구사항 문서화</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 58쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st30">
+      <h3><i>30</i>비즈니스 규칙 문서화</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="71">원문 58쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>비즈니스 규칙 문서화</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 58쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st31">
+      <h3><i>31</i>사용자 요구사항 문서화</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="71">원문 58쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>사용자 요구사항 문서화</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 58쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st32">
+      <h3><i>32</i>기능적 요구사항 문서화</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="71">원문 58쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>기능적 요구사항 문서화</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 58쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st33">
+      <h3><i>33</i>품질 속성 문서화</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="71">원문 58쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>품질 속성 문서화</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 58쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st34">
+      <h3><i>34</i>외부 인터페이스 문서화</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="71">원문 58쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>외부 인터페이스 문서화</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 58쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st35">
+      <h3><i>35</i>제약 조건 문서화</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="71">원문 58쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>제약 조건 문서화</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 58쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st36">
+      <h3><i>36</i>데이터 요구사항 문서화</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="72">원문 59쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데이터 요구사항 문서화</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 59쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st37">
+      <h3><i>37</i>솔루션(solution) 아이디어 문서화</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="72">원문 59쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>솔루션(solution) 아이디어 문서화</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 59쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st38">
+      <h3><i>38</i>소프트웨어 요구사항명세서</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="72">원문 59쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어 요구사항명세서</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 59쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st39">
+      <h3><i>39</i>소프트웨어 요구사항명세서 정의</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="72">원문 59쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어 요구사항명세서 정의</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 59쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st40">
+      <h3><i>40</i>요구사항 명명하기</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="73">원문 60쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>요구사항 명명하기</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 60쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st41">
+      <h3><i>41</i>불완전한 요구사항 다루기</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="74">원문 61쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>불완전한 요구사항 다루기</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 61쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st42">
+      <h3><i>42</i>사용자 인터페이스와 SRS</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="74">원문 61쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>사용자 인터페이스와 SRS</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 61쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st43">
+      <h3><i>43</i>소프트웨어 요구사항명세서 템플릿</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="74">원문 61쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어 요구사항명세서 템플릿</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 61쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st44">
+      <h3><i>44</i>전반적인 설명</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="74">원문 61쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>전반적인 설명</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 61쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st45">
+      <h3><i>45</i>시스템 기능</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="74">원문 61쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>시스템 기능</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 61쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st46">
+      <h3><i>46</i>데이터 요구사항</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="74">원문 61쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데이터 요구사항</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 61쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st47">
+      <h3><i>47</i>외부 인터페이스 요구사항</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="74">원문 61쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>외부 인터페이스 요구사항</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 61쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st48">
+      <h3><i>48</i>품질 속성</h3>
+      <aside class="side">
+        <p class="pt">요구사항 명세</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="74">원문 61쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>품질 속성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 61쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lv">
+  <div class="lvh"><b>4. 요구사항 검증하기</b><span>능력단위요소 · <code>2001020219_23v6.4</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st49">
+      <h3><i>49</i>소프트웨어 요구사항 검증</h3>
+      <aside class="side">
+        <p class="pt">요구사항 검증</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="99">원문 86쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소프트웨어 요구사항명세서가 문서 표준을 준수하여 사용자가 이해 가능한 내용으로 일관성 있고, 완성도 있게 작성되었는지를 검증할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어 요구사항 검증</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 86쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st50">
+      <h3><i>50</i>SW 요구사항 검증</h3>
+      <aside class="side">
+        <p class="pt">요구사항 검증</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="99">원문 86쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소프트웨어 요구사항명세서가 문서 표준을 준수하여 사용자가 이해 가능한 내용으로 일관성 있고, 완성도 있게 작성되었는지를 검증할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>SW 요구사항 검증</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 86쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st51">
+      <h3><i>51</i>SW 요구사항 검증(Verification)과 확인(Validation)의 차이</h3>
+      <aside class="side">
+        <p class="pt">요구사항 검증</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="99">원문 86쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소프트웨어 요구사항명세서가 문서 표준을 준수하여 사용자가 이해 가능한 내용으로 일관성 있고, 완성도 있게 작성되었는지를 검증할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>SW 요구사항 검증(Verification)과 확인(Validation)의 차이</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 86쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st52">
+      <h3><i>52</i>SW 요구사항 검증 범위</h3>
+      <aside class="side">
+        <p class="pt">요구사항 검증</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="100">원문 87쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소프트웨어 요구사항명세서가 문서 표준을 준수하여 사용자가 이해 가능한 내용으로 일관성 있고, 완성도 있게 작성되었는지를 검증할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>SW 요구사항 검증 범위</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 87쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st53">
+      <h3><i>53</i>SW 요구사항 검증 기준</h3>
+      <aside class="side">
+        <p class="pt">요구사항 검증</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="100">원문 87쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소프트웨어 요구사항명세서가 문서 표준을 준수하여 사용자가 이해 가능한 내용으로 일관성 있고, 완성도 있게 작성되었는지를 검증할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>SW 요구사항 검증 기준</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 87쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st54">
+      <h3><i>54</i>요구사항 검증 기법</h3>
+      <aside class="side">
+        <p class="pt">요구사항 검증</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="101">원문 88쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소프트웨어 요구사항명세서가 문서 표준을 준수하여 사용자가 이해 가능한 내용으로 일관성 있고, 완성도 있게 작성되었는지를 검증할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>요구사항 검증 기법</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 88쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st55">
+      <h3><i>55</i>ISO/IEC 25010 – 시스템 및 SW 품질 요구사항 및 평가 모델</h3>
+      <aside class="side">
+        <p class="pt">요구사항 검증</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="101">원문 88쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소프트웨어 요구사항명세서가 문서 표준을 준수하여 사용자가 이해 가능한 내용으로 일관성 있고, 완성도 있게 작성되었는지를 검증할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>ISO/IEC 25010 – 시스템 및 SW 품질 요구사항 및 평가 모델</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 88쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
+원문 LM2001020219_23v6_애플리케이션 요구사항 분석_20251108.pdf</footer>
+</div>
+<script>
+/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+  function mark() {
+    var y = window.pageYOffset + 90, cur = -1;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function () { mark(); tick = false; });
+  });
+  mark();
+})();
+</script>

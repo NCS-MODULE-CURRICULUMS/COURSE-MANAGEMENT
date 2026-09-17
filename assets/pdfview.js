@@ -25,7 +25,8 @@
   var NCS = "https://www.ncs.go.kr/unity/hth01/hth0101/downloadFile.do";
   var pdfjs = null, root = null, task = null, doc = null, blob = null;
   var page = 1, scale = 1.2, rendering = false, dirty = false;
-  var local = null;                           // null 아직 안 봄 · true 켜짐 · false 없음
+  var local = null;   // null 아직 안 봄 · true 켜짐 · false 없음
+  var want = 0;       // 열자마자 갈 쪽 (준비 교안의 [원문 N쪽])
 
   function esc(s) {
     return String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
@@ -243,7 +244,11 @@
       if (typeof src !== "string") { blob = URL.createObjectURL(src); url = blob; }
       return m.getDocument({ url: url }).promise;
     }).then(function (d) {
-      doc = d; page = 1;
+      doc = d;
+      // 준비 교안의 [원문 N쪽] 이 넘겨 준 자리로 연다(PDF 실제 쪽번호다 —
+      // 표지·차례만큼 밀린 값은 교안을 만들 때 이미 더해 두었다).
+      page = want ? Math.max(1, Math.min(d.numPages, want)) : 1;
+      want = 0;
       el.num.textContent = d.numPages;
       el.nav.style.visibility = "visible";
       render();
@@ -269,7 +274,7 @@
       return h.requestPermission({ mode: "read" }).then(function (st) {
         if (st !== "granted") return say("<b>권한을 주지 않으면 열 수 없습니다.</b>");
         root = h;
-        if (wanted) open(wanted);
+        if (wanted) open(wanted, want);
       });
     }).catch(function () { pick(); });
   }
@@ -317,8 +322,9 @@
       '않습니다.</p></details>');
   }
 
-  function open(code) {
+  function open(code, atPage) {
     build();
+    want = parseInt(atPage, 10) || 0;
     var meta = (window.CM_PDF || {})[code];
     el.wrap.classList.add("on");
     document.body.style.overflow = "hidden";
@@ -387,7 +393,7 @@
     var a = e.target.closest && e.target.closest("[data-pdf]");
     if (!a) return;
     e.preventDefault();
-    open(a.getAttribute("data-pdf"));
+    open(a.getAttribute("data-pdf"), a.getAttribute("data-page"));
   });
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", arm);

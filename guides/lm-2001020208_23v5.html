@@ -1,0 +1,1666 @@
+<meta charset="utf-8"><title>정보시스템 이행 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+<script>window.CM_BASE="../";</script>
+<script src="../assets/modules-pdf.js"></script>
+<script defer src="../assets/pdfview.js"></script>
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
+  <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
+  / 정보시스템 이행 / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">정보시스템 사용자 교육하기</i><a href="#st1"><b>1</b><span>교육 기법의 유형 이해</span></a><a href="#st2"><b>2</b><span>집합 교육 형태</span></a><a href="#st3"><b>3</b><span>OJT(On the Job Training)</span></a><a href="#st4"><b>4</b><span>수시 전달 교육</span></a><a href="#st5"><b>5</b><span>자가 학습</span></a><a href="#st6"><b>6</b><span>교육 대상에 의한 분류</span></a><a href="#st7"><b>7</b><span>사용자 과정</span></a><a href="#st8"><b>8</b><span>관리자 과정</span></a><a href="#st9"><b>9</b><span>교육 수행 기법의 유형</span></a><a href="#st10"><b>10</b><span>교육 형태에 대한 고찰</span></a><a href="#st11"><b>11</b><span>교육 성과 평가</span></a><a href="#st12"><b>12</b><span>평가 개념</span></a><a href="#st13"><b>13</b><span>평가 목적</span></a><a href="#st14"><b>14</b><span>평가의 유형</span></a><a href="#st15"><b>15</b><span>평가 모델</span></a><a href="#st16"><b>16</b><span>학습평가 절차</span></a><a href="#st17"><b>17</b><span>설문 준비 고려 사항</span></a><a href="#st18"><b>18</b><span>설문조사 개념</span></a><a href="#st19"><b>19</b><span>설문조사 절차</span></a><a href="#st20"><b>20</b><span>설문조사 방법</span></a><a href="#st21"><b>21</b><span>설문지 구성 요소</span></a><i class="qg">정보시스템 이행하기</i><a href="#st22"><b>22</b><span>기반 시스템 설치 및 전환 절차</span></a><a href="#st23"><b>23</b><span>설치 및 전환 준비</span></a><a href="#st24"><b>24</b><span>설치 및 전환</span></a><a href="#st25"><b>25</b><span>정상 여부 검토</span></a><a href="#st26"><b>26</b><span>매뉴얼의 개념 이해(출처: 혁신 매뉴얼과 사례, 어떻게 만들 것인가?, 행정자치부, 2005. 4.)</span></a><a href="#st27"><b>27</b><span>매뉴얼의 정의</span></a><a href="#st28"><b>28</b><span>매뉴얼의 요건</span></a><a href="#st29"><b>29</b><span>사용자의 관점에서 사용 목적에 맞는 정보에 초점을 맞추어 전달한다.</span></a><a href="#st30"><b>30</b><span>단순한 사실 중심이 아니라 사실에 대한 분석을 토대로 일반화할 수 있는 요소들</span></a><a href="#st31"><b>31</b><span>내용적으로나 형식적으로 일관된 흐름에 따라 기술해야 한다.</span></a><a href="#st32"><b>32</b><span>내용적 흐름: 업무 추진 절차나 과정별로 정리한다.</span></a><a href="#st33"><b>33</b><span>형식적 흐름: 글씨 크기, 모양, 도표 등을 일정하게 사용한다.</span></a><a href="#st34"><b>34</b><span>목차, 개요 등을 활용하여, 사용자가 쉽게 필요한 것을 찾을 수 있도록 배려한다.</span></a><a href="#st35"><b>35</b><span>실제 추진 과정에서 겪었던 장애 요인 및 극복 방법을 솔직하게 핵심적 요인 중</span></a><a href="#st36"><b>36</b><span>매뉴얼은 벤치마킹을 위한 좋은 자료, 공통적으로 겪을 수 있는 문제에 대해 경험</span></a><a href="#st37"><b>37</b><span>매뉴얼의 구성 요소</span></a><a href="#st38"><b>38</b><span>매뉴얼 제작의 일반적 절차</span></a><a href="#st39"><b>39</b><span>정보 수집: 사용자 분석</span></a><a href="#st40"><b>40</b><span>기획서 작성</span></a><a href="#st41"><b>41</b><span>목차 작성</span></a><a href="#st42"><b>42</b><span>매뉴얼 작성</span></a><a href="#st43"><b>43</b><span>내용 감수: 집필 내용의 적합성 감수</span></a><a href="#st44"><b>44</b><span>어문 감수: 문장, 어휘 등의 적합성 감수</span></a><a href="#st45"><b>45</b><span>사용 테스트: 실제 사용자들 대상 샘플 테스트 실시</span></a><a href="#st46"><b>46</b><span>매뉴얼 제작 매체에 적합한 전체적인 레이아웃, 일러스트레이션 등을 고려하여 전</span></a><a href="#st47"><b>47</b><span>인쇄 매체나 USB의 배부, 홈페이지나 인트라넷 등을 통해 사용자에게 매뉴얼 전달</span></a><a href="#st48"><b>48</b><span>데이터 전환의 개념 이해</span></a><a href="#st49"><b>49</b><span>데이터 전환의 개념</span></a><a href="#st50"><b>50</b><span>데이터 전환 방식 및 장단점 비교</span></a><a href="#st51"><b>51</b><span>데이터 전환 이후 검토해야 할 사항</span></a><i class="qg">정보시스템 안정화하기</i><a href="#st52"><b>52</b><span>성능 관리 모니터링의 개념 이해</span></a><a href="#st53"><b>53</b><span>성능지표</span></a><a href="#st54"><b>54</b><span>성능 측정 분석 방안</span></a><a href="#st55"><b>55</b><span>장애 대비 사전 활동 수행 절차</span></a><a href="#st56"><b>56</b><span>비상 운영 팀 구성</span></a><a href="#st57"><b>57</b><span>비상 연락 체계 가동</span></a><a href="#st58"><b>58</b><span>사전 점검</span></a><a href="#st59"><b>59</b><span>시스템 모니터링</span></a><a href="#st60"><b>60</b><span>장애 조치</span></a><a href="#st61"><b>61</b><span>유지보수 조직 및 역할</span></a><a href="#st62"><b>62</b><span>운영 총괄</span></a><a href="#st63"><b>63</b><span>응용 운영 담당</span></a><a href="#st64"><b>64</b><span>응용시스템 유지/버전 관리</span></a><a href="#st65"><b>65</b><span>사용자 관리 및 보안 관리</span></a><a href="#st66"><b>66</b><span>정기 작업 및 스케줄 관리</span></a><a href="#st67"><b>67</b><span>인프라 운영 담당</span></a><a href="#st68"><b>68</b><span>H/W, N/W 모니터링/장애 처리</span></a><a href="#st69"><b>69</b><span>DB 모니터링/장애 처리</span></a><a href="#st70"><b>70</b><span>정보 연계 운영 담당</span></a><a href="#st71"><b>71</b><span>유지보수 정보 연계 운영 담당</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>정보시스템 이행 — 준비 교안</h1>
+<p class="sub">능력단위 <code>2001020208_23v5</code> · 5수준 ·
+48시간 · 단계 71개 · 평가 사례 연구 · 평가자 질문 · 구두 발표</p>
+
+<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">개발자 환경에서 개발한 결과물을 운영환경에 설치하고, 사용자 요구사항과 최종적으로 일치하는지에 대해 승인을 얻어 응용소프트웨어 결과물을 사용자에게 전달하여 인계하고 시스템을 운영할 수 있도록 교육하고 지원할 수 있다.</p>
+    <b class="sh">선수학습</b>
+    <p class="v">개발자 환경 구축(2001020233_23v5), 개발 환경 운영 지원(2001020234_23v2), 요구사항 확인(20010 20201_23v5), 애플리케이션 배포(2001020214_23v6), 애플리케이션 테스트 관리(2001020226_23v6)</p>
+    <b class="sh">원문</b>
+    <p class="src">LM2001020208_23v5_정보시스템 이행_20251108.pdf (84쪽)</p>
+  </aside>
+  <div class="bd">
+<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
+   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
+   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
+<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
+   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
+   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+
+<h4>핵심 용어</h4>
+<p>교육훈련, 사용자 교육, 운영환경, 운영자 메뉴얼, 정보시스템 운영, 안정화, 시스템 모니터링</p>
+
+<h4>능력단위요소</h4>
+<table class="wide">
+  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
+      <th>학습 내용</th><th style="width:74px">단계</th></tr>
+  <tr><td class="c">1</td><td>정보시스템 사용자 교육하기</td><td>정보시스템 사용자 교육 계획 수립 · 정보시스템 사용자 교육</td><td class="c">21</td></tr>
+  <tr><td class="c">2</td><td>정보시스템 이행하기</td><td>정보시스템 운영환경 설치 · 정보시스템 운영자 매뉴얼 작성 · 정보시스템 이행 계획 수립 및 데이터 이행</td><td class="c">30</td></tr>
+  <tr><td class="c">3</td><td>정보시스템 안정화하기</td><td>정보시스템 운영 안정화</td><td class="c">20</td></tr>
+</table>
+
+<div class="try">
+  <b class="t">쓰는 법</b>
+  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
+  한 단계가 대략 수업 10~20분에 해당합니다.
+</div>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>1. 정보시스템 사용자 교육하기</b><span>능력단위요소 · <code>2001020208_23v5.1</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st1">
+      <h3><i>1</i>교육 기법의 유형 이해</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발된 응용소프트웨어 사용자 교육을 위해 교육 항목과 대상자, 강사 선정, 방법, 시간, 횟수 등을 포함한 교육 계획을 수립할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>교육 기법의 유형 이해</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>집합 교육 형태</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발된 응용소프트웨어 사용자 교육을 위해 교육 항목과 대상자, 강사 선정, 방법, 시간, 횟수 등을 포함한 교육 계획을 수립할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>집합 교육 형태</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st3">
+      <h3><i>3</i>OJT(On the Job Training)</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발된 응용소프트웨어 사용자 교육을 위해 교육 항목과 대상자, 강사 선정, 방법, 시간, 횟수 등을 포함한 교육 계획을 수립할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>OJT(On the Job Training)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st4">
+      <h3><i>4</i>수시 전달 교육</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발된 응용소프트웨어 사용자 교육을 위해 교육 항목과 대상자, 강사 선정, 방법, 시간, 횟수 등을 포함한 교육 계획을 수립할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>수시 전달 교육</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st5">
+      <h3><i>5</i>자가 학습</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발된 응용소프트웨어 사용자 교육을 위해 교육 항목과 대상자, 강사 선정, 방법, 시간, 횟수 등을 포함한 교육 계획을 수립할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>자가 학습</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st6">
+      <h3><i>6</i>교육 대상에 의한 분류</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발된 응용소프트웨어 사용자 교육을 위해 교육 항목과 대상자, 강사 선정, 방법, 시간, 횟수 등을 포함한 교육 계획을 수립할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>교육 대상에 의한 분류</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st7">
+      <h3><i>7</i>사용자 과정</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발된 응용소프트웨어 사용자 교육을 위해 교육 항목과 대상자, 강사 선정, 방법, 시간, 횟수 등을 포함한 교육 계획을 수립할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>사용자 과정</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st8">
+      <h3><i>8</i>관리자 과정</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발된 응용소프트웨어 사용자 교육을 위해 교육 항목과 대상자, 강사 선정, 방법, 시간, 횟수 등을 포함한 교육 계획을 수립할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>관리자 과정</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st9">
+      <h3><i>9</i>교육 수행 기법의 유형</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발된 응용소프트웨어 사용자 교육을 위해 교육 항목과 대상자, 강사 선정, 방법, 시간, 횟수 등을 포함한 교육 계획을 수립할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>교육 수행 기법의 유형</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st10">
+      <h3><i>10</i>교육 형태에 대한 고찰</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발된 응용소프트웨어 사용자 교육을 위해 교육 항목과 대상자, 강사 선정, 방법, 시간, 횟수 등을 포함한 교육 계획을 수립할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>교육 형태에 대한 고찰</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st11">
+      <h3><i>11</i>교육 성과 평가</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="27">원문 14쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>효과적인 사용자 교육이 이루어질 수 있도록 사전에 필요한 교육 환경을 구축하고 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>교육 성과 평가</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 14쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st12">
+      <h3><i>12</i>평가 개념</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="27">원문 14쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>효과적인 사용자 교육이 이루어질 수 있도록 사전에 필요한 교육 환경을 구축하고 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>평가 개념</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 14쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st13">
+      <h3><i>13</i>평가 목적</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="27">원문 14쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>효과적인 사용자 교육이 이루어질 수 있도록 사전에 필요한 교육 환경을 구축하고 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>평가 목적</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 14쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st14">
+      <h3><i>14</i>평가의 유형</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="27">원문 14쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>효과적인 사용자 교육이 이루어질 수 있도록 사전에 필요한 교육 환경을 구축하고 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>평가의 유형</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 14쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st15">
+      <h3><i>15</i>평가 모델</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="28">원문 15쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>효과적인 사용자 교육이 이루어질 수 있도록 사전에 필요한 교육 환경을 구축하고 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>평가 모델</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 15쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st16">
+      <h3><i>16</i>학습평가 절차</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="28">원문 15쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>효과적인 사용자 교육이 이루어질 수 있도록 사전에 필요한 교육 환경을 구축하고 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>학습평가 절차</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 15쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st17">
+      <h3><i>17</i>설문 준비 고려 사항</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="29">원문 16쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>효과적인 사용자 교육이 이루어질 수 있도록 사전에 필요한 교육 환경을 구축하고 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>설문 준비 고려 사항</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 16쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st18">
+      <h3><i>18</i>설문조사 개념</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="29">원문 16쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>효과적인 사용자 교육이 이루어질 수 있도록 사전에 필요한 교육 환경을 구축하고 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>설문조사 개념</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 16쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st19">
+      <h3><i>19</i>설문조사 절차</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="29">원문 16쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>효과적인 사용자 교육이 이루어질 수 있도록 사전에 필요한 교육 환경을 구축하고 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>설문조사 절차</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 16쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st20">
+      <h3><i>20</i>설문조사 방법</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="30">원문 17쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>효과적인 사용자 교육이 이루어질 수 있도록 사전에 필요한 교육 환경을 구축하고 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>설문조사 방법</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 17쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st21">
+      <h3><i>21</i>설문지 구성 요소</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 사용자 교육</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="30">원문 17쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>효과적인 사용자 교육이 이루어질 수 있도록 사전에 필요한 교육 환경을 구축하고 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>설문지 구성 요소</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 17쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lv">
+  <div class="lvh"><b>2. 정보시스템 이행하기</b><span>능력단위요소 · <code>2001020208_23v5.2</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st22">
+      <h3><i>22</i>기반 시스템 설치 및 전환 절차</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영환경 설치</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="42">원문 29쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>하드웨어, 시스템 소프트웨어, 네트워크 등 시스템 운영환경을 설치하고, 개발된 애플리케이션을 운영환경에 설치할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>기반 시스템 설치 및 전환 절차</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 29쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st23">
+      <h3><i>23</i>설치 및 전환 준비</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영환경 설치</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="42">원문 29쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>하드웨어, 시스템 소프트웨어, 네트워크 등 시스템 운영환경을 설치하고, 개발된 애플리케이션을 운영환경에 설치할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>설치 및 전환 준비</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 29쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st24">
+      <h3><i>24</i>설치 및 전환</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영환경 설치</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="42">원문 29쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>하드웨어, 시스템 소프트웨어, 네트워크 등 시스템 운영환경을 설치하고, 개발된 애플리케이션을 운영환경에 설치할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>설치 및 전환</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 29쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st25">
+      <h3><i>25</i>정상 여부 검토</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영환경 설치</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="43">원문 30쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>하드웨어, 시스템 소프트웨어, 네트워크 등 시스템 운영환경을 설치하고, 개발된 애플리케이션을 운영환경에 설치할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>정상 여부 검토</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 30쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st26">
+      <h3><i>26</i>매뉴얼의 개념 이해(출처: 혁신 매뉴얼과 사례, 어떻게 만들 것인가?, 행정자치부, 2005. 4.)</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>매뉴얼의 개념 이해(출처: 혁신 매뉴얼과 사례, 어떻게 만들 것인가?, 행정자치부, 2005. 4.)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st27">
+      <h3><i>27</i>매뉴얼의 정의</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>매뉴얼의 정의</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st28">
+      <h3><i>28</i>매뉴얼의 요건</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>매뉴얼의 요건</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st29">
+      <h3><i>29</i>사용자의 관점에서 사용 목적에 맞는 정보에 초점을 맞추어 전달한다.</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>사용자의 관점에서 사용 목적에 맞는 정보에 초점을 맞추어 전달한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st30">
+      <h3><i>30</i>단순한 사실 중심이 아니라 사실에 대한 분석을 토대로 일반화할 수 있는 요소들</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>단순한 사실 중심이 아니라 사실에 대한 분석을 토대로 일반화할 수 있는 요소들</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st31">
+      <h3><i>31</i>내용적으로나 형식적으로 일관된 흐름에 따라 기술해야 한다.</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>내용적으로나 형식적으로 일관된 흐름에 따라 기술해야 한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st32">
+      <h3><i>32</i>내용적 흐름: 업무 추진 절차나 과정별로 정리한다.</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>내용적 흐름: 업무 추진 절차나 과정별로 정리한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st33">
+      <h3><i>33</i>형식적 흐름: 글씨 크기, 모양, 도표 등을 일정하게 사용한다.</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>형식적 흐름: 글씨 크기, 모양, 도표 등을 일정하게 사용한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st34">
+      <h3><i>34</i>목차, 개요 등을 활용하여, 사용자가 쉽게 필요한 것을 찾을 수 있도록 배려한다.</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>목차, 개요 등을 활용하여, 사용자가 쉽게 필요한 것을 찾을 수 있도록 배려한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st35">
+      <h3><i>35</i>실제 추진 과정에서 겪었던 장애 요인 및 극복 방법을 솔직하게 핵심적 요인 중</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="52">원문 39쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>실제 추진 과정에서 겪었던 장애 요인 및 극복 방법을 솔직하게 핵심적 요인 중</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 39쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st36">
+      <h3><i>36</i>매뉴얼은 벤치마킹을 위한 좋은 자료, 공통적으로 겪을 수 있는 문제에 대해 경험</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="52">원문 39쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>매뉴얼은 벤치마킹을 위한 좋은 자료, 공통적으로 겪을 수 있는 문제에 대해 경험</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 39쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st37">
+      <h3><i>37</i>매뉴얼의 구성 요소</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="52">원문 39쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>매뉴얼의 구성 요소</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 39쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st38">
+      <h3><i>38</i>매뉴얼 제작의 일반적 절차</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="52">원문 39쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>매뉴얼 제작의 일반적 절차</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 39쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st39">
+      <h3><i>39</i>정보 수집: 사용자 분석</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="52">원문 39쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>정보 수집: 사용자 분석</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 39쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st40">
+      <h3><i>40</i>기획서 작성</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="53">원문 40쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>기획서 작성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 40쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st41">
+      <h3><i>41</i>목차 작성</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="53">원문 40쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>목차 작성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 40쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st42">
+      <h3><i>42</i>매뉴얼 작성</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="53">원문 40쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>매뉴얼 작성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 40쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st43">
+      <h3><i>43</i>내용 감수: 집필 내용의 적합성 감수</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="53">원문 40쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>내용 감수: 집필 내용의 적합성 감수</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 40쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st44">
+      <h3><i>44</i>어문 감수: 문장, 어휘 등의 적합성 감수</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="53">원문 40쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>어문 감수: 문장, 어휘 등의 적합성 감수</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 40쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st45">
+      <h3><i>45</i>사용 테스트: 실제 사용자들 대상 샘플 테스트 실시</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="53">원문 40쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>사용 테스트: 실제 사용자들 대상 샘플 테스트 실시</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 40쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st46">
+      <h3><i>46</i>매뉴얼 제작 매체에 적합한 전체적인 레이아웃, 일러스트레이션 등을 고려하여 전</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="53">원문 40쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>매뉴얼 제작 매체에 적합한 전체적인 레이아웃, 일러스트레이션 등을 고려하여 전</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 40쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st47">
+      <h3><i>47</i>인쇄 매체나 USB의 배부, 홈페이지나 인트라넷 등을 통해 사용자에게 매뉴얼 전달</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="53">원문 40쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>인쇄 매체나 USB의 배부, 홈페이지나 인트라넷 등을 통해 사용자에게 매뉴얼 전달</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 40쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st48">
+      <h3><i>48</i>데이터 전환의 개념 이해</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 이행 계획 수립 및 데이터 이행</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="59">원문 46쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행을 위한 각 영역별 사전 점검표를 작성하고, 데이터 이행 작업 및 검증을 할수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데이터 전환의 개념 이해</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 46쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st49">
+      <h3><i>49</i>데이터 전환의 개념</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 이행 계획 수립 및 데이터 이행</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="59">원문 46쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행을 위한 각 영역별 사전 점검표를 작성하고, 데이터 이행 작업 및 검증을 할수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데이터 전환의 개념</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 46쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st50">
+      <h3><i>50</i>데이터 전환 방식 및 장단점 비교</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 이행 계획 수립 및 데이터 이행</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="59">원문 46쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행을 위한 각 영역별 사전 점검표를 작성하고, 데이터 이행 작업 및 검증을 할수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데이터 전환 방식 및 장단점 비교</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 46쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st51">
+      <h3><i>51</i>데이터 전환 이후 검토해야 할 사항</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 이행 계획 수립 및 데이터 이행</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="60">원문 47쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행을 위한 각 영역별 사전 점검표를 작성하고, 데이터 이행 작업 및 검증을 할수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데이터 전환 이후 검토해야 할 사항</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 47쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lv">
+  <div class="lvh"><b>3. 정보시스템 안정화하기</b><span>능력단위요소 · <code>2001020208_23v5.3</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st52">
+      <h3><i>52</i>성능 관리 모니터링의 개념 이해</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="70">원문 57쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>성능 관리 모니터링의 개념 이해</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 57쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st53">
+      <h3><i>53</i>성능지표</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="70">원문 57쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>성능지표</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 57쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st54">
+      <h3><i>54</i>성능 측정 분석 방안</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="71">원문 58쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>성능 측정 분석 방안</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 58쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st55">
+      <h3><i>55</i>장애 대비 사전 활동 수행 절차</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="71">원문 58쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>장애 대비 사전 활동 수행 절차</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 58쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st56">
+      <h3><i>56</i>비상 운영 팀 구성</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="71">원문 58쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>비상 운영 팀 구성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 58쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st57">
+      <h3><i>57</i>비상 연락 체계 가동</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="71">원문 58쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>비상 연락 체계 가동</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 58쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st58">
+      <h3><i>58</i>사전 점검</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="71">원문 58쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>사전 점검</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 58쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st59">
+      <h3><i>59</i>시스템 모니터링</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="71">원문 58쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>시스템 모니터링</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 58쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st60">
+      <h3><i>60</i>장애 조치</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="71">원문 58쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>장애 조치</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 58쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st61">
+      <h3><i>61</i>유지보수 조직 및 역할</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>유지보수 조직 및 역할</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 59쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st62">
+      <h3><i>62</i>운영 총괄</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>운영 총괄</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 59쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st63">
+      <h3><i>63</i>응용 운영 담당</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>응용 운영 담당</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 59쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st64">
+      <h3><i>64</i>응용시스템 유지/버전 관리</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>응용시스템 유지/버전 관리</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 59쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st65">
+      <h3><i>65</i>사용자 관리 및 보안 관리</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>사용자 관리 및 보안 관리</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 59쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st66">
+      <h3><i>66</i>정기 작업 및 스케줄 관리</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>정기 작업 및 스케줄 관리</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 59쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st67">
+      <h3><i>67</i>인프라 운영 담당</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>인프라 운영 담당</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 59쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st68">
+      <h3><i>68</i>H/W, N/W 모니터링/장애 처리</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>H/W, N/W 모니터링/장애 처리</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 59쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st69">
+      <h3><i>69</i>DB 모니터링/장애 처리</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>DB 모니터링/장애 처리</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 59쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st70">
+      <h3><i>70</i>정보 연계 운영 담당</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>정보 연계 운영 담당</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 59쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st71">
+      <h3><i>71</i>유지보수 정보 연계 운영 담당</h3>
+      <aside class="side">
+        <p class="pt">정보시스템 운영 안정화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>유지보수 정보 연계 운영 담당</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 59쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
+원문 LM2001020208_23v5_정보시스템 이행_20251108.pdf</footer>
+</div>
+<script>
+/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+  function mark() {
+    var y = window.pageYOffset + 90, cur = -1;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function () { mark(); tick = false; });
+  });
+  mark();
+})();
+</script>

@@ -1,0 +1,957 @@
+<meta charset="utf-8"><title>소프트웨어공학 활용 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+<script>window.CM_BASE="../";</script>
+<script src="../assets/modules-pdf.js"></script>
+<script defer src="../assets/pdfview.js"></script>
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
+  <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
+  / 소프트웨어공학 활용 / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">CASE 도구 활용하기</i><a href="#st1"><b>1</b><span>CASE 도구(Computer Aided Software Engineering Tool)</span></a><a href="#st2"><b>2</b><span>CASE 도구 개요</span></a><a href="#st3"><b>3</b><span>CASE 도구 등장 배경</span></a><a href="#st4"><b>4</b><span>CASE 도구의 목표</span></a><a href="#st5"><b>5</b><span>CASE 도구 종류</span></a><a href="#st6"><b>6</b><span>계층적 분류</span></a><a href="#st7"><b>7</b><span>기능적 분류</span></a><a href="#st8"><b>8</b><span>소프트웨어 개발 수명 주기에 따른 분류</span></a><a href="#st9"><b>9</b><span>소프트웨어 사용 목적에 따른 분류</span></a><a href="#st10"><b>10</b><span>CASE 도구 도입의 성패 요인</span></a><a href="#st11"><b>11</b><span>도입의 성공 요인</span></a><a href="#st12"><b>12</b><span>도입의 실패 요인</span></a><a href="#st13"><b>13</b><span>도입 시 고려 사항</span></a><a href="#st14"><b>14</b><span>업무 매뉴얼</span></a><a href="#st15"><b>15</b><span>업무 매뉴얼 작성 목표</span></a><a href="#st16"><b>16</b><span>업무 매뉴얼 구성 요소</span></a><a href="#st17"><b>17</b><span>이슈 관리</span></a><a href="#st18"><b>18</b><span>이슈 관리 방법</span></a><a href="#st19"><b>19</b><span>이슈 관리 시스템 (Issue Tracking System)</span></a><i class="qg">품질 요구사항 확인하기</i><a href="#st20"><b>20</b><span>소프트웨어 품질 요구사항</span></a><a href="#st21"><b>21</b><span>소프트웨어 요구사항명세서</span></a><a href="#st22"><b>22</b><span>품질 요구사항 분류</span></a><a href="#st23"><b>23</b><span>소프트웨어 표준</span></a><a href="#st24"><b>24</b><span>제품 표준</span></a><a href="#st25"><b>25</b><span>개발 공정(프로세스) 표준</span></a><a href="#st26"><b>26</b><span>품질 표준 특성과 평가 기준</span></a><a href="#st27"><b>27</b><span>품질 표준 특성과 평가 항목</span></a><a href="#st28"><b>28</b><span>품질 측정 메트릭</span></a><a href="#st29"><b>29</b><span>소프트웨어 개발 공정 평가 표준</span></a><a href="#st30"><b>30</b><span>소프트웨어 프로세스 품질 인증(Software Process 인증)</span></a><a href="#st31"><b>31</b><span>품질 점검 기법</span></a><a href="#st32"><b>32</b><span>정적 검증과 동적 검증</span></a><a href="#st33"><b>33</b><span>인스펙션</span></a><a href="#st34"><b>34</b><span>워크스루(Walkthrough)</span></a><a href="#st35"><b>35</b><span>동료 검토(Peer Review)</span></a><a href="#st36"><b>36</b><span>결함 관리 기법</span></a><a href="#st37"><b>37</b><span>결함(Defect) 구분</span></a><a href="#st38"><b>38</b><span>결함 유형</span></a><a href="#st39"><b>39</b><span>결함 해결 방법</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>소프트웨어공학 활용 — 준비 교안</h1>
+<p class="sub">능력단위 <code>2001020228_23v6</code> · 6수준 ·
+32시간 · 단계 39개 · 평가 문제해결 시나리오 · 사례 연구 · 평가자 체크리스트 · 서술형 시험</p>
+
+<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">응용소프트웨어 개발과 프로세스 적용 활동의 관련된 지식을 바탕으로 소프트웨어의 완전성을 보장하고, 소프트웨어 품질을 평가하기 위해 CASE 도구와 형상관리를 통해 소프트웨어공학 기술을 적용할 수 있다.</p>
+    <b class="sh">선수학습</b>
+    <p class="v">소프트웨어공학, SW품질관리, 요구사항 확인(2001020201_23v5), 애플리케이션 테스트 관리(2001020226 _23v6), 애플리케이션 테스트 수행(2001020227_23v6)</p>
+    <b class="sh">원문</b>
+    <p class="src">LM2001020228_23v6_소프트웨어공학 활용_20251108.pdf (100쪽)</p>
+  </aside>
+  <div class="bd">
+<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
+   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
+   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
+<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
+   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
+   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+
+<h4>핵심 용어</h4>
+<p>소프트웨어공학, 소프트웨어 개발, CASE 도구, 품질 요구사항, 품질 표준, 품질 평가 항목, 개발 공정 품질, 응용소프트웨어 제품 품질, 결함 관리</p>
+
+<h4>능력단위요소</h4>
+<table class="wide">
+  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
+      <th>학습 내용</th><th style="width:74px">단계</th></tr>
+  <tr><td class="c">1</td><td>CASE 도구 활용하기</td><td>CASE 도구 선정 · CASE 도구 활용</td><td class="c">19</td></tr>
+  <tr><td class="c">2</td><td>품질 요구사항 확인하기</td><td>품질 표준과 평가 기준 정의 · 개발 공정과 제품 품질 점검</td><td class="c">20</td></tr>
+</table>
+
+<div class="try">
+  <b class="t">쓰는 법</b>
+  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
+  한 단계가 대략 수업 10~20분에 해당합니다.
+</div>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>1. CASE 도구 활용하기</b><span>능력단위요소 · <code>2001020228_23v6.1</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st1">
+      <h3><i>1</i>CASE 도구(Computer Aided Software Engineering Tool)</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하고자 하는 응용소프트웨어에 적용할 개발 방법론을 지원하는 최적의 CASE 도구를 선정 할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>CASE 도구(Computer Aided Software Engineering Tool)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>CASE 도구 개요</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하고자 하는 응용소프트웨어에 적용할 개발 방법론을 지원하는 최적의 CASE 도구를 선정 할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>CASE 도구 개요</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st3">
+      <h3><i>3</i>CASE 도구 등장 배경</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하고자 하는 응용소프트웨어에 적용할 개발 방법론을 지원하는 최적의 CASE 도구를 선정 할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>CASE 도구 등장 배경</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st4">
+      <h3><i>4</i>CASE 도구의 목표</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하고자 하는 응용소프트웨어에 적용할 개발 방법론을 지원하는 최적의 CASE 도구를 선정 할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>CASE 도구의 목표</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st5">
+      <h3><i>5</i>CASE 도구 종류</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하고자 하는 응용소프트웨어에 적용할 개발 방법론을 지원하는 최적의 CASE 도구를 선정 할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>CASE 도구 종류</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st6">
+      <h3><i>6</i>계층적 분류</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하고자 하는 응용소프트웨어에 적용할 개발 방법론을 지원하는 최적의 CASE 도구를 선정 할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>계층적 분류</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st7">
+      <h3><i>7</i>기능적 분류</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하고자 하는 응용소프트웨어에 적용할 개발 방법론을 지원하는 최적의 CASE 도구를 선정 할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>기능적 분류</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st8">
+      <h3><i>8</i>소프트웨어 개발 수명 주기에 따른 분류</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하고자 하는 응용소프트웨어에 적용할 개발 방법론을 지원하는 최적의 CASE 도구를 선정 할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어 개발 수명 주기에 따른 분류</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st9">
+      <h3><i>9</i>소프트웨어 사용 목적에 따른 분류</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하고자 하는 응용소프트웨어에 적용할 개발 방법론을 지원하는 최적의 CASE 도구를 선정 할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어 사용 목적에 따른 분류</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st10">
+      <h3><i>10</i>CASE 도구 도입의 성패 요인</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하고자 하는 응용소프트웨어에 적용할 개발 방법론을 지원하는 최적의 CASE 도구를 선정 할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>CASE 도구 도입의 성패 요인</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st11">
+      <h3><i>11</i>도입의 성공 요인</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하고자 하는 응용소프트웨어에 적용할 개발 방법론을 지원하는 최적의 CASE 도구를 선정 할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>도입의 성공 요인</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st12">
+      <h3><i>12</i>도입의 실패 요인</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="20">원문 7쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하고자 하는 응용소프트웨어에 적용할 개발 방법론을 지원하는 최적의 CASE 도구를 선정 할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>도입의 실패 요인</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 7쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st13">
+      <h3><i>13</i>도입 시 고려 사항</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="20">원문 7쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발하고자 하는 응용소프트웨어에 적용할 개발 방법론을 지원하는 최적의 CASE 도구를 선정 할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>도입 시 고려 사항</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 7쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st14">
+      <h3><i>14</i>업무 매뉴얼</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="33">원문 20쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>CASE 도구가 제공하는 다양한 기능들 중 응용소프트웨어 개발 시 활용할 기능을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>업무 매뉴얼</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 20쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st15">
+      <h3><i>15</i>업무 매뉴얼 작성 목표</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="33">원문 20쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>CASE 도구가 제공하는 다양한 기능들 중 응용소프트웨어 개발 시 활용할 기능을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>업무 매뉴얼 작성 목표</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 20쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st16">
+      <h3><i>16</i>업무 매뉴얼 구성 요소</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="34">원문 21쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>CASE 도구가 제공하는 다양한 기능들 중 응용소프트웨어 개발 시 활용할 기능을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>업무 매뉴얼 구성 요소</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 21쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st17">
+      <h3><i>17</i>이슈 관리</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="34">원문 21쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>CASE 도구가 제공하는 다양한 기능들 중 응용소프트웨어 개발 시 활용할 기능을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>이슈 관리</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 21쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st18">
+      <h3><i>18</i>이슈 관리 방법</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="34">원문 21쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>CASE 도구가 제공하는 다양한 기능들 중 응용소프트웨어 개발 시 활용할 기능을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>이슈 관리 방법</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 21쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st19">
+      <h3><i>19</i>이슈 관리 시스템 (Issue Tracking System)</h3>
+      <aside class="side">
+        <p class="pt">CASE 도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="35">원문 22쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 사례 연구</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>CASE 도구가 제공하는 다양한 기능들 중 응용소프트웨어 개발 시 활용할 기능을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>이슈 관리 시스템 (Issue Tracking System)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 22쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lv">
+  <div class="lvh"><b>2. 품질 요구사항 확인하기</b><span>능력단위요소 · <code>2001020228_23v6.2</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st20">
+      <h3><i>20</i>소프트웨어 품질 요구사항</h3>
+      <aside class="side">
+        <p class="pt">품질 표준과 평가 기준 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="50">원문 37쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항명세서에 기술된 요구사항을 바탕으로 품질 표준을 정의하고 품질 평가 항목과 지침을 제공할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어 품질 요구사항</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 37쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st21">
+      <h3><i>21</i>소프트웨어 요구사항명세서</h3>
+      <aside class="side">
+        <p class="pt">품질 표준과 평가 기준 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="50">원문 37쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항명세서에 기술된 요구사항을 바탕으로 품질 표준을 정의하고 품질 평가 항목과 지침을 제공할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어 요구사항명세서</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 37쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st22">
+      <h3><i>22</i>품질 요구사항 분류</h3>
+      <aside class="side">
+        <p class="pt">품질 표준과 평가 기준 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="52">원문 39쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항명세서에 기술된 요구사항을 바탕으로 품질 표준을 정의하고 품질 평가 항목과 지침을 제공할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>품질 요구사항 분류</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 39쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st23">
+      <h3><i>23</i>소프트웨어 표준</h3>
+      <aside class="side">
+        <p class="pt">품질 표준과 평가 기준 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="52">원문 39쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항명세서에 기술된 요구사항을 바탕으로 품질 표준을 정의하고 품질 평가 항목과 지침을 제공할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어 표준</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 39쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st24">
+      <h3><i>24</i>제품 표준</h3>
+      <aside class="side">
+        <p class="pt">품질 표준과 평가 기준 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="52">원문 39쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항명세서에 기술된 요구사항을 바탕으로 품질 표준을 정의하고 품질 평가 항목과 지침을 제공할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>제품 표준</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 39쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st25">
+      <h3><i>25</i>개발 공정(프로세스) 표준</h3>
+      <aside class="side">
+        <p class="pt">품질 표준과 평가 기준 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="52">원문 39쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항명세서에 기술된 요구사항을 바탕으로 품질 표준을 정의하고 품질 평가 항목과 지침을 제공할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>개발 공정(프로세스) 표준</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 39쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st26">
+      <h3><i>26</i>품질 표준 특성과 평가 기준</h3>
+      <aside class="side">
+        <p class="pt">품질 표준과 평가 기준 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="53">원문 40쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항명세서에 기술된 요구사항을 바탕으로 품질 표준을 정의하고 품질 평가 항목과 지침을 제공할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>품질 표준 특성과 평가 기준</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 40쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st27">
+      <h3><i>27</i>품질 표준 특성과 평가 항목</h3>
+      <aside class="side">
+        <p class="pt">품질 표준과 평가 기준 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="53">원문 40쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항명세서에 기술된 요구사항을 바탕으로 품질 표준을 정의하고 품질 평가 항목과 지침을 제공할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>품질 표준 특성과 평가 항목</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 40쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st28">
+      <h3><i>28</i>품질 측정 메트릭</h3>
+      <aside class="side">
+        <p class="pt">품질 표준과 평가 기준 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="54">원문 41쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>요구사항명세서에 기술된 요구사항을 바탕으로 품질 표준을 정의하고 품질 평가 항목과 지침을 제공할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>품질 측정 메트릭</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 41쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st29">
+      <h3><i>29</i>소프트웨어 개발 공정 평가 표준</h3>
+      <aside class="side">
+        <p class="pt">개발 공정과 제품 품질 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="74">원문 61쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발 공정 품질 관점에서 표준 준수 여부를 확인하고, 응용소프트웨어의 제품 품질 관점에서 결함을 식별하여 해결할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어 개발 공정 평가 표준</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 61쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st30">
+      <h3><i>30</i>소프트웨어 프로세스 품질 인증(Software Process 인증)</h3>
+      <aside class="side">
+        <p class="pt">개발 공정과 제품 품질 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="74">원문 61쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발 공정 품질 관점에서 표준 준수 여부를 확인하고, 응용소프트웨어의 제품 품질 관점에서 결함을 식별하여 해결할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어 프로세스 품질 인증(Software Process 인증)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 61쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st31">
+      <h3><i>31</i>품질 점검 기법</h3>
+      <aside class="side">
+        <p class="pt">개발 공정과 제품 품질 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="75">원문 62쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발 공정 품질 관점에서 표준 준수 여부를 확인하고, 응용소프트웨어의 제품 품질 관점에서 결함을 식별하여 해결할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>품질 점검 기법</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 62쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st32">
+      <h3><i>32</i>정적 검증과 동적 검증</h3>
+      <aside class="side">
+        <p class="pt">개발 공정과 제품 품질 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="75">원문 62쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발 공정 품질 관점에서 표준 준수 여부를 확인하고, 응용소프트웨어의 제품 품질 관점에서 결함을 식별하여 해결할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>정적 검증과 동적 검증</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 62쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st33">
+      <h3><i>33</i>인스펙션</h3>
+      <aside class="side">
+        <p class="pt">개발 공정과 제품 품질 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="75">원문 62쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발 공정 품질 관점에서 표준 준수 여부를 확인하고, 응용소프트웨어의 제품 품질 관점에서 결함을 식별하여 해결할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>인스펙션</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 62쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st34">
+      <h3><i>34</i>워크스루(Walkthrough)</h3>
+      <aside class="side">
+        <p class="pt">개발 공정과 제품 품질 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="77">원문 64쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발 공정 품질 관점에서 표준 준수 여부를 확인하고, 응용소프트웨어의 제품 품질 관점에서 결함을 식별하여 해결할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>워크스루(Walkthrough)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 64쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st35">
+      <h3><i>35</i>동료 검토(Peer Review)</h3>
+      <aside class="side">
+        <p class="pt">개발 공정과 제품 품질 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="77">원문 64쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발 공정 품질 관점에서 표준 준수 여부를 확인하고, 응용소프트웨어의 제품 품질 관점에서 결함을 식별하여 해결할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>동료 검토(Peer Review)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 64쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st36">
+      <h3><i>36</i>결함 관리 기법</h3>
+      <aside class="side">
+        <p class="pt">개발 공정과 제품 품질 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="78">원문 65쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발 공정 품질 관점에서 표준 준수 여부를 확인하고, 응용소프트웨어의 제품 품질 관점에서 결함을 식별하여 해결할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>결함 관리 기법</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 65쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st37">
+      <h3><i>37</i>결함(Defect) 구분</h3>
+      <aside class="side">
+        <p class="pt">개발 공정과 제품 품질 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="78">원문 65쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발 공정 품질 관점에서 표준 준수 여부를 확인하고, 응용소프트웨어의 제품 품질 관점에서 결함을 식별하여 해결할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>결함(Defect) 구분</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 65쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st38">
+      <h3><i>38</i>결함 유형</h3>
+      <aside class="side">
+        <p class="pt">개발 공정과 제품 품질 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="78">원문 65쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발 공정 품질 관점에서 표준 준수 여부를 확인하고, 응용소프트웨어의 제품 품질 관점에서 결함을 식별하여 해결할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>결함 유형</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 65쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st39">
+      <h3><i>39</i>결함 해결 방법</h3>
+      <aside class="side">
+        <p class="pt">개발 공정과 제품 품질 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="78">원문 65쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>개발 공정 품질 관점에서 표준 준수 여부를 확인하고, 응용소프트웨어의 제품 품질 관점에서 결함을 식별하여 해결할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>결함 해결 방법</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 65쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
+원문 LM2001020228_23v6_소프트웨어공학 활용_20251108.pdf</footer>
+</div>
+<script>
+/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+  function mark() {
+    var y = window.pageYOffset + 90, cur = -1;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function () { mark(); tick = false; });
+  });
+  mark();
+})();
+</script>

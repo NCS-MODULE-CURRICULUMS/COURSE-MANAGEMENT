@@ -1,0 +1,539 @@
+<meta charset="utf-8"><title>프로그래밍 언어 응용 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+<script>window.CM_BASE="../";</script>
+<script src="../assets/modules-pdf.js"></script>
+<script defer src="../assets/pdfview.js"></script>
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
+  <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
+  / 프로그래밍 언어 응용 / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">언어 특성 활용하기</i><a href="#st1"><b>1</b><span>프로그래밍 언어의 발전 과정과 유형 분류</span></a><a href="#st2"><b>2</b><span>프로그래밍 언어의 발전 과정</span></a><a href="#st3"><b>3</b><span>프로그래밍 언어의 유형 분류</span></a><a href="#st4"><b>4</b><span>컴파일러(Compiler)와 인터프리터(Interpreter)</span></a><a href="#st5"><b>5</b><span>컴파일러와 인터프리터 동작 방식</span></a><a href="#st6"><b>6</b><span>컴파일러와 인터프리터 비교</span></a><a href="#st7"><b>7</b><span>코드 인스펙션(Code Inspection)</span></a><a href="#st8"><b>8</b><span>인스펙션 수행 절차</span></a><i class="qg">라이브러리 활용하기</i><a href="#st9"><b>9</b><span>라이브러리(Library)</span></a><a href="#st10"><b>10</b><span>라이브러리 개념과 목적</span></a><a href="#st11"><b>11</b><span>라이브러리 구성</span></a><a href="#st12"><b>12</b><span>라이브러리의 유형</span></a><a href="#st13"><b>13</b><span>별도 설치 여부에 따른 유형</span></a><a href="#st14"><b>14</b><span>코드 결합 방식에 따른 유형</span></a><a href="#st15"><b>15</b><span>라이브러리, 프레임워크, 아키텍처, 플랫폼 비교</span></a><a href="#st16"><b>16</b><span>모듈과 패키지</span></a><a href="#st17"><b>17</b><span>PyPI(Python Package Index)</span></a><a href="#st18"><b>18</b><span>Maven</span></a><a href="#st19"><b>19</b><span>빌드 도구(Build Tool)</span></a><a href="#st20"><b>20</b><span>빌드 도구 비교</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>프로그래밍 언어 응용 — 준비 교안</h1>
+<p class="sub">능력단위 <code>2001020230_23v5</code> · 3수준 ·
+32시간 · 단계 20개 · 평가 평가자 질문 · 평가자 체크리스트 · 문제해결 시나리오</p>
+
+<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">응용소프트웨어 개발에 사용되는 프로그래밍 언어의 특징과 라이브러리를 활용하여 기본 응용소프트웨어를 구현할 수 있다.</p>
+    <b class="sh">선수학습</b>
+    <p class="v">개발자 환경 구축(2001020233_23v5), 프로그래밍 언어 활용(2001020231_23v5), 응용SW 기초 기술 활용(2001020232_23v5), 애플리케이션 테스트 수행(2001020227_23v6)</p>
+    <b class="sh">원문</b>
+    <p class="src">LM2001020230_23v5_프로그래밍 언어 응용_20251108.pdf (95쪽)</p>
+  </aside>
+  <div class="bd">
+<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
+   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
+   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
+<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
+   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
+   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+
+<h4>핵심 용어</h4>
+<p>저급언어, 고급언어, 원시 코드(소스코드), 목적 코드(실행 파일), 리뷰, 리팩토링, 모듈, 패키지, 라이브러리</p>
+
+<h4>능력단위요소</h4>
+<table class="wide">
+  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
+      <th>학습 내용</th><th style="width:74px">단계</th></tr>
+  <tr><td class="c">1</td><td>언어 특성 활용하기</td><td>언어별 특성 파악 · 애플리케이션 구현 및 최적화</td><td class="c">8</td></tr>
+  <tr><td class="c">2</td><td>라이브러리 활용하기</td><td>라이브러리 선정 · 라이브러리 구성 및 적용</td><td class="c">12</td></tr>
+</table>
+
+<div class="try">
+  <b class="t">쓰는 법</b>
+  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
+  한 단계가 대략 수업 10~20분에 해당합니다.
+</div>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>1. 언어 특성 활용하기</b><span>능력단위요소 · <code>2001020230_23v5.1</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st1">
+      <h3><i>1</i>프로그래밍 언어의 발전 과정과 유형 분류</h3>
+      <aside class="side">
+        <p class="pt">언어별 특성 파악</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 질문 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>프로그래밍 언어별 특성을 파악하고 설명할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>프로그래밍 언어의 발전 과정과 유형 분류</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>프로그래밍 언어의 발전 과정</h3>
+      <aside class="side">
+        <p class="pt">언어별 특성 파악</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 질문 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>프로그래밍 언어별 특성을 파악하고 설명할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>프로그래밍 언어의 발전 과정</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st3">
+      <h3><i>3</i>프로그래밍 언어의 유형 분류</h3>
+      <aside class="side">
+        <p class="pt">언어별 특성 파악</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 질문 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>프로그래밍 언어별 특성을 파악하고 설명할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>프로그래밍 언어의 유형 분류</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st4">
+      <h3><i>4</i>컴파일러(Compiler)와 인터프리터(Interpreter)</h3>
+      <aside class="side">
+        <p class="pt">언어별 특성 파악</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 질문 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>프로그래밍 언어별 특성을 파악하고 설명할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>컴파일러(Compiler)와 인터프리터(Interpreter)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st5">
+      <h3><i>5</i>컴파일러와 인터프리터 동작 방식</h3>
+      <aside class="side">
+        <p class="pt">언어별 특성 파악</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 질문 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>프로그래밍 언어별 특성을 파악하고 설명할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>컴파일러와 인터프리터 동작 방식</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st6">
+      <h3><i>6</i>컴파일러와 인터프리터 비교</h3>
+      <aside class="side">
+        <p class="pt">언어별 특성 파악</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 질문 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>프로그래밍 언어별 특성을 파악하고 설명할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>컴파일러와 인터프리터 비교</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st7">
+      <h3><i>7</i>코드 인스펙션(Code Inspection)</h3>
+      <aside class="side">
+        <p class="pt">애플리케이션 구현 및 최적화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="28">원문 15쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 질문 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>파악된 프로그래밍 언어의 특성을 적용하여 애플리케이션을 구현할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>코드 인스펙션(Code Inspection)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 15쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st8">
+      <h3><i>8</i>인스펙션 수행 절차</h3>
+      <aside class="side">
+        <p class="pt">애플리케이션 구현 및 최적화</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="28">원문 15쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 질문 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>파악된 프로그래밍 언어의 특성을 적용하여 애플리케이션을 구현할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>인스펙션 수행 절차</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 15쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lv">
+  <div class="lvh"><b>2. 라이브러리 활용하기</b><span>능력단위요소 · <code>2001020230_23v5.2</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st9">
+      <h3><i>9</i>라이브러리(Library)</h3>
+      <aside class="side">
+        <p class="pt">라이브러리 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="61">원문 48쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션에 필요한 라이브러리를 선정할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>라이브러리(Library)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 48쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st10">
+      <h3><i>10</i>라이브러리 개념과 목적</h3>
+      <aside class="side">
+        <p class="pt">라이브러리 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="61">원문 48쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션에 필요한 라이브러리를 선정할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>라이브러리 개념과 목적</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 48쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st11">
+      <h3><i>11</i>라이브러리 구성</h3>
+      <aside class="side">
+        <p class="pt">라이브러리 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="61">원문 48쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션에 필요한 라이브러리를 선정할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>라이브러리 구성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 48쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st12">
+      <h3><i>12</i>라이브러리의 유형</h3>
+      <aside class="side">
+        <p class="pt">라이브러리 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="61">원문 48쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션에 필요한 라이브러리를 선정할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>라이브러리의 유형</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 48쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st13">
+      <h3><i>13</i>별도 설치 여부에 따른 유형</h3>
+      <aside class="side">
+        <p class="pt">라이브러리 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="61">원문 48쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션에 필요한 라이브러리를 선정할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>별도 설치 여부에 따른 유형</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 48쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st14">
+      <h3><i>14</i>코드 결합 방식에 따른 유형</h3>
+      <aside class="side">
+        <p class="pt">라이브러리 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="62">원문 49쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션에 필요한 라이브러리를 선정할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>코드 결합 방식에 따른 유형</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 49쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st15">
+      <h3><i>15</i>라이브러리, 프레임워크, 아키텍처, 플랫폼 비교</h3>
+      <aside class="side">
+        <p class="pt">라이브러리 선정</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="62">원문 49쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션에 필요한 라이브러리를 선정할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>라이브러리, 프레임워크, 아키텍처, 플랫폼 비교</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 49쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st16">
+      <h3><i>16</i>모듈과 패키지</h3>
+      <aside class="side">
+        <p class="pt">라이브러리 구성 및 적용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="74">원문 61쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 구현을 위해 선택한 라이브러리를 프로그래밍 언어 특성에 맞게 구성할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>모듈과 패키지</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 61쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st17">
+      <h3><i>17</i>PyPI(Python Package Index)</h3>
+      <aside class="side">
+        <p class="pt">라이브러리 구성 및 적용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="74">원문 61쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 구현을 위해 선택한 라이브러리를 프로그래밍 언어 특성에 맞게 구성할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>PyPI(Python Package Index)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 61쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st18">
+      <h3><i>18</i>Maven</h3>
+      <aside class="side">
+        <p class="pt">라이브러리 구성 및 적용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="75">원문 62쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 구현을 위해 선택한 라이브러리를 프로그래밍 언어 특성에 맞게 구성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Maven</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 62쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st19">
+      <h3><i>19</i>빌드 도구(Build Tool)</h3>
+      <aside class="side">
+        <p class="pt">라이브러리 구성 및 적용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="75">원문 62쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 구현을 위해 선택한 라이브러리를 프로그래밍 언어 특성에 맞게 구성할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>빌드 도구(Build Tool)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 62쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st20">
+      <h3><i>20</i>빌드 도구 비교</h3>
+      <aside class="side">
+        <p class="pt">라이브러리 구성 및 적용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020230_23v5" data-page="75">원문 62쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>애플리케이션 구현을 위해 선택한 라이브러리를 프로그래밍 언어 특성에 맞게 구성할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>빌드 도구 비교</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 62쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
+원문 LM2001020230_23v5_프로그래밍 언어 응용_20251108.pdf</footer>
+</div>
+<script>
+/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+  function mark() {
+    var y = window.pageYOffset + 90, cur = -1;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function () { mark(); tick = false; });
+  });
+  mark();
+})();
+</script>

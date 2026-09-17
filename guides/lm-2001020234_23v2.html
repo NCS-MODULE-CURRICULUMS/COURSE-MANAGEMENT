@@ -1,0 +1,2722 @@
+<meta charset="utf-8"><title>개발 환경 운영 지원 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+<script>window.CM_BASE="../";</script>
+<script src="../assets/modules-pdf.js"></script>
+<script defer src="../assets/pdfview.js"></script>
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
+  <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
+  / 개발 환경 운영 지원 / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">소스코드 관리하기</i><a href="#st1"><b>1</b><span>형상관리 개념</span></a><a href="#st2"><b>2</b><span>형상관리의 정의</span></a><a href="#st3"><b>3</b><span>형상관리 절차</span></a><a href="#st4"><b>4</b><span>형상관리 구성</span></a><a href="#st5"><b>5</b><span>소스코드 관리도구 사용법</span></a><a href="#st6"><b>6</b><span>소스코드 관리도구 유형</span></a><a href="#st7"><b>7</b><span>소스 파일을 한 명만 수정할 수 있도록 제한하여 다수가</span></a><a href="#st8"><b>8</b><span>로컬 전용으로 협업의 제한으로 현재 거의 사용되지 않</span></a><a href="#st9"><b>9</b><span>소프트웨어 개발 단계나 완료 시 소스코드나 기타 문서</span></a><a href="#st10"><b>10</b><span>중앙 저장소에서 버전을 관리하는 방식으로, 일부 기업에</span></a><a href="#st11"><b>11</b><span>Git에 비해 단순하지만 브랜치 관리에 한계가 있음.</span></a><a href="#st12"><b>12</b><span>Git과 유사한 분산 버전관리 시스템.</span></a><a href="#st13"><b>13</b><span>Python으로 구현되었으며, 단순하고 직관적인 명령어 체</span></a><a href="#st14"><b>14</b><span>실리콘 밸리에서 과거 Bitbucket의 기본 엔진으로 사용</span></a><a href="#st15"><b>15</b><span>여전히 일부 기업이나 레거시 프로젝트에서는 사용됨</span></a><a href="#st16"><b>16</b><span>로컬과 원격 저장소를 모두 유지하는 구조.</span></a><a href="#st17"><b>17</b><span>협업과 버전관리를 효과적으로 지원하며, 현재 가장 널리</span></a><a href="#st18"><b>18</b><span>Microsoft에서 운영하는 세계 최대 규모의 Git 기반 소</span></a><a href="#st19"><b>19</b><span>전 세계 오픈소스 커뮤니티와 기업들이 이용</span></a><a href="#st20"><b>20</b><span>이슈 트래킹, 코드 리뷰, GitHub Actions(CI/CD), 프로</span></a><a href="#st21"><b>21</b><span>Copilot, Codespaces 등 AI 및 클라우드 기반 개발</span></a><a href="#st22"><b>22</b><span>Git 기반 저장소 관리 및 자체 호스팅 가능한 협업 플랫폼</span></a><a href="#st23"><b>23</b><span>DevOps 기능이 강력함 (CI/CD, 보안 검사, 배포 자동</span></a><a href="#st24"><b>24</b><span>자체 서버 운영을 원하는 조직(공공기관, 대기업 등)에서</span></a><a href="#st25"><b>25</b><span>오픈소스 에디션(GitLab CE)과 상용 에디션이 있음</span></a><a href="#st26"><b>26</b><span>주요 소프트웨어 소스코드 관리도구의 사용 명령어</span></a><a href="#st27"><b>27</b><span>Atlassian(아틀라시안)에서 제공하는 Git 및 Mercurial</span></a><a href="#st28"><b>28</b><span>Jira, Trello 등 프로젝트 관리 도구와의 통합이 강점</span></a><a href="#st29"><b>29</b><span>소규모 팀이나 Jira 기반으로 프로젝트를 운영하는 기업</span></a><a href="#st30"><b>30</b><span>현재는 Git 중심으로 완전히 전환되었고, Mercurial 지</span></a><a href="#st31"><b>31</b><span>소스코드 관리 지침</span></a><a href="#st32"><b>32</b><span>소스코드 관리 지침의 목적</span></a><a href="#st33"><b>33</b><span>소스코드 관리 지침의 구성</span></a><a href="#st34"><b>34</b><span>버전관리 체계</span></a><a href="#st35"><b>35</b><span>소프트웨어 버전 작성(Software Versioning)</span></a><a href="#st36"><b>36</b><span>소프트웨어 버전 작성 방법</span></a><a href="#st37"><b>37</b><span>소프트웨어 버전 작성 규칙</span></a><a href="#st38"><b>38</b><span>정식 출시 전 버전 (Pre-release)</span></a><a href="#st39"><b>39</b><span>빌드 메타데이터(Build Metadata)</span></a><a href="#st40"><b>40</b><span>1.0.0+20240814</span></a><a href="#st41"><b>41</b><span>1.2.3-beta+build.1024.a9c3e1f</span></a><i class="qg">개발 환경 백업하기</i><a href="#st42"><b>42</b><span>백업의 개념과 필요성</span></a><a href="#st43"><b>43</b><span>백업(Backup)</span></a><a href="#st44"><b>44</b><span>복원(Restore)</span></a><a href="#st45"><b>45</b><span>백업의 필요성</span></a><a href="#st46"><b>46</b><span>백업 대상의 식별과 유형</span></a><a href="#st47"><b>47</b><span>백업 대상</span></a><a href="#st48"><b>48</b><span>데이터베이스 연결 정보, API 키 등이 담긴 파일 (.env, database.yml)</span></a><a href="#st49"><b>49</b><span>웹서버 및 WAS 설정 파일 (nginx.conf, httpd.conf, server.xml)</span></a><a href="#st50"><b>50</b><span>애플리케이션 프레임워크 설정 파일 (settings.py, application.properties)</span></a><a href="#st51"><b>51</b><span>SSL 인증서 파일</span></a><a href="#st52"><b>52</b><span>의존성 패키지 목록을 정의한 매니페스트 파일</span></a><a href="#st53"><b>53</b><span>npm install, pip install 등의 명령어로 동일한 개발 환경을 재현</span></a><a href="#st54"><b>54</b><span>node_modules, venv와 같이 실제 라이브러리가 설치된 폴더 전체</span></a><a href="#st55"><b>55</b><span>장점: 복원 시간을 단축</span></a><a href="#st56"><b>56</b><span>단점: 용량이 매우 크고 OS에 따라 호환성 문제가 발생할 가능성 있음</span></a><a href="#st57"><b>57</b><span>CI/CD(지속적 통합/배포) 파이프라인 스크립트</span></a><a href="#st58"><b>58</b><span>컨테이너 환경 구성 파일 (예: Dockerfile, docker-compose.yml)</span></a><a href="#st59"><b>59</b><span>사용자가 업로드한 파일(이미지, 첨부 파일 등)이 파일 시스템에 저장되는 경우 해당 디</span></a><a href="#st60"><b>60</b><span>백업 유형</span></a><a href="#st61"><b>61</b><span>백업 대상으로 지정된 모</span></a><a href="#st62"><b>62</b><span>가장 완전한 형태의 백업</span></a><a href="#st63"><b>63</b><span>빠른 복구</span></a><a href="#st64"><b>64</b><span>느린 백업 속도</span></a><a href="#st65"><b>65</b><span>큰 저장 공간</span></a><a href="#st66"><b>66</b><span>마지막 백업(전체 백업 또</span></a><a href="#st67"><b>67</b><span>가장 빠른 백업 속도</span></a><a href="#st68"><b>68</b><span>적은 저장 공간</span></a><a href="#st69"><b>69</b><span>느리고 복잡한 복구</span></a><a href="#st70"><b>70</b><span>전체 백업본과 그 이후</span></a><a href="#st71"><b>71</b><span>마지막 ‘전체 백업’ 이후</span></a><a href="#st72"><b>72</b><span>증분 백업과의 차이점</span></a><a href="#st73"><b>73</b><span>균형 잡힌 복구 속도</span></a><a href="#st74"><b>74</b><span>복원 시 마지막 전체</span></a><a href="#st75"><b>75</b><span>시간이 지날수록 백업</span></a><a href="#st76"><b>76</b><span>전체 백업과의 차이가</span></a><a href="#st77"><b>77</b><span>백업 도구 및 기술</span></a><a href="#st78"><b>78</b><span>유연성 및 이식성</span></a><a href="#st79"><b>79</b><span>선택적 복원: 특정 테이블이나 데이터만 선택하여 복원하기 용이함</span></a><a href="#st80"><b>80</b><span>늦은 처리 속도 : 대용량 데이터베이스의 경우, 데이터를 텍스트로 변환하고</span></a><a href="#st81"><b>81</b><span>빠른 처리 속도</span></a><a href="#st82"><b>82</b><span>이식성 제한</span></a><a href="#st83"><b>83</b><span>유연성 부족</span></a><a href="#st84"><b>84</b><span>백업 주기 및 정책</span></a><a href="#st85"><b>85</b><span>백업 주기</span></a><a href="#st86"><b>86</b><span>백업 정책</span></a><a href="#st87"><b>87</b><span>최소 3개의 데이터 복사본을 유지하라.</span></a><a href="#st88"><b>88</b><span>2개의 서로 다른 종류의 저장 매체를 사용하라.</span></a><a href="#st89"><b>89</b><span>1개의 백업본은 반드시 원격지(Off-site)에 보관하라.</span></a><a href="#st90"><b>90</b><span>모든 소스 코드는 커밋 즉시 GitHub 원격 저장소에 푸시한다.</span></a><a href="#st91"><b>91</b><span>운영 데이터베이스는 매주 일요일 새벽 2시에 전체 백업을, 매일 새벽 2시에 차등 백업을</span></a><a href="#st92"><b>92</b><span>모든 백업 파일은 로컬 NAS에 1차 저장 후, AWS S3 Glacier 스토리지에 2차로 전송하</span></a><a href="#st93"><b>93</b><span>복원(복구) 절차 수립 및 백업 테스트</span></a><a href="#st94"><b>94</b><span>백업 점검</span></a><a href="#st95"><b>95</b><span>백업 주기</span></a><a href="#st96"><b>96</b><span>백업 대상</span></a><a href="#st97"><b>97</b><span>백업 방법</span></a><a href="#st98"><b>98</b><span>보관 주기 및 보관 장소</span></a><a href="#st99"><b>99</b><span>보관 매체</span></a><a href="#st100"><b>100</b><span>장비별 세부 백업 계획</span></a><a href="#st101"><b>101</b><span>백업 수행 결과 보고</span></a><a href="#st102"><b>102</b><span>백업 일일 보고서에는 다음과 같은 내용을 작성한다.</span></a><a href="#st103"><b>103</b><span>백업 월간 보고서의 내용에는 다음과 같은 내용을 작성한다.</span></a><i class="qg">개발 환경 복원하기</i><a href="#st104"><b>104</b><span>복원(Restore)의 개념과 필요성</span></a><a href="#st105"><b>105</b><span>복원의 필요성</span></a><a href="#st106"><b>106</b><span>복원 대상과 유형</span></a><a href="#st107"><b>107</b><span>소스코드 복원</span></a><a href="#st108"><b>108</b><span>데이터베이스 복원</span></a><a href="#st109"><b>109</b><span>서버 환경 및 설정 복원</span></a><a href="#st110"><b>110</b><span>복원 결과 점검 절차</span></a><a href="#st111"><b>111</b><span>업무 담당자는 복원 계획을 확인한다.</span></a><a href="#st112"><b>112</b><span>업무 담당자는 복원 계획에 따른 복원 대상을 점검한다.</span></a><a href="#st113"><b>113</b><span>업무 담당자는 복원 계획에 따른 복원 대상별 복원 지점을 확인한다.</span></a><a href="#st114"><b>114</b><span>업무 담당자와 업무 팀장은 서비스의 상태를 확인한다.</span></a><a href="#st115"><b>115</b><span>복원 수행 결과가 비정상일 때 정상적으로 복원될 때까지 반복적으로 백업 운영자에게 복원</span></a><a href="#st116"><b>116</b><span>정상적일 때 서비스의 정상 상태 결과를 유관 부서에 공유한다.</span></a><a href="#st117"><b>117</b><span>복원 수행 결과 보고</span></a><a href="#st118"><b>118</b><span>복원 계획서</span></a><a href="#st119"><b>119</b><span>복원 수행 결과서</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>개발 환경 운영 지원 — 준비 교안</h1>
+<p class="sub">능력단위 <code>2001020234_23v2</code> · 2수준 ·
+48시간 · 단계 119개 · 평가 문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트 · 평가자 질문</p>
+
+<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">응용소프트웨어 개발을 위하여 구축된 개발 환경을 백업·복원하고, 소스코드를 관리할 수 있다.</p>
+    <b class="sh">선수학습</b>
+    <p class="v">개발자 환경 구축(2001020233_23v5), 교육부 고시 정보･통신 전문 교과 전공 일반 과목 ‘프로그래밍’, 교육 부 고시 정보･통신 전문 교과 전공 실무 과목 ‘컴퓨터 구조’</p>
+    <b class="sh">원문</b>
+    <p class="src">LM2001020234_23v2_개발 환경 운영 지원_20251108.pdf (107쪽)</p>
+  </aside>
+  <div class="bd">
+<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
+   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
+   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
+<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
+   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
+   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+
+<h4>핵심 용어</h4>
+<p>형상관리, 버전관리, 소스코드 관리도구, 백업관리, 복원관리, 파일 시스템, 백업 용량 산정기법, 복원 용량 산정 기법</p>
+
+<h4>능력단위요소</h4>
+<table class="wide">
+  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
+      <th>학습 내용</th><th style="width:74px">단계</th></tr>
+  <tr><td class="c">1</td><td>소스코드 관리하기</td><td>소스코드 관리도구 활용 · 소스코드 변경관리</td><td class="c">41</td></tr>
+  <tr><td class="c">2</td><td>개발 환경 백업하기</td><td>개발 환경 백업 · 개발 환경 백업 결과 점검</td><td class="c">62</td></tr>
+  <tr><td class="c">3</td><td>개발 환경 복원하기</td><td>개발 환경 복원 · 개발 환경 복원 결과 점검</td><td class="c">16</td></tr>
+</table>
+
+<div class="try">
+  <b class="t">쓰는 법</b>
+  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
+  한 단계가 대략 수업 10~20분에 해당합니다.
+</div>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>1. 소스코드 관리하기</b><span>능력단위요소 · <code>2001020234_23v2.1</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st1">
+      <h3><i>1</i>형상관리 개념</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>형상관리 개념</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>형상관리의 정의</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>형상관리의 정의</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st3">
+      <h3><i>3</i>형상관리 절차</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>형상관리 절차</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st4">
+      <h3><i>4</i>형상관리 구성</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>형상관리 구성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st5">
+      <h3><i>5</i>소스코드 관리도구 사용법</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소스코드 관리도구 사용법</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st6">
+      <h3><i>6</i>소스코드 관리도구 유형</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소스코드 관리도구 유형</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st7">
+      <h3><i>7</i>소스 파일을 한 명만 수정할 수 있도록 제한하여 다수가</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소스 파일을 한 명만 수정할 수 있도록 제한하여 다수가</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st8">
+      <h3><i>8</i>로컬 전용으로 협업의 제한으로 현재 거의 사용되지 않</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>로컬 전용으로 협업의 제한으로 현재 거의 사용되지 않</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st9">
+      <h3><i>9</i>소프트웨어 개발 단계나 완료 시 소스코드나 기타 문서</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어 개발 단계나 완료 시 소스코드나 기타 문서</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st10">
+      <h3><i>10</i>중앙 저장소에서 버전을 관리하는 방식으로, 일부 기업에</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>중앙 저장소에서 버전을 관리하는 방식으로, 일부 기업에</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st11">
+      <h3><i>11</i>Git에 비해 단순하지만 브랜치 관리에 한계가 있음.</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Git에 비해 단순하지만 브랜치 관리에 한계가 있음.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st12">
+      <h3><i>12</i>Git과 유사한 분산 버전관리 시스템.</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Git과 유사한 분산 버전관리 시스템.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st13">
+      <h3><i>13</i>Python으로 구현되었으며, 단순하고 직관적인 명령어 체</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Python으로 구현되었으며, 단순하고 직관적인 명령어 체</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st14">
+      <h3><i>14</i>실리콘 밸리에서 과거 Bitbucket의 기본 엔진으로 사용</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>실리콘 밸리에서 과거 Bitbucket의 기본 엔진으로 사용</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st15">
+      <h3><i>15</i>여전히 일부 기업이나 레거시 프로젝트에서는 사용됨</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>여전히 일부 기업이나 레거시 프로젝트에서는 사용됨</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st16">
+      <h3><i>16</i>로컬과 원격 저장소를 모두 유지하는 구조.</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>로컬과 원격 저장소를 모두 유지하는 구조.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st17">
+      <h3><i>17</i>협업과 버전관리를 효과적으로 지원하며, 현재 가장 널리</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>협업과 버전관리를 효과적으로 지원하며, 현재 가장 널리</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st18">
+      <h3><i>18</i>Microsoft에서 운영하는 세계 최대 규모의 Git 기반 소</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Microsoft에서 운영하는 세계 최대 규모의 Git 기반 소</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st19">
+      <h3><i>19</i>전 세계 오픈소스 커뮤니티와 기업들이 이용</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>전 세계 오픈소스 커뮤니티와 기업들이 이용</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st20">
+      <h3><i>20</i>이슈 트래킹, 코드 리뷰, GitHub Actions(CI/CD), 프로</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>이슈 트래킹, 코드 리뷰, GitHub Actions(CI/CD), 프로</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st21">
+      <h3><i>21</i>Copilot, Codespaces 등 AI 및 클라우드 기반 개발</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Copilot, Codespaces 등 AI 및 클라우드 기반 개발</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st22">
+      <h3><i>22</i>Git 기반 저장소 관리 및 자체 호스팅 가능한 협업 플랫폼</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Git 기반 저장소 관리 및 자체 호스팅 가능한 협업 플랫폼</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st23">
+      <h3><i>23</i>DevOps 기능이 강력함 (CI/CD, 보안 검사, 배포 자동</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>DevOps 기능이 강력함 (CI/CD, 보안 검사, 배포 자동</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st24">
+      <h3><i>24</i>자체 서버 운영을 원하는 조직(공공기관, 대기업 등)에서</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>자체 서버 운영을 원하는 조직(공공기관, 대기업 등)에서</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st25">
+      <h3><i>25</i>오픈소스 에디션(GitLab CE)과 상용 에디션이 있음</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>오픈소스 에디션(GitLab CE)과 상용 에디션이 있음</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st26">
+      <h3><i>26</i>주요 소프트웨어 소스코드 관리도구의 사용 명령어</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>주요 소프트웨어 소스코드 관리도구의 사용 명령어</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st27">
+      <h3><i>27</i>Atlassian(아틀라시안)에서 제공하는 Git 및 Mercurial</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Atlassian(아틀라시안)에서 제공하는 Git 및 Mercurial</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st28">
+      <h3><i>28</i>Jira, Trello 등 프로젝트 관리 도구와의 통합이 강점</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Jira, Trello 등 프로젝트 관리 도구와의 통합이 강점</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st29">
+      <h3><i>29</i>소규모 팀이나 Jira 기반으로 프로젝트를 운영하는 기업</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소규모 팀이나 Jira 기반으로 프로젝트를 운영하는 기업</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st30">
+      <h3><i>30</i>현재는 Git 중심으로 완전히 전환되었고, Mercurial 지</h3>
+      <aside class="side">
+        <p class="pt">소스코드 관리도구 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리를 위하여 소스코드 관리도구를 활용할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>현재는 Git 중심으로 완전히 전환되었고, Mercurial 지</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st31">
+      <h3><i>31</i>소스코드 관리 지침</h3>
+      <aside class="side">
+        <p class="pt">소스코드 변경관리</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="31">원문 18쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리 지침에 따라서 개발 중인 소스코드의 변경 사항을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소스코드 관리 지침</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 18쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st32">
+      <h3><i>32</i>소스코드 관리 지침의 목적</h3>
+      <aside class="side">
+        <p class="pt">소스코드 변경관리</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="31">원문 18쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리 지침에 따라서 개발 중인 소스코드의 변경 사항을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소스코드 관리 지침의 목적</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 18쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st33">
+      <h3><i>33</i>소스코드 관리 지침의 구성</h3>
+      <aside class="side">
+        <p class="pt">소스코드 변경관리</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="31">원문 18쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리 지침에 따라서 개발 중인 소스코드의 변경 사항을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소스코드 관리 지침의 구성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 18쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st34">
+      <h3><i>34</i>버전관리 체계</h3>
+      <aside class="side">
+        <p class="pt">소스코드 변경관리</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="32">원문 19쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리 지침에 따라서 개발 중인 소스코드의 변경 사항을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>버전관리 체계</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 19쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st35">
+      <h3><i>35</i>소프트웨어 버전 작성(Software Versioning)</h3>
+      <aside class="side">
+        <p class="pt">소스코드 변경관리</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="32">원문 19쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리 지침에 따라서 개발 중인 소스코드의 변경 사항을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어 버전 작성(Software Versioning)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 19쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st36">
+      <h3><i>36</i>소프트웨어 버전 작성 방법</h3>
+      <aside class="side">
+        <p class="pt">소스코드 변경관리</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="32">원문 19쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리 지침에 따라서 개발 중인 소스코드의 변경 사항을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어 버전 작성 방법</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 19쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st37">
+      <h3><i>37</i>소프트웨어 버전 작성 규칙</h3>
+      <aside class="side">
+        <p class="pt">소스코드 변경관리</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="32">원문 19쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리 지침에 따라서 개발 중인 소스코드의 변경 사항을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소프트웨어 버전 작성 규칙</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 19쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st38">
+      <h3><i>38</i>정식 출시 전 버전 (Pre-release)</h3>
+      <aside class="side">
+        <p class="pt">소스코드 변경관리</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="33">원문 20쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리 지침에 따라서 개발 중인 소스코드의 변경 사항을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>정식 출시 전 버전 (Pre-release)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 20쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st39">
+      <h3><i>39</i>빌드 메타데이터(Build Metadata)</h3>
+      <aside class="side">
+        <p class="pt">소스코드 변경관리</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="34">원문 21쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리 지침에 따라서 개발 중인 소스코드의 변경 사항을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>빌드 메타데이터(Build Metadata)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 21쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st40">
+      <h3><i>40</i>1.0.0+20240814</h3>
+      <aside class="side">
+        <p class="pt">소스코드 변경관리</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="35">원문 22쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리 지침에 따라서 개발 중인 소스코드의 변경 사항을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>1.0.0+20240814</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 22쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st41">
+      <h3><i>41</i>1.2.3-beta+build.1024.a9c3e1f</h3>
+      <aside class="side">
+        <p class="pt">소스코드 변경관리</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="35">원문 22쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 논술형 시험 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>소스코드 관리 지침에 따라서 개발 중인 소스코드의 변경 사항을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>1.2.3-beta+build.1024.a9c3e1f</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 22쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lv">
+  <div class="lvh"><b>2. 개발 환경 백업하기</b><span>능력단위요소 · <code>2001020234_23v2.2</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st42">
+      <h3><i>42</i>백업의 개념과 필요성</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="48">원문 35쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>백업의 개념과 필요성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 35쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st43">
+      <h3><i>43</i>백업(Backup)</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="48">원문 35쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>백업(Backup)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 35쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st44">
+      <h3><i>44</i>복원(Restore)</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="48">원문 35쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>복원(Restore)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 35쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st45">
+      <h3><i>45</i>백업의 필요성</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="48">원문 35쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>백업의 필요성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 35쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st46">
+      <h3><i>46</i>백업 대상의 식별과 유형</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="49">원문 36쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>백업 대상의 식별과 유형</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 36쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st47">
+      <h3><i>47</i>백업 대상</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="49">원문 36쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>백업 대상</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 36쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st48">
+      <h3><i>48</i>데이터베이스 연결 정보, API 키 등이 담긴 파일 (.env, database.yml)</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="50">원문 37쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데이터베이스 연결 정보, API 키 등이 담긴 파일 (.env, database.yml)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 37쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st49">
+      <h3><i>49</i>웹서버 및 WAS 설정 파일 (nginx.conf, httpd.conf, server.xml)</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="50">원문 37쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>웹서버 및 WAS 설정 파일 (nginx.conf, httpd.conf, server.xml)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 37쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st50">
+      <h3><i>50</i>애플리케이션 프레임워크 설정 파일 (settings.py, application.properties)</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="50">원문 37쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>애플리케이션 프레임워크 설정 파일 (settings.py, application.properties)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 37쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st51">
+      <h3><i>51</i>SSL 인증서 파일</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="50">원문 37쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>SSL 인증서 파일</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 37쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st52">
+      <h3><i>52</i>의존성 패키지 목록을 정의한 매니페스트 파일</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>의존성 패키지 목록을 정의한 매니페스트 파일</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st53">
+      <h3><i>53</i>npm install, pip install 등의 명령어로 동일한 개발 환경을 재현</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>npm install, pip install 등의 명령어로 동일한 개발 환경을 재현</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st54">
+      <h3><i>54</i>node_modules, venv와 같이 실제 라이브러리가 설치된 폴더 전체</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>node_modules, venv와 같이 실제 라이브러리가 설치된 폴더 전체</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st55">
+      <h3><i>55</i>장점: 복원 시간을 단축</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>장점: 복원 시간을 단축</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st56">
+      <h3><i>56</i>단점: 용량이 매우 크고 OS에 따라 호환성 문제가 발생할 가능성 있음</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>단점: 용량이 매우 크고 OS에 따라 호환성 문제가 발생할 가능성 있음</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st57">
+      <h3><i>57</i>CI/CD(지속적 통합/배포) 파이프라인 스크립트</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>CI/CD(지속적 통합/배포) 파이프라인 스크립트</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st58">
+      <h3><i>58</i>컨테이너 환경 구성 파일 (예: Dockerfile, docker-compose.yml)</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>컨테이너 환경 구성 파일 (예: Dockerfile, docker-compose.yml)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st59">
+      <h3><i>59</i>사용자가 업로드한 파일(이미지, 첨부 파일 등)이 파일 시스템에 저장되는 경우 해당 디</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>사용자가 업로드한 파일(이미지, 첨부 파일 등)이 파일 시스템에 저장되는 경우 해당 디</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st60">
+      <h3><i>60</i>백업 유형</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>백업 유형</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st61">
+      <h3><i>61</i>백업 대상으로 지정된 모</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>백업 대상으로 지정된 모</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st62">
+      <h3><i>62</i>가장 완전한 형태의 백업</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>가장 완전한 형태의 백업</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st63">
+      <h3><i>63</i>빠른 복구</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>빠른 복구</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st64">
+      <h3><i>64</i>느린 백업 속도</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>느린 백업 속도</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st65">
+      <h3><i>65</i>큰 저장 공간</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>큰 저장 공간</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st66">
+      <h3><i>66</i>마지막 백업(전체 백업 또</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>마지막 백업(전체 백업 또</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st67">
+      <h3><i>67</i>가장 빠른 백업 속도</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>가장 빠른 백업 속도</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st68">
+      <h3><i>68</i>적은 저장 공간</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>적은 저장 공간</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st69">
+      <h3><i>69</i>느리고 복잡한 복구</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>느리고 복잡한 복구</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st70">
+      <h3><i>70</i>전체 백업본과 그 이후</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>전체 백업본과 그 이후</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st71">
+      <h3><i>71</i>마지막 ‘전체 백업’ 이후</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>마지막 ‘전체 백업’ 이후</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st72">
+      <h3><i>72</i>증분 백업과의 차이점</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>증분 백업과의 차이점</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st73">
+      <h3><i>73</i>균형 잡힌 복구 속도</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>균형 잡힌 복구 속도</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st74">
+      <h3><i>74</i>복원 시 마지막 전체</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>복원 시 마지막 전체</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st75">
+      <h3><i>75</i>시간이 지날수록 백업</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>시간이 지날수록 백업</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st76">
+      <h3><i>76</i>전체 백업과의 차이가</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="51">원문 38쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>전체 백업과의 차이가</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 38쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st77">
+      <h3><i>77</i>백업 도구 및 기술</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="52">원문 39쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>백업 도구 및 기술</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 39쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st78">
+      <h3><i>78</i>유연성 및 이식성</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="53">원문 40쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>유연성 및 이식성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 40쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st79">
+      <h3><i>79</i>선택적 복원: 특정 테이블이나 데이터만 선택하여 복원하기 용이함</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="53">원문 40쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>선택적 복원: 특정 테이블이나 데이터만 선택하여 복원하기 용이함</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 40쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st80">
+      <h3><i>80</i>늦은 처리 속도 : 대용량 데이터베이스의 경우, 데이터를 텍스트로 변환하고</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="53">원문 40쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>늦은 처리 속도 : 대용량 데이터베이스의 경우, 데이터를 텍스트로 변환하고</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 40쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st81">
+      <h3><i>81</i>빠른 처리 속도</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="53">원문 40쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>빠른 처리 속도</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 40쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st82">
+      <h3><i>82</i>이식성 제한</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="53">원문 40쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>이식성 제한</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 40쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st83">
+      <h3><i>83</i>유연성 부족</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="53">원문 40쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>유연성 부족</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 40쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st84">
+      <h3><i>84</i>백업 주기 및 정책</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="54">원문 41쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>백업 주기 및 정책</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 41쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st85">
+      <h3><i>85</i>백업 주기</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="54">원문 41쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>백업 주기</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 41쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st86">
+      <h3><i>86</i>백업 정책</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="55">원문 42쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>백업 정책</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 42쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st87">
+      <h3><i>87</i>최소 3개의 데이터 복사본을 유지하라.</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="55">원문 42쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>최소 3개의 데이터 복사본을 유지하라.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 42쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st88">
+      <h3><i>88</i>2개의 서로 다른 종류의 저장 매체를 사용하라.</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="55">원문 42쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>2개의 서로 다른 종류의 저장 매체를 사용하라.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 42쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st89">
+      <h3><i>89</i>1개의 백업본은 반드시 원격지(Off-site)에 보관하라.</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="55">원문 42쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>1개의 백업본은 반드시 원격지(Off-site)에 보관하라.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 42쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st90">
+      <h3><i>90</i>모든 소스 코드는 커밋 즉시 GitHub 원격 저장소에 푸시한다.</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="55">원문 42쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>모든 소스 코드는 커밋 즉시 GitHub 원격 저장소에 푸시한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 42쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st91">
+      <h3><i>91</i>운영 데이터베이스는 매주 일요일 새벽 2시에 전체 백업을, 매일 새벽 2시에 차등 백업을</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="55">원문 42쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>운영 데이터베이스는 매주 일요일 새벽 2시에 전체 백업을, 매일 새벽 2시에 차등 백업을</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 42쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st92">
+      <h3><i>92</i>모든 백업 파일은 로컬 NAS에 1차 저장 후, AWS S3 Glacier 스토리지에 2차로 전송하</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="55">원문 42쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>모든 백업 파일은 로컬 NAS에 1차 저장 후, AWS S3 Glacier 스토리지에 2차로 전송하</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 42쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st93">
+      <h3><i>93</i>복원(복구) 절차 수립 및 백업 테스트</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="56">원문 43쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 구축된 개발 환경에 대한 백업 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>복원(복구) 절차 수립 및 백업 테스트</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 43쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st94">
+      <h3><i>94</i>백업 점검</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="67">원문 54쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>백업 일정에 따라 수행된 개발 환경 백업의 수행 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>백업 점검</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 54쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st95">
+      <h3><i>95</i>백업 주기</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="67">원문 54쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>백업 일정에 따라 수행된 개발 환경 백업의 수행 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>백업 주기</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 54쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st96">
+      <h3><i>96</i>백업 대상</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="67">원문 54쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>백업 일정에 따라 수행된 개발 환경 백업의 수행 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>백업 대상</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 54쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st97">
+      <h3><i>97</i>백업 방법</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="67">원문 54쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>백업 일정에 따라 수행된 개발 환경 백업의 수행 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>백업 방법</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 54쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st98">
+      <h3><i>98</i>보관 주기 및 보관 장소</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="67">원문 54쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>백업 일정에 따라 수행된 개발 환경 백업의 수행 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>보관 주기 및 보관 장소</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 54쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st99">
+      <h3><i>99</i>보관 매체</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="67">원문 54쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>백업 일정에 따라 수행된 개발 환경 백업의 수행 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>보관 매체</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 54쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st100">
+      <h3><i>100</i>장비별 세부 백업 계획</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="67">원문 54쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>백업 일정에 따라 수행된 개발 환경 백업의 수행 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>장비별 세부 백업 계획</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 54쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st101">
+      <h3><i>101</i>백업 수행 결과 보고</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="68">원문 55쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>백업 일정에 따라 수행된 개발 환경 백업의 수행 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>백업 수행 결과 보고</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 55쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st102">
+      <h3><i>102</i>백업 일일 보고서에는 다음과 같은 내용을 작성한다.</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="68">원문 55쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>백업 일정에 따라 수행된 개발 환경 백업의 수행 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>백업 일일 보고서에는 다음과 같은 내용을 작성한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 55쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st103">
+      <h3><i>103</i>백업 월간 보고서의 내용에는 다음과 같은 내용을 작성한다.</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 백업 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="68">원문 55쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>백업 일정에 따라 수행된 개발 환경 백업의 수행 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>백업 월간 보고서의 내용에는 다음과 같은 내용을 작성한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 55쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lv">
+  <div class="lvh"><b>3. 개발 환경 복원하기</b><span>능력단위요소 · <code>2001020234_23v2.3</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st104">
+      <h3><i>104</i>복원(Restore)의 개념과 필요성</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 복원</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="78">원문 65쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발 환경의 복원을 위하여 개발 환경의 복원 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>복원(Restore)의 개념과 필요성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 65쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st105">
+      <h3><i>105</i>복원의 필요성</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 복원</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="78">원문 65쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발 환경의 복원을 위하여 개발 환경의 복원 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>복원의 필요성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 65쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st106">
+      <h3><i>106</i>복원 대상과 유형</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 복원</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="79">원문 66쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발 환경의 복원을 위하여 개발 환경의 복원 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>복원 대상과 유형</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 66쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st107">
+      <h3><i>107</i>소스코드 복원</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 복원</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="79">원문 66쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발 환경의 복원을 위하여 개발 환경의 복원 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>소스코드 복원</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 66쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st108">
+      <h3><i>108</i>데이터베이스 복원</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 복원</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="79">원문 66쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발 환경의 복원을 위하여 개발 환경의 복원 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데이터베이스 복원</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 66쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st109">
+      <h3><i>109</i>서버 환경 및 설정 복원</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 복원</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="80">원문 67쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발 환경의 복원을 위하여 개발 환경의 복원 작업 내용을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>서버 환경 및 설정 복원</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 67쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st110">
+      <h3><i>110</i>복원 결과 점검 절차</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 복원 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="89">원문 76쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>복원 계획에 따라 수행된 개발 환경 복원 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>복원 결과 점검 절차</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 76쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st111">
+      <h3><i>111</i>업무 담당자는 복원 계획을 확인한다.</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 복원 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="89">원문 76쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>복원 계획에 따라 수행된 개발 환경 복원 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>업무 담당자는 복원 계획을 확인한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 76쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st112">
+      <h3><i>112</i>업무 담당자는 복원 계획에 따른 복원 대상을 점검한다.</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 복원 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="89">원문 76쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>복원 계획에 따라 수행된 개발 환경 복원 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>업무 담당자는 복원 계획에 따른 복원 대상을 점검한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 76쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st113">
+      <h3><i>113</i>업무 담당자는 복원 계획에 따른 복원 대상별 복원 지점을 확인한다.</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 복원 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="89">원문 76쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>복원 계획에 따라 수행된 개발 환경 복원 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>업무 담당자는 복원 계획에 따른 복원 대상별 복원 지점을 확인한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 76쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st114">
+      <h3><i>114</i>업무 담당자와 업무 팀장은 서비스의 상태를 확인한다.</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 복원 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="90">원문 77쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>복원 계획에 따라 수행된 개발 환경 복원 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>업무 담당자와 업무 팀장은 서비스의 상태를 확인한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 77쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st115">
+      <h3><i>115</i>복원 수행 결과가 비정상일 때 정상적으로 복원될 때까지 반복적으로 백업 운영자에게 복원</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 복원 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="90">원문 77쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>복원 계획에 따라 수행된 개발 환경 복원 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>복원 수행 결과가 비정상일 때 정상적으로 복원될 때까지 반복적으로 백업 운영자에게 복원</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 77쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st116">
+      <h3><i>116</i>정상적일 때 서비스의 정상 상태 결과를 유관 부서에 공유한다.</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 복원 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="90">원문 77쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>복원 계획에 따라 수행된 개발 환경 복원 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>정상적일 때 서비스의 정상 상태 결과를 유관 부서에 공유한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 77쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st117">
+      <h3><i>117</i>복원 수행 결과 보고</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 복원 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="90">원문 77쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>복원 계획에 따라 수행된 개발 환경 복원 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>복원 수행 결과 보고</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 77쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st118">
+      <h3><i>118</i>복원 계획서</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 복원 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="90">원문 77쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>복원 계획에 따라 수행된 개발 환경 복원 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>복원 계획서</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 77쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st119">
+      <h3><i>119</i>복원 수행 결과서</h3>
+      <aside class="side">
+        <p class="pt">개발 환경 복원 결과 점검</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020234_23v2" data-page="90">원문 77쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">문제해결 시나리오 · 평가자 질문 · 피평가자 자가 진단 체크리스트</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>복원 계획에 따라 수행된 개발 환경 복원 결과를 점검할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>복원 수행 결과서</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 77쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
+원문 LM2001020234_23v2_개발 환경 운영 지원_20251108.pdf</footer>
+</div>
+<script>
+/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+  function mark() {
+    var y = window.pageYOffset + 90, cur = -1;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function () { mark(); tick = false; });
+  });
+  mark();
+})();
+</script>

@@ -1,0 +1,2722 @@
+<meta charset="utf-8"><title>프로그래밍 언어 활용 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+<script>window.CM_BASE="../";</script>
+<script src="../assets/modules-pdf.js"></script>
+<script defer src="../assets/pdfview.js"></script>
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
+  <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
+  / 프로그래밍 언어 활용 / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">구조적 프로그래밍 언어 활용하기</i><a href="#st1"><b>1</b><span>구조적 프로그래밍의 이해</span></a><a href="#st2"><b>2</b><span>구조적 프로그래밍 설계의 이론적 근거</span></a><a href="#st3"><b>3</b><span>구조적 프로그래밍 언어의 변화 과정</span></a><a href="#st4"><b>4</b><span>니클라우스 비르트가 구조적 프로그래밍 교육을 목적으로 개발한 언어</span></a><a href="#st5"><b>5</b><span>if-then-else, while, for 등 명확한 구조의 제어문을 제공하며, GOTO문의 사</span></a><a href="#st6"><b>6</b><span>데니스 리치가 유닉스(Unix) 운영체제를 개발하기 위해 만든 언어</span></a><a href="#st7"><b>7</b><span>시스템 프로그래밍을 위한 저수준 제어 기능과 효율성을 중시하면서도, ALGOL</span></a><a href="#st8"><b>8</b><span>C언어의 성공은 구조적 프로그래밍이 전 세계의 표준으로 자리 잡는 데 결정적</span></a><a href="#st9"><b>9</b><span>간결하고 읽기 쉬운 코드를 철학으로 하며, GOTO문이 없음</span></a><a href="#st10"><b>10</b><span>들여쓰기(indentation)로 코드 블록을 구분하여 코드의 구조화를 시각적으로</span></a><a href="#st11"><b>11</b><span>C++의 복잡성을 줄이고 플랫폼 독립성을 목표로 개발</span></a><a href="#st12"><b>12</b><span>goto가 예약어로는 존재하지만 실제 기능은 구현되지 않아 사용이 불가능하</span></a><a href="#st13"><b>13</b><span>구조적 프로그래밍의 설계</span></a><a href="#st14"><b>14</b><span>구조적 프로그래밍 구조</span></a><a href="#st15"><b>15</b><span>순차(Sequence): 코드가 위에서 아래로, 작성된 순서대로 실행되는 구조이다.</span></a><a href="#st16"><b>16</b><span>선택(Selection): 특정 조건의 참/거짓에 따라 두 개 이상의 갈림길 중 하나를 선택하여 실</span></a><a href="#st17"><b>17</b><span>반복(Repetition/Iteration): 특정 조건을 만족하는 동안 정해진 코드 블록을 되풀이하여 실</span></a><a href="#st18"><b>18</b><span>구조적 프로그래밍 설계 절차</span></a><a href="#st19"><b>19</b><span>학생 이름 (문자열)</span></a><a href="#st20"><b>20</b><span>국어, 영어, 수학 점수(0~100 사이의 정수)</span></a><a href="#st21"><b>21</b><span>학생의 이름, 총점, 평균, 최종 학점을 화면에 표시한다.</span></a><a href="#st22"><b>22</b><span>총점과 평균(0~100 사이의 실수), 최종 학점(문자, 문자열)</span></a><a href="#st23"><b>23</b><span>세 과목의 성적을 입력받는다.</span></a><a href="#st24"><b>24</b><span>세 과목의 점수를 합산하여 총점을 구한다.</span></a><a href="#st25"><b>25</b><span>총점을 과목 수로 나누어 평균을 구한다.</span></a><a href="#st26"><b>26</b><span>평균 점수에 따라 정해진 기준에 맞춰 학점을 부여한다.</span></a><a href="#st27"><b>27</b><span>결과를 출력한다.</span></a><a href="#st28"><b>28</b><span>계속할지 여부를 묻는다.</span></a><a href="#st29"><b>29</b><span>사용자가 ‘종료’를 입력하기 전까지 이 과정을 반복한다.</span></a><a href="#st30"><b>30</b><span>평균은 소수점 둘째 자리까지 표시한다.</span></a><a href="#st31"><b>31</b><span>학점 기준: 90점 이상 ‘A’, 80점 이상 ‘B’, 70점 이상 ‘C’, 그 외 ‘F’</span></a><a href="#st32"><b>32</b><span>성적 처리 프로그램 (프로그램의 시작과 끝)</span></a><a href="#st33"><b>33</b><span>최상위 기능을 수행하기 위해 필요한 가장 큰 단위의 작업들</span></a><a href="#st34"><b>34</b><span>성적 처리 프로그램</span></a><a href="#st35"><b>35</b><span>정보 입력받기</span></a><a href="#st36"><b>36</b><span>성적 계산하기</span></a><a href="#st37"><b>37</b><span>결과 출력하기</span></a><a href="#st38"><b>38</b><span>프로그램 반복 및 종료 처리</span></a><a href="#st39"><b>39</b><span>Level 1의 기능 중 복합적인 작업을 더 작은 단위로 분할</span></a><a href="#st40"><b>40</b><span>예) ‘성적 계산하기’는 여러 계산 과정으로 분할</span></a><a href="#st41"><b>41</b><span>입력: 국어 점수, 영어 점수, 수학 점수</span></a><a href="#st42"><b>42</b><span>처리: 세 점수를 모두 더한다.</span></a><a href="#st43"><b>43</b><span>출력: 총점</span></a><a href="#st44"><b>44</b><span>입력: 평균 점수</span></a><a href="#st45"><b>45</b><span>처리: 평균 점수를 학점 기준과 비교</span></a><a href="#st46"><b>46</b><span>출력: 학점 (A, B, C, F)</span></a><a href="#st47"><b>47</b><span>가장 작은 단위의 모듈부터 코드로 작성 (예: 총점 계산, 학점</span></a><a href="#st48"><b>48</b><span>작성된 함수가 주어진 입력에 대해 정확한 출력을 반환하는지</span></a><a href="#st49"><b>49</b><span>단위 테스트가 완료된 하위 모듈들을 결합하여 상위 모듈을</span></a><a href="#st50"><b>50</b><span>이 과정을 반복하여 최종적으로 main 함수까지, 즉 프로그램</span></a><a href="#st51"><b>51</b><span>구조적 프로그래밍 언어 개요</span></a><a href="#st52"><b>52</b><span>기본 제어 구조</span></a><a href="#st53"><b>53</b><span>순차(Sequence): 코드가 위에서 아래로, 작성된 순서대로 실행되는 구조이다.</span></a><a href="#st54"><b>54</b><span>선택(Selection): 특정 조건의 참/거짓에 따라 두 개 이상의 갈림길 중 하나를 선택하여 실</span></a><a href="#st55"><b>55</b><span>반복(Repetition/Iteration): 특정 조건을 만족하는 동안 정해진 코드 블록을 되풀이하여 실</span></a><a href="#st56"><b>56</b><span>서브 루틴 또는 함수의 지원</span></a><a href="#st57"><b>57</b><span>코드 블럭</span></a><a href="#st58"><b>58</b><span>GOTO문 사용 배제</span></a><a href="#st59"><b>59</b><span>구조적 프로그래밍 절차와 오류</span></a><a href="#st60"><b>60</b><span>프로그래밍 절차</span></a><a href="#st61"><b>61</b><span>번역 방식</span></a><a href="#st62"><b>62</b><span>명령문 끝에 세미콜론(;)을 빠뜨린 경우 (C, Java 등)</span></a><a href="#st63"><b>63</b><span>괄호 ( )나 중괄호 { }의 짝이 맞지 않는 경우</span></a><a href="#st64"><b>64</b><span>함수나 변수의 이름을 잘못 쓴 경우 (예: printf를 prntf로)</span></a><a href="#st65"><b>65</b><span>예약어(키워드)를 변수 이름으로 사용하려는 경우 등</span></a><a href="#st66"><b>66</b><span>0으로 나누기: 특정 변수의 값이 0이 된 상태에서 그 변수로 다른 숫자를</span></a><a href="#st67"><b>67</b><span>배열 인덱스 초과: 크기가 5인 배열(인덱스 0~4)의 5번째 인덱스</span></a><a href="#st68"><b>68</b><span>널 포인터 참조(Null Pointer Exception): 객체가 메모리에 생성되지 않</span></a><a href="#st69"><b>69</b><span>파일 없음: 존재하지 않는 파일을 열려고 시도할 때</span></a><a href="#st70"><b>70</b><span>스택 오버플로(Stack Overflow): 함수가 자기 자신을 무한히 호출(무한</span></a><a href="#st71"><b>71</b><span>할인율을 계산할 때, 곱해야 할 것을 나누거나 더해야 할 것을 빼는 등</span></a><a href="#st72"><b>72</b><span>반복문이 10번 실행되어야 하는데, 조건식을 잘못 써서 9번만 실행되거나</span></a><a href="#st73"><b>73</b><span>if 조건문에서 &#x27;이상(&gt;=)&#x27;을 써야 할 곳에 &#x27;초과(&gt;)&#x27;를 써서 경곗값이 잘못</span></a><a href="#st74"><b>74</b><span>사용자에게 보여 줘야 할 변수가 A인데, 실수로 변수 B의 값을 출력하는</span></a><a href="#st75"><b>75</b><span>디버깅(Debugging)</span></a><a href="#st76"><b>76</b><span>개발 도구를 통해 오류를 확인할 수 있는 상황</span></a><a href="#st77"><b>77</b><span>컴파일러나 실행 환경이 출력하는 오류 메시지 확인 후 디버깅</span></a><a href="#st78"><b>78</b><span>런타임 오류의 경우, &#x27;호출 스택(Call Stack)&#x27; 정보를 통해 어떤 함수가 어떤</span></a><a href="#st79"><b>79</b><span>오류가 발생할 것으로 의심되는 부분의 앞, 뒤, 중간에 print()나 log()를 사용</span></a><a href="#st80"><b>80</b><span>특정 변수의 값이 어떻게 변하는지를 직접 눈으로 확인하는 원시적이지만 매우</span></a><a href="#st81"><b>81</b><span>VS Code, Eclipse, IntelliJ 등 통합 개발 환경(IDE)에 디버거 도구 사용</span></a><a href="#st82"><b>82</b><span>원하는 지점에서 디버깅 포인트(중단점)를 표시하고 디버깅 기능 사용</span></a><a href="#st83"><b>83</b><span>중단점 (Breakpoint): 실행을 멈추고 싶은 코드 라인에 빨간 점을 찍어 프로</span></a><a href="#st84"><b>84</b><span>단계별 실행 (Step-by-step Execution): 프로그램이 멈춘 상태에서, 코드를</span></a><a href="#st85"><b>85</b><span>변수 조사 (Variable Inspection): 프로그램이 멈춘 시점의 모든 변수들의 값</span></a><a href="#st86"><b>86</b><span>본인 또는 타인이 코드 검토를 부탁 (타인의 코드 검토가 효과적임)</span></a><a href="#st87"><b>87</b><span>동료 검토(Peer Review): 동료 개발자에게 코드를 보여주고 설명하면서 함께</span></a><a href="#st88"><b>88</b><span>러버덕 디버깅(Rubber Duck Debugging): 동료가 없어도, 마치 옆에 있는</span></a><a href="#st89"><b>89</b><span>프로그램 전체가 아닌, 가장 작은 단위인 함수(모듈) 하나하나가 올바르게 동작</span></a><a href="#st90"><b>90</b><span>새로운 기능을 추가하거나 코드를 수정한 후, 기존에 통과했던 단위 테스트가</span></a><a href="#st91"><b>91</b><span>버그를 사전에 예방하고, 발생 시 신속하게 해결할 수 있음</span></a><i class="qg">객체지향 프로그래밍 언어 활용하기</i><a href="#st92"><b>92</b><span>객체지향 프로그래밍의 개념</span></a><a href="#st93"><b>93</b><span>기본 개념</span></a><a href="#st94"><b>94</b><span>객체지향 속성</span></a><a href="#st95"><b>95</b><span>객체지향 설계 원칙</span></a><a href="#st96"><b>96</b><span>UML(Unified Modeling Language)의 이해</span></a><a href="#st97"><b>97</b><span>유스케이스 다이어그램(Use Case Diagram)</span></a><a href="#st98"><b>98</b><span>클래스 다이어그램(Class Diagram)</span></a><a href="#st99"><b>99</b><span>시퀀스다이어그램</span></a><a href="#st100"><b>100</b><span>객체지향 프로그래밍 언어의 개요</span></a><a href="#st101"><b>101</b><span>객체지향 프로그래밍 언어 구성 요소</span></a><a href="#st102"><b>102</b><span>접근 지정자</span></a><a href="#st103"><b>103</b><span>객체지향 프로그래밍 언어 기본 문법</span></a><a href="#st104"><b>104</b><span>데이터 타입</span></a><a href="#st105"><b>105</b><span>변수와 메서드</span></a><a href="#st106"><b>106</b><span>디자인 패턴</span></a><a href="#st107"><b>107</b><span>디자인 패턴 구조</span></a><a href="#st108"><b>108</b><span>디자인 패턴의 종류</span></a><i class="qg">스크립트 언어 활용하기</i><a href="#st109"><b>109</b><span>스크립트 언어 개요</span></a><a href="#st110"><b>110</b><span>스크립트 언어 특징</span></a><a href="#st111"><b>111</b><span>기능 설계서와 화면 설계서</span></a><a href="#st112"><b>112</b><span>기능 설계서</span></a><a href="#st113"><b>113</b><span>화면 설계서</span></a><a href="#st114"><b>114</b><span>스크립트 언어의 유형과 원리</span></a><a href="#st115"><b>115</b><span>스크립트 프로그래밍 언어 유형</span></a><a href="#st116"><b>116</b><span>스크립트 프로그래밍 원리</span></a><a href="#st117"><b>117</b><span>자바스크립트 언어의 이해</span></a><a href="#st118"><b>118</b><span>자바스크립트 구현 예</span></a><a href="#st119"><b>119</b><span>자바스크립트 작성 방법</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>프로그래밍 언어 활용 — 준비 교안</h1>
+<p class="sub">능력단위 <code>2001020231_23v5</code> · 2수준 ·
+88시간 · 단계 119개 · 평가 평가자 체크리스트 · 포트폴리오</p>
+
+<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">응용소프트웨어 개발에 사용되는 프로그래밍 언어의 기본 문법을 활용하여 기본 응용소프트웨어를 구현할 수 있다.</p>
+    <b class="sh">선수학습</b>
+    <p class="v">개발자 환경 구축(2001020233_23v5), 교육부 고시 정보･통신 전문 교과 전공 일반 과목 ‘프로그래밍’</p>
+    <b class="sh">원문</b>
+    <p class="src">LM2001020231_23v5_.프로그래밍 언어 활용_20251108.pdf (113쪽)</p>
+  </aside>
+  <div class="bd">
+<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
+   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
+   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
+<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
+   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
+   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+
+<h4>핵심 용어</h4>
+<p>하향식 설계, 구조적 프로그래밍 언어, 객체지향 프로그래밍 언어, 스크립트 언어</p>
+
+<h4>능력단위요소</h4>
+<table class="wide">
+  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
+      <th>학습 내용</th><th style="width:74px">단계</th></tr>
+  <tr><td class="c">1</td><td>구조적 프로그래밍 언어 활용하기</td><td>구조적 프로그래밍 설계 · 구조적 프로그래밍 언어 활용</td><td class="c">91</td></tr>
+  <tr><td class="c">2</td><td>객체지향 프로그래밍 언어 활용하기</td><td>객체지향 프로그래밍 설계 · 객체지향 프로그래밍 언어 활용</td><td class="c">17</td></tr>
+  <tr><td class="c">3</td><td>스크립트 언어 활용하기</td><td>스크립트 언어 설계 · 스크립트 언어 활용</td><td class="c">11</td></tr>
+</table>
+
+<div class="try">
+  <b class="t">쓰는 법</b>
+  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
+  한 단계가 대략 수업 10~20분에 해당합니다.
+</div>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>1. 구조적 프로그래밍 언어 활용하기</b><span>능력단위요소 · <code>2001020231_23v5.1</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st1">
+      <h3><i>1</i>구조적 프로그래밍의 이해</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>구조적 프로그래밍의 이해</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>구조적 프로그래밍 설계의 이론적 근거</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>구조적 프로그래밍 설계의 이론적 근거</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st3">
+      <h3><i>3</i>구조적 프로그래밍 언어의 변화 과정</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>구조적 프로그래밍 언어의 변화 과정</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st4">
+      <h3><i>4</i>니클라우스 비르트가 구조적 프로그래밍 교육을 목적으로 개발한 언어</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>니클라우스 비르트가 구조적 프로그래밍 교육을 목적으로 개발한 언어</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st5">
+      <h3><i>5</i>if-then-else, while, for 등 명확한 구조의 제어문을 제공하며, GOTO문의 사</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>if-then-else, while, for 등 명확한 구조의 제어문을 제공하며, GOTO문의 사</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st6">
+      <h3><i>6</i>데니스 리치가 유닉스(Unix) 운영체제를 개발하기 위해 만든 언어</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데니스 리치가 유닉스(Unix) 운영체제를 개발하기 위해 만든 언어</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st7">
+      <h3><i>7</i>시스템 프로그래밍을 위한 저수준 제어 기능과 효율성을 중시하면서도, ALGOL</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>시스템 프로그래밍을 위한 저수준 제어 기능과 효율성을 중시하면서도, ALGOL</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st8">
+      <h3><i>8</i>C언어의 성공은 구조적 프로그래밍이 전 세계의 표준으로 자리 잡는 데 결정적</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="17">원문 4쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>C언어의 성공은 구조적 프로그래밍이 전 세계의 표준으로 자리 잡는 데 결정적</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 4쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st9">
+      <h3><i>9</i>간결하고 읽기 쉬운 코드를 철학으로 하며, GOTO문이 없음</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>간결하고 읽기 쉬운 코드를 철학으로 하며, GOTO문이 없음</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st10">
+      <h3><i>10</i>들여쓰기(indentation)로 코드 블록을 구분하여 코드의 구조화를 시각적으로</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>들여쓰기(indentation)로 코드 블록을 구분하여 코드의 구조화를 시각적으로</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st11">
+      <h3><i>11</i>C++의 복잡성을 줄이고 플랫폼 독립성을 목표로 개발</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>C++의 복잡성을 줄이고 플랫폼 독립성을 목표로 개발</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st12">
+      <h3><i>12</i>goto가 예약어로는 존재하지만 실제 기능은 구현되지 않아 사용이 불가능하</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>goto가 예약어로는 존재하지만 실제 기능은 구현되지 않아 사용이 불가능하</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st13">
+      <h3><i>13</i>구조적 프로그래밍의 설계</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>구조적 프로그래밍의 설계</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st14">
+      <h3><i>14</i>구조적 프로그래밍 구조</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>구조적 프로그래밍 구조</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st15">
+      <h3><i>15</i>순차(Sequence): 코드가 위에서 아래로, 작성된 순서대로 실행되는 구조이다.</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>순차(Sequence): 코드가 위에서 아래로, 작성된 순서대로 실행되는 구조이다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st16">
+      <h3><i>16</i>선택(Selection): 특정 조건의 참/거짓에 따라 두 개 이상의 갈림길 중 하나를 선택하여 실</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>선택(Selection): 특정 조건의 참/거짓에 따라 두 개 이상의 갈림길 중 하나를 선택하여 실</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st17">
+      <h3><i>17</i>반복(Repetition/Iteration): 특정 조건을 만족하는 동안 정해진 코드 블록을 되풀이하여 실</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>반복(Repetition/Iteration): 특정 조건을 만족하는 동안 정해진 코드 블록을 되풀이하여 실</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st18">
+      <h3><i>18</i>구조적 프로그래밍 설계 절차</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>구조적 프로그래밍 설계 절차</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st19">
+      <h3><i>19</i>학생 이름 (문자열)</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="20">원문 7쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>학생 이름 (문자열)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 7쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st20">
+      <h3><i>20</i>국어, 영어, 수학 점수(0~100 사이의 정수)</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="20">원문 7쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>국어, 영어, 수학 점수(0~100 사이의 정수)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 7쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st21">
+      <h3><i>21</i>학생의 이름, 총점, 평균, 최종 학점을 화면에 표시한다.</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="20">원문 7쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>학생의 이름, 총점, 평균, 최종 학점을 화면에 표시한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 7쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st22">
+      <h3><i>22</i>총점과 평균(0~100 사이의 실수), 최종 학점(문자, 문자열)</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="20">원문 7쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>총점과 평균(0~100 사이의 실수), 최종 학점(문자, 문자열)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 7쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st23">
+      <h3><i>23</i>세 과목의 성적을 입력받는다.</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="20">원문 7쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>세 과목의 성적을 입력받는다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 7쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st24">
+      <h3><i>24</i>세 과목의 점수를 합산하여 총점을 구한다.</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="20">원문 7쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>세 과목의 점수를 합산하여 총점을 구한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 7쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st25">
+      <h3><i>25</i>총점을 과목 수로 나누어 평균을 구한다.</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="20">원문 7쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>총점을 과목 수로 나누어 평균을 구한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 7쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st26">
+      <h3><i>26</i>평균 점수에 따라 정해진 기준에 맞춰 학점을 부여한다.</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="20">원문 7쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>평균 점수에 따라 정해진 기준에 맞춰 학점을 부여한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 7쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st27">
+      <h3><i>27</i>결과를 출력한다.</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="20">원문 7쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>결과를 출력한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 7쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st28">
+      <h3><i>28</i>계속할지 여부를 묻는다.</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="20">원문 7쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>계속할지 여부를 묻는다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 7쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st29">
+      <h3><i>29</i>사용자가 ‘종료’를 입력하기 전까지 이 과정을 반복한다.</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="20">원문 7쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>사용자가 ‘종료’를 입력하기 전까지 이 과정을 반복한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 7쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st30">
+      <h3><i>30</i>평균은 소수점 둘째 자리까지 표시한다.</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="20">원문 7쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>평균은 소수점 둘째 자리까지 표시한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 7쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st31">
+      <h3><i>31</i>학점 기준: 90점 이상 ‘A’, 80점 이상 ‘B’, 70점 이상 ‘C’, 그 외 ‘F’</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="20">원문 7쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>학점 기준: 90점 이상 ‘A’, 80점 이상 ‘B’, 70점 이상 ‘C’, 그 외 ‘F’</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 7쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st32">
+      <h3><i>32</i>성적 처리 프로그램 (프로그램의 시작과 끝)</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="21">원문 8쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>성적 처리 프로그램 (프로그램의 시작과 끝)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 8쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st33">
+      <h3><i>33</i>최상위 기능을 수행하기 위해 필요한 가장 큰 단위의 작업들</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="21">원문 8쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>최상위 기능을 수행하기 위해 필요한 가장 큰 단위의 작업들</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 8쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st34">
+      <h3><i>34</i>성적 처리 프로그램</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="21">원문 8쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>성적 처리 프로그램</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 8쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st35">
+      <h3><i>35</i>정보 입력받기</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="21">원문 8쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>정보 입력받기</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 8쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st36">
+      <h3><i>36</i>성적 계산하기</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="21">원문 8쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>성적 계산하기</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 8쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st37">
+      <h3><i>37</i>결과 출력하기</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="21">원문 8쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>결과 출력하기</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 8쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st38">
+      <h3><i>38</i>프로그램 반복 및 종료 처리</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="21">원문 8쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>프로그램 반복 및 종료 처리</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 8쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st39">
+      <h3><i>39</i>Level 1의 기능 중 복합적인 작업을 더 작은 단위로 분할</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="21">원문 8쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Level 1의 기능 중 복합적인 작업을 더 작은 단위로 분할</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 8쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st40">
+      <h3><i>40</i>예) ‘성적 계산하기’는 여러 계산 과정으로 분할</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="21">원문 8쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>예) ‘성적 계산하기’는 여러 계산 과정으로 분할</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 8쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st41">
+      <h3><i>41</i>입력: 국어 점수, 영어 점수, 수학 점수</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="22">원문 9쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>입력: 국어 점수, 영어 점수, 수학 점수</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 9쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st42">
+      <h3><i>42</i>처리: 세 점수를 모두 더한다.</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="22">원문 9쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>처리: 세 점수를 모두 더한다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 9쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st43">
+      <h3><i>43</i>출력: 총점</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="22">원문 9쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>출력: 총점</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 9쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st44">
+      <h3><i>44</i>입력: 평균 점수</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="22">원문 9쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>입력: 평균 점수</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 9쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st45">
+      <h3><i>45</i>처리: 평균 점수를 학점 기준과 비교</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="22">원문 9쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>처리: 평균 점수를 학점 기준과 비교</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 9쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st46">
+      <h3><i>46</i>출력: 학점 (A, B, C, F)</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="22">원문 9쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>출력: 학점 (A, B, C, F)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 9쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st47">
+      <h3><i>47</i>가장 작은 단위의 모듈부터 코드로 작성 (예: 총점 계산, 학점</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="23">원문 10쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>가장 작은 단위의 모듈부터 코드로 작성 (예: 총점 계산, 학점</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 10쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st48">
+      <h3><i>48</i>작성된 함수가 주어진 입력에 대해 정확한 출력을 반환하는지</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="23">원문 10쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>작성된 함수가 주어진 입력에 대해 정확한 출력을 반환하는지</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 10쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st49">
+      <h3><i>49</i>단위 테스트가 완료된 하위 모듈들을 결합하여 상위 모듈을</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="23">원문 10쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>단위 테스트가 완료된 하위 모듈들을 결합하여 상위 모듈을</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 10쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st50">
+      <h3><i>50</i>이 과정을 반복하여 최종적으로 main 함수까지, 즉 프로그램</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="23">원문 10쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>이 과정을 반복하여 최종적으로 main 함수까지, 즉 프로그램</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 10쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st51">
+      <h3><i>51</i>구조적 프로그래밍 언어 개요</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="34">원문 21쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>구조적 프로그래밍 언어 개요</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 21쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st52">
+      <h3><i>52</i>기본 제어 구조</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="34">원문 21쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>기본 제어 구조</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 21쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st53">
+      <h3><i>53</i>순차(Sequence): 코드가 위에서 아래로, 작성된 순서대로 실행되는 구조이다.</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="34">원문 21쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>순차(Sequence): 코드가 위에서 아래로, 작성된 순서대로 실행되는 구조이다.</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 21쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st54">
+      <h3><i>54</i>선택(Selection): 특정 조건의 참/거짓에 따라 두 개 이상의 갈림길 중 하나를 선택하여 실</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="34">원문 21쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>선택(Selection): 특정 조건의 참/거짓에 따라 두 개 이상의 갈림길 중 하나를 선택하여 실</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 21쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st55">
+      <h3><i>55</i>반복(Repetition/Iteration): 특정 조건을 만족하는 동안 정해진 코드 블록을 되풀이하여 실</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="34">원문 21쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>반복(Repetition/Iteration): 특정 조건을 만족하는 동안 정해진 코드 블록을 되풀이하여 실</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 21쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st56">
+      <h3><i>56</i>서브 루틴 또는 함수의 지원</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="34">원문 21쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>서브 루틴 또는 함수의 지원</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 21쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st57">
+      <h3><i>57</i>코드 블럭</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="35">원문 22쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>코드 블럭</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 22쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st58">
+      <h3><i>58</i>GOTO문 사용 배제</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="35">원문 22쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>GOTO문 사용 배제</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 22쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st59">
+      <h3><i>59</i>구조적 프로그래밍 절차와 오류</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="35">원문 22쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>구조적 프로그래밍 절차와 오류</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 22쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st60">
+      <h3><i>60</i>프로그래밍 절차</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="35">원문 22쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>프로그래밍 절차</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 22쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st61">
+      <h3><i>61</i>번역 방식</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="36">원문 23쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>번역 방식</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 23쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st62">
+      <h3><i>62</i>명령문 끝에 세미콜론(;)을 빠뜨린 경우 (C, Java 등)</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="38">원문 25쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>명령문 끝에 세미콜론(;)을 빠뜨린 경우 (C, Java 등)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 25쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st63">
+      <h3><i>63</i>괄호 ( )나 중괄호 { }의 짝이 맞지 않는 경우</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="38">원문 25쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>괄호 ( )나 중괄호 { }의 짝이 맞지 않는 경우</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 25쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st64">
+      <h3><i>64</i>함수나 변수의 이름을 잘못 쓴 경우 (예: printf를 prntf로)</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="38">원문 25쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>함수나 변수의 이름을 잘못 쓴 경우 (예: printf를 prntf로)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 25쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st65">
+      <h3><i>65</i>예약어(키워드)를 변수 이름으로 사용하려는 경우 등</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="38">원문 25쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>예약어(키워드)를 변수 이름으로 사용하려는 경우 등</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 25쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st66">
+      <h3><i>66</i>0으로 나누기: 특정 변수의 값이 0이 된 상태에서 그 변수로 다른 숫자를</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="38">원문 25쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>0으로 나누기: 특정 변수의 값이 0이 된 상태에서 그 변수로 다른 숫자를</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 25쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st67">
+      <h3><i>67</i>배열 인덱스 초과: 크기가 5인 배열(인덱스 0~4)의 5번째 인덱스</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="38">원문 25쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>배열 인덱스 초과: 크기가 5인 배열(인덱스 0~4)의 5번째 인덱스</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 25쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st68">
+      <h3><i>68</i>널 포인터 참조(Null Pointer Exception): 객체가 메모리에 생성되지 않</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="38">원문 25쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>널 포인터 참조(Null Pointer Exception): 객체가 메모리에 생성되지 않</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 25쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st69">
+      <h3><i>69</i>파일 없음: 존재하지 않는 파일을 열려고 시도할 때</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="38">원문 25쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>파일 없음: 존재하지 않는 파일을 열려고 시도할 때</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 25쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st70">
+      <h3><i>70</i>스택 오버플로(Stack Overflow): 함수가 자기 자신을 무한히 호출(무한</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="38">원문 25쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>스택 오버플로(Stack Overflow): 함수가 자기 자신을 무한히 호출(무한</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 25쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st71">
+      <h3><i>71</i>할인율을 계산할 때, 곱해야 할 것을 나누거나 더해야 할 것을 빼는 등</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="39">원문 26쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>할인율을 계산할 때, 곱해야 할 것을 나누거나 더해야 할 것을 빼는 등</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 26쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st72">
+      <h3><i>72</i>반복문이 10번 실행되어야 하는데, 조건식을 잘못 써서 9번만 실행되거나</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="39">원문 26쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>반복문이 10번 실행되어야 하는데, 조건식을 잘못 써서 9번만 실행되거나</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 26쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st73">
+      <h3><i>73</i>if 조건문에서 &#x27;이상(&gt;=)&#x27;을 써야 할 곳에 &#x27;초과(&gt;)&#x27;를 써서 경곗값이 잘못</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="39">원문 26쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>if 조건문에서 &#x27;이상(&gt;=)&#x27;을 써야 할 곳에 &#x27;초과(&gt;)&#x27;를 써서 경곗값이 잘못</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 26쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st74">
+      <h3><i>74</i>사용자에게 보여 줘야 할 변수가 A인데, 실수로 변수 B의 값을 출력하는</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="39">원문 26쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>사용자에게 보여 줘야 할 변수가 A인데, 실수로 변수 B의 값을 출력하는</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 26쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st75">
+      <h3><i>75</i>디버깅(Debugging)</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="39">원문 26쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>디버깅(Debugging)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 26쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st76">
+      <h3><i>76</i>개발 도구를 통해 오류를 확인할 수 있는 상황</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="39">원문 26쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>개발 도구를 통해 오류를 확인할 수 있는 상황</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 26쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st77">
+      <h3><i>77</i>컴파일러나 실행 환경이 출력하는 오류 메시지 확인 후 디버깅</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="39">원문 26쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>컴파일러나 실행 환경이 출력하는 오류 메시지 확인 후 디버깅</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 26쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st78">
+      <h3><i>78</i>런타임 오류의 경우, &#x27;호출 스택(Call Stack)&#x27; 정보를 통해 어떤 함수가 어떤</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="39">원문 26쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>런타임 오류의 경우, &#x27;호출 스택(Call Stack)&#x27; 정보를 통해 어떤 함수가 어떤</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 26쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st79">
+      <h3><i>79</i>오류가 발생할 것으로 의심되는 부분의 앞, 뒤, 중간에 print()나 log()를 사용</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="39">원문 26쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>오류가 발생할 것으로 의심되는 부분의 앞, 뒤, 중간에 print()나 log()를 사용</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 26쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st80">
+      <h3><i>80</i>특정 변수의 값이 어떻게 변하는지를 직접 눈으로 확인하는 원시적이지만 매우</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="39">원문 26쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>특정 변수의 값이 어떻게 변하는지를 직접 눈으로 확인하는 원시적이지만 매우</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 26쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st81">
+      <h3><i>81</i>VS Code, Eclipse, IntelliJ 등 통합 개발 환경(IDE)에 디버거 도구 사용</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="40">원문 27쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>VS Code, Eclipse, IntelliJ 등 통합 개발 환경(IDE)에 디버거 도구 사용</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 27쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st82">
+      <h3><i>82</i>원하는 지점에서 디버깅 포인트(중단점)를 표시하고 디버깅 기능 사용</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="40">원문 27쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>원하는 지점에서 디버깅 포인트(중단점)를 표시하고 디버깅 기능 사용</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 27쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st83">
+      <h3><i>83</i>중단점 (Breakpoint): 실행을 멈추고 싶은 코드 라인에 빨간 점을 찍어 프로</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="40">원문 27쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>중단점 (Breakpoint): 실행을 멈추고 싶은 코드 라인에 빨간 점을 찍어 프로</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 27쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st84">
+      <h3><i>84</i>단계별 실행 (Step-by-step Execution): 프로그램이 멈춘 상태에서, 코드를</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="40">원문 27쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>단계별 실행 (Step-by-step Execution): 프로그램이 멈춘 상태에서, 코드를</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 27쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st85">
+      <h3><i>85</i>변수 조사 (Variable Inspection): 프로그램이 멈춘 시점의 모든 변수들의 값</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="40">원문 27쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>변수 조사 (Variable Inspection): 프로그램이 멈춘 시점의 모든 변수들의 값</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 27쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st86">
+      <h3><i>86</i>본인 또는 타인이 코드 검토를 부탁 (타인의 코드 검토가 효과적임)</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="40">원문 27쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>본인 또는 타인이 코드 검토를 부탁 (타인의 코드 검토가 효과적임)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 27쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st87">
+      <h3><i>87</i>동료 검토(Peer Review): 동료 개발자에게 코드를 보여주고 설명하면서 함께</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="40">원문 27쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>동료 검토(Peer Review): 동료 개발자에게 코드를 보여주고 설명하면서 함께</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 27쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st88">
+      <h3><i>88</i>러버덕 디버깅(Rubber Duck Debugging): 동료가 없어도, 마치 옆에 있는</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="40">원문 27쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>러버덕 디버깅(Rubber Duck Debugging): 동료가 없어도, 마치 옆에 있는</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 27쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st89">
+      <h3><i>89</i>프로그램 전체가 아닌, 가장 작은 단위인 함수(모듈) 하나하나가 올바르게 동작</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="40">원문 27쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>프로그램 전체가 아닌, 가장 작은 단위인 함수(모듈) 하나하나가 올바르게 동작</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 27쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st90">
+      <h3><i>90</i>새로운 기능을 추가하거나 코드를 수정한 후, 기존에 통과했던 단위 테스트가</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="40">원문 27쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>새로운 기능을 추가하거나 코드를 수정한 후, 기존에 통과했던 단위 테스트가</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 27쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st91">
+      <h3><i>91</i>버그를 사전에 예방하고, 발생 시 신속하게 해결할 수 있음</h3>
+      <aside class="side">
+        <p class="pt">구조적 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="40">원문 27쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>구조적 프로그래밍 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>버그를 사전에 예방하고, 발생 시 신속하게 해결할 수 있음</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 27쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lv">
+  <div class="lvh"><b>2. 객체지향 프로그래밍 언어 활용하기</b><span>능력단위요소 · <code>2001020231_23v5.2</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st92">
+      <h3><i>92</i>객체지향 프로그래밍의 개념</h3>
+      <aside class="side">
+        <p class="pt">객체지향 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="62">원문 49쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>객체지향 프로그래밍의 개념</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 49쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st93">
+      <h3><i>93</i>기본 개념</h3>
+      <aside class="side">
+        <p class="pt">객체지향 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="62">원문 49쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>기본 개념</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 49쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st94">
+      <h3><i>94</i>객체지향 속성</h3>
+      <aside class="side">
+        <p class="pt">객체지향 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="64">원문 51쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>객체지향 속성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 51쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st95">
+      <h3><i>95</i>객체지향 설계 원칙</h3>
+      <aside class="side">
+        <p class="pt">객체지향 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="64">원문 51쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>객체지향 설계 원칙</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 51쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st96">
+      <h3><i>96</i>UML(Unified Modeling Language)의 이해</h3>
+      <aside class="side">
+        <p class="pt">객체지향 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="65">원문 52쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>UML(Unified Modeling Language)의 이해</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 52쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st97">
+      <h3><i>97</i>유스케이스 다이어그램(Use Case Diagram)</h3>
+      <aside class="side">
+        <p class="pt">객체지향 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="65">원문 52쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>유스케이스 다이어그램(Use Case Diagram)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 52쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st98">
+      <h3><i>98</i>클래스 다이어그램(Class Diagram)</h3>
+      <aside class="side">
+        <p class="pt">객체지향 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="66">원문 53쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>클래스 다이어그램(Class Diagram)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 53쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st99">
+      <h3><i>99</i>시퀀스다이어그램</h3>
+      <aside class="side">
+        <p class="pt">객체지향 프로그래밍 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="67">원문 54쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>시퀀스다이어그램</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 54쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st100">
+      <h3><i>100</i>객체지향 프로그래밍 언어의 개요</h3>
+      <aside class="side">
+        <p class="pt">객체지향 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="77">원문 64쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>객체지향 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>객체지향 프로그래밍 언어의 개요</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 64쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st101">
+      <h3><i>101</i>객체지향 프로그래밍 언어 구성 요소</h3>
+      <aside class="side">
+        <p class="pt">객체지향 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="77">원문 64쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>객체지향 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>객체지향 프로그래밍 언어 구성 요소</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 64쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st102">
+      <h3><i>102</i>접근 지정자</h3>
+      <aside class="side">
+        <p class="pt">객체지향 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="78">원문 65쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>객체지향 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>접근 지정자</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 65쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st103">
+      <h3><i>103</i>객체지향 프로그래밍 언어 기본 문법</h3>
+      <aside class="side">
+        <p class="pt">객체지향 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="79">원문 66쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>객체지향 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>객체지향 프로그래밍 언어 기본 문법</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 66쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st104">
+      <h3><i>104</i>데이터 타입</h3>
+      <aside class="side">
+        <p class="pt">객체지향 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="79">원문 66쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>객체지향 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데이터 타입</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 66쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st105">
+      <h3><i>105</i>변수와 메서드</h3>
+      <aside class="side">
+        <p class="pt">객체지향 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="79">원문 66쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>객체지향 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>변수와 메서드</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 66쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st106">
+      <h3><i>106</i>디자인 패턴</h3>
+      <aside class="side">
+        <p class="pt">객체지향 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="81">원문 68쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>객체지향 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>디자인 패턴</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 68쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st107">
+      <h3><i>107</i>디자인 패턴 구조</h3>
+      <aside class="side">
+        <p class="pt">객체지향 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="81">원문 68쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>객체지향 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>디자인 패턴 구조</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 68쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st108">
+      <h3><i>108</i>디자인 패턴의 종류</h3>
+      <aside class="side">
+        <p class="pt">객체지향 프로그래밍 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="82">원문 69쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>객체지향 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>디자인 패턴의 종류</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 69쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lv">
+  <div class="lvh"><b>3. 스크립트 언어 활용하기</b><span>능력단위요소 · <code>2001020231_23v5.3</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st109">
+      <h3><i>109</i>스크립트 언어 개요</h3>
+      <aside class="side">
+        <p class="pt">스크립트 언어 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="93">원문 80쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>스크립트 언어 개요</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 80쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st110">
+      <h3><i>110</i>스크립트 언어 특징</h3>
+      <aside class="side">
+        <p class="pt">스크립트 언어 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="93">원문 80쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>스크립트 언어 특징</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 80쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st111">
+      <h3><i>111</i>기능 설계서와 화면 설계서</h3>
+      <aside class="side">
+        <p class="pt">스크립트 언어 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="94">원문 81쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>기능 설계서와 화면 설계서</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 81쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st112">
+      <h3><i>112</i>기능 설계서</h3>
+      <aside class="side">
+        <p class="pt">스크립트 언어 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="94">원문 81쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>기능 설계서</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 81쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st113">
+      <h3><i>113</i>화면 설계서</h3>
+      <aside class="side">
+        <p class="pt">스크립트 언어 설계</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="94">원문 81쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 개발을 위하여 프로그램 설계서를 확인할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>화면 설계서</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 81쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st114">
+      <h3><i>114</i>스크립트 언어의 유형과 원리</h3>
+      <aside class="side">
+        <p class="pt">스크립트 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="100">원문 87쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>스크립트 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>스크립트 언어의 유형과 원리</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 87쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st115">
+      <h3><i>115</i>스크립트 프로그래밍 언어 유형</h3>
+      <aside class="side">
+        <p class="pt">스크립트 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="100">원문 87쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>스크립트 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>스크립트 프로그래밍 언어 유형</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 87쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st116">
+      <h3><i>116</i>스크립트 프로그래밍 원리</h3>
+      <aside class="side">
+        <p class="pt">스크립트 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="101">원문 88쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>스크립트 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>스크립트 프로그래밍 원리</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 88쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st117">
+      <h3><i>117</i>자바스크립트 언어의 이해</h3>
+      <aside class="side">
+        <p class="pt">스크립트 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="101">원문 88쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>스크립트 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>자바스크립트 언어의 이해</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 88쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st118">
+      <h3><i>118</i>자바스크립트 구현 예</h3>
+      <aside class="side">
+        <p class="pt">스크립트 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="101">원문 88쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>스크립트 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>자바스크립트 구현 예</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 88쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st119">
+      <h3><i>119</i>자바스크립트 작성 방법</h3>
+      <aside class="side">
+        <p class="pt">스크립트 언어 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020231_23v5" data-page="102">원문 89쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>스크립트 언어를 활용하여 애플리케이션을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>자바스크립트 작성 방법</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 89쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
+원문 LM2001020231_23v5_.프로그래밍 언어 활용_20251108.pdf</footer>
+</div>
+<script>
+/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+  function mark() {
+    var y = window.pageYOffset + 90, cur = -1;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function () { mark(); tick = false; });
+  });
+  mark();
+})();
+</script>

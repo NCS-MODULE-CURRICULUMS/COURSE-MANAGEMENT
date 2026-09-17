@@ -1,0 +1,1270 @@
+<meta charset="utf-8"><title>응용SW 기초 기술 활용 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+<script>window.CM_BASE="../";</script>
+<script src="../assets/modules-pdf.js"></script>
+<script defer src="../assets/pdfview.js"></script>
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
+  <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
+  / 응용SW 기초 기술 활용 / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">네트워크 기초 활용하기</i><a href="#st1"><b>1</b><span>네트워크 계층 구조</span></a><a href="#st2"><b>2</b><span>프토토콜(protocol)</span></a><a href="#st3"><b>3</b><span>OSI 7계층(Open System Interconnection 7 Layer)</span></a><a href="#st4"><b>4</b><span>Application</span></a><a href="#st5"><b>5</b><span>Presentation</span></a><a href="#st6"><b>6</b><span>Session</span></a><a href="#st7"><b>7</b><span>Transport</span></a><a href="#st8"><b>8</b><span>Network</span></a><a href="#st9"><b>9</b><span>Data Link</span></a><a href="#st10"><b>10</b><span>Physical</span></a><a href="#st11"><b>11</b><span>캡슐화(Encapsulation)</span></a><a href="#st12"><b>12</b><span>네트워크 식별자</span></a><a href="#st13"><b>13</b><span>Port 번호</span></a><a href="#st14"><b>14</b><span>IP 주소</span></a><a href="#st15"><b>15</b><span>MAC 주소(Media Access Control Address)</span></a><i class="qg">미들웨어 기초 활용하기</i><a href="#st16"><b>16</b><span>미들웨어(Middleware)</span></a><a href="#st17"><b>17</b><span>미들웨어 개념</span></a><a href="#st18"><b>18</b><span>미들웨어 주요 기능</span></a><a href="#st19"><b>19</b><span>미들웨어 주요 기능별 분류 체계</span></a><a href="#st20"><b>20</b><span>전자정부 표준프레임워크</span></a><a href="#st21"><b>21</b><span>전자정부 표준프레임워크의 개념</span></a><a href="#st22"><b>22</b><span>전자정부 표준프레임워크의 구성</span></a><a href="#st23"><b>23</b><span>Scouter</span></a><a href="#st24"><b>24</b><span>Scouter 개념</span></a><a href="#st25"><b>25</b><span>Scouter 구성</span></a><i class="qg">데이터베이스 기초 활용하기</i><a href="#st26"><b>26</b><span>데이터베이스(Database)</span></a><a href="#st27"><b>27</b><span>데이터(Data)의 개념</span></a><a href="#st28"><b>28</b><span>데이터베이스의 개념</span></a><a href="#st29"><b>29</b><span>데이터베이스 관리시스템(DBMS: Database Management System)의 개념</span></a><a href="#st30"><b>30</b><span>데이터베이스 관리시스템</span></a><a href="#st31"><b>31</b><span>트랜잭션(Transaction)</span></a><a href="#st32"><b>32</b><span>트랜잭션의 개념</span></a><a href="#st33"><b>33</b><span>트랜잭션의 특징</span></a><a href="#st34"><b>34</b><span>트랜잭션의 고립화 수준(Transaction Isolation Level)</span></a><a href="#st35"><b>35</b><span>데이터 모델링</span></a><a href="#st36"><b>36</b><span>데이터 모델링 개념</span></a><a href="#st37"><b>37</b><span>데이터 모델링 프로세스</span></a><a href="#st38"><b>38</b><span>요구사항 수집/분석</span></a><a href="#st39"><b>39</b><span>데이터베이스 구현</span></a><a href="#st40"><b>40</b><span>E-R(Entity-Relationship) 데이터 모델</span></a><a href="#st41"><b>41</b><span>E-R 데이터 모델의 개념</span></a><a href="#st42"><b>42</b><span>E-R(Entity-Relationship) 데이터 모델의 구성 요소</span></a><a href="#st43"><b>43</b><span>E-R(Entity-Relationship) 데이터 모델 표기법</span></a><a href="#st44"><b>44</b><span>관계형 데이터베이스 테이블</span></a><a href="#st45"><b>45</b><span>관계형 데이터베이스 테이블 개념</span></a><a href="#st46"><b>46</b><span>관계형 데이터베이스 테이블 구성</span></a><a href="#st47"><b>47</b><span>SQL(Structured Query Language) 개요</span></a><a href="#st48"><b>48</b><span>SQL 개념</span></a><a href="#st49"><b>49</b><span>SQL 표준</span></a><a href="#st50"><b>50</b><span>SQL 구문</span></a><a href="#st51"><b>51</b><span>DDL(Data Definition Language, 데이터 정의어)</span></a><a href="#st52"><b>52</b><span>DML(Data Manipulation Language, 데이터 조작어)</span></a><a href="#st53"><b>53</b><span>DCL(Data Control Language, 데이터 제어어)</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>응용SW 기초 기술 활용 — 준비 교안</h1>
+<p class="sub">능력단위 <code>2001020232_23v5</code> · 3수준 ·
+48시간 · 단계 53개 · 평가 서술형 시험 · 사례 연구 · 작업장 평가</p>
+
+<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">응용소프트웨어 개발을 위하여 네트워크, 미들웨어, 데이터베이스의 기초 기술을 적용할 수 있다.</p>
+    <b class="sh">선수학습</b>
+    <p class="v">개발자 환경 구축(2001020233_23v5), 교육부 고시 정보･통신 전문 교과 전공 일반 과목 ‘컴퓨터 네트워크’, ‘정보통신’, 교육부 고시 정보･통신 전문교과 전공 실무 과목 ‘데이터베이스 프로그래밍’</p>
+    <b class="sh">원문</b>
+    <p class="src">LM2001020232_23v5_.응용SW 기초 기술 활용_20251108.pdf (147쪽)</p>
+  </aside>
+  <div class="bd">
+<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
+   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
+   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
+<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
+   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
+   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+
+<h4>핵심 용어</h4>
+<p>OSI 7계층, 프로토콜 개념, IP주소 체계, 미들웨어, MVC, DBMS, ERD, SQL, CRUD</p>
+
+<h4>능력단위요소</h4>
+<table class="wide">
+  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
+      <th>학습 내용</th><th style="width:74px">단계</th></tr>
+  <tr><td class="c">1</td><td>네트워크 기초 활용하기</td><td>네트워크 프로토콜 활용</td><td class="c">15</td></tr>
+  <tr><td class="c">2</td><td>미들웨어 기초 활용하기</td><td>미들웨어 파악 · 미들웨어 운용</td><td class="c">10</td></tr>
+  <tr><td class="c">3</td><td>데이터베이스 기초 활용하기</td><td>데이터베이스 특징 식별 · 관계형 데이터베이스 테이블 정의 · 관계형 데이터베이스 테이블 조작</td><td class="c">28</td></tr>
+</table>
+
+<div class="try">
+  <b class="t">쓰는 법</b>
+  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
+  한 단계가 대략 수업 10~20분에 해당합니다.
+</div>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>1. 네트워크 기초 활용하기</b><span>능력단위요소 · <code>2001020232_23v4.1</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st1">
+      <h3><i>1</i>네트워크 계층 구조</h3>
+      <aside class="side">
+        <p class="pt">네트워크 프로토콜 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 사례 연구 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>네트워크 계층 구조에서 각 계층의 역할을 구별할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>네트워크 계층 구조</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>프토토콜(protocol)</h3>
+      <aside class="side">
+        <p class="pt">네트워크 프로토콜 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="16">원문 3쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 사례 연구 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>네트워크 계층 구조에서 각 계층의 역할을 구별할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>프토토콜(protocol)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 3쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st3">
+      <h3><i>3</i>OSI 7계층(Open System Interconnection 7 Layer)</h3>
+      <aside class="side">
+        <p class="pt">네트워크 프로토콜 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="18">원문 5쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 사례 연구 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>네트워크 계층 구조에서 각 계층의 역할을 구별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>OSI 7계층(Open System Interconnection 7 Layer)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 5쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st4">
+      <h3><i>4</i>Application</h3>
+      <aside class="side">
+        <p class="pt">네트워크 프로토콜 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 사례 연구 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>네트워크 계층 구조에서 각 계층의 역할을 구별할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Application</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st5">
+      <h3><i>5</i>Presentation</h3>
+      <aside class="side">
+        <p class="pt">네트워크 프로토콜 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 사례 연구 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>네트워크 계층 구조에서 각 계층의 역할을 구별할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Presentation</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st6">
+      <h3><i>6</i>Session</h3>
+      <aside class="side">
+        <p class="pt">네트워크 프로토콜 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 사례 연구 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>네트워크 계층 구조에서 각 계층의 역할을 구별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Session</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st7">
+      <h3><i>7</i>Transport</h3>
+      <aside class="side">
+        <p class="pt">네트워크 프로토콜 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 사례 연구 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>네트워크 계층 구조에서 각 계층의 역할을 구별할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Transport</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st8">
+      <h3><i>8</i>Network</h3>
+      <aside class="side">
+        <p class="pt">네트워크 프로토콜 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 사례 연구 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>네트워크 계층 구조에서 각 계층의 역할을 구별할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Network</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st9">
+      <h3><i>9</i>Data Link</h3>
+      <aside class="side">
+        <p class="pt">네트워크 프로토콜 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 사례 연구 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>네트워크 계층 구조에서 각 계층의 역할을 구별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Data Link</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st10">
+      <h3><i>10</i>Physical</h3>
+      <aside class="side">
+        <p class="pt">네트워크 프로토콜 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="19">원문 6쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 사례 연구 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>네트워크 계층 구조에서 각 계층의 역할을 구별할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Physical</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 6쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st11">
+      <h3><i>11</i>캡슐화(Encapsulation)</h3>
+      <aside class="side">
+        <p class="pt">네트워크 프로토콜 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="23">원문 10쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 사례 연구 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>네트워크 계층 구조에서 각 계층의 역할을 구별할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>캡슐화(Encapsulation)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 10쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st12">
+      <h3><i>12</i>네트워크 식별자</h3>
+      <aside class="side">
+        <p class="pt">네트워크 프로토콜 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="24">원문 11쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 사례 연구 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>네트워크 계층 구조에서 각 계층의 역할을 구별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>네트워크 식별자</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 11쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st13">
+      <h3><i>13</i>Port 번호</h3>
+      <aside class="side">
+        <p class="pt">네트워크 프로토콜 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="25">원문 12쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 사례 연구 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>네트워크 계층 구조에서 각 계층의 역할을 구별할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Port 번호</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 12쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st14">
+      <h3><i>14</i>IP 주소</h3>
+      <aside class="side">
+        <p class="pt">네트워크 프로토콜 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="26">원문 13쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 사례 연구 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>네트워크 계층 구조에서 각 계층의 역할을 구별할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>IP 주소</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 13쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st15">
+      <h3><i>15</i>MAC 주소(Media Access Control Address)</h3>
+      <aside class="side">
+        <p class="pt">네트워크 프로토콜 활용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="30">원문 17쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 사례 연구 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>네트워크 계층 구조에서 각 계층의 역할을 구별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>MAC 주소(Media Access Control Address)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 17쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lv">
+  <div class="lvh"><b>2. 미들웨어 기초 활용하기</b><span>능력단위요소 · <code>2001020232_23v4.2</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st16">
+      <h3><i>16</i>미들웨어(Middleware)</h3>
+      <aside class="side">
+        <p class="pt">미들웨어 파악</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="63">원문 50쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>운영체제와 응용소프트웨어 사이에 존재하는 미들웨어의 역할을 파악할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>미들웨어(Middleware)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 50쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st17">
+      <h3><i>17</i>미들웨어 개념</h3>
+      <aside class="side">
+        <p class="pt">미들웨어 파악</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="63">원문 50쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>운영체제와 응용소프트웨어 사이에 존재하는 미들웨어의 역할을 파악할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>미들웨어 개념</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 50쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st18">
+      <h3><i>18</i>미들웨어 주요 기능</h3>
+      <aside class="side">
+        <p class="pt">미들웨어 파악</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="63">원문 50쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>운영체제와 응용소프트웨어 사이에 존재하는 미들웨어의 역할을 파악할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>미들웨어 주요 기능</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 50쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st19">
+      <h3><i>19</i>미들웨어 주요 기능별 분류 체계</h3>
+      <aside class="side">
+        <p class="pt">미들웨어 파악</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="64">원문 51쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>운영체제와 응용소프트웨어 사이에 존재하는 미들웨어의 역할을 파악할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>미들웨어 주요 기능별 분류 체계</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 51쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st20">
+      <h3><i>20</i>전자정부 표준프레임워크</h3>
+      <aside class="side">
+        <p class="pt">미들웨어 운용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="73">원문 60쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 특성에 따라 선정된 미들웨어를 운용할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>전자정부 표준프레임워크</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 60쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st21">
+      <h3><i>21</i>전자정부 표준프레임워크의 개념</h3>
+      <aside class="side">
+        <p class="pt">미들웨어 운용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="73">원문 60쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 특성에 따라 선정된 미들웨어를 운용할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>전자정부 표준프레임워크의 개념</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 60쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st22">
+      <h3><i>22</i>전자정부 표준프레임워크의 구성</h3>
+      <aside class="side">
+        <p class="pt">미들웨어 운용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="73">원문 60쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 특성에 따라 선정된 미들웨어를 운용할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>전자정부 표준프레임워크의 구성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 60쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st23">
+      <h3><i>23</i>Scouter</h3>
+      <aside class="side">
+        <p class="pt">미들웨어 운용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="75">원문 62쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 특성에 따라 선정된 미들웨어를 운용할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Scouter</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 62쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st24">
+      <h3><i>24</i>Scouter 개념</h3>
+      <aside class="side">
+        <p class="pt">미들웨어 운용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="75">원문 62쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 특성에 따라 선정된 미들웨어를 운용할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Scouter 개념</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 62쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st25">
+      <h3><i>25</i>Scouter 구성</h3>
+      <aside class="side">
+        <p class="pt">미들웨어 운용</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="76">원문 63쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>응용소프트웨어 특성에 따라 선정된 미들웨어를 운용할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>Scouter 구성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 63쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="lv">
+  <div class="lvh"><b>3. 데이터베이스 기초 활용하기</b><span>능력단위요소 · <code>2001020232_23v4.3</code></span></div>
+  <div class="lvb">
+    <div class="step" id="st26">
+      <h3><i>26</i>데이터베이스(Database)</h3>
+      <aside class="side">
+        <p class="pt">데이터베이스 특징 식별</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="101">원문 88쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>데이터베이스의 종류를 구분하고 응용소프트웨어 개발에 필요한 데이터베이스의 특징을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데이터베이스(Database)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 88쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st27">
+      <h3><i>27</i>데이터(Data)의 개념</h3>
+      <aside class="side">
+        <p class="pt">데이터베이스 특징 식별</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="101">원문 88쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>데이터베이스의 종류를 구분하고 응용소프트웨어 개발에 필요한 데이터베이스의 특징을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데이터(Data)의 개념</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 88쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st28">
+      <h3><i>28</i>데이터베이스의 개념</h3>
+      <aside class="side">
+        <p class="pt">데이터베이스 특징 식별</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="101">원문 88쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>데이터베이스의 종류를 구분하고 응용소프트웨어 개발에 필요한 데이터베이스의 특징을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데이터베이스의 개념</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 88쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st29">
+      <h3><i>29</i>데이터베이스 관리시스템(DBMS: Database Management System)의 개념</h3>
+      <aside class="side">
+        <p class="pt">데이터베이스 특징 식별</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="102">원문 89쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>데이터베이스의 종류를 구분하고 응용소프트웨어 개발에 필요한 데이터베이스의 특징을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데이터베이스 관리시스템(DBMS: Database Management System)의 개념</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 89쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st30">
+      <h3><i>30</i>데이터베이스 관리시스템</h3>
+      <aside class="side">
+        <p class="pt">데이터베이스 특징 식별</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="103">원문 90쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>데이터베이스의 종류를 구분하고 응용소프트웨어 개발에 필요한 데이터베이스의 특징을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데이터베이스 관리시스템</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 90쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st31">
+      <h3><i>31</i>트랜잭션(Transaction)</h3>
+      <aside class="side">
+        <p class="pt">데이터베이스 특징 식별</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="105">원문 92쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>데이터베이스의 종류를 구분하고 응용소프트웨어 개발에 필요한 데이터베이스의 특징을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>트랜잭션(Transaction)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 92쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st32">
+      <h3><i>32</i>트랜잭션의 개념</h3>
+      <aside class="side">
+        <p class="pt">데이터베이스 특징 식별</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="105">원문 92쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>데이터베이스의 종류를 구분하고 응용소프트웨어 개발에 필요한 데이터베이스의 특징을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>트랜잭션의 개념</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 92쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st33">
+      <h3><i>33</i>트랜잭션의 특징</h3>
+      <aside class="side">
+        <p class="pt">데이터베이스 특징 식별</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="105">원문 92쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>데이터베이스의 종류를 구분하고 응용소프트웨어 개발에 필요한 데이터베이스의 특징을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>트랜잭션의 특징</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 92쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st34">
+      <h3><i>34</i>트랜잭션의 고립화 수준(Transaction Isolation Level)</h3>
+      <aside class="side">
+        <p class="pt">데이터베이스 특징 식별</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="106">원문 93쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>데이터베이스의 종류를 구분하고 응용소프트웨어 개발에 필요한 데이터베이스의 특징을 식별할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>트랜잭션의 고립화 수준(Transaction Isolation Level)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 93쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st35">
+      <h3><i>35</i>데이터 모델링</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="119">원문 106쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>주어진 E-R(Entity-Relationship) 다이어그램을 이용하여 관계형 데이터베이스의 테이블을 정의할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데이터 모델링</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 106쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st36">
+      <h3><i>36</i>데이터 모델링 개념</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="119">원문 106쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>주어진 E-R(Entity-Relationship) 다이어그램을 이용하여 관계형 데이터베이스의 테이블을 정의할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데이터 모델링 개념</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 106쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st37">
+      <h3><i>37</i>데이터 모델링 프로세스</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="119">원문 106쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>주어진 E-R(Entity-Relationship) 다이어그램을 이용하여 관계형 데이터베이스의 테이블을 정의할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데이터 모델링 프로세스</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 106쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st38">
+      <h3><i>38</i>요구사항 수집/분석</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="119">원문 106쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>주어진 E-R(Entity-Relationship) 다이어그램을 이용하여 관계형 데이터베이스의 테이블을 정의할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>요구사항 수집/분석</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 106쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st39">
+      <h3><i>39</i>데이터베이스 구현</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="119">원문 106쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>주어진 E-R(Entity-Relationship) 다이어그램을 이용하여 관계형 데이터베이스의 테이블을 정의할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>데이터베이스 구현</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 106쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st40">
+      <h3><i>40</i>E-R(Entity-Relationship) 데이터 모델</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="119">원문 106쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>주어진 E-R(Entity-Relationship) 다이어그램을 이용하여 관계형 데이터베이스의 테이블을 정의할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>E-R(Entity-Relationship) 데이터 모델</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 106쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st41">
+      <h3><i>41</i>E-R 데이터 모델의 개념</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="119">원문 106쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>주어진 E-R(Entity-Relationship) 다이어그램을 이용하여 관계형 데이터베이스의 테이블을 정의할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>E-R 데이터 모델의 개념</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 106쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st42">
+      <h3><i>42</i>E-R(Entity-Relationship) 데이터 모델의 구성 요소</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="120">원문 107쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>주어진 E-R(Entity-Relationship) 다이어그램을 이용하여 관계형 데이터베이스의 테이블을 정의할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>E-R(Entity-Relationship) 데이터 모델의 구성 요소</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 107쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st43">
+      <h3><i>43</i>E-R(Entity-Relationship) 데이터 모델 표기법</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="120">원문 107쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>주어진 E-R(Entity-Relationship) 다이어그램을 이용하여 관계형 데이터베이스의 테이블을 정의할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>E-R(Entity-Relationship) 데이터 모델 표기법</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 107쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st44">
+      <h3><i>44</i>관계형 데이터베이스 테이블</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="123">원문 110쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>주어진 E-R(Entity-Relationship) 다이어그램을 이용하여 관계형 데이터베이스의 테이블을 정의할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>관계형 데이터베이스 테이블</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 110쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st45">
+      <h3><i>45</i>관계형 데이터베이스 테이블 개념</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="123">원문 110쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>주어진 E-R(Entity-Relationship) 다이어그램을 이용하여 관계형 데이터베이스의 테이블을 정의할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>관계형 데이터베이스 테이블 개념</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 110쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st46">
+      <h3><i>46</i>관계형 데이터베이스 테이블 구성</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 정의</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="123">원문 110쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>주어진 E-R(Entity-Relationship) 다이어그램을 이용하여 관계형 데이터베이스의 테이블을 정의할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>관계형 데이터베이스 테이블 구성</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 110쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st47">
+      <h3><i>47</i>SQL(Structured Query Language) 개요</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 조작</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="132">원문 119쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>테이블의 구조와 제약조건을 생성, 삭제하고 수정하는 DDL(Data Definition Language) 명령문을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>SQL(Structured Query Language) 개요</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 119쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st48">
+      <h3><i>48</i>SQL 개념</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 조작</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="132">원문 119쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>테이블의 구조와 제약조건을 생성, 삭제하고 수정하는 DDL(Data Definition Language) 명령문을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목을 슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>SQL 개념</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 119쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st49">
+      <h3><i>49</i>SQL 표준</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 조작</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="132">원문 119쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>테이블의 구조와 제약조건을 생성, 삭제하고 수정하는 DDL(Data Definition Language) 명령문을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>훈련생에게 던질 질문을 두 개 적어 두십시오. 답이 «예/아니오» 로 끝나지 않는 것으로.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>SQL 표준</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 119쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st50">
+      <h3><i>50</i>SQL 구문</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 조작</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="133">원문 120쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>테이블의 구조와 제약조건을 생성, 삭제하고 수정하는 DDL(Data Definition Language) 명령문을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>현장에서 쓰는 실제 사례를 하나 준비하십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>SQL 구문</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 120쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st51">
+      <h3><i>51</i>DDL(Data Definition Language, 데이터 정의어)</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 조작</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="133">원문 120쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>테이블의 구조와 제약조건을 생성, 삭제하고 수정하는 DDL(Data Definition Language) 명령문을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>이 항목에서 훈련생이 가장 자주 틀리는 지점을 미리 적어 두고, 그 자리에서 한 번 멈추십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>DDL(Data Definition Language, 데이터 정의어)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 120쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st52">
+      <h3><i>52</i>DML(Data Manipulation Language, 데이터 조작어)</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 조작</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="133">원문 120쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>테이블의 구조와 제약조건을 생성, 삭제하고 수정하는 DDL(Data Definition Language) 명령문을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>칠판에 그릴 그림을 미리 한 번 그려 보십시오. 즉석에서 그리면 순서가 엉킵니다.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>DML(Data Manipulation Language, 데이터 조작어)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 120쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st53">
+      <h3><i>53</i>DCL(Data Control Language, 데이터 제어어)</h3>
+      <aside class="side">
+        <p class="pt">관계형 데이터베이스 테이블 조작</p>
+        <b class="sh">원문</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020232_23v5" data-page="133">원문 120쪽</a></p>
+        <b class="sh">평가</b>
+        <p class="src">서술형 시험 · 작업장 평가</p>
+      </aside>
+      <div class="bd">
+<h4>이 단계가 향하는 곳</h4>
+<p>테이블의 구조와 제약조건을 생성, 삭제하고 수정하는 DDL(Data Definition Language) 명령문을 작성할 수 있다.</p>
+<h4>준비</h4>
+<p>앞 단계와 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다. 그 문장을 적어 두십시오.</p>
+<div class="try">
+  <b class="t">확인</b>
+  훈련생이 <b>DCL(Data Control Language, 데이터 제어어)</b> 를 자기 말로 설명할 수 있으면 넘어갑니다.
+  못 하면 원문 120쪽을 함께 읽고 한 번 더 묻습니다.
+</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
+원문 LM2001020232_23v5_.응용SW 기초 기술 활용_20251108.pdf</footer>
+</div>
+<script>
+/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+  function mark() {
+    var y = window.pageYOffset + 90, cur = -1;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  var tick = false;
+  window.addEventListener('scroll', function () {
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function () { mark(); tick = false; });
+  });
+  mark();
+})();
+</script>
