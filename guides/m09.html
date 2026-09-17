@@ -187,6 +187,92 @@
   <tr><td class="c">12 ~ 14</td><td>JDBC — VO · DAO · CRUD 동작</td><td>10 · 11 · 12</td></tr>
   <tr><td class="c">15</td><td>자원 정리 코드</td><td>15</td></tr>
 </table>
+      <div class="lab">
+  <b class="t">실습 2-1</b>
+  <b>내야 할 것 세 가지를 먼저 확인하기</b>
+
+  <p><b>목적</b> — 이 교과는 제출물이 <b>셋</b> 입니다.
+     하나라도 빠지면 그 몫이 통째로 사라집니다.
+     시작하기 전에 <b>셋을 적어 두고</b> 갑니다.</p>
+
+  <h5>절차 1 — 세 가지를 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">내는 것</th><th style="width:150px">형식</th>
+        <th>없으면</th></tr>
+    <tr><td><b>작업 과정 PPT</b></td><td>파일</td>
+        <td>서술형 20점의 근거가 없어집니다</td></tr>
+    <tr><td><b>GitHub 저장소 주소</b></td><td>주소 한 줄</td>
+        <td>코드를 볼 수 없어 <b>80점을 못 봅니다</b></td></tr>
+    <tr><td><b><code>db/schema.sql</code></b></td><td>저장소 안의 파일</td>
+        <td>채점자가 표를 만들 수 없습니다</td></tr>
+  </table>
+
+  <div class="warn"><b>저장소가 비공개라면 지금 정하십시오.</b>
+    비공개로 두려면 <b>강사 계정을 Collaborator 로 초대</b>해야 합니다.
+    공개로 두려면 <b>비밀번호가 든 파일이 절대 올라가면 안 됩니다.</b>
+    어느 쪽이든 실습 2-5 에서 <code>.gitignore</code> 를 먼저 만들고 시작합니다.</div>
+
+  <h5>절차 2 — PPT 열다섯 쪽의 틀을 만듭니다</h5>
+  <p>제목만 적고 비워 둡니다. 빈 쪽이 「아직 안 한 것」 을 알려 줍니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:74px">쪽</th><th style="width:250px">제목</th>
+        <th style="width:110px">항목</th><th>실습</th></tr>
+    <tr><td class="c">1</td><td>표지</td><td>—</td><td>—</td></tr>
+    <tr><td class="c">2</td><td>JDK 설치와 환경변수</td><td class="c">01</td><td>2-2</td></tr>
+    <tr><td class="c">3</td><td>MySQL · BookDB · dbconn</td><td class="c">02</td><td>2-3</td></tr>
+    <tr><td class="c">4</td><td>JDBC 드라이버 빌드패스</td><td class="c">03</td><td>2-4</td></tr>
+    <tr><td class="c">5</td><td>clone · commit · push</td><td class="c">04</td><td>2-5</td></tr>
+    <tr><td class="c">6</td><td>.gitignore 와 properties</td><td class="c">05</td><td>2-5</td></tr>
+    <tr><td class="c">7 · 8</td><td>UI 연동과 통합 런처</td><td class="c">06 · 07</td><td>2-7</td></tr>
+    <tr><td class="c">9 ~ 11</td><td>소켓 채팅 코드와 2인 시연</td>
+        <td class="c">08 · 09 · 13 · 14</td><td>2-9 ~ 2-11</td></tr>
+    <tr><td class="c">12 ~ 14</td><td>JDBC VO · DAO · CRUD</td>
+        <td class="c">10 · 11 · 12</td><td>2-12 ~ 2-14</td></tr>
+    <tr><td class="c">15</td><td>자원 정리</td><td class="c">15</td><td>2-15</td></tr>
+  </table>
+
+  <h5>절차 3 — 배점이 «어디에» 몰려 있는지 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">묶음</th><th style="width:110px">항목</th>
+        <th style="width:74px">합</th><th>성격</th></tr>
+    <tr><td>개발환경 (서술형)</td><td class="c">01 ~ 05</td><td class="c">20</td>
+        <td>캡처만 잘 해도 받습니다</td></tr>
+    <tr><td>UI 연동</td><td class="c">06 · 07</td><td class="c">20</td>
+        <td><b>제공 코드에 맞추기</b></td></tr>
+    <tr><td>소켓 채팅</td><td class="c">08 · 09 · 13 · 14</td><td class="c">30</td>
+        <td>가장 큽니다</td></tr>
+    <tr><td>도서관리 (JDBC)</td><td class="c">10 · 11 · 12</td><td class="c">25</td>
+        <td>앞 교과와 겹칩니다</td></tr>
+    <tr><td>자원 정리</td><td class="c">15</td><td class="c">5</td>
+        <td>코드 몇 줄</td></tr>
+  </table>
+
+  <div class="note"><b>채팅과 도서관리는 서로 부르지 않습니다.</b>
+    한쪽이 안 되어도 다른 쪽은 채점을 받습니다.
+    <b>더 자신 있는 쪽을 먼저 끝내</b> 점수를 확보하고 나머지를 붙드십시오.</div>
+
+  <h5>절차 4 — 「하지 말 것」 을 적어 둡니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:230px">하지 말 것</th><th>대신</th></tr>
+    <tr><td><code>provided/</code> 안의 파일을 고치기</td>
+        <td><b>수정 금지</b>입니다. 내 클래스의 이름과 매개변수를 UI 에 맞춥니다</td></tr>
+    <tr><td>비밀번호를 소스에 그대로 적기</td>
+        <td><code>db.properties</code> 로 빼고 <code>.gitignore</code> 에 넣습니다</td></tr>
+    <tr><td>커밋을 한 번에 몰아서 하기</td>
+        <td>기능마다 나눕니다. 항목 04 가 <b>흐름</b>을 봅니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 열다섯 쪽짜리 빈 PPT (제목과 항목 번호만)</p>
+
+  <p><b>스스로 확인</b> —
+     ① 내야 할 것이 <b>셋</b>인 것을 압니까
+     ② 저장소를 <b>공개로 할지 비공개로 할지</b> 정했습니까
+     ③ 어느 쪽(채팅 · 도서관리)을 <b>먼저 할지</b> 정했습니까</p>
+</div>
       </div>
     </div>
 
@@ -214,6 +300,99 @@
   <code>java</code> 는 되는데 <code>javac</code> 가 안 되면 <b>JRE 만 깔린 것</b>입니다.
   JDK 를 깔아야 합니다. 또 환경변수를 걸고도 되지 않으면
   <b>명령 프롬프트를 닫고 다시 여십시오.</b> 열려 있던 창에는 반영되지 않습니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 2-2</b>
+  <b>JDK 가 잡혀 있는지 두 명령으로 확인하기</b>
+
+  <p><b>목적</b> — 항목 01 은 <b>2점</b> 입니다. 가장 작습니다.
+     그러나 여기가 안 되면 <b>뒤의 98점을 아예 시작할 수 없습니다.</b></p>
+
+  <h5>절차 1 — 명령 프롬프트를 새로 엽니다</h5>
+  <p><code>Win</code>+<code>R</code> → <code>cmd</code> → <code>Enter</code>.</p>
+
+  <div class="note"><b>「새로」 가 중요합니다.</b>
+    환경변수를 고쳐도 <b>이미 열려 있던 창에는 반영되지 않습니다.</b>
+    「분명히 걸었는데 안 된다」 는 말의 절반이 이것입니다.</div>
+
+  <h5>절차 2 — 두 명령을 칩니다</h5>
+  <p class="cmdline"><code>java -version
+javac -version</code></p>
+
+  <p class="cmdline"><code>openjdk version "21.0.2" 2024-01-16
+OpenJDK Runtime Environment (build 21.0.2+13-58)
+OpenJDK 64-Bit Server VM (build 21.0.2+13-58, mixed mode, sharing)
+
+javac 21.0.2</code></p>
+
+  <p><b>둘 다 판이 나와야</b> 합니다. 판 번호는 달라도 됩니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:230px">이렇게 나오면</th><th>뜻과 할 일</th></tr>
+    <tr><td>둘 다 판이 나옴</td><td><b>통과</b>입니다. 이 화면을 캡처</td></tr>
+    <tr><td><code>java</code> 만 되고
+            <code>javac</code> 는 안 됨</td>
+        <td><b>JRE 만 깔린 것</b>입니다. JDK 를 설치하십시오</td></tr>
+    <tr><td>둘 다 안 됨</td><td>PATH 에 JDK 의 <code>bin</code> 이 없습니다</td></tr>
+  </table>
+
+  <p>없을 때 나오는 말은 이것입니다.</p>
+  <p class="cmdline"><code>'javac'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+배치 파일이 아닙니다.</code></p>
+
+  <h5>절차 3 — <code>JAVA_HOME</code> 이 걸려 있는지 봅니다</h5>
+  <p class="cmdline"><code>set JAVA_HOME</code></p>
+
+  <table class="wide">
+    <tr><th style="width:44%">걸려 있으면</th><th>안 걸려 있으면</th></tr>
+    <tr><td><code>JAVA_HOME=C:\jdk-21.0.2</code></td>
+        <td><code>JAVA_HOME 환경 변수가 정의되지 않았습니다.</code></td></tr>
+  </table>
+
+  <div class="warn"><b><code>JAVA_HOME</code> 이 없어도 <code>java</code> 는 될 수 있습니다.</b>
+    PATH 에 <code>C:\jdk-21.0.2\bin</code> 을 직접 적어 두면 명령은 잘 돕니다.
+    그래서 <b>「되니까 걸린 줄 알았다」</b> 가 됩니다.
+    그러나 Eclipse · Maven · Tomcat 은 <code>JAVA_HOME</code> 을 찾습니다.
+    <b>두 명령이 되더라도 <code>set JAVA_HOME</code> 을 꼭 쳐 보십시오.</b></div>
+
+  <h5>절차 4 — 없으면 겁니다</h5>
+  <ol>
+    <li><code>Win</code> → <b>「환경 변수」</b> 로 검색 →
+        <b>시스템 환경 변수 편집</b>.</li>
+    <li><b>환경 변수</b> 단추 → 시스템 변수의 <b>새로 만들기</b>.</li>
+    <li>이름 <code>JAVA_HOME</code>,
+        값은 JDK 폴더 <b>(<code>\bin</code> 을 빼고)</b>.
+        <br><span class="cc">맞음 <code>C:\jdk-21.0.2</code> ·
+        틀림 <code>C:\jdk-21.0.2\bin</code></span></li>
+    <li>시스템 변수 <code>Path</code> 를 고르고 <b>편집 → 새로 만들기</b> →
+        <code>%JAVA_HOME%\bin</code>.</li>
+    <li><b>명령 프롬프트를 닫고 새로 엽니다.</b></li>
+  </ol>
+
+  <p>JDK 폴더가 어디인지 모르겠으면 이렇게 찾습니다.</p>
+  <p class="cmdline"><code>where java</code></p>
+  <p class="cmdline"><code>C:\jdk-21.0.2\bin\java.exe</code></p>
+  <p>여기서 <b><code>\bin\java.exe</code> 를 뗀 것</b>이
+     <code>JAVA_HOME</code> 에 넣을 값입니다.</p>
+
+  <h5>절차 5 — 걸기 «전과 후» 두 장을 캡처합니다</h5>
+  <p>이미 걸려 있었다면 「전」 은 없어도 됩니다.
+     <b>세 줄이 다 보이게</b> 잘라야 판을 확인할 수 있습니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:190px">캡처에 보여야 할 것</th><th>왜</th></tr>
+    <tr><td><code>java -version</code> 결과</td><td>실행 환경이 있다</td></tr>
+    <tr><td><code>javac -version</code> 결과</td><td><b>JDK</b> 다 (JRE 가 아니다)</td></tr>
+    <tr><td><code>set JAVA_HOME</code> 결과</td><td>환경변수를 걸었다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 세 명령의 결과가 담긴 명령 프롬프트 캡처</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>javac</code> 가 <b>판을 출력</b>합니까
+     ② <code>set JAVA_HOME</code> 이 <b>경로를 출력</b>합니까
+     ③ 그 경로 끝에 <code>\bin</code> 이 <b>붙어 있지 않습니까</b>
+     ④ 환경변수를 고친 뒤 <b>창을 새로 열었습니까</b></p>
 </div>
       </div>
     </div>
@@ -254,6 +433,125 @@ CREATE TABLE IF NOT EXISTS Book_tbl (
 );</pre>
 <p><code>IF NOT EXISTS</code> 를 붙이면 이미 있을 때 오류가 나지 않아
    채점자가 그대로 실행해 볼 수 있습니다.</p>
+      <div class="lab">
+  <b class="t">실습 2-3</b>
+  <b>BookDB 와 dbconn 계정 만들고 schema.sql 남기기</b>
+
+  <p><b>목적</b> — 항목 02 는 3점이지만,
+     여기서 만든 <code>db/schema.sql</code> 이 <b>제출물 셋 가운데 하나</b> 입니다.</p>
+
+  <h5>절차 1 — MySQL 에 root 로 들어갑니다</h5>
+  <p class="cmdline"><code>mysql -u root -p</code></p>
+  <p class="cmdline"><code>Enter password: ********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+mysql&gt;</code></p>
+
+  <h5>절차 2 — 데이터베이스와 계정을 만듭니다</h5>
+  <p class="cmdline"><code>CREATE DATABASE BookDB DEFAULT CHARACTER SET utf8mb4;
+CREATE USER 'dbconn'@'%' IDENTIFIED BY 'Zhfldk11!';
+GRANT ALL PRIVILEGES ON BookDB.* TO 'dbconn'@'%';
+FLUSH PRIVILEGES;</code></p>
+
+  <table class="wide">
+    <tr><th style="width:170px">적은 것</th><th>뜻</th></tr>
+    <tr><td><code>utf8mb4</code></td>
+        <td>한글과 이모지가 깨지지 않습니다.
+            <b>만들 때 정하는 편</b>이 뒤탈이 없습니다</td></tr>
+    <tr><td><code>'dbconn'@'%'</code></td>
+        <td><code>%</code> 는 <b>어느 컴퓨터에서든</b> 붙을 수 있다는 뜻입니다.
+            지시서가 <b>원격 계정</b>을 요구합니다</td></tr>
+    <tr><td><code>ON BookDB.*</code></td>
+        <td>이 데이터베이스<b>에만</b> 권한을 줍니다.
+            <code>*.*</code> 로 주면 필요 이상입니다</td></tr>
+  </table>
+
+  <h5>절차 3 — «두 결과» 를 캡처합니다</h5>
+  <p class="cmdline"><code>SHOW DATABASES;</code></p>
+  <p class="cmdline"><code>+--------------------+
+| Database           |
++--------------------+
+| BookDB             |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+</code></p>
+
+  <p class="cmdline"><code>SHOW GRANTS FOR 'dbconn'@'%';</code></p>
+  <p class="cmdline"><code>+----------------------------------------------------+
+| Grants for dbconn@%                                |
++----------------------------------------------------+
+| GRANT USAGE ON *.* TO `dbconn`@`%`                 |
+| GRANT ALL PRIVILEGES ON `BookDB`.* TO `dbconn`@`%` |
++----------------------------------------------------+</code></p>
+
+  <div class="note"><b><code>GRANT USAGE</code> 줄은 정상입니다.</b>
+    「로그인은 되지만 아무 권한도 없다」 는 뜻으로 계정을 만들면 늘 따라옵니다.
+    <b>두 번째 줄</b>이 실제로 준 권한입니다.</div>
+
+  <h5>절차 4 — <code>schema.sql</code> 을 파일로 만듭니다</h5>
+  <p>프로젝트에 <code>db</code> 폴더를 만들고 그 안에 <code>schema.sql</code> 을 둡니다.</p>
+
+  <p class="cmdline"><code>-- db/schema.sql — 도서관 운영 시스템
+CREATE TABLE IF NOT EXISTS Book_tbl (
+  book_no    INT          NOT NULL AUTO_INCREMENT,
+  title      VARCHAR(100) NOT NULL,
+  author     VARCHAR(50),
+  publisher  VARCHAR(50),
+  reg_date   DATETIME     DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (book_no)
+);</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">적은 것</th><th>왜</th></tr>
+    <tr><td><code>IF NOT EXISTS</code></td>
+        <td>이미 있어도 <b>오류 없이 넘어갑니다.</b>
+            채점자가 그대로 실행해 볼 수 있습니다</td></tr>
+    <tr><td><code>AUTO_INCREMENT</code></td>
+        <td>번호를 자동으로 매깁니다. <code>insert</code> 에
+            <code>book_no</code> 를 넣지 않는 까닭입니다</td></tr>
+    <tr><td><code>DEFAULT CURRENT_TIMESTAMP</code></td>
+        <td>등록 시각이 저절로 들어갑니다</td></tr>
+  </table>
+
+  <h5>절차 5 — 그 파일을 «실제로 돌려» 봅니다</h5>
+  <p class="cmdline"><code>mysql -u root -p BookDB &lt; db/schema.sql</code></p>
+  <p>아무것도 안 나오면 <b>된 것</b>입니다. 확인은 이렇게 합니다.</p>
+
+  <p class="cmdline"><code>mysql&gt; DESC BookDB.Book_tbl;</code></p>
+  <p class="cmdline"><code>+-----------+--------------+------+-----+-------------------+-------------------+
+| Field     | Type         | Null | Key | Default           | Extra             |
++-----------+--------------+------+-----+-------------------+-------------------+
+| book_no   | int          | NO   | PRI | NULL              | auto_increment    |
+| title     | varchar(100) | NO   |     | NULL              |                   |
+| author    | varchar(50)  | YES  |     | NULL              |                   |
+| publisher | varchar(50)  | YES  |     | NULL              |                   |
+| reg_date  | datetime     | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED |
++-----------+--------------+------+-----+-------------------+-------------------+</code></p>
+
+  <div class="warn"><b>파일을 «만들기만» 하고 돌려 보지 않는 일이 잦습니다.</b>
+    괄호나 쉼표가 하나 틀려도 채점자가 실행하면 그 자리에서 오류가 납니다.
+    <b>내가 먼저 돌려 보고</b> 저장소에 올리십시오.</div>
+
+  <h5>절차 6 — dbconn 으로도 들어가 봅니다</h5>
+  <p>root 로만 확인하면 <b>계정을 제대로 만들었는지</b> 알 수 없습니다.</p>
+  <p class="cmdline"><code>mysql -u dbconn -p BookDB</code></p>
+  <p class="cmdline"><code>mysql&gt; SHOW TABLES;
++------------------+
+| Tables_in_BookDB |
++------------------+
+| Book_tbl         |
++------------------+</code></p>
+
+  <p><b>제출물</b> — <code>SHOW DATABASES</code> · <code>SHOW GRANTS</code> ·
+     <code>DESC Book_tbl</code> 세 화면 + <code>db/schema.sql</code></p>
+
+  <p><b>스스로 확인</b> —
+     ① 데이터베이스 이름이 <b><code>BookDB</code></b> 입니까
+     ② 계정이 <code>'dbconn'@'<b>%</b>'</code> 입니까 (<code>localhost</code> 아님)
+     ③ <code>schema.sql</code> 을 <b>실제로 돌려</b> 봤습니까
+     ④ <b>dbconn 계정으로</b> 표가 보입니까</p>
+</div>
       </div>
     </div>
 
@@ -286,6 +584,120 @@ Class.forName("com.mysql.cj.jdbc.Driver");
 <i>//   ClassNotFoundException: com.mysql.cj.jdbc.Driver</i></pre>
 <p>왼쪽 탐색기에 <b>Referenced Libraries</b> 가 생기고 그 안에 jar 가 보이면 된 것입니다.
    그 화면과 Build Path 설정 화면 두 장을 캡처합니다.</p>
+      <div class="lab">
+  <b class="t">실습 2-4</b>
+  <b>JDBC 드라이버를 걸고 «걸렸는지» 확인하기</b>
+
+  <p><b>목적</b> — 항목 03 은 <b>5점</b> 입니다.
+     그리고 이것이 안 되면 도서관리 쪽 <b>25점이 통째로</b> 돌지 않습니다.</p>
+
+  <h5>절차 1 — jar 를 프로젝트 «안» 에 둡니다</h5>
+  <ol>
+    <li>프로젝트에서 오른쪽 눌러 <b>New → Folder</b>, 이름 <code>lib</code>.</li>
+    <li>받아 둔 <code>mysql-connector-j-9.0.0.jar</code> 를
+        그 폴더로 <b>끌어다 놓습니다</b> (Copy files 선택).</li>
+  </ol>
+
+  <div class="warn"><b>바탕화면이나 다운로드 폴더에 둔 채로 걸지 마십시오.</b>
+    채점자는 저장소를 <b>자기 PC 로 내려받아</b> 엽니다.
+    <code>C:\Users\내이름\Downloads\…</code> 같은 경로는 그 PC 에 없습니다.
+    <b>프로젝트 안에 넣어야</b> 저장소와 함께 따라갑니다.</div>
+
+  <h5>절차 2 — 빌드패스에 겁니다</h5>
+  <ol>
+    <li>프로젝트 오른쪽 눌러 <b>Properties</b> →
+        <b>Java Build Path</b> → <b>Libraries</b> 탭.</li>
+    <li><b>Classpath</b> 를 고르고 오른쪽 <b>Add JARs…</b>.</li>
+    <li>방금 넣은 <code>lib/mysql-connector-j-9.0.0.jar</code> 를 고르고 <b>OK</b>.</li>
+  </ol>
+
+  <table class="wide">
+    <tr><th style="width:190px">두 단추</th><th>차이</th></tr>
+    <tr><td><b>Add JARs…</b></td>
+        <td><b>프로젝트 안</b>의 jar. 경로가 상대경로라 옮겨도 따라옵니다</td></tr>
+    <tr><td>Add External JARs…</td>
+        <td>프로젝트 <b>밖</b>의 jar. <b>이것을 쓰면 안 됩니다</b></td></tr>
+  </table>
+
+  <h5>절차 3 — 왼쪽 탐색기에서 확인합니다</h5>
+  <p>프로젝트 아래에 <b>Referenced Libraries</b> 가 새로 생기고
+     그 안에 jar 가 보이면 걸린 것입니다.</p>
+
+  <p class="cmdline"><code>BookLibrary
+ ├ src
+ ├ lib
+ │  └ mysql-connector-j-9.0.0.jar
+ ├ db
+ │  └ schema.sql
+ └ Referenced Libraries          ← 이것이 생겨야 합니다
+    └ mysql-connector-j-9.0.0.jar</code></p>
+
+  <h5>절차 4 — 한 줄로 «정말» 걸렸는지 봅니다</h5>
+  <p>보이는 것만으로는 부족합니다. 실제로 불러 봅니다.</p>
+
+  <p class="cmdline"><code>public class DriverTest {
+  public static void main(String[] args) throws Exception {
+    Class.forName("com.mysql.cj.jdbc.Driver");
+    System.out.println("드라이버 OK");
+  }
+}</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">나오는 것</th><th>뜻</th></tr>
+    <tr><td><code>드라이버 OK</code></td><td>걸렸습니다</td></tr>
+    <tr><td><code>ClassNotFoundException:
+            com.mysql.cj.jdbc.Driver</code></td>
+        <td><b>안 걸렸습니다.</b> 절차 2 를 다시 하십시오</td></tr>
+  </table>
+
+  <p>드라이버를 안 건 채로 DAO 를 돌리면 이런 모습으로 나옵니다.</p>
+  <p class="cmdline"><code>Exception in thread "main" java.lang.ExceptionInInitializerError
+	at book.BookDAO.insert(BookDAO.java:14)
+	at book.CrudDemo.main(CrudDemo.java:10)
+Caused by: java.lang.IllegalStateException:
+          java.lang.ClassNotFoundException: com.mysql.cj.jdbc.Driver</code></p>
+
+  <p><b><code>Caused by:</code> 아래를 보십시오.</b>
+     맨 위의 <code>ExceptionInInitializerError</code> 만 보면 무슨 말인지 모릅니다.
+     <b>진짜 까닭은 늘 아래</b>에 있습니다.</p>
+
+  <h5>절차 5 — 이름을 한 글자도 틀리지 않았는지 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:280px">적은 것</th><th>맞는가</th></tr>
+    <tr><td><code>com.mysql.cj.jdbc.Driver</code></td>
+        <td><b>맞습니다</b> (Connector/J 8 이상)</td></tr>
+    <tr><td><code>com.mysql.jdbc.Driver</code></td>
+        <td>옛 이름입니다. <b>돌아가기는 하지만</b> 이런 말이 뜹니다 —
+            <span class="cc">Loading class `com.mysql.jdbc.Driver'. This is deprecated.
+            The new driver class is `com.mysql.cj.jdbc.Driver'.</span>
+            <code>cj</code> 를 넣으십시오</td></tr>
+    <tr><td><code>com.mysql.cj.jdbc.driver</code></td>
+        <td><code>D</code> 가 대문자여야 합니다</td></tr>
+  </table>
+
+  <div class="note"><b>요즘 판은 <code>Class.forName</code> 이 없어도 돕니다.</b>
+    jar 만 걸려 있으면 자바가 알아서 찾습니다.
+    그래도 <b>적어 두는 편</b>이 좋습니다 —
+    안 걸렸을 때 <b>어디가 문제인지 바로</b> 알려 주기 때문입니다.</div>
+
+  <h5>절차 6 — 캡처 두 장</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">캡처</th><th>무엇이 보여야</th></tr>
+    <tr><td>Build Path 설정 창</td><td>Libraries 탭에 jar 가 올라가 있는 모습</td></tr>
+    <tr><td>왼쪽 탐색기</td>
+        <td><code>lib</code> 폴더와 <b>Referenced Libraries</b> 가 함께</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 위 두 화면 + <code>드라이버 OK</code> 가 찍힌 콘솔</p>
+
+  <p><b>스스로 확인</b> —
+     ① jar 가 <b>프로젝트 안 <code>lib</code></b> 에 있습니까
+     ② <b>Add JARs</b> 로 걸었습니까 (External 아님)
+     ③ <b>Referenced Libraries</b> 가 보입니까
+     ④ <code>Class.forName</code> 이 <b>오류 없이</b> 지나갑니까</p>
+</div>
       </div>
     </div>
 
@@ -321,6 +733,146 @@ git push
   비밀번호가 들어간 파일을 <b>한 번이라도 커밋하면</b> 나중에 지워도 이력에 남습니다.
   <code>.gitignore</code> 를 <b>가장 먼저</b> 만들고 그 다음에 첫 커밋을 하십시오.
   이미 올렸다면 비밀번호를 바꾸는 것이 확실합니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 2-5</b>
+  <b>비밀번호를 빼내고, 커밋을 «나눠» 쌓기</b>
+
+  <p><b>목적</b> — 항목 04 · 05 가 각 <b>5점</b> 입니다.
+     그런데 여기는 점수보다 무서운 것이 있습니다.
+     <b>한 번 올라간 비밀번호는 지워도 이력에 남습니다.</b></p>
+
+  <h5>절차 1 — <code>.gitignore</code> 를 «가장 먼저» 만듭니다</h5>
+  <p>프로젝트 맨 위에 <code>.gitignore</code> 라는 이름으로 만듭니다.
+     확장자는 없고 점으로 시작합니다.</p>
+
+  <p class="cmdline"><code>/bin/
+*.class
+src/book/db.properties</code></p>
+
+  <div class="warn"><b>순서를 지키십시오.</b>
+    <code>.gitignore</code> → <b>첫 커밋</b> 순입니다.
+    거꾸로 하면 실습 2-5 절차 5 에서 보여 드릴 일이 벌어집니다.</div>
+
+  <h5>절차 2 — 접속정보를 파일로 빼냅니다</h5>
+  <p><code>src/book/db.properties</code></p>
+  <p class="cmdline"><code>db.url=jdbc:mysql://localhost:3306/BookDB?serverTimezone=Asia/Seoul&amp;characterEncoding=UTF-8
+db.user=dbconn
+db.password=Zhfldk11!</code></p>
+
+  <p>그리고 <b>값을 지운 예시 파일</b>을 하나 더 만들어 <b>이것만</b> 올립니다.
+     <code>src/book/db.properties.example</code></p>
+  <p class="cmdline"><code>db.url=jdbc:mysql://localhost:3306/BookDB?serverTimezone=Asia/Seoul&amp;characterEncoding=UTF-8
+db.user=여기에_계정
+db.password=여기에_비밀번호</code></p>
+
+  <div class="note"><b>예시 파일을 두는 까닭</b> —
+    저장소만 받은 사람은 <b>어떤 항목이 필요한지</b> 알 수 없습니다.
+    이름만 알려 주고 값은 비워 두는 것이 관행입니다.
+    <b>이 파일은 <code>.gitignore</code> 에 넣지 않습니다.</b></div>
+
+  <h5>절차 3 — 코드가 그 파일을 읽게 합니다</h5>
+  <p class="cmdline"><code>try (InputStream is =
+         DBUtil.class.getResourceAsStream("/book/db.properties")) {
+  Properties p = new Properties();
+  p.load(is);
+  url      = p.getProperty("db.url");
+  user     = p.getProperty("db.user");
+  password = p.getProperty("db.password");
+}</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">겪는 일</th><th>까닭과 해결</th></tr>
+    <tr><td><code>is</code> 가 <code>null</code> 이라
+            <code>NullPointerException</code></td>
+        <td><code>.properties</code> 가 <b><code>bin</code> 으로 복사되지 않았습니다.</b>
+            <code>src</code> 안에 두고 <b>Project → Clean</b> 을 한 번 하십시오</td></tr>
+    <tr><td>경로를 <code>"db.properties"</code> 로 적음</td>
+        <td>앞에 <code>/</code> 가 없으면 <b>그 클래스의 패키지</b> 기준입니다.
+            <code>/book/db.properties</code> 처럼 <b><code>/</code> 로 시작</b>하는 편이 헷갈리지 않습니다</td></tr>
+  </table>
+
+  <h5>절차 4 — 커밋을 «기능마다» 나눕니다</h5>
+  <p class="cmdline"><code>git add .
+git commit -m "chore: 프로젝트 초기 설정"
+
+git add src/chat/ChatServer.java
+git commit -m "feat: ChatServer accept 구현"
+
+git add src/book/BookDAO.java
+git commit -m "feat: BookDAO insert 구현"
+
+git push</code></p>
+
+  <p class="cmdline"><code>git log --oneline</code></p>
+  <p class="cmdline"><code>e91c4a2 feat: BookDAO insert 구현
+7b90e14 feat: ChatServer accept 구현
+1a22d03 chore: 프로젝트 초기 설정</code></p>
+
+  <p>커밋이 <b>하나뿐이면</b> 「흐름을 시연했다」 고 보기 어렵습니다.
+     항목 04 가 <code>clone</code> · <code>commit</code> · <code>push</code>
+     <b>흐름</b>을 봅니다. 서너 건 이상 남기십시오.</p>
+
+  <h5>절차 5 — 순서를 어기면 어떻게 되는지 «직접» 봅니다</h5>
+  <p>연습용 폴더를 하나 만들어 시험해 보십시오. 실제 저장소에서 하지 마십시오.</p>
+
+  <p class="cmdline"><code>git init -b main
+echo db.password=Zhfldk11! &gt; db.properties
+git add . &amp;&amp; git commit -m "chore: 초기 설정"      ← 비밀번호가 올라갔다
+
+echo db.properties &gt; .gitignore                    ← 뒤늦게 막는다
+git add .gitignore &amp;&amp; git commit -m "chore: gitignore"
+
+git status --short</code></p>
+
+  <p class="cmdline"><code>(아무것도 나오지 않습니다)</code></p>
+
+  <p>막힌 것처럼 보입니다. 그러나 <b>이미 추적 중인 파일은 <code>.gitignore</code> 가 막지 못합니다.</b></p>
+
+  <p class="cmdline"><code>git ls-files</code></p>
+  <p class="cmdline"><code>.gitignore
+db.properties          ← 여전히 추적되고 있습니다</code></p>
+
+  <h5>절차 6 — 추적에서 빼도 «이력에는 남습니다»</h5>
+  <p class="cmdline"><code>git rm --cached db.properties
+git commit -m "chore: 접속정보를 추적에서 뺀다"
+
+git ls-files</code></p>
+  <p class="cmdline"><code>.gitignore             ← 이제 목록에서 빠졌습니다</code></p>
+
+  <p>이제 됐을까요. <b>첫 커밋을 꺼내 보십시오.</b></p>
+
+  <p class="cmdline"><code>git show 1a22d03:db.properties</code></p>
+  <p class="cmdline"><code>db.password=Zhfldk11!</code></p>
+
+  <div class="warn"><b>그대로 나옵니다.</b>
+    Git 은 <b>지운 기록까지 보관</b>합니다.
+    저장소를 받은 사람은 누구나 이 명령으로 꺼내 볼 수 있습니다.
+    이미 올렸다면 파일을 지우는 것으로는 부족합니다 —
+    <b>비밀번호 자체를 바꾸는 것</b>이 확실합니다.</div>
+
+  <h5>절차 7 — 캡처</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">캡처</th><th style="width:110px">항목</th><th>보여야 할 것</th></tr>
+    <tr><td><code>git log --oneline</code></td><td class="c">04</td>
+        <td>커밋이 <b>여러 건</b></td></tr>
+    <tr><td>저장소 웹 화면</td><td class="c">04</td>
+        <td>push 된 파일 목록</td></tr>
+    <tr><td><code>.gitignore</code> 내용</td><td class="c">05</td>
+        <td><code>db.properties</code> 줄</td></tr>
+    <tr><td>저장소에서 본 <code>src/book</code></td><td class="c">05</td>
+        <td><code>.example</code> 만 있고
+            <b><code>db.properties</code> 는 없는</b> 모습</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 위 네 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>.gitignore</code> 를 <b>첫 커밋 전에</b> 만들었습니까
+     ② 저장소 웹 화면에 <code>db.properties</code> 가 <b>없습니까</b>
+     ③ <code>.example</code> 파일은 <b>올라가 있습니까</b>
+     ④ 커밋이 <b>서너 건 이상</b>입니까</p>
 </div>
       </div>
     </div>
@@ -362,6 +914,101 @@ git push
   <tr><td class="nm">공통</td><td>UI 연동 · 자원 정리</td>
       <td>항목 06 · 07 · 15 — 합쳐 25점</td></tr>
 </table>
+      <div class="lab">
+  <b class="t">실습 2-6</b>
+  <b>폴더를 만들고 «빈 클래스 여섯 개» 부터 세우기</b>
+
+  <p><b>목적</b> — 코드를 짜기 전에 <b>자리를 먼저</b> 만듭니다.
+     여섯 개가 다 있으면 UI 의 붉은 줄이 절반쯤 사라져
+     무엇이 더 필요한지 보이기 시작합니다.</p>
+
+  <h5>절차 1 — 패키지 둘을 만듭니다</h5>
+  <p><code>src</code> 오른쪽 눌러 <b>New → Package</b> 를 두 번.</p>
+
+  <p class="cmdline"><code>chat
+book</code></p>
+
+  <div class="note"><b>패키지 이름은 소문자</b>입니다.
+    <code>Chat</code> 으로 만들면 <code>import Chat.ChatServer;</code> 가 되어
+    제공된 UI 의 <code>import chat.ChatServer;</code> 와 맞지 않습니다.
+    <b>UI 가 쓰는 이름 그대로</b> 만드십시오.</div>
+
+  <h5>절차 2 — 빈 클래스 여섯 개를 만듭니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:110px">패키지</th><th style="width:150px">클래스</th>
+        <th style="width:190px">무엇을 하는 것</th><th>main 체크</th></tr>
+    <tr><td class="c"><code>chat</code></td><td><code>ChatServer</code></td>
+        <td>문을 열고 기다립니다</td><td class="c"><b>함</b></td></tr>
+    <tr><td class="c"><code>chat</code></td><td><code>ChatHandler</code></td>
+        <td>접속자 한 사람을 맡습니다</td><td class="c">안 함</td></tr>
+    <tr><td class="c"><code>chat</code></td><td><code>ChatClient</code></td>
+        <td>찾아가 붙습니다</td><td class="c">안 함</td></tr>
+    <tr><td class="c"><code>book</code></td><td><code>Book</code></td>
+        <td>책 한 권의 값을 담습니다</td><td class="c">안 함</td></tr>
+    <tr><td class="c"><code>book</code></td><td><code>BookDAO</code></td>
+        <td>표를 넣고 꺼냅니다</td><td class="c">안 함</td></tr>
+    <tr><td class="c"><code>book</code></td><td><code>DBUtil</code></td>
+        <td>연결을 만들어 줍니다</td><td class="c">안 함</td></tr>
+  </table>
+
+  <p><code>ChatHandler</code> 만 <b>Superclass</b> 에
+     <code>java.lang.Thread</code> 를 적어 둡니다.
+     나머지는 비워 둡니다.</p>
+
+  <h5>절차 3 — 폴더 모양을 확인합니다</h5>
+
+  <p class="cmdline"><code>BookLibrary
+ ├ src
+ │  ├ chat
+ │  │   ├ ChatServer.java
+ │  │   ├ ChatHandler.java
+ │  │   └ ChatClient.java
+ │  ├ book
+ │  │   ├ Book.java
+ │  │   ├ BookDAO.java
+ │  │   ├ DBUtil.java
+ │  │   └ db.properties
+ │  └ provided            ← 고치지 않습니다
+ ├ lib
+ │  └ mysql-connector-j-9.0.0.jar
+ ├ db
+ │  └ schema.sql
+ └ .gitignore</code></p>
+
+  <h5>절차 4 — «어느 쪽을 먼저 할지» 정합니다</h5>
+  <p>두 기능은 서로 부르지 않습니다. 따로 만들고 따로 채점받습니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:150px">먼저 할 것</th><th style="width:74px">배점</th>
+        <th>이런 사람에게</th></tr>
+    <tr><td><b>도서관리</b> (book)</td><td class="c">25</td>
+        <td>앞 교과에서 <b>JDBC 를 해 본</b> 사람.
+            익숙한 것부터 끝내 점수를 확보합니다</td></tr>
+    <tr><td><b>소켓 채팅</b> (chat)</td><td class="c">30</td>
+        <td>배점이 큽니다. 시간이 넉넉할 때</td></tr>
+  </table>
+
+  <div class="warn"><b>둘을 번갈아 만지지 마십시오.</b>
+    소켓과 JDBC 는 <b>막히는 자리가 전혀 다릅니다.</b>
+    왔다 갔다 하면 둘 다 반쯤 된 채로 시간이 갑니다.
+    <b>한쪽을 돌려 보고 캡처까지 끝낸 뒤</b> 다른 쪽으로 넘어가십시오.</div>
+
+  <h5>절차 5 — 여기서 한 번 커밋합니다</h5>
+  <p class="cmdline"><code>git add .
+git commit -m "chore: 패키지와 빈 클래스 구성"</code></p>
+
+  <p>아직 아무 기능도 없지만 <b>커밋 이력을 쌓기 시작</b>하는 것이 항목 04 입니다.
+     마지막에 한 번에 올리면 흐름이 남지 않습니다.</p>
+
+  <p><b>제출물</b> — 패키지 구조가 보이는 탐색기 캡처</p>
+
+  <p><b>스스로 확인</b> —
+     ① 패키지 이름이 <b>소문자</b> <code>chat</code> · <code>book</code> 입니까
+     ② 클래스가 <b>여섯 개</b> 다 있습니까
+     ③ <code>ChatHandler</code> 가 <code>Thread</code> 를 <b>상속</b>합니까
+     ④ <code>provided/</code> 를 <b>건드리지 않았습니까</b></p>
+</div>
       </div>
     </div>
 
@@ -402,6 +1049,109 @@ git push
   아직 내 클래스가 비어 있기 때문입니다.
   붉은 줄에 마우스를 올리면 <b>「Create method …」</b> 가 나오는데,
   그것을 누르면 이름과 매개변수가 맞는 껍데기를 자동으로 만들어 줍니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 2-7</b>
+  <b>UI 가 «무엇을 부르는지» 목록으로 뽑기</b>
+
+  <p><b>목적</b> — 항목 06 · 07 이 각 <b>10점</b>, 합쳐 20점입니다.
+     UI 는 <b>고칠 수 없습니다.</b>
+     그러므로 <b>UI 가 부르는 이름에 내 코드를 맞춰야</b> 합니다.</p>
+
+  <h5>절차 1 — UI 파일을 열어 «내 클래스 이름» 을 찾습니다</h5>
+  <p>Eclipse 에서 <code>Ctrl</code>+<code>H</code> (Search) →
+     <b>File Search</b> 탭에 <code>BookDAO</code> 를 넣고 찾습니다.
+     <code>ChatClient</code> · <code>Book</code> 도 같은 식으로 찾습니다.</p>
+
+  <div class="note"><b>더 빠른 길</b> —
+    UI 클래스를 그냥 열면 <b>붉은 밑줄이 그어진 줄</b>이 곧 「내가 만들어야 할 것」 입니다.
+    아직 내 클래스가 비어 있기 때문입니다.
+    <b>붉은 줄만 따라가면</b> 목록이 저절로 만들어집니다.</div>
+
+  <h5>절차 2 — 표로 옮겨 적습니다</h5>
+  <p>붉은 줄마다 <b>네 가지</b>를 적습니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:170px">UI 가 부르는 줄</th><th style="width:74px">이름</th>
+        <th style="width:120px">매개변수</th><th>돌려주는 것</th></tr>
+    <tr><td><code>new BookDAO()</code></td><td><code>BookDAO</code></td>
+        <td><b>없음</b></td><td>—</td></tr>
+    <tr><td><code>dao.selectAll()</code></td><td><code>selectAll</code></td>
+        <td>없음</td><td><code>List&lt;Book&gt;</code></td></tr>
+    <tr><td><code>dao.insert(book)</code></td><td><code>insert</code></td>
+        <td><code>Book</code> 하나</td><td><code>int</code></td></tr>
+    <tr><td><code>b.getTitle()</code></td><td><code>getTitle</code></td>
+        <td>없음</td><td><code>String</code></td></tr>
+    <tr><td><code>client.send(msg)</code></td><td><code>send</code></td>
+        <td><code>String</code> 하나</td><td><code>void</code></td></tr>
+  </table>
+
+  <h5>절차 3 — 이름이 다르면 «무슨 말» 이 나오는지 봅니다</h5>
+  <p>UI 가 <code>selectAll()</code> 을 부르는데
+     내가 <code>getAll()</code> 로 만들었다고 해 봅시다.</p>
+
+  <p class="cmdline"><code>Ui.java:7: error: cannot find symbol
+    for (Book b : dao.selectAll()) System.out.println(b.getTitle());
+                     ^
+  symbol:   method selectAll()
+  location: variable dao of type BookDAO</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">메시지의 조각</th><th>읽는 법</th></tr>
+    <tr><td><code>symbol: method selectAll()</code></td>
+        <td><b>이 이름을</b> 찾고 있습니다</td></tr>
+    <tr><td><code>location: … of type BookDAO</code></td>
+        <td><b>이 클래스에서</b> 찾고 있습니다</td></tr>
+  </table>
+
+  <p>즉 <b>「BookDAO 에 selectAll 을 만들어라」</b> 는 말입니다.
+     UI 를 고치는 것이 아니라 <b>내 메서드 이름을 바꾸는 것</b>이 답입니다.</p>
+
+  <h5>절차 4 — 매개변수가 다르면 다른 말이 나옵니다</h5>
+  <p class="cmdline"><code>Ui2.java:4: error: method send in class Client cannot be applied to given types;
+    new Client().send("hi");
+                ^
+  required: String,int
+  found:    String
+  reason: actual and formal argument lists differ in length</code></p>
+
+  <p><b><code>required</code> 가 내가 만든 것, <code>found</code> 가 UI 가 넘기는 것</b>입니다.
+     <code>required</code> 를 <code>found</code> 에 맞춰 고칩니다.</p>
+
+  <h5>절차 5 — Eclipse 에게 껍데기를 시킵니다</h5>
+  <ol>
+    <li>붉은 줄에 마우스를 올립니다.</li>
+    <li>풍선에서 <b>Create method 'selectAll()' in type 'BookDAO'</b> 를 누릅니다.</li>
+    <li><code>BookDAO</code> 에 <b>이름 · 매개변수 · 리턴형이 정확히 맞는</b>
+        빈 메서드가 만들어집니다.</li>
+  </ol>
+
+  <div class="warn"><b>이렇게 만들면 손으로 적다가 틀릴 일이 없습니다.</b>
+    다만 몸통이 <code>return null;</code> 이나
+    <code>throw new UnsupportedOperationException()</code> 으로 채워집니다.
+    <b>그대로 두고 제출하면 UI 는 뜨는데 아무것도 안 됩니다.</b>
+    실습 2-9 부터 하나씩 채웁니다.</div>
+
+  <h5>절차 6 — 통합 런처를 띄워 봅니다 (항목 07)</h5>
+  <p>아직 몸통이 비어 있어도 <b>창은 떠야</b> 합니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:190px">떠야 할 창</th><th>확인</th></tr>
+    <tr><td>채팅 서버</td><td>콘솔에 기다린다는 표시</td></tr>
+    <tr><td>채팅 클라이언트</td><td>입력칸과 보내기 단추</td></tr>
+    <tr><td>도서관리</td><td>빈 표와 등록 · 수정 · 삭제 단추</td></tr>
+  </table>
+
+  <p><b>세 창이 함께 떠 있는 화면</b>이 항목 07 의 근거입니다.
+     창을 겹치지 말고 나란히 놓아 <b>한 장에</b> 담으십시오.</p>
+
+  <p><b>제출물</b> — 절차 2 의 표 + 세 창이 함께 뜬 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① UI 의 붉은 줄이 <b>모두 사라졌습니까</b>
+     ② <code>provided/</code> 를 <b>한 글자도 안 고쳤습니까</b>
+     ③ 통합 런처에서 <b>세 창</b>이 다 뜹니까
+     ④ 껍데기 메서드를 <b>채워야 한다</b>는 것을 압니까</p>
 </div>
       </div>
     </div>
