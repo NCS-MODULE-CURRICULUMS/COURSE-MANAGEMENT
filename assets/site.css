@@ -219,7 +219,7 @@ footer{margin-top:34px;border-top:1px solid #000;padding-top:10px;color:#555;fon
 .pv-b:hover{background:#000;color:#fff}
 .pv-x{margin-left:4px}
 .pv-body{flex:1;overflow:auto;background:#f2f2f2;padding:16px;text-align:center}
-.pv-cv{display:none;max-width:100%;border:1px solid #999;background:#fff}
+.pv-cv{display:none;margin:0 auto;max-width:100%;height:auto;border:1px solid #999;background:#fff}
 .pv-msg{max-width:560px;margin:40px auto;text-align:left;font-size:13px;line-height:1.7}
 .pv-msg p{margin:10px 0;color:#555}
 .pv-msg code{font-size:12px;word-break:break-all}

@@ -1,11 +1,19 @@
 /* 학습모듈 PDF 보기 — 모달로 띄운다.
  *
- * PDF 원문은 한국직업능력연구원 저작물이라 이 저장소에 없다(291개 3.0GB).
- * 대신 강사 PC 에 받아 둔 파일을 브라우저가 직접 연다.
+ * PDF 원문은 한국직업능력연구원 저작물(공공누리 제2유형)이고 제3자 저작물이
+ * 섞여 있어 배포·공중송신에 원작자 동의가 필요하다. 그래서 이 저장소에 없다
+ * (291개 3.0GB). 대신 강사 PC 에 받아 둔 파일을 브라우저가 직접 연다.
  *
- *   [PDF] 를 처음 누르면  → 조직 폴더를 한 번 고른다 (TMP_NCS_20260916 같은 상위 폴더)
- *   그 다음부터        → 고른 폴더를 기억해 바로 열린다
- *   폴더가 없거나 브라우저가 못 하면 → ncs.go.kr 에서 받는 길을 보여 준다
+ * 두 갈래가 있고 뷰어가 알아서 고른다.
+ *
+ *   이 페이지가 tools/pdf-server.py 에서 나왔으면 (127.0.0.1)
+ *       → 같은 출처라 아무것도 묻지 않고 바로 연다
+ *   배포된 github.io 에서 보고 있으면
+ *       → 폴더를 한 번 고른다. 그 뒤로는 기억한다
+ *         (여기서 내 PC 의 서버로 붙는 길은 없다. Chrome 이 공개 사이트에서
+ *          루프백으로 나가는 것을 막는다 — Local Network Access)
+ *   폴더 고르기가 안 되는 브라우저면
+ *       → 서버 쪽 방법과 ncs.go.kr 내려받기를 알려 준다
  *
  * 폴더 권한은 브라우저가 관리한다. 파일은 읽기만 하고 어디로도 보내지 않는다.
  * 쓰는 것 : window.CM_PDF (assets/modules-pdf.js) · assets/pdfjs/ (vendored pdf.js)
@@ -15,9 +23,8 @@
 
   var DB = "ncs-pdf", STORE = "h", KEY = "root";
   var NCS = "https://www.ncs.go.kr/unity/hth01/hth0101/downloadFile.do";
-  var LOCAL = "http://127.0.0.1:8765";        // tools/pdf-server.py
   var pdfjs = null, root = null, task = null, doc = null, blob = null;
-  var page = 1, scale = 1.2, rendering = false, pending = null;
+  var page = 1, scale = 1.2, rendering = false, dirty = false;
   var local = null;                           // null 아직 안 봄 · true 켜짐 · false 없음
 
   function esc(s) {
@@ -149,26 +156,41 @@
   }
 
   function render() {
-    if (!doc || rendering) { pending = page; return; }
+    if (!doc) return;
+    if (rendering) { dirty = true; return; }   // 그리는 중이면 표시만 해 두고 나간다
     rendering = true;
+    dirty = false;
     doc.getPage(page).then(function (pg) {
       var vp = pg.getViewport({ scale: scale * (window.devicePixelRatio || 1) });
       el.cv.width = vp.width; el.cv.height = vp.height;
       el.cv.style.width = (vp.width / (window.devicePixelRatio || 1)) + "px";
       el.msg.style.display = "none";
-      el.cv.style.display = "";
+      // site.css 가 .pv-cv 를 display:none 으로 두므로 빈 문자열로 되돌리면
+      // 다시 숨는다. 그려 놓고 안 보이던 원인이 이것이었다.
+      el.cv.style.display = "block";
       task = pg.render({ canvasContext: el.cv.getContext("2d"), viewport: vp });
       return task.promise;
     }).then(function () {
-      rendering = false;
       el.cur.textContent = page;
-      if (pending !== null && pending !== page) { page = pending; pending = null; render(); }
-      else pending = null;
+      done();
     }).catch(function (e) {
+      // 취소는 실패가 아니다 — 다음 쪽을 그리라고 우리가 끊은 것이다.
+      // 여기서 그냥 돌아가면 화면이 빈 채로 남는다(실제로 그랬다).
+      if (e && e.name === "RenderingCancelledException") return done();
       rendering = false;
-      if (e && e.name === "RenderingCancelledException") return;
       say("<b>이 쪽을 그리지 못했습니다.</b><br>" + esc(e && e.message));
     });
+  }
+
+  /* 그리기가 끝났다. 그 사이에 쪽이나 배율이 바뀌었으면 한 번 더 그린다. */
+  function done() {
+    rendering = false;
+    if (dirty) render();
+  }
+
+  function redraw() {
+    if (task) { try { task.cancel(); } catch (e) {} }
+    render();
   }
 
   function go(n) {
@@ -176,23 +198,33 @@
     n = Math.max(1, Math.min(doc.numPages, n));
     if (n === page) return;
     page = n;
-    if (task) { try { task.cancel(); } catch (e) {} }
-    render();
+    redraw();
   }
   function zoom(d) {
-    scale = Math.max(0.5, Math.min(4, scale + d));
-    if (task) { try { task.cancel(); } catch (e) {} }
-    render();
+    var s = Math.max(0.5, Math.min(4, scale + d));
+    if (s === scale) return;
+    scale = s;
+    redraw();
   }
 
-  /* 로컬 서버(tools/pdf-server.py)가 떠 있으면 폴더를 묻지 않고 바로 연다.
-     한 번만 확인하고 그 결과를 이 페이지가 살아 있는 동안 쓴다. */
+  /* 이 페이지 자체가 tools/pdf-server.py 에서 나온 것인지 확인한다.
+   *
+   * 배포된 https://…github.io 에서 내 PC 의 127.0.0.1 로 붙는 길은 없다 —
+   * Chrome 이 공개 사이트에서 사설·루프백 주소로 나가는 것을 막는다
+   * (Local Network Access). 확인해 보면 요청이 서버에 닿지도 않고,
+   * local-network-access 권한은 denied 고정이며 fetch 의 targetAddressSpace
+   * 옵션도 먹지 않는다. 그래서 '다른 출처의 로컬 서버'는 아예 시도하지 않는다.
+   *
+   * 대신 서버가 사이트까지 같이 내보내므로, 같은 출처이면 막을 것이 없다. */
   function localUp() {
     if (local !== null) return Promise.resolve(local);
-    var t = setTimeout(function () {}, 0);
+    if (!/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)) {
+      local = false;
+      return Promise.resolve(false);
+    }
     var ctl = window.AbortController ? new AbortController() : null;
-    if (ctl) t = setTimeout(function () { ctl.abort(); }, 700);
-    return fetch(LOCAL + "/ping", { signal: ctl && ctl.signal, cache: "no-store" })
+    var t = ctl ? setTimeout(function () { ctl.abort(); }, 1500) : 0;
+    return fetch("/ping", { signal: ctl && ctl.signal, cache: "no-store" })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (j) { local = !!(j && j.ok); return local; })
       .catch(function () { local = false; return false; })
@@ -200,7 +232,7 @@
   }
 
   function localURL(meta) {
-    return LOCAL + "/file?p=" + encodeURIComponent(meta.p.join("/"));
+    return "/file?p=" + encodeURIComponent(meta.p.join("/"));
   }
 
   function show(src, meta) {
@@ -253,12 +285,11 @@
   /* Chrome/Edge 가 아니면 폴더 고르기를 못 한다 — 로컬 서버 쪽만 안내한다. */
   function askServer(meta) {
     say('<b>이 브라우저는 폴더 열기를 지원하지 않습니다.</b>' +
-      '<p>대신 조직 폴더에서 아래 한 줄을 실행해 두면 어느 브라우저에서든 ' +
-      'PDF 가 바로 열립니다.</p>' +
+      '<p>조직 폴더에서 아래를 실행하고 <code>http://127.0.0.1:8765/</code> 로 ' +
+      '들어가면 어느 브라우저에서든 PDF 가 바로 열립니다.</p>' +
       '<p><code>python COURSE-MANAGEMENT/tools/pdf-server.py</code></p>' +
       '<p class="pv-row">' +
       '<a class="pv-b" href="' + (window.CM_BASE || "") + 'tools/pdf-server.py" download>서버 내려받기</a>' +
-      '<button type="button" class="pv-b" data-a="retry">켰습니다 · 다시 시도</button>' +
       (ncsLink(meta) ? ' <a class="pv-b" href="' + esc(ncsLink(meta)) +
         '">ncs.go.kr 에서 받기</a>' : "") + '</p>');
   }
@@ -270,18 +301,19 @@
       '필요합니다. 그래서 원문을 사이트에 올려 두지 않고, 이 PC 에 받아 둔 파일을 ' +
       '그대로 엽니다 — 읽기만 하고 어디로도 보내지 않습니다.</p>' +
 
-      '<p><b>1. 늘 바로 열리게</b> — 조직 폴더에서 한 줄 실행해 두면 이 창이 다시 ' +
-      '뜨지 않습니다.</p>' +
-      '<p><code>python COURSE-MANAGEMENT/tools/pdf-server.py</code></p>' +
-      '<p class="pv-row">' +
-      '<a class="pv-b" href="' + (window.CM_BASE || "") + 'tools/pdf-server.py" download>서버 내려받기</a>' +
-      '<button type="button" class="pv-b" data-a="retry">켰습니다 · 다시 시도</button></p>' +
-
-      '<p><b>2. 지금 한 번만</b> — 폴더를 고르면 이 브라우저가 기억합니다 ' +
-      '(<code>' + esc(meta.p[0]) + '</code> 이 들어 있는 상위 폴더).</p>' +
+      '<p><b>1. 지금 바로</b> — 폴더를 고르면 이 브라우저가 기억해서 다음부터 ' +
+      '묻지 않습니다. <code>' + esc(meta.p[0]) + '</code> 이 들어 있는 <b>상위 폴더</b>를 ' +
+      '고르세요.</p>' +
       '<p class="pv-row"><button type="button" class="pv-b" data-a="pick">폴더 고르기</button>' +
       (ncsLink(meta) ? ' <a class="pv-b" href="' + esc(ncsLink(meta)) +
-        '">ncs.go.kr 에서 받기</a>' : "") + '</p>');
+        '">ncs.go.kr 에서 받기</a>' : "") + '</p>' +
+
+      '<p><b>2. 아예 묻지 않게</b> — 조직 폴더에서 아래를 실행하고 ' +
+      '<code>http://127.0.0.1:8765/</code> 로 들어가면 폴더도 안 묻습니다. ' +
+      '(지금 보고 계신 주소로는 브라우저가 내 PC 접속을 막아서 안 됩니다.)</p>' +
+      '<p><code>python COURSE-MANAGEMENT/tools/pdf-server.py</code></p>' +
+      '<p class="pv-row">' +
+      '<a class="pv-b" href="' + (window.CM_BASE || "") + 'tools/pdf-server.py" download>서버 내려받기</a></p>');
   }
 
   function open(code) {

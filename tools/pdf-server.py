@@ -8,8 +8,17 @@
   원작자 동의가 필요하다. 그래서 원문을 사이트(공개 저장소)에 올리지 않는다.
   대신 내 PC 에서만 도는 이 서버가 내 브라우저에만 파일을 건네준다.
 
+왜 사이트까지 같이 내보내는가
+  배포된 https://ncs-module-curriculums.github.io 에서는 이 서버에 붙을 수 없다.
+  Chrome 이 공개 사이트 -> 내 PC 주소 접속을 막는다(Local Network Access).
+  실제로 확인했다 — 요청이 서버에 닿지도 않고, local-network-access 권한은
+  denied 로 고정이며 fetch 의 targetAddressSpace 옵션도 먹지 않는다.
+  그래서 사이트와 PDF 를 같은 곳(127.0.0.1)에서 내보낸다. 같은 출처가 되면
+  막을 것이 없다 — 묻지도 않고 바로 열린다.
+
 무엇을 하는가
   127.0.0.1 에만 붙는다(다른 PC 에서 접속 불가).
+  과정관리 사이트를 통째로 내보낸다.
   지정한 폴더 아래의 .pdf 만, 읽기만, 목록 없이 내보낸다.
   pdf.js 가 큰 파일을 조금씩 읽도록 Range 를 지원한다(116MB 짜리도 있다).
 
@@ -17,8 +26,8 @@
   python COURSE-MANAGEMENT/tools/pdf-server.py            # 조직 폴더에서 실행
   python COURSE-MANAGEMENT/tools/pdf-server.py --root D:/NCS --port 8765
 
-  켜 두면 사이트의 [PDF] 단추가 폴더를 묻지 않고 바로 펼친다.
-  끄면 예전처럼 폴더 고르기로 돌아간다. 아무것도 망가지지 않는다.
+  그리고 http://127.0.0.1:8765/ 로 들어간다. [PDF] 가 아무것도 묻지 않는다.
+  배포 사이트에서 볼 때는 폴더 고르기로 동작한다. 둘 다 그대로 쓸 수 있다.
 """
 import argparse
 import os
@@ -32,8 +41,21 @@ ORIGINS = (
     "https://ncs-module-curriculums.github.io",
     "http://localhost:8000", "http://127.0.0.1:8000",   # 로컬에서 사이트를 띄웠을 때
 )
-ROOT = None
+ROOT = None                                  # 커리큘럼 저장소들이 있는 조직 폴더
+SITE = Path(__file__).resolve().parent.parent  # COURSE-MANAGEMENT
 RANGE = re.compile(r"bytes=(\d*)-(\d*)")
+MIME = {
+    ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8",
+    ".js": "text/javascript; charset=utf-8", ".mjs": "text/javascript; charset=utf-8",
+    ".json": "application/json; charset=utf-8", ".csv": "text/csv; charset=utf-8",
+    ".svg": "image/svg+xml", ".png": "image/png", ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg", ".gif": "image/gif", ".webp": "image/webp",
+    ".ico": "image/x-icon", ".txt": "text/plain; charset=utf-8",
+    ".md": "text/markdown; charset=utf-8", ".pdf": "application/pdf",
+    ".woff": "font/woff", ".woff2": "font/woff2",
+    ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    ".py": "text/plain; charset=utf-8",
+}
 
 
 def allow(origin):
@@ -78,7 +100,7 @@ class H(BaseHTTPRequestHandler):
         if u.path == "/ping":
             return "ping"
         if u.path != "/file":
-            return None
+            return "site"                                # 사이트 파일로 넘긴다
         rel = urllib.parse.parse_qs(u.query).get("p", [""])[0]
         if not rel:
             return None
@@ -90,6 +112,33 @@ class H(BaseHTTPRequestHandler):
         if p.suffix.lower() != ".pdf" or not p.is_file():
             return None
         return p
+
+    def site_file(self):
+        """과정관리 사이트 자체. 같은 출처에서 열려야 브라우저가 막지 않는다."""
+        path = urllib.parse.unquote(urllib.parse.urlparse(self.path).path)
+        rel = path.lstrip("/") or "index.html"
+        p = (SITE / rel).resolve()
+        try:
+            p.relative_to(SITE)
+        except ValueError:
+            return None
+        if p.is_dir():
+            p = p / "index.html"
+        return p if p.is_file() else None
+
+    def send_site(self):
+        p = self.site_file()
+        if p is None:
+            return self.fail(404, "없는 파일입니다.")
+        body = p.read_bytes()
+        self.send_response(200)
+        self.send_header("Content-Type", MIME.get(p.suffix.lower(),
+                                                  "application/octet-stream"))
+        self.send_header("Content-Length", str(len(body)))
+        self.send_header("Cache-Control", "no-store")     # 고치는 중에 헷갈리지 않게
+        self.end_headers()
+        if self.command != "HEAD":
+            self.wfile.write(body)
 
     def do_HEAD(self):
         self.do_GET()
@@ -106,6 +155,8 @@ class H(BaseHTTPRequestHandler):
             if self.command != "HEAD":
                 self.wfile.write(body)
             return
+        if t == "site":
+            return self.send_site()
         if t is None:
             return self.fail(404, "없는 파일이거나 허용되지 않는 경로입니다.")
 
@@ -170,12 +221,19 @@ def main():
         sys.exit(f"폴더가 없습니다: {ROOT}")
     n = sum(1 for _ in ROOT.glob("CURRICULUM-*/modules/*/*/reference/*.pdf"))
 
-    print(f"폴더  {ROOT}")
-    print(f"PDF   {n}개")
-    print(f"주소  http://127.0.0.1:{a.port}/  (이 PC 에서만 열립니다)")
-    print("사이트의 [PDF] 단추가 이제 폴더를 묻지 않습니다. 끄려면 Ctrl+C.")
+    print(f"폴더   {ROOT}")
+    print(f"사이트 {SITE}")
+    print(f"PDF    {n}개")
+    print()
+    print(f"  →  http://127.0.0.1:{a.port}/   여기로 들어가세요")
+    print()
+    print("이 주소로 열면 [PDF] 가 아무것도 묻지 않고 바로 펼쳐집니다.")
+    print("(배포된 github.io 주소에서는 브라우저가 내 PC 접속을 막기 때문에 안 됩니다.)")
+    print("이 PC 에서만 열립니다. 끄려면 Ctrl+C.")
     if not n:
         print("! 이 폴더 아래에서 학습모듈 PDF 를 찾지 못했습니다. --root 를 확인하세요.")
+    if not (SITE / "index.html").is_file():
+        print(f"! 사이트를 찾지 못했습니다: {SITE}/index.html")
 
     try:
         ThreadingHTTPServer(("127.0.0.1", a.port), H).serve_forever()
