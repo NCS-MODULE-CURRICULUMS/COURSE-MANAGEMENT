@@ -22,7 +22,7 @@ window.CM_MODULES = [
     "ab": "-",
     "re": "-",
     "ev_method": "사례연구 · 구두발표",
-    "page": "modules/m01.html"
+    "page": "modules/c1-m01.html"
   },
   {
     "id": "m02",
@@ -37,7 +37,7 @@ window.CM_MODULES = [
     "ab": "-",
     "re": "-",
     "ev_method": "포트폴리오 · 평가자 질문",
-    "page": "modules/m02.html"
+    "page": "modules/c1-m02.html"
   },
   {
     "id": "m03",
@@ -52,7 +52,7 @@ window.CM_MODULES = [
     "ab": "-",
     "re": "-",
     "ev_method": "포트폴리오 · 평가자 체크리스트",
-    "page": "modules/m03.html"
+    "page": "modules/c1-m03.html"
   },
   {
     "id": "m04",
@@ -67,7 +67,7 @@ window.CM_MODULES = [
     "ab": "-",
     "re": "-",
     "ev_method": "작업장평가 · 일지/저널",
-    "page": "modules/m04.html"
+    "page": "modules/c1-m04.html"
   },
   {
     "id": "m05",
@@ -82,7 +82,7 @@ window.CM_MODULES = [
     "ab": "-",
     "re": "-",
     "ev_method": "포트폴리오 · 평가자 질문",
-    "page": "modules/m05.html"
+    "page": "modules/c1-m05.html"
   },
   {
     "id": "m06",
@@ -97,7 +97,7 @@ window.CM_MODULES = [
     "ab": "-",
     "re": "-",
     "ev_method": "포트폴리오 · 문제해결 시나리오",
-    "page": "modules/m06.html"
+    "page": "modules/c1-m06.html"
   },
   {
     "id": "m07",
@@ -112,7 +112,7 @@ window.CM_MODULES = [
     "ab": "-",
     "re": "-",
     "ev_method": "작업장평가 · 평가자 체크리스트",
-    "page": "modules/m07.html"
+    "page": "modules/c1-m07.html"
   },
   {
     "id": "m08",
@@ -127,7 +127,7 @@ window.CM_MODULES = [
     "ab": "-",
     "re": "-",
     "ev_method": "문제해결 시나리오 · 평가자 체크리스트",
-    "page": "modules/m08.html"
+    "page": "modules/c1-m08.html"
   },
   {
     "id": "m09",
@@ -142,6 +142,6 @@ window.CM_MODULES = [
     "ab": "-",
     "re": "-",
     "ev_method": "작업장평가 · 포트폴리오",
-    "page": "modules/m09.html"
+    "page": "modules/c1-m09.html"
   }
 ];
