@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 310" width="720" height="310"><style>.s{font-family:"Malgun Gothic",sans-serif;font-size:11.5px}.m{font-family:Consolas,"D2Coding",monospace;font-size:12px;font-weight:700}.b{font-family:"Malgun Gothic",sans-serif;font-size:12.5px;font-weight:700}.k{font-family:"Malgun Gothic",sans-serif;font-size:11px;fill:#666}</style>
+<defs><marker id="a3" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L9,4 L0,8" fill="#c00"/></marker></defs>
+<rect width="720" height="310" fill="#fff"/>
+<rect width="720" height="310" fill="none" stroke="#999"/>
+<text class="b" x="18" y="26">상태 코드는 외우는 것이 아니라 «검증 기준» 에서 끌어옵니다</text>
+<text class="k" x="18" y="46">실습 2-5 에서 적어 둔 「이러면 거절된다」 가 그대로 실패 코드가 됩니다.</text>
+<line x1="0" y1="56" x2="720" y2="56" stroke="#000"/>
+<text class="k" x="22" y="70">요구사항 명세서 · 검증 기준</text>
+<text class="k" x="520" y="70">API 명세서 · 상태 코드</text>
+<text class="k" x="22" y="106">SR-01</text>
+<text class="s" x="70" y="106">같은 아이디로 두 번 가입하면 거절된다</text>
+<line x1="466" y1="102" x2="510" y2="102" stroke="#c00" stroke-dasharray="4 3" marker-end="url(#a3)"/>
+<rect x="520" y="92" width="46" height="22" fill="#f4f4f4" stroke="#000"/>
+<text class="m" x="543" y="108" text-anchor="middle">409</text>
+<text class="k" x="576" y="107">지금 상태와 부딪친다</text>
+<text class="k" x="22" y="146">SR-02</text>
+<text class="s" x="70" y="146">로그아웃 후 들어가면 로그인으로 보내진다</text>
+<line x1="466" y1="142" x2="510" y2="142" stroke="#c00" stroke-dasharray="4 3" marker-end="url(#a3)"/>
+<rect x="520" y="132" width="46" height="22" fill="#f4f4f4" stroke="#000"/>
+<text class="m" x="543" y="148" text-anchor="middle">401</text>
+<text class="k" x="576" y="147">로그인하지 않았다</text>
+<text class="k" x="22" y="186">SR-03</text>
+<text class="s" x="70" y="186">이미 대여 중인 도서는 신청되지 않는다</text>
+<line x1="466" y1="182" x2="510" y2="182" stroke="#c00" stroke-dasharray="4 3" marker-end="url(#a3)"/>
+<rect x="520" y="172" width="46" height="22" fill="#f4f4f4" stroke="#000"/>
+<text class="m" x="543" y="188" text-anchor="middle">409</text>
+<text class="k" x="576" y="187">지금 상태와 부딪친다</text>
+<text class="k" x="22" y="226">SR-04</text>
+<text class="s" x="70" y="226">승인하면 도서 상태가 「대여 중」 으로 바뀐다</text>
+<line x1="466" y1="222" x2="510" y2="222" stroke="#c00" stroke-dasharray="4 3" marker-end="url(#a3)"/>
+<rect x="520" y="212" width="46" height="22" fill="#f4f4f4" stroke="#000"/>
+<text class="m" x="543" y="228" text-anchor="middle">200</text>
+<text class="k" x="576" y="227">잘 됐다</text>
+<text class="k" x="22" y="266">—</text>
+<text class="s" x="70" y="266">회원이 관리자용 승인을 눌렀다</text>
+<line x1="466" y1="262" x2="510" y2="262" stroke="#c00" stroke-dasharray="4 3" marker-end="url(#a3)"/>
+<rect x="520" y="252" width="46" height="22" fill="#f4f4f4" stroke="#000"/>
+<text class="m" x="543" y="268" text-anchor="middle">403</text>
+<text class="k" x="576" y="267">권한이 없다</text>
+<text class="s" x="18" y="296" fill="#c00">→ 성공 코드 하나 + 실패 코드 한둘. 성공만 적으면 채점 ③ 18 에서 깎입니다.</text>
+</svg>

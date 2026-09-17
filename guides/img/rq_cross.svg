@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 326" width="720" height="326"><style>.s{font-family:"Malgun Gothic",sans-serif;font-size:11.5px}.b{font-family:"Malgun Gothic",sans-serif;font-size:12.5px;font-weight:700}.k{font-family:"Malgun Gothic",sans-serif;font-size:11px;fill:#666}.n{font-family:"Malgun Gothic",sans-serif;font-size:12px;font-weight:700;fill:#fff}</style>
+<rect width="720" height="326" fill="#fff"/>
+<rect width="720" height="326" fill="none" stroke="#999"/>
+<text class="b" x="18" y="26">혼자 보면 안 보이는 항목 셋 — 나란히 놓고 봅니다</text>
+<text class="k" x="18" y="46">나머지 열일곱 항목은 그 산출물 하나만 보면 됩니다. 이 셋은 다릅니다.</text>
+<line x1="0" y1="56" x2="720" y2="56" stroke="#000"/>
+<circle cx="40" cy="100" r="15" fill="#000"/>
+<text class="n" x="40" y="105" text-anchor="middle">07</text>
+<rect x="76" y="84" width="176" height="32" fill="#f4f4f4" stroke="#000"/>
+<text class="s" x="164" y="104" text-anchor="middle">기능 조사표</text>
+<text class="b" x="272" y="105" text-anchor="middle" fill="#c00">&#8596;</text>
+<rect x="292" y="84" width="186" height="32" fill="#f4f4f4" stroke="#000"/>
+<text class="s" x="385" y="104" text-anchor="middle">유스케이스 목록</text>
+<text class="k" x="496" y="104">조사표의 기능이 목록에 빠짐없이 있는가</text>
+<line x1="18" y1="146" x2="702" y2="146" stroke="#e0e0e0"/>
+<circle cx="40" cy="176" r="15" fill="#000"/>
+<text class="n" x="40" y="181" text-anchor="middle">10</text>
+<rect x="76" y="160" width="176" height="32" fill="#f4f4f4" stroke="#000"/>
+<text class="s" x="164" y="180" text-anchor="middle">기능 조사표</text>
+<text class="b" x="272" y="181" text-anchor="middle" fill="#c00">&#8596;</text>
+<rect x="292" y="160" width="186" height="32" fill="#f4f4f4" stroke="#000"/>
+<text class="s" x="385" y="180" text-anchor="middle">유스케이스 명세서</text>
+<text class="k" x="496" y="180">명세서의 흐름이 «조사한 기능» 안에서만 도는가</text>
+<line x1="18" y1="222" x2="702" y2="222" stroke="#e0e0e0"/>
+<circle cx="40" cy="252" r="15" fill="#000"/>
+<text class="n" x="40" y="257" text-anchor="middle">12</text>
+<rect x="76" y="236" width="176" height="32" fill="#f4f4f4" stroke="#000"/>
+<text class="s" x="164" y="256" text-anchor="middle">유스케이스 명세서</text>
+<text class="b" x="272" y="257" text-anchor="middle" fill="#c00">&#8596;</text>
+<rect x="292" y="236" width="186" height="32" fill="#f4f4f4" stroke="#000"/>
+<text class="s" x="385" y="256" text-anchor="middle">시퀀스 다이어그램</text>
+<text class="k" x="496" y="256">기본 흐름의 «순서» 와 메시지 «순서» 가 같은가</text>
+<text class="s" x="18" y="314" fill="#c00">→ 종이 두 장을 옆에 붙여 놓고 한 줄씩 손가락으로 짚으며 맞춰 봅니다.</text>
+</svg>

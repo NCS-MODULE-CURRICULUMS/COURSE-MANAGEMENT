@@ -1,0 +1,11 @@
+# 빌드 결과물
+/target/
+*.war
+*.class
+
+# 이클립스가 만드는 것
+/.settings/
+/bin/
+
+# 로그
+*.log

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1031 187" width="1031" height="187">
+<style>.m{font-family:Consolas,"D2Coding",monospace;font-size:11.5px;white-space:pre}.s{font-family:"Malgun Gothic",sans-serif;font-size:11px}.n{font-family:"Malgun Gothic",sans-serif;font-size:11px;fill:#111}</style>
+<rect width="1031" height="187" fill="#ffffff"/>
+<rect width="1031" height="26" fill="#e9e9e9"/>
+<text class="s" x="10" y="17" fill="#222">bookrent — Visual Studio Code</text>
+<rect y="26" width="168" height="161" fill="#f4f4f4"/>
+<text class="s" x="10" y="44" fill="#666" letter-spacing="0.6">탐색기</text>
+<rect x="168" y="26" width="639" height="24" fill="#f0f0f0"/>
+<rect x="168" y="26" width="117" height="24" fill="#ffffff"/>
+<text class="s" x="180" y="42" fill="#111">book/list.jsp</text>
+<rect width="1031" height="187" fill="none" stroke="#999"/>
+<line x1="168" y1="26" x2="168" y2="187" stroke="#ccc"/>
+<line x1="0" y1="26" x2="1031" y2="26" stroke="#999"/>
+<text class="m" xml:space="preserve" x="10" y="64" fill="#555">bookrent</text>
+<text class="m" xml:space="preserve" x="10" y="80" fill="#555">  src/main/webapp</text>
+<text class="m" xml:space="preserve" x="10" y="97" fill="#555">    book</text>
+<text class="m" xml:space="preserve" x="10" y="114" fill="#000" font-weight="700">      list.jsp</text>
+<text class="m" xml:space="preserve" x="10" y="130" fill="#555">    META-INF</text>
+<text class="m" xml:space="preserve" x="10" y="146" fill="#555">    WEB-INF</text>
+<text class="m" xml:space="preserve" x="10" y="163" fill="#000" font-weight="700">    index.jsp</text>
+<text class="m" x="194" y="69" fill="#999" text-anchor="end">22</text>
+<text class="m" xml:space="preserve" x="202" y="69" fill="#111">&lt;!-- 키워드 조회 --&gt;</text>
+<text class="m" x="194" y="86" fill="#999" text-anchor="end">23</text>
+<text class="m" xml:space="preserve" x="202" y="86" fill="#111">&lt;form method="get" action="books"&gt;</text>
+<rect x="168" y="90" width="639" height="16.5" fill="#fff3bf"/>
+<text class="m" x="194" y="102" fill="#999" text-anchor="end">24</text>
+<text class="m" xml:space="preserve" x="202" y="102" fill="#111">  &lt;input type="text" name="keyword" value="${keyword}" placeholder="제목 또는 지은이"&gt;</text>
+<line x1="801" y1="98" x2="811" y2="98" stroke="#c00"/>
+<text class="n" x="815" y="102" fill="#c00">검색칸이 있다 → 키워드 조회</text>
+<rect x="168" y="106" width="639" height="16.5" fill="#fff3bf"/>
+<text class="m" x="194" y="118" fill="#999" text-anchor="end">25</text>
+<text class="m" xml:space="preserve" x="202" y="118" fill="#111">  &lt;button type="submit"&gt;검색&lt;/button&gt;</text>
+<line x1="801" y1="114" x2="811" y2="114" stroke="#c00"/>
+<text class="n" x="815" y="118" fill="#c00">단추 하나 = 기능 하나</text>
+<text class="m" x="194" y="135" fill="#999" text-anchor="end">26</text>
+<text class="m" xml:space="preserve" x="202" y="135" fill="#111">  &lt;a href="books"&gt;전체 보기&lt;/a&gt;</text>
+<text class="m" x="194" y="152" fill="#999" text-anchor="end">27</text>
+<text class="m" xml:space="preserve" x="202" y="152" fill="#111">&lt;/form&gt;</text>
+</svg>

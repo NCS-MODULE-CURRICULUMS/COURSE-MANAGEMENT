@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 507 272" width="507" height="272">
+<style>.m{font-family:Consolas,"D2Coding","Malgun Gothic",monospace;font-size:12.5px;white-space:pre}.n{font-family:"Malgun Gothic",sans-serif;font-size:11.5px}.t{font-family:"Malgun Gothic",sans-serif;font-size:12px;fill:#1a1a1a}</style>
+<rect width="507" height="272" fill="#fff"/>
+<rect width="507" height="28" fill="#f0f0f0"/>
+<rect width="507" height="272" fill="none" stroke="#000"/>
+<line x1="0" y1="28" x2="507" y2="28" stroke="#000"/>
+<text class="t" x="12" y="19" font-weight="700">기능 목록 뽑기 — 있는 것과 없는 것</text>
+<text class="m" xml:space="preserve" x="14" y="54" fill="#555">[ 화면 파일 ]</text>
+<text class="m" xml:space="preserve" x="14" y="72" fill="#000" font-weight="700">index.jsp</text>
+<line x1="232" y1="68" x2="243" y2="68" stroke="#888"/>
+<text class="n" x="248" y="72" fill="#222">첫 화면</text>
+<text class="m" xml:space="preserve" x="14" y="90" fill="#000" font-weight="700">book/list.jsp</text>
+<line x1="232" y1="86" x2="243" y2="86" stroke="#888"/>
+<text class="n" x="248" y="90" fill="#222">도서 조회 · 등록 · 수정 · 삭제</text>
+<text class="m" xml:space="preserve" x="14" y="108" fill="#555"></text>
+<text class="m" xml:space="preserve" x="14" y="126" fill="#555">[ 요청을 받는 곳 ]</text>
+<text class="m" xml:space="preserve" x="14" y="144" fill="#000" font-weight="700">BookController.doGet</text>
+<line x1="232" y1="140" x2="243" y2="140" stroke="#888"/>
+<text class="n" x="248" y="144" fill="#222">도서 조회 (전체 · 키워드)</text>
+<text class="m" xml:space="preserve" x="14" y="162" fill="#000" font-weight="700">BookController.doPost</text>
+<line x1="232" y1="158" x2="243" y2="158" stroke="#888"/>
+<text class="n" x="248" y="162" fill="#222">도서 등록 · 수정 · 삭제</text>
+<text class="m" xml:space="preserve" x="14" y="180" fill="#555"></text>
+<text class="m" xml:space="preserve" x="14" y="198" fill="#555">[ 없는 것 = 문제점 ]</text>
+<text class="m" xml:space="preserve" x="14" y="216" fill="#000" font-weight="700">로그인 화면 · LoginController</text>
+<line x1="232" y1="212" x2="243" y2="212" stroke="#888"/>
+<text class="n" x="248" y="216" fill="#222">없음  →  인증 기능 부재</text>
+<text class="m" xml:space="preserve" x="14" y="234" fill="#000" font-weight="700">users 표</text>
+<line x1="232" y1="230" x2="243" y2="230" stroke="#888"/>
+<text class="n" x="248" y="234" fill="#222">없음  →  인증 기능 부재</text>
+<text class="m" xml:space="preserve" x="14" y="252" fill="#000" font-weight="700">RentalController · rentals 표</text>
+<line x1="232" y1="248" x2="243" y2="248" stroke="#888"/>
+<text class="n" x="248" y="252" fill="#222">없음  →  도서 대여 기능 없음</text>
+</svg>

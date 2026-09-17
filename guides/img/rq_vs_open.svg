@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 268" width="520" height="268"><style>.s{font-family:"Malgun Gothic",sans-serif;font-size:11.5px}.m{font-family:Consolas,"D2Coding",monospace;font-size:11.5px;white-space:pre}.b{font-family:"Malgun Gothic",sans-serif;font-size:12px;font-weight:700}.c{font-family:"Malgun Gothic",sans-serif;font-size:12px;font-weight:700;fill:#fff}</style>
+<rect width="520" height="268" fill="#fff"/>
+<rect width="520" height="24" fill="#e9e9e9"/>
+<rect x="6" y="2" width="34" height="20" fill="#fff" stroke="#888"/>
+<text class="s" x="11" y="16" fill="#000" font-weight="700">파일</text>
+<text class="s" x="52" y="16" fill="#555">편집   선택   보기   이동</text>
+<rect width="520" height="268" fill="none" stroke="#999"/>
+<line x1="0" y1="24" x2="520" y2="24" stroke="#999"/>
+<rect x="6" y="24" width="232" height="204" fill="#fff" stroke="#888"/>
+<text class="s" x="22" y="46" fill="#333">새 텍스트 파일</text>
+<text class="s" x="22" y="70" fill="#333">새 창</text>
+<text class="s" x="22" y="94" fill="#333">열기...</text>
+<rect x="8" y="103" width="228" height="22" fill="#cfe3ff"/>
+<text class="s" x="22" y="118" fill="#000" font-weight="700">폴더 열기...</text>
+<text class="s" x="22" y="142" fill="#333">작업 영역 열기...</text>
+<text class="s" x="22" y="166" fill="#333">최근 항목 열기</text>
+<text class="s" x="22" y="190" fill="#333">저장</text>
+<text class="s" x="22" y="214" fill="#333">다른 이름으로 저장...</text>
+<circle cx="260" cy="120" r="9" fill="#000"/><text class="c" x="260" y="124" text-anchor="middle">1</text>
+<text class="s" x="276" y="124" fill="#111">[파일] 을 누른 뒤</text>
+<text class="s" x="276" y="142" fill="#111">[폴더 열기...] 를 고른다</text>
+<text class="s" x="276" y="170" fill="#555">창이 열리면 bookrent 폴더를</text>
+<text class="s" x="276" y="188" fill="#555">«한 번만» 누르고 [폴더 선택]</text>
+<text class="s" x="276" y="216" fill="#c00">폴더 «안으로» 들어가지 말 것</text>
+</svg>

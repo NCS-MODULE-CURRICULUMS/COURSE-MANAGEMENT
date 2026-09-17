@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 476" width="840" height="476"><style>.s{font-family:"Malgun Gothic",sans-serif;font-size:11.5px}.t{font-family:"Malgun Gothic",sans-serif;font-size:12px}.b{font-family:"Malgun Gothic",sans-serif;font-size:12px;font-weight:700}.c{font-family:"Malgun Gothic",sans-serif;font-size:11.5px;font-weight:700;fill:#fff}</style>
+<defs><marker id="ar" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7" fill="none" stroke="#666"/></marker></defs>
+<rect width="840" height="476" fill="#fff"/>
+<rect width="840" height="26" fill="#e9e9e9"/>
+<text class="s" x="10" y="17" fill="#222">draw.io — 1단계 · 시스템 경계</text>
+<rect y="26" width="150" height="450" fill="#f7f7f7"/>
+<rect width="840" height="476" fill="none" stroke="#999"/>
+<line x1="0" y1="26" x2="840" y2="26" stroke="#999"/>
+<line x1="150" y1="26" x2="150" y2="476" stroke="#ccc"/>
+<rect x="8" y="34" width="134" height="22" fill="#fff" stroke="#aaa"/>
+<text class="s" x="14" y="49" fill="#999">도형 검색</text>
+<text class="s" x="14" y="82" fill="#222" font-weight="700">UML</text>
+<circle cx="30" cy="104" r="6" fill="none" stroke="#000"/><line x1="30" y1="110" x2="30" y2="126" stroke="#000"/><line x1="21" y1="116" x2="39" y2="116" stroke="#000"/><line x1="30" y1="126" x2="22" y2="138" stroke="#000"/><line x1="30" y1="126" x2="38" y2="138" stroke="#000"/><text class="s" x="30" y="153" text-anchor="middle"></text>
+<text class="s" x="70" y="124" fill="#222">액터</text>
+<rect x="18" y="153" width="38" height="18" rx="9" fill="#fff" stroke="#000"/>
+<text class="s" x="70" y="166" fill="#222">유스케이스</text>
+<rect x="6" y="190" width="138" height="30" fill="#cfe3ff" stroke="#3b6fb5"/>
+<rect x="18" y="195" width="38" height="18" fill="#fff" stroke="#000"/>
+<text class="s" x="70" y="208" fill="#222">사각형</text>
+<line x1="18" y1="246" x2="56" y2="246" stroke="#000"/>
+<text class="s" x="70" y="250" fill="#222">선</text>
+<g transform="translate(150,26)"><rect x="158" y="44" width="396" height="330" fill="none" stroke="#000"/>
+<text class="b" x="356.0" y="64" text-anchor="middle">도서 대여 시스템</text>
+<line x1="158" y1="72" x2="554" y2="72" stroke="#000"/></g>
+<circle cx="164" cy="446" r="8" fill="#000"/><text class="c" x="164" y="450" text-anchor="middle">1</text>
+<text class="s" x="178" y="450" fill="#111">왼쪽에서 «사각형» 을 끌어다 놓는다</text>
+<circle cx="164" cy="465" r="8" fill="#000"/><text class="c" x="164" y="469" text-anchor="middle">2</text>
+<text class="s" x="178" y="469" fill="#111">두 번 눌러 이름을 «도서 대여 시스템» 으로 적는다</text>
+</svg>

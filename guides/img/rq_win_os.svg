@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 567 227" width="567" height="227">
+<style>.m{font-family:Consolas,"D2Coding","Malgun Gothic",monospace;font-size:12.5px;white-space:pre}.t{font-family:"Malgun Gothic",sans-serif;font-size:12px;fill:#1a1a1a}</style>
+<rect width="567" height="227" fill="#0c0c0c"/>
+<rect width="567" height="28" fill="#e8e8e8"/>
+<rect width="567" height="227" fill="none" stroke="#9a9a9a"/>
+<line x1="0" y1="28" x2="567" y2="28" stroke="#9a9a9a"/>
+<text class="t" x="10" y="19">명령 프롬프트</text>
+<text class="t" x="505" y="19" font-size="11">–</text>
+<text class="t" x="525" y="19" font-size="11">□</text>
+<text class="t" x="545" y="19" font-size="11">✕</text>
+<text class="m" xml:space="preserve" x="12" y="52" fill="#ffffff" font-weight="700">C:\Users\hong&gt;ver</text>
+<text class="m" xml:space="preserve" x="12" y="70" fill="#cccccc"></text>
+<text class="m" xml:space="preserve" x="12" y="87" fill="#cccccc">Microsoft Windows [Version 10.0.26200.9457]</text>
+<text class="m" xml:space="preserve" x="12" y="104" fill="#cccccc"></text>
+<text class="m" xml:space="preserve" x="12" y="122" fill="#ffffff" font-weight="700">C:\Users\hong&gt;systeminfo | findstr /C:"OS Name" /C:"OS Version"</text>
+<text class="m" xml:space="preserve" x="12" y="140" fill="#cccccc">OS Name:            Microsoft Windows 11 Home</text>
+<text class="m" xml:space="preserve" x="12" y="157" fill="#cccccc">OS Version:         10.0.26200 N/A Build 26200</text>
+<text class="m" xml:space="preserve" x="12" y="174" fill="#cccccc">System Type:        x64-based PC</text>
+<text class="m" xml:space="preserve" x="12" y="192" fill="#cccccc"></text>
+<text class="m" xml:space="preserve" x="12" y="210" fill="#8a8a8a" font-style="italic">→ 조사표에는 「Windows 11 Home 25H2 (빌드 26200), 64비트」 처럼 적는다</text>
+</svg>

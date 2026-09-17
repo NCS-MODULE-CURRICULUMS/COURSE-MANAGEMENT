@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+  <display-name>도서 관리 시스템</display-name>
+
+  <!-- 도서 조회 · 등록 · 수정 · 삭제 -->
+  <servlet>
+    <servlet-name>bookController</servlet-name>
+    <servlet-class>kr.bookrent.controller.BookController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>bookController</servlet-name>
+    <url-pattern>/books</url-pattern>
+  </servlet-mapping>
+
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+
+</web-app>

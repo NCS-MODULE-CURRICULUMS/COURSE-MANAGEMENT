@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 300" width="740" height="300"><style>.s{font-family:"Malgun Gothic",sans-serif;font-size:11.5px}.m{font-family:Consolas,"D2Coding",monospace;font-size:12px}.b{font-family:"Malgun Gothic",sans-serif;font-size:12.5px;font-weight:700}.k{font-family:"Malgun Gothic",sans-serif;font-size:11px;fill:#666}</style>
+<defs><marker id="a4" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L9,4 L0,8" fill="#c00"/></marker></defs>
+<rect width="740" height="300" fill="#fff"/>
+<rect width="740" height="300" fill="none" stroke="#999"/>
+<text class="b" x="30" y="26">현행 — 주소 하나에 몰아넣었다</text>
+<text class="b" x="420" y="26">목표 — 메서드로 나눈다</text>
+<text class="k" x="30" y="44">BookController.doPost 의 세 갈래</text>
+<text class="k" x="420" y="44">주소는 «무엇에 대해», 메서드는 «무엇을»</text>
+<line x1="0" y1="56" x2="740" y2="56" stroke="#000"/>
+<rect x="30" y="80" width="300" height="34" fill="#f4f4f4" stroke="#000"/>
+<text class="m" x="42" y="102">POST /books</text>
+<line x1="54" y1="114" x2="54" y2="148" stroke="#999"/>
+<line x1="54" y1="148" x2="74" y2="148" stroke="#999"/>
+<text class="m" x="82" y="152" fill="#333">action=insert</text>
+<text class="k" x="220" y="152">도서 등록</text>
+<line x1="54" y1="114" x2="54" y2="192" stroke="#999"/>
+<line x1="54" y1="192" x2="74" y2="192" stroke="#999"/>
+<text class="m" x="82" y="196" fill="#333">action=update</text>
+<text class="k" x="220" y="196">도서 수정</text>
+<line x1="54" y1="114" x2="54" y2="236" stroke="#999"/>
+<line x1="54" y1="236" x2="74" y2="236" stroke="#999"/>
+<text class="m" x="82" y="240" fill="#333">action=delete</text>
+<text class="k" x="220" y="240">도서 삭제</text>
+<rect x="420" y="132" width="66" height="26" fill="#f4f4f4" stroke="#000"/>
+<text class="m" x="453" y="150" text-anchor="middle">POST</text>
+<text class="m" x="496" y="150">/books</text>
+<text class="k" x="630" y="150">도서 등록</text>
+<line x1="322" y1="148" x2="410" y2="148" stroke="#c00" stroke-dasharray="4 3" marker-end="url(#a4)"/>
+<rect x="420" y="176" width="66" height="26" fill="#f4f4f4" stroke="#000"/>
+<text class="m" x="453" y="194" text-anchor="middle">PUT</text>
+<text class="m" x="496" y="194">/books/{id}</text>
+<text class="k" x="630" y="194">도서 수정</text>
+<line x1="322" y1="192" x2="410" y2="192" stroke="#c00" stroke-dasharray="4 3" marker-end="url(#a4)"/>
+<rect x="420" y="220" width="66" height="26" fill="#f4f4f4" stroke="#000"/>
+<text class="m" x="453" y="238" text-anchor="middle">DELETE</text>
+<text class="m" x="496" y="238">/books/{id}</text>
+<text class="k" x="630" y="238">도서 삭제</text>
+<line x1="322" y1="236" x2="410" y2="236" stroke="#c00" stroke-dasharray="4 3" marker-end="url(#a4)"/>
+<text class="s" x="30" y="270" fill="#c00">→ 주소는 그대로 «무엇에 대해»(books) 를 가리키고, «무엇을 하는가» 는 메서드가 맡습니다.</text>
+<text class="k" x="30" y="288">현행을 바꾸지 않기로 했다면 목표 칸에 현행과 같은 주소를 적고 비고에 「현행 유지」 라고 적습니다. 칸을 비우지 않습니다.</text>
+</svg>

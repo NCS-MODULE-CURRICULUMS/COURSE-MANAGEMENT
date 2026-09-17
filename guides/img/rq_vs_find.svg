@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 281" width="760" height="281">
+<style>.m{font-family:Consolas,"D2Coding",monospace;font-size:11.5px;white-space:pre}.s{font-family:"Malgun Gothic",sans-serif;font-size:11px}.b{font-family:"Malgun Gothic",sans-serif;font-size:12px;font-weight:700}</style>
+<rect width="760" height="281" fill="#fff"/>
+<rect width="760" height="26" fill="#e9e9e9"/>
+<text class="s" x="10" y="17" fill="#222">bookrent — Visual Studio Code</text>
+<rect width="760" height="281" fill="none" stroke="#999"/>
+<line x1="0" y1="26" x2="760" y2="26" stroke="#999"/>
+<text class="s" x="12" y="48" fill="#666" letter-spacing="0.6">검색</text>
+<rect x="12" y="58" width="736" height="26" fill="#fff" stroke="#3b6fb5" stroke-width="1.6"/>
+<text class="m" x="22" y="75" fill="#111">jdbc</text>
+<text class="s" x="12" y="106" fill="#444">파일 2개에서 5건</text>
+<text class="m" x="16" y="126" fill="#111" font-weight="700">src/main/java/kr/bookrent/util/DBConnection.java</text>
+<text class="m" x="46" y="142" fill="#999" text-anchor="end">14</text>
+<text class="m" xml:space="preserve" x="58" y="142" fill="#333">    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";</text>
+<text class="m" x="46" y="159" fill="#999" text-anchor="end">18</text>
+<text class="m" xml:space="preserve" x="58" y="159" fill="#333">            "jdbc:mysql://db-a:3306/bookrent?useUnicode=true..."</text>
+<text class="m" x="16" y="176" fill="#111" font-weight="700">src/main/webapp/META-INF/context.xml</text>
+<text class="m" x="46" y="192" fill="#999" text-anchor="end">6</text>
+<text class="m" xml:space="preserve" x="58" y="192" fill="#333">  &lt;Resource name="jdbc/bookrent"</text>
+<text class="m" x="46" y="208" fill="#999" text-anchor="end">9</text>
+<text class="m" xml:space="preserve" x="58" y="208" fill="#333">            driverClassName="com.mysql.cj.jdbc.Driver"</text>
+<text class="m" x="46" y="225" fill="#999" text-anchor="end">10</text>
+<text class="m" xml:space="preserve" x="58" y="225" fill="#333">            url="jdbc:mysql://db-a:3306/bookrent?..."</text>
+<text class="s" x="12" y="267" fill="#c00">→ 찾는 말을 넣으면 어느 파일 몇째 줄인지 바로 나온다. 조사는 대부분 이것으로 끝난다.</text>
+</svg>

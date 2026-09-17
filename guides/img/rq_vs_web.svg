@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 976 303" width="976" height="303">
+<style>.m{font-family:Consolas,"D2Coding",monospace;font-size:11.5px;white-space:pre}.s{font-family:"Malgun Gothic",sans-serif;font-size:11px}.n{font-family:"Malgun Gothic",sans-serif;font-size:11px;fill:#111}</style>
+<rect width="976" height="303" fill="#ffffff"/>
+<rect width="976" height="26" fill="#e9e9e9"/>
+<text class="s" x="10" y="17" fill="#222">bookrent — Visual Studio Code</text>
+<rect y="26" width="168" height="277" fill="#f4f4f4"/>
+<text class="s" x="10" y="44" fill="#666" letter-spacing="0.6">탐색기</text>
+<rect x="168" y="26" width="598" height="24" fill="#f0f0f0"/>
+<rect x="168" y="26" width="75" height="24" fill="#ffffff"/>
+<text class="s" x="180" y="42" fill="#111">web.xml</text>
+<rect width="976" height="303" fill="none" stroke="#999"/>
+<line x1="168" y1="26" x2="168" y2="303" stroke="#ccc"/>
+<line x1="0" y1="26" x2="976" y2="26" stroke="#999"/>
+<text class="m" xml:space="preserve" x="10" y="64" fill="#000" font-weight="700">bookrent</text>
+<text class="m" xml:space="preserve" x="10" y="80" fill="#555">  src/main/webapp</text>
+<text class="m" xml:space="preserve" x="10" y="97" fill="#555">    META-INF</text>
+<text class="m" xml:space="preserve" x="10" y="114" fill="#555">    WEB-INF</text>
+<text class="m" xml:space="preserve" x="10" y="130" fill="#000" font-weight="700">      web.xml</text>
+<text class="m" xml:space="preserve" x="10" y="146" fill="#555">    book</text>
+<text class="m" xml:space="preserve" x="10" y="163" fill="#555">    index.jsp</text>
+<text class="m" x="194" y="69" fill="#999" text-anchor="end">1</text>
+<text class="m" xml:space="preserve" x="202" y="69" fill="#111">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</text>
+<text class="m" x="194" y="86" fill="#999" text-anchor="end">2</text>
+<text class="m" xml:space="preserve" x="202" y="86" fill="#111">&lt;web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"</text>
+<text class="m" x="194" y="102" fill="#999" text-anchor="end">3</text>
+<text class="m" xml:space="preserve" x="202" y="102" fill="#111">         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"</text>
+<text class="m" x="194" y="118" fill="#999" text-anchor="end">4</text>
+<text class="m" xml:space="preserve" x="202" y="118" fill="#111">         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee</text>
+<text class="m" x="194" y="135" fill="#999" text-anchor="end">5</text>
+<text class="m" xml:space="preserve" x="202" y="135" fill="#111">                             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"</text>
+<rect x="168" y="140" width="598" height="16.5" fill="#fff3bf"/>
+<text class="m" x="194" y="152" fill="#999" text-anchor="end">6</text>
+<text class="m" xml:space="preserve" x="202" y="152" fill="#111">         version="3.1"&gt;</text>
+<line x1="760" y1="148" x2="770" y2="148" stroke="#c00"/>
+<text class="n" x="774" y="152" fill="#c00">서블릿 3.1 → Tomcat 8.x 대</text>
+<text class="m" x="194" y="168" fill="#999" text-anchor="end">7</text>
+<text class="m" xml:space="preserve" x="202" y="168" fill="#111"></text>
+<text class="m" x="194" y="184" fill="#999" text-anchor="end">8</text>
+<text class="m" xml:space="preserve" x="202" y="184" fill="#111">  &lt;display-name&gt;도서 관리 시스템&lt;/display-name&gt;</text>
+<text class="m" x="194" y="201" fill="#999" text-anchor="end">9</text>
+<text class="m" xml:space="preserve" x="202" y="201" fill="#111"></text>
+<text class="m" x="194" y="218" fill="#999" text-anchor="end">10</text>
+<text class="m" xml:space="preserve" x="202" y="218" fill="#111">  &lt;!-- 도서 조회 · 등록 · 수정 · 삭제 --&gt;</text>
+<text class="m" x="194" y="234" fill="#999" text-anchor="end">11</text>
+<text class="m" xml:space="preserve" x="202" y="234" fill="#111">  &lt;servlet&gt;</text>
+<text class="m" x="194" y="250" fill="#999" text-anchor="end">12</text>
+<text class="m" xml:space="preserve" x="202" y="250" fill="#111">    &lt;servlet-name&gt;bookController&lt;/servlet-name&gt;</text>
+<text class="m" x="194" y="267" fill="#999" text-anchor="end">13</text>
+<text class="m" xml:space="preserve" x="202" y="267" fill="#111">    &lt;servlet-class&gt;kr.bookrent.controller.BookController&lt;/servlet-class&gt;</text>
+<text class="m" x="194" y="284" fill="#999" text-anchor="end">14</text>
+<text class="m" xml:space="preserve" x="202" y="284" fill="#111">  &lt;/servlet&gt;</text>
+</svg>

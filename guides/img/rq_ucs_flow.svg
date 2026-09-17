@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 742 332" width="742" height="332"><style>.s{font-family:"Malgun Gothic",sans-serif;font-size:11.5px}.b{font-family:"Malgun Gothic",sans-serif;font-size:12.5px;font-weight:700}.k{font-family:"Malgun Gothic",sans-serif;font-size:11px;fill:#666}.c{font-family:"Malgun Gothic",sans-serif;font-size:11px;font-weight:700;fill:#fff}</style>
+<defs><marker id="a2" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L9,4 L0,8" fill="none" stroke="#c00"/></marker></defs>
+<rect width="742" height="332" fill="#fff"/>
+<rect width="742" height="332" fill="none" stroke="#999"/>
+<text class="b" x="24" y="26">유스케이스 명세서 · 기본 흐름</text>
+<text class="k" x="24" y="44">st8 에서 적는다 — 네 줄</text>
+<text class="b" x="388" y="26">시퀀스 다이어그램 · 메시지</text>
+<text class="k" x="388" y="44">st10 에서 그린다 — 아홉 개</text>
+<line x1="24" y1="52" x2="324" y2="52" stroke="#000"/>
+<line x1="388" y1="52" x2="718" y2="52" stroke="#000"/>
+<circle cx="34" cy="68" r="9" fill="#000"/>
+<text class="c" x="34" y="72" text-anchor="middle">1</text>
+<text class="s" x="50" y="72">회원이 「대여 신청」 을 누른다</text>
+<circle cx="398" cy="68" r="8" fill="#555"/>
+<text class="c" x="398" y="72" text-anchor="middle" font-size="10">1</text>
+<text class="s" x="412" y="72">회원 → BookController  대여 신청(bookId)</text>
+<line x1="330" y1="68" x2="380" y2="68" stroke="#c00" stroke-dasharray="4 3" marker-end="url(#a2)"/>
+<circle cx="34" cy="100" r="9" fill="#000"/>
+<text class="c" x="34" y="104" text-anchor="middle">2</text>
+<text class="s" x="50" y="104">시스템이 로그인 여부와 도서 상태를 확인한다</text>
+<circle cx="398" cy="100" r="8" fill="#555"/>
+<text class="c" x="398" y="104" text-anchor="middle" font-size="10">2</text>
+<text class="s" x="412" y="104">BookController → RentalService</text>
+<circle cx="398" cy="120" r="8" fill="#555"/>
+<text class="c" x="398" y="124" text-anchor="middle" font-size="10">3</text>
+<text class="s" x="412" y="124">RentalService → RentalDAO  findStatus</text>
+<circle cx="398" cy="140" r="8" fill="#555"/>
+<text class="c" x="398" y="144" text-anchor="middle" font-size="10">4</text>
+<text class="s" x="412" y="144">RentalDAO → MySQL  SELECT status</text>
+<circle cx="398" cy="160" r="8" fill="#555"/>
+<text class="c" x="398" y="164" text-anchor="middle" font-size="10">5</text>
+<text class="s" x="412" y="164">MySQL → RentalDAO  status</text>
+<circle cx="398" cy="180" r="8" fill="#555"/>
+<text class="c" x="398" y="184" text-anchor="middle" font-size="10">6</text>
+<text class="s" x="412" y="184">RentalDAO → RentalService  status</text>
+<path d="M330,100 L368,100 L368,180 L380,180" fill="none" stroke="#c00" stroke-dasharray="4 3"/>
+<line x1="368" y1="100" x2="380" y2="100" stroke="#c00" marker-end="url(#a2)"/>
+<text class="k" x="334" y="116" fill="#c00">5개로 펼쳐짐</text>
+<circle cx="34" cy="212" r="9" fill="#000"/>
+<text class="c" x="34" y="216" text-anchor="middle">3</text>
+<text class="s" x="50" y="216">시스템이 대여 신청을 「승인 대기」 로 저장한다</text>
+<circle cx="398" cy="212" r="8" fill="#555"/>
+<text class="c" x="398" y="216" text-anchor="middle" font-size="10">7</text>
+<text class="s" x="412" y="216">RentalService → RentalDAO  insertRental</text>
+<line x1="330" y1="212" x2="380" y2="212" stroke="#c00" stroke-dasharray="4 3" marker-end="url(#a2)"/>
+<circle cx="34" cy="244" r="9" fill="#000"/>
+<text class="c" x="34" y="248" text-anchor="middle">4</text>
+<text class="s" x="50" y="248">시스템이 신청 번호와 안내 문구를 보여 준다</text>
+<circle cx="398" cy="244" r="8" fill="#555"/>
+<text class="c" x="398" y="248" text-anchor="middle" font-size="10">8</text>
+<text class="s" x="412" y="248">RentalService → BookController  신청 번호</text>
+<circle cx="398" cy="264" r="8" fill="#555"/>
+<text class="c" x="398" y="268" text-anchor="middle" font-size="10">9</text>
+<text class="s" x="412" y="268">BookController → 회원  신청 완료 안내</text>
+<path d="M330,244 L368,244 L368,264 L380,264" fill="none" stroke="#c00" stroke-dasharray="4 3"/>
+<line x1="368" y1="244" x2="380" y2="244" stroke="#c00" marker-end="url(#a2)"/>
+<text class="k" x="334" y="260" fill="#c00">2개로 펼쳐짐</text>
+<text class="s" x="24" y="318" fill="#c00">→ 번호가 1:1 로 가는 것이 아니다. «순서» 가 같아야 한다 (채점 ③ 12).</text>
+</svg>

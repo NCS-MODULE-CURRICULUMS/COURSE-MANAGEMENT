@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 492 227" width="492" height="227">
+<style>.m{font-family:Consolas,"D2Coding","Malgun Gothic",monospace;font-size:12.5px;white-space:pre}.t{font-family:"Malgun Gothic",sans-serif;font-size:12px;fill:#1a1a1a}</style>
+<rect width="492" height="227" fill="#0c0c0c"/>
+<rect width="492" height="28" fill="#e8e8e8"/>
+<rect width="492" height="227" fill="none" stroke="#9a9a9a"/>
+<line x1="0" y1="28" x2="492" y2="28" stroke="#9a9a9a"/>
+<text class="t" x="10" y="19">survey@was-a: ~</text>
+<text class="t" x="430" y="19" font-size="11">–</text>
+<text class="t" x="450" y="19" font-size="11">□</text>
+<text class="t" x="470" y="19" font-size="11">✕</text>
+<text class="m" xml:space="preserve" x="12" y="52" fill="#8a8a8a" font-style="italic">[흔히 하는 실수] 이 서버에 깔린 접속 도구의 판을 적어 버린다</text>
+<text class="m" xml:space="preserve" x="12" y="70" fill="#ffffff" font-weight="700">survey@was-a:~$ mysql --version</text>
+<text class="m" xml:space="preserve" x="12" y="87" fill="#cccccc">mysql  Ver 8.0.46-0ubuntu0.22.04.4 for Linux on x86_64</text>
+<text class="m" xml:space="preserve" x="12" y="104" fill="#8a8a8a" font-style="italic">            ↑ 8.0 — 이것은 «도구» 의 판이다</text>
+<text class="m" xml:space="preserve" x="12" y="122" fill="#cccccc"></text>
+<text class="m" xml:space="preserve" x="12" y="140" fill="#8a8a8a" font-style="italic">[바른 방법] 데이터베이스 «서버» 에 직접 물어본다</text>
+<text class="m" xml:space="preserve" x="12" y="157" fill="#ffffff" font-weight="700">survey@was-a:~$ mysqladmin -h db-a -uroot -p version</text>
+<text class="m" xml:space="preserve" x="12" y="174" fill="#cccccc">Enter password:</text>
+<text class="m" xml:space="preserve" x="12" y="192" fill="#cccccc">Server version          5.7.44</text>
+<text class="m" xml:space="preserve" x="12" y="210" fill="#8a8a8a" font-style="italic">                        ↑ 5.7 — 조사표에 적을 값은 이쪽이다</text>
+</svg>

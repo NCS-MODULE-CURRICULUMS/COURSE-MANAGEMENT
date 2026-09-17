@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 968 550" width="968" height="550">
+<style>.m{font-family:Consolas,"D2Coding",monospace;font-size:11.5px;white-space:pre}.s{font-family:"Malgun Gothic",sans-serif;font-size:11px}.n{font-family:"Malgun Gothic",sans-serif;font-size:11px;fill:#111}</style>
+<rect width="968" height="550" fill="#ffffff"/>
+<rect width="968" height="26" fill="#e9e9e9"/>
+<text class="s" x="10" y="17" fill="#222">bookrent — Visual Studio Code</text>
+<rect y="26" width="168" height="524" fill="#f4f4f4"/>
+<text class="s" x="10" y="44" fill="#666" letter-spacing="0.6">탐색기</text>
+<rect x="168" y="26" width="604" height="24" fill="#f0f0f0"/>
+<rect x="168" y="26" width="159" height="24" fill="#ffffff"/>
+<text class="s" x="180" y="42" fill="#111">BookController.java</text>
+<rect width="968" height="550" fill="none" stroke="#999"/>
+<line x1="168" y1="26" x2="168" y2="550" stroke="#ccc"/>
+<line x1="0" y1="26" x2="968" y2="26" stroke="#999"/>
+<text class="m" xml:space="preserve" x="10" y="64" fill="#555">bookrent</text>
+<text class="m" xml:space="preserve" x="10" y="80" fill="#555">  src/main/java</text>
+<text class="m" xml:space="preserve" x="10" y="97" fill="#555">    controller</text>
+<text class="m" xml:space="preserve" x="10" y="114" fill="#000" font-weight="700">      BookController.java</text>
+<text class="m" xml:space="preserve" x="10" y="130" fill="#555">    dao</text>
+<text class="m" xml:space="preserve" x="10" y="146" fill="#555">    model</text>
+<text class="m" xml:space="preserve" x="10" y="163" fill="#555">    util</text>
+<rect x="168" y="57" width="604" height="16.5" fill="#fff3bf"/>
+<text class="m" x="194" y="69" fill="#999" text-anchor="end">25</text>
+<text class="m" xml:space="preserve" x="202" y="69" fill="#111">    protected void doGet(HttpServletRequest req, HttpServletResponse res)</text>
+<line x1="766" y1="65" x2="776" y2="65" stroke="#c00"/>
+<text class="n" x="780" y="69" fill="#c00">보여 주는 요청</text>
+<text class="m" x="194" y="86" fill="#999" text-anchor="end">26</text>
+<text class="m" xml:space="preserve" x="202" y="86" fill="#111">            throws ServletException, IOException {</text>
+<text class="m" x="194" y="102" fill="#999" text-anchor="end">27</text>
+<text class="m" xml:space="preserve" x="202" y="102" fill="#111">        req.setCharacterEncoding("UTF-8");</text>
+<text class="m" x="194" y="118" fill="#999" text-anchor="end">28</text>
+<text class="m" xml:space="preserve" x="202" y="118" fill="#111">        String keyword = req.getParameter("keyword");</text>
+<text class="m" x="194" y="135" fill="#999" text-anchor="end">29</text>
+<text class="m" xml:space="preserve" x="202" y="135" fill="#111"></text>
+<text class="m" x="194" y="152" fill="#999" text-anchor="end">30</text>
+<text class="m" xml:space="preserve" x="202" y="152" fill="#111">        try {</text>
+<rect x="168" y="156" width="604" height="16.5" fill="#fff3bf"/>
+<text class="m" x="194" y="168" fill="#999" text-anchor="end">31</text>
+<text class="m" xml:space="preserve" x="202" y="168" fill="#111">            if (keyword != null &amp;&amp; keyword.trim().length() &gt; 0) {</text>
+<line x1="766" y1="164" x2="776" y2="164" stroke="#c00"/>
+<text class="n" x="780" y="168" fill="#c00">갈래 1 — 키워드 조회</text>
+<text class="m" x="194" y="184" fill="#999" text-anchor="end">32</text>
+<text class="m" xml:space="preserve" x="202" y="184" fill="#111">                req.setAttribute("books", bookDAO.findByKeyword(keyword.trim()));</text>
+<text class="m" x="194" y="201" fill="#999" text-anchor="end">33</text>
+<text class="m" xml:space="preserve" x="202" y="201" fill="#111">                req.setAttribute("keyword", keyword.trim());</text>
+<rect x="168" y="206" width="604" height="16.5" fill="#fff3bf"/>
+<text class="m" x="194" y="218" fill="#999" text-anchor="end">34</text>
+<text class="m" xml:space="preserve" x="202" y="218" fill="#111">            } else {</text>
+<line x1="766" y1="214" x2="776" y2="214" stroke="#c00"/>
+<text class="n" x="780" y="218" fill="#c00">갈래 2 — 전체 조회</text>
+<text class="m" x="194" y="234" fill="#999" text-anchor="end">35</text>
+<text class="m" xml:space="preserve" x="202" y="234" fill="#111">                req.setAttribute("books", bookDAO.findAll());</text>
+<text class="m" x="194" y="250" fill="#999" text-anchor="end">36</text>
+<text class="m" xml:space="preserve" x="202" y="250" fill="#111">            }</text>
+<text class="m" xml:space="preserve" x="202" y="267" fill="#bbb">  ⋮</text>
+<rect x="168" y="272" width="604" height="16.5" fill="#fff3bf"/>
+<text class="m" x="194" y="284" fill="#999" text-anchor="end">45</text>
+<text class="m" xml:space="preserve" x="202" y="284" fill="#111">    protected void doPost(HttpServletRequest req, HttpServletResponse res)</text>
+<line x1="766" y1="280" x2="776" y2="280" stroke="#c00"/>
+<text class="n" x="780" y="284" fill="#c00">바꾸는 요청</text>
+<text class="m" x="194" y="300" fill="#999" text-anchor="end">46</text>
+<text class="m" xml:space="preserve" x="202" y="300" fill="#111">            throws ServletException, IOException {</text>
+<text class="m" x="194" y="316" fill="#999" text-anchor="end">47</text>
+<text class="m" xml:space="preserve" x="202" y="316" fill="#111">        req.setCharacterEncoding("UTF-8");</text>
+<text class="m" x="194" y="333" fill="#999" text-anchor="end">48</text>
+<text class="m" xml:space="preserve" x="202" y="333" fill="#111">        String action = req.getParameter("action");</text>
+<text class="m" x="194" y="350" fill="#999" text-anchor="end">49</text>
+<text class="m" xml:space="preserve" x="202" y="350" fill="#111"></text>
+<text class="m" x="194" y="366" fill="#999" text-anchor="end">50</text>
+<text class="m" xml:space="preserve" x="202" y="366" fill="#111">        try {</text>
+<rect x="168" y="370" width="604" height="16.5" fill="#fff3bf"/>
+<text class="m" x="194" y="382" fill="#999" text-anchor="end">51</text>
+<text class="m" xml:space="preserve" x="202" y="382" fill="#111">            if ("delete".equals(action)) {</text>
+<line x1="766" y1="378" x2="776" y2="378" stroke="#c00"/>
+<text class="n" x="780" y="382" fill="#c00">갈래 1 — 삭제</text>
+<text class="m" x="194" y="399" fill="#999" text-anchor="end">52</text>
+<text class="m" xml:space="preserve" x="202" y="399" fill="#111">                bookDAO.delete(Integer.parseInt(req.getParameter("id")));</text>
+<rect x="168" y="404" width="604" height="16.5" fill="#fff3bf"/>
+<text class="m" x="194" y="416" fill="#999" text-anchor="end">53</text>
+<text class="m" xml:space="preserve" x="202" y="416" fill="#111">            } else if ("update".equals(action)) {</text>
+<line x1="766" y1="412" x2="776" y2="412" stroke="#c00"/>
+<text class="n" x="780" y="416" fill="#c00">갈래 2 — 수정</text>
+<text class="m" x="194" y="432" fill="#999" text-anchor="end">54</text>
+<text class="m" xml:space="preserve" x="202" y="432" fill="#111">                bookDAO.update(Integer.parseInt(req.getParameter("id")),</text>
+<text class="m" x="194" y="448" fill="#999" text-anchor="end">55</text>
+<text class="m" xml:space="preserve" x="202" y="448" fill="#111">                               req.getParameter("title"),</text>
+<text class="m" x="194" y="465" fill="#999" text-anchor="end">56</text>
+<text class="m" xml:space="preserve" x="202" y="465" fill="#111">                               req.getParameter("author"),</text>
+<text class="m" x="194" y="482" fill="#999" text-anchor="end">57</text>
+<text class="m" xml:space="preserve" x="202" y="482" fill="#111">                               req.getParameter("publisher"));</text>
+<rect x="168" y="486" width="604" height="16.5" fill="#fff3bf"/>
+<text class="m" x="194" y="498" fill="#999" text-anchor="end">58</text>
+<text class="m" xml:space="preserve" x="202" y="498" fill="#111">            } else {</text>
+<line x1="766" y1="494" x2="776" y2="494" stroke="#c00"/>
+<text class="n" x="780" y="498" fill="#c00">갈래 3 — 등록</text>
+<text class="m" x="194" y="514" fill="#999" text-anchor="end">59</text>
+<text class="m" xml:space="preserve" x="202" y="514" fill="#111">                bookDAO.insert(req.getParameter("title"),</text>
+<text class="m" x="194" y="531" fill="#999" text-anchor="end">60</text>
+<text class="m" xml:space="preserve" x="202" y="531" fill="#111">                               req.getParameter("author"),</text>
+<text class="m" x="194" y="548" fill="#999" text-anchor="end">61</text>
+<text class="m" xml:space="preserve" x="202" y="548" fill="#111">                               req.getParameter("publisher"));</text>
+</svg>

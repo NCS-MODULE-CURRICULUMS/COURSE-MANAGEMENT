@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 990 495" width="990" height="495"><style>.s{font-family:"Malgun Gothic",sans-serif;font-size:11.5px}.t{font-family:"Malgun Gothic",sans-serif;font-size:12px}.b{font-family:"Malgun Gothic",sans-serif;font-size:12px;font-weight:700}.c{font-family:"Malgun Gothic",sans-serif;font-size:11.5px;font-weight:700;fill:#fff}</style>
+<defs><marker id="ar" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0,0 L8,3.5 L0,7" fill="none" stroke="#666"/></marker></defs>
+<rect width="990" height="495" fill="#fff"/>
+<rect width="990" height="26" fill="#e9e9e9"/>
+<text class="s" x="10" y="17" fill="#222">draw.io — 6단계 · «include» 로 공통 동작 묶기</text>
+<rect y="26" width="150" height="469" fill="#f7f7f7"/>
+<rect width="990" height="495" fill="none" stroke="#999"/>
+<line x1="0" y1="26" x2="990" y2="26" stroke="#999"/>
+<line x1="150" y1="26" x2="150" y2="495" stroke="#ccc"/>
+<rect x="8" y="34" width="134" height="22" fill="#fff" stroke="#aaa"/>
+<text class="s" x="14" y="49" fill="#999">도형 검색</text>
+<text class="s" x="14" y="82" fill="#222" font-weight="700">UML</text>
+<circle cx="30" cy="104" r="6" fill="none" stroke="#000"/><line x1="30" y1="110" x2="30" y2="126" stroke="#000"/><line x1="21" y1="116" x2="39" y2="116" stroke="#000"/><line x1="30" y1="126" x2="22" y2="138" stroke="#000"/><line x1="30" y1="126" x2="38" y2="138" stroke="#000"/><text class="s" x="30" y="153" text-anchor="middle"></text>
+<text class="s" x="70" y="124" fill="#222">액터</text>
+<rect x="18" y="153" width="38" height="18" rx="9" fill="#fff" stroke="#000"/>
+<text class="s" x="70" y="166" fill="#222">유스케이스</text>
+<rect x="18" y="195" width="38" height="18" fill="#fff" stroke="#000"/>
+<text class="s" x="70" y="208" fill="#222">사각형</text>
+<rect x="6" y="232" width="138" height="30" fill="#cfe3ff" stroke="#3b6fb5"/>
+<line x1="18" y1="246" x2="56" y2="246" stroke="#000"/>
+<text class="s" x="70" y="250" fill="#222">선</text>
+<g transform="translate(150,26)"><rect x="158" y="44" width="396" height="330" fill="none" stroke="#000"/>
+<text class="b" x="356.0" y="64" text-anchor="middle">도서 대여 시스템</text>
+<line x1="158" y1="72" x2="554" y2="72" stroke="#000"/>
+<circle cx="92" cy="134" r="6" fill="none" stroke="#000"/><line x1="92" y1="140" x2="92" y2="156" stroke="#000"/><line x1="83" y1="146" x2="101" y2="146" stroke="#000"/><line x1="92" y1="156" x2="84" y2="168" stroke="#000"/><line x1="92" y1="156" x2="100" y2="168" stroke="#000"/><text class="s" x="92" y="183" text-anchor="middle">비회원</text>
+<circle cx="92" cy="274" r="6" fill="none" stroke="#000"/><line x1="92" y1="280" x2="92" y2="296" stroke="#000"/><line x1="83" y1="286" x2="101" y2="286" stroke="#000"/><line x1="92" y1="296" x2="84" y2="308" stroke="#000"/><line x1="92" y1="296" x2="100" y2="308" stroke="#000"/><text class="s" x="92" y="323" text-anchor="middle">회원</text>
+<circle cx="604" cy="194" r="6" fill="none" stroke="#000"/><line x1="604" y1="200" x2="604" y2="216" stroke="#000"/><line x1="595" y1="206" x2="613" y2="206" stroke="#000"/><line x1="604" y1="216" x2="596" y2="228" stroke="#000"/><line x1="604" y1="216" x2="612" y2="228" stroke="#000"/><text class="s" x="604" y="243" text-anchor="middle">관리자</text>
+<rect x="182.0" y="83" width="140" height="34" rx="17" fill="#fff" stroke="#000"/><text class="s" x="252" y="104" text-anchor="middle">도서 조회</text>
+<rect x="182.0" y="129" width="140" height="34" rx="17" fill="#fff" stroke="#000"/><text class="s" x="252" y="150" text-anchor="middle">도서 등록·수정·삭제</text>
+<rect x="182.0" y="183" width="140" height="34" rx="17" fill="#f2f2f2" stroke="#000" stroke-dasharray="5 3"/><text class="s" x="252" y="204" text-anchor="middle">회원가입</text>
+<rect x="182.0" y="229" width="140" height="34" rx="17" fill="#f2f2f2" stroke="#000" stroke-dasharray="5 3"/><text class="s" x="252" y="250" text-anchor="middle">로그인·로그아웃</text>
+<rect x="182.0" y="275" width="140" height="34" rx="17" fill="#f2f2f2" stroke="#000" stroke-dasharray="5 3"/><text class="s" x="252" y="296" text-anchor="middle">대여 요청</text>
+<rect x="182.0" y="321" width="140" height="34" rx="17" fill="#f2f2f2" stroke="#000" stroke-dasharray="5 3"/><text class="s" x="252" y="342" text-anchor="middle">반납 요청</text>
+<rect x="388.0" y="175" width="132" height="34" rx="17" fill="#f2f2f2" stroke="#000" stroke-dasharray="5 3"/><text class="s" x="454" y="196" text-anchor="middle">대여 승인</text>
+<rect x="388.0" y="271" width="132" height="34" rx="17" fill="#f2f2f2" stroke="#000" stroke-dasharray="5 3"/><text class="s" x="454" y="292" text-anchor="middle">반납 처리</text>
+<line x1="108" y1="150" x2="182.0" y2="100" stroke="#666"/>
+<line x1="108" y1="150" x2="182.0" y2="200" stroke="#666"/>
+<line x1="108" y1="290" x2="182.0" y2="100" stroke="#666"/>
+<line x1="108" y1="290" x2="182.0" y2="246" stroke="#666"/>
+<line x1="108" y1="290" x2="182.0" y2="292" stroke="#666"/>
+<line x1="108" y1="290" x2="182.0" y2="338" stroke="#666"/>
+<line x1="588" y1="210" x2="322.0" y2="146" stroke="#666"/>
+<line x1="588" y1="210" x2="520.0" y2="192" stroke="#666"/>
+<line x1="588" y1="210" x2="520.0" y2="288" stroke="#666"/>
+<rect x="388.0" y="87" width="132" height="34" rx="17" fill="#f2f2f2" stroke="#000" stroke-dasharray="5 3"/><text class="s" x="454" y="108" text-anchor="middle">인증 확인</text>
+<line x1="322.0" y1="292" x2="388.0" y2="116" stroke="#666" stroke-dasharray="5 3" marker-end="url(#ar)"/>
+<line x1="520.0" y1="288" x2="388.0" y2="116" stroke="#666" stroke-dasharray="5 3" marker-end="url(#ar)"/>
+<text class="s" x="346" y="150" fill="#444">&#171;include&#187;</text></g>
+<rect x="840" y="26" width="150" height="469" fill="#f7f7f7"/>
+<line x1="840" y1="26" x2="840" y2="495" stroke="#ccc"/>
+<text class="b" x="852" y="50">서식</text>
+<text class="s" x="854" y="81" fill="#111">선</text>
+<rect x="846" y="94" width="138" height="24" fill="#cfe3ff" stroke="#3b6fb5"/>
+<text class="s" x="854" y="111" fill="#111" font-weight="700">  선 스타일</text>
+<rect x="846" y="124" width="138" height="24" fill="#cfe3ff" stroke="#3b6fb5"/>
+<text class="s" x="854" y="141" fill="#111" font-weight="700">    점선  ←</text>
+<rect x="846" y="154" width="138" height="24" fill="#cfe3ff" stroke="#3b6fb5"/>
+<text class="s" x="854" y="171" fill="#111" font-weight="700">  화살표 끝</text>
+<rect x="846" y="184" width="138" height="24" fill="#cfe3ff" stroke="#3b6fb5"/>
+<text class="s" x="854" y="201" fill="#111" font-weight="700">    열린 화살표  ←</text>
+<circle cx="164" cy="446" r="8" fill="#000"/><text class="c" x="164" y="450" text-anchor="middle">1</text>
+<text class="s" x="178" y="450" fill="#111">공통으로 쓰는 «인증 확인» 타원을 놓는다</text>
+<circle cx="164" cy="465" r="8" fill="#000"/><text class="c" x="164" y="469" text-anchor="middle">2</text>
+<text class="s" x="178" y="469" fill="#111">부르는 쪽 → 불리는 쪽 으로 점선 화살표를 긋는다</text>
+<circle cx="164" cy="484" r="8" fill="#000"/><text class="c" x="164" y="488" text-anchor="middle">3</text>
+<text class="s" x="178" y="488" fill="#111">선을 두 번 눌러 «include» 라고 적는다</text>
+</svg>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 378" width="720" height="378"><style>.s{font-family:"Malgun Gothic",sans-serif;font-size:11.5px}.b{font-family:"Malgun Gothic",sans-serif;font-size:12px;font-weight:700}.k{font-family:"Malgun Gothic",sans-serif;font-size:11px;fill:#666}.m{font-family:Consolas,"D2Coding",monospace;font-size:11px}</style>
+<defs><marker id="dn" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L9,4 L0,8" fill="#000"/></marker><marker id="up" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto"><path d="M0,0 L9,4 L0,8" fill="none" stroke="#c00"/></marker></defs>
+<rect width="720" height="378" fill="#fff"/>
+<rect width="720" height="378" fill="none" stroke="#999"/>
+<text class="b" x="18" y="24">왜 다섯 개로 나뉘는가 — 식당에 견주면</text>
+<text class="k" x="18" y="44">손님이 창고에 직접 들어가지 않듯이, 회원도 데이터베이스에 직접 가지 않습니다.</text>
+<line x1="0" y1="54" x2="720" y2="54" stroke="#000"/>
+<text class="k" x="30" y="68">식당</text>
+<text class="k" x="200" y="68">시퀀스의 생명선</text>
+<text class="k" x="392" y="68">하는 일</text>
+<rect x="22" y="88" width="120" height="30" fill="#f4f4f4" stroke="#999"/>
+<text class="s" x="82" y="108" text-anchor="middle">손님</text>
+<rect x="184" y="88" width="160" height="30" fill="#fff" stroke="#000"/>
+<text class="m" x="264" y="108" text-anchor="middle">회원</text>
+<text class="s" x="392" y="102">주문을 한다</text>
+<text class="k" x="392" y="117">액터</text>
+<line x1="150" y1="118" x2="150" y2="140" stroke="#000" marker-end="url(#dn)"/>
+<line x1="170" y1="140" x2="170" y2="118" stroke="#c00" stroke-dasharray="4 3" marker-end="url(#up)"/>
+<rect x="22" y="140" width="120" height="30" fill="#f4f4f4" stroke="#999"/>
+<text class="s" x="82" y="160" text-anchor="middle">종업원</text>
+<rect x="184" y="140" width="160" height="30" fill="#fff" stroke="#000"/>
+<text class="m" x="264" y="160" text-anchor="middle">BookController</text>
+<text class="s" x="392" y="154">주문을 받아 주방에 넘긴다</text>
+<text class="k" x="392" y="169">화면 요청을 받는 곳</text>
+<line x1="150" y1="170" x2="150" y2="192" stroke="#000" marker-end="url(#dn)"/>
+<line x1="170" y1="192" x2="170" y2="170" stroke="#c00" stroke-dasharray="4 3" marker-end="url(#up)"/>
+<rect x="22" y="192" width="120" height="30" fill="#f4f4f4" stroke="#999"/>
+<text class="s" x="82" y="212" text-anchor="middle">주방장</text>
+<rect x="184" y="192" width="160" height="30" fill="#fff" stroke="#000"/>
+<text class="m" x="264" y="212" text-anchor="middle">RentalService</text>
+<text class="s" x="392" y="206">만들지 말지 «규칙» 을 따진다</text>
+<text class="k" x="392" y="221">업무 규칙</text>
+<line x1="150" y1="222" x2="150" y2="244" stroke="#000" marker-end="url(#dn)"/>
+<line x1="170" y1="244" x2="170" y2="222" stroke="#c00" stroke-dasharray="4 3" marker-end="url(#up)"/>
+<rect x="22" y="244" width="120" height="30" fill="#f4f4f4" stroke="#999"/>
+<text class="s" x="82" y="264" text-anchor="middle">창고 담당</text>
+<rect x="184" y="244" width="160" height="30" fill="#fff" stroke="#000"/>
+<text class="m" x="264" y="264" text-anchor="middle">RentalDAO</text>
+<text class="s" x="392" y="258">재료를 꺼내 오고 넣는다</text>
+<text class="k" x="392" y="273">데이터 입출력</text>
+<line x1="150" y1="274" x2="150" y2="296" stroke="#000" marker-end="url(#dn)"/>
+<line x1="170" y1="296" x2="170" y2="274" stroke="#c00" stroke-dasharray="4 3" marker-end="url(#up)"/>
+<rect x="22" y="296" width="120" height="30" fill="#f4f4f4" stroke="#999"/>
+<text class="s" x="82" y="316" text-anchor="middle">창고</text>
+<rect x="184" y="296" width="160" height="30" fill="#fff" stroke="#000"/>
+<text class="m" x="264" y="316" text-anchor="middle">MySQL</text>
+<text class="s" x="392" y="310">재료가 실제로 쌓여 있는 곳</text>
+<text class="k" x="392" y="325">데이터베이스</text>
+<text class="s" x="18" y="348">검은 화살표 = 부탁하러 «내려가는» 길 (실선)</text>
+<text class="s" x="18" y="366" fill="#c00">붉은 화살표 = 답을 가지고 «올라오는» 길 (점선) — 그래서 메시지가 왕복합니다</text>
+</svg>

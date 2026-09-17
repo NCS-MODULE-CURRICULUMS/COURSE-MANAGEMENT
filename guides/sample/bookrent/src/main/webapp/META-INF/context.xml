@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/bookrent" reloadable="true">
+
+  <!-- 운영 데이터베이스 접속 정보
+       db-a 는 데이터베이스 서버의 이름이고, 3306 은 MySQL 이 쓰는 포트다. -->
+  <Resource name="jdbc/bookrent"
+            auth="Container"
+            type="javax.sql.DataSource"
+            driverClassName="com.mysql.cj.jdbc.Driver"
+            url="jdbc:mysql://db-a:3306/bookrent?useUnicode=true&amp;characterEncoding=UTF-8"
+            username="root"
+            password="bookrent"
+            maxTotal="20"
+            maxIdle="5"
+            maxWaitMillis="10000"/>
+
+</Context>

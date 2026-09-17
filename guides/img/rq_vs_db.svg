@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1065 237" width="1065" height="237">
+<style>.m{font-family:Consolas,"D2Coding",monospace;font-size:11.5px;white-space:pre}.s{font-family:"Malgun Gothic",sans-serif;font-size:11px}.n{font-family:"Malgun Gothic",sans-serif;font-size:11px;fill:#111}</style>
+<rect width="1065" height="237" fill="#ffffff"/>
+<rect width="1065" height="26" fill="#e9e9e9"/>
+<text class="s" x="10" y="17" fill="#222">bookrent — Visual Studio Code</text>
+<rect y="26" width="168" height="211" fill="#f4f4f4"/>
+<text class="s" x="10" y="44" fill="#666" letter-spacing="0.6">탐색기</text>
+<rect x="168" y="26" width="687" height="24" fill="#f0f0f0"/>
+<rect x="168" y="26" width="103" height="24" fill="#ffffff"/>
+<text class="s" x="180" y="42" fill="#111">context.xml</text>
+<rect width="1065" height="237" fill="none" stroke="#999"/>
+<line x1="168" y1="26" x2="168" y2="237" stroke="#ccc"/>
+<line x1="0" y1="26" x2="1065" y2="26" stroke="#999"/>
+<text class="m" xml:space="preserve" x="10" y="64" fill="#000" font-weight="700">bookrent</text>
+<text class="m" xml:space="preserve" x="10" y="80" fill="#555">  src/main/webapp</text>
+<text class="m" xml:space="preserve" x="10" y="97" fill="#555">    META-INF</text>
+<text class="m" xml:space="preserve" x="10" y="114" fill="#000" font-weight="700">      context.xml</text>
+<text class="m" xml:space="preserve" x="10" y="130" fill="#555">    WEB-INF</text>
+<text class="m" xml:space="preserve" x="10" y="146" fill="#555">      web.xml</text>
+<text class="m" xml:space="preserve" x="10" y="163" fill="#555">    book</text>
+<text class="m" xml:space="preserve" x="10" y="180" fill="#555">    index.jsp</text>
+<text class="m" x="194" y="69" fill="#999" text-anchor="end">4</text>
+<text class="m" xml:space="preserve" x="202" y="69" fill="#111">  &lt;!-- 운영 데이터베이스 접속 정보</text>
+<text class="m" x="194" y="86" fill="#999" text-anchor="end">5</text>
+<text class="m" xml:space="preserve" x="202" y="86" fill="#111">       db-a 는 데이터베이스 서버의 이름이고, 3306 은 MySQL 이 쓰는 포트다. --&gt;</text>
+<text class="m" x="194" y="102" fill="#999" text-anchor="end">6</text>
+<text class="m" xml:space="preserve" x="202" y="102" fill="#111">  &lt;Resource name="jdbc/bookrent"</text>
+<text class="m" x="194" y="118" fill="#999" text-anchor="end">7</text>
+<text class="m" xml:space="preserve" x="202" y="118" fill="#111">            auth="Container"</text>
+<text class="m" x="194" y="135" fill="#999" text-anchor="end">8</text>
+<text class="m" xml:space="preserve" x="202" y="135" fill="#111">            type="javax.sql.DataSource"</text>
+<rect x="168" y="140" width="687" height="16.5" fill="#fff3bf"/>
+<text class="m" x="194" y="152" fill="#999" text-anchor="end">9</text>
+<text class="m" xml:space="preserve" x="202" y="152" fill="#111">            driverClassName="com.mysql.cj.jdbc.Driver"</text>
+<line x1="849" y1="148" x2="859" y2="148" stroke="#c00"/>
+<text class="n" x="863" y="152" fill="#c00">무슨 데이터베이스인가</text>
+<rect x="168" y="156" width="687" height="16.5" fill="#fff3bf"/>
+<text class="m" x="194" y="168" fill="#999" text-anchor="end">10</text>
+<text class="m" xml:space="preserve" x="202" y="168" fill="#111">            url="jdbc:mysql://db-a:3306/bookrent?useUnicode=true&amp;amp;characterEncoding=UTF-8"</text>
+<line x1="849" y1="164" x2="859" y2="164" stroke="#c00"/>
+<text class="n" x="863" y="168" fill="#c00">서버 이름 db-a · 포트 3306</text>
+<text class="m" x="194" y="184" fill="#999" text-anchor="end">11</text>
+<text class="m" xml:space="preserve" x="202" y="184" fill="#111">            username="root"</text>
+<text class="m" x="194" y="201" fill="#999" text-anchor="end">12</text>
+<text class="m" xml:space="preserve" x="202" y="201" fill="#111">            password="bookrent"</text>
+<text class="m" x="194" y="218" fill="#999" text-anchor="end">13</text>
+<text class="m" xml:space="preserve" x="202" y="218" fill="#111">            maxTotal="20"</text>
+</svg>

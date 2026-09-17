@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 492" width="760" height="492"><style>.s{font-family:"Malgun Gothic",sans-serif;font-size:11.5px}.b{font-family:"Malgun Gothic",sans-serif;font-size:12.5px;font-weight:700}.k{font-family:"Malgun Gothic",sans-serif;font-size:11px;fill:#555}</style>
+<defs><marker id="open" markerWidth="12" markerHeight="10" refX="11" refY="5" orient="auto"><path d="M1,1 L11,5 L1,9" fill="none" stroke="#000"/></marker><marker id="tri" markerWidth="14" markerHeight="12" refX="13" refY="6" orient="auto"><path d="M1,1 L13,6 L1,11 Z" fill="#fff" stroke="#000"/></marker></defs>
+<rect width="760" height="492" fill="#fff"/>
+<rect width="760" height="492" fill="none" stroke="#999"/>
+<text class="b" x="18" y="26">유스케이스 다이어그램의 관계 네 가지 — 선 모양과 방향</text>
+<line x1="0" y1="38" x2="760" y2="38" stroke="#000"/>
+<text class="b" x="18" y="80">연관</text>
+<text class="k" x="18" y="98">액터 — 유스케이스</text>
+<circle cx="230" cy="79" r="5.5" fill="none" stroke="#000"/><line x1="230" y1="84.5" x2="230" y2="99" stroke="#000"/><line x1="222" y1="91" x2="238" y2="91" stroke="#000"/><line x1="230" y1="99" x2="223" y2="110" stroke="#000"/><line x1="230" y1="99" x2="237" y2="110" stroke="#000"/><text class="s" x="230" y="125" text-anchor="middle">회원</text>
+<rect x="342.0" y="78" width="116" height="32" rx="16" fill="#fff" stroke="#000"/><text class="s" x="400" y="98" text-anchor="middle">대여 요청</text>
+<line x1="248" y1="94" x2="342" y2="94" stroke="#000"/>
+<text class="s" x="742" y="98" text-anchor="end" fill="#c00">방향 없음 · 화살표를 붙이지 않는다</text>
+<line x1="18" y1="152" x2="742" y2="152" stroke="#ddd"/>
+<text class="b" x="18" y="184">« include »</text>
+<text class="k" x="18" y="202">공통 동작을 빼낼 때</text>
+<rect x="212.0" y="182" width="116" height="32" rx="16" fill="#fff" stroke="#000"/><text class="s" x="270" y="202" text-anchor="middle">대여 요청</text>
+<rect x="412.0" y="182" width="116" height="32" rx="16" fill="#fff" stroke="#000"/><text class="s" x="470" y="202" text-anchor="middle">인증 확인</text>
+<line x1="328" y1="198" x2="406" y2="198" stroke="#000" stroke-dasharray="5 3" marker-end="url(#open)"/>
+<text class="k" x="367" y="188" text-anchor="middle">&#171;include&#187;</text>
+<text class="s" x="742" y="202" text-anchor="end" fill="#c00">부르는 쪽 → 불리는 쪽</text>
+<line x1="18" y1="256" x2="742" y2="256" stroke="#ddd"/>
+<text class="b" x="18" y="288">« extend »</text>
+<text class="k" x="18" y="306">어떤 조건일 때만 붙을 때</text>
+<rect x="212.0" y="286" width="116" height="32" rx="16" fill="#fff" stroke="#000"/><text class="s" x="270" y="306" text-anchor="middle">대여 연장</text>
+<rect x="412.0" y="286" width="116" height="32" rx="16" fill="#fff" stroke="#000"/><text class="s" x="470" y="306" text-anchor="middle">대여 요청</text>
+<line x1="328" y1="302" x2="406" y2="302" stroke="#000" stroke-dasharray="5 3" marker-end="url(#open)"/>
+<text class="k" x="367" y="292" text-anchor="middle">&#171;extend&#187;</text>
+<text class="s" x="742" y="306" text-anchor="end" fill="#c00">더하는 쪽 → 원래 쪽  (include 와 반대)</text>
+<line x1="18" y1="360" x2="742" y2="360" stroke="#ddd"/>
+<text class="b" x="18" y="392">일반화 (상속)</text>
+<text class="k" x="18" y="410">한 액터가 다른 액터의 일을 모두 할 때</text>
+<circle cx="230" cy="391" r="5.5" fill="none" stroke="#000"/><line x1="230" y1="396.5" x2="230" y2="411" stroke="#000"/><line x1="222" y1="403" x2="238" y2="403" stroke="#000"/><line x1="230" y1="411" x2="223" y2="422" stroke="#000"/><line x1="230" y1="411" x2="237" y2="422" stroke="#000"/><text class="s" x="230" y="437" text-anchor="middle">회원</text>
+<circle cx="420" cy="391" r="5.5" fill="none" stroke="#000"/><line x1="420" y1="396.5" x2="420" y2="411" stroke="#000"/><line x1="412" y1="403" x2="428" y2="403" stroke="#000"/><line x1="420" y1="411" x2="413" y2="422" stroke="#000"/><line x1="420" y1="411" x2="427" y2="422" stroke="#000"/><text class="s" x="420" y="437" text-anchor="middle">비회원</text>
+<line x1="248" y1="406" x2="396" y2="406" stroke="#000" marker-end="url(#tri)"/>
+<text class="s" x="742" y="410" text-anchor="end" fill="#c00">자식 → 부모 · 속이 «빈» 삼각형</text>
+<text class="s" x="18" y="480" fill="#555">include 와 extend 는 선 모양이 «같고» 방향만 다릅니다. 여기서 가장 많이 틀립니다.</text>
+</svg>

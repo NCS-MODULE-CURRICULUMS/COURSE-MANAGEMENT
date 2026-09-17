@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 499 332" width="499" height="332">
+<style>.m{font-family:Consolas,"D2Coding","Malgun Gothic",monospace;font-size:12.5px;white-space:pre}.t{font-family:"Malgun Gothic",sans-serif;font-size:12px;fill:#1a1a1a}</style>
+<rect width="499" height="332" fill="#0c0c0c"/>
+<rect width="499" height="28" fill="#e8e8e8"/>
+<rect width="499" height="332" fill="none" stroke="#9a9a9a"/>
+<line x1="0" y1="28" x2="499" y2="28" stroke="#9a9a9a"/>
+<text class="t" x="10" y="19">survey@was-a: ~</text>
+<text class="t" x="437" y="19" font-size="11">–</text>
+<text class="t" x="457" y="19" font-size="11">□</text>
+<text class="t" x="477" y="19" font-size="11">✕</text>
+<text class="m" xml:space="preserve" x="12" y="52" fill="#ffffff" font-weight="700">survey@was-a:~$ survey</text>
+<text class="m" xml:space="preserve" x="12" y="70" fill="#cccccc">===== 운행환경 조사 : was-a : 2026-09-17 07:39 =====</text>
+<text class="m" xml:space="preserve" x="12" y="87" fill="#cccccc">운영체제<tspan x="120">Ubuntu 22.04.4 LTS</tspan></text>
+<text class="m" xml:space="preserve" x="12" y="104" fill="#cccccc">데이터베이스<tspan x="120">접속 도구 mysql Ver 8.0.46 for Linux</tspan></text>
+<text class="m" xml:space="preserve" x="12" y="122" fill="#cccccc"><tspan x="120">  ↳ 서버의 판은 DB 서버에 직접 물어볼 것</tspan></text>
+<text class="m" xml:space="preserve" x="12" y="140" fill="#cccccc">미들웨어<tspan x="120">Apache Tomcat/8.5.100</tspan></text>
+<text class="m" xml:space="preserve" x="12" y="157" fill="#cccccc">사용 언어<tspan x="120">Java 1.8.0_402</tspan></text>
+<text class="m" xml:space="preserve" x="12" y="174" fill="#cccccc">IDE<tspan x="120">서버에 없음 — 개발 PC 에서 확인할 것</tspan></text>
+<text class="m" xml:space="preserve" x="12" y="192" fill="#cccccc">형상관리<tspan x="120">Git 2.34.1</tspan></text>
+<text class="m" xml:space="preserve" x="12" y="210" fill="#cccccc">네트워크<tspan x="120">주소 172.20.0.6</tspan></text>
+<text class="m" xml:space="preserve" x="12" y="227" fill="#cccccc"><tspan x="120">  열린 포트 22 8005 8080</tspan></text>
+<text class="m" xml:space="preserve" x="12" y="244" fill="#cccccc">=====================================================</text>
+<text class="m" xml:space="preserve" x="12" y="262" fill="#cccccc">「모름」 과 「없음」 이 적힌 줄은 직접 확인해서 채울 것.</text>
+<text class="m" xml:space="preserve" x="12" y="280" fill="#cccccc"></text>
+<text class="m" xml:space="preserve" x="12" y="297" fill="#8a8a8a" font-style="italic">→ 초안이 한 번에 나온다. 그러나 이대로 내면 안 된다.</text>
+<text class="m" xml:space="preserve" x="12" y="314" fill="#8a8a8a" font-style="italic">  「접속 도구」 라고 적힌 데이터베이스 줄은 아직 답이 아니다.</text>
+</svg>
