@@ -25,6 +25,14 @@
       border:1px solid #ccc;padding:12px 15px;margin:12px 0;background:#fafafa}
   .kv b{color:#555;font-weight:400}
   .why{border-left:3px solid #999;padding:2px 0 2px 13px;margin:12px 0;color:#444}
+  /* 실습 화면 */
+  .term{border:1px solid #000;background:#f7f7f7;padding:12px 15px;margin:10px 0;
+        font-family:Consolas,"D2Coding",monospace;font-size:12.5px;line-height:1.75;
+        white-space:pre;overflow-x:auto}
+  .term b{font-weight:700}
+  .term i{font-style:normal;color:#777}
+  .shot{border:1px solid #000;margin:14px 0}
+  .shot img{display:block;width:100%;height:auto}
 </style>
 <script src="../assets/auth.js"></script>
 <script>EXAM_AUTH.guard("../");</script>
@@ -241,6 +249,16 @@
 <figcaption>[그림 1-1] 현행 시스템의 계층 구조</figcaption>
 </figure>
 
+<p>같은 내용을 draw.io 로 작성하면 다음과 같습니다.
+   [실습 1-2] 에서 직접 작성하게 되며, 조사 결과를 상자 안에 기입하는 방식입니다.</p>
+
+<figure class="fig">
+  <div class="shot"><img src="img/drawio-layer.png"
+       alt="draw.io 에서 작성한 현행 시스템 계층 구성도 화면"></div>
+  <figcaption>[그림 1-2] draw.io 로 작성한 계층 구성도 (app.diagrams.net 실제 화면)</figcaption>
+</figure>
+
+
 <h4>1.4 실습 환경</h4>
 
 <p>별도로 설치할 프로그램은 없습니다. 실습에는 다음 환경을 사용합니다.</p>
@@ -261,29 +279,66 @@
      조사 대상은 평가에서 제공되는 시스템이지만, 절차를 익히기 위해 먼저
      자신의 PC 를 대상으로 수행합니다.</p>
   <p><b>준비물</b> — PC, 명령 프롬프트, 스프레드시트</p>
-  <p><b>절차</b></p>
-  <ol>
-    <li>명령 프롬프트를 실행합니다.
-        <code class="cmd">⊞ + R → cmd → Enter</code></li>
-    <li>운영체제의 버전을 확인합니다. 출력된 내용을 조사표의 「운영체제」 항목에 기록합니다.
-        <code class="cmd">ver</code></li>
-    <li>Java 설치 여부와 버전을 확인합니다.
-        <code class="cmd">java -version</code></li>
-    <li>Python 과 Node.js 의 설치 여부를 같은 방법으로 확인합니다.
-        <code class="cmd">python --version
-node --version</code></li>
-    <li>형상관리 도구의 설치 여부를 확인합니다.
-        <code class="cmd">git --version</code></li>
-    <li>DBMS 의 설치 여부를 확인합니다.
-        <code class="cmd">mysql --version</code></li>
-    <li>네트워크 구성을 확인합니다. 출력 결과 중 「IPv4 주소」 한 줄을 기록합니다.
-        <code class="cmd">ipconfig</code></li>
-    <li>명령 프롬프트 화면을 캡처하여 조사표 아래에 첨부합니다.</li>
-  </ol>
-  <p><b>결과 확인</b> — 버전 번호가 출력되면 해당 소프트웨어가 설치된 상태입니다.
-     「내부 또는 외부 명령…」 메시지가 출력되면 설치되어 있지 않은 상태이며,
+
+  <p><b>절차 1. 명령 프롬프트 실행</b><br>
+     ⊞ + R 을 누르고 <code>cmd</code> 를 입력한 뒤 Enter 를 누릅니다.
+     아래와 같은 검은 창이 열립니다.</p>
+<div class="term">Microsoft Windows [Version 10.0.26200.9457]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\hong&gt;<i>_</i></div>
+
+  <p><b>절차 2. 운영체제 확인</b><br>
+     <code>ver</code> 을 입력합니다. 출력된 버전을 조사표의 「운영체제」 항목에 기록합니다.</p>
+<div class="term">C:\Users\hong&gt;<b>ver</b>
+
+Microsoft Windows [Version 10.0.26200.9457]</div>
+
+  <p><b>절차 3. 개발 언어 확인</b><br>
+     Java, Python, Node.js 의 설치 여부와 버전을 차례로 확인합니다.
+     버전 번호가 출력되면 설치된 상태입니다.</p>
+<div class="term">C:\Users\hong&gt;<b>java -version</b>
+openjdk version "21.0.2" 2024-01-16
+OpenJDK Runtime Environment (build 21.0.2+13-58)
+OpenJDK 64-Bit Server VM (build 21.0.2+13-58, mixed mode, sharing)
+
+C:\Users\hong&gt;<b>python --version</b>
+Python 3.12.10
+
+C:\Users\hong&gt;<b>node --version</b>
+v24.11.1</div>
+
+  <p><b>절차 4. 형상관리 도구 확인</b></p>
+<div class="term">C:\Users\hong&gt;<b>git --version</b>
+git version 2.52.0.windows.1</div>
+
+  <p><b>절차 5. DBMS 확인</b><br>
+     출력에 제품명과 버전, 그리고 라이선스 표기가 함께 나타납니다.
+     라이선스 표기는 소프트웨어 구성표를 작성할 때 사용합니다.</p>
+<div class="term">C:\Users\hong&gt;<b>mysql --version</b>
+mysql  Ver 8.0.44 for Win64 on x86_64 (MySQL Community Server - GPL)</div>
+
+  <p><b>절차 6. 네트워크 구성 확인</b><br>
+     출력 결과 중 「IPv4 주소」 한 줄을 조사표에 기록합니다.</p>
+<div class="term">C:\Users\hong&gt;<b>ipconfig</b>
+
+Windows IP 구성
+
+이더넷 어댑터 이더넷:
+
+   연결별 DNS 접미사. . . . :
+   IPv4 주소 . . . . . . . . : 192.168.0.25
+   서브넷 마스크 . . . . . . : 255.255.255.0
+   기본 게이트웨이 . . . . . : 192.168.0.1</div>
+
+  <p><b>결과 확인</b> — 설치되지 않은 소프트웨어를 조회하면 다음과 같이 출력됩니다.
      이 경우 조사표에는 <b>「설치되지 않음」</b>이라고 기록합니다.
      항목을 비워 두지 않는 것이 원칙입니다.</p>
+<div class="term">C:\Users\hong&gt;<b>oracle --version</b>
+'oracle'은(는) 내부 또는 외부 명령, 실행할 수 있는
+프로그램, 또는 배치 파일이 아닙니다.</div>
+
+  <p>마지막으로 ⊞ + Shift + S 로 명령 프롬프트 화면을 캡처하여 조사표 아래에 첨부합니다.</p>
 </div>
 
 <h4>1.5 조사표 작성</h4>
@@ -326,9 +381,15 @@ node --version</code></li>
         연습 단계에서는 실습 1-1 에서 조사한 자신의 PC 값을 사용합니다.</li>
     <li>「판단할 수 있는 제약 사항」 열을 채웁니다. 각 행마다 한 문장씩,
         「그러므로 ○○ 는 할 수 없다」 또는 「○○ 로 맞추어야 한다」 형태로 서술합니다.</li>
-    <li><a href="https://app.diagrams.net">app.diagrams.net</a> 에 접속하여
-        Blank Diagram 을 생성합니다. 사각형 다섯 개를 세로로 배치하고
-        [그림 1-1] 과 같은 형태로 조사 결과를 기입합니다.</li>
+    <li><a href="https://app.diagrams.net">app.diagrams.net</a> 에 접속합니다.
+        저장 위치를 묻는 창이 나타나면 <b>Device</b> 를 선택하고,
+        <b>Create New Diagram</b> → <b>Blank Diagram</b> 을 차례로 누릅니다.
+        파일 이름은 <code>as-is_architecture.drawio</code> 로 지정합니다.</li>
+    <li>왼쪽 도형 목록에서 사각형을 끌어다 다섯 개를 세로로 배치합니다.
+        도형을 더블클릭하면 글자를 입력할 수 있습니다.
+        [그림 1-2] 와 같은 형태가 되도록 조사 결과를 기입합니다.</li>
+    <li>도형 가장자리에 마우스를 올리면 나타나는 파란 화살표를 아래 도형으로 끌어
+        연결선을 만듭니다.</li>
     <li>File → Export as → PNG 를 선택하고 Zoom 을 200% 로 지정하여 내보냅니다.</li>
   </ol>
   <p><b>제출물</b> — 현행 시스템 조사표 1부, 계층 구성도 <code>.drawio</code> 원본 및 PNG 각 1부</p>
