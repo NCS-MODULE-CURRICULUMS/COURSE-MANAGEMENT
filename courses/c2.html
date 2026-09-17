@@ -64,6 +64,7 @@
 <script src="../assets/courses.js"></script>
 <script src="../assets/locks-c2.js"></script>
 <script src="../assets/modules-c2.js"></script>
+<script src="../assets/items-c2.js"></script>
 <script>
 (function(){
   var CID = 'c2';
@@ -135,7 +136,8 @@
   function draw(){
     var v = list(), adm = EXAM_AUTH.isAdmin(), h = '';
     h += '<tr><th>능력단위</th><th>코드</th><th>강사</th>' +
-         '<th>시작일</th><th>종료일</th><th>본평가</th><th>상세</th></tr>';
+         '<th>시작일</th><th>종료일</th><th>본평가</th>' +
+         '<th>준비 교안</th><th>평가 자료</th><th>상세</th></tr>';
 
     v.forEach(function(m, i){
       if(adm && i === editing){
@@ -148,7 +150,7 @@
                  '" value="' + esc(val) + '"></td>';
         });
         h += '<tr class="med">' + tds + '</tr>' +
-             '<tr class="med"><td colspan="7" class="mrow">' +
+             '<tr class="med"><td colspan="9" class="mrow">' +
              '<button class="mok" data-i="' + i + '" type="button">저장</button>' +
              '<button class="mno" type="button">취소</button>' +
              '<span class="mhint">날짜가 아닌 값(예: -)은 그대로 적습니다. ' +
@@ -162,6 +164,16 @@
       var btn = (pg && !shut)
         ? '<a class="btn" href="../' + esc(pg) + '">상세</a>'
         : '<a class="btn d">상세</a>';
+      // 준비 교안 — 파일이 하나뿐이라 바로 연다
+      var hasG = !!(window.CM_GUIDES || {})[m.id];
+      var gbtn = (hasG && !shut)
+        ? '<a class="btn" href="../guides/' + esc(m.id) + '.html">가이드</a>'
+        : (hasG ? '<a class="btn d">가이드</a>' : '<span class="non">—</span>');
+      // 평가 자료 — 여러 건이라 상세의 평가 자료 자리로 보낸다
+      var nItem = ((window.CM_ITEMS || {})[m.id] || []).length;
+      var ebtn = (nItem && pg && !shut)
+        ? '<a class="btn" href="../' + esc(pg) + '#exam">자료 ' + nItem + '</a>'
+        : (nItem ? '<a class="btn d">자료 ' + nItem + '</a>' : '<span class="non">—</span>');
       var tools = adm
         ? '<button class="lk' + (lk ? ' on' : '') + '" data-m="' + esc(m.id) + '" type="button">' +
           (lk ? '잠김' : '열림') + '</button>' +
@@ -173,6 +185,8 @@
            '<td class="c">' + esc(m.tc) + '</td>' +
            '<td class="c">' + esc(m.sd) + '</td><td class="c">' + esc(m.ed) + '</td>' +
            '<td class="c">' + esc(m.ev || '-') + '</td>' +
+           '<td class="tdb">' + gbtn + '</td>' +
+           '<td class="tdb">' + ebtn + '</td>' +
            '<td class="tdb">' + btn + tools + '</td></tr>';
     });
     document.getElementById('mtable').innerHTML = h;
