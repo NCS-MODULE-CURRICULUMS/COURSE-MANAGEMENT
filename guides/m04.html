@@ -214,156 +214,201 @@
 
 <h4>1.3 실습 환경</h4>
 
-<p>조사 대상은 <b>내 PC 가 아니라 실습용으로 올린 서버</b>입니다.
-   자기 PC 를 조사하면 사람마다 값이 달라 서로 맞춰 볼 수 없고,
-   평가에서 받는 환경과도 멀기 때문입니다.</p>
+<p>조사 대상은 <b>강사가 올려 둔 서버</b>입니다. 훈련생 PC 에는 아무것도 설치하지
+   않습니다. Windows 10 · 11 에는 원격 접속 도구가 기본으로 들어 있으므로
+   <b>주소와 포트만 받으면</b> 바로 접속할 수 있습니다.</p>
 
-<p>Docker 로 서버 두 대를 올립니다. 실제 평가의 예시와 같은 구성입니다.</p>
+<p>팀마다 <b>서로 다른 환경</b>이 배정됩니다. 조사 결과가 팀마다 다르므로
+   옆 팀의 답을 옮겨 적을 수 없고, 발표 때 비교할 거리가 생깁니다.</p>
+
+<table class="wide">
+  <tr><th style="width:56px">팀</th><th style="width:96px">접속 포트</th>
+      <th>배정된 현행 시스템</th></tr>
+  <tr><td class="c">A</td><td class="c">2201</td>
+      <td>오래된 자바 웹 — Tomcat 8.5 · Java 8 · MySQL 5.7</td></tr>
+  <tr><td class="c">B</td><td class="c">2202</td>
+      <td>최신 자바 웹 — Tomcat 10.1 · Java 17 · MariaDB 10.6</td></tr>
+  <tr><td class="c">C ~ E</td><td class="c">2203 ~</td>
+      <td>수업 당일 강사가 안내합니다</td></tr>
+</table>
 
 <div class="kv">
-  <b>WAS 서버</b><span>Linux · Java 8 · Apache Tomcat 8.5 — 웹 요청을 처리합니다</span>
-  <b>DB 서버</b><span>Linux · MySQL 5.7 — 자료를 저장합니다</span>
-  <b>필요한 것</b><span>Docker Desktop (<a href="https://www.docker.com/products/docker-desktop/">docker.com</a>)
-    · 설치 후 한 번 실행해 두면 됩니다</span>
-  <b>내려받는 양</b><span>처음 한 번 약 700MB. 두 번째부터는 받지 않습니다</span>
-  <b>쓰는 포트</b><span>18080(웹) · 13306(DB) — 흔히 쓰는 8080 · 3306 을 피했습니다</span>
+  <b>접속 주소</b><span>강사가 칠판에 적어 줍니다 (예: <code>192.168.0.10</code>)</span>
+  <b>계정</b><span><code>survey</code></span>
+  <b>비밀번호</b><span>강사가 안내합니다</span>
+  <b>접속 도구</b><span>Windows 기본 <code>ssh</code> (권장) 또는 PuTTY</span>
 </div>
 
-<div class="note"><b>참고</b> — Docker 는 서버 한 대를 통째로 상자에 담아 두고
-  필요할 때 꺼내 쓰는 도구입니다. 실습이 끝나면 상자를 지우면 되므로
-  내 PC 에는 아무것도 남지 않습니다. 실무에서도 개발·시험 환경을 이렇게 만듭니다.</div>
+<div class="warn"><b>주의</b> — 이 서버는 <b>강의실 안쪽 망</b>에서만 접속됩니다.
+  수업이 끝나면 강사가 내리므로 다음 시간에는 같은 주소로 접속되지 않습니다.
+  조사 결과는 그날 문서로 정리해 두어야 합니다.</div>
+
+<h4>1.4 원격 접속 방법</h4>
+
+<p>두 가지 중 하나를 쓰면 됩니다. <b>설치가 필요 없는 첫 번째 방법을 권합니다.</b></p>
+
+<h5>방법 1 — Windows 기본 ssh (설치 불필요)</h5>
+<p>⊞ + R 을 누르고 <code>cmd</code> 를 입력해 명령 프롬프트를 엽니다.
+   다음 형식으로 입력합니다. <code>-p</code> 뒤가 팀별 포트입니다.</p>
+<div class="term">C:\Users\hong&gt;<b>ssh survey@192.168.0.10 -p 2201</b>
+survey@192.168.0.10's password: <i>(입력해도 화면에 아무것도 나오지 않습니다)</i>
+
+Welcome to Ubuntu 22.04.4 LTS (GNU/Linux 5.15.0 x86_64)
+survey@was-a:~$</div>
+<div class="note"><b>참고</b> — 처음 접속하면
+  <code>The authenticity of host ... can't be established.</code> 라는 물음이 나옵니다.
+  <code>yes</code> 를 입력하고 Enter 를 누르면 됩니다.
+  처음 보는 서버인지 확인하는 절차이며, 두 번째부터는 나오지 않습니다.</div>
+
+<h5>방법 2 — PuTTY</h5>
+<p>PuTTY 를 실행하면 아래 창이 열립니다. 채울 곳은 <b>세 군데</b>입니다.</p>
+
+<figure class="fig">
+  <div class="shot"><img src="img/putty-config.png"
+       alt="PuTTY 설정 창. Host Name 에 192.168.0.10, Port 에 2201, Connection type 은 SSH"></div>
+  <figcaption>[그림 1-1] PuTTY 설정 창 — Host Name · Port · Connection type</figcaption>
+</figure>
+
+<table class="wide">
+  <tr><th style="width:180px">칸</th><th style="width:150px">입력할 값</th><th>설명</th></tr>
+  <tr><td class="c">Host Name</td><td><code>192.168.0.10</code></td>
+      <td>강사가 알려 준 주소</td></tr>
+  <tr><td class="c">Port</td><td><code>2201</code></td>
+      <td><b>팀마다 다릅니다.</b> 기본값 22 를 지우고 넣습니다</td></tr>
+  <tr><td class="c">Connection type</td><td>SSH</td>
+      <td>기본값입니다. 바뀌어 있으면 SSH 로 되돌립니다</td></tr>
+</table>
+
+<p>아래 <b>Open</b> 을 누르면 검은 창이 열립니다.
+   <code>login as:</code> 에 <code>survey</code>, 그다음 비밀번호를 입력합니다.
+   비밀번호는 입력해도 화면에 나타나지 않습니다.</p>
+
+<div class="warn"><b>자주 막히는 곳</b> —
+  <b>Port 를 22 로 둔 채 접속</b>하면 「Connection refused」가 납니다.
+  팀 포트로 바꿨는지 먼저 확인하십시오.
+  주소를 잘못 적으면 한참 기다리다 「Network error: Connection timed out」이 납니다.</div>
 
 <div class="lab">
   <b class="t">실습 1-1</b>
-  <b>실습용 현행 시스템을 올리고 조사하기</b>
-  <p><b>목적</b> — 남이 만들어 둔 서버를 조사하여 운행환경 일곱 항목을 알아냅니다.
-     실무에서 하는 일이 바로 이것입니다. 만든 사람이 알려 주지 않아도
-     <b>서버에 들어가 직접 확인</b>할 수 있어야 합니다.</p>
-  <p><b>준비물</b> — Docker Desktop, 명령 프롬프트,
-     <a href="lab/as-is/docker-compose.yml" download>docker-compose.yml</a> (내려받기)</p>
+  <b>배정받은 서버에 접속하여 운행환경 조사하기</b>
+  <p><b>목적</b> — 남이 만들어 둔 서버에 원격으로 들어가 운행환경 일곱 항목을
+     알아냅니다. 실무에서 하는 일이 바로 이것입니다.
+     만든 사람이 알려 주지 않아도 <b>서버에 들어가 직접 확인</b>할 수 있어야 합니다.</p>
+  <p><b>준비물</b> — PC, 강사가 알려 준 주소 · 포트 · 계정</p>
 
-  <p><b>절차 1. 환경 올리기</b><br>
-     내려받은 <code>docker-compose.yml</code> 을 빈 폴더에 두고,
-     그 폴더에서 명령 프롬프트를 엽니다(주소창에 <code>cmd</code> 입력).
-     다음을 실행하면 서버 두 대가 올라옵니다.
-     처음에는 이미지를 내려받느라 몇 분 걸립니다.</p>
-<div class="term">C:\lab&gt;<b>docker compose up -d</b>
- Container asis-db  Started
- Container asis-was  Started</div>
+  <p><b>절차 1. 접속하고 서버 이름 확인</b><br>
+     접속이 되면 맨 앞에 <code>survey@</code> 다음으로 <b>서버 이름</b>이 보입니다.
+     이것이 지금 들어와 있는 서버입니다.</p>
+<div class="term">survey@was-a:~$ <b>hostname</b>
+was-a</div>
 
-  <p><b>절차 2. 무엇이 올라왔는지 보기</b><br>
-     시스템 구성 현황을 확인하는 단계입니다.
-     서버 두 대가 각각 어떤 이미지로, 어떤 포트로 떠 있는지 나옵니다.</p>
-<div class="term">C:\lab&gt;<b>docker compose ps</b>
-NAME       IMAGE                          STATUS          PORTS
-asis-db    mysql:5.7                      Up 27 seconds   0.0.0.0:13306-&gt;3306/tcp
-asis-was   tomcat:8.5-jdk8-openjdk-slim   Up 26 seconds   0.0.0.0:18080-&gt;8080/tcp</div>
+  <p><b>절차 2. 운영체제 조사</b><br>
+     리눅스는 <code>/etc/os-release</code> 파일에 자기 정보를 적어 둡니다.</p>
+<div class="term">survey@was-a:~$ <b>cat /etc/os-release | head -2</b>
+PRETTY_NAME="Ubuntu 22.04.4 LTS"
+NAME="Ubuntu"</div>
 
-  <p>브라우저에서 <code>http://localhost:18080</code> 에 들어가 보십시오.
-     Tomcat 화면이 나오면 WAS 가 정상 동작하는 것입니다.</p>
-
-  <p><b>절차 3. 운영체제 조사</b><br>
-     <code>docker compose exec &lt;서버이름&gt; &lt;명령&gt;</code> 은
-     그 서버 안에 들어가 명령을 실행하라는 뜻입니다.
-     <b>서버마다 운영체제가 다를 수 있으므로 각각 확인합니다.</b></p>
-<div class="term">C:\lab&gt;<b>docker compose exec was cat /etc/os-release</b>
-PRETTY_NAME="Debian GNU/Linux 11 (bullseye)"
-NAME="Debian GNU/Linux"
-VERSION_ID="11"
-
-C:\lab&gt;<b>docker compose exec db cat /etc/os-release</b>
-NAME="Oracle Linux Server"
-VERSION="7.9"</div>
-  <div class="warn"><b>주의</b> — 두 서버의 운영체제가 다릅니다.
-    WAS 는 Debian 11, DB 는 Oracle Linux 7.9 입니다.
-    조사표에 한 줄로 뭉뚱그리지 말고 <b>서버별로 적습니다.</b>
-    실무에서도 웹 서버와 DB 서버의 운영체제가 다른 경우가 흔합니다.</div>
-
-  <p><b>절차 4. 미들웨어 조사</b><br>
+  <p><b>절차 3. 미들웨어 조사</b><br>
      Tomcat 에는 버전을 알려 주는 명령이 들어 있습니다.</p>
-<div class="term">C:\lab&gt;<b>docker compose exec was /usr/local/tomcat/bin/version.sh</b>
-Server version: Apache Tomcat/8.5.82
-Server built:   Aug 8 2022 21:26:07 UTC
-Server number:  8.5.82.0
-OS Name:        Linux</div>
+<div class="term">survey@was-a:~$ <b>/usr/local/tomcat/bin/version.sh | head -2</b>
+Server version: Apache Tomcat/8.5.100
+Server built:   Mar 19 2024 13:54:42 UTC</div>
 
-  <p><b>절차 5. 사용 언어 조사</b></p>
-<div class="term">C:\lab&gt;<b>docker compose exec was java -version</b>
-openjdk version "1.8.0_342"
-OpenJDK Runtime Environment (build 1.8.0_342-b07)
-OpenJDK 64-Bit Server VM (build 25.342-b07, mixed mode)</div>
+  <p><b>절차 4. 사용 언어 조사</b></p>
+<div class="term">survey@was-a:~$ <b>java -version</b>
+openjdk version "1.8.0_402"
+OpenJDK Runtime Environment (build 1.8.0_402-b06)</div>
   <div class="note"><b>참고</b> — <code>1.8.0</code> 이 곧 Java 8 입니다.
-    Java 8 은 서블릿과 JSP 로 웹을 만들던 시기의 표준이며,
+    Java 8 은 서블릿과 JSP 로 웹을 만들던 시기의 표준이므로,
     조사표에는 「Java 서블릿, JSP 기반」처럼 <b>함께 쓰는 기술까지</b> 적습니다.</div>
 
-  <p><b>절차 6. 데이터베이스 조사</b></p>
-<div class="term">C:\lab&gt;<b>docker compose exec db mysql --version</b>
-mysql  Ver 14.14 Distrib 5.7.44, for Linux (x86_64) using  EditLine wrapper</div>
-  <p>앞의 <code>14.14</code> 는 클라이언트 도구의 번호이고,
-     우리가 적어야 할 것은 <code>Distrib</code> 뒤의 <b>5.7.44</b> 입니다.
-     조사표에는 「MySQL 5.7」이라고 적습니다.</p>
+  <p><b>절차 5. 데이터베이스 조사 — 여기가 함정입니다</b><br>
+     먼저 흔히 쓰는 방법대로 해 봅니다.</p>
+<div class="term">survey@was-a:~$ <b>mysql --version</b>
+mysql  Ver 8.0.46-0ubuntu0.22.04.4 for Linux on x86_64 ((Ubuntu))</div>
+  <p>이 값을 그대로 적으면 <b>틀립니다.</b> 이것은 이 서버에 깔린
+     <b>접속 도구</b>의 버전일 뿐입니다.
+     우리가 알아야 할 것은 <b>데이터베이스 서버</b>의 버전이므로,
+     서버에 직접 물어봐야 합니다.</p>
+<div class="term">survey@was-a:~$ <b>mysqladmin -h db-a -uroot -p version | grep -i "server version"</b>
+Enter password:
+Server version          5.7.44</div>
+  <div class="warn"><b>주의</b> — 도구의 버전과 서버의 버전은 다릅니다.
+    조사표에 적을 것은 <b>서버가 답한 값</b>(MySQL 5.7)입니다.
+    실무에서도 흔히 하는 실수이며, 이 때문에 「되는 줄 알았던 기능이 안 되는」 일이 생깁니다.</div>
 
-  <p><b>절차 7. 네트워크 환경 조사</b><br>
-     서버가 어떤 주소를 쓰고 바깥에 어느 포트로 열려 있는지 확인합니다.</p>
-<div class="term">C:\lab&gt;<b>docker compose exec was hostname -i</b>
-172.20.0.3
-
-C:\lab&gt;<b>docker compose port was 8080</b>
-0.0.0.0:18080</div>
-  <p><code>172.20.0.3</code> 은 서버끼리만 통하는 내부 주소이고,
-     바깥에서는 <code>18080</code> 포트로만 들어올 수 있습니다.
-     조사표에는 「내부망, 18080 포트만 개방」처럼 적습니다.</p>
-
-  <p><b>절차 8. 없는 것 확인하기</b><br>
-     모든 항목이 있는 것은 아닙니다. 형상 관리 도구를 찾아보면 없습니다.</p>
-<div class="term">C:\lab&gt;<b>docker compose exec was git --version</b>
-bash: line 1: git: command not found</div>
+  <p><b>절차 6. 형상 관리 도구 조사</b></p>
+<div class="term">survey@was-a:~$ <b>git --version</b>
+bash: git: command not found</div>
   <p>이 경우 조사표에는 <b>「없음」</b>이라고 적습니다. 빈칸으로 두지 않습니다.
      「없다」도 조사 결과이며, 실무에서는 이것이
      「형상 관리를 하지 않고 있다」는 <b>문제점</b>으로 이어집니다.</p>
 
-  <p><b>절차 9. 근거 자료 남기기</b><br>
-     지금까지의 화면을 파일로 남깁니다.
-     조사표는 혼자 제출하지 않습니다. 어디서 나온 값인지 보여 주는 자료가 함께 갑니다.</p>
-<div class="term">C:\lab&gt;<b>docker compose ps &gt; 근거_01_구성.txt</b>
-C:\lab&gt;<b>docker compose exec was cat /etc/os-release &gt; 근거_02_was_os.txt</b>
-C:\lab&gt;<b>docker compose exec db mysql --version &gt; 근거_03_dbms.txt</b></div>
+  <p><b>절차 7. 네트워크 환경 조사</b></p>
+<div class="term">survey@was-a:~$ <b>hostname -i</b>
+172.20.0.3
 
-  <p><b>절차 10. 실습 끝내고 정리</b><br>
-     조사가 끝나면 서버를 내립니다. 내 PC 에는 아무것도 남지 않습니다.</p>
-<div class="term">C:\lab&gt;<b>docker compose down</b>
- Container asis-was  Removed
- Container asis-db  Removed
- Network asis-survey_default  Removed</div>
+survey@was-a:~$ <b>ss -ltnp 2&gt;/dev/null | head -4</b>
+State   Recv-Q  Send-Q   Local Address:Port
+LISTEN  0       128            0.0.0.0:22
+LISTEN  0       100                  *:8080</div>
+  <p>서버가 <code>22</code>(원격 접속)와 <code>8080</code>(웹) 두 개만 열어 두고 있습니다.
+     조사표에는 「내부망, 22 · 8080 포트만 개방」처럼 적습니다.</p>
 
-  <p><b>결과 확인</b> — 다음 값을 스스로 말할 수 있으면 조사가 끝난 것입니다.
-     운영체제(서버별) · 미들웨어 · 사용 언어 · 데이터베이스 ·
+  <p><b>절차 8. 근거 자료 남기기</b><br>
+     조사표는 혼자 제출하지 않습니다. 어디서 나온 값인지 보여 주는 자료가 함께 갑니다.
+     화면을 ⊞ + Shift + S 로 캡처하거나, 창의 글자를 끌어 선택해 복사해 둡니다.</p>
+
+  <p><b>절차 9. 접속 끊기</b></p>
+<div class="term">survey@was-a:~$ <b>exit</b>
+logout
+Connection to 192.168.0.10 closed.</div>
+
+  <p><b>결과 확인</b> — 다음을 스스로 말할 수 있으면 조사가 끝난 것입니다.
+     운영체제 · 미들웨어 · 사용 언어 · 데이터베이스(서버가 답한 값) ·
      형상 관리 도구 · 네트워크 환경.</p>
+
+  <div class="note"><b>팀별로 답이 다릅니다</b> — 예를 들어 B팀 서버를 조사하면
+    Ubuntu 22.04.5 · Java 17.0.20 · Apache Tomcat 10.1.60 · MariaDB 10.6.28 이 나옵니다.
+    <b>같은 절차로 다른 답</b>이 나오는 것을 확인하고, 발표 때 서로 비교해 보십시오.</div>
 
   <div class="warn"><b>현업에서는</b> — 조사표 <b>서식</b>은 발주기관이 지정하므로
     프로젝트마다 다릅니다. 반면 <b>수집 방법</b>은 대체로 같습니다.
-    서버에 들어가 <code>cat /etc/os-release</code>, <code>java -version</code> 처럼
+    서버에 원격으로 들어가 <code>cat /etc/os-release</code>, <code>java -version</code> 처럼
     직접 확인하는 것이 기본이고, 서버가 수십 대를 넘어가면
     <b>Ansible</b> 같은 도구로 한 번에 모읍니다.
     조직 차원에서는 이 정보를 <b>CMDB</b>(구성관리 데이터베이스)에 등록해 두고
     계속 갱신합니다. 상용은 ServiceNow, 공개 도구로는 GLPI · Snipe-IT 가 있습니다.</div>
-
-  <details class="pv-s" style="margin-top:14px">
-    <summary><b>Docker 를 쓸 수 없는 경우 — 내 PC 조사하기</b></summary>
-    <p>실습실 사정으로 Docker 를 설치할 수 없으면 자기 PC 를 조사해 절차를 익힙니다.
-       값은 평가 환경과 다르지만 <b>조사하는 방법</b>은 같습니다.</p>
-    <ol>
-      <li>⊞ + R → <code>msinfo32</code> → 「시스템 요약」 화면을 캡처합니다.</li>
-      <li>명령 프롬프트에서 <code>systeminfo &gt; 근거_01.txt</code> 로 저장합니다.</li>
-      <li><code>java -version</code>, <code>git --version</code>,
-          <code>mysql --version</code> 으로 설치 여부와 판을 확인합니다.
-          「내부 또는 외부 명령…」이 나오면 「없음」으로 적습니다.</li>
-      <li><code>ipconfig</code> 로 IPv4 주소와 기본 게이트웨이를 기록합니다.</li>
-    </ol>
-  </details>
 </div>
 
-<h4>1.4 조사표 작성</h4>
+<div class="sc">
+  <h5>강사용 — 실습 서버 올리기</h5>
+  <p>강사 PC 한 대에서 팀 수만큼 환경을 올립니다.
+     Docker Desktop 이 설치되어 있어야 합니다.
+     <a href="lab/remote-survey/docker-compose.yml" download>docker-compose.yml</a> ·
+     <a href="lab/remote-survey/Dockerfile" download>Dockerfile</a> 을 같은 폴더에 두고
+     그 폴더에서 실행합니다.</p>
+<div class="term">C:\lab&gt;<b>docker compose up -d --build</b>
+ Container survey-a  Started
+ Container survey-b  Started
+
+C:\lab&gt;<b>docker compose ps</b>
+NAME          STATUS          PORTS
+survey-a      Up 12 seconds   0.0.0.0:2201-&gt;22/tcp, 0.0.0.0:18001-&gt;8080/tcp
+survey-b      Up 12 seconds   0.0.0.0:2202-&gt;22/tcp, 0.0.0.0:18002-&gt;8080/tcp
+
+C:\lab&gt;<b>ipconfig</b>
+   IPv4 주소 . . . . . . . . : 192.168.0.10   <i>&larr; 이 주소를 칠판에 적는다</i></div>
+  <p>수업이 끝나면 <code>docker compose down</code> 으로 내립니다.
+     계정은 <code>survey</code>, 비밀번호는 <code>Dockerfile</code> 에서 정합니다.
+     강의실 안쪽 망 전용이므로 <b>인터넷에 포트를 열지 마십시오.</b></p>
+  <p>자원은 환경 하나당 약 <b>160MB</b>(WAS 96MB + DB 64~197MB)를 씁니다.
+     5개 팀이면 대략 1GB 안쪽이며, 훈련생이 20명 접속해도 부담은 거의 없습니다.
+     바탕 이미지는 <b>지원이 끝나지 않은 배포판</b>으로 고릅니다 —
+     지원 종료된 것은 apt 저장소가 사라져 빌드가 실패합니다.</p>
+</div>
+
+<h4>1.5 조사표 작성</h4>
 
 <p>수집이 끝났으면 제출 서식으로 옮깁니다.
    실제 평가에서 제공되는 도서 대여 시스템을 조사한 예는 다음과 같습니다.
@@ -372,31 +417,29 @@ C:\lab&gt;<b>docker compose exec db mysql --version &gt; 근거_03_dbms.txt</b><
 <figure class="fig">
   <div class="shot"><img src="img/rq_os.png"
        alt="운행환경 조사표 작성 예시. 일곱 줄이 채점 항목 01~05 에 대응한다"></div>
-  <figcaption>[그림 1-1] 운행환경 조사표 작성 예시 (평가도구 작업지시서 기준)</figcaption>
+  <figcaption>[그림 1-2] 운행환경 조사표 작성 예시 (평가도구 작업지시서 기준)</figcaption>
 </figure>
 
 <p>조사한 값이 조사표의 어느 줄로 가는지는 다음과 같습니다.
    이 대응을 알면 옮겨 적는 일은 기계적으로 끝납니다.</p>
 
 <table class="wide">
-  <tr><th style="width:118px">조사표 항목</th><th style="width:270px">조사한 명령</th>
+  <tr><th style="width:118px">조사표 항목</th><th style="width:260px">서버에서 친 명령</th>
       <th>옮겨 적을 때</th></tr>
-  <tr><td class="c">운영체제</td><td><code>compose exec was cat /etc/os-release</code><br>
-      <code>compose exec db cat /etc/os-release</code></td>
-      <td>서버별로 적음 (예: WAS Debian 11 / DB Oracle Linux 7.9)</td></tr>
-  <tr><td class="c">데이터베이스</td><td><code>compose exec db mysql --version</code></td>
-      <td><code>Distrib</code> 뒤의 번호만 (예: MySQL 5.7)</td></tr>
-  <tr><td class="c">미들웨어</td><td><code>compose exec was .../bin/version.sh</code></td>
+  <tr><td class="c">운영체제</td><td><code>cat /etc/os-release</code></td>
+      <td>배포판 이름과 판 (예: Ubuntu 22.04)</td></tr>
+  <tr><td class="c">데이터베이스</td><td><code>mysqladmin -h &lt;DB서버&gt; -u root -p version</code></td>
+      <td><b>서버가 답한 값</b>. 도구 버전이 아님 (예: MySQL 5.7)</td></tr>
+  <tr><td class="c">미들웨어</td><td><code>/usr/local/tomcat/bin/version.sh</code></td>
       <td>제품명과 버전 (예: Apache Tomcat 8.5)</td></tr>
-  <tr><td class="c">사용 언어</td><td><code>compose exec was java -version</code></td>
+  <tr><td class="c">사용 언어</td><td><code>java -version</code></td>
       <td>함께 쓰는 기술까지 (예: Java 서블릿, JSP 기반)</td></tr>
   <tr><td class="c">IDE</td><td>서버에는 없음. 개발 PC 에서 확인</td>
       <td>쓰는 것만 (예: 이클립스, 인텔리제이)</td></tr>
-  <tr><td class="c">형상 관리 도구</td><td><code>compose exec was git --version</code></td>
+  <tr><td class="c">형상 관리 도구</td><td><code>git --version</code></td>
       <td>없으면 「없음」. 그것이 곧 문제점이 됨</td></tr>
-  <tr><td class="c">네트워크 환경</td><td><code>compose exec was hostname -i</code><br>
-      <code>compose port was 8080</code></td>
-      <td>망 구성과 개방 포트 (예: 내부망, 18080 포트만 개방)</td></tr>
+  <tr><td class="c">네트워크 환경</td><td><code>hostname -i</code> · <code>ss -ltnp</code></td>
+      <td>망 구성과 열린 포트 (예: 내부망, 22 · 8080 개방)</td></tr>
 </table>
 
 <div class="note"><b>생각해 보기</b> — 조사표를 채우는 것으로 끝내지 말고,
@@ -412,14 +455,14 @@ C:\lab&gt;<b>docker compose exec db mysql --version &gt; 근거_03_dbms.txt</b><
   <p><b>준비물</b> — 실습 1-1 에서 조사한 값과 근거 자료, 스프레드시트</p>
   <p><b>절차</b></p>
   <ol>
-    <li>스프레드시트를 실행하고 [그림 1-1] 과 같이
+    <li>스프레드시트를 실행하고 [그림 1-2] 와 같이
         「구분 / 조사 결과 / 적는 요령」 세 개의 열을 작성합니다.</li>
     <li>운영체제, 데이터베이스, 미들웨어, 사용 언어, IDE, 형상 관리 도구,
         네트워크 환경의 <b>일곱 행</b>을 만듭니다.</li>
     <li>위 대응표를 보며 실습 1-1 에서 조사한 값을 「조사 결과」 열로 옮깁니다.
         평가에서는 제공된 현행 시스템의 값을 씁니다.</li>
-    <li>운영체제는 <b>서버별로</b> 적습니다. WAS 와 DB 의 운영체제가 다르므로
-        한 줄로 뭉뚱그리지 않습니다.</li>
+    <li>데이터베이스는 <b>서버가 답한 값</b>을 적었는지 다시 확인합니다.
+        <code>mysql --version</code> 의 값을 적었다면 틀린 것입니다.</li>
     <li>서버에서 확인할 수 없는 <b>IDE</b> 는 개발 PC 쪽에서 확인해 적습니다.</li>
     <li>일곱 줄 모두 <b>판(버전)</b>이 적혀 있는지 확인합니다.
         해당 사항이 없으면 「없음」이라고 적고 빈칸으로 두지 않습니다.</li>

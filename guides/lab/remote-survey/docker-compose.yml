@@ -1,0 +1,62 @@
+# 원격 조사 실습 — 팀마다 다른 «현행 시스템»
+#
+# 강사 PC 한 대에서 올리고, 훈련생은 자기 PC 의 ssh 로 들어와 조사한다.
+# 팀마다 환경이 다르므로 답이 서로 다르고, 발표 때 비교할 거리가 생긴다.
+#
+#   docker compose up -d --build     환경을 올린다 (처음 한 번 오래 걸린다)
+#   docker compose ps                무엇이 떠 있는지 본다
+#   docker compose down              수업이 끝나면 내린다
+#
+# 훈련생 접속 (강사 PC 주소가 192.168.0.10 인 경우)
+#   A팀  ssh survey@192.168.0.10 -p 2201
+#   B팀  ssh survey@192.168.0.10 -p 2202
+#   비밀번호는 모두 ncs2026
+#
+# 주의 — 수업용 설정이다. 비밀번호가 단순하므로 강의실 안쪽 망에서만 쓰고
+#        수업이 끝나면 내린다. 인터넷에 열어 두지 않는다.
+
+name: ncs-remote-survey
+
+services:
+
+  # ── A팀 : 오래된 자바 웹 (Tomcat 8.5 · Java 8 · MySQL 5.7)
+  team-a:
+    build:
+      context: .
+      args:
+        BASE: tomcat:8.5-jdk8-temurin-jammy
+        EXTRA: default-mysql-client
+        START: catalina.sh run
+    container_name: survey-a
+    hostname: was-a
+    ports: ["2201:22", "18001:8080"]
+    depends_on: [db-mysql57]
+
+  db-mysql57:
+    image: mysql:5.7
+    container_name: survey-a-db
+    hostname: db-a
+    environment:
+      MYSQL_ROOT_PASSWORD: bookrent
+      MYSQL_DATABASE: bookrent
+
+  # ── B팀 : 요즘 자바 웹 (Tomcat 10.1 · Java 17 · MariaDB 10.6)
+  team-b:
+    build:
+      context: .
+      args:
+        BASE: tomcat:10.1-jdk17-temurin-jammy
+        EXTRA: mariadb-client
+        START: catalina.sh run
+    container_name: survey-b
+    hostname: was-b
+    ports: ["2202:22", "18002:8080"]
+    depends_on: [db-maria106]
+
+  db-maria106:
+    image: mariadb:10.6
+    container_name: survey-b-db
+    hostname: db-b
+    environment:
+      MARIADB_ROOT_PASSWORD: bookrent
+      MARIADB_DATABASE: bookrent
