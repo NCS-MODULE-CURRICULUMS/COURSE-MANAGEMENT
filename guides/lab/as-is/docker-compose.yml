@@ -1,0 +1,36 @@
+# 운행환경 조사 실습용 «현행 시스템»
+#
+# 조사 대상을 남이 만들어 둔 서버로 만든다. 내 PC 를 조사하면 사람마다 값이
+# 달라 서로 맞춰 볼 수 없고, 평가에서 받는 환경과도 멀다.
+# 여기 올라오는 것은 평가도구의 예시와 같은 구성이다 —
+# 리눅스 · MySQL 5.7 · Apache Tomcat 8.5 · Java 8.
+#
+#   docker compose up -d      환경을 올린다
+#   docker compose ps         무엇이 올라왔는지 본다
+#   docker compose down       실습이 끝나면 내린다
+#
+# 포트는 18080(웹) · 13306(DB) 을 쓴다. 흔히 쓰는 8080 · 3306 을 피한 것이라
+# 다른 프로그램과 부딪히지 않는다.
+
+name: asis-survey
+
+services:
+  was:
+    image: tomcat:8.5-jdk8-openjdk-slim
+    container_name: asis-was
+    ports:
+      - "18080:8080"
+    command: >
+      bash -c "cp -rn /usr/local/tomcat/webapps.dist/* /usr/local/tomcat/webapps/ 2>/dev/null;
+               catalina.sh run"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    container_name: asis-db
+    environment:
+      MYSQL_ROOT_PASSWORD: bookrent
+      MYSQL_DATABASE: bookrent
+    ports:
+      - "13306:3306"

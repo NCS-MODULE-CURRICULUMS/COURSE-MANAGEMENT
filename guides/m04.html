@@ -214,118 +214,153 @@
 
 <h4>1.3 실습 환경</h4>
 
-<p>별도로 설치할 프로그램은 없습니다. 실습에는 다음 환경을 사용합니다.</p>
+<p>조사 대상은 <b>내 PC 가 아니라 실습용으로 올린 서버</b>입니다.
+   자기 PC 를 조사하면 사람마다 값이 달라 서로 맞춰 볼 수 없고,
+   평가에서 받는 환경과도 멀기 때문입니다.</p>
+
+<p>Docker 로 서버 두 대를 올립니다. 실제 평가의 예시와 같은 구성입니다.</p>
 
 <div class="kv">
-  <b>운영체제</b><span>Windows 10 이상</span>
-  <b>명령 프롬프트</b><span>⊞ + R → <code>cmd</code> 입력 → Enter</span>
-  <b>문서 작성</b><span>Excel, 한셀, Google 스프레드시트 중 하나</span>
-  <b>화면 캡처</b><span>⊞ + Shift + S</span>
+  <b>WAS 서버</b><span>Linux · Java 8 · Apache Tomcat 8.5 — 웹 요청을 처리합니다</span>
+  <b>DB 서버</b><span>Linux · MySQL 5.7 — 자료를 저장합니다</span>
+  <b>필요한 것</b><span>Docker Desktop (<a href="https://www.docker.com/products/docker-desktop/">docker.com</a>)
+    · 설치 후 한 번 실행해 두면 됩니다</span>
+  <b>내려받는 양</b><span>처음 한 번 약 700MB. 두 번째부터는 받지 않습니다</span>
+  <b>쓰는 포트</b><span>18080(웹) · 13306(DB) — 흔히 쓰는 8080 · 3306 을 피했습니다</span>
 </div>
+
+<div class="note"><b>참고</b> — Docker 는 서버 한 대를 통째로 상자에 담아 두고
+  필요할 때 꺼내 쓰는 도구입니다. 실습이 끝나면 상자를 지우면 되므로
+  내 PC 에는 아무것도 남지 않습니다. 실무에서도 개발·시험 환경을 이렇게 만듭니다.</div>
 
 <div class="lab">
   <b class="t">실습 1-1</b>
-  <b>환경 정보 수집하고 근거 자료 남기기</b>
-  <p><b>목적</b> — 현업에서 쓰는 방법으로 환경 정보를 수집하고,
-     조사표의 근거가 될 자료를 남깁니다. 조사표는 혼자 제출하지 않습니다.
-     <b>어디서 나온 값인지 보여 주는 자료</b>가 함께 가야 「확인했다」가 성립합니다.</p>
-  <p><b>준비물</b> — PC, 명령 프롬프트, PowerShell, 스프레드시트</p>
+  <b>실습용 현행 시스템을 올리고 조사하기</b>
+  <p><b>목적</b> — 남이 만들어 둔 서버를 조사하여 운행환경 일곱 항목을 알아냅니다.
+     실무에서 하는 일이 바로 이것입니다. 만든 사람이 알려 주지 않아도
+     <b>서버에 들어가 직접 확인</b>할 수 있어야 합니다.</p>
+  <p><b>준비물</b> — Docker Desktop, 명령 프롬프트,
+     <a href="lab/as-is/docker-compose.yml" download>docker-compose.yml</a> (내려받기)</p>
 
-  <p><b>절차 1. 시스템 요약 화면 캡처</b><br>
-     ⊞ + R 을 누르고 <code>msinfo32</code> 를 입력합니다.
-     「시스템 정보」 창이 열리면 왼쪽에서 <b>시스템 요약</b>을 선택합니다.
-     OS 이름, 버전, 프로세서, 설치된 물리 메모리가 한 화면에 나옵니다.
-     ⊞ + Shift + S 로 이 화면을 캡처하여 <code>근거_01_시스템요약.png</code> 로 저장합니다.</p>
-  <div class="note"><b>참고</b> — 현업에서 서버가 몇 대뿐일 때 가장 먼저 하는 일이
-    이 화면을 캡처하는 것입니다. 글로 옮겨 적는 것보다 빠르고, 옮겨 적다 틀릴 일도 없습니다.</div>
+  <p><b>절차 1. 환경 올리기</b><br>
+     내려받은 <code>docker-compose.yml</code> 을 빈 폴더에 두고,
+     그 폴더에서 명령 프롬프트를 엽니다(주소창에 <code>cmd</code> 입력).
+     다음을 실행하면 서버 두 대가 올라옵니다.
+     처음에는 이미지를 내려받느라 몇 분 걸립니다.</p>
+<div class="term">C:\lab&gt;<b>docker compose up -d</b>
+ Container asis-db  Started
+ Container asis-was  Started</div>
 
-  <p><b>절차 2. 전체 정보를 텍스트 파일로 저장</b><br>
-     명령 프롬프트(⊞ + R → <code>cmd</code>)를 열고 다음을 입력합니다.
-     화면에 아무것도 나오지 않는 것이 정상입니다. 결과가 파일로 들어갔기 때문입니다.</p>
-<div class="term">C:\Users\hong&gt;<b>systeminfo &gt; 근거_02_systeminfo.txt</b>
+  <p><b>절차 2. 무엇이 올라왔는지 보기</b><br>
+     시스템 구성 현황을 확인하는 단계입니다.
+     서버 두 대가 각각 어떤 이미지로, 어떤 포트로 떠 있는지 나옵니다.</p>
+<div class="term">C:\lab&gt;<b>docker compose ps</b>
+NAME       IMAGE                          STATUS          PORTS
+asis-db    mysql:5.7                      Up 27 seconds   0.0.0.0:13306-&gt;3306/tcp
+asis-was   tomcat:8.5-jdk8-openjdk-slim   Up 26 seconds   0.0.0.0:18080-&gt;8080/tcp</div>
 
-C:\Users\hong&gt;<b>type 근거_02_systeminfo.txt | findstr /C:"OS Name" /C:"OS Version"</b>
-OS Name:                   Microsoft Windows 11 Home
-OS Version:                10.0.26200 N/A Build 26200</div>
+  <p>브라우저에서 <code>http://localhost:18080</code> 에 들어가 보십시오.
+     Tomcat 화면이 나오면 WAS 가 정상 동작하는 것입니다.</p>
 
-  <p><b>절차 3. 소프트웨어별 버전 확인</b><br>
-     설치 여부와 판(버전)을 하나씩 확인합니다. 버전 번호가 출력되면 설치된 상태입니다.</p>
-<div class="term">C:\Users\hong&gt;<b>java -version</b>
-openjdk version "21.0.2" 2024-01-16
-OpenJDK Runtime Environment (build 21.0.2+13-58)
+  <p><b>절차 3. 운영체제 조사</b><br>
+     <code>docker compose exec &lt;서버이름&gt; &lt;명령&gt;</code> 은
+     그 서버 안에 들어가 명령을 실행하라는 뜻입니다.
+     <b>서버마다 운영체제가 다를 수 있으므로 각각 확인합니다.</b></p>
+<div class="term">C:\lab&gt;<b>docker compose exec was cat /etc/os-release</b>
+PRETTY_NAME="Debian GNU/Linux 11 (bullseye)"
+NAME="Debian GNU/Linux"
+VERSION_ID="11"
 
-C:\Users\hong&gt;<b>git --version</b>
-git version 2.52.0.windows.1
+C:\lab&gt;<b>docker compose exec db cat /etc/os-release</b>
+NAME="Oracle Linux Server"
+VERSION="7.9"</div>
+  <div class="warn"><b>주의</b> — 두 서버의 운영체제가 다릅니다.
+    WAS 는 Debian 11, DB 는 Oracle Linux 7.9 입니다.
+    조사표에 한 줄로 뭉뚱그리지 말고 <b>서버별로 적습니다.</b>
+    실무에서도 웹 서버와 DB 서버의 운영체제가 다른 경우가 흔합니다.</div>
 
-C:\Users\hong&gt;<b>mysql --version</b>
-mysql  Ver 8.0.44 for Win64 on x86_64 (MySQL Community Server - GPL)</div>
+  <p><b>절차 4. 미들웨어 조사</b><br>
+     Tomcat 에는 버전을 알려 주는 명령이 들어 있습니다.</p>
+<div class="term">C:\lab&gt;<b>docker compose exec was /usr/local/tomcat/bin/version.sh</b>
+Server version: Apache Tomcat/8.5.82
+Server built:   Aug 8 2022 21:26:07 UTC
+Server number:  8.5.82.0
+OS Name:        Linux</div>
 
-  <p>설치되지 않은 소프트웨어를 조회하면 다음과 같이 출력됩니다.
-     이 경우 조사표에는 <b>「없음」</b>이라고 적습니다. 빈칸으로 두지 않습니다.</p>
-<div class="term">C:\Users\hong&gt;<b>oracle --version</b>
-'oracle'은(는) 내부 또는 외부 명령, 실행할 수 있는
-프로그램, 또는 배치 파일이 아닙니다.</div>
+  <p><b>절차 5. 사용 언어 조사</b></p>
+<div class="term">C:\lab&gt;<b>docker compose exec was java -version</b>
+openjdk version "1.8.0_342"
+OpenJDK Runtime Environment (build 1.8.0_342-b07)
+OpenJDK 64-Bit Server VM (build 25.342-b07, mixed mode)</div>
+  <div class="note"><b>참고</b> — <code>1.8.0</code> 이 곧 Java 8 입니다.
+    Java 8 은 서블릿과 JSP 로 웹을 만들던 시기의 표준이며,
+    조사표에는 「Java 서블릿, JSP 기반」처럼 <b>함께 쓰는 기술까지</b> 적습니다.</div>
 
-  <p><b>절차 4. 네트워크 환경 확인</b><br>
-     「IPv4 주소」와 「기본 게이트웨이」 두 줄을 기록합니다.</p>
-<div class="term">C:\Users\hong&gt;<b>ipconfig</b>
+  <p><b>절차 6. 데이터베이스 조사</b></p>
+<div class="term">C:\lab&gt;<b>docker compose exec db mysql --version</b>
+mysql  Ver 14.14 Distrib 5.7.44, for Linux (x86_64) using  EditLine wrapper</div>
+  <p>앞의 <code>14.14</code> 는 클라이언트 도구의 번호이고,
+     우리가 적어야 할 것은 <code>Distrib</code> 뒤의 <b>5.7.44</b> 입니다.
+     조사표에는 「MySQL 5.7」이라고 적습니다.</p>
 
-이더넷 어댑터 이더넷:
+  <p><b>절차 7. 네트워크 환경 조사</b><br>
+     서버가 어떤 주소를 쓰고 바깥에 어느 포트로 열려 있는지 확인합니다.</p>
+<div class="term">C:\lab&gt;<b>docker compose exec was hostname -i</b>
+172.20.0.3
 
-   IPv4 주소 . . . . . . . . : 192.168.0.25
-   서브넷 마스크 . . . . . . : 255.255.255.0
-   기본 게이트웨이 . . . . . : 192.168.0.1</div>
+C:\lab&gt;<b>docker compose port was 8080</b>
+0.0.0.0:18080</div>
+  <p><code>172.20.0.3</code> 은 서버끼리만 통하는 내부 주소이고,
+     바깥에서는 <code>18080</code> 포트로만 들어올 수 있습니다.
+     조사표에는 「내부망, 18080 포트만 개방」처럼 적습니다.</p>
 
-  <p><b>절차 5. 한 번에 모으기 (현업 방식)</b><br>
-     항목이 일곱 개뿐이면 하나씩 쳐도 되지만, 서버가 여러 대이면 그럴 수 없습니다.
-     현업에서는 <b>수집 스크립트를 한 번 만들어 두고 서버마다 돌립니다.</b>
-     메모장을 열어 다음을 붙여 넣고 <code>as-is.ps1</code> 로 저장합니다.
-     저장할 때 <b>인코딩을 「UTF-8(BOM)」</b> 으로 지정합니다.</p>
-<div class="term"># 운행환경 조사 - 일곱 항목을 한 번에 모은다
-function Get-Ver($cmd, $opt) {
-    $out = cmd /c "$cmd $opt 2&gt;&amp;1"
-    if ($LASTEXITCODE -ne 0) { return "없음" }
-    ($out | Where-Object { $_ -match '\S' } | Select-Object -First 1).Trim()
-}
+  <p><b>절차 8. 없는 것 확인하기</b><br>
+     모든 항목이 있는 것은 아닙니다. 형상 관리 도구를 찾아보면 없습니다.</p>
+<div class="term">C:\lab&gt;<b>docker compose exec was git --version</b>
+bash: line 1: git: command not found</div>
+  <p>이 경우 조사표에는 <b>「없음」</b>이라고 적습니다. 빈칸으로 두지 않습니다.
+     「없다」도 조사 결과이며, 실무에서는 이것이
+     「형상 관리를 하지 않고 있다」는 <b>문제점</b>으로 이어집니다.</p>
 
-$os = Get-ComputerInfo -Property OsName, OsVersion
-$ip = Get-NetIPAddress -AddressFamily IPv4 |
-      Where-Object { $_.IPAddress -notlike "127.*" } | Select-Object -First 1
+  <p><b>절차 9. 근거 자료 남기기</b><br>
+     지금까지의 화면을 파일로 남깁니다.
+     조사표는 혼자 제출하지 않습니다. 어디서 나온 값인지 보여 주는 자료가 함께 갑니다.</p>
+<div class="term">C:\lab&gt;<b>docker compose ps &gt; 근거_01_구성.txt</b>
+C:\lab&gt;<b>docker compose exec was cat /etc/os-release &gt; 근거_02_was_os.txt</b>
+C:\lab&gt;<b>docker compose exec db mysql --version &gt; 근거_03_dbms.txt</b></div>
 
-"운영체제`t"       + "$($os.OsName) $($os.OsVersion)"
-"데이터베이스`t"   + (Get-Ver "mysql" "--version")
-"미들웨어`t"       + "확인 필요 (Tomcat 폴더의 RELEASE-NOTES)"
-"사용 언어`t"      + (Get-Ver "java" "-version")
-"IDE`t"            + "확인 필요 (설치된 앱 목록)"
-"형상 관리 도구`t" + (Get-Ver "git" "--version")
-"네트워크 환경`t"  + "IPv4 $($ip.IPAddress)/$($ip.PrefixLength)"</div>
+  <p><b>절차 10. 실습 끝내고 정리</b><br>
+     조사가 끝나면 서버를 내립니다. 내 PC 에는 아무것도 남지 않습니다.</p>
+<div class="term">C:\lab&gt;<b>docker compose down</b>
+ Container asis-was  Removed
+ Container asis-db  Removed
+ Network asis-survey_default  Removed</div>
 
-  <p>PowerShell 을 열고(⊞ + R → <code>powershell</code>) 저장한 파일을 실행합니다.
-     실행이 막히면 <code>Set-ExecutionPolicy -Scope Process Bypass</code> 를 먼저 입력합니다.</p>
-<div class="term">PS C:\Users\hong&gt; <b>.\as-is.ps1 &gt; 근거_03_수집결과.txt</b>
-PS C:\Users\hong&gt; <b>type 근거_03_수집결과.txt</b>
-운영체제        Microsoft Windows 11 Home 10.0.26200
-데이터베이스    mysql  Ver 8.0.44 for Win64 on x86_64 (MySQL Community Server - GPL)
-미들웨어        확인 필요 (Tomcat 폴더의 RELEASE-NOTES)
-사용 언어       openjdk version "21.0.2" 2024-01-16
-IDE             확인 필요 (설치된 앱 목록)
-형상 관리 도구  git version 2.52.0.windows.1
-네트워크 환경   IPv4 192.168.0.25/24</div>
-
-  <p><b>결과 확인</b> — 다음 세 가지가 만들어졌으면 수집이 끝난 것입니다.
-     이 셋이 조사표의 근거 자료입니다.</p>
-  <div class="kv">
-    <b>근거_01</b><span>시스템요약.png — msinfo32 화면 캡처</span>
-    <b>근거_02</b><span>systeminfo.txt — 운영체제 상세</span>
-    <b>근거_03</b><span>수집결과.txt — 일곱 항목 한 벌</span>
-  </div>
+  <p><b>결과 확인</b> — 다음 값을 스스로 말할 수 있으면 조사가 끝난 것입니다.
+     운영체제(서버별) · 미들웨어 · 사용 언어 · 데이터베이스 ·
+     형상 관리 도구 · 네트워크 환경.</p>
 
   <div class="warn"><b>현업에서는</b> — 조사표 <b>서식</b>은 발주기관이 지정하므로
     프로젝트마다 다릅니다. 반면 <b>수집 방법</b>은 대체로 같습니다.
-    서버가 몇 대뿐이면 위와 같이 OS 기본 도구로 확인하고,
-    수십 대가 넘어가면 <b>Ansible</b> 같은 도구로 한 번에 모읍니다.
+    서버에 들어가 <code>cat /etc/os-release</code>, <code>java -version</code> 처럼
+    직접 확인하는 것이 기본이고, 서버가 수십 대를 넘어가면
+    <b>Ansible</b> 같은 도구로 한 번에 모읍니다.
     조직 차원에서는 이 정보를 <b>CMDB</b>(구성관리 데이터베이스)에 등록해 두고
     계속 갱신합니다. 상용은 ServiceNow, 공개 도구로는 GLPI · Snipe-IT 가 있습니다.</div>
+
+  <details class="pv-s" style="margin-top:14px">
+    <summary><b>Docker 를 쓸 수 없는 경우 — 내 PC 조사하기</b></summary>
+    <p>실습실 사정으로 Docker 를 설치할 수 없으면 자기 PC 를 조사해 절차를 익힙니다.
+       값은 평가 환경과 다르지만 <b>조사하는 방법</b>은 같습니다.</p>
+    <ol>
+      <li>⊞ + R → <code>msinfo32</code> → 「시스템 요약」 화면을 캡처합니다.</li>
+      <li>명령 프롬프트에서 <code>systeminfo &gt; 근거_01.txt</code> 로 저장합니다.</li>
+      <li><code>java -version</code>, <code>git --version</code>,
+          <code>mysql --version</code> 으로 설치 여부와 판을 확인합니다.
+          「내부 또는 외부 명령…」이 나오면 「없음」으로 적습니다.</li>
+      <li><code>ipconfig</code> 로 IPv4 주소와 기본 게이트웨이를 기록합니다.</li>
+    </ol>
+  </details>
 </div>
 
 <h4>1.4 조사표 작성</h4>
@@ -340,26 +375,28 @@ IDE             확인 필요 (설치된 앱 목록)
   <figcaption>[그림 1-1] 운행환경 조사표 작성 예시 (평가도구 작업지시서 기준)</figcaption>
 </figure>
 
-<p>수집한 값이 조사표의 어느 줄로 가는지는 다음과 같습니다.
+<p>조사한 값이 조사표의 어느 줄로 가는지는 다음과 같습니다.
    이 대응을 알면 옮겨 적는 일은 기계적으로 끝납니다.</p>
 
 <table class="wide">
-  <tr><th style="width:118px">조사표 항목</th><th style="width:230px">어디서 얻나</th>
+  <tr><th style="width:118px">조사표 항목</th><th style="width:270px">조사한 명령</th>
       <th>옮겨 적을 때</th></tr>
-  <tr><td class="c">운영체제</td><td><code>msinfo32</code> 의 「OS 이름」, 또는 수집결과 1행</td>
-      <td>판(버전)까지 함께. 서버면 배포판 이름까지 (예: CentOS 7)</td></tr>
-  <tr><td class="c">데이터베이스</td><td><code>mysql --version</code> 출력</td>
-      <td>제품명과 버전만 남기고 나머지는 버림 (예: MySQL 5.7)</td></tr>
-  <tr><td class="c">미들웨어</td><td>Tomcat 설치 폴더의 <code>RELEASE-NOTES</code> 첫 줄</td>
+  <tr><td class="c">운영체제</td><td><code>compose exec was cat /etc/os-release</code><br>
+      <code>compose exec db cat /etc/os-release</code></td>
+      <td>서버별로 적음 (예: WAS Debian 11 / DB Oracle Linux 7.9)</td></tr>
+  <tr><td class="c">데이터베이스</td><td><code>compose exec db mysql --version</code></td>
+      <td><code>Distrib</code> 뒤의 번호만 (예: MySQL 5.7)</td></tr>
+  <tr><td class="c">미들웨어</td><td><code>compose exec was .../bin/version.sh</code></td>
       <td>제품명과 버전 (예: Apache Tomcat 8.5)</td></tr>
-  <tr><td class="c">사용 언어</td><td><code>java -version</code> 출력</td>
-      <td>언어와 함께 프레임워크·기술도 적음 (예: Java 서블릿, JSP 기반)</td></tr>
-  <tr><td class="c">IDE</td><td>설정 → 앱 → 설치된 앱 목록</td>
-      <td>쓰는 것만. 여러 개면 쉼표로 (예: 이클립스, 인텔리제이)</td></tr>
-  <tr><td class="c">형상 관리 도구</td><td><code>git --version</code>, 원격 저장소 주소</td>
-      <td>도구와 보관 위치를 함께 (예: Git / GitHub)</td></tr>
-  <tr><td class="c">네트워크 환경</td><td><code>ipconfig</code>, 보안 장비 담당자 확인</td>
-      <td>망 구성과 보안 장비. 없으면 「없음」 (예: 내부망, 방화벽 없음)</td></tr>
+  <tr><td class="c">사용 언어</td><td><code>compose exec was java -version</code></td>
+      <td>함께 쓰는 기술까지 (예: Java 서블릿, JSP 기반)</td></tr>
+  <tr><td class="c">IDE</td><td>서버에는 없음. 개발 PC 에서 확인</td>
+      <td>쓰는 것만 (예: 이클립스, 인텔리제이)</td></tr>
+  <tr><td class="c">형상 관리 도구</td><td><code>compose exec was git --version</code></td>
+      <td>없으면 「없음」. 그것이 곧 문제점이 됨</td></tr>
+  <tr><td class="c">네트워크 환경</td><td><code>compose exec was hostname -i</code><br>
+      <code>compose port was 8080</code></td>
+      <td>망 구성과 개방 포트 (예: 내부망, 18080 포트만 개방)</td></tr>
 </table>
 
 <div class="note"><b>생각해 보기</b> — 조사표를 채우는 것으로 끝내지 말고,
@@ -372,19 +409,18 @@ IDE             확인 필요 (설치된 앱 목록)
   <b class="t">실습 1-2</b>
   <b>운행환경 조사표 작성하기</b>
   <p><b>목적</b> — 수집한 값을 제출 서식에 맞추어 정리하고 산출물을 완성합니다.</p>
-  <p><b>준비물</b> — 실습 1-1 의 근거 자료 세 개, 스프레드시트</p>
+  <p><b>준비물</b> — 실습 1-1 에서 조사한 값과 근거 자료, 스프레드시트</p>
   <p><b>절차</b></p>
   <ol>
     <li>스프레드시트를 실행하고 [그림 1-1] 과 같이
         「구분 / 조사 결과 / 적는 요령」 세 개의 열을 작성합니다.</li>
     <li>운영체제, 데이터베이스, 미들웨어, 사용 언어, IDE, 형상 관리 도구,
         네트워크 환경의 <b>일곱 행</b>을 만듭니다.</li>
-    <li>위 대응표를 보며 <code>근거_03_수집결과.txt</code> 의 값을
-        「조사 결과」 열로 옮깁니다. 평가에서는 제공된 현행 시스템 파일의 값을 쓰고,
-        연습 단계에서는 자신의 PC 값을 그대로 씁니다.</li>
-    <li>「확인 필요」로 남은 <b>미들웨어</b>와 <b>IDE</b> 두 줄을 채웁니다.
-        미들웨어는 Tomcat 설치 폴더의 <code>RELEASE-NOTES</code> 파일을 열어 첫 줄을 보고,
-        IDE 는 설정 → 앱 → 설치된 앱 목록에서 확인합니다.</li>
+    <li>위 대응표를 보며 실습 1-1 에서 조사한 값을 「조사 결과」 열로 옮깁니다.
+        평가에서는 제공된 현행 시스템의 값을 씁니다.</li>
+    <li>운영체제는 <b>서버별로</b> 적습니다. WAS 와 DB 의 운영체제가 다르므로
+        한 줄로 뭉뚱그리지 않습니다.</li>
+    <li>서버에서 확인할 수 없는 <b>IDE</b> 는 개발 PC 쪽에서 확인해 적습니다.</li>
     <li>일곱 줄 모두 <b>판(버전)</b>이 적혀 있는지 확인합니다.
         해당 사항이 없으면 「없음」이라고 적고 빈칸으로 두지 않습니다.</li>
     <li>문서 마지막에 근거 자료를 붙입니다.

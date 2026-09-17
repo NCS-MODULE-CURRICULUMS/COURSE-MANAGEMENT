@@ -31,7 +31,8 @@ EXT_OK = ("https://github.com/NCS-MODULE-CURRICULUMS",
           # 실습에서 쓰는 도구 — 교안이 학습자를 여기로 보낸다
           "https://app.diagrams.net", "https://mariadb.org",
           "https://tomcat.apache.org", "https://github.com",
-          "https://dev.mysql.com", "https://www.egovframe.go.kr")
+          "https://dev.mysql.com", "https://www.egovframe.go.kr",
+          "https://www.docker.com")
 # 원본 사이트 — 자료를 이 저장소로 가져왔으므로 더는 가리키면 안 된다.
 EXT_BAN = ("my-web-common-lecture.github.io",)
 
