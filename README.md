@@ -9,7 +9,9 @@ GitHub Pages 로 배포되는 정적 사이트입니다.
 
 | 경로 | 내용 |
 |---|---|
-| `index.html` | 허브 — 로그인 게이트 + **운영 과정 카드** + 가이드·도구 카드 |
+| `index.html` | 허브 — 로그인 게이트 + **운영 과정 카드** + **커리큘럼 카드** + 가이드·도구 카드 |
+| `curriculum/<도메인>.html` | 커리큘럼 도메인 4종 — 세분류 카드 — **생성물** |
+| `curriculum/<도메인>-<세분류>.html` | 세분류 28종 — 능력단위 표 282행 — **생성물** |
 | `courses/c1.html` | 생성형 AI 엔지니어 양성과정 (9개 / 160시간) — **생성물** |
 | `courses/c2.html` | 공공데이터 융합 풀스택 개발자 양성과정E (17개 / 900시간) — **생성물** |
 | `modules/m01~m09.html` | c1 능력단위 상세 — NCS 정의·수준·시간·차시 전개·실습·평가 |
@@ -33,12 +35,32 @@ GitHub Pages 로 배포되는 정적 사이트입니다.
 ## 화면 구조
 
 ```
-index.html  운영 과정 카드 / 가이드 / 평가도구 / 자료
+index.html  운영 과정 / 커리큘럼 / 가이드 / 평가도구 / 자료
    ├ courses/c1.html   생성형 AI 엔지니어 양성과정 (9개 능력단위)
-   │    └ modules/mNN.html
-   └ courses/c2.html   공공데이터 융합 풀스택 개발자 양성과정E (17개 능력단위)
-        └ modules/c2-mNN.html
+   │    └ modules/c1-mNN.html
+   ├ courses/c2.html   공공데이터 융합 풀스택 개발자 양성과정E (17개 능력단위)
+   │    └ modules/c2-mNN.html
+   └ curriculum/<도메인>.html   웹앱 / 보안 / 클라우드 / AI (세분류 28)
+        └ curriculum/<도메인>-<세분류>.html   능력단위 표
 ```
+
+### 운영 과정과 커리큘럼은 다른 것입니다
+
+| | 운영 과정 | 커리큘럼 |
+|---|---|---|
+| 무엇 | 실제로 굴러가는 훈련과정 | 과정을 짤 때 골라 쓰는 **능력단위 재고** |
+| 붙는 것 | 기간 · 시간 · 강사 · 평가일 · 잠금 | NCS 코드 · 수준 · 학습모듈 · 교안 진척 |
+| 데이터 | `assets/courses.js` · `modules-cN.js` | `assets/curriculum.js` (생성물) |
+| 지금 | 2개 과정 · 능력단위 26개 | 4도메인 · 세분류 28 · 능력단위 282 |
+
+둘을 한 그리드에 섞지 않습니다. 능력단위 표의 **편성** 칸이 둘을 잇습니다 —
+재고 282개 중 실제 과정에 들어간 것은 23개뿐이고, 나머지는 `미편성`으로 그대로 보입니다.
+숨기면 다음 과정을 짤 때 이미 있는 것을 다시 만들게 됩니다.
+
+교안 본문은 비공개 저장소(`CURRICULUM-*`)에 있고 사이트에는 **상태만** 옵니다.
+원본 링크는 `.sc` 안에 두어 관리자에게만 보입니다.
+갱신은 `export_status.py` → `gen_curriculum.py` 순서입니다
+([생성 스크립트](https://github.com/NCS-MODULE-CURRICULUMS/NCS-CATALOG/tree/main/scripts/gen)).
 
 c2 는 NCS_EXAM_PAGE 에서 운영한 과정을 **자료까지 통째로** 가져온 것입니다.
 강사·기간·평가일은 원본 값이고, **능력단위코드는 NCS-CATALOG 로 현행 코드에
@@ -112,6 +134,7 @@ python .github/scripts/check_site.py --live https://ncs-module-curriculums.githu
 | 데이터 ↔ 파일 | `courses.js` · `modules-cN.js` · `locks-cN.js` · `items-cN.js` · `sections.js` 의 경로가 실재하는지, 잠금 키가 모듈과 맞는지 |
 | 모듈 파일명 | `modules/c<과정>-m<번호>.html` 규칙 |
 | 고아 페이지 | 어디서도 연결되지 않는 문서 (js 로만 연결되는 것은 제외) |
+| **비공개 저장소 링크** | `CURRICULUM-*` 로 가는 링크가 `.sc` 밖에 있으면 오류. 로그인만 한 훈련생에게 열리지 않는 주소를 보여 주게 된다 |
 | 정답 · 개인정보 | `answers/` · `students/` · `private/` · `plan/` 에 파일이 들어왔는지 |
 
 `--live` 는 캐시를 우회해서 확인합니다. 캐시를 안 끄면 고친 것도 안 고쳐진 것처럼 보입니다.
