@@ -10,8 +10,8 @@ GitHub Pages 로 배포되는 정적 사이트입니다.
 | 경로 | 내용 |
 |---|---|
 | `index.html` | 허브 — 로그인 게이트 + **운영 과정 카드** + 가이드·도구 카드 |
-| `courses/c1.html` | 생성형 AI 엔지니어 양성과정 — 능력단위 모듈 목록 (9개 / 160시간) |
-| `courses/c2.html` | (디지털 컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E — 능력단위 모듈 목록 (17개 / 900시간) |
+| `courses/c1.html` | 생성형 AI 엔지니어 양성과정 (9개 / 160시간) — **생성물** |
+| `courses/c2.html` | 공공데이터 융합 풀스택 개발자 양성과정E (17개 / 900시간) — **생성물** |
 | `modules/m01~m09.html` | c1 능력단위 상세 — NCS 정의·수준·시간·차시 전개·실습·평가 |
 | `modules/c2-m01~m17.html` | c2 능력단위 상세 — 평가 개요 + **평가 자료 · 준비 교안 · 표준 강의 교안** 카드 |
 | `guides/m01~m17.html` | c2 준비 교안 17종 (NCS_EXAM_PAGE 에서 그대로 가져옴) |
@@ -48,7 +48,19 @@ c2 는 NCS_EXAM_PAGE 에서 운영한 과정을 **자료까지 통째로** 가�
 **링크는 모두 사이트 안에 머뭅니다** — 바깥 사이트로 새어 나가지 않습니다.
 
 과정 목록은 `assets/courses.js`, 과정별 모듈은 `assets/modules-<과정id>.js` 에 있습니다.
-과정을 늘리면 `modules-c3.js` · `locks-c3.js` 를 만들고 `courses/c3.html` 을 복사해 `CID` 만 바꿉니다.
+### 과정을 늘릴 때
+
+과정 페이지는 **손으로 고치지 않습니다.** `gen_course_page.py` 가 한 템플릿에서 찍어냅니다.
+c1 과 c2 를 각각 고치다 칸 구성이 갈라진 적이 있어 템플릿 하나로 묶었습니다.
+
+```bash
+# 1. assets/courses.js 에 과정 한 줄 추가
+# 2. assets/modules-c3.js · locks-c3.js 작성
+python NCS-CATALOG/scripts/gen/gen_course_page.py   # courses/c3.html 이 생긴다
+```
+
+`items-c3.js` 가 없으면 빈 목록으로 자동 생성됩니다.
+`courses/c1.html` 과 `courses/c2.html` 은 `CID` 한 줄 빼고 완전히 같은 파일입니다.
 관리자로 로그인하면 표에서 직접 고치고 **[설정 파일 저장]** 으로 그 js 파일을 내려받아
 덮어쓴 뒤 push 하는 방식입니다(빌드·DB 없음).
 

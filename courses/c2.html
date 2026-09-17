@@ -10,11 +10,11 @@
 </div>
 <script>EXAM_AUTH.paintTop("../");</script>
 <style>
-  .tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
   td.c{text-align:center}
   .sumbar{display:flex;gap:20px;flex-wrap:wrap;border:1px solid #000;
           padding:10px 14px;margin:14px 0;font-size:12.5px;background:#fafafa}
   .sumbar b{font-size:16px;margin-left:4px}
+  .tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
 </style>
 <div class="wrap">
 <h1>능력단위 모듈 목록</h1>
@@ -35,19 +35,19 @@
 
 <div class="sumbar">
   <span>능력단위 <b id="kCnt">0</b></span>
-  <span>NCS 능력단위 <b id="kHr">0</b></span>
-  <span>평가 완료 <b id="kPct">0</b></span>
-  <span>학습모듈 <b id="kLm">-</b></span>
+  <span>NCS 능력단위 <b id="kNcs">0</b></span>
+  <span>평가 완료 <b id="kEv">0</b></span>
+  <span>표준 교안 <b id="kLp">0</b></span>
 </div>
 
 <div class="note admonly" id="mNote"><b>능력단위 관리</b> — 표에서 <b>수정 · 삭제</b> 하고,
-각 행의 <b>잠김/열림</b> 으로 학생이 상세를 열 수 있는지 정합니다. 바꾼 것은 이 브라우저에만 남습니다.
-<b>설정 파일 저장</b> 을 눌러 <code>assets/modules-c2.js</code> 와 <code>assets/locks-c2.js</code> 에
-덮어쓴 뒤 git 에 올려야 모두에게 적용됩니다.
+각 행의 <b>잠김/열림</b> 으로 학생이 자료를 열 수 있는지 정합니다. 바꾼 것은 이 브라우저에만 남습니다.
+<b>설정 파일 저장</b> 을 눌러 <code>assets/modules-c2.js</code> 와
+<code>assets/locks-c2.js</code> 에 덮어쓴 뒤 git 에 올려야 모두에게 적용됩니다.
 <form class="cform" id="mForm">
   <input id="mName" placeholder="능력단위명" required>
   <input id="mCode" placeholder="능력단위코드 (예: 2001070705_25v1)">
-  <input id="mTc" placeholder="강사" value="정*균" style="max-width:110px">
+  <input id="mTc" placeholder="강사" style="max-width:110px">
   <span class="cdate">기간 <input type="date" id="mSd"> ~ <input type="date" id="mEd"></span>
   <button type="submit">능력단위 추가</button>
 </form>
@@ -69,9 +69,11 @@
 (function(){
   var CID = 'c2';
   var MKEY = 'cm_modules_' + CID, LKEY = 'cm_locks_' + CID;
+  /* 편집 칸. 표의 단추 칸(준비 교안 · 평가 자료)은 자료 파일에서 나오므로 여기 없다. */
   var COLS = [['name','능력단위','text'],['code','능력단위코드','text'],['tc','강사','text'],
               ['sd','시작일','date'],['ed','종료일','date'],['ev','본평가','date'],
               ['page','상세','text'],['lp','표준 교안','text']];
+  var NCOL = 9;                         /* 표시 칸 수 */
   var editing = -1;
 
   var course = (window.CM_COURSES || []).filter(function(c){ return c.id === CID; })[0] || {};
@@ -91,7 +93,7 @@
     catch(e){ alert('저장 공간이 부족합니다.'); }
   }
 
-  /* 잠금 : 기본값은 assets/locks-c2.js, 관리자가 바꾼 것은 이 브라우저에만 */
+  /* 잠금 : 기본값은 assets/locks-<과정>.js, 관리자가 바꾼 것은 이 브라우저에만 */
   function ovr(){ try{ return JSON.parse(localStorage.getItem(LKEY) || '{}'); }catch(e){ return {}; } }
   function locked(id){ var o = ovr(); return (id in o) ? o[id] : !!(window.CM_LOCKS || {})[id]; }
   function setLock(id, v){
@@ -122,15 +124,16 @@
   }
 
   function summary(v){
-    var ncs = 0, done = 0;
+    var ncs = 0, done = 0, lp = 0;
     v.forEach(function(m){
       if(m.code) ncs++;
       if(m.ev && m.ev !== '-') done++;
+      if(m.lp) lp++;
     });
     document.getElementById('kCnt').textContent = v.length;
-    document.getElementById('kHr').textContent = ncs;
-    document.getElementById('kPct').textContent = done + ' / ' + v.length;
-    document.getElementById('kLm').textContent = '17건';
+    document.getElementById('kNcs').textContent = ncs;
+    document.getElementById('kEv').textContent = done + ' / ' + v.length;
+    document.getElementById('kLp').textContent = lp + ' / ' + v.length;
   }
 
   function draw(){
@@ -145,12 +148,11 @@
         COLS.forEach(function(c){
           var val = m[c[0]] == null ? '' : m[c[0]];
           var type = (c[2] === 'date' && (isDate(val) || val === '')) ? 'date' : 'text';
-          var cls = '';
-          tds += '<td' + cls + '><input class="mi" data-f="' + c[0] + '" type="' + type +
-                 '" value="' + esc(val) + '"></td>';
+          tds += '<td><input class="mi" data-f="' + c[0] + '" type="' + type +
+                 '" value="' + esc(val) + '" placeholder="' + esc(c[1]) + '"></td>';
         });
         h += '<tr class="med">' + tds + '</tr>' +
-             '<tr class="med"><td colspan="9" class="mrow">' +
+             '<tr class="med"><td colspan="' + NCOL + '" class="mrow">' +
              '<button class="mok" data-i="' + i + '" type="button">저장</button>' +
              '<button class="mno" type="button">취소</button>' +
              '<span class="mhint">날짜가 아닌 값(예: -)은 그대로 적습니다. ' +
@@ -161,12 +163,6 @@
       var nm = (pg && !shut)
         ? '<a class="mlink" href="../' + esc(pg) + '">' + esc(m.name) + '</a>'
         : '<span class="mlink d">' + esc(m.name) + '</span>';
-      // 상세는 능력단위명 자체가 링크다. 단추를 또 두면 같은 곳이 두 번 생긴다.
-      // 표준 강의 교안 — 이 교과 것이 있으면 그리로, 없으면 양식을 보여 준다
-      var lpbtn = (m.lp && !shut)
-        ? '<a class="btn" href="../' + esc(m.lp) + '">교안</a>'
-        : (m.lp ? '<a class="btn d">교안</a>'
-                : '<a class="btn" href="../docs/표준강의교안-샘플.html">양식</a>');
       // 준비 교안 — 파일이 하나뿐이라 바로 연다
       var hasG = !!(window.CM_GUIDES || {})[m.id];
       var gbtn = (hasG && !shut)
@@ -177,6 +173,11 @@
       var ebtn = (nItem && pg && !shut)
         ? '<a class="btn" href="../' + esc(pg) + '">자료 ' + nItem + '</a>'
         : (nItem ? '<a class="btn d">자료 ' + nItem + '</a>' : '<span class="non">—</span>');
+      // 표준 강의 교안 — 이 교과 것이 있으면 그리로, 없으면 양식을 보여 준다
+      var lpbtn = (m.lp && !shut)
+        ? '<a class="btn" href="../' + esc(m.lp) + '">교안</a>'
+        : (m.lp ? '<a class="btn d">교안</a>'
+                : '<a class="btn" href="../docs/표준강의교안-샘플.html">양식</a>');
       var tools = adm
         ? '<button class="lk' + (lk ? ' on' : '') + '" data-m="' + esc(m.id) + '" type="button">' +
           (lk ? '잠김' : '열림') + '</button>' +
@@ -250,8 +251,8 @@
              ev: '-', page: '', lp: '' });
     save(v); mf.reset(); setDefaultDates(); draw();
     document.getElementById('mMsg').textContent =
-      id + ' 을 추가했습니다. 상세 페이지가 있으면 수정에서 modules/' + id + '.html 을 적습니다. ' +
-      '설정 파일 저장을 눌러야 남습니다.';
+      id + ' 을 추가했습니다. 상세 페이지가 있으면 수정에서 modules/' + CID + '-' + id +
+      '.html 을 적습니다. 설정 파일 저장을 눌러야 남습니다.';
   });
 
   var br = document.getElementById('bResetMods');
@@ -264,7 +265,7 @@
   function locksText(){
     var NL = String.fromCharCode(10), out = {};
     list().forEach(function(m){ out[m.id] = locked(m.id); });
-    return ['/* 모듈별 잠금 상태.  true = 잠김(일반은 상세를 못 엽니다)',
+    return ['/* 모듈별 잠금 상태.  true = 잠김(일반은 자료를 못 엽니다)',
             ' * courses/' + CID + '.html 의 [설정 파일 저장] 이 이 파일을 덮어씁니다.',
             ' * 고친 뒤 git 에 올려야 학생 화면에 적용됩니다.',
             ' */',
