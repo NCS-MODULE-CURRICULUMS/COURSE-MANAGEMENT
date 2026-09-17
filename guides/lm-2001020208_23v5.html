@@ -1,13 +1,30 @@
-<meta charset="utf-8"><title>정보시스템 이행 — 준비 교안</title>
+<meta charset="utf-8"><title>정보시스템 이행 — 학습 가이드</title>
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="stylesheet" href="../assets/guide.css">
 <style>
-  /* 원문 인용 — 우리가 쓴 안내와 눈으로 구분되어야 한다 */
-  .bd blockquote{margin:10px 0 16px;padding:10px 14px;border-left:3px solid #000;
-                 background:#fafafa;font-size:13.5px;line-height:1.8;color:#222}
-  .bd p.none{color:#888;font-size:13px}
-  .bd ul.sub{margin:8px 0 16px;padding-left:20px;font-size:13.5px;line-height:1.9}
-  aside.side .v .btn{font-size:11.5px}
+  /* 학습 가이드 — 개념 / 실습 / 확인 세 덩어리가 눈으로 구분되어야 한다 */
+  .bd h4{margin:22px 0 8px;font-size:14px;padding-bottom:5px;border-bottom:1px solid #000}
+  .bd h4:first-child{margin-top:0}
+  .bd h5{margin:16px 0 5px;font-size:13px;font-weight:700}
+  .bd blockquote{margin:5px 0 12px;padding:9px 13px;border-left:3px solid #999;
+                 background:#fafafa;font-size:13px;line-height:1.8;color:#333}
+  .cc{margin:0 0 6px}
+  .cc dt{font-weight:700;font-size:13.5px;margin:14px 0 0}
+  .cc dd{margin:4px 0 0}
+  .doh{display:flex;gap:9px;align-items:baseline;margin:16px 0 4px;font-size:13.5px;
+       font-weight:700}
+  .doh b{flex:0 0 auto;width:21px;height:21px;line-height:19px;text-align:center;
+         border:1px solid #000;font-size:11.5px}
+  ol.dos{margin:2px 0 0 30px;padding:0;font-size:13px;line-height:1.85}
+  ol.dos li{margin:3px 0}
+  .prep{display:grid;grid-template-columns:76px 1fr;gap:3px 10px;font-size:12.5px;
+        border:1px solid #ccc;padding:10px 13px;margin:6px 0 2px;background:#fafafa}
+  .prep b{color:#555;font-weight:400}
+  ul.goal{margin:6px 0 0;padding-left:20px;font-size:13.5px;line-height:1.9}
+  ul.chk{margin:6px 0 0;padding:0;list-style:none;font-size:13.5px;line-height:1.95}
+  ul.chk li::before{content:"\2610  "}
+  .none{color:#888;font-size:12.5px}
+  .srcline{font-size:11.5px;color:#888;margin:8px 0 0}
 </style>
 <script src="../assets/auth.js"></script>
 <script>EXAM_AUTH.guard("../");</script>
@@ -17,7 +34,7 @@
 <div class="top"><div class="tbar">
   <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
   <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
-  / 정보시스템 이행 / 준비 교안</small></div>
+  / 정보시스템 이행 / 학습 가이드</small></div>
   <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
@@ -25,50 +42,47 @@
 <button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
 
 <nav id="qnav" aria-label="빠른 이동">
-  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
-  <i class="qg">정보시스템 사용자 교육하기</i><a href="#st1"><b>1</b><span>교육 기법의 유형 이해</span></a><a href="#st2"><b>2</b><span>집합 교육 형태</span></a><a href="#st3"><b>3</b><span>OJT(On the Job Training)</span></a><a href="#st4"><b>4</b><span>수시 전달 교육</span></a><a href="#st5"><b>5</b><span>자가 학습</span></a><a href="#st6"><b>6</b><span>교육 대상에 의한 분류</span></a><a href="#st7"><b>7</b><span>사용자 과정</span></a><a href="#st8"><b>8</b><span>관리자 과정</span></a><a href="#st9"><b>9</b><span>교육 수행 기법의 유형</span></a><a href="#st10"><b>10</b><span>교육 형태에 대한 고찰</span></a><a href="#st11"><b>11</b><span>교육 성과 평가</span></a><a href="#st12"><b>12</b><span>평가 개념</span></a><a href="#st13"><b>13</b><span>평가 목적</span></a><a href="#st14"><b>14</b><span>평가의 유형</span></a><a href="#st15"><b>15</b><span>평가 모델</span></a><a href="#st16"><b>16</b><span>학습평가 절차</span></a><a href="#st17"><b>17</b><span>설문 준비 고려 사항</span></a><a href="#st18"><b>18</b><span>설문조사 개념</span></a><a href="#st19"><b>19</b><span>설문조사 절차</span></a><a href="#st20"><b>20</b><span>설문조사 방법</span></a><a href="#st21"><b>21</b><span>설문지 구성 요소</span></a><i class="qg">정보시스템 이행하기</i><a href="#st22"><b>22</b><span>기반 시스템 설치 및 전환 절차</span></a><a href="#st23"><b>23</b><span>설치 및 전환 준비</span></a><a href="#st24"><b>24</b><span>설치 및 전환</span></a><a href="#st25"><b>25</b><span>정상 여부 검토</span></a><a href="#st26"><b>26</b><span>매뉴얼의 개념 이해(출처: 혁신 매뉴얼과 사례, 어떻게 만들 것인가?, 행정자치부, 2005. 4.)</span></a><a href="#st27"><b>27</b><span>매뉴얼의 정의</span></a><a href="#st28"><b>28</b><span>매뉴얼의 요건</span></a><a href="#st29"><b>29</b><span>사용자의 관점에서 사용 목적에 맞는 정보에 초점을 맞추어 전달한다.</span></a><a href="#st30"><b>30</b><span>단순한 사실 중심이 아니라 사실에 대한 분석을 토대로 일반화할 수 있는 요소들</span></a><a href="#st31"><b>31</b><span>내용적으로나 형식적으로 일관된 흐름에 따라 기술해야 한다.</span></a><a href="#st32"><b>32</b><span>내용적 흐름: 업무 추진 절차나 과정별로 정리한다.</span></a><a href="#st33"><b>33</b><span>형식적 흐름: 글씨 크기, 모양, 도표 등을 일정하게 사용한다.</span></a><a href="#st34"><b>34</b><span>목차, 개요 등을 활용하여, 사용자가 쉽게 필요한 것을 찾을 수 있도록 배려한다.</span></a><a href="#st35"><b>35</b><span>실제 추진 과정에서 겪었던 장애 요인 및 극복 방법을 솔직하게 핵심적 요인 중</span></a><a href="#st36"><b>36</b><span>매뉴얼은 벤치마킹을 위한 좋은 자료, 공통적으로 겪을 수 있는 문제에 대해 경험</span></a><a href="#st37"><b>37</b><span>매뉴얼의 구성 요소</span></a><a href="#st38"><b>38</b><span>매뉴얼 제작의 일반적 절차</span></a><a href="#st39"><b>39</b><span>정보 수집: 사용자 분석</span></a><a href="#st40"><b>40</b><span>기획서 작성</span></a><a href="#st41"><b>41</b><span>목차 작성</span></a><a href="#st42"><b>42</b><span>매뉴얼 작성</span></a><a href="#st43"><b>43</b><span>내용 감수: 집필 내용의 적합성 감수</span></a><a href="#st44"><b>44</b><span>어문 감수: 문장, 어휘 등의 적합성 감수</span></a><a href="#st45"><b>45</b><span>사용 테스트: 실제 사용자들 대상 샘플 테스트 실시</span></a><a href="#st46"><b>46</b><span>매뉴얼 제작 매체에 적합한 전체적인 레이아웃, 일러스트레이션 등을 고려하여 전</span></a><a href="#st47"><b>47</b><span>인쇄 매체나 USB의 배부, 홈페이지나 인트라넷 등을 통해 사용자에게 매뉴얼 전달</span></a><a href="#st48"><b>48</b><span>데이터 전환의 개념 이해</span></a><a href="#st49"><b>49</b><span>데이터 전환의 개념</span></a><a href="#st50"><b>50</b><span>데이터 전환 방식 및 장단점 비교</span></a><a href="#st51"><b>51</b><span>데이터 전환 이후 검토해야 할 사항</span></a><i class="qg">정보시스템 안정화하기</i><a href="#st52"><b>52</b><span>성능 관리 모니터링의 개념 이해</span></a><a href="#st53"><b>53</b><span>성능지표</span></a><a href="#st54"><b>54</b><span>성능 측정 분석 방안</span></a><a href="#st55"><b>55</b><span>장애 대비 사전 활동 수행 절차</span></a><a href="#st56"><b>56</b><span>비상 운영 팀 구성</span></a><a href="#st57"><b>57</b><span>비상 연락 체계 가동</span></a><a href="#st58"><b>58</b><span>사전 점검</span></a><a href="#st59"><b>59</b><span>시스템 모니터링</span></a><a href="#st60"><b>60</b><span>장애 조치</span></a><a href="#st61"><b>61</b><span>유지보수 조직 및 역할</span></a><a href="#st62"><b>62</b><span>운영 총괄</span></a><a href="#st63"><b>63</b><span>응용 운영 담당</span></a><a href="#st64"><b>64</b><span>응용시스템 유지/버전 관리</span></a><a href="#st65"><b>65</b><span>사용자 관리 및 보안 관리</span></a><a href="#st66"><b>66</b><span>정기 작업 및 스케줄 관리</span></a><a href="#st67"><b>67</b><span>인프라 운영 담당</span></a><a href="#st68"><b>68</b><span>H/W, N/W 모니터링/장애 처리</span></a><a href="#st69"><b>69</b><span>DB 모니터링/장애 처리</span></a><a href="#st70"><b>70</b><span>정보 연계 운영 담당</span></a><a href="#st71"><b>71</b><span>유지보수 정보 연계 운영 담당</span></a>
+  <a class="qt" href="#top"><b>&uarr;</b><span>맨 위로</span></a>
+  <i class="qg">정보시스템 사용자 교육하기</i><a href="#st1"><b>1</b><span>정보시스템 사용자 교육 계획 수립</span></a><a href="#st2"><b>2</b><span>정보시스템 사용자 교육</span></a><i class="qg">정보시스템 이행하기</i><a href="#st3"><b>3</b><span>정보시스템 운영환경 설치</span></a><a href="#st4"><b>4</b><span>정보시스템 운영자 매뉴얼 작성</span></a><a href="#st5"><b>5</b><span>정보시스템 이행 계획 수립 및 데이터 이행</span></a><i class="qg">정보시스템 안정화하기</i><a href="#st6"><b>6</b><span>정보시스템 운영 안정화</span></a>
 </nav>
 
 <div class="wrap" id="top">
 
-<h1>정보시스템 이행 — 준비 교안</h1>
+<h1>정보시스템 이행 — 학습 가이드</h1>
 <p class="sub">능력단위 <code>2001020208_23v5</code> · 5수준 ·
-48시간 · 단계 71개 · 평가 사례 연구 · 평가자 질문 · 구두 발표</p>
+48시간 · 꼭지 6개 · 개념 71항목 · 실습 87절차</p>
 
-<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<h2 class="sec" id="g0">0. 시작하기 전에</h2>
 <div class="sect">
   <aside class="side">
     <p class="pt">개발자 환경에서 개발한 결과물을 운영환경에 설치하고, 사용자 요구사항과 최종적으로 일치하는지에 대해 승인을 얻어 응용소프트웨어 결과물을 사용자에게 전달하여 인계하고 시스템을 운영할 수 있도록 교육하고 지원할 수 있다.</p>
-    <b class="sh">선수학습</b>
+    <b class="sh">먼저 알아야 할 것</b>
     <p class="v">개발자 환경 구축(2001020233_23v5), 개발 환경 운영 지원(2001020234_23v2), 요구사항 확인(20010 20201_23v5), 애플리케이션 배포(2001020214_23v6), 애플리케이션 테스트 관리(2001020226_23v6)</p>
-    <b class="sh">원문</b>
-    <p class="src">LM2001020208_23v5_정보시스템 이행_20251108.pdf (84쪽)</p>
+    <b class="sh">평가</b>
+    <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
   </aside>
   <div class="bd">
-<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
-   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
-   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
-<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
-   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
-   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+<h4>이 문서를 쓰는 법</h4>
+<p>꼭지마다 <b>무엇을 할 수 있게 되나 → 알아야 할 것 → 해 보기 → 스스로 확인</b>
+   순서입니다. 읽고 끝내지 말고 <b>해 보기</b>를 손으로 따라 하십시오.
+   마지막 <b>스스로 확인</b>을 전부 «할 수 있다» 고 말할 수 있으면 다음 꼭지로 갑니다.</p>
+<p>자세한 설명과 표·그림은 <b>학습모듈 원문</b>에 있습니다. 꼭지마다 있는
+   <b>[원문 N쪽]</b> 단추를 누르면 그 자리가 바로 펼쳐집니다.</p>
 
 <h4>핵심 용어</h4>
 <p>교육훈련, 사용자 교육, 운영환경, 운영자 메뉴얼, 정보시스템 운영, 안정화, 시스템 모니터링</p>
 
-<h4>능력단위요소</h4>
+<h4>차례</h4>
 <table class="wide">
-  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
-      <th>학습 내용</th><th style="width:74px">단계</th></tr>
-  <tr><td class="c">1</td><td>정보시스템 사용자 교육하기</td><td>정보시스템 사용자 교육 계획 수립 · 정보시스템 사용자 교육</td><td class="c">21</td></tr>
-  <tr><td class="c">2</td><td>정보시스템 이행하기</td><td>정보시스템 운영환경 설치 · 정보시스템 운영자 매뉴얼 작성 · 정보시스템 이행 계획 수립 및 데이터 이행</td><td class="c">30</td></tr>
-  <tr><td class="c">3</td><td>정보시스템 안정화하기</td><td>정보시스템 운영 안정화</td><td class="c">20</td></tr>
+  <tr><th style="width:44px">꼭지</th><th style="width:250px">학습 내용</th>
+      <th>능력단위요소</th><th style="width:58px">개념</th><th style="width:58px">실습</th></tr>
+  <tr><td class="c">1</td><td>1-1. 정보시스템 사용자 교육 계획 수립</td><td>정보시스템 사용자 교육하기</td><td class="c">10</td><td class="c">23</td></tr>
+  <tr><td class="c">2</td><td>1-2. 정보시스템 사용자 교육</td><td>정보시스템 사용자 교육하기</td><td class="c">11</td><td class="c">10</td></tr>
+  <tr><td class="c">3</td><td>2-1. 정보시스템 운영환경 설치</td><td>정보시스템 이행하기</td><td class="c">4</td><td class="c">13</td></tr>
+  <tr><td class="c">4</td><td>2-2. 정보시스템 운영자 매뉴얼 작성</td><td>정보시스템 이행하기</td><td class="c">22</td><td class="c">17</td></tr>
+  <tr><td class="c">5</td><td>2-3. 정보시스템 이행 계획 수립 및 데이터 이행</td><td>정보시스템 이행하기</td><td class="c">4</td><td class="c">12</td></tr>
+  <tr><td class="c">6</td><td>3-1. 정보시스템 운영 안정화</td><td>정보시스템 안정화하기</td><td class="c">20</td><td class="c">12</td></tr>
 </table>
-
-<div class="try">
-  <b class="t">쓰는 법</b>
-  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
-  한 단계가 대략 수업 10~20분에 해당합니다.
-</div>
   </div>
 </div>
 
@@ -76,547 +90,65 @@
   <div class="lvh"><b>1. 정보시스템 사용자 교육하기</b><span>능력단위요소 · <code>2001020208_23v5.1</code></span></div>
   <div class="lvb">
     <div class="step" id="st1">
-      <h3><i>1</i>교육 기법의 유형 이해</h3>
+      <h3><i>1</i>1-1. 정보시스템 사용자 교육 계획 수립</h3>
       <aside class="side">
-        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
+        <p class="pt">개발된 응용소프트웨어 사용자 교육을 위해 교육 항목과 대상자, 강사 선정, 방법, 시간, 횟수 등을 포함한 교육 계획을 수립할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">정보시스템 사용자 교육하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 10항목 · 실습 23절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>집합 교육 형태</li><li>OJT(On the Job Training)</li><li>수시 전달 교육</li><li>자가 학습</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>개발된 응용소프트웨어 사용자 교육을 위해 교육 항목과 대상자, 강사 선정, 방법, 시간, 횟수 등을 포함한 교육 계획을 수립할 수 있다.</li><li>개발된 응용소프트웨어의 기능, 사용법과 필요 기술에 관한 사항을 포함한 사용자 교육 교재를 개발할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>집합 교육 형태</dt><dd><blockquote>강의실에서 구조화되어 행해지는 교육으로 많은 인원을 교육하기에 적합한 교육 형태이다. 실질적인 상황에 대처할 수 있도록 특정한 상황을 주고 그에 대하여 역할연기를 수 행함으로써 대처 능력을 체득하게 하는 교육 방식이다.</blockquote></dd><dt>OJT(On the Job Training)</dt><dd><blockquote>직무를 통하여 실시하는 종업원의 훈련 방식이다. 모든 관리자는 단지 업무 수행의 지휘 감독뿐 아니라 업무 수행 과정에서 부하의 능력을 향상시킬 책임이 있는 교육자이 기도 하다는 발상에 의한 교육 방식이다.</blockquote></dd><dt>수시 전달 교육</dt><dd><blockquote>변경된 업무 사항, 상담 특이 사항, 최근 집중 상담 내용, 공지 사항 등 수시로 발생되는 사항에 대한 업무 지식 전달 및 보완 수정이 필요에 의해서 수행하는 교육 방식이다.</blockquote></dd><dt>자가 학습</dt><dd><blockquote>품질 셀프 모니터링, 지표별 스터디 그룹, 개인별 자료 숙지 등 스스로 자신의 역량 향상을 위한 교육 방식이다.</blockquote></dd><dt>교육 대상에 의한 분류</dt><dd><blockquote>응용소프트웨어의 일반적인 교육 형태로는 대상에 따라서 사용자 교육, 관리자 교육, 공통 교육으로 구성되며 이는 사용자의 요구사항에 따라서 변경될 수 있다.</blockquote></dd><dt>사용자 과정</dt><dd><blockquote>시스템 구축 이후, 실제적으로 시스템을 사용할 인력을 대상으로 수행되는 교육이다. 따라서 사용자가 알아야 하는 기능 및 세부적인 운용 방안을 상세히 교육해야 한다.</blockquote></dd><dt>관리자 과정</dt><dd><blockquote>관리자 과정은 상위 계층의 관리자가 숙지해야 하는 과정 위주로 교육을 수행하게 된다. 따라서 사용자 교육에 비하여 교육 시간은 축소되며 교재도 간략화하여 제시된다.</blockquote></dd><dt>교육 수행 기법의 유형</dt><dd><blockquote>교육 매체에 따라서 다양한 교육 기법이 적용될 수 있다. 교육 수행 기법은 사업의 환경 및 교육 제공 가능성 여부에 기반하여 결정하여야 한다.</blockquote></dd><dt>교육 형태에 대한 고찰</dt><dd><blockquote>교육 방식은 크게 온라인 교육 방식과 오프라인 교육 방식으로 구분될 수 있다. 최근에는 온라인 교육 형태도 지리적, 시간적 제약 조건을 제거하기 위해서 많이 활용되고 있는데, 이러한 방식의 선택은 프로젝트 및 고객의 상황에 맞추어 선택되거나 병행될 수 있다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>교육 기법의 유형 이해</dd></dl>
+
+<h4>해 보기</h4>
+<h5>정보시스템 사용자 교육을 위한 계획 수립하기</h5><div class='prep'><b>재료·자료</b><span>고객의 교육 요구사항, 교육 추진 전략, 교육 추진 일정, 교육 수행 조직</span><b>기기·도구</b><span>컴퓨터, 프린터, 인터넷 / 문서 작성 도구 / 안전･유의사항 / 사용자 교육을 원활하게 수행하기 위해서는 고객의 요구사항을 정확히 파악하고, 교육 / 환경을 철저히 점검하여 수행 계획을 수립해야 한다. / 교육 수행에 대한 방안을 문서화로 계획하여야 향후 철저한 교육을 수행할 수 있다.</span></div><div class='doh'><b>1</b><span>정보시스템 사용자 교육 수행 방향을 수립한다.</span></div><ol class='dos'><li>교육 계획서를 문서로 작성한다.</li><li>교육 대상을 사전에 철저히 점검하여 선정한다.</li></ol><div class='doh'><b>2</b><span>관리자 교육: 시스템을 총괄하고 감독하는 직책에 해당하는 대상자</span></div><div class='doh'><b>3</b><span>운영자 교육: 시스템을 직접적으로 운영하고, 장애 등을 처리하는 담당자</span></div><div class='doh'><b>4</b><span>사용자 교육: 시스템을 직접적으로 사용하는 담당자</span></div><div class='doh'><b>5</b><span>기타: 기타 제반 시스템과 관련된 대상사</span></div><ol class='dos'><li>교육 수행 단계를 사전에 협의한다.</li><li>교육 방법을 결정한다.</li><li>교육 내용의 과정을 수립한다.</li></ol><div class='doh'><b>6</b><span>교육 수행 과목에 대하여 분류한다.</span></div><div class='doh'><b>7</b><span>상세한 교육 과목에서 수행할 교육 내용에 대하여 작성한다.</span></div><div class='doh'><b>8</b><span>교육 기간과 피교육 대상자를 파악한다.</span></div><div class='doh'><b>9</b><span>교육 방법은 온라인 또는 오프라인의 형태로 구분한다.</span></div><ol class='dos'><li>세부 교육 계획을 각 모듈별로 작성한다.</li><li>교육 수행 상세 일정을 수립한다.</li></ol><div class='doh'><b>10</b><span>교육 과목에 대하여 소요 일정을 확인한다.</span></div><div class='doh'><b>11</b><span>교육 수행 일정을 갠트(Gantt) 차트로 표기한다.</span></div><ol class='dos'><li>교육 강사 선정 및 예행연습을 수행하여야 한다.</li><li>교육 교재 제작 계획을 수립하여야 한다.</li><li>교육 수행 장소를 확보하여야 한다.</li><li>교육 수행 조직을 구성한다.</li><li>교육 수행 조직의 각 구성원들의 역할과 책임을 도출한다.</li><li>계획된 교육과정을 수행한다.</li><li>교육과정 평가 실시 교육 수행 후, 교육에 대한 실적 및 결과 등에 대하여 평가를 실시해 문서화하여야 한다.</li></ol><div class='doh'><b>12</b><span>정보시스템 사용자 교육 수행 시 고려 사항에 대한 점검을 수행하여야 한다.</span></div><ol class='dos'><li>교육 환경을 점검하여야 한다.</li></ol><div class='doh'><b>13</b><span>빔 프로젝트, 스크린, 화이트보드, OHP 기기 등 교육에 필요한 기자재 준비</span></div><div class='doh'><b>14</b><span>강사는 교육 교재를 근간으로 교육 실시 시나리오 작성</span></div><div class='doh'><b>15</b><span>교육 준비 팀은 교육용 데이터 작성, DB 구축과 교육 환경 설치한 후 테스트 완료</span></div><ol class='dos'><li>교육 수행 시 발생할 수 있는 비상 대책을 수립한다.</li></ol><div class='doh'><b>16</b><span>교육은 실화면을 이용한 강의 위주로 진행 실시</span></div><div class='doh'><b>17</b><span>물리적으로 H/W, S/W가 손상된 경우는 전문가에게 긴급 조치 요청</span></div><div class='doh'><b>18</b><span>DB 손상 시 백업(Back-up) 데이터를 활용하여 복구</span></div><ol class='dos'><li>강사의 교육 참여가 불가능할 경우를 대비한 대응책을 마련한다.</li></ol><div class='doh'><b>19</b><span>부득이한 경우를 대비하여 강사를 대리할 위임자 선정</span></div><div class='doh'><b>20</b><span>교육 진행이 불가능한 경우 추후 일정을 조정하여 실시</span></div><ol class='dos'><li>대규모 시스템의 변경 요구 등 일정이 지체될 경우를 대비하여 방안을 마련한다.</li></ol><div class='doh'><b>21</b><span>교재 및 실습 프로그램과 데이터의 수정이 교육 실시 이전에 완료되기 어려울 경우</span></div><div class='doh'><b>22</b><span>시스템 오픈 일정에 맞추지 못할 경우 시스템 간의 우선순위를 고려하여 일정 조정</span></div><div class='doh'><b>23</b><span>정보시스템 사용자 교육 수행을 위한 교재를 개발한다.</span></div><ol class='dos'><li>교재 개발을 위한 분석 업무를 고객의 요구사항 및 교육 참가 학습자를 분석한 결과에 기반하여 교육 교재 개발의 방향성을 도출한다.</li><li>교재 개발 계획을 수립한다.</li><li>교재 내용에 대하여 상세 설계를 수행한다.</li><li>교재를 개발한다.</li><li>개발된 교재를 검증한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>정보시스템 사용자 교육 수행 방향을 수립한다.</li><li>관리자 교육: 시스템을 총괄하고 감독하는 직책에 해당하는 대상자</li><li>운영자 교육: 시스템을 직접적으로 운영하고, 장애 등을 처리하는 담당자</li><li>사용자 교육: 시스템을 직접적으로 사용하는 담당자</li><li>기타: 기타 제반 시스템과 관련된 대상사</li><li>교육 수행 과목에 대하여 분류한다.</li><li>상세한 교육 과목에서 수행할 교육 내용에 대하여 작성한다.</li><li>교육 기간과 피교육 대상자를 파악한다.</li><li>교육 방법은 온라인 또는 오프라인의 형태로 구분한다.</li><li>교육 과목에 대하여 소요 일정을 확인한다.</li><li>교육 수행 일정을 갠트(Gantt) 차트로 표기한다.</li><li>정보시스템 사용자 교육 수행 시 고려 사항에 대한 점검을 수행하여야 한다.</li><li>빔 프로젝트, 스크린, 화이트보드, OHP 기기 등 교육에 필요한 기자재 준비</li><li>강사는 교육 교재를 근간으로 교육 실시 시나리오 작성</li><li>교육 준비 팀은 교육용 데이터 작성, DB 구축과 교육 환경 설치한 후 테스트 완료</li><li>교육은 실화면을 이용한 강의 위주로 진행 실시</li><li>물리적으로 H/W, S/W가 손상된 경우는 전문가에게 긴급 조치 요청</li><li>DB 손상 시 백업(Back-up) 데이터를 활용하여 복구</li><li>부득이한 경우를 대비하여 강사를 대리할 위임자 선정</li><li>교육 진행이 불가능한 경우 추후 일정을 조정하여 실시</li><li>교재 및 실습 프로그램과 데이터의 수정이 교육 실시 이전에 완료되기 어려울 경우</li><li>시스템 오픈 일정에 맞추지 못할 경우 시스템 간의 우선순위를 고려하여 일정 조정</li><li>정보시스템 사용자 교육 수행을 위한 교재를 개발한다.</li><li>개발된 응용소프트웨어 사용자 교육을 위해 교육 항목과 대상자, 강사 선정, 방법, 시간, 횟수 등을 포함한 교육 계획을 수립할 수 있다.</li><li>개발된 응용소프트웨어의 기능, 사용법과 필요 기술에 관한 사항을 포함한 사용자 교육 교재를 개발할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 사례 연구 · 평가자 질문 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 3쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
     <div class="step" id="st2">
-      <h3><i>2</i>집합 교육 형태</h3>
+      <h3><i>2</i>1-2. 정보시스템 사용자 교육</h3>
       <aside class="side">
-        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>강의실에서 구조화되어 행해지는 교육으로 많은 인원을 교육하기에 적합한 교육 형태이다. 실질적인 상황에 대처할 수 있도록 특정한 상황을 주고 그에 대하여 역할연기를 수 행함으로써 대처 능력을 체득하게 하는 교육 방식이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st3">
-      <h3><i>3</i>OJT(On the Job Training)</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>직무를 통하여 실시하는 종업원의 훈련 방식이다. 모든 관리자는 단지 업무 수행의 지휘 감독뿐 아니라 업무 수행 과정에서 부하의 능력을 향상시킬 책임이 있는 교육자이 기도 하다는 발상에 의한 교육 방식이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st4">
-      <h3><i>4</i>수시 전달 교육</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>변경된 업무 사항, 상담 특이 사항, 최근 집중 상담 내용, 공지 사항 등 수시로 발생되는 사항에 대한 업무 지식 전달 및 보완 수정이 필요에 의해서 수행하는 교육 방식이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st5">
-      <h3><i>5</i>자가 학습</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>품질 셀프 모니터링, 지표별 스터디 그룹, 개인별 자료 숙지 등 스스로 자신의 역량 향상을 위한 교육 방식이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st6">
-      <h3><i>6</i>교육 대상에 의한 분류</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>응용소프트웨어의 일반적인 교육 형태로는 대상에 따라서 사용자 교육, 관리자 교육, 공통 교육으로 구성되며 이는 사용자의 요구사항에 따라서 변경될 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st7">
-      <h3><i>7</i>사용자 과정</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템 구축 이후, 실제적으로 시스템을 사용할 인력을 대상으로 수행되는 교육이다. 따라서 사용자가 알아야 하는 기능 및 세부적인 운용 방안을 상세히 교육해야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st8">
-      <h3><i>8</i>관리자 과정</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>관리자 과정은 상위 계층의 관리자가 숙지해야 하는 과정 위주로 교육을 수행하게 된다. 따라서 사용자 교육에 비하여 교육 시간은 축소되며 교재도 간략화하여 제시된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st9">
-      <h3><i>9</i>교육 수행 기법의 유형</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>교육 매체에 따라서 다양한 교육 기법이 적용될 수 있다. 교육 수행 기법은 사업의 환경 및 교육 제공 가능성 여부에 기반하여 결정하여야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st10">
-      <h3><i>10</i>교육 형태에 대한 고찰</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육 계획 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>교육 방식은 크게 온라인 교육 방식과 오프라인 교육 방식으로 구분될 수 있다. 최근에는 온라인 교육 형태도 지리적, 시간적 제약 조건을 제거하기 위해서 많이 활용되고 있는데, 이러한 방식의 선택은 프로젝트 및 고객의 상황에 맞추어 선택되거나 병행될 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st11">
-      <h3><i>11</i>교육 성과 평가</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
+        <p class="pt">효과적인 사용자 교육이 이루어질 수 있도록 사전에 필요한 교육 환경을 구축하고 점검할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">정보시스템 사용자 교육하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="27">원문 14쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 11항목 · 실습 10절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>평가 개념</li><li>평가 목적</li><li>평가의 유형</li><li>평가 모델</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>효과적인 사용자 교육이 이루어질 수 있도록 사전에 필요한 교육 환경을 구축하고 점검할 수 있다.</li><li>교육 계획에 따라 사용자 교육을 실시하고, 평가 기준에 따라 교육 결과 및 성과를 평가할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>평가 개념</dt><dd><blockquote>교육과 관련된 모든 것을 체계적이고 과학적으로 측정, 관찰하여 가치, 질 등을 평가하는 주관적인 행위이다.</blockquote></dd><dt>평가 목적</dt><dd><blockquote>평가 개념에 맞추어 교육과정 개선, 효과 측정, 의사결정 정보를 통해 교육 프로그램의 수준을 평가하고 관리하는 데 목적이 있다.</blockquote></dd><dt>평가의 유형</dt><dd><blockquote>(가) 교육을 실시하기 전, 교육 효과를 극대화할 수 있는 제반 정보를 수집ㆍ분석하기 위 (나) 교육 내용을 학습자의 현재 수준 또는 그들의 요구사항에 부합하게 편성함으로써 개별화된 수업을 실현하기 위한 수단 (가) 교육 프로그램 개발 과정이나 교육 과정 중에 프로그램 구성 또는 전개 방법 등을 수정, 보완하는 데 필요한 정보를 수집하는 활동 (나) 프로그램 초안 또는 시제품이 개발된 후에</blockquote></dd><dt>평가 모델</dt><dd><blockquote>평가 모델은 &lt;표 1-7&gt;에 비교된 내용과 같이 Kirkpatrick과 Philips의 모델을 비교하 여 5수준으로 분류하여 정의한다.</blockquote></dd><dt>학습평가 절차</dt><dd><blockquote>교육 내용에 대하여 학습자의 수행 내역을 어떻게 평가할 것인지에 대한 계획을 수 립해야 한다. 학습평가 전략(계획)에 기반하여 평가지를 설계하는 단계이다.</blockquote></dd><dt>설문조사 개념</dt><dd><blockquote>조사 응답자의 생각, 의도, 태도 등을 파악하기 위한 방법으로 측정할 수 없는 자료를 질문이나 문제를 만들어서, 대상자의 생각, 의도, 태도를 데이터화하는 방법이다.</blockquote></dd><dt>설문조사 절차</dt><dd><blockquote>설문조사는 세부 계획에 근거하여 설문 방법 및 설문지를 도출하고, 설문된 결과에 대한 분석 및 보고서 작성의 절차를 수행한다.</blockquote></dd><dt>설문조사 방법</dt><dd><blockquote>설문조사를 수행하는 방법으로는, 대인면접법, 우편조사법, 전화조사법, 인터넷 조사법 등이 있다. 설문조사 수행자는 설문 대상 및 설문 수행자의 특징 및 환경을 고려하여 적절한 설문조사 기법을 선택하여 적용해야 한다.</blockquote></dd><dt>설문지 구성 요소</dt><dd><blockquote>설문지는 설문 제목, 조사 목적 및 배경, 개인정보보호 사항, 응답 시 유의 사항 등을 서두에 명기하며, 설문지 말미에는 감사 인사 및 조사 대상자의 연락처 등을 명기해야 / 정보시스템 사용자 교육 수행하기 기기(장비･공구) 안전･유의사항 확인하여야 한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>교육 성과 평가 · 설문 준비 고려 사항</dd></dl>
+
+<h4>해 보기</h4>
+<h5>정보시스템 사용자 교육 수행하기</h5><div class='prep'><b>재료·자료</b><span>교육 과목, 교육 일정, 교육 조직, 교육 교재</span><b>기기·도구</b><span>컴퓨터, 프린터, 인터넷 / 문서 작성 도구 / 안전･유의사항 / 교육 수행 시, 발생할 수 있는 비상사태에 대한 철저한 대응 방안이 수립되어 있는지 / 확인하여야 한다. / 교육 수행에 대한 철저한 사전 계획 수립 및 계획에 대한 내부적인 철저한 검토 작업 / 이 요구된다.</span></div><div class='doh'><b>1</b><span>정보시스템 사용자 교육훈련에 필요한 교육 환경을 철저히 준비한다.</span></div><ol class='dos'><li>교육훈련을 위한 준비 사항을 점검한다.</li><li>교육훈련 시스템 환경을 구축한다.</li><li>교육 교재/시나리오/시험문제를 작성한다.</li><li>강사/조교 예행연습 및 교육을 수행한다.</li><li>교육장을 정리한다.</li></ol><div class='doh'><b>2</b><span>정보시스템 사용자 교육 수행 성과를 분석한다.</span></div><ol class='dos'><li>교육 수행 성과 분석을 위한 설문조사를 수행한다.</li><li>본 설문지는 교육 결과를 분석하기 위한 자료입니다.</li><li>본 자료는 결과를 분석하여 차후 교육 실시 예정인 교육 계획에 반영할 예정이므로 귀하의 적극적이고 솔직한 답변을 부탁드립니다.</li><li>본 설문에 관련된 질문 사항에 대해서는 교육 담당자에게 문의하여 주시기 바랍니다.</li></ol><div class='doh'><b>3</b><span>쉬웠다. ② 보통이다. ③ 어려웠다.</span></div><div class='doh'><b>4</b><span>만족. ② 약간 만족. ③ 약간 불만족. ④ 불만족</span></div><div class='doh'><b>5</b><span>있다. ② 없다</span></div><div class='doh'><b>6</b><span>만족. ② 약간 만족. ③ 약간 불만족. ④ 불만족</span></div><ol class='dos'><li>교육과정별 차이를 분석한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>정보시스템 사용자 교육훈련에 필요한 교육 환경을 철저히 준비한다.</li><li>정보시스템 사용자 교육 수행 성과를 분석한다.</li><li>쉬웠다. ② 보통이다. ③ 어려웠다.</li><li>만족. ② 약간 만족. ③ 약간 불만족. ④ 불만족</li><li>있다. ② 없다</li><li>만족. ② 약간 만족. ③ 약간 불만족. ④ 불만족</li><li>효과적인 사용자 교육이 이루어질 수 있도록 사전에 필요한 교육 환경을 구축하고 점검할 수 있다.</li><li>교육 계획에 따라 사용자 교육을 실시하고, 평가 기준에 따라 교육 결과 및 성과를 평가할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 사례 연구 · 평가자 질문 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st12">
-      <h3><i>12</i>평가 개념</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="27">원문 14쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>교육과 관련된 모든 것을 체계적이고 과학적으로 측정, 관찰하여 가치, 질 등을 평가하는 주관적인 행위이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st13">
-      <h3><i>13</i>평가 목적</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="27">원문 14쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>평가 개념에 맞추어 교육과정 개선, 효과 측정, 의사결정 정보를 통해 교육 프로그램의 수준을 평가하고 관리하는 데 목적이 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st14">
-      <h3><i>14</i>평가의 유형</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="27">원문 14쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>(가) 교육을 실시하기 전, 교육 효과를 극대화할 수 있는 제반 정보를 수집ㆍ분석하기 위 (나) 교육 내용을 학습자의 현재 수준 또는 그들의 요구사항에 부합하게 편성함으로써 개별화된 수업을 실현하기 위한 수단 (가) 교육 프로그램 개발 과정이나 교육 과정 중에 프로그램 구성 또는 전개 방법 등을 수정, 보완하는 데 필요한 정보를 수집하는 활동 (나) 프로그램 초안 또는 시제품이 개발된 후에</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st15">
-      <h3><i>15</i>평가 모델</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="28">원문 15쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>평가 모델은 &lt;표 1-7&gt;에 비교된 내용과 같이 Kirkpatrick과 Philips의 모델을 비교하 여 5수준으로 분류하여 정의한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st16">
-      <h3><i>16</i>학습평가 절차</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="28">원문 15쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>교육 내용에 대하여 학습자의 수행 내역을 어떻게 평가할 것인지에 대한 계획을 수 립해야 한다. 학습평가 전략(계획)에 기반하여 평가지를 설계하는 단계이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st17">
-      <h3><i>17</i>설문 준비 고려 사항</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="29">원문 16쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>설문조사 개념</li><li>설문조사 절차</li><li>설문조사 방법</li><li>설문지 구성 요소</li></ul>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st18">
-      <h3><i>18</i>설문조사 개념</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="29">원문 16쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>조사 응답자의 생각, 의도, 태도 등을 파악하기 위한 방법으로 측정할 수 없는 자료를 질문이나 문제를 만들어서, 대상자의 생각, 의도, 태도를 데이터화하는 방법이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st19">
-      <h3><i>19</i>설문조사 절차</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="29">원문 16쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>설문조사는 세부 계획에 근거하여 설문 방법 및 설문지를 도출하고, 설문된 결과에 대한 분석 및 보고서 작성의 절차를 수행한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st20">
-      <h3><i>20</i>설문조사 방법</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="30">원문 17쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>설문조사를 수행하는 방법으로는, 대인면접법, 우편조사법, 전화조사법, 인터넷 조사법 등이 있다. 설문조사 수행자는 설문 대상 및 설문 수행자의 특징 및 환경을 고려하여 적절한 설문조사 기법을 선택하여 적용해야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st21">
-      <h3><i>21</i>설문지 구성 요소</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 사용자 교육</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="30">원문 17쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>설문지는 설문 제목, 조사 목적 및 배경, 개인정보보호 사항, 응답 시 유의 사항 등을 서두에 명기하며, 설문지 말미에는 감사 인사 및 조사 대상자의 연락처 등을 명기해야 / 정보시스템 사용자 교육 수행하기 기기(장비･공구) 안전･유의사항 확인하여야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 14쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -625,782 +157,98 @@
 <div class="lv">
   <div class="lvh"><b>2. 정보시스템 이행하기</b><span>능력단위요소 · <code>2001020208_23v5.2</code></span></div>
   <div class="lvb">
-    <div class="step" id="st22">
-      <h3><i>22</i>기반 시스템 설치 및 전환 절차</h3>
+    <div class="step" id="st3">
+      <h3><i>3</i>2-1. 정보시스템 운영환경 설치</h3>
       <aside class="side">
-        <p class="pt">정보시스템 운영환경 설치</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
+        <p class="pt">하드웨어, 시스템 소프트웨어, 네트워크 등 시스템 운영환경을 설치하고, 개발된 애플리케이션을 운영환경에 설치할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">정보시스템 이행하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="42">원문 29쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 4항목 · 실습 13절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>장비의 설치 및 전환을 다음과 같은 절차에 따라 수행하며 설치·전환 시 문제점에 대한 사전 점검과 설치 후 점검 및 테스트를 통해 안정적인 시스템을 구축한다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>하드웨어, 시스템 소프트웨어, 네트워크 등 시스템 운영환경을 설치하고, 개발된 애플리케이션을 운영환경에 설치할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>기반 시스템 설치 및 전환 절차</dt><dd><blockquote>장비의 설치 및 전환을 다음과 같은 절차에 따라 수행하며 설치·전환 시 문제점에 대한 사전 점검과 설치 후 점검 및 테스트를 통해 안정적인 시스템을 구축한다.</blockquote></dd><dt>설치 및 전환 준비</dt><dd><blockquote>하드웨어 및 네트워크 등 기반 장비의 설치를 위해서는 사전에 설치 및 전환 계획을 철저히 준비하여야 하며, 이를 위한 환경 및 전담 조직을 구성하여야 한다.</blockquote></dd><dt>설치 및 전환</dt><dd><blockquote>설치 및 전환 계획에 기반하여 설치 및 전환을 수행하는 단계이다. 이 단계에서는 장비 입고 상태 등에 대해 철저히 검토하여야 하며, 장애에 대비하여 장애 처리 교육을 수행하여야 한다.</blockquote></dd><dt>정상 여부 검토</dt><dd><blockquote>테스트를 통해 계획대로 정상적으로 전환되었는지를 체크한다. 5, 설치 확인 설치가 정상적으로 확인되면 그에 대한 설치 확인을 검수받고 운영한다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>정보시스템 운영환경 설치하기</h5><div class='prep'><b>재료·자료</b><span>고객 요구사항, 사업 수행 범위, 운영환경, 정보시스템 운영 방향</span><b>기기·도구</b><span>컴퓨터, 프린터, 인터넷 / 문서 작성 도구</span><b>유의 사항</b><span>고객 지원 업무를 원활하게 수행하기 위한 사용자 및 관련자의 요구사항을 철저히 분석 / 해야 한다. / 운영환경 설치를 위한 제반 환경을 사전에 철저히 점검하고 준비하여야 한다.</span></div><div class='doh'><b>1</b><span>전환 환경을 충분히 파악한다.</span></div><ol class='dos'><li>전환 대상 업무 이해를 위해 업무 흐름도를 작성한다.</li><li>전환 대상 업무에 대한 세부적인 기능을 파악한다.</li></ol><div class='doh'><b>2</b><span>전환 대상에 대한 기능을 도출한다.</span></div><div class='doh'><b>3</b><span>기능별 기능을 상세히 기술한다.</span></div><ol class='dos'><li>전환 아키텍처 및 구성을 파악한다.</li></ol><div class='doh'><b>4</b><span>전환 절차를 상세히 수립한다.</span></div><ol class='dos'><li>전환 절차 및 목표를 설정한다.</li><li>응용 분야 전환 요소를 도출한다.</li><li>기반 분야 전환 요소를 도출한다.</li><li>주요 교육 내용을 제시한다.</li><li>전제 조건을 도출한다.</li></ol><div class='doh'><b>5</b><span>기반 장비 전환을 수행한다.</span></div><ol class='dos'><li>설치 및 사전 검증 스케줄을 도출한다.</li><li>전환 이행 스케줄을 도출한다.</li></ol><div class='doh'><b>6</b><span>응용시스템 상세 전환 방안을 수행한다.</span></div><ol class='dos'><li>전환 응용시스템의 상세 기능 내역을 파악한다.</li><li>전환 응용시스템의 대상 및 범위를 명확히 파악한다.</li><li>응용시스템 상세 전환 방안을 수립한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>전환 환경을 충분히 파악한다.</li><li>전환 대상에 대한 기능을 도출한다.</li><li>기능별 기능을 상세히 기술한다.</li><li>전환 절차를 상세히 수립한다.</li><li>기반 장비 전환을 수행한다.</li><li>응용시스템 상세 전환 방안을 수행한다.</li><li>하드웨어, 시스템 소프트웨어, 네트워크 등 시스템 운영환경을 설치하고, 개발된 애플리케이션을 운영환경에 설치할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 사례 연구 · 평가자 질문 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 29쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st23">
-      <h3><i>23</i>설치 및 전환 준비</h3>
+    <div class="step" id="st4">
+      <h3><i>4</i>2-2. 정보시스템 운영자 매뉴얼 작성</h3>
       <aside class="side">
-        <p class="pt">정보시스템 운영환경 설치</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="42">원문 29쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>하드웨어 및 네트워크 등 기반 장비의 설치를 위해서는 사전에 설치 및 전환 계획을 철저히 준비하여야 하며, 이를 위한 환경 및 전담 조직을 구성하여야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st24">
-      <h3><i>24</i>설치 및 전환</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영환경 설치</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="42">원문 29쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>설치 및 전환 계획에 기반하여 설치 및 전환을 수행하는 단계이다. 이 단계에서는 장비 입고 상태 등에 대해 철저히 검토하여야 하며, 장애에 대비하여 장애 처리 교육을 수행 하여야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st25">
-      <h3><i>25</i>정상 여부 검토</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영환경 설치</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="43">원문 30쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트를 통해 계획대로 정상적으로 전환되었는지를 체크한다. 5, 설치 확인 설치가 정상적으로 확인되면 그에 대한 설치 확인을 검수받고 운영한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st26">
-      <h3><i>26</i>매뉴얼의 개념 이해(출처: 혁신 매뉴얼과 사례, 어떻게 만들 것인가?, 행정자치부, 2005. 4.)</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
+        <p class="pt">시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">정보시스템 이행하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="51">원문 38쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 22항목 · 실습 17절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>매뉴얼의 정의</li><li>매뉴얼의 요건</li><li>사용자의 관점에서 사용 목적에 맞는 정보에 초점을 맞추어 전달한다.</li><li>단순한 사실 중심이 아니라 사실에 대한 분석을 토대로 일반화할 수 있는 요소들</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>매뉴얼의 정의</dt><dd><blockquote>사전적으로는 소책자, 편람, 안내서, 사용 설명서(a book giving instructions or information)를 의미한다.</blockquote></dd><dt>매뉴얼의 요건</dt><dd><blockquote>사용자의 관점에서 사용 목적에 맞는 정보에 초점을 맞추어 정리한다. - 실무자 용도: 아주 상세하고 구체적으로 설명한다.</blockquote></dd><dt>단순한 사실 중심이 아니라 사실에 대한 분석을 토대로 일반화할 수 있는 요소들</dt><dd><blockquote>을 추출하여 제시한다.</blockquote></dd><dt>실제 추진 과정에서 겪었던 장애 요인 및 극복 방법을 솔직하게 핵심적 요인 중</dt><dd><blockquote>심으로 정리한다.</blockquote></dd><dt>매뉴얼은 벤치마킹을 위한 좋은 자료, 공통적으로 겪을 수 있는 문제에 대해 경험</dt><dd><blockquote>자의 노하우를 제공한다. 실제 적용 상황이나 사례 제시를 통해 사용자의 상황을 이해한다. 텍스트를 줄이는 대신 그림 등을 가능한 곳마다 사용한다.</blockquote></dd><dt>매뉴얼의 구성 요소</dt><dd><blockquote>매뉴얼에서 다루고 있는 업무의 개요 매뉴얼의 필요성, 목적, 구성 등 단계별/기능별 업무의 성격에 따라 단계, 시기 또는 기능별 처리 요령이나 점검 사항을 제시 성공 및 실패 주요 성공 요인, 장애 요인과 극복 방법을 분석하여 실제 사례와 함께 제시 서식/템플릿 필요한 서식이나 템플릿의 예 제시 기타 참고 자료 관련된 과제나 업무에 유용하게 활용될 수 있는 각종 참고 서적 예상되는 질문이나</blockquote></dd><dt>정보 수집: 사용자 분석</dt><dd><blockquote>- 누가 사용할 것인가? - 무엇을 하는 데 사용될 것인가? - 어디에서 사용될 것인가? - 책임자/집필진/감수진 등 작업 팀 구성 - 집필진: 담당자 직접 직필 또는 매뉴얼 전문작가와 공동 작업 - 감수진: 외부 전문가, 내부 고객 포함</blockquote></dd><dt>기획서 작성</dt><dd><blockquote>- 제작 목적 및 개요, 추진 방안, 추진 일정 등 제시</blockquote></dd><dt>목차 작성</dt><dd><blockquote>- 목차에서 내용을 짐작할 수 있는 표제 구상</blockquote></dd><dt>매뉴얼 작성</dt><dd><blockquote>- 간결하고 문법에 맞는 문장 구조와 논리에 맞는 단락 구성 - 누구나 이해할 수 있는 알기 쉬운 표현과 어휘 사용 - 약어, 외래어, 전문용어의 일관성 유지</blockquote></dd><dt>매뉴얼 제작 매체에 적합한 전체적인 레이아웃, 일러스트레이션 등을 고려하여 전</dt><dd><blockquote>산 편집(필요시 전문 인쇄·기획 업체에 의뢰)</blockquote></dd><dt>인쇄 매체나 USB의 배부, 홈페이지나 인트라넷 등을 통해 사용자에게 매뉴얼 전달</dt><dd><blockquote>/ 정보시스템 운영자 매뉴얼 작성하기 기기(장비･공구) 안전･유의 사항해야 한다. 전환 대상 업무가 무엇이 있으며 이러한 각 업무 간에는 어떠한 기능 및 연관 관계가 있는지를 파악하여야 한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>매뉴얼의 개념 이해(출처: 혁신 매뉴얼과 사례, 어떻게 만들 것인가?, 행정자치부, 2005. 4.) · 사용자의 관점에서 사용 목적에 맞는 정보에 초점을 맞추어 전달한다. · 내용적으로나 형식적으로 일관된 흐름에 따라 기술해야 한다. · 내용적 흐름: 업무 추진 절차나 과정별로 정리한다. · 형식적 흐름: 글씨 크기, 모양, 도표 등을 일정하게 사용한다. · 목차, 개요 등을 활용하여, 사용자가 쉽게 필요한 것을 찾을 수 있도록 배려한다. · 매뉴얼 제작의 일반적 절차 · 내용 감수: 집필 내용의 적합성 감수 · 어문 감수: 문장, 어휘 등의 적합성 감수 · 사용 테스트: 실제 사용자들 대상 샘플 테스트 실시</dd></dl>
+
+<h4>해 보기</h4>
+<h5>정보시스템 운영자 매뉴얼 작성하기</h5><div class='prep'><b>재료·자료</b><span>고객 요구사항, 사업 수행 범위, 운영환경, 정보시스템 운영 방향</span><b>기기·도구</b><span>컴퓨터, 프린터, 인터넷 / 문서 작성 도구</span><b>유의 사항</b><span>고객 지원 업무를 원활하게 수행하기 위한 사용자 및 관련자의 요구사항을 철저히 분석 / 해야 한다. / 운영환경 설치를 위한 제반 환경을 사전에 철저히 점검하고 준비하여야 한다.</span></div><div class='doh'><b>1</b><span>전환 흐름을 작성한다.</span></div><ol class='dos'><li>전환 대상 업무 이해를 위해 업무 흐름도를 작성한다.</li><li>전환 대상 업무에 대한 세부적인 기능을 도출하여 작성한다.</li><li>전환 아키텍처 및 구성을 작성한다.</li></ol><div class='doh'><b>2</b><span>상세화된 전환 절차를 작성한다.</span></div><ol class='dos'><li>전환 절차 및 목표를 작성한다.</li><li>도출된 응용 분야 전환 요소를 작성한다.</li><li>도출된 기반 분야 전환 요소를 작성한다.</li><li>교육 내용을 작성한다.</li><li>도출된 전제 조건을 작성한다.</li></ol><div class='doh'><b>3</b><span>기반 장비 전환 수행 절차를 작성한다.</span></div><ol class='dos'><li>설치 및 사전 검증 스케줄을 도출하여 작성한다.</li><li>전환 이행 스케줄을 도출하여 작성한다.</li></ol><div class='doh'><b>4</b><span>응용시스템 상세 전환 절차를 작성한다.</span></div><ol class='dos'><li>전환 응용시스템의 상세 기능 내역을 파악하여 작성한다.</li><li>전환 응용시스템의 대상 및 범위를 명확히 파악하여 작성한다.</li><li>수립된 응용시스템 상세 전환 방안을 작성한다.</li><li>해야 할 업무를 작업 중심으로 작성한다.</li><li>전환 응용시스템의 대상 및 범위를 명확히 파악하여 작성한다.</li><li>매뉴얼 작성 주의 사항을 검토하여 작성한다.</li><li>매뉴얼 작성 팁을 활용하여 작성한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>전환 흐름을 작성한다.</li><li>상세화된 전환 절차를 작성한다.</li><li>기반 장비 전환 수행 절차를 작성한다.</li><li>응용시스템 상세 전환 절차를 작성한다.</li><li>시스템 운영 방법 및 사용법과 필요 기술에 관한 사항을 포함한 운영자 매뉴얼을 개발할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 사례 연구 · 평가자 질문 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 38쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st27">
-      <h3><i>27</i>매뉴얼의 정의</h3>
+    <div class="step" id="st5">
+      <h3><i>5</i>2-3. 정보시스템 이행 계획 수립 및 데이터 이행</h3>
       <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="51">원문 38쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>사전적으로는 소책자, 편람, 안내서, 사용 설명서(a book giving instructions or information)를 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st28">
-      <h3><i>28</i>매뉴얼의 요건</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="51">원문 38쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>사용자의 관점에서 사용 목적에 맞는 정보에 초점을 맞추어 정리한다. - 실무자 용도: 아주 상세하고 구체적으로 설명한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st29">
-      <h3><i>29</i>사용자의 관점에서 사용 목적에 맞는 정보에 초점을 맞추어 전달한다.</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="51">원문 38쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>단순한 사실 중심이 아니라 사실에 대한 분석을 토대로 일반화할 수 있는 요소들</li><li>내용적으로나 형식적으로 일관된 흐름에 따라 기술해야 한다.</li><li>내용적 흐름: 업무 추진 절차나 과정별로 정리한다.</li><li>형식적 흐름: 글씨 크기, 모양, 도표 등을 일정하게 사용한다.</li></ul>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st30">
-      <h3><i>30</i>단순한 사실 중심이 아니라 사실에 대한 분석을 토대로 일반화할 수 있는 요소들</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="51">원문 38쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>을 추출하여 제시한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st31">
-      <h3><i>31</i>내용적으로나 형식적으로 일관된 흐름에 따라 기술해야 한다.</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="51">원문 38쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>내용적 흐름: 업무 추진 절차나 과정별로 정리한다.</li><li>형식적 흐름: 글씨 크기, 모양, 도표 등을 일정하게 사용한다.</li><li>목차, 개요 등을 활용하여, 사용자가 쉽게 필요한 것을 찾을 수 있도록 배려한다.</li><li>실제 추진 과정에서 겪었던 장애 요인 및 극복 방법을 솔직하게 핵심적 요인 중</li></ul>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st32">
-      <h3><i>32</i>내용적 흐름: 업무 추진 절차나 과정별로 정리한다.</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="51">원문 38쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>형식적 흐름: 글씨 크기, 모양, 도표 등을 일정하게 사용한다.</li><li>목차, 개요 등을 활용하여, 사용자가 쉽게 필요한 것을 찾을 수 있도록 배려한다.</li><li>실제 추진 과정에서 겪었던 장애 요인 및 극복 방법을 솔직하게 핵심적 요인 중</li><li>매뉴얼은 벤치마킹을 위한 좋은 자료, 공통적으로 겪을 수 있는 문제에 대해 경험</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st33">
-      <h3><i>33</i>형식적 흐름: 글씨 크기, 모양, 도표 등을 일정하게 사용한다.</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="51">원문 38쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>목차, 개요 등을 활용하여, 사용자가 쉽게 필요한 것을 찾을 수 있도록 배려한다.</li><li>실제 추진 과정에서 겪었던 장애 요인 및 극복 방법을 솔직하게 핵심적 요인 중</li><li>매뉴얼은 벤치마킹을 위한 좋은 자료, 공통적으로 겪을 수 있는 문제에 대해 경험</li><li>매뉴얼의 구성 요소</li></ul>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st34">
-      <h3><i>34</i>목차, 개요 등을 활용하여, 사용자가 쉽게 필요한 것을 찾을 수 있도록 배려한다.</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="51">원문 38쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>실제 추진 과정에서 겪었던 장애 요인 및 극복 방법을 솔직하게 핵심적 요인 중</li><li>매뉴얼은 벤치마킹을 위한 좋은 자료, 공통적으로 겪을 수 있는 문제에 대해 경험</li><li>매뉴얼의 구성 요소</li><li>매뉴얼 제작의 일반적 절차</li></ul>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st35">
-      <h3><i>35</i>실제 추진 과정에서 겪었던 장애 요인 및 극복 방법을 솔직하게 핵심적 요인 중</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>심으로 정리한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st36">
-      <h3><i>36</i>매뉴얼은 벤치마킹을 위한 좋은 자료, 공통적으로 겪을 수 있는 문제에 대해 경험</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>자의 노하우를 제공한다. 실제 적용 상황이나 사례 제시를 통해 사용자의 상황을 이해한다. 텍스트를 줄이는 대신 그림 등을 가능한 곳마다 사용한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st37">
-      <h3><i>37</i>매뉴얼의 구성 요소</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>매뉴얼에서 다루고 있는 업무의 개요 매뉴얼의 필요성, 목적, 구성 등 단계별/기능별 업무의 성격에 따라 단계, 시기 또는 기능별 처리 요령이나 점검 사항을 제시 성공 및 실패 주요 성공 요인, 장애 요인과 극복 방법을 분석하여 실제 사례와 함께 제시 서식/템플릿 필요한 서식이나 템플릿의 예 제시 기타 참고 자료 관련된 과제나 업무에 유용하게 활용될 수 있는 각종 참고 서적 예상되는 질문이나</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st38">
-      <h3><i>38</i>매뉴얼 제작의 일반적 절차</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>정보 수집: 사용자 분석</li><li>기획서 작성</li><li>목차 작성</li><li>매뉴얼 작성</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st39">
-      <h3><i>39</i>정보 수집: 사용자 분석</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>- 누가 사용할 것인가? - 무엇을 하는 데 사용될 것인가? - 어디에서 사용될 것인가? - 책임자/집필진/감수진 등 작업 팀 구성 - 집필진: 담당자 직접 직필 또는 매뉴얼 전문작가와 공동 작업 - 감수진: 외부 전문가, 내부 고객 포함</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st40">
-      <h3><i>40</i>기획서 작성</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>- 제작 목적 및 개요, 추진 방안, 추진 일정 등 제시</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st41">
-      <h3><i>41</i>목차 작성</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>- 목차에서 내용을 짐작할 수 있는 표제 구상</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st42">
-      <h3><i>42</i>매뉴얼 작성</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>- 간결하고 문법에 맞는 문장 구조와 논리에 맞는 단락 구성 - 누구나 이해할 수 있는 알기 쉬운 표현과 어휘 사용 - 약어, 외래어, 전문용어의 일관성 유지</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st43">
-      <h3><i>43</i>내용 감수: 집필 내용의 적합성 감수</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>어문 감수: 문장, 어휘 등의 적합성 감수</li><li>사용 테스트: 실제 사용자들 대상 샘플 테스트 실시</li><li>매뉴얼 제작 매체에 적합한 전체적인 레이아웃, 일러스트레이션 등을 고려하여 전</li><li>인쇄 매체나 USB의 배부, 홈페이지나 인트라넷 등을 통해 사용자에게 매뉴얼 전달</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st44">
-      <h3><i>44</i>어문 감수: 문장, 어휘 등의 적합성 감수</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>사용 테스트: 실제 사용자들 대상 샘플 테스트 실시</li><li>매뉴얼 제작 매체에 적합한 전체적인 레이아웃, 일러스트레이션 등을 고려하여 전</li><li>인쇄 매체나 USB의 배부, 홈페이지나 인트라넷 등을 통해 사용자에게 매뉴얼 전달</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st45">
-      <h3><i>45</i>사용 테스트: 실제 사용자들 대상 샘플 테스트 실시</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>매뉴얼 제작 매체에 적합한 전체적인 레이아웃, 일러스트레이션 등을 고려하여 전</li><li>인쇄 매체나 USB의 배부, 홈페이지나 인트라넷 등을 통해 사용자에게 매뉴얼 전달</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st46">
-      <h3><i>46</i>매뉴얼 제작 매체에 적합한 전체적인 레이아웃, 일러스트레이션 등을 고려하여 전</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>산 편집(필요시 전문 인쇄·기획 업체에 의뢰)</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st47">
-      <h3><i>47</i>인쇄 매체나 USB의 배부, 홈페이지나 인트라넷 등을 통해 사용자에게 매뉴얼 전달</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영자 매뉴얼 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>/ 정보시스템 운영자 매뉴얼 작성하기 기기(장비･공구) 안전･유의 사항 해야 한다. 전환 대상 업무가 무엇이 있으며 이러한 각 업무 간에는 어떠한 기능 및 연관 관계가 있는지를 파악하여야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st48">
-      <h3><i>48</i>데이터 전환의 개념 이해</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 이행 계획 수립 및 데이터 이행</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
+        <p class="pt">정보시스템 이행을 위한 각 영역별 사전 점검표를 작성하고, 데이터 이행 작업 및 검증을 할수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">정보시스템 이행하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="59">원문 46쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 4항목 · 실습 12절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>데이터 전환의 개념</li><li>데이터 전환 방식 및 장단점 비교</li><li>데이터 전환 이후 검토해야 할 사항</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>정보시스템 이행을 위한 각 영역별 사전 점검표를 작성하고, 데이터 이행 작업 및 검증을 할수 있다.</li><li>정보시스템 이행 시 발생할 수 있는 실패나 사고에 대비하여 신속하게 지원할 수 있는 비상 대책을 수립할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>데이터 전환의 개념</dt><dd><blockquote>현 시스템의 데이터를 목표 시스템의 데이터 구조에 맞게 데이터를 매핑하는 규칙을 정의하고 추출, 변화하여 이관하는 활동이다.</blockquote></dd><dt>데이터 전환 방식 및 장단점 비교</dt><dd><blockquote>데이터 전환 방식은 크게 전체를 일시에 전환하는 빅뱅 방식과 빅뱅을 일부 수행하고 변동분에 대해서 전환하는 빅뱅+단계별 전환 방식, 그리고 일정 업무 영역별로 전환하는 단계적 전환 방식이 있다.</blockquote></dd><dt>데이터 전환 이후 검토해야 할 사항</dt><dd><blockquote>자료 전환 계획에서 체크할 수 있는 확인 작업은 한계가 있으며 차세대 시스템으로의 데이터 전환 이후 구 시스템과의 철저한 크로스 체크를 통해 데이터의 신뢰성을 재검토해야 한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>데이터 전환의 개념 이해</dd></dl>
+
+<h4>해 보기</h4>
+<h5>정보시스템 이행 계획 수립 및 데이터 이행하기</h5><div class='prep'><b>재료·자료</b><span>전환 데이터 현황, 정보시스템 전환 범위, 전환 방식</span><b>기기·도구</b><span>컴퓨터, 프린터, 인터넷 / 문서 작성 도구</span><b>유의 사항</b><span>정보시스템의 전환 범위에 대한 철저한 사전 검증 및 협의가 고객과 이루어져야 전환 / 과정에서 누락 및 중복을 회피할 수 있다. / 철저한 사전 검증을 거쳐서 전환 방식이 결정되어야 한다.</span></div><div class='doh'><b>1</b><span>시스템 전환 시 점검 사항을 철저히 파악한다.</span></div><ol class='dos'><li>시스템 전 점검을 수행한다.</li><li>시스템 전환 이후, 운영 단계에 필요한 사항을 점검한다.</li></ol><div class='doh'><b>2</b><span>데이터를 전환한다.</span></div><ol class='dos'><li>현행 데이터에 대한 철저한 분석을 수행한다.</li><li>데이터를 정비한다.</li><li>전환 프로그램을 개발한다.</li><li>데이터 전환 시험을 수행한다.</li><li>이행 계획을 수립한다.</li><li>데이터를 전환한다.</li></ol><div class='doh'><b>3</b><span>비상 상황 발생 시 원상복구를 수행한다.</span></div><ol class='dos'><li>비상 상황 발생 시 전환을 중지하고 원상복구를 해야 하는 사항을 도출해 낸다.</li><li>원상복구를 위해 사전에 철저한 주기적 백업을 실시한다.</li><li>장애 발생 시 서비스를 중지하고 원상복구를 수행한다.</li><li>시스템의 정상 여부를 점검하고 서비스를 재오픈한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>시스템 전환 시 점검 사항을 철저히 파악한다.</li><li>데이터를 전환한다.</li><li>비상 상황 발생 시 원상복구를 수행한다.</li><li>정보시스템 이행을 위한 각 영역별 사전 점검표를 작성하고, 데이터 이행 작업 및 검증을 할수 있다.</li><li>정보시스템 이행 시 발생할 수 있는 실패나 사고에 대비하여 신속하게 지원할 수 있는 비상 대책을 수립할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 사례 연구 · 평가자 질문 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st49">
-      <h3><i>49</i>데이터 전환의 개념</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 이행 계획 수립 및 데이터 이행</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="59">원문 46쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>현 시스템의 데이터를 목표 시스템의 데이터 구조에 맞게 데이터를 매핑하는 규칙을 정의하고 추출, 변화하여 이관하는 활동이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st50">
-      <h3><i>50</i>데이터 전환 방식 및 장단점 비교</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 이행 계획 수립 및 데이터 이행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="59">원문 46쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>데이터 전환 방식은 크게 전체를 일시에 전환하는 빅뱅 방식과 빅뱅을 일부 수행하고 변동분에 대해서 전환하는 빅뱅+단계별 전환 방식, 그리고 일정 업무 영역별로 전환하는 단계적 전환 방식이 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st51">
-      <h3><i>51</i>데이터 전환 이후 검토해야 할 사항</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 이행 계획 수립 및 데이터 이행</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="60">원문 47쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>자료 전환 계획에서 체크할 수 있는 확인 작업은 한계가 있으며 차세대 시스템으로의 데이터 전환 이후 구 시스템과의 철저한 크로스 체크를 통해 데이터의 신뢰성을 재검토해야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 46쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -1409,533 +257,45 @@
 <div class="lv">
   <div class="lvh"><b>3. 정보시스템 안정화하기</b><span>능력단위요소 · <code>2001020208_23v5.3</code></span></div>
   <div class="lvb">
-    <div class="step" id="st52">
-      <h3><i>52</i>성능 관리 모니터링의 개념 이해</h3>
+    <div class="step" id="st6">
+      <h3><i>6</i>3-1. 정보시스템 운영 안정화</h3>
       <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
+        <p class="pt">정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">정보시스템 안정화하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="70">원문 57쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 20항목 · 실습 12절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>성능지표</li><li>성능 측정 분석 방안</li><li>장애 대비 사전 활동 수행 절차</li><li>비상 운영 팀 구성</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</li><li>정보시스템 이행 후 실행되는 과정 중에 발생할 수 있는 정보시스템의 자원 사용량, 운영 상황을 분석하여 정보시스템을 안정화할 수 있다.</li><li>개발된 응용소프트웨어가 적용되는 정보시스템의 성능을 분석하여 문제점을 파악한 뒤 성능을 개선할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>성능지표</dt><dd><blockquote>정보시스템의 서비스 품질(QoS)을 결정하는 속성들 중의 하나인 성능을 나타내는 일반 적인 지표는 &lt;표 3-1&gt;과 같다.</blockquote></dd><dt>성능 측정 분석 방안</dt><dd><blockquote>성능 수집 항목은 주로 사용량, 응답시간, 관련 자원들로 구성된 IT 서비스의 가용성이 모두 합쳐진 결과에 의해서 결정된다.</blockquote></dd><dt>비상 운영 팀 구성</dt><dd><blockquote>비상 운영 팀을 구성하여 비상 상황 발생에 대비한다.</blockquote></dd><dt>비상 연락 체계 가동</dt><dd><blockquote>유지보수 및 공급업체의 기술 지원에 대비하여 비상 연락 조직을 확인 및 가동한다.</blockquote></dd><dt>사전 점검</dt><dd><blockquote>시스템 성능 분석 및 튜닝을 하며 필요시 전문 인력을 통한 기술 지원을 요청한다.</blockquote></dd><dt>시스템 모니터링</dt><dd><blockquote>시스템 모니터링 툴에 근거하여 24시간 관리(WAS, DB, Web Server)한다.</blockquote></dd><dt>장애 조치</dt><dd><blockquote>장애 발생 시 비상 연락 조직 지원 등을 즉시 조치한다.</blockquote></dd><dt>운영 총괄</dt><dd><blockquote>시스템 운영에 대한 전체적인 총괄 역할을 수행하며 운영의 안정성 확보를 위한 전체 조직을 관리한다.</blockquote></dd><dt>응용 운영 담당</dt><dd><blockquote>응용시스템의 지속적인 모니터링 및 문제 발생에 대비한 사전 관리 업무를 수행한다.</blockquote></dd><dt>인프라 운영 담당</dt><dd><blockquote>하드웨어 및 네트워크 등 기반 장비에 대한 지속적인 모니터링 및 장애 발생 시 신속 한 장애 처리를 수행한다.</blockquote></dd><dt>정보 연계 운영 담당</dt><dd><blockquote>정보 수신/연계 시스템 모니터링 및 장애 처리를 수행한다.</blockquote></dd><dt>유지보수 정보 연계 운영 담당</dt><dd><blockquote>응용시스템, HW, SW, NW의 유지보수 및 기술 지원을 수행한다. 또 제품 공급업체의 기술 지원이 필요한 경우 지원을 요청한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>성능 관리 모니터링의 개념 이해 · 장애 대비 사전 활동 수행 절차 · 유지보수 조직 및 역할 · 응용시스템 유지/버전 관리 · 사용자 관리 및 보안 관리 · 정기 작업 및 스케줄 관리 · H/W, N/W 모니터링/장애 처리 · DB 모니터링/장애 처리</dd></dl>
+
+<h4>해 보기</h4>
+<h5>정보시스템 운영 안정화하기</h5><div class='prep'><b>재료·자료</b><span>성능 관리 목표치 설정, 안정화 운영 조직 구성, 비상 대응 체계 마련</span><b>기기·도구</b><span>컴퓨터, 프린터, 인터넷 / 문서 작성 도구</span><b>유의 사항</b><span>정보시스템 안정화를 위한 모니터링 성능 임계치에 대하여 사전에 철저한 검증을 통해 / 도출하여야 안정적인 운영체계를 수립할 수 있다. / 비상 대응에 대한 철저한 사전 훈련 체계를 수립하여 비상사태에 신속하게 대응할 수 / 있는 체계를 확보하여야 한다.</span></div><div class='doh'><b>1</b><span>시스템 상태에 대하여 모니터링을 수행한다.</span></div><ol class='dos'><li>모니터링의 기준을 수립한다.</li></ol><div class='doh'><b>2</b><span>서버별 임계치 기준 확인</span></div><div class='doh'><b>3</b><span>모니터링 체크리스트</span></div><div class='doh'><b>4</b><span>중요 메시지 테이블</span></div><div class='doh'><b>5</b><span>과거 이력 정보</span></div><ol class='dos'><li>시스템 운영 일지를 관리한다.</li></ol><div class='doh'><b>6</b><span>표준화된 점검 리스트에 의해 시스템 점검(일상 점검)</span></div><div class='doh'><b>7</b><span>시스템 정지/재기동 사유/시간 기록</span></div><div class='doh'><b>8</b><span>신규 H/W 및 S/W 변경 기록 관리</span></div><ol class='dos'><li>장애 처리 프로세스와 연계한다.</li></ol><div class='doh'><b>9</b><span>장애 위험 요소 사전 감지 및 제거</span></div><div class='doh'><b>10</b><span>필요시 시스템 튜닝</span></div><div class='doh'><b>11</b><span>비상 연락 체계 확보로 신속한 장애 처리</span></div><div class='doh'><b>12</b><span>시스템의 성능을 관리한다.</span></div><ol class='dos'><li>시스템 성능 관리 기준을 설정한다.</li><li>시스템 성능 관리를 위한 데이터를 수집한다.</li><li>분석 데이터를 기반으로 시스템을 튜닝한다.</li></ol><div class='doh'><b>13</b><span>장애 처리 대책을 마련한다.</span></div><ol class='dos'><li>장애 파악 대응 체계를 수행한다.</li><li>비상 연락 체계를 구축한다.</li><li>장애 이력 관리를 한다.</li></ol><div class='doh'><b>14</b><span>고장 발생 부품을 자동으로 감지하고 리부팅을 통해 고장</span></div><div class='doh'><b>15</b><span>시스템 온라인 상태에서 고장 난 부품 교체</span></div><div class='doh'><b>16</b><span>디스크 교체 후 백업 테이프에 의한 복구</span></div><div class='doh'><b>17</b><span>장애 부품을 확인 후 교체</span></div><div class='doh'><b>18</b><span>전산실 UPS를 통해 시스템의 안정적 전원을 공급</span></div><div class='doh'><b>19</b><span>정기적인 SQL문 튜닝</span></div><div class='doh'><b>20</b><span>프로그램 이관 전 성능 테스트 실시</span></div><div class='doh'><b>21</b><span>중요 프로세스 오류에 대한 백업 프로그램 준비</span></div><div class='doh'><b>22</b><span>RAID 기법을 적용하여 장애에 대처</span></div><div class='doh'><b>23</b><span>주기적인 백업을 철저히 실시</span></div><div class='doh'><b>24</b><span>정기적인 성능 검사와 디스크 성능 검사</span></div><div class='doh'><b>25</b><span>심각한 디스크 오류 시에는 백업 테이프를 통해 복구</span></div><div class='doh'><b>26</b><span>LAN 케이블 설치 시 반드시 테스트 수행</span></div><div class='doh'><b>27</b><span>구내 회선 장애의 예방을 위한 표준 설비 환경으로 구축하고</span></div><div class='doh'><b>28</b><span>UPS를 통한 안정적인 전원을 확보</span></div><div class='doh'><b>29</b><span>각 건물의 1종 접지 사용으로 Noise 및 천재지변에 대비하</span></div><div class='doh'><b>30</b><span>운영 안정화를 위한 서비스 데스크를 구축한다.</span></div><ol class='dos'><li>운영 인력의 기술 역량을 정의한다.</li><li>서비스 데스크 운영 필요 인력에 대하여 산출한다.</li><li>서비스 데스크 운영 조직도를 구성한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>시스템 상태에 대하여 모니터링을 수행한다.</li><li>서버별 임계치 기준 확인</li><li>모니터링 체크리스트</li><li>중요 메시지 테이블</li><li>과거 이력 정보</li><li>표준화된 점검 리스트에 의해 시스템 점검(일상 점검)</li><li>시스템 정지/재기동 사유/시간 기록</li><li>신규 H/W 및 S/W 변경 기록 관리</li><li>장애 위험 요소 사전 감지 및 제거</li><li>필요시 시스템 튜닝</li><li>비상 연락 체계 확보로 신속한 장애 처리</li><li>시스템의 성능을 관리한다.</li><li>장애 처리 대책을 마련한다.</li><li>고장 발생 부품을 자동으로 감지하고 리부팅을 통해 고장</li><li>시스템 온라인 상태에서 고장 난 부품 교체</li><li>디스크 교체 후 백업 테이프에 의한 복구</li><li>장애 부품을 확인 후 교체</li><li>전산실 UPS를 통해 시스템의 안정적 전원을 공급</li><li>정기적인 SQL문 튜닝</li><li>프로그램 이관 전 성능 테스트 실시</li><li>중요 프로세스 오류에 대한 백업 프로그램 준비</li><li>RAID 기법을 적용하여 장애에 대처</li><li>주기적인 백업을 철저히 실시</li><li>정기적인 성능 검사와 디스크 성능 검사</li><li>심각한 디스크 오류 시에는 백업 테이프를 통해 복구</li><li>LAN 케이블 설치 시 반드시 테스트 수행</li><li>구내 회선 장애의 예방을 위한 표준 설비 환경으로 구축하고</li><li>UPS를 통한 안정적인 전원을 확보</li><li>각 건물의 1종 접지 사용으로 Noise 및 천재지변에 대비하</li><li>운영 안정화를 위한 서비스 데스크를 구축한다.</li><li>정보시스템 이행 후 개발된 응용소프트웨어의 데이터, 오류, 사용자 추가 요구사항을 수집하고 검토할 수 있다.</li><li>정보시스템 이행 후 실행되는 과정 중에 발생할 수 있는 정보시스템의 자원 사용량, 운영 상황을 분석하여 정보시스템을 안정화할 수 있다.</li><li>개발된 응용소프트웨어가 적용되는 정보시스템의 성능을 분석하여 문제점을 파악한 뒤 성능을 개선할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 사례 연구 · 평가자 질문 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st53">
-      <h3><i>53</i>성능지표</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="70">원문 57쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>정보시스템의 서비스 품질(QoS)을 결정하는 속성들 중의 하나인 성능을 나타내는 일반 적인 지표는 &lt;표 3-1&gt;과 같다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st54">
-      <h3><i>54</i>성능 측정 분석 방안</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="71">원문 58쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>성능 수집 항목은 주로 사용량, 응답시간, 관련 자원들로 구성된 IT 서비스의 가용성이 모두 합쳐진 결과에 의해서 결정된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st55">
-      <h3><i>55</i>장애 대비 사전 활동 수행 절차</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="71">원문 58쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>비상 운영 팀 구성</li><li>비상 연락 체계 가동</li><li>사전 점검</li><li>시스템 모니터링</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st56">
-      <h3><i>56</i>비상 운영 팀 구성</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="71">원문 58쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>비상 운영 팀을 구성하여 비상 상황 발생에 대비한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st57">
-      <h3><i>57</i>비상 연락 체계 가동</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="71">원문 58쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>유지보수 및 공급업체의 기술 지원에 대비하여 비상 연락 조직을 확인 및 가동한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st58">
-      <h3><i>58</i>사전 점검</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="71">원문 58쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템 성능 분석 및 튜닝을 하며 필요시 전문 인력을 통한 기술 지원을 요청한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st59">
-      <h3><i>59</i>시스템 모니터링</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="71">원문 58쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템 모니터링 툴에 근거하여 24시간 관리(WAS, DB, Web Server)한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st60">
-      <h3><i>60</i>장애 조치</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="71">원문 58쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>장애 발생 시 비상 연락 조직 지원 등을 즉시 조치한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st61">
-      <h3><i>61</i>유지보수 조직 및 역할</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>운영 총괄</li><li>응용 운영 담당</li><li>응용시스템 유지/버전 관리</li><li>사용자 관리 및 보안 관리</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st62">
-      <h3><i>62</i>운영 총괄</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템 운영에 대한 전체적인 총괄 역할을 수행하며 운영의 안정성 확보를 위한 전체 조직을 관리한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st63">
-      <h3><i>63</i>응용 운영 담당</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>응용시스템의 지속적인 모니터링 및 문제 발생에 대비한 사전 관리 업무를 수행한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st64">
-      <h3><i>64</i>응용시스템 유지/버전 관리</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>사용자 관리 및 보안 관리</li><li>정기 작업 및 스케줄 관리</li><li>인프라 운영 담당</li><li>H/W, N/W 모니터링/장애 처리</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st65">
-      <h3><i>65</i>사용자 관리 및 보안 관리</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>정기 작업 및 스케줄 관리</li><li>인프라 운영 담당</li><li>H/W, N/W 모니터링/장애 처리</li><li>DB 모니터링/장애 처리</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st66">
-      <h3><i>66</i>정기 작업 및 스케줄 관리</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>인프라 운영 담당</li><li>H/W, N/W 모니터링/장애 처리</li><li>DB 모니터링/장애 처리</li><li>정보 연계 운영 담당</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st67">
-      <h3><i>67</i>인프라 운영 담당</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>하드웨어 및 네트워크 등 기반 장비에 대한 지속적인 모니터링 및 장애 발생 시 신속 한 장애 처리를 수행한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st68">
-      <h3><i>68</i>H/W, N/W 모니터링/장애 처리</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>DB 모니터링/장애 처리</li><li>정보 연계 운영 담당</li><li>유지보수 정보 연계 운영 담당</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st69">
-      <h3><i>69</i>DB 모니터링/장애 처리</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>정보 연계 운영 담당</li><li>유지보수 정보 연계 운영 담당</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st70">
-      <h3><i>70</i>정보 연계 운영 담당</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>정보 수신/연계 시스템 모니터링 및 장애 처리를 수행한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st71">
-      <h3><i>71</i>유지보수 정보 연계 운영 담당</h3>
-      <aside class="side">
-        <p class="pt">정보시스템 운영 안정화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020208_23v5" data-page="72">원문 59쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">사례 연구 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>응용시스템, HW, SW, NW의 유지보수 및 기술 지원을 수행한다. 또 제품 공급업체의 기술 지원이 필요한 경우 지원을 요청한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 57쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
   </div>
 </div>
 
-<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
-원문 LM2001020208_23v5_정보시스템 이행_20251108.pdf</footer>
+<footer>담당 정우균 · 개념과 절차는 <b>NCS 학습모듈 LM2001020208_23v5_정보시스템 이행_20251108.pdf</b> 에서
+옮긴 것입니다 — 한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지)</footer>
 </div>
 <script>
-/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+/* 빠른 이동 — 지금 보는 꼭지를 표시하고, 좁은 화면에서는 여닫습니다. */
 (function () {
   var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
   var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));

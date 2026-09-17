@@ -1,13 +1,30 @@
-<meta charset="utf-8"><title>데이터 입출력 구현 — 준비 교안</title>
+<meta charset="utf-8"><title>데이터 입출력 구현 — 학습 가이드</title>
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="stylesheet" href="../assets/guide.css">
 <style>
-  /* 원문 인용 — 우리가 쓴 안내와 눈으로 구분되어야 한다 */
-  .bd blockquote{margin:10px 0 16px;padding:10px 14px;border-left:3px solid #000;
-                 background:#fafafa;font-size:13.5px;line-height:1.8;color:#222}
-  .bd p.none{color:#888;font-size:13px}
-  .bd ul.sub{margin:8px 0 16px;padding-left:20px;font-size:13.5px;line-height:1.9}
-  aside.side .v .btn{font-size:11.5px}
+  /* 학습 가이드 — 개념 / 실습 / 확인 세 덩어리가 눈으로 구분되어야 한다 */
+  .bd h4{margin:22px 0 8px;font-size:14px;padding-bottom:5px;border-bottom:1px solid #000}
+  .bd h4:first-child{margin-top:0}
+  .bd h5{margin:16px 0 5px;font-size:13px;font-weight:700}
+  .bd blockquote{margin:5px 0 12px;padding:9px 13px;border-left:3px solid #999;
+                 background:#fafafa;font-size:13px;line-height:1.8;color:#333}
+  .cc{margin:0 0 6px}
+  .cc dt{font-weight:700;font-size:13.5px;margin:14px 0 0}
+  .cc dd{margin:4px 0 0}
+  .doh{display:flex;gap:9px;align-items:baseline;margin:16px 0 4px;font-size:13.5px;
+       font-weight:700}
+  .doh b{flex:0 0 auto;width:21px;height:21px;line-height:19px;text-align:center;
+         border:1px solid #000;font-size:11.5px}
+  ol.dos{margin:2px 0 0 30px;padding:0;font-size:13px;line-height:1.85}
+  ol.dos li{margin:3px 0}
+  .prep{display:grid;grid-template-columns:76px 1fr;gap:3px 10px;font-size:12.5px;
+        border:1px solid #ccc;padding:10px 13px;margin:6px 0 2px;background:#fafafa}
+  .prep b{color:#555;font-weight:400}
+  ul.goal{margin:6px 0 0;padding-left:20px;font-size:13.5px;line-height:1.9}
+  ul.chk{margin:6px 0 0;padding:0;list-style:none;font-size:13.5px;line-height:1.95}
+  ul.chk li::before{content:"\2610  "}
+  .none{color:#888;font-size:12.5px}
+  .srcline{font-size:11.5px;color:#888;margin:8px 0 0}
 </style>
 <script src="../assets/auth.js"></script>
 <script>EXAM_AUTH.guard("../");</script>
@@ -17,7 +34,7 @@
 <div class="top"><div class="tbar">
   <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
   <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
-  / 데이터 입출력 구현 / 준비 교안</small></div>
+  / 데이터 입출력 구현 / 학습 가이드</small></div>
   <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
@@ -25,51 +42,47 @@
 <button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
 
 <nav id="qnav" aria-label="빠른 이동">
-  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
-  <i class="qg">논리 데이터저장소 확인하기</i><a href="#st1"><b>1</b><span>일반적인 시스템 개발 절차</span></a><a href="#st2"><b>2</b><span>데이터 모델링 개요</span></a><a href="#st3"><b>3</b><span>데이터 모델링 정의</span></a><a href="#st4"><b>4</b><span>데이터 모델링 목적</span></a><a href="#st5"><b>5</b><span>데이터 모델링 특성</span></a><a href="#st6"><b>6</b><span>데이터 모델링 절차</span></a><a href="#st7"><b>7</b><span>개념 데이터 모델링</span></a><a href="#st8"><b>8</b><span>논리 데이터 모델링</span></a><a href="#st9"><b>9</b><span>물리 데이터 모델링</span></a><a href="#st10"><b>10</b><span>논리 데이터 모델링 개요</span></a><a href="#st11"><b>11</b><span>논리 데이터 모델링 정의</span></a><a href="#st12"><b>12</b><span>논리 데이터 모델링 특성</span></a><a href="#st13"><b>13</b><span>정규화(Normalization)</span></a><a href="#st14"><b>14</b><span>모델 작성 기법</span></a><i class="qg">물리 데이터저장소 설계하기</i><a href="#st15"><b>15</b><span>반정규화(Denormalization)의 개념 및 유형</span></a><a href="#st16"><b>16</b><span>반정규화(Denormalization)의 개념</span></a><a href="#st17"><b>17</b><span>반정규화(Denormalization)의 유형</span></a><a href="#st18"><b>18</b><span>테이블 제약조건</span></a><a href="#st19"><b>19</b><span>Delete Constraint</span></a><a href="#st20"><b>20</b><span>Update Constraint</span></a><a href="#st21"><b>21</b><span>인덱스 설계</span></a><a href="#st22"><b>22</b><span>인덱스 적용 기준</span></a><a href="#st23"><b>23</b><span>인덱스 칼럼 선정</span></a><a href="#st24"><b>24</b><span>설계 시 고려 사항</span></a><a href="#st25"><b>25</b><span>뷰 속성</span></a><a href="#st26"><b>26</b><span>뷰 설계 시 고려 사항</span></a><a href="#st27"><b>27</b><span>파티션 설계</span></a><a href="#st28"><b>28</b><span>파티션 종류</span></a><a href="#st29"><b>29</b><span>파티셔닝 순서</span></a><i class="qg">데이터 조작 프로시저 작성하기</i><a href="#st30"><b>30</b><span>SQL 분류</span></a><a href="#st31"><b>31</b><span>데이터 정의어(DDL: Data Definition Language)</span></a><a href="#st32"><b>32</b><span>데이터 조작어(DML: Data Manipulation Language)</span></a><a href="#st33"><b>33</b><span>데이터 제어어(DCL: Data Control Language)</span></a><a href="#st34"><b>34</b><span>트랜잭션 제어어(TCL: Transaction Control Language)</span></a><a href="#st35"><b>35</b><span>데이터 검색어(SELECT)</span></a><a href="#st36"><b>36</b><span>항목 설명</span></a><a href="#st37"><b>37</b><span>SQL*Plus 활용</span></a><a href="#st38"><b>38</b><span>SQL과 SQL*Plus 차이점</span></a><a href="#st39"><b>39</b><span>SQL*Plus 명령어 유형</span></a><i class="qg">데이터 조작 프로시저 최적화하기</i><a href="#st40"><b>40</b><span>SQL 처리 흐름</span></a><a href="#st41"><b>41</b><span>SQL 처리 흐름 단계</span></a><a href="#st42"><b>42</b><span>SQL 작성 시 고려 사항</span></a><a href="#st43"><b>43</b><span>SQL 성능 최적화를 위한 유틸리티 활용</span></a><a href="#st44"><b>44</b><span>TKPROF 활용</span></a><a href="#st45"><b>45</b><span>EXPLAIN PLAN 활용</span></a>
+  <a class="qt" href="#top"><b>&uarr;</b><span>맨 위로</span></a>
+  <i class="qg">논리 데이터저장소 확인하기</i><a href="#st1"><b>1</b><span>논리 데이터 모델 검증</span></a><i class="qg">물리 데이터저장소 설계하기</i><a href="#st2"><b>2</b><span>물리 데이터 모델 설계</span></a><a href="#st3"><b>3</b><span>물리 데이터 모델 구성</span></a><i class="qg">데이터 조작 프로시저 작성하기</i><a href="#st4"><b>4</b><span>데이터 조작 프로시저 개발</span></a><a href="#st5"><b>5</b><span>데이터 조작 프로시저 테스트 설계</span></a><i class="qg">데이터 조작 프로시저 최적화하기</i><a href="#st6"><b>6</b><span>데이터 조작 프로시저 성능 개선</span></a>
 </nav>
 
 <div class="wrap" id="top">
 
-<h1>데이터 입출력 구현 — 준비 교안</h1>
+<h1>데이터 입출력 구현 — 학습 가이드</h1>
 <p class="sub">능력단위 <code>2001020205_23v6</code> · 5수준 ·
-48시간 · 단계 45개 · 평가 평가자 체크리스트 · 구두 발표 · 문제해결 시나리오</p>
+48시간 · 꼭지 6개 · 개념 45항목 · 실습 46절차</p>
 
-<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<h2 class="sec" id="g0">0. 시작하기 전에</h2>
 <div class="sect">
   <aside class="side">
     <p class="pt">응용소프트웨어가 다루어야 하는 데이터 및 이들 간의 연관성, 제약조건을 식별하여 논리적으로 조직화하고, 소프트웨어 아키텍처에 기술된 데이터저장소에 조직화된 단위의 데이터가 저장될 최적화된 물리적 공간을 구성하고 데이터 조작 언어를 이용하여 구현할 수 있다.</p>
-    <b class="sh">선수학습</b>
+    <b class="sh">먼저 알아야 할 것</b>
     <p class="v">소프트웨어 공학 이해, 데이터 모델링 개념 이해, 데이터 모델링 표기법 및 도식 기술 등</p>
-    <b class="sh">원문</b>
-    <p class="src">LM2001020205_23v6_데이터 입출력 구현_20251108.pdf (73쪽)</p>
+    <b class="sh">평가</b>
+    <p class="src">평가자 체크리스트 · 구두 발표 · 문제해결 시나리오</p>
   </aside>
   <div class="bd">
-<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
-   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
-   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
-<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
-   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
-   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+<h4>이 문서를 쓰는 법</h4>
+<p>꼭지마다 <b>무엇을 할 수 있게 되나 → 알아야 할 것 → 해 보기 → 스스로 확인</b>
+   순서입니다. 읽고 끝내지 말고 <b>해 보기</b>를 손으로 따라 하십시오.
+   마지막 <b>스스로 확인</b>을 전부 «할 수 있다» 고 말할 수 있으면 다음 꼭지로 갑니다.</p>
+<p>자세한 설명과 표·그림은 <b>학습모듈 원문</b>에 있습니다. 꼭지마다 있는
+   <b>[원문 N쪽]</b> 단추를 누르면 그 자리가 바로 펼쳐집니다.</p>
 
 <h4>핵심 용어</h4>
 <p>논리 데이터 모델, 물리 데이터 모델, 데이터 조작 프로시저, 데이터 조작 프로시저 최적화</p>
 
-<h4>능력단위요소</h4>
+<h4>차례</h4>
 <table class="wide">
-  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
-      <th>학습 내용</th><th style="width:74px">단계</th></tr>
-  <tr><td class="c">1</td><td>논리 데이터저장소 확인하기</td><td>논리 데이터 모델 검증</td><td class="c">14</td></tr>
-  <tr><td class="c">2</td><td>물리 데이터저장소 설계하기</td><td>물리 데이터 모델 설계 · 물리 데이터 모델 구성</td><td class="c">15</td></tr>
-  <tr><td class="c">3</td><td>데이터 조작 프로시저 작성하기</td><td>데이터 조작 프로시저 개발 · 데이터 조작 프로시저 테스트 설계</td><td class="c">10</td></tr>
-  <tr><td class="c">4</td><td>데이터 조작 프로시저 최적화하기</td><td>데이터 조작 프로시저 성능 개선</td><td class="c">6</td></tr>
+  <tr><th style="width:44px">꼭지</th><th style="width:250px">학습 내용</th>
+      <th>능력단위요소</th><th style="width:58px">개념</th><th style="width:58px">실습</th></tr>
+  <tr><td class="c">1</td><td>1-1. 논리 데이터 모델 검증</td><td>논리 데이터저장소 확인하기</td><td class="c">14</td><td class="c">9</td></tr>
+  <tr><td class="c">2</td><td>2-1. 물리 데이터 모델 설계</td><td>물리 데이터저장소 설계하기</td><td class="c">3</td><td class="c">7</td></tr>
+  <tr><td class="c">3</td><td>2-2. 물리 데이터 모델 구성</td><td>물리 데이터저장소 설계하기</td><td class="c">12</td><td class="c">1</td></tr>
+  <tr><td class="c">4</td><td>3-1. 데이터 조작 프로시저 개발</td><td>데이터 조작 프로시저 작성하기</td><td class="c">7</td><td class="c">9</td></tr>
+  <tr><td class="c">5</td><td>3-2. 데이터 조작 프로시저 테스트 설계</td><td>데이터 조작 프로시저 작성하기</td><td class="c">3</td><td class="c">5</td></tr>
+  <tr><td class="c">6</td><td>4-1. 데이터 조작 프로시저 성능 개선</td><td>데이터 조작 프로시저 최적화하기</td><td class="c">6</td><td class="c">15</td></tr>
 </table>
-
-<div class="try">
-  <b class="t">쓰는 법</b>
-  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
-  한 단계가 대략 수업 10~20분에 해당합니다.
-</div>
   </div>
 </div>
 
@@ -77,365 +90,33 @@
   <div class="lvh"><b>1. 논리 데이터저장소 확인하기</b><span>능력단위요소 · <code>2001020205_23v6.1</code></span></div>
   <div class="lvb">
     <div class="step" id="st1">
-      <h3><i>1</i>일반적인 시스템 개발 절차</h3>
+      <h3><i>1</i>1-1. 논리 데이터 모델 검증</h3>
       <aside class="side">
-        <p class="pt">논리 데이터 모델 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
+        <p class="pt">업무 분석가, 데이터베이스 엔지니어가 작성한 논리 데이터저장소 설계 내역에서 정의된 데이 터의 유형을 확인하고 식별할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">논리 데이터저장소 확인하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 14항목 · 실습 9절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>일반적으로 시스템 개발은 데이터 관점과 프로세스 관점의 두 가지로 진행된다. 먼저 개념 모델링을 통해 개발 범위를 파악하고, 업무 중심의 분석(논리 데이터 모델링, 분석 모델링) 단계를 거친다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>업무 분석가, 데이터베이스 엔지니어가 작성한 논리 데이터저장소 설계 내역에서 정의된 데이 터의 유형을 확인하고 식별할 수 있다.</li><li>논리 데이터저장소 설계 내역에서 데이터의 논리적 단위와 데이터 간의 관계를 확인할 수 있다.</li><li>논리 데이터저장소 설계 내역에서 데이터 또는 데이터 간의 제약조건과 이들 간의 관계를 식별할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>일반적인 시스템 개발 절차</dt><dd><blockquote>일반적으로 시스템 개발은 데이터 관점과 프로세스 관점의 두 가지로 진행된다. 먼저 개념 모델링을 통해 개발 범위를 파악하고, 업무 중심의 분석(논리 데이터 모델링, 분석 모델링) 단계를 거친다.</blockquote></dd><dt>데이터 모델링 정의</dt><dd><blockquote>기업의 정보 구조를 실체(Entity)와 관계(Relation)를 중심으로 명확하고 체계적으로 표현하고 문서화하는 기법이다.</blockquote></dd><dt>데이터 모델링 절차</dt><dd><blockquote>데이터 모델링은 개념 모델링, 논리 모델링, 물리 모델링을 통해 데이터베이스를 구축하는 일련의 과정을 거친다.</blockquote></dd><dt>개념 데이터 모델링</dt><dd><blockquote>전사(Enterprise) 수준에서 요구를 추상화한 모델로서, 하여 주요 업무 규칙을 정의한다.</blockquote></dd><dt>논리 데이터 모델링</dt><dd><blockquote>개념 모델로부터 업무 영역의 업무 데이터 및 규칙을 구체적으로 표현한 모델로서,</blockquote></dd><dt>물리 데이터 모델링</dt><dd><blockquote>설계단계에서 시스템의 설계적 및 정보 요건을 정확하고 완전하게 표현한 모델로서, (가) 설계용 엔티티 타입 (나) 설계용 속성 (가) 적용 DBMS 특성 고려 (나) 엔티티 타입의 분리 또는 통합 검토 (다) 반정규화(Denormalization) (라) 관계의 해제 (가) 인덱스 추가 및 조정 (나) 테이블 스페이스 조정 (다) 인덱스 스페이스 조정</blockquote></dd><dt>논리 데이터 모델링 정의</dt><dd><blockquote>하여 현재 사용 중인 양식, 문서, 장표를 중심으로 자료 항목을 추출하여 추출된 엔티티 (Entity)와 속성(Attribute)들의 관계(Relation)를 구조적으로 정의하는 단계이다.</blockquote></dd><dt>논리 데이터 모델링 특성</dt><dd><blockquote>경에 따른 많은 비용이 발생한다.</blockquote></dd><dt>정규화(Normalization)</dt><dd><blockquote>중복성을 최소화하고 정보의 일관성을 보장하기 위한 개념이다.</blockquote></dd><dt>모델 작성 기법</dt><dd><blockquote>로 중심부에 배열한다. / 논리 데이터 모델 검증하기 토 기준, 논리 데이터 모델 기기(장비･공구) 안전･유의 사항의 유형을 확인하고 식별한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>데이터 모델링 개요 · 데이터 모델링 목적 · 데이터 모델링 특성 · 논리 데이터 모델링 개요</dd></dl>
+
+<h4>해 보기</h4>
+<h5>논리 데이터 모델 검증하기</h5><div class='prep'><b>재료·자료</b><span>ERD 작성 표준, 개발 시 활용 데이터저장소에 대한 매뉴얼 및 개발 가이드, 모델링 검 / 토 기준, 논리 데이터 모델</span><b>기기·도구</b><span>컴퓨터, 인터넷, 형상관리 프로그램, 데이터저장소 설계 프로그램</span><b>유의 사항</b><span>논리 데이터 모델 요구사항을 명확하게 이해하고 반영될 수 있도록 한다. / 논리 데이터 모델 자료에 대한 지속적인 수집 및 습득 훈련이 요구된다.</span></div><div class='doh'><b>1</b><span>업무 분석가, 데이터베이스 엔지니어가 작성한 논리 데이터저장소 설계 내역에서 정의된 데이터</span></div><ol class='dos'><li>구축 시스템의 업무 관련 데이터 유형을 식별한다.</li><li>현재 운영 중인 시스템의 데이터 현황 분석을 수행한다.</li><li>사용자 요구사항이 반영되었는지 분석한다.</li></ol><div class='doh'><b>2</b><span>논리 데이터저장소 설계 내역에서 데이터의 논리적 단위와 데이터 간의 관계를 확인한다.</span></div><ol class='dos'><li>데이터 흐름 정의 상태를 점검한다.</li><li>설계 기준 정의 상태를 점검한다.</li><li>데이터 모델링 완성도를 점검한다.</li></ol><div class='doh'><b>3</b><span>논리 데이터저장소 설계 내역에서 데이터 또는 데이터 간의 제약조건과 이들 간의 관계를 식별</span></div><ol class='dos'><li>엔티티 및 프로세스 간의 연관 관계를 확인한다.</li><li>데이터 접근권한 및 통제 기준을 확인한다.</li><li>식별 및 확인된 내용으로 정규화를 수행한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>업무 분석가, 데이터베이스 엔지니어가 작성한 논리 데이터저장소 설계 내역에서 정의된 데이터</li><li>논리 데이터저장소 설계 내역에서 데이터의 논리적 단위와 데이터 간의 관계를 확인한다.</li><li>논리 데이터저장소 설계 내역에서 데이터 또는 데이터 간의 제약조건과 이들 간의 관계를 식별</li><li>업무 분석가, 데이터베이스 엔지니어가 작성한 논리 데이터저장소 설계 내역에서 정의된 데이 터의 유형을 확인하고 식별할 수 있다.</li><li>논리 데이터저장소 설계 내역에서 데이터의 논리적 단위와 데이터 간의 관계를 확인할 수 있다.</li><li>논리 데이터저장소 설계 내역에서 데이터 또는 데이터 간의 제약조건과 이들 간의 관계를 식별할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 체크리스트 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st2">
-      <h3><i>2</i>데이터 모델링 개요</h3>
-      <aside class="side">
-        <p class="pt">논리 데이터 모델 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>데이터 모델링 정의</li><li>데이터 모델링 목적</li><li>데이터 모델링 특성</li><li>데이터 모델링 절차</li></ul>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st3">
-      <h3><i>3</i>데이터 모델링 정의</h3>
-      <aside class="side">
-        <p class="pt">논리 데이터 모델 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기업의 정보 구조를 실체(Entity)와 관계(Relation)를 중심으로 명확하고 체계적으로 표현하고 문서화하는 기법이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st4">
-      <h3><i>4</i>데이터 모델링 목적</h3>
-      <aside class="side">
-        <p class="pt">논리 데이터 모델 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>데이터 모델링 특성</li><li>데이터 모델링 절차</li><li>개념 데이터 모델링</li><li>논리 데이터 모델링</li></ul>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st5">
-      <h3><i>5</i>데이터 모델링 특성</h3>
-      <aside class="side">
-        <p class="pt">논리 데이터 모델 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>데이터 모델링 절차</li><li>개념 데이터 모델링</li><li>논리 데이터 모델링</li><li>물리 데이터 모델링</li></ul>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st6">
-      <h3><i>6</i>데이터 모델링 절차</h3>
-      <aside class="side">
-        <p class="pt">논리 데이터 모델 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>데이터 모델링은 개념 모델링, 논리 모델링, 물리 모델링을 통해 데이터베이스를 구축하는 일련의 과정을 거친다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st7">
-      <h3><i>7</i>개념 데이터 모델링</h3>
-      <aside class="side">
-        <p class="pt">논리 데이터 모델 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>전사(Enterprise) 수준에서 요구를 추상화한 모델로서, 하여 주요 업무 규칙을 정의한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st8">
-      <h3><i>8</i>논리 데이터 모델링</h3>
-      <aside class="side">
-        <p class="pt">논리 데이터 모델 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개념 모델로부터 업무 영역의 업무 데이터 및 규칙을 구체적으로 표현한 모델로서,</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st9">
-      <h3><i>9</i>물리 데이터 모델링</h3>
-      <aside class="side">
-        <p class="pt">논리 데이터 모델 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>설계단계에서 시스템의 설계적 및 정보 요건을 정확하고 완전하게 표현한 모델로서, (가) 설계용 엔티티 타입 (나) 설계용 속성 (가) 적용 DBMS 특성 고려 (나) 엔티티 타입의 분리 또는 통합 검토 (다) 반정규화(Denormalization) (라) 관계의 해제 (가) 인덱스 추가 및 조정 (나) 테이블 스페이스 조정 (다) 인덱스 스페이스 조정</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st10">
-      <h3><i>10</i>논리 데이터 모델링 개요</h3>
-      <aside class="side">
-        <p class="pt">논리 데이터 모델 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>논리 데이터 모델링 정의</li><li>논리 데이터 모델링 특성</li><li>정규화(Normalization)</li><li>모델 작성 기법</li></ul>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st11">
-      <h3><i>11</i>논리 데이터 모델링 정의</h3>
-      <aside class="side">
-        <p class="pt">논리 데이터 모델 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>하여 현재 사용 중인 양식, 문서, 장표를 중심으로 자료 항목을 추출하여 추출된 엔티티 (Entity)와 속성(Attribute)들의 관계(Relation)를 구조적으로 정의하는 단계이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st12">
-      <h3><i>12</i>논리 데이터 모델링 특성</h3>
-      <aside class="side">
-        <p class="pt">논리 데이터 모델 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="19">원문 6쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>경에 따른 많은 비용이 발생한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st13">
-      <h3><i>13</i>정규화(Normalization)</h3>
-      <aside class="side">
-        <p class="pt">논리 데이터 모델 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="19">원문 6쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>중복성을 최소화하고 정보의 일관성을 보장하기 위한 개념이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st14">
-      <h3><i>14</i>모델 작성 기법</h3>
-      <aside class="side">
-        <p class="pt">논리 데이터 모델 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="20">원문 7쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>로 중심부에 배열한다. / 논리 데이터 모델 검증하기 토 기준, 논리 데이터 모델 기기(장비･공구) 안전･유의 사항의 유형을 확인하고 식별한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 3쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -444,392 +125,66 @@
 <div class="lv">
   <div class="lvh"><b>2. 물리 데이터저장소 설계하기</b><span>능력단위요소 · <code>2001020205_23v6.2</code></span></div>
   <div class="lvb">
-    <div class="step" id="st15">
-      <h3><i>15</i>반정규화(Denormalization)의 개념 및 유형</h3>
+    <div class="step" id="st2">
+      <h3><i>2</i>2-1. 물리 데이터 모델 설계</h3>
       <aside class="side">
-        <p class="pt">물리 데이터 모델 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
+        <p class="pt">논리 데이터저장소 설계를 바탕으로 응용소프트웨어가 사용하는 데이터저장소의 특성을 반영한 물리 데이터저장소 설계를 수행할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">물리 데이터저장소 설계하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="31">원문 18쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 3항목 · 실습 7절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>반정규화(Denormalization)의 개념</li><li>반정규화(Denormalization)의 유형</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>논리 데이터저장소 설계를 바탕으로 응용소프트웨어가 사용하는 데이터저장소의 특성을 반영한 물리 데이터저장소 설계를 수행할 수 있다.</li><li>논리 데이터저장소 설계를 바탕으로 목표시스템의 데이터 특성을 반영하여 최적화된 물리 데이터저장소를 설계할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>반정규화(Denormalization)의 개념</dt><dd><blockquote>정규화된 데이터 모델의 성능이 저하되지 않도록 의도적으로 규칙을 완화하거나 데이터를 중복·병합하는 설계 기법을 반정규화라고 한다.</blockquote></dd><dt>반정규화(Denormalization)의 유형</dt><dd><blockquote>(가) 집계 테이블의 추가 활용하고자 하는 집계 정보를 위한 테이블을 추가하고, 트리거를 이용하는데, 이 때 트리거의 오버헤드에 유의해야 한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>반정규화(Denormalization)의 개념 및 유형</dd></dl>
+
+<h4>해 보기</h4>
+<h5>물리 데이터 모델 설계하기</h5><div class='prep'><b>재료·자료</b><span>ERD 작성 표준, 개발 시 활용 데이터저장소에 대한 매뉴얼 및 개발 가이드, 모델링 검 / 토 기준</span><b>기기·도구</b><span>컴퓨터, 인터넷, 형상관리 프로그램, 데이터저장소 설계 프로그램</span><b>유의 사항</b><span>물리 데이터 모델 요구사항을 명확하게 이해하고 반영될 수 있도록 한다. / 물리 데이터 모델 자료에 대한 지속적인 수집 및 습득 훈련이 요구된다.</span></div><div class='doh'><b>1</b><span>논리 데이터저장소 설계를 바탕으로 응용소프트웨어가 사용하는 데이터저장소의 특성을 반영한</span></div><ol class='dos'><li>단위 엔티티를 테이블로 변환한다.</li><li>속성을 칼럼으로 변환한다.</li><li>UID를 기본키(Primary Key)로 변환한다.</li><li>관계를 외래키(Foreign Key)로 변환한다.</li></ol><div class='doh'><b>2</b><span>논리 데이터저장소 설계를 바탕으로 목표시스템의 데이터 특성을 반영하여 최적화된 물리 데이</span></div><ol class='dos'><li>변환된 것을 토대로 물리 데이터저장소를 설계한다.</li><li>칼럼 유형(Type)과 길이(Length)를 정의한다.</li><li>반정규화(Denormalization)한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>논리 데이터저장소 설계를 바탕으로 응용소프트웨어가 사용하는 데이터저장소의 특성을 반영한</li><li>논리 데이터저장소 설계를 바탕으로 목표시스템의 데이터 특성을 반영하여 최적화된 물리 데이</li><li>논리 데이터저장소 설계를 바탕으로 응용소프트웨어가 사용하는 데이터저장소의 특성을 반영한 물리 데이터저장소 설계를 수행할 수 있다.</li><li>논리 데이터저장소 설계를 바탕으로 목표시스템의 데이터 특성을 반영하여 최적화된 물리 데이터저장소를 설계할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 체크리스트 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 18쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st16">
-      <h3><i>16</i>반정규화(Denormalization)의 개념</h3>
+    <div class="step" id="st3">
+      <h3><i>3</i>2-2. 물리 데이터 모델 구성</h3>
       <aside class="side">
-        <p class="pt">물리 데이터 모델 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="31">원문 18쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>정규화된 데이터 모델의 성능이 저하되지 않도록 의도적으로 규칙을 완화하거나 데이터를 중복·병합하는 설계 기법을 반정규화라고 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st17">
-      <h3><i>17</i>반정규화(Denormalization)의 유형</h3>
-      <aside class="side">
-        <p class="pt">물리 데이터 모델 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="31">원문 18쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>(가) 집계 테이블의 추가 활용하고자 하는 집계 정보를 위한 테이블을 추가하고, 트리거를 이용하는데, 이 때 트리거의 오버헤드에 유의해야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st18">
-      <h3><i>18</i>테이블 제약조건</h3>
-      <aside class="side">
-        <p class="pt">물리 데이터 모델 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">물리 데이터저장소 설계에 따라 데이터저장소에 실제 데이터가 저장될 물리적 공간을 구성할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">물리 데이터저장소 설계하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="37">원문 24쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 12항목 · 실습 1절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>실무에서 주로 사용하는 테이블 제약조건으로는 다음 두 가지가 있다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>물리 데이터저장소 설계에 따라 데이터저장소에 실제 데이터가 저장될 물리적 공간을 구성할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>테이블 제약조건</dt><dd><blockquote>실무에서 주로 사용하는 테이블 제약조건으로는 다음 두 가지가 있다.</blockquote></dd><dt>Delete Constraint</dt><dd><blockquote>참조된 기본키의 값이 삭제될 경우의 처리 내용을 정의한다.</blockquote></dd><dt>Update Constraint</dt><dd><blockquote>참조된 기본키의 값이 수정될 경우의 처리 내용을 정의한다. Null을 허용할 경우만)</blockquote></dd><dt>인덱스 적용 기준</dt><dd><blockquote>분포도 = ( 1 / 칼럼값의 종류 ) X 100 = (칼럼값의 평균 Row수 / 테이블의 총 Row수 ) X 100</blockquote></dd><dt>설계 시 고려 사항</dt><dd><blockquote>에 유의해야 한다.</blockquote></dd><dt>뷰 설계 시 고려 사항</dt><dd><blockquote>나 그럴 수 없다면 뷰를 사용한 SQL의 WHERE 절에서는 반드시 양호한 액세스 경로가 되도록 하여야 한다.</blockquote></dd><dt>파티션 종류</dt><dd><blockquote>를 적용하여 다시 분할</blockquote></dd><dt>파티셔닝 순서</dt><dd><blockquote>(가) I/O 분산을 어떻게 할 것인가를 고려하여 선정한다. (나) 액세스 유형에 따라 파티셔닝이 이루어질 수 있도록 파티션 키를 선정한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>인덱스 설계 · 인덱스 칼럼 선정 · 뷰 속성 · 파티션 설계</dd></dl>
+
+<h4>해 보기</h4>
+<h5>물리 데이터 모델 구성하기</h5><div class='prep'><b>재료·자료</b><span>ERD 작성 표준, 개발 시 활용 데이터저장소에 대한 매뉴얼 및 개발 가이드, 모델링 검 / 토 기준</span><b>기기·도구</b><span>컴퓨터, 인터넷, 형상관리 프로그램, 데이터저장소 설계 프로그램</span><b>유의 사항</b><span>물리 데이터 모델 구성 요구사항을 명확하게 이해하고 반영될 수 있도록 한다. / 물리 데이터 모델 구성 자료에 대한 지속적인 수집 및 습득 훈련이 요구된다.</span></div><div class='doh'><b>1</b><span>물리 데이터저장소 설계에 따라 데이터저장소에 실제 데이터가 저장될 물리적 공간을 구성한다.</span></div><ol class='dos'><li>다양한 오브젝트를 설계한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>물리 데이터저장소 설계에 따라 데이터저장소에 실제 데이터가 저장될 물리적 공간을 구성한다.</li><li>물리 데이터저장소 설계에 따라 데이터저장소에 실제 데이터가 저장될 물리적 공간을 구성할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 체크리스트 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st19">
-      <h3><i>19</i>Delete Constraint</h3>
-      <aside class="side">
-        <p class="pt">물리 데이터 모델 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="37">원문 24쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>참조된 기본키의 값이 삭제될 경우의 처리 내용을 정의한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st20">
-      <h3><i>20</i>Update Constraint</h3>
-      <aside class="side">
-        <p class="pt">물리 데이터 모델 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="37">원문 24쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>참조된 기본키의 값이 수정될 경우의 처리 내용을 정의한다. Null을 허용할 경우만)</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st21">
-      <h3><i>21</i>인덱스 설계</h3>
-      <aside class="side">
-        <p class="pt">물리 데이터 모델 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="37">원문 24쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>인덱스 적용 기준</li><li>인덱스 칼럼 선정</li><li>설계 시 고려 사항</li><li>뷰 속성</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st22">
-      <h3><i>22</i>인덱스 적용 기준</h3>
-      <aside class="side">
-        <p class="pt">물리 데이터 모델 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="37">원문 24쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>분포도 = ( 1 / 칼럼값의 종류 ) X 100 = (칼럼값의 평균 Row수 / 테이블의 총 Row수 ) X 100</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st23">
-      <h3><i>23</i>인덱스 칼럼 선정</h3>
-      <aside class="side">
-        <p class="pt">물리 데이터 모델 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="38">원문 25쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>설계 시 고려 사항</li><li>뷰 속성</li><li>뷰 설계 시 고려 사항</li><li>파티션 설계</li></ul>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st24">
-      <h3><i>24</i>설계 시 고려 사항</h3>
-      <aside class="side">
-        <p class="pt">물리 데이터 모델 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="38">원문 25쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>에 유의해야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st25">
-      <h3><i>25</i>뷰 속성</h3>
-      <aside class="side">
-        <p class="pt">물리 데이터 모델 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="38">원문 25쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>뷰 설계 시 고려 사항</li><li>파티션 설계</li><li>파티션 종류</li><li>파티셔닝 순서</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st26">
-      <h3><i>26</i>뷰 설계 시 고려 사항</h3>
-      <aside class="side">
-        <p class="pt">물리 데이터 모델 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="38">원문 25쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>나 그럴 수 없다면 뷰를 사용한 SQL의 WHERE 절에서는 반드시 양호한 액세스 경로가 되도록 하여야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st27">
-      <h3><i>27</i>파티션 설계</h3>
-      <aside class="side">
-        <p class="pt">물리 데이터 모델 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="38">원문 25쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>파티션 종류</li><li>파티셔닝 순서</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st28">
-      <h3><i>28</i>파티션 종류</h3>
-      <aside class="side">
-        <p class="pt">물리 데이터 모델 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="38">원문 25쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>를 적용하여 다시 분할</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st29">
-      <h3><i>29</i>파티셔닝 순서</h3>
-      <aside class="side">
-        <p class="pt">물리 데이터 모델 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="39">원문 26쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>(가) I/O 분산을 어떻게 할 것인가를 고려하여 선정한다. (나) 액세스 유형에 따라 파티셔닝이 이루어질 수 있도록 파티션 키를 선정한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 24쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -838,262 +193,66 @@
 <div class="lv">
   <div class="lvh"><b>3. 데이터 조작 프로시저 작성하기</b><span>능력단위요소 · <code>2001020205_23v6.3</code></span></div>
   <div class="lvb">
-    <div class="step" id="st30">
-      <h3><i>30</i>SQL 분류</h3>
+    <div class="step" id="st4">
+      <h3><i>4</i>3-1. 데이터 조작 프로시저 개발</h3>
       <aside class="side">
-        <p class="pt">데이터 조작 프로시저 개발</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">응용소프트웨어 설계와 물리 데이터저장소 설계에 따라 데이터저장소에 연결을 수행하는 프로 시저를 작성할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">데이터 조작 프로시저 작성하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="47">원문 34쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 7항목 · 실습 9절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>데이터 정의어(DDL: Data Definition Language)</li><li>데이터 조작어(DML: Data Manipulation Language)</li><li>데이터 제어어(DCL: Data Control Language)</li><li>트랜잭션 제어어(TCL: Transaction Control Language)</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>응용소프트웨어 설계와 물리 데이터저장소 설계에 따라 데이터저장소에 연결을 수행하는 프로 시저를 작성할 수 있다.</li><li>응용소프트웨어 설계와 물리 데이터저장소 설계에 따라 데이터저장소로부터 데이터를 읽어 오는 프로시저를 작성할 수 있다.</li><li>응용소프트웨어 설계와 물리 데이터저장소 설계에 따라 데이터 변경 내용 또는 신규 입력된 데이터를 데이터저장소에 저장하는 프로시저를 작성할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>데이터 정의어(DDL: Data Definition Language)</dt><dd><blockquote>데이터를 저장하고 있는 테이블 등의 구조를 생성하고 변경하기 위하여 사용되는 명령 어들을 말하는 것으로, 명령어 수행이 되면 이전 상태로 복귀할 수 없으므로 신중히 사용하여야 한다.</blockquote></dd><dt>데이터 조작어(DML: Data Manipulation Language)</dt><dd><blockquote>데이터베이스에 있는 데이터를 변경하거나 검색하기 위하여 사용되는 명령어들을 말하며, 이 명령어는 트랜잭션 제어어(Transaction Control Language)를 활용하여 실행 전 상태로 복귀 가능한 명령어이다.</blockquote></dd><dt>데이터 제어어(DCL: Data Control Language)</dt><dd><blockquote>사용자별로 데이터베이스에 접근할 수 있는 권한을 부여하거나 회수하는 명령어들을 말종류로는 INSERT, UPDATE, DELETE 등이 있다.</blockquote></dd><dt>트랜잭션 제어어(TCL: Transaction Control Language)</dt><dd><blockquote>트랜잭션 제어어는 트랜잭션의 DML 작업 단위를 제어하는 명령어이다. COMMIT, ROLLBACK, SAVEPOINT 등이 있다.</blockquote></dd><dt>데이터 검색어(SELECT)</dt><dd><blockquote>SELECT [DISTINCT] {*, column [alias], . . .} FROM table_name [ WHERE condition ] [ GROUP BY column ] [ HAVING condition ] [ORDER BY {column, expression} [ASC | DESC]];</blockquote></dd><dt>항목 설명</dt><dd><blockquote>alias 지정은 space 다음에 alias명 또는 AS alias로 지정 가능 condition은, column, 표현식, 상수 및 비교 연산자 / 데이터 조작 프로시저 개발하기 기기(장비･공구) 안전･유의 사항 저를 작성한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>SQL 분류</dd></dl>
+
+<h4>해 보기</h4>
+<h5>데이터 조작 프로시저 개발하기</h5><div class='prep'><b>재료·자료</b><span>ERD 작성 표준, 개발 시 활용 데이터저장소에 대한 매뉴얼 및 개발 가이드</span><b>기기·도구</b><span>컴퓨터, 인터넷, 형상관리 프로그램, 데이터저장소 설계 프로그램</span><b>유의 사항</b><span>요구사항을 명확하게 이해하고 반영될 수 있도록 한다. / 지속적인 수집 및 습득 훈련이 요구된다.</span></div><div class='doh'><b>1</b><span>응용소프트웨어 설계와 물리 데이터저장소 설계에 따라 데이터저장소에 연결을 수행하는 프로시</span></div><ol class='dos'><li>데이터베이스 드라이버를 로딩한다.</li><li>DB 연결 정보를 설정하고 Connection 객체를 생성한다.</li><li>SQL 실행을 위한 객체를 생성하고 실행 결과를 처리한다.</li></ol><div class='doh'><b>2</b><span>응용소프트웨어 설계와 물리 데이터저장소 설계에 따라 데이터저장소로부터 데이터를 읽어 오는</span></div><ol class='dos'><li>검색 조건을 반영한 SELECT 쿼리를 작성한다.</li><li>SQL 함수 또는 연산을 활용하여 데이터를 가공한다.</li><li>조회 결과를 ResultSet으로 받아 응용소프트웨어에서 처리한다.</li></ol><div class='doh'><b>3</b><span>응용소프트웨어 설계와 물리 데이터저장소 설계에 따라 데이터 변경 내용 또는 신규 입력된 데</span></div><ol class='dos'><li>INSERT 쿼리를 작성하여 신규 데이터를 삽입한다.</li><li>UPDATE 쿼리를 작성하여 기존 데이터를 수정한다.</li><li>DELETE 쿼리를 작성하여 데이터를 삭제한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>응용소프트웨어 설계와 물리 데이터저장소 설계에 따라 데이터저장소에 연결을 수행하는 프로시</li><li>응용소프트웨어 설계와 물리 데이터저장소 설계에 따라 데이터저장소로부터 데이터를 읽어 오는</li><li>응용소프트웨어 설계와 물리 데이터저장소 설계에 따라 데이터 변경 내용 또는 신규 입력된 데</li><li>응용소프트웨어 설계와 물리 데이터저장소 설계에 따라 데이터저장소에 연결을 수행하는 프로 시저를 작성할 수 있다.</li><li>응용소프트웨어 설계와 물리 데이터저장소 설계에 따라 데이터저장소로부터 데이터를 읽어 오는 프로시저를 작성할 수 있다.</li><li>응용소프트웨어 설계와 물리 데이터저장소 설계에 따라 데이터 변경 내용 또는 신규 입력된 데이터를 데이터저장소에 저장하는 프로시저를 작성할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 문제해결 시나리오 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 34쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st31">
-      <h3><i>31</i>데이터 정의어(DDL: Data Definition Language)</h3>
+    <div class="step" id="st5">
+      <h3><i>5</i>3-2. 데이터 조작 프로시저 테스트 설계</h3>
       <aside class="side">
-        <p class="pt">데이터 조작 프로시저 개발</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="47">원문 34쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>데이터를 저장하고 있는 테이블 등의 구조를 생성하고 변경하기 위하여 사용되는 명령 어들을 말하는 것으로, 명령어 수행이 되면 이전 상태로 복귀할 수 없으므로 신중히 사용하여야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st32">
-      <h3><i>32</i>데이터 조작어(DML: Data Manipulation Language)</h3>
-      <aside class="side">
-        <p class="pt">데이터 조작 프로시저 개발</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="48">원문 35쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>데이터베이스에 있는 데이터를 변경하거나 검색하기 위하여 사용되는 명령어들을 말하며, 이 명령어는 트랜잭션 제어어(Transaction Control Language)를 활용하여 실행 전 상태로 복귀 가능한 명령어이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st33">
-      <h3><i>33</i>데이터 제어어(DCL: Data Control Language)</h3>
-      <aside class="side">
-        <p class="pt">데이터 조작 프로시저 개발</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="48">원문 35쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>사용자별로 데이터베이스에 접근할 수 있는 권한을 부여하거나 회수하는 명령어들을 말종류로는 INSERT, UPDATE, DELETE 등이 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st34">
-      <h3><i>34</i>트랜잭션 제어어(TCL: Transaction Control Language)</h3>
-      <aside class="side">
-        <p class="pt">데이터 조작 프로시저 개발</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="48">원문 35쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>트랜잭션 제어어는 트랜잭션의 DML 작업 단위를 제어하는 명령어이다. COMMIT, ROLLBACK, SAVEPOINT 등이 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st35">
-      <h3><i>35</i>데이터 검색어(SELECT)</h3>
-      <aside class="side">
-        <p class="pt">데이터 조작 프로시저 개발</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="49">원문 36쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>SELECT [DISTINCT] {*, column [alias], . . .} FROM table_name [ WHERE condition ] [ GROUP BY column ] [ HAVING condition ] [ORDER BY {column, expression} [ASC | DESC]];</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st36">
-      <h3><i>36</i>항목 설명</h3>
-      <aside class="side">
-        <p class="pt">데이터 조작 프로시저 개발</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="49">원문 36쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>alias 지정은 space 다음에 alias명 또는 AS alias로 지정 가능 condition은, column, 표현식, 상수 및 비교 연산자 / 데이터 조작 프로시저 개발하기 기기(장비･공구) 안전･유의 사항 저를 작성한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st37">
-      <h3><i>37</i>SQL*Plus 활용</h3>
-      <aside class="side">
-        <p class="pt">데이터 조작 프로시저 테스트 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">구현된 데이터 조작 프로시저를 테스트할 수 있는 테스트 케이스를 작성하고 단위 테스트를 수행하기 위한 테스트 조건을 명세화할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">데이터 조작 프로시저 작성하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="54">원문 41쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 3항목 · 실습 5절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>SQL*Plus 로그인 및 활용을 위한 SQL*Plus 명령어는 다음과 같다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>구현된 데이터 조작 프로시저를 테스트할 수 있는 테스트 케이스를 작성하고 단위 테스트를 수행하기 위한 테스트 조건을 명세화할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>SQL*Plus 활용</dt><dd><blockquote>SQL*Plus 로그인 및 활용을 위한 SQL*Plus 명령어는 다음과 같다.</blockquote></dd><dt>SQL과 SQL*Plus 차이점</dt><dd><blockquote>SQL*Plus 데이터베이스와 통신하는 언어 SQL 명령어를 서버에 전송하는 Tool ANSI 표준에 기초 Oracle사 제공 Tool 데이터와 테이블에 대한 정의가 가능 데이터에 대한 어떤 정의도 불가능 SQL buffer를 사용 SQL buffer를 사용하지 않음 여러 행 입력 가능 여러 행 입력할 수 없음 명령어 실행 시 종료 문자(;) 사용 명령어 실행 시 종료 문자(;) 사용 안 함</blockquote></dd><dt>SQL*Plus 명령어 유형</dt><dd><blockquote>/ 데이터 조작 프로시저 테스트 설계하기 기기(장비･공구) 공하는 테스트 유틸리티 프로그램 안전･유의 사항 행하기 위한 테스트 조건을 명세화한다 DDL, DML, DCL, TCL, SELECT문을 대상으로 테스트할 SQL 문장을 식별하고 유형별로 분류한다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>데이터 조작 프로시저 테스트 설계하기</h5><div class='prep'><b>재료·자료</b><span>ERD 작성 표준, 개발 시 활용 데이터저장소에 대한 매뉴얼 및 개발 가이드</span><b>기기·도구</b><span>컴퓨터, 인터넷, 형상관리 프로그램, 데이터저장소 설계 프로그램, 데이터베이스에서 제 / 공하는 테스트 유틸리티 프로그램</span><b>유의 사항</b><span>사용자 환경(OS 및 버전 등)에 맞는 툴을 설치한다. / 버전이 관리될 수 있도록 버전 관리에 유의한다.</span></div><div class='doh'><b>1</b><span>구현된 데이터 조작 프로시저를 테스트할 수 있는 테스트 케이스를 작성하고 단위 테스트를 수</span></div><ol class='dos'><li>단문 SQL 테스트를 위한 테스트 조건을 명세화한다.</li><li>절차형 SQL(PL/SQL) 테스트를 위한 테스트 조건을 명세화한다.</li><li>테스트 케이스 명세서를 작성한다.</li><li>테스트 흐름을 정의한다.</li><li>테스트 명세 내용을 검토한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>구현된 데이터 조작 프로시저를 테스트할 수 있는 테스트 케이스를 작성하고 단위 테스트를 수</li><li>구현된 데이터 조작 프로시저를 테스트할 수 있는 테스트 케이스를 작성하고 단위 테스트를 수행하기 위한 테스트 조건을 명세화할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 문제해결 시나리오 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st38">
-      <h3><i>38</i>SQL과 SQL*Plus 차이점</h3>
-      <aside class="side">
-        <p class="pt">데이터 조작 프로시저 테스트 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="55">원문 42쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>SQL*Plus 데이터베이스와 통신하는 언어 SQL 명령어를 서버에 전송하는 Tool ANSI 표준에 기초 Oracle사 제공 Tool 데이터와 테이블에 대한 정의가 가능 데이터에 대한 어떤 정의도 불가능 SQL buffer를 사용 SQL buffer를 사용하지 않음 여러 행 입력 가능 여러 행 입력할 수 없음 명령어 실행 시 종료 문자(;) 사용 명령어 실행 시 종료 문자(;) 사용 안 함</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st39">
-      <h3><i>39</i>SQL*Plus 명령어 유형</h3>
-      <aside class="side">
-        <p class="pt">데이터 조작 프로시저 테스트 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="55">원문 42쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>/ 데이터 조작 프로시저 테스트 설계하기 기기(장비･공구) 공하는 테스트 유틸리티 프로그램 안전･유의 사항 행하기 위한 테스트 조건을 명세화한다 DDL, DML, DCL, TCL, SELECT문을 대상으로 테스트할 SQL 문장을 식별하고 유형별로 분류한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 41쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -1102,169 +261,45 @@
 <div class="lv">
   <div class="lvh"><b>4. 데이터 조작 프로시저 최적화하기</b><span>능력단위요소 · <code>2001020205_23v6.4</code></span></div>
   <div class="lvb">
-    <div class="step" id="st40">
-      <h3><i>40</i>SQL 처리 흐름</h3>
+    <div class="step" id="st6">
+      <h3><i>6</i>4-1. 데이터 조작 프로시저 성능 개선</h3>
       <aside class="side">
-        <p class="pt">데이터 조작 프로시저 성능 개선</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">업무 분석가에 의해 정의된 요구사항을 기준으로, 성능 측정 도구를 활용하여 데이터 조작 프로시저의 성능을 측정할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">데이터 조작 프로시저 최적화하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="62">원문 49쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 6항목 · 실습 15절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>SQL 처리 흐름 단계</li><li>SQL 작성 시 고려 사항</li><li>SQL 성능 최적화를 위한 유틸리티 활용</li><li>TKPROF 활용</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>업무 분석가에 의해 정의된 요구사항을 기준으로, 성능 측정 도구를 활용하여 데이터 조작 프로시저의 성능을 측정할 수 있다.</li><li>실데이터를 기반으로 테스트를 수행하여 데이터 조작 프로시저의 성능에 영향을 주는 병목을 파악할 수 있다.</li><li>테스트 결과와 정의된 요구사항을 기준으로 데이터 조작 프로시저의 성능에 따른 이슈 발생 시 이에 대해 해결할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>SQL 처리 흐름 단계</dt><dd><blockquote>(가) 먼저, 사용자가 요청한 SQL문이 데이터베이스에서 처음 사용된 문장인지 이미 사용 된 문장인지를 공유 풀 영역을 검색하여 확인한다.</blockquote></dd><dt>SQL 작성 시 고려 사항</dt><dd><blockquote>으로 갖추어야 한다. 이해하고 작성하여야 한다. 할 수 있음을 이해하여야 한다. 티마이저가 비정상적으로 동작된다면, 이를 추적하여 개발자가 원하는 실행 계획으로 동작될 수 있도록 조정하는 과정이 필요하다.</blockquote></dd><dt>SQL 성능 최적화를 위한 유틸리티 활용</dt><dd><blockquote>시장에서 많이 사용하고 있는 Oracle DBMS 경우, SQL 문제점을 파악하고 개선하여 SQL 성능을 최적화하기 위해, TKPROF 및 EXPLAIN PLAN이라는 도구를 제공하고 있다.</blockquote></dd><dt>TKPROF 활용</dt><dd><blockquote>TKPROF는 실행되는 SQL 문장에 대해 분석 정보를 제공하여 사용자가 특정 SQL 문장을 어떻게 사용해야 할 것인지에 대한 가이드라인을 제공해 주는 도구로서, EXPLAIN PLAN과 병행하여 사용하는 것이 좋다.</blockquote></dd><dt>EXPLAIN PLAN 활용</dt><dd><blockquote>EXPLAIN PLAN은 사용자들이 SQL문의 액세스 경로를 확인하여 성능 개선을 할 수 있도록 SQL문을 분석하고 해석하여 실행 계획을 수립하고, 관련 테이블(plan_table)에 저장하도록 지원해 주는 도구이다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>SQL 처리 흐름</dd></dl>
+
+<h4>해 보기</h4>
+<h5>데이터 조작 프로시저 성능 개선하기</h5><div class='prep'><b>재료·자료</b><span>ERD 작성 표준, 개발 시 활용 데이터저장소에 대한 매뉴얼 및 개발 가이드, 모델링 검 / 토 기준</span><b>기기·도구</b><span>컴퓨터, 인터넷, 형상관리 프로그램, 데이터저장소 설계 프로그램, 데이터 입출력 성능 / 측정 프로그램</span><b>유의 사항</b><span>요구사항을 명확하게 이해하고 반영될 수 있도록 한다. / 자료에 대한 지속적인 수집 및 습득 훈련이 요구된다.</span></div><div class='doh'><b>1</b><span>업무 분석가에 의해 정의된 요구사항을 기준으로, 성능 측정 도구를 활용하여 데이터 조작 프로</span></div><ol class='dos'><li>성능 측정을 위한 기준 요구사항을 식별한다.</li><li>성능 측정 도구를 설정한다.</li><li>대상 프로시저를 실행하고 측정 데이터를 수집한다.</li><li>측정 결과를 분석하여 실행 성능을 평가한다.</li></ol><div class='doh'><b>2</b><span>실데이터를 기반으로 테스트를 수행하여 데이터 조작 프로시저의 성능에 영향을 주는 병목 구간</span></div><ol class='dos'><li>실데이터를 반영한 테스트 환경을 구성한다.</li><li>테스트 시나리오를 설계한다.</li><li>테스트를 수행하고 성능 로그를 수집한다.</li><li>병목 지점을 식별한다.</li><li>성능 저하 원인을 문서화한다.</li></ol><div class='doh'><b>3</b><span>테스트 결과와 정의된 요구사항을 기준으로 데이터 조작 프로시저의 성능에 따른 이슈를 해결한다.</span></div><ol class='dos'><li>속도를 저하시키는 SQL 구문을 재작성하여 성능을 개선한다.</li><li>실행 계획을 개선한다.</li><li>인덱스를 재구성한다.</li><li>시스템 리소스 병목 구간을 조정한다.</li><li>개선 후 동일한 테스트로 효과를 검증한다.</li><li>성능 개선 결과를 문서화하고 공유한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>업무 분석가에 의해 정의된 요구사항을 기준으로, 성능 측정 도구를 활용하여 데이터 조작 프로</li><li>실데이터를 기반으로 테스트를 수행하여 데이터 조작 프로시저의 성능에 영향을 주는 병목 구간</li><li>테스트 결과와 정의된 요구사항을 기준으로 데이터 조작 프로시저의 성능에 따른 이슈를 해결한다.</li><li>업무 분석가에 의해 정의된 요구사항을 기준으로, 성능 측정 도구를 활용하여 데이터 조작 프로시저의 성능을 측정할 수 있다.</li><li>실데이터를 기반으로 테스트를 수행하여 데이터 조작 프로시저의 성능에 영향을 주는 병목을 파악할 수 있다.</li><li>테스트 결과와 정의된 요구사항을 기준으로 데이터 조작 프로시저의 성능에 따른 이슈 발생 시 이에 대해 해결할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 문제해결 시나리오 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st41">
-      <h3><i>41</i>SQL 처리 흐름 단계</h3>
-      <aside class="side">
-        <p class="pt">데이터 조작 프로시저 성능 개선</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="62">원문 49쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>(가) 먼저, 사용자가 요청한 SQL문이 데이터베이스에서 처음 사용된 문장인지 이미 사용 된 문장인지를 공유 풀 영역을 검색하여 확인한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st42">
-      <h3><i>42</i>SQL 작성 시 고려 사항</h3>
-      <aside class="side">
-        <p class="pt">데이터 조작 프로시저 성능 개선</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="63">원문 50쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>으로 갖추어야 한다. 이해하고 작성하여야 한다. 할 수 있음을 이해하여야 한다. 티마이저가 비정상적으로 동작된다면, 이를 추적하여 개발자가 원하는 실행 계획으로 동작될 수 있도록 조정하는 과정이 필요하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st43">
-      <h3><i>43</i>SQL 성능 최적화를 위한 유틸리티 활용</h3>
-      <aside class="side">
-        <p class="pt">데이터 조작 프로시저 성능 개선</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="63">원문 50쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시장에서 많이 사용하고 있는 Oracle DBMS 경우, SQL 문제점을 파악하고 개선하여 SQL 성능을 최적화하기 위해, TKPROF 및 EXPLAIN PLAN이라는 도구를 제공하고 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st44">
-      <h3><i>44</i>TKPROF 활용</h3>
-      <aside class="side">
-        <p class="pt">데이터 조작 프로시저 성능 개선</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="63">원문 50쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>TKPROF는 실행되는 SQL 문장에 대해 분석 정보를 제공하여 사용자가 특정 SQL 문장을 어떻게 사용해야 할 것인지에 대한 가이드라인을 제공해 주는 도구로서, EXPLAIN PLAN과 병행하여 사용하는 것이 좋다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st45">
-      <h3><i>45</i>EXPLAIN PLAN 활용</h3>
-      <aside class="side">
-        <p class="pt">데이터 조작 프로시저 성능 개선</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020205_23v6" data-page="64">원문 51쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>EXPLAIN PLAN은 사용자들이 SQL문의 액세스 경로를 확인하여 성능 개선을 할 수 있도록 SQL문을 분석하고 해석하여 실행 계획을 수립하고, 관련 테이블(plan_table)에 저장하도록 지원해 주는 도구이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 49쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
   </div>
 </div>
 
-<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
-원문 LM2001020205_23v6_데이터 입출력 구현_20251108.pdf</footer>
+<footer>담당 정우균 · 개념과 절차는 <b>NCS 학습모듈 LM2001020205_23v6_데이터 입출력 구현_20251108.pdf</b> 에서
+옮긴 것입니다 — 한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지)</footer>
 </div>
 <script>
-/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+/* 빠른 이동 — 지금 보는 꼭지를 표시하고, 좁은 화면에서는 여닫습니다. */
 (function () {
   var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
   var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));

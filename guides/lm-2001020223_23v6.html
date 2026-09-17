@@ -1,13 +1,30 @@
-<meta charset="utf-8"><title>동적모델 설계 — 준비 교안</title>
+<meta charset="utf-8"><title>동적모델 설계 — 학습 가이드</title>
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="stylesheet" href="../assets/guide.css">
 <style>
-  /* 원문 인용 — 우리가 쓴 안내와 눈으로 구분되어야 한다 */
-  .bd blockquote{margin:10px 0 16px;padding:10px 14px;border-left:3px solid #000;
-                 background:#fafafa;font-size:13.5px;line-height:1.8;color:#222}
-  .bd p.none{color:#888;font-size:13px}
-  .bd ul.sub{margin:8px 0 16px;padding-left:20px;font-size:13.5px;line-height:1.9}
-  aside.side .v .btn{font-size:11.5px}
+  /* 학습 가이드 — 개념 / 실습 / 확인 세 덩어리가 눈으로 구분되어야 한다 */
+  .bd h4{margin:22px 0 8px;font-size:14px;padding-bottom:5px;border-bottom:1px solid #000}
+  .bd h4:first-child{margin-top:0}
+  .bd h5{margin:16px 0 5px;font-size:13px;font-weight:700}
+  .bd blockquote{margin:5px 0 12px;padding:9px 13px;border-left:3px solid #999;
+                 background:#fafafa;font-size:13px;line-height:1.8;color:#333}
+  .cc{margin:0 0 6px}
+  .cc dt{font-weight:700;font-size:13.5px;margin:14px 0 0}
+  .cc dd{margin:4px 0 0}
+  .doh{display:flex;gap:9px;align-items:baseline;margin:16px 0 4px;font-size:13.5px;
+       font-weight:700}
+  .doh b{flex:0 0 auto;width:21px;height:21px;line-height:19px;text-align:center;
+         border:1px solid #000;font-size:11.5px}
+  ol.dos{margin:2px 0 0 30px;padding:0;font-size:13px;line-height:1.85}
+  ol.dos li{margin:3px 0}
+  .prep{display:grid;grid-template-columns:76px 1fr;gap:3px 10px;font-size:12.5px;
+        border:1px solid #ccc;padding:10px 13px;margin:6px 0 2px;background:#fafafa}
+  .prep b{color:#555;font-weight:400}
+  ul.goal{margin:6px 0 0;padding-left:20px;font-size:13.5px;line-height:1.9}
+  ul.chk{margin:6px 0 0;padding:0;list-style:none;font-size:13.5px;line-height:1.95}
+  ul.chk li::before{content:"\2610  "}
+  .none{color:#888;font-size:12.5px}
+  .srcline{font-size:11.5px;color:#888;margin:8px 0 0}
 </style>
 <script src="../assets/auth.js"></script>
 <script>EXAM_AUTH.guard("../");</script>
@@ -17,7 +34,7 @@
 <div class="top"><div class="tbar">
   <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
   <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
-  / 동적모델 설계 / 준비 교안</small></div>
+  / 동적모델 설계 / 학습 가이드</small></div>
   <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
@@ -25,49 +42,47 @@
 <button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
 
 <nav id="qnav" aria-label="빠른 이동">
-  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
-  <i class="qg">동적 분석모델 검증하기</i><a href="#st1"><b>1</b><span>소프트웨어 아키텍처의 이해</span></a><a href="#st2"><b>2</b><span>소프트웨어 아키텍처의 개념</span></a><a href="#st3"><b>3</b><span>소프트웨어 아키텍처 뷰, 패턴(스타일)</span></a><a href="#st4"><b>4</b><span>소프트웨어 아키텍처의 품질 속성</span></a><a href="#st5"><b>5</b><span>품질 속성의 개요</span></a><a href="#st6"><b>6</b><span>품질 속성 시나리오</span></a><a href="#st7"><b>7</b><span>품질 속성 유틸리티 트리</span></a><a href="#st8"><b>8</b><span>동료 검토(Peer-Review)</span></a><a href="#st9"><b>9</b><span>비공식 리뷰(Informal Review)</span></a><a href="#st10"><b>10</b><span>기술적 리뷰(Technical Review)</span></a><a href="#st11"><b>11</b><span>워크 스루(Walk Through)</span></a><a href="#st12"><b>12</b><span>인스펙션(Inspection)</span></a><a href="#st13"><b>13</b><span>집단 토론 방법</span></a><a href="#st14"><b>14</b><span>브레인스토밍</span></a><a href="#st15"><b>15</b><span>브레인라이팅(Brainwriting)</span></a><a href="#st16"><b>16</b><span>델파이 기법(Delphi Method)</span></a><a href="#st17"><b>17</b><span>명목 집단법(Nominal Group Technique)</span></a><i class="qg">동적모델 상세화하기</i><a href="#st18"><b>18</b><span>동적 다이어그램 개념과 종류</span></a><a href="#st19"><b>19</b><span>동적 다이어그램의 개념</span></a><a href="#st20"><b>20</b><span>동적 다이어그램의 상세 설명</span></a><a href="#st21"><b>21</b><span>UML 표현의 일관성과 상호 검토 절차</span></a><a href="#st22"><b>22</b><span>UML 표현의 일관성 유지 방법</span></a><a href="#st23"><b>23</b><span>UML 다이어그램의 상호 검토 절차</span></a><a href="#st24"><b>24</b><span>상호 검토 시 유의 사항</span></a><a href="#st25"><b>25</b><span>UML 2.0의 확장 기능</span></a><a href="#st26"><b>26</b><span>UML 프로파일(Profile)</span></a><a href="#st27"><b>27</b><span>UML 확장 표현 사례</span></a><a href="#st28"><b>28</b><span>시퀀스(Sequence)다이어그램의 작성 방법</span></a><a href="#st29"><b>29</b><span>시퀀스다이어그램의 구조</span></a><a href="#st30"><b>30</b><span>커뮤니케이션(Communication) 다이어그램의 작성 방법</span></a><a href="#st31"><b>31</b><span>커뮤니케이션 다이어그램의 구조</span></a><a href="#st32"><b>32</b><span>동적 다이어그램 작성 도구(스타 UML)</span></a><a href="#st33"><b>33</b><span>스타 UML의 개요</span></a><a href="#st34"><b>34</b><span>스타 UML의 화면 구성 및 동적모델 적용 가능 기능</span></a><a href="#st35"><b>35</b><span>기능모델의 개념</span></a><a href="#st36"><b>36</b><span>기능모델을 구현하는 다이어그램의 종류</span></a><a href="#st37"><b>37</b><span>정적모델의 개념</span></a><a href="#st38"><b>38</b><span>정적모델을 구현하는 다이어그램의 종류</span></a>
+  <a class="qt" href="#top"><b>&uarr;</b><span>맨 위로</span></a>
+  <i class="qg">동적 분석모델 검증하기</i><a href="#st1"><b>1</b><span>동적모델 상세 분석</span></a><a href="#st2"><b>2</b><span>분석모델 정합성 검증</span></a><i class="qg">동적모델 상세화하기</i><a href="#st3"><b>3</b><span>동적모델 다이어그램 선정</span></a><a href="#st4"><b>4</b><span>동적모델 상세 설계</span></a><a href="#st5"><b>5</b><span>동적모델 도식화</span></a><a href="#st6"><b>6</b><span>동적 설계모델을 통한 기능모델, 정적모델 검증</span></a>
 </nav>
 
 <div class="wrap" id="top">
 
-<h1>동적모델 설계 — 준비 교안</h1>
+<h1>동적모델 설계 — 학습 가이드</h1>
 <p class="sub">능력단위 <code>2001020223_23v6</code> · 6수준 ·
-48시간 · 단계 38개 · 평가 문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
+48시간 · 꼭지 6개 · 개념 38항목 · 실습 21절차</p>
 
-<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<h2 class="sec" id="g0">0. 시작하기 전에</h2>
 <div class="sect">
   <aside class="side">
     <p class="pt">요구사항 확인을 통한 상세 분석 결과, 소프트웨어 아키텍처 가이드라인 및 소프트웨어 아키텍처 산출물에 의거하여 애플리케이션 구현을 위한 동적모델을 설계하고 검증할 수 있다.</p>
-    <b class="sh">선수학습</b>
+    <b class="sh">먼저 알아야 할 것</b>
     <p class="v">소프트웨어 아키텍처, 객체지향 개발 방법론, UML, 기능모델링(2001020220_23v3), 정적모델 설계(2001 020222_23v6)</p>
-    <b class="sh">원문</b>
-    <p class="src">LM2001020223_23v6_동적모델 설계_20251108.pdf (116쪽)</p>
+    <b class="sh">평가</b>
+    <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
   </aside>
   <div class="bd">
-<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
-   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
-   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
-<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
-   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
-   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+<h4>이 문서를 쓰는 법</h4>
+<p>꼭지마다 <b>무엇을 할 수 있게 되나 → 알아야 할 것 → 해 보기 → 스스로 확인</b>
+   순서입니다. 읽고 끝내지 말고 <b>해 보기</b>를 손으로 따라 하십시오.
+   마지막 <b>스스로 확인</b>을 전부 «할 수 있다» 고 말할 수 있으면 다음 꼭지로 갑니다.</p>
+<p>자세한 설명과 표·그림은 <b>학습모듈 원문</b>에 있습니다. 꼭지마다 있는
+   <b>[원문 N쪽]</b> 단추를 누르면 그 자리가 바로 펼쳐집니다.</p>
 
 <h4>핵심 용어</h4>
 <p>소프트웨어 아키텍처 뷰(스타일), 품질 속성 시나리오, UML, 유스케이스 다이어그램, 시퀀스다이어그램, 상태 머신 다이어그램, 액티비티 다이어그램, 타이밍 다이어그램, UML 도구, IDE</p>
 
-<h4>능력단위요소</h4>
+<h4>차례</h4>
 <table class="wide">
-  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
-      <th>학습 내용</th><th style="width:74px">단계</th></tr>
-  <tr><td class="c">1</td><td>동적 분석모델 검증하기</td><td>동적모델 상세 분석 · 분석모델 정합성 검증</td><td class="c">17</td></tr>
-  <tr><td class="c">2</td><td>동적모델 상세화하기</td><td>동적모델 다이어그램 선정 · 동적모델 상세 설계 · 동적모델 도식화 · 동적 설계모델을 통한 기능모델, 정적모델 검증</td><td class="c">21</td></tr>
+  <tr><th style="width:44px">꼭지</th><th style="width:250px">학습 내용</th>
+      <th>능력단위요소</th><th style="width:58px">개념</th><th style="width:58px">실습</th></tr>
+  <tr><td class="c">1</td><td>1-1. 동적모델 상세 분석</td><td>동적 분석모델 검증하기</td><td class="c">7</td><td class="c">3</td></tr>
+  <tr><td class="c">2</td><td>1-2. 분석모델 정합성 검증</td><td>동적 분석모델 검증하기</td><td class="c">10</td><td class="c">3</td></tr>
+  <tr><td class="c">3</td><td>2-1. 동적모델 다이어그램 선정</td><td>동적모델 상세화하기</td><td class="c">10</td><td class="c">5</td></tr>
+  <tr><td class="c">4</td><td>2-2. 동적모델 상세 설계</td><td>동적모델 상세화하기</td><td class="c">4</td><td class="c">4</td></tr>
+  <tr><td class="c">5</td><td>2-3. 동적모델 도식화</td><td>동적모델 상세화하기</td><td class="c">3</td><td class="c">2</td></tr>
+  <tr><td class="c">6</td><td>2-4. 동적 설계모델을 통한 기능모델, 정적모델 검증</td><td>동적모델 상세화하기</td><td class="c">4</td><td class="c">4</td></tr>
 </table>
-
-<div class="try">
-  <b class="t">쓰는 법</b>
-  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
-  한 단계가 대략 수업 10~20분에 해당합니다.
-</div>
   </div>
 </div>
 
@@ -75,443 +90,65 @@
   <div class="lvh"><b>1. 동적 분석모델 검증하기</b><span>능력단위요소 · <code>2001020223_23v6.1</code></span></div>
   <div class="lvb">
     <div class="step" id="st1">
-      <h3><i>1</i>소프트웨어 아키텍처의 이해</h3>
+      <h3><i>1</i>1-1. 동적모델 상세 분석</h3>
       <aside class="side">
-        <p class="pt">동적모델 상세 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">소프트웨어 아키텍처 설계 가이드라인을 참조하여 동적모델 상세 분석 내역을 확인할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">동적 분석모델 검증하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 7항목 · 실습 3절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 아키텍처의 기본 개념, 동적모델 설계로 이어지기 위한 소프트웨어 아키텍처 뷰, 뷰에 따른 패턴(스타일), 이해관계자의 요구사항 검증에 중요한 품질 속성 시나리오 등을 통해 소프트웨어 아키텍처를 이해한다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>소프트웨어 아키텍처 설계 가이드라인을 참조하여 동적모델 상세 분석 내역을 확인할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>소프트웨어 아키텍처의 이해</dt><dd><blockquote>소프트웨어 아키텍처의 기본 개념, 동적모델 설계로 이어지기 위한 소프트웨어 아키텍처 뷰, 뷰에 따른 패턴(스타일), 이해관계자의 요구사항 검증에 중요한 품질 속성 시나리오 등을 통해 소프트웨어 아키텍처를 이해한다.</blockquote></dd><dt>소프트웨어 아키텍처의 개념</dt><dd><blockquote>소프트웨어 아키텍처의 개념과 국제 표준인 IEEE-1471, IEEE-42010을 통해 각각의 구성 요소의 관계의 의미를 이해한다.</blockquote></dd><dt>소프트웨어 아키텍처 뷰, 패턴(스타일)</dt><dd><blockquote>이해관계자 관점에서 아키텍처를 바라보는 형태인 뷰와 아키텍처의 형태를 보여 주는 패턴(스타일)에 대해 확인한다.</blockquote></dd><dt>소프트웨어 아키텍처의 품질 속성</dt><dd><blockquote>적정한 수준의 품질을 유지하고 보장하는 목적을 달성하기 위하여 소프트웨어 아키텍처의 설계 단계에서는 품질 속성을 정의하고, 시나리오를 통해 요구사항을 명세한다.</blockquote></dd><dt>품질 속성의 개요</dt><dd><blockquote>소프트웨어 아키텍처를 구성하는 비가시적인 속성은 기능성, 품질 속성, 제약으로 구분 할 수 있다. 그중 품질 속성은 기능성 외에 시스템에 속하는 사항을 말한다.</blockquote></dd><dt>품질 속성 시나리오</dt><dd><blockquote>품질 속성 시나리오는 특정 품질에 대한 요구사항을 명세한 것으로서 시스템의 품질 속성에 대한 요구사항을 생성하는 데 도움을 준다.</blockquote></dd><dt>품질 속성 유틸리티 트리</dt><dd><blockquote>시나리오 기반의 아키텍처 평가를 위해 일반적인 문제로부터 해당 시스템의 특정 상황으로 접근해 가며 품질 속성의 목표를 파악하고, 속성 간 우선순위를 파악하도록 해 주는 시나리오 도출 기법이다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>동적모델 상세 분석하기</h5><div class='prep'><b>재료·자료</b><span>소프트웨어 아키텍처 설계 가이드라인, 소프트웨어 아키텍처 산출물(아키텍처 뷰, 품질 / 속성 시나리오) / 애플리케이션, 네트워크, 보안, 서버 구성 자료 / 소프트웨어 아키텍처 분석을 위한 양식 및 절차</span><b>기기·도구</b><span>전산 장비: 인터넷, 컴퓨터, 프린터, 복사기, 빔 프로젝터 등 / 지원 도구: 문서 작성 도구, 문서 발표 도구</span><b>유의 사항</b><span>상호 검토 시 상대방을 존중하고 경청하는 자세를 갖는다. / 정해진 절차를 준수하되 상황에 따라서 유연하게 대처한다. / 학습을 통하여 도출된 결과에 대하여 보완 사항을 도출하여 다음에 반영한다.</span></div><div class='doh'><b>1</b><span>소프트웨어 아키텍처 설계 가이드라인을 참고하여 설계 검증을 진행한다.</span></div><ol class='dos'><li>참여자를 구성하고 필요 산출물을 준비한 후, 설계 검증을 위한 절차를 검토한다.</li></ol><div class='doh'><b>2</b><span>설계 검증 절차에 의해 동적모델을 상세 분석한다.</span></div><ol class='dos'><li>분석할 동적모델(아키텍처)을 제시한다.</li><li>설계 검증 절차에 의해 제시된 동적모델을 절차에 따라 상세 분석한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>소프트웨어 아키텍처 설계 가이드라인을 참고하여 설계 검증을 진행한다.</li><li>설계 검증 절차에 의해 동적모델을 상세 분석한다.</li><li>소프트웨어 아키텍처 설계 가이드라인을 참조하여 동적모델 상세 분석 내역을 확인할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 3쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
     <div class="step" id="st2">
-      <h3><i>2</i>소프트웨어 아키텍처의 개념</h3>
+      <h3><i>2</i>1-2. 분석모델 정합성 검증</h3>
       <aside class="side">
-        <p class="pt">동적모델 상세 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 아키텍처의 개념과 국제 표준인 IEEE-1471, IEEE-42010을 통해 각각의 구성 요소의 관계의 의미를 이해한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st3">
-      <h3><i>3</i>소프트웨어 아키텍처 뷰, 패턴(스타일)</h3>
-      <aside class="side">
-        <p class="pt">동적모델 상세 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="20">원문 7쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>이해관계자 관점에서 아키텍처를 바라보는 형태인 뷰와 아키텍처의 형태를 보여 주는 패턴(스타일)에 대해 확인한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st4">
-      <h3><i>4</i>소프트웨어 아키텍처의 품질 속성</h3>
-      <aside class="side">
-        <p class="pt">동적모델 상세 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="21">원문 8쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>적정한 수준의 품질을 유지하고 보장하는 목적을 달성하기 위하여 소프트웨어 아키텍처의 설계 단계에서는 품질 속성을 정의하고, 시나리오를 통해 요구사항을 명세한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st5">
-      <h3><i>5</i>품질 속성의 개요</h3>
-      <aside class="side">
-        <p class="pt">동적모델 상세 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="21">원문 8쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 아키텍처를 구성하는 비가시적인 속성은 기능성, 품질 속성, 제약으로 구분 할 수 있다. 그중 품질 속성은 기능성 외에 시스템에 속하는 사항을 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st6">
-      <h3><i>6</i>품질 속성 시나리오</h3>
-      <aside class="side">
-        <p class="pt">동적모델 상세 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="22">원문 9쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>품질 속성 시나리오는 특정 품질에 대한 요구사항을 명세한 것으로서 시스템의 품질 속성에 대한 요구사항을 생성하는 데 도움을 준다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st7">
-      <h3><i>7</i>품질 속성 유틸리티 트리</h3>
-      <aside class="side">
-        <p class="pt">동적모델 상세 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="23">원문 10쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시나리오 기반의 아키텍처 평가를 위해 일반적인 문제로부터 해당 시스템의 특정 상황 으로 접근해 가며 품질 속성의 목표를 파악하고, 속성 간 우선순위를 파악하도록 해 주는 시나리오 도출 기법이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st8">
-      <h3><i>8</i>동료 검토(Peer-Review)</h3>
-      <aside class="side">
-        <p class="pt">분석모델 정합성 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
+        <p class="pt">분석된 동적모델을 대상으로 분석모델의 정합성을 검증할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">동적 분석모델 검증하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="32">원문 19쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 10항목 · 실습 3절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>동료 검토는 다양한 분야에서 동료나 전문가들이 산출물을 검토하는 과정이다. 소프트웨어 분야에서는 동료 검토를 크게 비공식 리뷰, 기술 검토, 워크 스루, 인스펙션으로 분류할</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>분석된 동적모델을 대상으로 분석모델의 정합성을 검증할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>동료 검토(Peer-Review)</dt><dd><blockquote>동료 검토는 다양한 분야에서 동료나 전문가들이 산출물을 검토하는 과정이다. 소프트웨어 분야에서는 동료 검토를 크게 비공식 리뷰, 기술 검토, 워크 스루, 인스펙션으로 분류할</blockquote></dd><dt>비공식 리뷰(Informal Review)</dt><dd><blockquote>저렴한 방법으로 검토 일정의 성과를 달성하려는 목적으로 진행하며 공식적인 절차는 없다. 보통 2명 정도가 리뷰를 진행하고 선택적으로 문서화가 될 수도 있으며 리뷰하는 인원의 역량에 따라 성과가 좌우된다.</blockquote></dd><dt>기술적 리뷰(Technical Review)</dt><dd><blockquote>기술적 문제 해결, 토론, 의사 결정, 대안 평가, 결함 발견, 명세서나 표준과의 적합성을 검토하기 위해 진행된다.</blockquote></dd><dt>워크 스루(Walk Through)</dt><dd><blockquote>학습, 시스템에 대한 이해가 향상된 상태에서 결함을 발견하는 과정이다. 주로 작성자에 의해 진행 및 제어가 되며 시간 및 인원수에 제한이 없고 상황에 따라 변경할 수 있는 세션이다.</blockquote></dd><dt>인스펙션(Inspection)</dt><dd><blockquote>페이건(Michael Fagan)에 의해 제안된 소프트웨어 품질 개선을 위한 품질 보증 기법으로서 표준이나 명세서에 대한 편차와 에러를 포함한 결함을 발견하고 식별하기 위해 작업 산출물에 대해 수행하는 검사이다.</blockquote></dd><dt>브레인스토밍</dt><dd><blockquote>머리(Brain)와 폭풍(Storm)이란 말이 합성된 것으로 머리에 폭풍이 일 듯이 자유분방 하게 발상하여 다양한 아이디어를 얻고자 하는 방법이다.</blockquote></dd><dt>브레인라이팅(Brainwriting)</dt><dd><blockquote>짧은 기간 동안 많은 아이디어를 창출하기 위해 사용하는 팀 접근법으로 침묵 속에 진행하는 기법이다. 브레인스토밍에 비해 상대적으로 적지만 성숙한 아이디어를 내놓는 경향이 있고, 소극적인 사람들의 아이디어를 끌어내는 데 효과적이다.</blockquote></dd><dt>델파이 기법(Delphi Method)</dt><dd><blockquote>전문가들에게 반복적으로 의견을 요청하여 피드백을 받는 형태로 문제를 해결하는 하향 식 의견 도출 방법이며 주로 우편, 전자메일 등의 통신 수단을 통해 의견을 수렴한다.</blockquote></dd><dt>명목 집단법(Nominal Group Technique)</dt><dd><blockquote>팀의 구성원들이 모여서 문제나 이슈를 식별하고 순위를 정하는 가중 서열화법이다. 다음과 같은 세 가지 절차로 진행된다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>집단 토론 방법</dd></dl>
+
+<h4>해 보기</h4>
+<h5>분석모델 정합성 검증하기</h5><div class='prep'><b>재료·자료</b><span>소프트웨어 아키텍처 설계 가이드라인, 소프트웨어 아키텍처 산출물(아키텍처 뷰, 품질 / 속성 시나리오), 동적모델 분석 결과 / 애플리케이션, 네트워크, 보안, 서버 구성에 대한 자료 / 소프트웨어 아키텍처 분석을 위한 양식 및 절차</span><b>기기·도구</b><span>전산 장비: 인터넷, 컴퓨터, 프린터, 복사기, 빔 프로젝터 등 / 지원 도구: 문서 작성 도구, 문서 발표 도구</span><b>유의 사항</b><span>정해진 절차에 의해 정합성을 검증하되 사전 지식을 충분히 숙지한다. / 토의를 할 때에는 상대방의 의견을 잘 경청하고 존중한다. / 정해진 결과에 대해서는 수긍하는 자세를 가진다. / 다수의 의견에 의해 더 나은 방향으로 개선된다는 마음가짐을 갖는다.</span></div><div class='doh'><b>1</b><span>동적모델 상세 분석 결과를 파악한다.</span></div><ol class='dos'><li>동적모델 상세분석 산출물 결과를 파악한다.</li></ol><div class='doh'><b>2</b><span>동적모델 상세분석 결과를 기반으로 정합성을 검증한다.</span></div><ol class='dos'><li>동료 검토 방법을 통해 정합성을 검증한다.</li><li>집단 토론 방법을 통해 정합성을 검증한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>동적모델 상세 분석 결과를 파악한다.</li><li>동적모델 상세분석 결과를 기반으로 정합성을 검증한다.</li><li>분석된 동적모델을 대상으로 분석모델의 정합성을 검증할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st9">
-      <h3><i>9</i>비공식 리뷰(Informal Review)</h3>
-      <aside class="side">
-        <p class="pt">분석모델 정합성 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="32">원문 19쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>저렴한 방법으로 검토 일정의 성과를 달성하려는 목적으로 진행하며 공식적인 절차는 없다. 보통 2명 정도가 리뷰를 진행하고 선택적으로 문서화가 될 수도 있으며 리뷰하는 인원의 역량에 따라 성과가 좌우된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st10">
-      <h3><i>10</i>기술적 리뷰(Technical Review)</h3>
-      <aside class="side">
-        <p class="pt">분석모델 정합성 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="32">원문 19쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기술적 문제 해결, 토론, 의사 결정, 대안 평가, 결함 발견, 명세서나 표준과의 적합성을 검토하기 위해 진행된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st11">
-      <h3><i>11</i>워크 스루(Walk Through)</h3>
-      <aside class="side">
-        <p class="pt">분석모델 정합성 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="32">원문 19쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>학습, 시스템에 대한 이해가 향상된 상태에서 결함을 발견하는 과정이다. 주로 작성자에 의해 진행 및 제어가 되며 시간 및 인원수에 제한이 없고 상황에 따라 변경할 수 있는 세션이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st12">
-      <h3><i>12</i>인스펙션(Inspection)</h3>
-      <aside class="side">
-        <p class="pt">분석모델 정합성 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="32">원문 19쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>페이건(Michael Fagan)에 의해 제안된 소프트웨어 품질 개선을 위한 품질 보증 기법 으로서 표준이나 명세서에 대한 편차와 에러를 포함한 결함을 발견하고 식별하기 위해 작업 산출물에 대해 수행하는 검사이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st13">
-      <h3><i>13</i>집단 토론 방법</h3>
-      <aside class="side">
-        <p class="pt">분석모델 정합성 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>브레인스토밍</li><li>브레인라이팅(Brainwriting)</li><li>델파이 기법(Delphi Method)</li><li>명목 집단법(Nominal Group Technique)</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st14">
-      <h3><i>14</i>브레인스토밍</h3>
-      <aside class="side">
-        <p class="pt">분석모델 정합성 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>머리(Brain)와 폭풍(Storm)이란 말이 합성된 것으로 머리에 폭풍이 일 듯이 자유분방 하게 발상하여 다양한 아이디어를 얻고자 하는 방법이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st15">
-      <h3><i>15</i>브레인라이팅(Brainwriting)</h3>
-      <aside class="side">
-        <p class="pt">분석모델 정합성 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>짧은 기간 동안 많은 아이디어를 창출하기 위해 사용하는 팀 접근법으로 침묵 속에 진행하는 기법이다. 브레인스토밍에 비해 상대적으로 적지만 성숙한 아이디어를 내놓는 경향이 있고, 소극적인 사람들의 아이디어를 끌어내는 데 효과적이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st16">
-      <h3><i>16</i>델파이 기법(Delphi Method)</h3>
-      <aside class="side">
-        <p class="pt">분석모델 정합성 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="35">원문 22쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>전문가들에게 반복적으로 의견을 요청하여 피드백을 받는 형태로 문제를 해결하는 하향 식 의견 도출 방법이며 주로 우편, 전자메일 등의 통신 수단을 통해 의견을 수렴한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st17">
-      <h3><i>17</i>명목 집단법(Nominal Group Technique)</h3>
-      <aside class="side">
-        <p class="pt">분석모델 정합성 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="35">원문 22쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 체크리스트 · 역할 연기</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>팀의 구성원들이 모여서 문제나 이슈를 식별하고 순위를 정하는 가중 서열화법이다. 다음과 같은 세 가지 절차로 진행된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 19쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -520,559 +157,141 @@
 <div class="lv">
   <div class="lvh"><b>2. 동적모델 상세화하기</b><span>능력단위요소 · <code>2001020223_23v6.2</code></span></div>
   <div class="lvb">
-    <div class="step" id="st18">
-      <h3><i>18</i>동적 다이어그램 개념과 종류</h3>
+    <div class="step" id="st3">
+      <h3><i>3</i>2-1. 동적모델 다이어그램 선정</h3>
       <aside class="side">
-        <p class="pt">동적모델 다이어그램 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
+        <p class="pt">검증된 동적 분석모델을 동적 설계모델로 상세화하기 위한 적절한 다이어그램을 선정할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">동적모델 상세화하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="47">원문 34쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 10항목 · 실습 5절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>객체지향 설계에서 사용되는 UML(Unified Model Language)에서의 동적 다이어그램의의미 및 종류와 특징을 알아본다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>검증된 동적 분석모델을 동적 설계모델로 상세화하기 위한 적절한 다이어그램을 선정할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>동적 다이어그램 개념과 종류</dt><dd><blockquote>객체지향 설계에서 사용되는 UML(Unified Model Language)에서의 동적 다이어그램의의미 및 종류와 특징을 알아본다.</blockquote></dd><dt>동적 다이어그램의 개념</dt><dd><blockquote>기능 모델링, 정적 모델링이 끝난 후 객체 사이의 변화를 표현하는 다이어그램으로, 제어 흐름·상호 작용·동작 순서에 따른 변화를 나타낸다.</blockquote></dd><dt>동적 다이어그램의 상세 설명</dt><dd><blockquote>동적 다이어그램의 종류에는 대표적으로 시퀀스(Sequence)다이어그램, 커뮤니케이션 (Communication) 다이어그램, 스테이트(State, State-Machine) 다이어그램, 인터랙 션 오버뷰(Interaction Overview) 다이어그램, 타이밍(Timing) 다이어그램이 있다.</blockquote></dd><dt>UML 표현의 일관성과 상호 검토 절차</dt><dd><blockquote>UML(Unified Modeling Language)은 소프트웨어 개발 과정에서 설계 내용을 명확하게 표현하고, 팀 구성원 및 이해관계자간의 효과적인 의사소통을 위해 사용된다.</blockquote></dd><dt>UML 표현의 일관성 유지 방법</dt><dd><blockquote>UML 다이어그램은 이해관계자가 쉽게 이해할 수 있도록 항상 일관되고 정확하게 작성해야 한다. 일관성 유지를 위한 구체적인 방법은 아래와 같다.</blockquote></dd><dt>UML 다이어그램의 상호 검토 절차</dt><dd><blockquote>UML 다이어그램 품질 향상을 위해 동료 또는 전문가 간 검토를 실시하며, 절차는 다음과 같다. 검토 목적·범위를 정하고 관련 문서와 체크리스트를 사전에 제공한다.</blockquote></dd><dt>상호 검토 시 유의 사항</dt><dd><blockquote>검토자는 상호 존중과 열린 태도로 의견을 교환한다. 발견된 문제를 개인의 잘못이 아닌 품질 향상 과정으로 인식하고, 피드백을 적극 반영하여 UML 표현의 일관성과 설계 품질을 지속적으로 향상되게 한다.</blockquote></dd><dt>UML 2.0의 확장 기능</dt><dd><blockquote>UML 2.0에서는 다양한 제약조건과 설계 의도를 표현하기 위해 프로파일(Profile), 태그값 (Tagged Value), OCL(Object Constraint Language) 등의 확장 메커니즘이 포함되었다.</blockquote></dd><dt>UML 프로파일(Profile)</dt><dd><blockquote>UML 설계의 풍부한 표현을 위해 메타모델에 제한과 확장을 적용해 새로운 모형을 제시하는 형태이다. 특정 플랫폼이나 도메인 정보를 표현하며, 스테레오 타입·태그값·제약 사항을 통해 확장이 가능하다.</blockquote></dd><dt>UML 확장 표현 사례</dt><dd><blockquote>클래스 다이어그램에서 &lt;&lt;entity&gt;&gt; 스테레오 타입으로 데이터 저장 엔티티를 명시하고, 유스케이스 다이어그램에서 &lt;&lt;extend&gt;&gt; 관계로 조건부 기능 확장을 표현한다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>동적모델 다이어그램 선정하기</h5><div class='prep'><b>재료·자료</b><span>검증된 동적모델 산출물(아키텍처 패턴과 아키텍처 접근 방법 분석서, 유스케이스 다이 / 어그램) / 애플리케이션, 네트워크, 보안, 서버 구성 지식 및 자료 / 객체지향 설계(UML) 지식 및 서적</span><b>기기·도구</b><span>전산 장비: 인터넷, 컴퓨터, 프린터, 복사기, 빔 프로젝터 등 / 지원 도구: 문서 작성 도구, 문서 발표 도구</span><b>유의 사항</b><span>준비된 산출물의 내용을 충분히 이해한다. / 만들어야 할 제품의 특성 및 프로세스에 따라서 최적의 다이어그램을 선정한다. / 동료 검토 등 리뷰를 통해 선택의 정합성을 검증하는 노력을 한다.</span></div><div class='doh'><b>1</b><span>검증된 동적 분석모델을 분석한다.</span></div><ol class='dos'><li>아키텍처 패턴(스타일)을 분석한다.</li><li>아키텍처 접근 방법 분석서를 분석한다.</li><li>유스케이스 다이어그램을 분석한다.</li></ol><div class='doh'><b>2</b><span>동적 다이어그램의 특징과 선정 기준에 따라 다이어그램을 선정한다.</span></div><ol class='dos'><li>동적 다이어그램의 특징과 선정 기준을 검토한다.</li><li>동적모델 분석 결과를 토대로 동적 다이어그램을 선정한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>검증된 동적 분석모델을 분석한다.</li><li>동적 다이어그램의 특징과 선정 기준에 따라 다이어그램을 선정한다.</li><li>검증된 동적 분석모델을 동적 설계모델로 상세화하기 위한 적절한 다이어그램을 선정할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 체크리스트 · 문제해결 시나리오</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 34쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st19">
-      <h3><i>19</i>동적 다이어그램의 개념</h3>
+    <div class="step" id="st4">
+      <h3><i>4</i>2-2. 동적모델 상세 설계</h3>
       <aside class="side">
-        <p class="pt">동적모델 다이어그램 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="47">원문 34쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기능 모델링, 정적 모델링이 끝난 후 객체 사이의 변화를 표현하는 다이어그램으로, 제어 흐름·상호 작용·동작 순서에 따른 변화를 나타낸다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st20">
-      <h3><i>20</i>동적 다이어그램의 상세 설명</h3>
-      <aside class="side">
-        <p class="pt">동적모델 다이어그램 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="49">원문 36쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>동적 다이어그램의 종류에는 대표적으로 시퀀스(Sequence)다이어그램, 커뮤니케이션 (Communication) 다이어그램, 스테이트(State, State-Machine) 다이어그램, 인터랙 션 오버뷰(Interaction Overview) 다이어그램, 타이밍(Timing) 다이어그램이 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st21">
-      <h3><i>21</i>UML 표현의 일관성과 상호 검토 절차</h3>
-      <aside class="side">
-        <p class="pt">동적모델 다이어그램 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>UML(Unified Modeling Language)은 소프트웨어 개발 과정에서 설계 내용을 명확하게 표현하고, 팀 구성원 및 이해관계자간의 효과적인 의사소통을 위해 사용된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st22">
-      <h3><i>22</i>UML 표현의 일관성 유지 방법</h3>
-      <aside class="side">
-        <p class="pt">동적모델 다이어그램 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>UML 다이어그램은 이해관계자가 쉽게 이해할 수 있도록 항상 일관되고 정확하게 작성 해야 한다. 일관성 유지를 위한 구체적인 방법은 아래와 같다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st23">
-      <h3><i>23</i>UML 다이어그램의 상호 검토 절차</h3>
-      <aside class="side">
-        <p class="pt">동적모델 다이어그램 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>UML 다이어그램 품질 향상을 위해 동료 또는 전문가 간 검토를 실시하며, 절차는 다음과 같다. 검토 목적·범위를 정하고 관련 문서와 체크리스트를 사전에 제공한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st24">
-      <h3><i>24</i>상호 검토 시 유의 사항</h3>
-      <aside class="side">
-        <p class="pt">동적모델 다이어그램 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>검토자는 상호 존중과 열린 태도로 의견을 교환한다. 발견된 문제를 개인의 잘못이 아닌 품질 향상 과정으로 인식하고, 피드백을 적극 반영하여 UML 표현의 일관성과 설계 품질을 지속적으로 향상되게 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st25">
-      <h3><i>25</i>UML 2.0의 확장 기능</h3>
-      <aside class="side">
-        <p class="pt">동적모델 다이어그램 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>UML 2.0에서는 다양한 제약조건과 설계 의도를 표현하기 위해 프로파일(Profile), 태그값 (Tagged Value), OCL(Object Constraint Language) 등의 확장 메커니즘이 포함되었다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st26">
-      <h3><i>26</i>UML 프로파일(Profile)</h3>
-      <aside class="side">
-        <p class="pt">동적모델 다이어그램 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>UML 설계의 풍부한 표현을 위해 메타모델에 제한과 확장을 적용해 새로운 모형을 제시하는 형태이다. 특정 플랫폼이나 도메인 정보를 표현하며, 스테레오 타입·태그값·제약 사항을 통해 확장이 가능하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st27">
-      <h3><i>27</i>UML 확장 표현 사례</h3>
-      <aside class="side">
-        <p class="pt">동적모델 다이어그램 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="55">원문 42쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>클래스 다이어그램에서 &lt;&lt;entity&gt;&gt; 스테레오 타입으로 데이터 저장 엔티티를 명시하고, 유스케이스 다이어그램에서 &lt;&lt;extend&gt;&gt; 관계로 조건부 기능 확장을 표현한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st28">
-      <h3><i>28</i>시퀀스(Sequence)다이어그램의 작성 방법</h3>
-      <aside class="side">
-        <p class="pt">동적모델 상세 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
+        <p class="pt">동적 설계모델을 선정한 다이어그램을 이용하여 상세 설계할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">동적모델 상세화하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="63">원문 50쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 4항목 · 실습 4절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시퀀스다이어그램은 시간에 따른 객체 간의 행위를 표현하는 동적 모델링 시 가장 많이 사용되는 대표적인 다이어그램이다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>동적 설계모델을 선정한 다이어그램을 이용하여 상세 설계할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>시퀀스(Sequence)다이어그램의 작성 방법</dt><dd><blockquote>시퀀스다이어그램은 시간에 따른 객체 간의 행위를 표현하는 동적 모델링 시 가장 많이 사용되는 대표적인 다이어그램이다.</blockquote></dd><dt>시퀀스다이어그램의 구조</dt><dd><blockquote>시퀀스다이어그램은 각 객체를 중심으로 메서드(메시지)를 통해 객체 간 정보를 전달한 다. 다이어그램의 기본적 구조는 아래와 같다.</blockquote></dd><dt>커뮤니케이션(Communication) 다이어그램의 작성 방법</dt><dd><blockquote>시퀀스다어어그램과 함께 동적 모델링의 대표적인 다이어그램이 커뮤니케이션 다이어그램 (UML 1.0에서는 collaboration 다이어그램)이다.</blockquote></dd><dt>커뮤니케이션 다이어그램의 구조</dt><dd><blockquote>시퀀스다이어그램과 유사하지만 관계에 대한 표현, 객체 간 이벤트의 흐름을 한눈에 볼수 있도록 구성되어 있다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>동적모델 상세 설계하기</h5><div class='prep'><b>재료·자료</b><span>검증된 동적모델 산출물, 선정된 동적 다이어그램 / 애플리케이션, 네트워크, 보안, 서버 구성 지식 및 자료 / 객체지향 설계 지식 및 서적</span><b>기기·도구</b><span>전산 장비: 인터넷, 컴퓨터, 프린터, 복사기, 빔 프로젝터 등 / 지원 도구: 문서 작성 도구, 문서 발표 도구</span><b>유의 사항</b><span>다이어그램의 구성 요소를 충분히 숙지하고 다이어그램을 작성한다. / 다이어그램 작성 절차를 준수한다. / 작성된 다이어그램은 검토를 통하여 정합성을 높일 수 있도록 한다.</span></div><div class='doh'><b>1</b><span>시퀀스(Sequence)다이어그램을 통하여 상세 설계를 진행한다.</span></div><ol class='dos'><li>시퀀스다이어그램의 객체를 도출한다.</li><li>시퀀스다이어그램의 메시지를 작성한다.</li></ol><div class='doh'><b>2</b><span>커뮤니케이션(Communication) 다이어그램을 통하여 상세 설계를 진행한다.</span></div><ol class='dos'><li>커뮤니케이션 다이어그램의 객체를 도출한다.</li><li>커뮤니케이션 다이어그램의 메시지를 작성한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>시퀀스(Sequence)다이어그램을 통하여 상세 설계를 진행한다.</li><li>커뮤니케이션(Communication) 다이어그램을 통하여 상세 설계를 진행한다.</li><li>동적 설계모델을 선정한 다이어그램을 이용하여 상세 설계할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 체크리스트 · 문제해결 시나리오</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 50쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st29">
-      <h3><i>29</i>시퀀스다이어그램의 구조</h3>
+    <div class="step" id="st5">
+      <h3><i>5</i>2-3. 동적모델 도식화</h3>
       <aside class="side">
-        <p class="pt">동적모델 상세 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="63">원문 50쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시퀀스다이어그램은 각 객체를 중심으로 메서드(메시지)를 통해 객체 간 정보를 전달한 다. 다이어그램의 기본적 구조는 아래와 같다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st30">
-      <h3><i>30</i>커뮤니케이션(Communication) 다이어그램의 작성 방법</h3>
-      <aside class="side">
-        <p class="pt">동적모델 상세 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="67">원문 54쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시퀀스다어어그램과 함께 동적 모델링의 대표적인 다이어그램이 커뮤니케이션 다이어그램 (UML 1.0에서는 collaboration 다이어그램)이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st31">
-      <h3><i>31</i>커뮤니케이션 다이어그램의 구조</h3>
-      <aside class="side">
-        <p class="pt">동적모델 상세 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="68">원문 55쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시퀀스다이어그램과 유사하지만 관계에 대한 표현, 객체 간 이벤트의 흐름을 한눈에 볼수 있도록 구성되어 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st32">
-      <h3><i>32</i>동적 다이어그램 작성 도구(스타 UML)</h3>
-      <aside class="side">
-        <p class="pt">동적모델 도식화</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
+        <p class="pt">상세 설계된 동적모델을 설계용 도구를 활용하여 도식화할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">동적모델 상세화하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="82">원문 69쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 3항목 · 실습 2절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>상세 설계된 동적모델을 표현하는 가장 범용적인 도구는 스타 UML이다. UML에 정의된 다이어그램을 간편한 UI를 이용하여 쉽고 빠르게 생성할 수 있는 기능을 제공한다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>상세 설계된 동적모델을 설계용 도구를 활용하여 도식화할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>동적 다이어그램 작성 도구(스타 UML)</dt><dd><blockquote>상세 설계된 동적모델을 표현하는 가장 범용적인 도구는 스타 UML이다. UML에 정의된 다이어그램을 간편한 UI를 이용하여 쉽고 빠르게 생성할 수 있는 기능을 제공한다.</blockquote></dd><dt>스타 UML의 개요</dt><dd><blockquote>GPL 라이선스를 가지고 있는 스타 UML은 UML에서 정의된 다이어그램의 도식화를 지원하고 있으며 UML 2.0 표기법 및 MDA(Model Driven Architecture)에 기반한 순공학 및 역공학을 지원한다.</blockquote></dd><dt>스타 UML의 화면 구성 및 동적모델 적용 가능 기능</dt><dd><blockquote>스타 UML을 설치한 후에 화면 구성을 살펴보고 동적모델에 적용이 가능한 기능이 무엇이 있는지 확인한다. 스타 UML을 설치하면 지원하는 다이어그램을 선택하여 그릴 수 있다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>동적모델 도식화하기</h5><div class='prep'><b>재료·자료</b><span>작성된 동적모델 다이어그램 / 설계용 도구(스타 UML 또는 기타 UML 도구) / 애플리케이션, 네트워크, 보안, 서버 구성 지식 및 자료 / 객체지향 설계 지식 및 서적</span><b>기기·도구</b><span>전산 장비: 인터넷, 컴퓨터, 프린터, 복사기, 빔 프로젝터 등 / 지원 도구: 문서 작성 도구, 문서 발표 도구</span><b>유의 사항</b><span>컴퓨터 전원이 과열되어 화재가 나지 않도록 유의한다. / UML 작성 도구 방법을 숙지하고 올바른 절차에 따라 도식화한다. / 동료 피드백을 통하여 정합성을 높인다.</span></div><div class='doh'><b>1</b><span>설계용 도구를 통해 상세 설계된 동적모델을 도식화한다.</span></div><ol class='dos'><li>시퀀스다이어그램을 도식화한다.</li><li>커뮤니케이션 다이어그램을 도식화한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>설계용 도구를 통해 상세 설계된 동적모델을 도식화한다.</li><li>상세 설계된 동적모델을 설계용 도구를 활용하여 도식화할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 체크리스트 · 문제해결 시나리오</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 69쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st33">
-      <h3><i>33</i>스타 UML의 개요</h3>
+    <div class="step" id="st6">
+      <h3><i>6</i>2-4. 동적 설계모델을 통한 기능모델, 정적모델 검증</h3>
       <aside class="side">
-        <p class="pt">동적모델 도식화</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="82">원문 69쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>GPL 라이선스를 가지고 있는 스타 UML은 UML에서 정의된 다이어그램의 도식화를 지원하고 있으며 UML 2.0 표기법 및 MDA(Model Driven Architecture)에 기반한 순공학 및 역공학을 지원한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st34">
-      <h3><i>34</i>스타 UML의 화면 구성 및 동적모델 적용 가능 기능</h3>
-      <aside class="side">
-        <p class="pt">동적모델 도식화</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="82">원문 69쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>스타 UML을 설치한 후에 화면 구성을 살펴보고 동적모델에 적용이 가능한 기능이 무엇이 있는지 확인한다. 스타 UML을 설치하면 지원하는 다이어그램을 선택하여 그릴 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st35">
-      <h3><i>35</i>기능모델의 개념</h3>
-      <aside class="side">
-        <p class="pt">동적 설계모델을 통한 기능모델, 정적모델 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
+        <p class="pt">도식화한 동적 설계모델을 통해 기능모델과 정적모델을 상호 검증하고 조정할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">동적모델 상세화하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="91">원문 78쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 4항목 · 실습 4절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기능모델이란 정보시스템에서 데이터와 처리 과정의 흐름을 중심으로, 프로세스의 추상 적 개념에서 출발하여 점차 세분화해 사용자의 요구사항을 분석하는 모델이다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>도식화한 동적 설계모델을 통해 기능모델과 정적모델을 상호 검증하고 조정할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>기능모델의 개념</dt><dd><blockquote>기능모델이란 정보시스템에서 데이터와 처리 과정의 흐름을 중심으로, 프로세스의 추상 적 개념에서 출발하여 점차 세분화해 사용자의 요구사항을 분석하는 모델이다.</blockquote></dd><dt>기능모델을 구현하는 다이어그램의 종류</dt><dd><blockquote>기능모델이란 정보시스템에서의 정보의 흐름과 변화를 나타내는 프로세스 중심 모델로, 프로세스의 추상적 개념부터 점차 세분화하여 사용자의 요구사항을 분석하는 데 활용한 다.</blockquote></dd><dt>정적모델의 개념</dt><dd><blockquote>정적모델은 시스템의 구성 요소와 그 관계를 나타내는 구조 모델로, 기능보다는 구성하는 객체와 구조적 관계를 강조한다.</blockquote></dd><dt>정적모델을 구현하는 다이어그램의 종류</dt><dd><blockquote>클래스, 패키지, 디플로이먼트, 컴포넌트 다이어그램 등이 UML에서 정적모델로 분류된다. 이 중 클래스 다이어그램이 가장 많이 사용되는 정적모델의 대표적인 다이어그램이다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>동적 설계모델을 통한 기능모델, 정적모델 검증하기</h5><div class='prep'><b>재료·자료</b><span>작성된 동적 다이어그램, 구현된 동적 다이어그램 / 기작성된 기능모델, 정적모델 산출물 / 아키텍처 패턴, 분석서, 요구사항 정의서 등 필요 산출물 / 애플리케이션, 네트워크, 보안, 서버 구성 지식 및 자료 / 객체지향 설계 지식 및 서적</span><b>기기·도구</b><span>전산 장비: 인터넷, 컴퓨터, 프린터, 복사기, 빔 프로젝터 등 / 지원 도구: 문서 작성 도구, 문서 발표 도구</span><b>유의 사항</b><span>기능모델 및 정적모델 산출물을 미리 준비한다. / 동적모델의 구성 요소와 의미, 정적모델 및 기능모델의 구성 요소와 의미를 이해하고 / 검증한다. / 동료 검토를 통해 검증의 정합성을 높인다.</span></div><div class='doh'><b>1</b><span>도식화된 동적 설계모델을 통해 기능모델을 검증하고 조정한다.</span></div><ol class='dos'><li>구성 요소가 누락되거나 잘못되지 않았는지 검증하고 조정한다.</li><li>기능모델에서 관계가 누락되지 않았는지 검증하고 조정한다.</li></ol><div class='doh'><b>2</b><span>도식화된 동적 설계모델을 통해 정적모델을 검증하고 조정한다.</span></div><ol class='dos'><li>정적모델의 구성 요소가 누락되거나 잘못되지 않았는지 검증하고 조정한다.</li><li>정적모델의 관계가 잘못되거나 누락되지 않았는지 검증하고 조정한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>도식화된 동적 설계모델을 통해 기능모델을 검증하고 조정한다.</li><li>도식화된 동적 설계모델을 통해 정적모델을 검증하고 조정한다.</li><li>도식화한 동적 설계모델을 통해 기능모델과 정적모델을 상호 검증하고 조정할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 체크리스트 · 문제해결 시나리오</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st36">
-      <h3><i>36</i>기능모델을 구현하는 다이어그램의 종류</h3>
-      <aside class="side">
-        <p class="pt">동적 설계모델을 통한 기능모델, 정적모델 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="91">원문 78쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기능모델이란 정보시스템에서의 정보의 흐름과 변화를 나타내는 프로세스 중심 모델로, 프로세스의 추상적 개념부터 점차 세분화하여 사용자의 요구사항을 분석하는 데 활용한 다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st37">
-      <h3><i>37</i>정적모델의 개념</h3>
-      <aside class="side">
-        <p class="pt">동적 설계모델을 통한 기능모델, 정적모델 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="95">원문 82쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>정적모델은 시스템의 구성 요소와 그 관계를 나타내는 구조 모델로, 기능보다는 구성하는 객체와 구조적 관계를 강조한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st38">
-      <h3><i>38</i>정적모델을 구현하는 다이어그램의 종류</h3>
-      <aside class="side">
-        <p class="pt">동적 설계모델을 통한 기능모델, 정적모델 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020223_23v6" data-page="95">원문 82쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 문제해결 시나리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>클래스, 패키지, 디플로이먼트, 컴포넌트 다이어그램 등이 UML에서 정적모델로 분류된다. 이 중 클래스 다이어그램이 가장 많이 사용되는 정적모델의 대표적인 다이어그램이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 78쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
   </div>
 </div>
 
-<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
-원문 LM2001020223_23v6_동적모델 설계_20251108.pdf</footer>
+<footer>담당 정우균 · 개념과 절차는 <b>NCS 학습모듈 LM2001020223_23v6_동적모델 설계_20251108.pdf</b> 에서
+옮긴 것입니다 — 한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지)</footer>
 </div>
 <script>
-/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+/* 빠른 이동 — 지금 보는 꼭지를 표시하고, 좁은 화면에서는 여닫습니다. */
 (function () {
   var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
   var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));

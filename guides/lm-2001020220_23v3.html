@@ -1,13 +1,30 @@
-<meta charset="utf-8"><title>기능 모델링 — 준비 교안</title>
+<meta charset="utf-8"><title>기능 모델링 — 학습 가이드</title>
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="stylesheet" href="../assets/guide.css">
 <style>
-  /* 원문 인용 — 우리가 쓴 안내와 눈으로 구분되어야 한다 */
-  .bd blockquote{margin:10px 0 16px;padding:10px 14px;border-left:3px solid #000;
-                 background:#fafafa;font-size:13.5px;line-height:1.8;color:#222}
-  .bd p.none{color:#888;font-size:13px}
-  .bd ul.sub{margin:8px 0 16px;padding-left:20px;font-size:13.5px;line-height:1.9}
-  aside.side .v .btn{font-size:11.5px}
+  /* 학습 가이드 — 개념 / 실습 / 확인 세 덩어리가 눈으로 구분되어야 한다 */
+  .bd h4{margin:22px 0 8px;font-size:14px;padding-bottom:5px;border-bottom:1px solid #000}
+  .bd h4:first-child{margin-top:0}
+  .bd h5{margin:16px 0 5px;font-size:13px;font-weight:700}
+  .bd blockquote{margin:5px 0 12px;padding:9px 13px;border-left:3px solid #999;
+                 background:#fafafa;font-size:13px;line-height:1.8;color:#333}
+  .cc{margin:0 0 6px}
+  .cc dt{font-weight:700;font-size:13.5px;margin:14px 0 0}
+  .cc dd{margin:4px 0 0}
+  .doh{display:flex;gap:9px;align-items:baseline;margin:16px 0 4px;font-size:13.5px;
+       font-weight:700}
+  .doh b{flex:0 0 auto;width:21px;height:21px;line-height:19px;text-align:center;
+         border:1px solid #000;font-size:11.5px}
+  ol.dos{margin:2px 0 0 30px;padding:0;font-size:13px;line-height:1.85}
+  ol.dos li{margin:3px 0}
+  .prep{display:grid;grid-template-columns:76px 1fr;gap:3px 10px;font-size:12.5px;
+        border:1px solid #ccc;padding:10px 13px;margin:6px 0 2px;background:#fafafa}
+  .prep b{color:#555;font-weight:400}
+  ul.goal{margin:6px 0 0;padding-left:20px;font-size:13.5px;line-height:1.9}
+  ul.chk{margin:6px 0 0;padding:0;list-style:none;font-size:13.5px;line-height:1.95}
+  ul.chk li::before{content:"\2610  "}
+  .none{color:#888;font-size:12.5px}
+  .srcline{font-size:11.5px;color:#888;margin:8px 0 0}
 </style>
 <script src="../assets/auth.js"></script>
 <script>EXAM_AUTH.guard("../");</script>
@@ -17,7 +34,7 @@
 <div class="top"><div class="tbar">
   <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
   <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
-  / 기능 모델링 / 준비 교안</small></div>
+  / 기능 모델링 / 학습 가이드</small></div>
   <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
@@ -25,49 +42,46 @@
 <button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
 
 <nav id="qnav" aria-label="빠른 이동">
-  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
-  <i class="qg">기능모델 작성하기</i><a href="#st1"><b>1</b><span>기능 모델링(Functional Modeling)의 이해</span></a><a href="#st2"><b>2</b><span>기능 모델링의 개념</span></a><a href="#st3"><b>3</b><span>기능 모델링 절차</span></a><a href="#st4"><b>4</b><span>소프트웨어 시스템의 특성</span></a><a href="#st5"><b>5</b><span>개발 방법론</span></a><a href="#st6"><b>6</b><span>프로그래밍 언어</span></a><a href="#st7"><b>7</b><span>기능모델 분석 기법</span></a><a href="#st8"><b>8</b><span>구조적 분석 기법(Structured Analysis Method)</span></a><a href="#st9"><b>9</b><span>객체지향 분석 기법(Object Oriented Analysis Method)</span></a><a href="#st10"><b>10</b><span>구조적 분석 기법(Structured Analysis Method)</span></a><a href="#st11"><b>11</b><span>구조적 분석 기법 개념</span></a><a href="#st12"><b>12</b><span>구조적 분석 기법 작업 구성 요소</span></a><a href="#st13"><b>13</b><span>구조적 분석 기법 절차</span></a><a href="#st14"><b>14</b><span>객체지향 분석 기법(Object Oriented Analysis Method)</span></a><a href="#st15"><b>15</b><span>객체지향 분석 기법 개념</span></a><a href="#st16"><b>16</b><span>객체지향 분석 기법 구성 요소</span></a><a href="#st17"><b>17</b><span>객체지향 분석 기법 절차</span></a><a href="#st18"><b>18</b><span>기능모델 설계 명세서 이해</span></a><a href="#st19"><b>19</b><span>기능모델 설계 명세서의 개념</span></a><a href="#st20"><b>20</b><span>기능모델 설계 명세서의 유형</span></a><a href="#st21"><b>21</b><span>소단위 명세서(mini-specification)</span></a><a href="#st22"><b>22</b><span>구조적 영어(structured English)</span></a><a href="#st23"><b>23</b><span>의사결정표(decision table)</span></a><a href="#st24"><b>24</b><span>유스케이스 명세서(Use Case Specification)</span></a><a href="#st25"><b>25</b><span>유스케이스 명세서 구성 요소</span></a><i class="qg">기능모델 검증하기</i><a href="#st26"><b>26</b><span>동료 검토(Peer Review)의 이해</span></a><a href="#st27"><b>27</b><span>동료 검토(Peer Review)의 정의</span></a><a href="#st28"><b>28</b><span>동료 검토의 목적</span></a><a href="#st29"><b>29</b><span>동료 검토의 효과</span></a><a href="#st30"><b>30</b><span>동료 검토의 종류</span></a><a href="#st31"><b>31</b><span>동료 검토의 절차</span></a><a href="#st32"><b>32</b><span>동료 검토의 구성원 역할</span></a><a href="#st33"><b>33</b><span>기능모델의 표준 표기법 및 산출물</span></a><a href="#st34"><b>34</b><span>구조적 분석 기법의 표준 표기법 및 산출물</span></a><a href="#st35"><b>35</b><span>객체지향 분석 기법의 표준 표기법 및 산출물</span></a><a href="#st36"><b>36</b><span>요구사항 분석 명세서(SRS, Software Requirements Specification)의 이해</span></a><a href="#st37"><b>37</b><span>요구사항 분석 명세서의 개념</span></a><a href="#st38"><b>38</b><span>요구사항 분석 명세서의 관점</span></a><a href="#st39"><b>39</b><span>요구사항 분석 명세서 작성 시 주의 사항</span></a><a href="#st40"><b>40</b><span>요구사항 분석 명세서의 표준, IEEE Std 830-1988 SRS</span></a><a href="#st41"><b>41</b><span>요구사항 분석 명세서 검증</span></a><a href="#st42"><b>42</b><span>지속적인 요구사항 검증의 필요성</span></a><a href="#st43"><b>43</b><span>요구사항 분석 명세서 검증 사항</span></a>
+  <a class="qt" href="#top"><b>&uarr;</b><span>맨 위로</span></a>
+  <i class="qg">기능모델 작성하기</i><a href="#st1"><b>1</b><span>기능모델 작성 준비</span></a><a href="#st2"><b>2</b><span>기능모델 다이어그램 작성</span></a><a href="#st3"><b>3</b><span>기능모델 설계 명세서 작성</span></a><i class="qg">기능모델 검증하기</i><a href="#st4"><b>4</b><span>기능모델 표준 준수 검증하기</span></a><a href="#st5"><b>5</b><span>소프트웨어 요구사항 준수 검증하기</span></a>
 </nav>
 
 <div class="wrap" id="top">
 
-<h1>기능 모델링 — 준비 교안</h1>
+<h1>기능 모델링 — 학습 가이드</h1>
 <p class="sub">능력단위 <code>2001020220_23v3</code> · 6수준 ·
-40시간 · 단계 43개 · 평가 포트폴리오 · 평가자 체크리스트 · 평가자 질문 · 역할연기 · 구두발표</p>
+40시간 · 꼭지 5개 · 개념 43항목 · 실습 84절차</p>
 
-<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<h2 class="sec" id="g0">0. 시작하기 전에</h2>
 <div class="sect">
   <aside class="side">
-    <p class="pt">애플리케이션 요구사항에 의해 도출, 분석된 내용을 애플리케이션의 기능으로 명세화하여 요구사항을 검증 하고 소프트웨어 개발 범위를 확정할 수 있다.</p>
-    <b class="sh">선수학습</b>
+    <p class="pt">애플리케이션 요구사항에 의해 도출, 분석된 내용을 애플리케이션의 기능으로 명세화하여 요구사항을 검증하고 소프트웨어 개발 범위를 확정할 수 있다.</p>
+    <b class="sh">먼저 알아야 할 것</b>
     <p class="v">소프트웨어공학 활용(LM2001020228_23v6), 소프트웨어개발 방법론 활용(LM2001020229_23v6), 요구사항 확인(LM2001020201_23v5), UML 모델링</p>
-    <b class="sh">원문</b>
-    <p class="src">LM2001020220_23v3_기능모델링.pdf (95쪽)</p>
+    <b class="sh">평가</b>
+    <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문 · 역할연기 · 구두발표</p>
   </aside>
   <div class="bd">
-<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
-   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
-   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
-<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
-   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
-   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+<h4>이 문서를 쓰는 법</h4>
+<p>꼭지마다 <b>무엇을 할 수 있게 되나 → 알아야 할 것 → 해 보기 → 스스로 확인</b>
+   순서입니다. 읽고 끝내지 말고 <b>해 보기</b>를 손으로 따라 하십시오.
+   마지막 <b>스스로 확인</b>을 전부 «할 수 있다» 고 말할 수 있으면 다음 꼭지로 갑니다.</p>
+<p>자세한 설명과 표·그림은 <b>학습모듈 원문</b>에 있습니다. 꼭지마다 있는
+   <b>[원문 N쪽]</b> 단추를 누르면 그 자리가 바로 펼쳐집니다.</p>
 
 <h4>핵심 용어</h4>
 <p>구조적 분석 기법, 객체지향 분석 기법, 자료 흐름도, 유스케이스(Use Case), 소단위 명세서, 유스케이스 명세서, 요구사항 분석 명세서</p>
 
-<h4>능력단위요소</h4>
+<h4>차례</h4>
 <table class="wide">
-  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
-      <th>학습 내용</th><th style="width:74px">단계</th></tr>
-  <tr><td class="c">1</td><td>기능모델 작성하기</td><td>기능모델 작성 준비 · 기능모델 다이어그램 작성 · 기능모델 설계 명세서 작성</td><td class="c">25</td></tr>
-  <tr><td class="c">2</td><td>기능모델 검증하기</td><td>기능모델 표준 준수 검증하기 · 소프트웨어 요구사항 준수 검증하기</td><td class="c">18</td></tr>
+  <tr><th style="width:44px">꼭지</th><th style="width:250px">학습 내용</th>
+      <th>능력단위요소</th><th style="width:58px">개념</th><th style="width:58px">실습</th></tr>
+  <tr><td class="c">1</td><td>1-1. 기능모델 작성 준비</td><td>기능모델 작성하기</td><td class="c">9</td><td class="c">17</td></tr>
+  <tr><td class="c">2</td><td>1-2. 기능모델 다이어그램 작성</td><td>기능모델 작성하기</td><td class="c">8</td><td class="c">10</td></tr>
+  <tr><td class="c">3</td><td>1-3. 기능모델 설계 명세서 작성</td><td>기능모델 작성하기</td><td class="c">8</td><td class="c">21</td></tr>
+  <tr><td class="c">4</td><td>2-1. 기능모델 표준 준수 검증하기</td><td>기능모델 검증하기</td><td class="c">10</td><td class="c">10</td></tr>
+  <tr><td class="c">5</td><td>2-2. 소프트웨어 요구사항 준수 검증하기</td><td>기능모델 검증하기</td><td class="c">8</td><td class="c">26</td></tr>
 </table>
-
-<div class="try">
-  <b class="t">쓰는 법</b>
-  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
-  한 단계가 대략 수업 10~20분에 해당합니다.
-</div>
   </div>
 </div>
 
@@ -75,651 +89,97 @@
   <div class="lvh"><b>1. 기능모델 작성하기</b><span>능력단위요소 · <code>2001020220_23v3.1</code></span></div>
   <div class="lvb">
     <div class="step" id="st1">
-      <h3><i>1</i>기능 모델링(Functional Modeling)의 이해</h3>
+      <h3><i>1</i>1-1. 기능모델 작성 준비</h3>
       <aside class="side">
-        <p class="pt">기능모델 작성 준비</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
+        <p class="pt">기능모델을 작성하기 위해 필요한 다이어그램을 선정할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">기능모델 작성하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 9항목 · 실습 17절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>기능 모델링의 개념</li><li>기능 모델링 절차</li><li>소프트웨어 시스템의 특성</li><li>개발 방법론</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>기능모델을 작성하기 위해 필요한 다이어그램을 선정할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>기능 모델링의 개념</dt><dd><blockquote>기능이란 입력물을 받아 결과물을 제공하는 활동을 말하며, 이러한 기능을 수행하는 활동을 프로세스라고 말한다.</blockquote></dd><dt>기능 모델링 절차</dt><dd><blockquote>기능 모델링은 소프트웨어 요구공학 절차에서 요구사항 분석 및 요구사항 명세 부분에 시스템의 특성에 따른 기능모델 기법을 선정한 후 해당 기능모델 다이어그램을 작성한다.</blockquote></dd><dt>소프트웨어 시스템의 특성</dt><dd><blockquote>기능 모델링을 작성하기 위해서는 소프트웨어 시스템의 특성을 파악하고 그에 따른 기능모 델 설계 기법을 선정해야 한다.</blockquote></dd><dt>개발 방법론</dt><dd><blockquote>자료의 흐름과 구조에 따라 프로세스를 구분하고 점차적으로 세분화하여 사용자 요구사항에 맞는 시스템을 구축하는 방법론이다.</blockquote></dd><dt>프로그래밍 언어</dt><dd><blockquote>프로그래밍 언어는 소프트웨어공학 방법론의 패러다임과 연관되므로 프로그래밍의 패러 다임 형태에 따라 구분한다.</blockquote></dd><dt>기능모델 분석 기법</dt><dd><blockquote>시스템 요구사항을 분석하는 기법에는 구조적 분석 기법, 객체지향 분석 기법, 정보공학 분석 기법, 정형화 분석 기법 등이 있다.</blockquote></dd><dt>구조적 분석 기법(Structured Analysis Method)</dt><dd><blockquote>방법론은 불명확한 사용자 요구사항 도출과 변경으로 의사소통에 어려움이 있고, 하위 모듈에서 상위 모듈로 가는 상향식(Bottom-up) 방식의 개발로 인해 상위 모듈의 에러 (Error) 발생 시 오류 수정의 어려움이 있었다.</blockquote></dd><dt>객체지향 분석 기법(Object Oriented Analysis Method)</dt><dd><blockquote>객체지향 분석 기법은 구조적 분석 기법과 근본적으로 접근 방식을 달리한다. 둘은 개념화하는 방식이 서로 달라 문제를 정의하고 분할하는 방법 또한 다르다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>기능 모델링(Functional Modeling)의 이해</dd></dl>
+
+<h4>해 보기</h4>
+<h5>기능모델 작성 준비하기</h5><div class='prep'><b>재료·자료</b><span>제안 요청서, 제안서, 사업수행계획서, 요구사항 목록, 요구사항 정의서 / 소프트웨어 분석 표준(IEEE 1320, IDEF Modeling, OMT, OOSE, UML) / IEEE 830 (IEEE Recommended Practice for Software Requirements / Specifications)</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구: 워드프로세서, 스프레드시트, 프레젠테이션 도구 등 / CASE 도구: SW 분석 지원 도구, UML(Unified Modeling Language, 통합 모델링 / 언어) 작성 지원 도구 등</span><b>유의 사항</b><span>요구사항 분석을 위해 요구공학에 대한 기본 지식을 갖추고 있어야 한다. / 기능모델링을 위하여 시스템 환경 및 비기능 요구사항에 대하여 이해하여야 한다. / 시스템 요구사항을 고려하여 기능모델링 방법을 사전에 정의하여야 한다.</span></div><div class='doh'><b>1</b><span>기능모델 작성을 위한 기능모델 다이어그램의 선정 준비를 다음과 같은 절차로 진행한다.</span></div><ol class='dos'><li>기능 모델링 다이어그램 선정을 위해서 시스템 환경을 이해한다.</li><li>환경에 대한 이해가 끝나고 나면 목표 시스템의 제약사항에 따른 특성을 파악해야 한다.</li><li>목표 시스템의 환경과 특성, 개발 방법론과 프로그래밍 언어의 특성에 따라 기능모델 기법을 선정한다.</li><li>선정한 기능모델 기법에 알맞은 기능모델 다이어그램을 선정한다.</li></ol><div class='doh'><b>2</b><span>기능 모델링 기법 선정을 위해 목표 시스템의 환경을 분석한다.</span></div><ol class='dos'><li>목표 시스템의 정보시스템 구성 및 인터페이스를 파악한다.</li><li>목표 시스템의 정보시스템 기능 구조도를 파악한다.</li><li>목표 시스템의 정보시스템 아키텍처를 파악한다.</li></ol><div class='doh'><b>3</b><span>기능 모델링을 위해 목표 시스템의 특성(제약조건)을 분석한다.</span></div><ol class='dos'><li>요구사항 정의서 중 개발 제약사항을 통해 개발 방법론을 확인한다.</li><li>시스템은 컴포넌트 기반 개발(CBD: Component-Based Development) 방법론을 적용한다.</li><li>시스템은 제시된 방법론의 절차와 과정(개발 표준, 기술표준 문서화)에 따라 개발되어야 한다.</li><li>시스템은 기존의 국가표준 및 정보화 기술지원 기관에서 확정한 표준화 내용을 준수해야 한다.</li><li>시스템은 웹 접근성 관련 표준인 ‘인터넷 웹 콘텐츠 접근성 지침 1.0 (KICS.OT-10.0003, 제정일: 2005년 12월)’을 준수해야 한다.</li><li>시스템은 개인정보보호를 위하여 ‘개인정보보호법(시행일:</li><li>시스템은 ‘전자정부서비스 호환성 준수지침(행안부 고시)’를 준수해야 한다.</li><li>목표 시스템 환경 및 개발 방법론에 따라 프로그래밍 언어 유형을 확인한다.</li></ol><div class='doh'><b>4</b><span>분석된 목표 시스템 특성에 맞는 기능모델 기법을 선정한다.</span></div><ol class='dos'><li>목표 시스템의 환경과 특성에 따라 구조적 분석 기법을 선정한다.</li><li>목표 시스템의 환경과 특성에 따라 객체지향 분석 기법을 선정한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>기능모델 작성을 위한 기능모델 다이어그램의 선정 준비를 다음과 같은 절차로 진행한다.</li><li>기능 모델링 기법 선정을 위해 목표 시스템의 환경을 분석한다.</li><li>기능 모델링을 위해 목표 시스템의 특성(제약조건)을 분석한다.</li><li>분석된 목표 시스템 특성에 맞는 기능모델 기법을 선정한다.</li><li>기능모델을 작성하기 위해 필요한 다이어그램을 선정할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 3쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
     <div class="step" id="st2">
-      <h3><i>2</i>기능 모델링의 개념</h3>
+      <h3><i>2</i>1-2. 기능모델 다이어그램 작성</h3>
       <aside class="side">
-        <p class="pt">기능모델 작성 준비</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
+        <p class="pt">기능 모델링을 위해 선정한 다이어그램의 각 구성 요소를 식별하여 다이어그램을 작성할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">기능모델 작성하기</p>
+        <b class="sh">학습모듈</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="26">원문 13쪽</a></p>
+        <b class="sh">분량</b>
+        <p class="src">개념 8항목 · 실습 10절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기능이란 입력물을 받아 결과물을 제공하는 활동을 말하며, 이러한 기능을 수행하는 활동을 프로세스라고 말한다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>기능 모델링을 위해 선정한 다이어그램의 각 구성 요소를 식별하여 다이어그램을 작성할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>구조적 분석 기법 개념</dt><dd><blockquote>1970년대 말 디마르코(DeMarco)와 유어든(Yourdon) 등이 제안한 구조적 분석 기법은 시스템을 기능적 관점에서 나누고 추상화 개념을 접목한 상위 프로세스에서 하위 프로세스로 점차적으로 세분화한다.</blockquote></dd><dt>구조적 분석 기법 작업 구성 요소</dt><dd><blockquote>구조적 분석에서의 모델은 자료 흐름도(Data Flow Diagram), 배경도(Context Diagram), 자료 사전(Data Dictionary), 소단위 명세서(mini-specification)로 시스템 안의 프로세스 및 자료 저장소들 사이의 자료 흐름을 도식화한 그래프이다.</blockquote></dd><dt>구조적 분석 기법 절차</dt><dd><blockquote>구조적 분석 기법은 두 가지 가정에서 시작된다. 하나는 시스템이 무엇을 하느냐(what) 에 관심을 두고, 하나는 하향식(Top-down)으로 문제를 다룬다.</blockquote></dd><dt>객체지향 분석 기법(Object Oriented Analysis Method)</dt><dd><blockquote>최근 소프트웨어 시스템을 개발하는 방법론으로 객체지향 접근 방법을 사용하는 경우가 많다. 응용 소프트웨어, 웹 소프트웨어, 게임 프로그램 등 다양한 소프트웨어를 개발할 때 객체지향 개발 방법론을 사용한다.</blockquote></dd><dt>객체지향 분석 기법 개념</dt><dd><blockquote>객체지향 분석 기법은 구조적 분석 기법과 접근하는 방식이 다르다. 객체지향 분석 기법에서 가장 먼저 할 일은 사용자 요구사항을 고객 관점에서 추출하고 추출된 요구사 항을 기반으로 삼아 유스케이스로 표현한다.</blockquote></dd><dt>객체지향 분석 기법 구성 요소</dt><dd><blockquote>객체지향 분석 기법은 대표적으로 유스케이스 다이어그램(Use Case Diagram)으로 표현하므로 유스케이스 다이어그램의 구성 요소로 기능모델 설계를 진행한다.</blockquote></dd><dt>객체지향 분석 기법 절차</dt><dd><blockquote>유스케이스 다이어그램을 통한 기능 모델링의 절차는 다음과 같다 시스템의 이해관계자인 액터와 식별한 액터의 책임을 확인 특정한 목적의 관점에서 볼 때 쓰임새(Use)와 시스템의 특성을 확인 (가) 액터와 유스케이스에서 정제할 부분이 있는지 평가 (나) 유스케이스에서 &lt;&lt;include&gt;&gt; 의존성이 있는지 평가 (다) 유스케이스에서 &lt;&lt;extend&gt;&gt; 의존성이 있는지 평가 (라) 액터와 유스케이스</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>구조적 분석 기법(Structured Analysis Method)</dd></dl>
+
+<h4>해 보기</h4>
+<h5>기능모델 다이어그램 작성하기</h5><div class='prep'><b>재료·자료</b><span>제안 요청서, 제안서, 사업수행계획서, 요구사항 목록, 요구사항 정의서 / 기능모델 다이어그램 저작 도구 / IEEE 830 (IEEE Recommended Practice for Software Requirements / Specifications)</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구(워드프로세서, 스프레드시트, 프레젠테이션 도구 등) / CASE 도구(SW 분석 지원 도구, UML 작성 지원 도구 등)</span><b>유의 사항</b><span>기능모델 다이어그램 저작 도구는 라이선스 제약이 없는 오픈소스 저작 도구를 활용한다. / 기능 모델링을 지원하는 도구의 특성과 사용 방법에 대하여 숙지하여야 한다. / 기능 모델링을 위한 구성 항목별 작성 표준 매뉴얼을 작성자들에게 공유하여야 한다.</span></div><div class='doh'><b>1</b><span>기능 모델링을 위해 시스템 요구사항을 확인한다.</span></div><ol class='dos'><li>시스템 요구사항 목록을 확인한다.</li><li>기능 모델링을 위한 기능요구사항을 확인한다.</li></ol><div class='doh'><b>2</b><span>개인 본인만 볼 수 있는 출퇴근 조회 화면 추가</span></div><div class='doh'><b>3</b><span>출퇴근 연계 데이터는 보안 업체로부터 수신 받은 내역을 D</span></div><div class='doh'><b>4</b><span>관리자(본사 및 근태 담당자 등) 메뉴 추가</span></div><div class='doh'><b>5</b><span>구조적 분석 기법으로 기능모델 다이어그램을 작성한다.</span></div><ol class='dos'><li>배경도(Context Diagram)를 작성한다.</li><li>상위 자료 흐름도를 작성한다.</li><li>하위 자료 흐름도를 작성한다.</li><li>자료 사전(Data Dictionary)을 작성한다.</li></ol><div class='doh'><b>6</b><span>객체지향 분석 기법으로 다이어그램을 작성한다.</span></div><ol class='dos'><li>시스템 상황을 분석한다.</li><li>액터를 식별한다.</li><li>유스케이스를 식별한다.</li><li>유스케이스 다이어그램(Use Case Diagram)을 작성한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>기능 모델링을 위해 시스템 요구사항을 확인한다.</li><li>개인 본인만 볼 수 있는 출퇴근 조회 화면 추가</li><li>출퇴근 연계 데이터는 보안 업체로부터 수신 받은 내역을 D</li><li>관리자(본사 및 근태 담당자 등) 메뉴 추가</li><li>구조적 분석 기법으로 기능모델 다이어그램을 작성한다.</li><li>객체지향 분석 기법으로 다이어그램을 작성한다.</li><li>기능 모델링을 위해 선정한 다이어그램의 각 구성 요소를 식별하여 다이어그램을 작성할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 13쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
     <div class="step" id="st3">
-      <h3><i>3</i>기능 모델링 절차</h3>
+      <h3><i>3</i>1-3. 기능모델 설계 명세서 작성</h3>
       <aside class="side">
-        <p class="pt">기능모델 작성 준비</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기능 모델링은 소프트웨어 요구공학 절차에서 요구사항 분석 및 요구사항 명세 부분에 시스템의 특성에 따른 기능모델 기법을 선정한 후 해당 기능모델 다이어그램을 작성한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st4">
-      <h3><i>4</i>소프트웨어 시스템의 특성</h3>
-      <aside class="side">
-        <p class="pt">기능모델 작성 준비</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기능 모델링을 작성하기 위해서는 소프트웨어 시스템의 특성을 파악하고 그에 따른 기능모 델 설계 기법을 선정해야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st5">
-      <h3><i>5</i>개발 방법론</h3>
-      <aside class="side">
-        <p class="pt">기능모델 작성 준비</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>자료의 흐름과 구조에 따라 프로세스를 구분하고 점차적으로 세분화하여 사용자 요구사항에 맞는 시스템을 구축하는 방법론이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st6">
-      <h3><i>6</i>프로그래밍 언어</h3>
-      <aside class="side">
-        <p class="pt">기능모델 작성 준비</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>프로그래밍 언어는 소프트웨어공학 방법론의 패러다임과 연관되므로 프로그래밍의 패러 다임 형태에 따라 구분한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st7">
-      <h3><i>7</i>기능모델 분석 기법</h3>
-      <aside class="side">
-        <p class="pt">기능모델 작성 준비</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템 요구사항을 분석하는 기법에는 구조적 분석 기법, 객체지향 분석 기법, 정보공학 분석 기법, 정형화 분석 기법 등이 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st8">
-      <h3><i>8</i>구조적 분석 기법(Structured Analysis Method)</h3>
-      <aside class="side">
-        <p class="pt">기능모델 작성 준비</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>방법론은 불명확한 사용자 요구사항 도출과 변경으로 의사소통에 어려움이 있고, 하위 모듈에서 상위 모듈로 가는 상향식(Bottom-up) 방식의 개발로 인해 상위 모듈의 에러 (Error) 발생 시 오류 수정의 어려움이 있었다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st9">
-      <h3><i>9</i>객체지향 분석 기법(Object Oriented Analysis Method)</h3>
-      <aside class="side">
-        <p class="pt">기능모델 작성 준비</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>객체지향 분석 기법은 구조적 분석 기법과 근본적으로 접근 방식을 달리한다. 둘은 개념화하는 방식이 서로 달라 문제를 정의하고 분할하는 방법 또한 다르다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st10">
-      <h3><i>10</i>구조적 분석 기법(Structured Analysis Method)</h3>
-      <aside class="side">
-        <p class="pt">기능모델 다이어그램 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="26">원문 13쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>구조적 분석 기법 개념</li><li>구조적 분석 기법 작업 구성 요소</li><li>구조적 분석 기법 절차</li><li>객체지향 분석 기법(Object Oriented Analysis Method)</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st11">
-      <h3><i>11</i>구조적 분석 기법 개념</h3>
-      <aside class="side">
-        <p class="pt">기능모델 다이어그램 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="26">원문 13쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>1970년대 말 디마르코(DeMarco)와 유어든(Yourdon) 등이 제안한 구조적 분석 기법은 시스템을 기능적 관점에서 나누고 추상화 개념을 접목한 상위 프로세스에서 하위 프로세스로 점차적으로 세분화한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st12">
-      <h3><i>12</i>구조적 분석 기법 작업 구성 요소</h3>
-      <aside class="side">
-        <p class="pt">기능모델 다이어그램 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="26">원문 13쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>구조적 분석에서의 모델은 자료 흐름도(Data Flow Diagram), 배경도(Context Diagram), 자료 사전(Data Dictionary), 소단위 명세서(mini-specification)로 시스템 안의 프로세스 및 자료 저장소들 사이의 자료 흐름을 도식화한 그래프이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st13">
-      <h3><i>13</i>구조적 분석 기법 절차</h3>
-      <aside class="side">
-        <p class="pt">기능모델 다이어그램 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="30">원문 17쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>구조적 분석 기법은 두 가지 가정에서 시작된다. 하나는 시스템이 무엇을 하느냐(what) 에 관심을 두고, 하나는 하향식(Top-down)으로 문제를 다룬다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st14">
-      <h3><i>14</i>객체지향 분석 기법(Object Oriented Analysis Method)</h3>
-      <aside class="side">
-        <p class="pt">기능모델 다이어그램 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="30">원문 17쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>최근 소프트웨어 시스템을 개발하는 방법론으로 객체지향 접근 방법을 사용하는 경우가 많다. 응용 소프트웨어, 웹 소프트웨어, 게임 프로그램 등 다양한 소프트웨어를 개발할 때 객체지향 개발 방법론을 사용한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st15">
-      <h3><i>15</i>객체지향 분석 기법 개념</h3>
-      <aside class="side">
-        <p class="pt">기능모델 다이어그램 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="30">원문 17쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>객체지향 분석 기법은 구조적 분석 기법과 접근하는 방식이 다르다. 객체지향 분석 기법에서 가장 먼저 할 일은 사용자 요구사항을 고객 관점에서 추출하고 추출된 요구사 항을 기반으로 삼아 유스케이스로 표현한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st16">
-      <h3><i>16</i>객체지향 분석 기법 구성 요소</h3>
-      <aside class="side">
-        <p class="pt">기능모델 다이어그램 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="30">원문 17쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>객체지향 분석 기법은 대표적으로 유스케이스 다이어그램(Use Case Diagram)으로 표현하므로 유스케이스 다이어그램의 구성 요소로 기능모델 설계를 진행한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st17">
-      <h3><i>17</i>객체지향 분석 기법 절차</h3>
-      <aside class="side">
-        <p class="pt">기능모델 다이어그램 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="32">원문 19쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>유스케이스 다이어그램을 통한 기능 모델링의 절차는 다음과 같다 시스템의 이해관계자인 액터와 식별한 액터의 책임을 확인 특정한 목적의 관점에서 볼 때 쓰임새(Use)와 시스템의 특성을 확인 (가) 액터와 유스케이스에서 정제할 부분이 있는지 평가 (나) 유스케이스에서 &lt;&lt;include&gt;&gt; 의존성이 있는지 평가 (다) 유스케이스에서 &lt;&lt;extend&gt;&gt; 의존성이 있는지 평가 (라) 액터와 유스케이스</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st18">
-      <h3><i>18</i>기능모델 설계 명세서 이해</h3>
-      <aside class="side">
-        <p class="pt">기능모델 설계 명세서 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
+        <p class="pt">기능 모델링을 위해 선정한 다이어그램을 설명하기 위한 기능모델 설계 명세서를 작성할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">기능모델 작성하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="45">원문 32쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 8항목 · 실습 21절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>기능모델 설계 명세서의 개념</li><li>기능모델 설계 명세서의 유형</li><li>소단위 명세서(mini-specification)</li><li>구조적 영어(structured English)</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>기능 모델링을 위해 선정한 다이어그램을 설명하기 위한 기능모델 설계 명세서를 작성할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>기능모델 설계 명세서의 개념</dt><dd><blockquote>기능모델 설계 명세서는 기능모델 다이어그램을 설명하기 위해 제약조건, 입력에서 출력으로 변환되기 위한 기능 등을 구체적으로 기술한 문서이다.</blockquote></dd><dt>기능모델 설계 명세서의 유형</dt><dd><blockquote>구조적 분석 기법과 객체지향 분석 기법에서 사용되는 설계 명세서 표현 방식이 다르 다. 분석 기법별 기능모델 설계 명세서의 대표적인 유형은 다음과 같다.</blockquote></dd><dt>소단위 명세서(mini-specification)</dt><dd><blockquote>위 명세서는 자료 흐름도의 원시 프로세스(최하위 프로세스)가 어떤 기능을 하는가를 기술하는 것이다. 프로세스 명세서(process-specification), 미니 명세서(mini-specification), 소작 업 명세서(activity-specification)라고 부르기도 한다.</blockquote></dd><dt>구조적 영어(structured English)</dt><dd><blockquote>말 그대로 구조를 가진 영어로서, 영어 단어 중 제어나 연산을 표현하는 단어로 제한하여 사용한다. 예를 들면 GET, SET, PUT, COMPUTE, ADD, FIND, MOVE, REPLACE, SORT 등이 해당한다.</blockquote></dd><dt>의사결정표(decision table)</dt><dd><blockquote>프로세스가 여러 가지 조건에 대하여 각기 다른 처리를 할 때 적합한 표현 방법이다. 결정에 영향을 주는 변수, 각 변수의 상태 값, 각 경우에 대한 처리 방식을 체계적으로 표현하는 방법이다.</blockquote></dd><dt>유스케이스 명세서(Use Case Specification)</dt><dd><blockquote>유스케이스 명세서란 각 유스케이스 별로 개요, 제약조건, 특별 요구사항 등 상세한 사항을 정리하는 문서이다.</blockquote></dd><dt>유스케이스 명세서 구성 요소</dt><dd><blockquote>유스케이스에 대한 고유 식별 번호 유스케이스에 대한 간결한 명세로서 시스템의 기능을 명확한 동사구 형태로 표현한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>기능모델 설계 명세서 이해</dd></dl>
+
+<h4>해 보기</h4>
+<h5>기능모델 설계 명세서 작성하기</h5><div class='prep'><b>재료·자료</b><span>제안 요청서, 제안서, 사업수행계획서, 요구사항 목록, 요구사항 정의서 / 작성한 기능모델 다이어그램 / IEEE 830 (IEEE Recommended Practice for Software Requirements / Specifications)</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구(워드프로세서, 스프레드시트, 프레젠테이션 도구 등) / CASE 도구(SW 분석 지원 도구, UML 작성 지원 도구 등)</span><b>유의 사항</b><span>기능모델 설계 명세서 작성을 지원하는 도구들을 다룰 수 있어야 한다. / 실습 후에는 컴퓨터 전원을 끈다.</span></div><div class='doh'><b>1</b><span>다이어그램 설명을 위한 구조적 분석 기법의 기능모델 설계 명세서를 작성한다.</span></div><ol class='dos'><li>프로세스별 기능모델 설계 명세서를 작성한다.</li><li>작성한 프로세스별 기능모델 설계 명세서를 통합한다.</li></ol><div class='doh'><b>2</b><span>다이어그램 설명을 위한 객체지향 분석 기법의 기능모델 설계 명세서를 작성한다.</span></div><ol class='dos'><li>유스케이스 목록(Use Case List)을 작성한다.</li><li>유스케이스 목록별 유스케이스 명세서(Use Case Specification)를 작성한다.</li><li>로그인 화면에서 직원은 아이디, 비밀번호를 입력한다.</li><li>로그인버튼을 클릭하여 사용자 인증을 한다.</li><li>사전에 회원 가입이 되어 있지 않은 경우, 회원 가입이 필요하다는 메시지를 보여준다.</li><li>회원 가입 페이지로 화면을 전환한다.</li><li>회원이 입력한 공인 인증서의 비밀번호가 유효하지 않은 경우, 로그 인 실패 메시지와 실패 횟수를 보여준다.</li><li>로그인 실패 횟수가 연속하여 5회 이상이 되면 해당 회원의 로그인 잠금을 설정하여 관리자에게 문의하게 한다.</li><li>출/퇴근 화면에서 출근버튼을 클릭한다.</li><li>근무 파일에 출근 시간이 새로 입력된다.</li><li>출근버튼을 클릭 시 근무 파일에 저장이 실패하였을 경우 출근 처리가 실패하였다는 알림을 보여준다.</li><li>실패 알림에는 관리자에게 문의하라는 문구를 보여준다.</li><li>회원이 관리자에게 로그인 잠금 해제를 요청하면, 관리자는 유효한 회원인지 검증한 후 잠금을 해제한다.</li><li>출/퇴근 화면에서 퇴근버튼을 클릭한다.</li><li>근무 파일에 퇴근 시간이 새로 입력된다.</li><li>퇴근 버튼을 클릭 시 근무 파일에 저장이 실패하였을 경우 퇴근 처리가 실패하였다는 알림을 보여준다.</li><li>실패 알림에는 관리자에게 문의하라는 문구를 보여준다.</li><li>출/퇴근 화면에서 조회 기간을 선택한다.</li><li>조회 버튼을 클릭한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>다이어그램 설명을 위한 구조적 분석 기법의 기능모델 설계 명세서를 작성한다.</li><li>다이어그램 설명을 위한 객체지향 분석 기법의 기능모델 설계 명세서를 작성한다.</li><li>기능 모델링을 위해 선정한 다이어그램을 설명하기 위한 기능모델 설계 명세서를 작성할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st19">
-      <h3><i>19</i>기능모델 설계 명세서의 개념</h3>
-      <aside class="side">
-        <p class="pt">기능모델 설계 명세서 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="45">원문 32쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기능모델 설계 명세서는 기능모델 다이어그램을 설명하기 위해 제약조건, 입력에서 출력으로 변환되기 위한 기능 등을 구체적으로 기술한 문서이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st20">
-      <h3><i>20</i>기능모델 설계 명세서의 유형</h3>
-      <aside class="side">
-        <p class="pt">기능모델 설계 명세서 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="45">원문 32쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>구조적 분석 기법과 객체지향 분석 기법에서 사용되는 설계 명세서 표현 방식이 다르 다. 분석 기법별 기능모델 설계 명세서의 대표적인 유형은 다음과 같다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st21">
-      <h3><i>21</i>소단위 명세서(mini-specification)</h3>
-      <aside class="side">
-        <p class="pt">기능모델 설계 명세서 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="46">원문 33쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>위 명세서는 자료 흐름도의 원시 프로세스(최하위 프로세스)가 어떤 기능을 하는가를 기술하는 것이다. 프로세스 명세서(process-specification), 미니 명세서(mini-specification), 소작 업 명세서(activity-specification)라고 부르기도 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st22">
-      <h3><i>22</i>구조적 영어(structured English)</h3>
-      <aside class="side">
-        <p class="pt">기능모델 설계 명세서 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="46">원문 33쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>말 그대로 구조를 가진 영어로서, 영어 단어 중 제어나 연산을 표현하는 단어로 제한하여 사용한다. 예를 들면 GET, SET, PUT, COMPUTE, ADD, FIND, MOVE, REPLACE, SORT 등이 해당한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st23">
-      <h3><i>23</i>의사결정표(decision table)</h3>
-      <aside class="side">
-        <p class="pt">기능모델 설계 명세서 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="47">원문 34쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>프로세스가 여러 가지 조건에 대하여 각기 다른 처리를 할 때 적합한 표현 방법이다. 결정에 영향을 주는 변수, 각 변수의 상태 값, 각 경우에 대한 처리 방식을 체계적으로 표현하는 방법이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st24">
-      <h3><i>24</i>유스케이스 명세서(Use Case Specification)</h3>
-      <aside class="side">
-        <p class="pt">기능모델 설계 명세서 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="48">원문 35쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>유스케이스 명세서란 각 유스케이스 별로 개요, 제약조건, 특별 요구사항 등 상세한 사항을 정리하는 문서이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st25">
-      <h3><i>25</i>유스케이스 명세서 구성 요소</h3>
-      <aside class="side">
-        <p class="pt">기능모델 설계 명세서 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="48">원문 35쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>유스케이스에 대한 고유 식별 번호 유스케이스에 대한 간결한 명세로서 시스템의 기능을 명확한 동사구 형태로 표현한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 32쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -728,481 +188,77 @@
 <div class="lv">
   <div class="lvh"><b>2. 기능모델 검증하기</b><span>능력단위요소 · <code>2001020220_23v3.2</code></span></div>
   <div class="lvb">
-    <div class="step" id="st26">
-      <h3><i>26</i>동료 검토(Peer Review)의 이해</h3>
+    <div class="step" id="st4">
+      <h3><i>4</i>2-1. 기능모델 표준 준수 검증하기</h3>
       <aside class="side">
-        <p class="pt">기능모델 표준 준수 검증하기</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
+        <p class="pt">도식된 기능모델이 표준 표기법을 준수하고 있는지 검증할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">기능모델 검증하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="60">원문 47쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 역할연기 · 구두발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 10항목 · 실습 10절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>동료 검토(Peer Review)의 정의</li><li>동료 검토의 목적</li><li>동료 검토의 효과</li><li>동료 검토의 종류</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>도식된 기능모델이 표준 표기법을 준수하고 있는지 검증할 수 있다.</li><li>작성된 기능모델이 표준으로 제시된 산출물 양식과 지침을 따르고 있는지 검증할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>동료 검토(Peer Review)의 정의</dt><dd><blockquote>프로젝트 수행 과정에서 각 진행 단계별로 발생하는 산출물 또는 제품에 대해서 동료 들이 상호 교차하여 검토하는 활동이다.</blockquote></dd><dt>동료 검토의 효과</dt><dd><blockquote>페이건(Fagan)이 발표한 생산성 향상 모형을 살펴보면 동료 검토를 수행한 경우 약 6개월 정도 기간이 단축될 뿐만 아니라 전체적인 재작업 비율을 25~35%까지 절감할 수 있다.</blockquote></dd><dt>동료 검토의 종류</dt><dd><blockquote>동료 검토에는 Walk-through(워크 스루, 비공식적 검사), Inspection(검사), Technical Review(기술 검토), Management Review(경영 검토) 등 종류가 다양하다.</blockquote></dd><dt>동료 검토의 절차</dt><dd><blockquote>동료 검토는 계획, 사전 교육, 준비, 동료 검토 회의, 수정, 시정 조치의 순서로 진행한 다. 절차 중 사전 교육은 생략 가능하며, 준비 단계는 원활한 동료 검토 회의를 위해 반드시 수행해야 할 절차이다.</blockquote></dd><dt>동료 검토의 구성원 역할</dt><dd><blockquote>동료 검토는 진행자, 작성자, 제출자, 검토자, 기록자로 구성된다. 워크 스루의 경우 작성자가 진행자와 제출자를 겸한다.</blockquote></dd><dt>기능모델의 표준 표기법 및 산출물</dt><dd><blockquote>구조적 분석 기법과 객체지향 분석 기법에 따라 기능모델의 표준 표기법 및 산출물은 달라진다.</blockquote></dd><dt>구조적 분석 기법의 표준 표기법 및 산출물</dt><dd><blockquote>1970년대 말에 디마르코(DeMarco)가 발표하고 1980년대부터 널리 활용되고 있는 구조적 분석 기법이 표준 표기법으로 사용되고 있다.</blockquote></dd><dt>객체지향 분석 기법의 표준 표기법 및 산출물</dt><dd><blockquote>한국정보화진흥원의 “정보시스템 감리지침: 시스템개발사업 객체지향 컴포넌트 모델 V1.0”에 따르면 시스템 기능에 대한 유스케이스 모형의 상세화 수준 및 적정성에 대하 여 다음과 같은 사항을 점검토록 하고 있다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>동료 검토(Peer Review)의 이해 · 동료 검토의 목적</dd></dl>
+
+<h4>해 보기</h4>
+<h5>기능모델 표준 준수 검증하기</h5><div class='prep'><b>재료·자료</b><span>구조적 분석 기법 : 배경도, 자료 흐름도, 자료 사전, 소단위 명세서 / 객체지향 분석 기법 : 유스케이스 다이어그램, 유스케이스 명세서 / DeMarco 구조적 분석 기법 표준 표기법 / OMG(Object Management Group)의 UML 표준 표기법</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구(워드프로세서, 스프레드시트, 프레젠테이션 도구 등) / CASE 도구(SW 분석 지원 도구, UML 작성 지원 도구 등)</span><b>유의 사항</b><span>실습 시 지도 교사의 지시를 따른다. / 동료 검토 시 상대방의 의견을 존중해야 한다.</span></div><div class='doh'><b>1</b><span>기능모델의 표준 표기법, 산출물 양식과 지침의 검증을 위한 동료 검토 계획을 수립한다.</span></div><div class='doh'><b>2</b><span>도식된 기능모델이 표준 표기법을 준수하는지 검증한다.</span></div><ol class='dos'><li>구조적 분석 표준 표기법과 비교한다.</li><li>객체지향 분석 표준 표기법과 비교한다.</li></ol><div class='doh'><b>3</b><span>작성된 기능모델이 표준으로 제시된 산출물 양식과 지침을 준수하는지 검증한다.</span></div><ol class='dos'><li>구조적 분석 기법 기반 기능 모델의 표준 산출물 양식과 지침을 확인하고 검증한다.</li><li>객체지향 분석 기법 기반 기능모델의 표준 산출물 양식과 지침을 확인하고 검증한다.</li></ol><div class='doh'><b>4</b><span>검증이 완료된 후 작성자에게 결과물을 전달하여 시정 조치를 요청한다.</span></div><ol class='dos'><li>기능모델 검증 결과 보고서의 일반 사항 (1) 수행 계획(일시 및 장소, 참석자 및 참석자별 역할)을 명시 (2) 회의 전 준비 자료(검토 대상 산출물, 사전 검토물이나 참조 자료)를 명시 (3) 참여할 역할과 참여자를 기술 (4) 참석자들의 기술적 검토 관점 및 기준을 기술 항목 내용 검토 의견 기능 구현에 관련된 모든 액터가 도출되었으며, 액터 명이 역할 중심으로 명명되었음.</li><li>기능모델 검증 수행 결과 (1) 결함이 발견된 검토 대상 산출물의 위치( 페이지 및 라인 수)를 기록한다.</li></ol><div class='doh'><b>5</b><span>작성자가 시정 조치를 수행한 후 조치 결과를 기술한다.</span></div><ol class='dos'><li>기능모델 검증 결과의 검토 의견별 조치 결과 내용을 요약하여 기록한다.</li><li>검토 의견에 대해 조치 완료 예정일을 기록한다.</li><li>기능모델 검증 의견에 따라 시정된 항목을 기술한다.</li><li>관련자들로부터 재작업, 사후 조치 및 조치 사항 완료에 대해 확인한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>기능모델의 표준 표기법, 산출물 양식과 지침의 검증을 위한 동료 검토 계획을 수립한다.</li><li>도식된 기능모델이 표준 표기법을 준수하는지 검증한다.</li><li>작성된 기능모델이 표준으로 제시된 산출물 양식과 지침을 준수하는지 검증한다.</li><li>검증이 완료된 후 작성자에게 결과물을 전달하여 시정 조치를 요청한다.</li><li>작성자가 시정 조치를 수행한 후 조치 결과를 기술한다.</li><li>도식된 기능모델이 표준 표기법을 준수하고 있는지 검증할 수 있다.</li><li>작성된 기능모델이 표준으로 제시된 산출물 양식과 지침을 따르고 있는지 검증할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 포트폴리오 · 역할연기 · 구두발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 47쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st27">
-      <h3><i>27</i>동료 검토(Peer Review)의 정의</h3>
+    <div class="step" id="st5">
+      <h3><i>5</i>2-2. 소프트웨어 요구사항 준수 검증하기</h3>
       <aside class="side">
-        <p class="pt">기능모델 표준 준수 검증하기</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="60">원문 47쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 역할연기 · 구두발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>프로젝트 수행 과정에서 각 진행 단계별로 발생하는 산출물 또는 제품에 대해서 동료 들이 상호 교차하여 검토하는 활동이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st28">
-      <h3><i>28</i>동료 검토의 목적</h3>
-      <aside class="side">
-        <p class="pt">기능모델 표준 준수 검증하기</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="60">원문 47쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 역할연기 · 구두발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>동료 검토의 효과</li><li>동료 검토의 종류</li><li>동료 검토의 절차</li><li>동료 검토의 구성원 역할</li></ul>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st29">
-      <h3><i>29</i>동료 검토의 효과</h3>
-      <aside class="side">
-        <p class="pt">기능모델 표준 준수 검증하기</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="60">원문 47쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 역할연기 · 구두발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>페이건(Fagan)이 발표한 생산성 향상 모형을 살펴보면 동료 검토를 수행한 경우 약 6개월 정도 기간이 단축될 뿐만 아니라 전체적인 재작업 비율을 25~35%까지 절감할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st30">
-      <h3><i>30</i>동료 검토의 종류</h3>
-      <aside class="side">
-        <p class="pt">기능모델 표준 준수 검증하기</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="61">원문 48쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 역할연기 · 구두발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>동료 검토에는 Walk-through(워크 스루, 비공식적 검사), Inspection(검사), Technical Review(기술 검토), Management Review(경영 검토) 등 종류가 다양하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st31">
-      <h3><i>31</i>동료 검토의 절차</h3>
-      <aside class="side">
-        <p class="pt">기능모델 표준 준수 검증하기</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="61">원문 48쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 역할연기 · 구두발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>동료 검토는 계획, 사전 교육, 준비, 동료 검토 회의, 수정, 시정 조치의 순서로 진행한 다. 절차 중 사전 교육은 생략 가능하며, 준비 단계는 원활한 동료 검토 회의를 위해 반드시 수행해야 할 절차이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st32">
-      <h3><i>32</i>동료 검토의 구성원 역할</h3>
-      <aside class="side">
-        <p class="pt">기능모델 표준 준수 검증하기</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="62">원문 49쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 역할연기 · 구두발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>동료 검토는 진행자, 작성자, 제출자, 검토자, 기록자로 구성된다. 워크 스루의 경우 작성자가 진행자와 제출자를 겸한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st33">
-      <h3><i>33</i>기능모델의 표준 표기법 및 산출물</h3>
-      <aside class="side">
-        <p class="pt">기능모델 표준 준수 검증하기</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="62">원문 49쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 역할연기 · 구두발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>구조적 분석 기법과 객체지향 분석 기법에 따라 기능모델의 표준 표기법 및 산출물은 달라진다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st34">
-      <h3><i>34</i>구조적 분석 기법의 표준 표기법 및 산출물</h3>
-      <aside class="side">
-        <p class="pt">기능모델 표준 준수 검증하기</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="62">원문 49쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 역할연기 · 구두발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>1970년대 말에 디마르코(DeMarco)가 발표하고 1980년대부터 널리 활용되고 있는 구조적 분석 기법이 표준 표기법으로 사용되고 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st35">
-      <h3><i>35</i>객체지향 분석 기법의 표준 표기법 및 산출물</h3>
-      <aside class="side">
-        <p class="pt">기능모델 표준 준수 검증하기</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="63">원문 50쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 역할연기 · 구두발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>한국정보화진흥원의 “정보시스템 감리지침: 시스템개발사업 객체지향 컴포넌트 모델 V1.0”에 따르면 시스템 기능에 대한 유스케이스 모형의 상세화 수준 및 적정성에 대하 여 다음과 같은 사항을 점검토록 하고 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st36">
-      <h3><i>36</i>요구사항 분석 명세서(SRS, Software Requirements Specification)의 이해</h3>
-      <aside class="side">
-        <p class="pt">소프트웨어 요구사항 준수 검증하기</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">작성된 기능모델이 정의된 소프트웨어 요구사항을 모두 포함하고 있는지 검증할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">기능모델 검증하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="75">원문 62쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 역할연기 · 구두발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 8항목 · 실습 26절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>요구사항 분석 명세서의 개념</li><li>요구사항 분석 명세서의 관점</li><li>요구사항 분석 명세서 작성 시 주의 사항</li><li>요구사항 분석 명세서의 표준, IEEE Std 830-1988 SRS</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>작성된 기능모델이 정의된 소프트웨어 요구사항을 모두 포함하고 있는지 검증할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>요구사항 분석 명세서의 개념</dt><dd><blockquote>소프트웨어 시스템이 수행하여야 할 기능과 시스템 환경의 제약조건 및 개발자와 사용 자가 합의한 성능에 관한 사항 등을 분석하여 명확하고 일관성 있게 명세한 문서이다.</blockquote></dd><dt>요구사항 분석 명세서의 관점</dt><dd><blockquote>사용자는 시스템의 현황과 문제점은 잘 알고 있으나, 문제점에 대한 기술적인 해결 방안에 대한 이해가 부족하다.</blockquote></dd><dt>요구사항 분석 명세서 작성 시 주의 사항</dt><dd><blockquote>이 기술되어야 한다.</blockquote></dd><dt>요구사항 분석 명세서의 표준, IEEE Std 830-1988 SRS</dt><dd><blockquote>IEEE Std 830-1988 문서는 요구사항 분석 명세서(SRS)를 표준화한 가이드이다. 요구사항 분석 명세서를 작성하는 데 필요한 내용을 제공하여 요구사항을 분석하는 프로젝트 관리자나 개발자들의 표준 템플릿을 제공한다.</blockquote></dd><dt>요구사항 분석 명세서 검증</dt><dd><blockquote>시스템 구축 과정에서 가장 중요한 일은 산출물에 대한 검토 및 검증이다. 요구사항 분석 명세서는 분석 단계부터 종료 단계까지 지속적으로 작성하면서 요구사항을 확인하고 검증 함으로써 시스템의 품질을 보증해야 한다.</blockquote></dd><dt>지속적인 요구사항 검증의 필요성</dt><dd><blockquote>요구사항 검증은 요구사항 분석, 설계, 개발 등 각 과정에서 주기적으로 이루어져야 한다. 대부분의 결함들이 요구사항의 모호함과 설계의 부정확함에서 시작된다.</blockquote></dd><dt>요구사항 분석 명세서 검증 사항</dt><dd><blockquote>요구사항 분석 명세서는 요구사항을 파악한 후 이를 검토하고 설계하는 데 도움을 줄수 있도록 문서화하여야 한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>요구사항 분석 명세서(SRS, Software Requirements Specification)의 이해</dd></dl>
+
+<h4>해 보기</h4>
+<h5>소프트웨어 요구사항 준수 검증하기</h5><div class='prep'><b>재료·자료</b><span>구조적 분석 기법 : 배경도, 자료 흐름도, 자료 사전, 소단위 명세서 / 객체지향 분석 기법 : 유스케이스 다이어그램, 유스케이스 명세서 / 제안 요청서, 제안서, 요구사항 정의서</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구(워드프로세서, 스프레드시트, 프레젠테이션 도구 등) / CASE 도구(SW 분석 지원 도구, UML 작성 지원 도구 등)</span><b>유의 사항</b><span>실습 시 지도 교사의 지시를 따른다. / 요구사항 분석 명세서 작성을 지원하는 도구들을 다룰 수 있어야 한다. / 동료 검토 시 상대방의 의견을 존중해야 한다.</span></div><div class='doh'><b>1</b><span>기능모델 검증을 위해 요구사항 분석 명세서를 작성한다.</span></div><ol class='dos'><li>요구사항 분석 명세서의 목차를 정의한다.</li><li>소개(Introduction)</li><li>일반적인 기술 사항(General Description)</li><li>상세 요구사항(Specific requirements)</li><li>작성된 목차에 맞게 요구사항 분석 명세서를 작성한다.</li><li>상세 요구사항(Specific requirements) ‧ ‧ ‧ 부록(Appendices) 인덱스(Index) 본 문서는 OO프로젝트를 수행하기 위한 요구사항을 분류하고 기술하기 위한 목적으로 만들어졌다.</li><li>일반적인 기술 사항 본 시스템은 사용자가 쉽고 간편하게 사용할 수 있도록 설계되었다. 사용자는 웹 화면을 통해 지원 사업 및 공고 사항을 확인할 수 있으며, 지역별로 회원사의 현황을 확인할 수 있다.</li><li>상세 요구사항 직원은 근태 관리 시스템을 통해 아이디, 비밀번호를 입력하여 로그인한다.</li></ol><div class='doh'><b>2</b><span>인스펙션(Inspection. 검사)을 통해 작성된 기능모델이 요구사항을 모두 포함하고 있는지 검증</span></div><ol class='dos'><li>인스펙션 계획서를 작성한다.</li><li>기능모델 검증 활동 프로세스 활동 개발자 파트 리더 동료 검토자 (●:주관 ○:지원) 기능모델 검증자 선정 게 기능모델 검증자 선정을 요청한다.</li><li>인스펙션 수행 활동에 따른 요구사항을 검증한다.</li><li>요구사항이 일관되게 기술되었는가?</li><li>요구사항이 명백하게 기술되었는가?</li><li>정의된 모든 요구사항은 소프트웨어로 구현될 수 있는가?</li><li>하나의 요구사항은 여러 요구사항에 중복됨이 없이 유일하게 존재하는가?</li><li>기능적 요구사항이 작성되었는가?</li><li>기능적 요구사항에 대해서는 기능 개요, 입력물, 처리 방법, 출력물 등을 기술하였는가?</li><li>고객의 성능 요구사항이 테스트 가능 하도록 정량화되어 있는가?</li><li>인터페이스 관련 요구사항이 기술되었나?</li><li>보안 관련 요구사항이 기술되었나?</li><li>하드웨어 환경(제약사항 포함)이 완전하게 정의되었는가?</li><li>설치 및 마이그레이션 요구사항이 완전하게 정의되었는가?</li><li>에러 복구 및 백업 요구사항이 완전하게 정의되었는가?</li><li>요구사항이 Safety/Standard를 준수하는가?</li><li>주요 기능 요구사항에 대해 계층적으로 세분화하여 기술하였는가?</li><li>모든 요구사항이 모델링 결과물(각 모델 ID)과 연결되어 있는가? Y : Yes / N : No / P : Partially Yes / NA : Not Applicable</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>기능모델 검증을 위해 요구사항 분석 명세서를 작성한다.</li><li>인스펙션(Inspection. 검사)을 통해 작성된 기능모델이 요구사항을 모두 포함하고 있는지 검증</li><li>작성된 기능모델이 정의된 소프트웨어 요구사항을 모두 포함하고 있는지 검증할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 포트폴리오 · 역할연기 · 구두발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st37">
-      <h3><i>37</i>요구사항 분석 명세서의 개념</h3>
-      <aside class="side">
-        <p class="pt">소프트웨어 요구사항 준수 검증하기</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="75">원문 62쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 역할연기 · 구두발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 시스템이 수행하여야 할 기능과 시스템 환경의 제약조건 및 개발자와 사용 자가 합의한 성능에 관한 사항 등을 분석하여 명확하고 일관성 있게 명세한 문서이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st38">
-      <h3><i>38</i>요구사항 분석 명세서의 관점</h3>
-      <aside class="side">
-        <p class="pt">소프트웨어 요구사항 준수 검증하기</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="75">원문 62쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 역할연기 · 구두발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>사용자는 시스템의 현황과 문제점은 잘 알고 있으나, 문제점에 대한 기술적인 해결 방안에 대한 이해가 부족하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st39">
-      <h3><i>39</i>요구사항 분석 명세서 작성 시 주의 사항</h3>
-      <aside class="side">
-        <p class="pt">소프트웨어 요구사항 준수 검증하기</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="76">원문 63쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 역할연기 · 구두발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>이 기술되어야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st40">
-      <h3><i>40</i>요구사항 분석 명세서의 표준, IEEE Std 830-1988 SRS</h3>
-      <aside class="side">
-        <p class="pt">소프트웨어 요구사항 준수 검증하기</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="76">원문 63쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 역할연기 · 구두발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>IEEE Std 830-1988 문서는 요구사항 분석 명세서(SRS)를 표준화한 가이드이다. 요구사항 분석 명세서를 작성하는 데 필요한 내용을 제공하여 요구사항을 분석하는 프로젝트 관리자나 개발자들의 표준 템플릿을 제공한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st41">
-      <h3><i>41</i>요구사항 분석 명세서 검증</h3>
-      <aside class="side">
-        <p class="pt">소프트웨어 요구사항 준수 검증하기</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="77">원문 64쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 역할연기 · 구두발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템 구축 과정에서 가장 중요한 일은 산출물에 대한 검토 및 검증이다. 요구사항 분석 명세서는 분석 단계부터 종료 단계까지 지속적으로 작성하면서 요구사항을 확인하고 검증 함으로써 시스템의 품질을 보증해야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st42">
-      <h3><i>42</i>지속적인 요구사항 검증의 필요성</h3>
-      <aside class="side">
-        <p class="pt">소프트웨어 요구사항 준수 검증하기</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="77">원문 64쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 역할연기 · 구두발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>요구사항 검증은 요구사항 분석, 설계, 개발 등 각 과정에서 주기적으로 이루어져야 한다. 대부분의 결함들이 요구사항의 모호함과 설계의 부정확함에서 시작된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st43">
-      <h3><i>43</i>요구사항 분석 명세서 검증 사항</h3>
-      <aside class="side">
-        <p class="pt">소프트웨어 요구사항 준수 검증하기</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020220_23v3" data-page="77">원문 64쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 역할연기 · 구두발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>요구사항 분석 명세서는 요구사항을 파악한 후 이를 검토하고 설계하는 데 도움을 줄수 있도록 문서화하여야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 62쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
   </div>
 </div>
 
-<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
-원문 LM2001020220_23v3_기능모델링.pdf</footer>
+<footer>담당 정우균 · 개념과 절차는 <b>NCS 학습모듈 LM2001020220_23v3_기능모델링.pdf</b> 에서
+옮긴 것입니다 — 한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지)</footer>
 </div>
 <script>
-/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+/* 빠른 이동 — 지금 보는 꼭지를 표시하고, 좁은 화면에서는 여닫습니다. */
 (function () {
   var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
   var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));

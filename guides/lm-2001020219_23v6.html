@@ -1,13 +1,30 @@
-<meta charset="utf-8"><title>애플리케이션 요구사항 분석 — 준비 교안</title>
+<meta charset="utf-8"><title>애플리케이션 요구사항 분석 — 학습 가이드</title>
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="stylesheet" href="../assets/guide.css">
 <style>
-  /* 원문 인용 — 우리가 쓴 안내와 눈으로 구분되어야 한다 */
-  .bd blockquote{margin:10px 0 16px;padding:10px 14px;border-left:3px solid #000;
-                 background:#fafafa;font-size:13.5px;line-height:1.8;color:#222}
-  .bd p.none{color:#888;font-size:13px}
-  .bd ul.sub{margin:8px 0 16px;padding-left:20px;font-size:13.5px;line-height:1.9}
-  aside.side .v .btn{font-size:11.5px}
+  /* 학습 가이드 — 개념 / 실습 / 확인 세 덩어리가 눈으로 구분되어야 한다 */
+  .bd h4{margin:22px 0 8px;font-size:14px;padding-bottom:5px;border-bottom:1px solid #000}
+  .bd h4:first-child{margin-top:0}
+  .bd h5{margin:16px 0 5px;font-size:13px;font-weight:700}
+  .bd blockquote{margin:5px 0 12px;padding:9px 13px;border-left:3px solid #999;
+                 background:#fafafa;font-size:13px;line-height:1.8;color:#333}
+  .cc{margin:0 0 6px}
+  .cc dt{font-weight:700;font-size:13.5px;margin:14px 0 0}
+  .cc dd{margin:4px 0 0}
+  .doh{display:flex;gap:9px;align-items:baseline;margin:16px 0 4px;font-size:13.5px;
+       font-weight:700}
+  .doh b{flex:0 0 auto;width:21px;height:21px;line-height:19px;text-align:center;
+         border:1px solid #000;font-size:11.5px}
+  ol.dos{margin:2px 0 0 30px;padding:0;font-size:13px;line-height:1.85}
+  ol.dos li{margin:3px 0}
+  .prep{display:grid;grid-template-columns:76px 1fr;gap:3px 10px;font-size:12.5px;
+        border:1px solid #ccc;padding:10px 13px;margin:6px 0 2px;background:#fafafa}
+  .prep b{color:#555;font-weight:400}
+  ul.goal{margin:6px 0 0;padding-left:20px;font-size:13.5px;line-height:1.9}
+  ul.chk{margin:6px 0 0;padding:0;list-style:none;font-size:13.5px;line-height:1.95}
+  ul.chk li::before{content:"\2610  "}
+  .none{color:#888;font-size:12.5px}
+  .srcline{font-size:11.5px;color:#888;margin:8px 0 0}
 </style>
 <script src="../assets/auth.js"></script>
 <script>EXAM_AUTH.guard("../");</script>
@@ -17,7 +34,7 @@
 <div class="top"><div class="tbar">
   <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
   <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
-  / 애플리케이션 요구사항 분석 / 준비 교안</small></div>
+  / 애플리케이션 요구사항 분석 / 학습 가이드</small></div>
   <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
@@ -25,51 +42,45 @@
 <button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
 
 <nav id="qnav" aria-label="빠른 이동">
-  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
-  <i class="qg">요구사항 도출하기</i><a href="#st1"><b>1</b><span>소프트웨어 요구사항</span></a><a href="#st2"><b>2</b><span>요구사항의 정의</span></a><a href="#st3"><b>3</b><span>요구사항의 중요성</span></a><a href="#st4"><b>4</b><span>요구사항의 유형</span></a><a href="#st5"><b>5</b><span>사용자 요구사항(User Requirements)</span></a><a href="#st6"><b>6</b><span>시스템 요구사항(System Requirements)</span></a><a href="#st7"><b>7</b><span>기능 요구사항(Functional Requirements)</span></a><a href="#st8"><b>8</b><span>비기능 요구사항(Non-Functional Requirements)</span></a><a href="#st9"><b>9</b><span>요구사항 도출을 위한 자료 수집</span></a><a href="#st10"><b>10</b><span>요구사항 개발 및 도출</span></a><a href="#st11"><b>11</b><span>요구사항의 개발 프로세스</span></a><a href="#st12"><b>12</b><span>요구사항 도출</span></a><a href="#st13"><b>13</b><span>요구사항 정리와 기록</span></a><a href="#st14"><b>14</b><span>자료 정리</span></a><a href="#st15"><b>15</b><span>요약 보고</span></a><a href="#st16"><b>16</b><span>정리된 자료의 접근 통제</span></a><i class="qg">요구사항 분석하기</i><a href="#st17"><b>17</b><span>기능 요구사항 분석 기법</span></a><a href="#st18"><b>18</b><span>기능 분할</span></a><a href="#st19"><b>19</b><span>유스케이스와 사용자 스토리</span></a><a href="#st20"><b>20</b><span>유스케이스 접근법</span></a><a href="#st21"><b>21</b><span>개념 모델링(Conceptual Modeling)</span></a><a href="#st22"><b>22</b><span>요구사항 분류</span></a><a href="#st23"><b>23</b><span>요구사항 우선순위 할당</span></a><a href="#st24"><b>24</b><span>우선순위 할당</span></a><a href="#st25"><b>25</b><span>우선순위 할당 기법</span></a><a href="#st26"><b>26</b><span>가치와 비용, 위험에 따른 우선순위</span></a><a href="#st27"><b>27</b><span>요구사항 협상(Requirement Negotiation)</span></a><i class="qg">요구사항 명세화하기</i><a href="#st28"><b>28</b><span>요구사항 문서화</span></a><a href="#st29"><b>29</b><span>비즈니스 요구사항 문서화</span></a><a href="#st30"><b>30</b><span>비즈니스 규칙 문서화</span></a><a href="#st31"><b>31</b><span>사용자 요구사항 문서화</span></a><a href="#st32"><b>32</b><span>기능적 요구사항 문서화</span></a><a href="#st33"><b>33</b><span>품질 속성 문서화</span></a><a href="#st34"><b>34</b><span>외부 인터페이스 문서화</span></a><a href="#st35"><b>35</b><span>제약 조건 문서화</span></a><a href="#st36"><b>36</b><span>데이터 요구사항 문서화</span></a><a href="#st37"><b>37</b><span>솔루션(solution) 아이디어 문서화</span></a><a href="#st38"><b>38</b><span>소프트웨어 요구사항명세서</span></a><a href="#st39"><b>39</b><span>소프트웨어 요구사항명세서 정의</span></a><a href="#st40"><b>40</b><span>요구사항 명명하기</span></a><a href="#st41"><b>41</b><span>불완전한 요구사항 다루기</span></a><a href="#st42"><b>42</b><span>사용자 인터페이스와 SRS</span></a><a href="#st43"><b>43</b><span>소프트웨어 요구사항명세서 템플릿</span></a><a href="#st44"><b>44</b><span>전반적인 설명</span></a><a href="#st45"><b>45</b><span>시스템 기능</span></a><a href="#st46"><b>46</b><span>데이터 요구사항</span></a><a href="#st47"><b>47</b><span>외부 인터페이스 요구사항</span></a><a href="#st48"><b>48</b><span>품질 속성</span></a><i class="qg">요구사항 검증하기</i><a href="#st49"><b>49</b><span>소프트웨어 요구사항 검증</span></a><a href="#st50"><b>50</b><span>SW 요구사항 검증</span></a><a href="#st51"><b>51</b><span>SW 요구사항 검증(Verification)과 확인(Validation)의 차이</span></a><a href="#st52"><b>52</b><span>SW 요구사항 검증 범위</span></a><a href="#st53"><b>53</b><span>SW 요구사항 검증 기준</span></a><a href="#st54"><b>54</b><span>요구사항 검증 기법</span></a><a href="#st55"><b>55</b><span>ISO/IEC 25010 – 시스템 및 SW 품질 요구사항 및 평가 모델</span></a>
+  <a class="qt" href="#top"><b>&uarr;</b><span>맨 위로</span></a>
+  <i class="qg">요구사항 도출하기</i><a href="#st1"><b>1</b><span>요구사항 도출</span></a><i class="qg">요구사항 분석하기</i><a href="#st2"><b>2</b><span>요구사항 분석</span></a><i class="qg">요구사항 명세화하기</i><a href="#st3"><b>3</b><span>요구사항 명세</span></a><i class="qg">요구사항 검증하기</i><a href="#st4"><b>4</b><span>요구사항 검증</span></a>
 </nav>
 
 <div class="wrap" id="top">
 
-<h1>애플리케이션 요구사항 분석 — 준비 교안</h1>
+<h1>애플리케이션 요구사항 분석 — 학습 가이드</h1>
 <p class="sub">능력단위 <code>2001020219_23v6</code> · 7수준 ·
-32시간 · 단계 55개 · 평가 서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+32시간 · 꼭지 4개 · 개념 55항목 · 실습 47절차</p>
 
-<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<h2 class="sec" id="g0">0. 시작하기 전에</h2>
 <div class="sect">
   <aside class="side">
     <p class="pt">구현하고자 하는 애플리케이션의 요구사항을 도출, 분석, 명세화 및 요구사항 검증을 수행할 수 있다.</p>
-    <b class="sh">선수학습</b>
+    <b class="sh">먼저 알아야 할 것</b>
     <p class="v">요구사항 확인(2001020224_23v5), 시스템SW 요구사항 분석(2001020801_23v4)</p>
-    <b class="sh">원문</b>
-    <p class="src">LM2001020219_23v6_애플리케이션 요구사항 분석_20251108.pdf (126쪽)</p>
+    <b class="sh">평가</b>
+    <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
   </aside>
   <div class="bd">
-<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
-   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
-   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
-<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
-   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
-   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+<h4>이 문서를 쓰는 법</h4>
+<p>꼭지마다 <b>무엇을 할 수 있게 되나 → 알아야 할 것 → 해 보기 → 스스로 확인</b>
+   순서입니다. 읽고 끝내지 말고 <b>해 보기</b>를 손으로 따라 하십시오.
+   마지막 <b>스스로 확인</b>을 전부 «할 수 있다» 고 말할 수 있으면 다음 꼭지로 갑니다.</p>
+<p>자세한 설명과 표·그림은 <b>학습모듈 원문</b>에 있습니다. 꼭지마다 있는
+   <b>[원문 N쪽]</b> 단추를 누르면 그 자리가 바로 펼쳐집니다.</p>
 
 <h4>핵심 용어</h4>
 <p>요구사항 도출, 요구사항 도출 기법, 기능 요구사항, 비기능 요구사항, 요구사항 분석, 요구사항명세서, 요구사항 검증</p>
 
-<h4>능력단위요소</h4>
+<h4>차례</h4>
 <table class="wide">
-  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
-      <th>학습 내용</th><th style="width:74px">단계</th></tr>
-  <tr><td class="c">1</td><td>요구사항 도출하기</td><td>요구사항 도출</td><td class="c">16</td></tr>
-  <tr><td class="c">2</td><td>요구사항 분석하기</td><td>요구사항 분석</td><td class="c">11</td></tr>
-  <tr><td class="c">3</td><td>요구사항 명세화하기</td><td>요구사항 명세</td><td class="c">21</td></tr>
-  <tr><td class="c">4</td><td>요구사항 검증하기</td><td>요구사항 검증</td><td class="c">7</td></tr>
+  <tr><th style="width:44px">꼭지</th><th style="width:250px">학습 내용</th>
+      <th>능력단위요소</th><th style="width:58px">개념</th><th style="width:58px">실습</th></tr>
+  <tr><td class="c">1</td><td>1-1. 요구사항 도출</td><td>요구사항 도출하기</td><td class="c">16</td><td class="c">2</td></tr>
+  <tr><td class="c">2</td><td>2-1. 요구사항 분석</td><td>요구사항 분석하기</td><td class="c">11</td><td class="c">21</td></tr>
+  <tr><td class="c">3</td><td>3-1. 요구사항 명세</td><td>요구사항 명세화하기</td><td class="c">21</td><td class="c">21</td></tr>
+  <tr><td class="c">4</td><td>4-1. 요구사항 검증</td><td>요구사항 검증하기</td><td class="c">7</td><td class="c">3</td></tr>
 </table>
-
-<div class="try">
-  <b class="t">쓰는 법</b>
-  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
-  한 단계가 대략 수업 10~20분에 해당합니다.
-</div>
   </div>
 </div>
 
@@ -77,417 +88,33 @@
   <div class="lvh"><b>1. 요구사항 도출하기</b><span>능력단위요소 · <code>2001020219_23v6.1</code></span></div>
   <div class="lvb">
     <div class="step" id="st1">
-      <h3><i>1</i>소프트웨어 요구사항</h3>
+      <h3><i>1</i>1-1. 요구사항 도출</h3>
       <aside class="side">
-        <p class="pt">요구사항 도출</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">요구사항 도출하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 16항목 · 실습 2절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>요구사항의 정의</li><li>요구사항의 중요성</li><li>요구사항의 유형</li><li>사용자 요구사항(User Requirements)</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</li><li>인터뷰, 시나리오 작성, 프로토타입 제작, 그룹 회의, 관찰, 사용자 스토리 작성 등 제시된 기법을 통해 애플리케이션의 요구사항을 도출할 수 있다.</li><li>요구사항 추출 내용을 관리하기 위해 요구사항의 출처와 요구 내용을 상세하게 기록할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>요구사항의 정의</dt><dd><blockquote>요구사항이란 실세계(Real-world)의 문제를 해결하는 데 도움을 줄 제품이나 시스템에 부여되는 필요 사항 또는 제약 사항을 의미한다.</blockquote></dd><dt>요구사항의 중요성</dt><dd><blockquote>요구사항은 소프트웨어의 개발 및 유지･보수의 단계에서 필요한 기준과 근거를 제공하 므로 요구사항이 제대로 정의되어야만 이후 단계의 목표와 계획을 수립할 수 있다.</blockquote></dd><dt>사용자 요구사항(User Requirements)</dt><dd><blockquote>사용자 요구사항이란 시스템을 사용하는 주체인 사용자 관점으로 시스템이 제공할 것을 요구하는 서비스 사양과 제약 사항을 의미한다.</blockquote></dd><dt>시스템 요구사항(System Requirements)</dt><dd><blockquote>시스템 요구사항이란 전체 시스템이 만족시켜야 하는 요구사항을 의미한다. 시스템의 의미를 소프트웨어뿐만 아니라 하드웨어에 해당하는 컴퓨터를 모두 포함하는 개념으로 보면, 시스템의 요구사항이란 시스템 외부의 사용자와 주변 환경(타 시스템)에 제공해야하는 서비스 요구사항을 의미한다.</blockquote></dd><dt>기능 요구사항(Functional Requirements)</dt><dd><blockquote>기능 요구사항이란 소프트웨어로 수행하고자 하는 기능에 관해 기술한 것으로, 목표 시 스템이 반드시 수행해야 하거나 목표 시스템을 이용하여 사용자가 반드시 수행할 수 있어야 하는 기능(동작)에 대해 기술한 것으로 문서의 서식을 맞춘다든지 이미지나 각종 신호를 처리하는 등 특정 목적에 따라 소프트웨어에 요구되는 기능을 서술한 것이다.</blockquote></dd><dt>비기능 요구사항(Non-Functional Requirements)</dt><dd><blockquote>비기능 요구사항이란 SW 시스템이 기능 요구사항을 만족시키면서 정상적으로 작동하기 위한 시스템 내부 또는 외부의 제약 조건을 의미한다.</blockquote></dd><dt>요구사항 도출을 위한 자료 수집</dt><dd><blockquote>요구사항 도출을 위한 자료의 원천은 컴퓨터 관련 특정 업무 서비스에 사용하는 애플리케이션 개발 자료와 일반적인 사용자들이 사용하는 범용 애플리케이션 개발 자료로 구분할 (Business Process Reengineering) 사업 시작 시 업무 절차를 분석하여 업무의 전반을 개선하는 결과 문서 사업 시작 초기에 (Information Strategy Planning) BPR 이후에 정보화</blockquote></dd><dt>요구사항의 개발 프로세스</dt><dd><blockquote>소프트웨어공학 지식 체계(SWEBOK: Software Engineering Body of Knowledge) 의 요구사항 개발 프로세스는 요구사항의 도출(Elicitation), 분석(Analysis), 명세 (Specification), 확인(Validation)으로 구분하고 있다.</blockquote></dd><dt>요구사항 도출</dt><dd><blockquote>요구사항 도출은 소프트웨어 시스템에 요구되는 기능 및 제약 사항을 수집해야 한다. 한국직업능력개발원. p.64. (가) 인터뷰 소프트웨어 개발에 참여하는 이해관계자들과의 직접적인 질문과 대화를 통해 정보를 추출하는 일반적인 요구사항 도출 방법이다.</blockquote></dd><dt>자료 정리</dt><dd><blockquote>요구사항 관련 자료 수집과 도출 활동이 완료된 후 최종 자료에 대해 정리한다. 이때, ISO/IEC 25010의 기능적 적합성, 사용성, 보안성 등을 기준으로 요구사항을 재분류하 거나 태깅할 수 있다.</blockquote></dd><dt>요약 보고</dt><dd><blockquote>정리된 자료에 대해서는 요약 보고서를 작성하여 요약 보고를 한다.</blockquote></dd><dt>정리된 자료의 접근 통제</dt><dd><blockquote>요구사항에 관련된 자료는 조직 내에서 매우 중요하게 관리해야 하며, 해당 자료에 대해 권한 그룹을 생성하고, 문서･정보의 보안이 이루어질 수 있도록 한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>소프트웨어 요구사항 · 요구사항의 유형 · 요구사항 개발 및 도출 · 요구사항 정리와 기록</dd></dl>
+
+<h4>해 보기</h4>
+<h5>요구사항 도출하기</h5><div class='prep'><b>재료·자료</b><span>정보시스템 구축 관련 ISP 산출물, 중장기 경영 및 IT 컨설팅 자료, 현업 업무 매뉴얼, / 사용 중인 각종 장표, 서식, 전산 운영자 매뉴얼, 전산 사용자 매뉴얼, 업무 파악을 위 / 한 교육 자료, 개념·논리·물리 모델, 테이블 및 칼럼 명세서 / 아이디어 기획서, 상품 기획서, 제품 기획서, 기획 보고서, 마케팅 보고서 등</span><b>기기·도구</b><span>컴퓨터, 문서 작성 도구, 빔 프로젝터</span><b>유의 사항</b><span>요구사항 도출 주관자는 관련 도메인에 대한 경험과 지식을 보유하고 있어야 한다. 대 / 상 업무에 대한 지식을 빠르게 효과적으로 습득하고 프로젝트 관련 산출물에 대해서도 / 이해해야 한다. / 인터뷰 진행자는 관련 도메인에 대한 경험과 지식을 보유하고 있어야 하며, 인터뷰 시 / 간, 장소 등 계획서 준비를 철저히 해야 한다. / 시스템의 이해관계자를 빠뜨리지 않고 인터뷰를 진행하도록 한다. / 제품의 경우에는 고객과 경쟁자의 분석을 이해관계자 인터뷰로 대체할 수 있다. / 이해관계자별로 각자의 시스템에 대한 기대가 다르고, 시스템을 사용하고자 하는 입장 / 에도 차이가 있기 때문에 이해관계자 인터뷰를 통해 시스템의 정확한 요구를 이해하는 / 것이 매우 중요하다. / 기존 시스템 현황 조사를 통해서 확인한 사항은 질문서에 미리 포함하여 이미 알고 있 / 는 내용을 재차 묻지 않도록 한다. / 이해관계자와 자주 만나서 신뢰 관계를 형성한다. / 요구사항 정의서의 항목 중 작성이 어려운 것은 비워 둔다. 비워진 항목은 추후 요구사 / 항 분석과 명세서 작성에서 기록한다. / 10</span></div><div class='doh'><b>1</b><span>요구사항 도출을 위한 정보를 수집한다.</span></div><ol class='dos'><li>요구사항 도출 시 필요한 정보를 정의한다.</li><li>요구사항 도출 시 필요한 정보를 수집한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>요구사항 도출을 위한 정보를 수집한다.</li><li>비즈니스 목적, 도메인 지식, 이해당사자, 비즈니스 규칙, 조직 환경 등 다양한 요구사항 도출을 위한 정보를 수집할 수 있다.</li><li>인터뷰, 시나리오 작성, 프로토타입 제작, 그룹 회의, 관찰, 사용자 스토리 작성 등 제시된 기법을 통해 애플리케이션의 요구사항을 도출할 수 있다.</li><li>요구사항 추출 내용을 관리하기 위해 요구사항의 출처와 요구 내용을 상세하게 기록할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st2">
-      <h3><i>2</i>요구사항의 정의</h3>
-      <aside class="side">
-        <p class="pt">요구사항 도출</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>요구사항이란 실세계(Real-world)의 문제를 해결하는 데 도움을 줄 제품이나 시스템에 부여되는 필요 사항 또는 제약 사항을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st3">
-      <h3><i>3</i>요구사항의 중요성</h3>
-      <aside class="side">
-        <p class="pt">요구사항 도출</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>요구사항은 소프트웨어의 개발 및 유지･보수의 단계에서 필요한 기준과 근거를 제공하 므로 요구사항이 제대로 정의되어야만 이후 단계의 목표와 계획을 수립할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st4">
-      <h3><i>4</i>요구사항의 유형</h3>
-      <aside class="side">
-        <p class="pt">요구사항 도출</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>사용자 요구사항(User Requirements)</li><li>시스템 요구사항(System Requirements)</li><li>기능 요구사항(Functional Requirements)</li><li>비기능 요구사항(Non-Functional Requirements)</li></ul>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st5">
-      <h3><i>5</i>사용자 요구사항(User Requirements)</h3>
-      <aside class="side">
-        <p class="pt">요구사항 도출</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>사용자 요구사항이란 시스템을 사용하는 주체인 사용자 관점으로 시스템이 제공할 것을 요구하는 서비스 사양과 제약 사항을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st6">
-      <h3><i>6</i>시스템 요구사항(System Requirements)</h3>
-      <aside class="side">
-        <p class="pt">요구사항 도출</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템 요구사항이란 전체 시스템이 만족시켜야 하는 요구사항을 의미한다. 시스템의 의미를 소프트웨어뿐만 아니라 하드웨어에 해당하는 컴퓨터를 모두 포함하는 개념으로 보면, 시스템의 요구사항이란 시스템 외부의 사용자와 주변 환경(타 시스템)에 제공해야 하는 서비스 요구사항을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st7">
-      <h3><i>7</i>기능 요구사항(Functional Requirements)</h3>
-      <aside class="side">
-        <p class="pt">요구사항 도출</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기능 요구사항이란 소프트웨어로 수행하고자 하는 기능에 관해 기술한 것으로, 목표 시 스템이 반드시 수행해야 하거나 목표 시스템을 이용하여 사용자가 반드시 수행할 수 있어야 하는 기능(동작)에 대해 기술한 것으로 문서의 서식을 맞춘다든지 이미지나 각종 신호를 처리하는 등 특정 목적에 따라 소프트웨어에 요구되는 기능을 서술한 것이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st8">
-      <h3><i>8</i>비기능 요구사항(Non-Functional Requirements)</h3>
-      <aside class="side">
-        <p class="pt">요구사항 도출</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>비기능 요구사항이란 SW 시스템이 기능 요구사항을 만족시키면서 정상적으로 작동하기 위한 시스템 내부 또는 외부의 제약 조건을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st9">
-      <h3><i>9</i>요구사항 도출을 위한 자료 수집</h3>
-      <aside class="side">
-        <p class="pt">요구사항 도출</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>요구사항 도출을 위한 자료의 원천은 컴퓨터 관련 특정 업무 서비스에 사용하는 애플리케이션 개발 자료와 일반적인 사용자들이 사용하는 범용 애플리케이션 개발 자료로 구분할 (Business Process Reengineering) 사업 시작 시 업무 절차를 분석하여 업무의 전반을 개선하는 결과 문서 사업 시작 초기에 (Information Strategy Planning) BPR 이후에 정보화</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st10">
-      <h3><i>10</i>요구사항 개발 및 도출</h3>
-      <aside class="side">
-        <p class="pt">요구사항 도출</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>요구사항의 개발 프로세스</li><li>요구사항 도출</li><li>요구사항 정리와 기록</li><li>자료 정리</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st11">
-      <h3><i>11</i>요구사항의 개발 프로세스</h3>
-      <aside class="side">
-        <p class="pt">요구사항 도출</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어공학 지식 체계(SWEBOK: Software Engineering Body of Knowledge) 의 요구사항 개발 프로세스는 요구사항의 도출(Elicitation), 분석(Analysis), 명세 (Specification), 확인(Validation)으로 구분하고 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st12">
-      <h3><i>12</i>요구사항 도출</h3>
-      <aside class="side">
-        <p class="pt">요구사항 도출</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="19">원문 6쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>요구사항 도출은 소프트웨어 시스템에 요구되는 기능 및 제약 사항을 수집해야 한다. 한국직업능력개발원. p.64. (가) 인터뷰 소프트웨어 개발에 참여하는 이해관계자들과의 직접적인 질문과 대화를 통해 정보를 추출하는 일반적인 요구사항 도출 방법이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st13">
-      <h3><i>13</i>요구사항 정리와 기록</h3>
-      <aside class="side">
-        <p class="pt">요구사항 도출</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="21">원문 8쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>자료 정리</li><li>요약 보고</li><li>정리된 자료의 접근 통제</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st14">
-      <h3><i>14</i>자료 정리</h3>
-      <aside class="side">
-        <p class="pt">요구사항 도출</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="21">원문 8쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>요구사항 관련 자료 수집과 도출 활동이 완료된 후 최종 자료에 대해 정리한다. 이때, ISO/IEC 25010의 기능적 적합성, 사용성, 보안성 등을 기준으로 요구사항을 재분류하 거나 태깅할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st15">
-      <h3><i>15</i>요약 보고</h3>
-      <aside class="side">
-        <p class="pt">요구사항 도출</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="21">원문 8쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>정리된 자료에 대해서는 요약 보고서를 작성하여 요약 보고를 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st16">
-      <h3><i>16</i>정리된 자료의 접근 통제</h3>
-      <aside class="side">
-        <p class="pt">요구사항 도출</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="21">원문 8쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>요구사항에 관련된 자료는 조직 내에서 매우 중요하게 관리해야 하며, 해당 자료에 대해 권한 그룹을 생성하고, 문서･정보의 보안이 이루어질 수 있도록 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 3쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -496,288 +123,34 @@
 <div class="lv">
   <div class="lvh"><b>2. 요구사항 분석하기</b><span>능력단위요소 · <code>2001020219_23v6.2</code></span></div>
   <div class="lvb">
-    <div class="step" id="st17">
-      <h3><i>17</i>기능 요구사항 분석 기법</h3>
+    <div class="step" id="st2">
+      <h3><i>2</i>2-1. 요구사항 분석</h3>
       <aside class="side">
-        <p class="pt">요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
+        <p class="pt">요구사항 분석과 협상을 위해 도출한 요구사항을 기능적 요구사항과 비기능적 요구사항으로 분류할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">요구사항 분석하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="46">원문 33쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 11항목 · 실습 21절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>기능 분할</li><li>유스케이스와 사용자 스토리</li><li>유스케이스 접근법</li><li>개념 모델링(Conceptual Modeling)</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>요구사항 분석과 협상을 위해 도출한 요구사항을 기능적 요구사항과 비기능적 요구사항으로 분류할 수 있다.</li><li>도출한 요구사항의 내용을 분석하여 구현을 위한 우선순위를 결정할 수 있다.</li><li>도출한 요구사항이 개발하고자 하는 애플리케이션 전체 또는 단위 컴포넌트에 영향이 있는지를 분석하여 요구사항의 적용 범위를 확인할 수 있다.</li><li>요구사항 분석 결과를 토대로 사용자와 협상을 통해 요구사항, 우선순위, 영향 범위 등을 확정 할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>기능 분할</dt><dd><blockquote>시스템 관점에서 외부에 제공해야 하는 서비스(기능)를 유형별로 최하위 단위 구성 요소에 도달할 때까지 분할해 가는 방식으로 분석하는 방법이다.</blockquote></dd><dt>유스케이스와 사용자 스토리</dt><dd><blockquote>유스케이스(Use Case)란 시스템 경계 밖에 위치한 액터가 특정 목적을 달성하기 위해 시스템이 제공하는 기능을 이용하여 시스템과 일련의 상호작용을 주고받는 시나리오로 나타낸 것이다.</blockquote></dd><dt>유스케이스 접근법</dt><dd><blockquote>UML의 근간이 되는 주요 기법의 하나로, 유스케이스 다이어그램은 시스템에 대한 이해관계자인 액터(Actor)와 상호작용을 나타내는 유스케이스(Use Case) 간의 관계와 구조를 가장 개괄적으로 보여 주는 도표이다.</blockquote></dd><dt>개념 모델링(Conceptual Modeling)</dt><dd><blockquote>실세계 문제에 대한 모델링이 소프트웨어 요구사항 분석의 핵심이며, 모델은 문제가 발생하는 상황에 대한 이해를 증진시키고 해결책을 설명한다.</blockquote></dd><dt>요구사항 분류</dt><dd><blockquote>요구사항 분석과 협상을 위해 도출된 각각의 요구사항을 좀 더 풍부하고 상세하게 이해하고, 이를 여러 가지 방법으로 표현함으로써 요구사항을 분류하고 조직화하여 명세를 구체 화해 나가는 것이다.</blockquote></dd><dt>요구사항 우선순위 할당</dt><dd><blockquote>고객의 기대치가 높고 일정이 짧은 경우, 제품이 가장 중요하거나 가치 있는 기능을 가능 한 한 빨리 제공할 수 있는지 확인해야 한다.</blockquote></dd><dt>우선순위 할당</dt><dd><blockquote>우선순위 할당 요청 시 고객의 반응은 “모든 기능이 필요하다. 그냥 모두 다 해 주세 요.”이다. 우선순위가 프로젝트 수행에 반드시 필요하지만 우선순위를 줄이기는 매우 어렵다.</blockquote></dd><dt>우선순위 할당 기법</dt><dd><blockquote>모든 우선순위 할당 방법 중 가장 간단한 것은 요구사항목록 작업을 수행할 이해관 계자 그룹을 확보하고, 요구사항 각각에 대해 할지, 하지 말지 양자택일을 하는 것 사람들은 종종 각 요구사항에 고유한 우선순위 번호를 할당하려고 한다.</blockquote></dd><dt>가치와 비용, 위험에 따른 우선순위</dt><dd><blockquote>이해관계자가 상대적으로 비정형 기법으로 할당된 요구사항 우선순위에 동의하지 않는 경우 분석적인 방법을 사용하는 것이 유용하다.</blockquote></dd><dt>요구사항 협상(Requirement Negotiation)</dt><dd><blockquote>이해관계자가 서로 상충되는 내용을 요구하거나 또는 기능과 비기능 요구사항들이 서로 상충되는 경우, 어느 한쪽을 지지하기보다는 적절한 균형(trade-off) 지점에서 합의가 중요하다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>기능 요구사항 분석 기법</dd></dl>
+
+<h4>해 보기</h4>
+<h5>요구사항 분석하기</h5><div class='prep'><b>재료·자료</b><span>요구사항 도출 자료 / 요구사항 정의서</span><b>기기·도구</b><span>컴퓨터, 문서 작성 도구, 빔 프로젝터</span><b>유의 사항</b><span>요구사항 분석 주관자는 대상 업무에 대한 지식을 빠르고 효과적으로 습득하고, 프로젝 / 트 관련 산출물에 대해서도 이해해야 한다. / 요구사항 분석 주관자는 관련 도메인에 대한 경험과 지식을 보유하고 있어야 하며, 요 / 구사항 분석 계획서 준비를 철저히 해야 한다. / 기능 및 비기능의 요구 분석에 대한 차이점을 이해하는 것이 매우 중요하다. / 이해관계자와 자주 만나서 신뢰 관계를 형성한다.</span></div><div class='doh'><b>1</b><span>기능 요구사항을 분석한다.</span></div><ol class='dos'><li>유스케이스를 도출한다.</li><li>요구사항을 정제한다.</li></ol><div class='doh'><b>2</b><span>기능 요구사항과 비기능 요구사항을 분류한다.</span></div><ol class='dos'><li>기능 요구사항에 관련된 내용을 정리하고 분류한다.</li><li>비기능 요구사항에 관련된 내용을 정리하고 분류한다.</li><li>요구사항 작성 시 유의 사항을 파악한다.</li><li>요구사항을 분류하고 식별자(ID: Identifier)를 부여한다.</li></ol><div class='doh'><b>3</b><span>우선순위를 할당한다.</span></div><ol class='dos'><li>우선순위 결정 과정의 참가자를 선정한다.</li><li>가치와 비용, 위험에 따른 우선순위를 부여한다.</li><li>요구사항 우선순위 평가 템플릿을 작성한다.</li><li>전기 안전 규제 자료 인쇄</li><li>판매 업체 주문 상태 조회</li><li>컴퓨터 부품 재고 보고서 생성</li></ol><div class='doh'><b>4</b><span>비기능 요구사항을 분석한다.</span></div><ol class='dos'><li>비기능 요구사항목록을 1차 정제한다.</li><li>우선순위를 부여한다.</li><li>특정 부품 이력 보기</li><li>특정 부품에 대한 판매 업체 카탈로그 검색</li><li>위험 전기 규제품 목록 관리</li><li>보류 중인 규제 부품 요청 변경</li><li>실험실 재고 보고서 생성</li><li>규제 부품 교육 기록 데이터베이스 확인</li><li>긴급 부품 수배 도구에서 불러오기 합계 (2) 매트릭스의 대각선 상단 행렬(Upper Triangular Matrix)의 각 항목은 해당 행과 열의 비기능 요구사항의 상대적 중요도를 평가하여 표시한다. 만약 행(Row)의 요구사항이 더중요하면 ‘˂’로, 열(Column)의 요구사항이 더 중요하면 ‘˄’로 표시한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>기능 요구사항을 분석한다.</li><li>기능 요구사항과 비기능 요구사항을 분류한다.</li><li>우선순위를 할당한다.</li><li>비기능 요구사항을 분석한다.</li><li>요구사항 분석과 협상을 위해 도출한 요구사항을 기능적 요구사항과 비기능적 요구사항으로 분류할 수 있다.</li><li>도출한 요구사항의 내용을 분석하여 구현을 위한 우선순위를 결정할 수 있다.</li><li>도출한 요구사항이 개발하고자 하는 애플리케이션 전체 또는 단위 컴포넌트에 영향이 있는지를 분석하여 요구사항의 적용 범위를 확인할 수 있다.</li><li>요구사항 분석 결과를 토대로 사용자와 협상을 통해 요구사항, 우선순위, 영향 범위 등을 확정 할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st18">
-      <h3><i>18</i>기능 분할</h3>
-      <aside class="side">
-        <p class="pt">요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="46">원문 33쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템 관점에서 외부에 제공해야 하는 서비스(기능)를 유형별로 최하위 단위 구성 요소에 도달할 때까지 분할해 가는 방식으로 분석하는 방법이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st19">
-      <h3><i>19</i>유스케이스와 사용자 스토리</h3>
-      <aside class="side">
-        <p class="pt">요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="46">원문 33쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>유스케이스(Use Case)란 시스템 경계 밖에 위치한 액터가 특정 목적을 달성하기 위해 시스템이 제공하는 기능을 이용하여 시스템과 일련의 상호작용을 주고받는 시나리오로 나타낸 것이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st20">
-      <h3><i>20</i>유스케이스 접근법</h3>
-      <aside class="side">
-        <p class="pt">요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="47">원문 34쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>UML의 근간이 되는 주요 기법의 하나로, 유스케이스 다이어그램은 시스템에 대한 이해관계자인 액터(Actor)와 상호작용을 나타내는 유스케이스(Use Case) 간의 관계와 구조를 가장 개괄적으로 보여 주는 도표이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st21">
-      <h3><i>21</i>개념 모델링(Conceptual Modeling)</h3>
-      <aside class="side">
-        <p class="pt">요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="48">원문 35쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>실세계 문제에 대한 모델링이 소프트웨어 요구사항 분석의 핵심이며, 모델은 문제가 발생하는 상황에 대한 이해를 증진시키고 해결책을 설명한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st22">
-      <h3><i>22</i>요구사항 분류</h3>
-      <aside class="side">
-        <p class="pt">요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="49">원문 36쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>요구사항 분석과 협상을 위해 도출된 각각의 요구사항을 좀 더 풍부하고 상세하게 이해하고, 이를 여러 가지 방법으로 표현함으로써 요구사항을 분류하고 조직화하여 명세를 구체 화해 나가는 것이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st23">
-      <h3><i>23</i>요구사항 우선순위 할당</h3>
-      <aside class="side">
-        <p class="pt">요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="49">원문 36쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>고객의 기대치가 높고 일정이 짧은 경우, 제품이 가장 중요하거나 가치 있는 기능을 가능 한 한 빨리 제공할 수 있는지 확인해야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st24">
-      <h3><i>24</i>우선순위 할당</h3>
-      <aside class="side">
-        <p class="pt">요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="49">원문 36쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>우선순위 할당 요청 시 고객의 반응은 “모든 기능이 필요하다. 그냥 모두 다 해 주세 요.”이다. 우선순위가 프로젝트 수행에 반드시 필요하지만 우선순위를 줄이기는 매우 어렵다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st25">
-      <h3><i>25</i>우선순위 할당 기법</h3>
-      <aside class="side">
-        <p class="pt">요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="49">원문 36쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>모든 우선순위 할당 방법 중 가장 간단한 것은 요구사항목록 작업을 수행할 이해관 계자 그룹을 확보하고, 요구사항 각각에 대해 할지, 하지 말지 양자택일을 하는 것 사람들은 종종 각 요구사항에 고유한 우선순위 번호를 할당하려고 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st26">
-      <h3><i>26</i>가치와 비용, 위험에 따른 우선순위</h3>
-      <aside class="side">
-        <p class="pt">요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="50">원문 37쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>이해관계자가 상대적으로 비정형 기법으로 할당된 요구사항 우선순위에 동의하지 않는 경우 분석적인 방법을 사용하는 것이 유용하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st27">
-      <h3><i>27</i>요구사항 협상(Requirement Negotiation)</h3>
-      <aside class="side">
-        <p class="pt">요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="50">원문 37쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>이해관계자가 서로 상충되는 내용을 요구하거나 또는 기능과 비기능 요구사항들이 서로 상충되는 경우, 어느 한쪽을 지지하기보다는 적절한 균형(trade-off) 지점에서 합의가 중요하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 33쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -786,548 +159,34 @@
 <div class="lv">
   <div class="lvh"><b>3. 요구사항 명세화하기</b><span>능력단위요소 · <code>2001020219_23v6.3</code></span></div>
   <div class="lvb">
-    <div class="step" id="st28">
-      <h3><i>28</i>요구사항 문서화</h3>
+    <div class="step" id="st3">
+      <h3><i>3</i>3-1. 요구사항 명세</h3>
       <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">요구사항 명세화하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="70">원문 57쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 21항목 · 실습 21절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>요구사항 개발의 결과는 개발해야 하는 프로젝트에 대한 이해관계자 간의 문서화로 나타나며, 비전 범위 문서와 사용자 요구사항 문서, 소프트웨어 요구사항명세서로 구분할 수 있다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</li><li>구현하고자 하는 애플리케이션이 구동되는 시스템이나 하드웨어 관련 내용을 구체화하여 시스 템 요구사항 문서를 작성할 수 있다.</li><li>구현하고자 하는 애플리케이션에 대해 설명, 검증 및 테스트, 계약을 위해 사용자 요구사항 정의서와 시스템 요구사항 문서를 토대로 요구사항을 구체화하여 소프트웨어 요구사항명세서 (SRS, Software Requirement Specification)를 작성할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>요구사항 문서화</dt><dd><blockquote>요구사항 개발의 결과는 개발해야 하는 프로젝트에 대한 이해관계자 간의 문서화로 나타나며, 비전 범위 문서와 사용자 요구사항 문서, 소프트웨어 요구사항명세서로 구분할 수 있다.</blockquote></dd><dt>비즈니스 요구사항 문서화</dt><dd><blockquote>재무, 시장, 고객이나 개발 조직이 제품에서 얻고자 하는 비즈니스 혜택을 포함해야 한다. 예를 들면 “중부 지역의 시장 점유율을 6개월 안에 10% 향상시킨다.”, “전기료를 1년 내에 15% 절감한다.” 등으로 나타낸다.</blockquote></dd><dt>비즈니스 규칙 문서화</dt><dd><blockquote>고객이 특정 조건하에서 특정 사용자만 어떤 활동을 수행해야 한다고 말하는 것이다. 예를 들면 “반드시 준수해야 하는 ~ ”, “만약 어떤 조건이 참(true)이라면 어떤 일이 발생한다.”, “신규 고객은 컨설팅 비용과 경비의 20%를 사전에 지불해야 한다.”, “휴가 승인은 사내 인사 관련 휴가 정책을 준수해야 한다.” 등으로 나타낸다.</blockquote></dd><dt>사용자 요구사항 문서화</dt><dd><blockquote>사용자가 수행해야 하는 업무를 표현한 일반적인 문장으로, 일반적으로 유스케이스, 시 나리오, 사용자 스토리로 표현된다.</blockquote></dd><dt>기능적 요구사항 문서화</dt><dd><blockquote>기능적 요구사항은 특정 조건하에서 시스템이 보여 주거나 사용자가 시스템을 사용할 수 있게 하는 행동을 식별할 수 있는 행위이다.</blockquote></dd><dt>품질 속성 문서화</dt><dd><blockquote>시스템이 무엇을 얼마나 잘 제공하느냐에 대한 설명으로 빠르게, 쉽게, 신뢰할 수 있는 등의 특성을 설명하는 단어를 사용한다.</blockquote></dd><dt>외부 인터페이스 문서화</dt><dd><blockquote>시스템과 시스템을 제외한 모든 것의 연결로서 “∼로부터 신호를 읽어야 한다.”, “포맷의 파일을 읽을 수 있어야 한다.” 등이며, 예를 들면 “주문 실행 시스템은 상품 목록과 연계해야 합니다.”, “모바일 앱은 A가 입금하는 수표를 촬영하고 그 이미지를 은행 전 송과 연계해야 합니다.” 등으로 나타낸다.</blockquote></dd><dt>제약 조건 문서화</dt><dd><blockquote>개발자가 실행할 수 있는 정당한 방법으로 제한해야 한다. “특정 프로그래밍 언어로 작성해야 한다.” 등으로, 예를 들면 “컴퓨터를 통한 파일 전송은 그 크기가 5기가바이트 (GB)를 초과할 수 없다.”, “브라우저는 모든 보안 처리에 64비트(bit) 암호화를 사용해야 한다.” 등으로 나타낸다.</blockquote></dd><dt>데이터 요구사항 문서화</dt><dd><blockquote>데이터 요소에 대한 포맷 타입, 허용된 값, 기본값 또는 복잡한 비즈니스 요구사항의 보고서 출력 등을 나타낼 때 데이터 요구사항도 포함해야 한다.</blockquote></dd><dt>솔루션(solution) 아이디어 문서화</dt><dd><blockquote>사용자로부터 얻는 대부분의 요구사항은 실제로 솔루션 아이디어이다. 누군가가 어떤 행동을 수행하기 위해 시스템과 상호작용 하는 방법을 설명한다면 솔루션을 제안한다고 볼 수 있다.</blockquote></dd><dt>소프트웨어 요구사항명세서 정의</dt><dd><blockquote>소프트웨어 요구사항명세서는 다양한 이름으로 불리는 경우가 많다. 이를 비즈니스 요구 문서(BRD: Business Requirements Document)나 기능 명세서, 제품 명세서, 시 스템 명세서, 아니면 단순히 요구사항 문서라 부르기도 한다.</blockquote></dd><dt>요구사항 명명하기</dt><dd><blockquote>모든 요구사항은 유일하고 영구적인 식별자가 필요하다. 가장 간단한 방법은 모든 요구사항에 UC(Use Case)-9이나 FR-26과 같은 고유한 일련번호를 부여하는 것이다.</blockquote></dd><dt>불완전한 요구사항 다루기</dt><dd><blockquote>때로는 특정 요구사항에 대한 정보가 누락된 것을 알고 있을 것이다. 이러한 격차를 표시하기 위해 TBD(To Be Determined) 표기법을 사용한다.</blockquote></dd><dt>사용자 인터페이스와 SRS</dt><dd><blockquote>사용자 인터페이스 디자인을 SRS에 통합하는 것은 장단점을 모두 갖고 있다. 장점으로는 가용 사용자 인터페이스 탐색, 시뮬레이션 도구 등을 통해 요구사항을 현실화한다는 것이다.</blockquote></dd><dt>소프트웨어 요구사항명세서 템플릿</dt><dd><blockquote>모든 소프트웨어의 개발은 프로젝트에 대해 표준 SRS 템플릿을 도입해야 한다. SRS 템플 릿은 여러 종류가 있는데, 프로젝트 유형에 맞는 템플릿을 도입하는 것이 좋다.</blockquote></dd><dt>전반적인 설명</dt><dd><blockquote>2.1 제품 관점 2.2 사용자 클래스 및 특징 2.3 운영환경 2.4 설계 및 구현 제약 조건 2.5 가정 및 의존성</blockquote></dd><dt>시스템 기능</dt><dd><blockquote>3.1 시스템 기능 3.1.1 설명 3.1.2 기능적 요구사항</blockquote></dd><dt>데이터 요구사항</dt><dd><blockquote>4.1 논리 데이터 모델 4.2 데이터 사전 4.3 보고서 4.4 데이터 수집, 무결성, 보존 및 폐기</blockquote></dd><dt>외부 인터페이스 요구사항</dt><dd><blockquote>5.1 사용자 인터페이스 5.2 소프트웨어 인터페이스 5.3 하드웨어 인터페이스 5.4 통신 인터페이스</blockquote></dd><dt>품질 속성</dt><dd><blockquote>6.1 사용성 / 요구사항 명세하기 기기(장비･공구) 안전･유의 사항 젝트 관련 산출물에 대해서도 이해해야 한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>소프트웨어 요구사항명세서</dd></dl>
+
+<h4>해 보기</h4>
+<h5>요구사항 명세하기</h5><div class='prep'><b>재료·자료</b><span>요구사항 분석 자료 / 요구사항 모델링 자료 / 요구사항 우선순위 할당 자료</span><b>기기·도구</b><span>컴퓨터, 문서 작성 도구, 빔 프로젝터</span><b>유의 사항</b><span>요구사항 문서화 주관자는 대상 업무에 대한 지식을 빠르게 효과적으로 습득하고 프로 / 젝트 관련 산출물에 대해서도 이해해야 한다. / 요구사항 문서화 주관자는 관련 도메인에 대한 경험과 지식을 보유하고 있어야 하며, / 요구사항 문서화 준비를 철저히 해야 한다. / 기능과 비기능의 요구사항에 대한 특성을 이해하는 것이 매우 중요하다. / 요구사항명세서의 절차에 대해 이해하는 것이 매우 중요하다. / 이해관계자와 자주 만나서 신뢰 관계를 형성한다. / 6.2 성능 / 6.3 보안 / 6.4 안전 / 6.5 기타 / 7. 국제화 및 현지화 요구 / 8. 기타 요구사항 / 부록 A: 용어 사전 / 부록 B: 분석 모델 / 63</span></div><div class='doh'><b>1</b><span>비전 범위 문서를 작성한다.</span></div><ol class='dos'><li>비즈니스 요구사항을 작성한다.</li><li>범위 및 한계를 작성한다.</li><li>비즈니스 콘텍스트(context)를 작성한다.</li></ol><div class='doh'><b>2</b><span>소프트웨어 요구사항명세서를 작성한다.</span></div><ol class='dos'><li>소개를 작성한다.</li><li>전반적인 설명을 작성한다.</li><li>시스템 기능을 작성한다.</li><li>포인트 결제, 포인트 등록이 실행된다.</li><li>사진을 촬영한다.</li><li>아이디를 확인 후 등록을 누른다.</li><li>영상 정보와 DB에 있는 저장된 얼굴 정보와 비교한 후 맞는 아이디 데이터를 보내 준다(최대 3개).</li><li>아이디에 쿠폰을 등록한다.</li><li>전화번호를 통해 등록한다.</li><li>차후 사업자 앱(App)을 통해 등록한다.</li><li>기본 흐름 3, 5를 실행한다.</li><li>차후 앱(App)을 통해 등록한다.</li><li>데이터 요구사항을 작성한다.</li><li>외부 인터페이스 요구사항을 작성한다.</li><li>품질 속성을 작성한다.</li><li>국제화 및 현지화 요구사항을 작성한다.</li><li>기타 요구사항을 작성한다.</li><li>용어 사전을 작성한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>비전 범위 문서를 작성한다.</li><li>소프트웨어 요구사항명세서를 작성한다.</li><li>애플리케이션 사용자 또는 활용 분야의 관점에서 요구사항을 분석한 결과를 정리한 상위 수준의 사용자 요구사항 정의서를 작성할 수 있다.</li><li>구현하고자 하는 애플리케이션이 구동되는 시스템이나 하드웨어 관련 내용을 구체화하여 시스 템 요구사항 문서를 작성할 수 있다.</li><li>구현하고자 하는 애플리케이션에 대해 설명, 검증 및 테스트, 계약을 위해 사용자 요구사항 정의서와 시스템 요구사항 문서를 토대로 요구사항을 구체화하여 소프트웨어 요구사항명세서 (SRS, Software Requirement Specification)를 작성할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st29">
-      <h3><i>29</i>비즈니스 요구사항 문서화</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="71">원문 58쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>재무, 시장, 고객이나 개발 조직이 제품에서 얻고자 하는 비즈니스 혜택을 포함해야 한다. 예를 들면 “중부 지역의 시장 점유율을 6개월 안에 10% 향상시킨다.”, “전기료를 1년 내에 15% 절감한다.” 등으로 나타낸다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st30">
-      <h3><i>30</i>비즈니스 규칙 문서화</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="71">원문 58쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>고객이 특정 조건하에서 특정 사용자만 어떤 활동을 수행해야 한다고 말하는 것이다. 예를 들면 “반드시 준수해야 하는 ~ ”, “만약 어떤 조건이 참(true)이라면 어떤 일이 발생한다.”, “신규 고객은 컨설팅 비용과 경비의 20%를 사전에 지불해야 한다.”, “휴가 승인은 사내 인사 관련 휴가 정책을 준수해야 한다.” 등으로 나타낸다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st31">
-      <h3><i>31</i>사용자 요구사항 문서화</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="71">원문 58쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>사용자가 수행해야 하는 업무를 표현한 일반적인 문장으로, 일반적으로 유스케이스, 시 나리오, 사용자 스토리로 표현된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st32">
-      <h3><i>32</i>기능적 요구사항 문서화</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="71">원문 58쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기능적 요구사항은 특정 조건하에서 시스템이 보여 주거나 사용자가 시스템을 사용할 수 있게 하는 행동을 식별할 수 있는 행위이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st33">
-      <h3><i>33</i>품질 속성 문서화</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="71">원문 58쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템이 무엇을 얼마나 잘 제공하느냐에 대한 설명으로 빠르게, 쉽게, 신뢰할 수 있는 등의 특성을 설명하는 단어를 사용한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st34">
-      <h3><i>34</i>외부 인터페이스 문서화</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="71">원문 58쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템과 시스템을 제외한 모든 것의 연결로서 “∼로부터 신호를 읽어야 한다.”, “포맷의 파일을 읽을 수 있어야 한다.” 등이며, 예를 들면 “주문 실행 시스템은 상품 목록과 연계해야 합니다.”, “모바일 앱은 A가 입금하는 수표를 촬영하고 그 이미지를 은행 전 송과 연계해야 합니다.” 등으로 나타낸다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st35">
-      <h3><i>35</i>제약 조건 문서화</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="71">원문 58쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발자가 실행할 수 있는 정당한 방법으로 제한해야 한다. “특정 프로그래밍 언어로 작성해야 한다.” 등으로, 예를 들면 “컴퓨터를 통한 파일 전송은 그 크기가 5기가바이트 (GB)를 초과할 수 없다.”, “브라우저는 모든 보안 처리에 64비트(bit) 암호화를 사용해야 한다.” 등으로 나타낸다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st36">
-      <h3><i>36</i>데이터 요구사항 문서화</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="72">원문 59쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>데이터 요소에 대한 포맷 타입, 허용된 값, 기본값 또는 복잡한 비즈니스 요구사항의 보고서 출력 등을 나타낼 때 데이터 요구사항도 포함해야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st37">
-      <h3><i>37</i>솔루션(solution) 아이디어 문서화</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="72">원문 59쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>사용자로부터 얻는 대부분의 요구사항은 실제로 솔루션 아이디어이다. 누군가가 어떤 행동을 수행하기 위해 시스템과 상호작용 하는 방법을 설명한다면 솔루션을 제안한다고 볼 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st38">
-      <h3><i>38</i>소프트웨어 요구사항명세서</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="72">원문 59쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>소프트웨어 요구사항명세서 정의</li><li>요구사항 명명하기</li><li>불완전한 요구사항 다루기</li><li>사용자 인터페이스와 SRS</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st39">
-      <h3><i>39</i>소프트웨어 요구사항명세서 정의</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="72">원문 59쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 요구사항명세서는 다양한 이름으로 불리는 경우가 많다. 이를 비즈니스 요구 문서(BRD: Business Requirements Document)나 기능 명세서, 제품 명세서, 시 스템 명세서, 아니면 단순히 요구사항 문서라 부르기도 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st40">
-      <h3><i>40</i>요구사항 명명하기</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="73">원문 60쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>모든 요구사항은 유일하고 영구적인 식별자가 필요하다. 가장 간단한 방법은 모든 요구사항에 UC(Use Case)-9이나 FR-26과 같은 고유한 일련번호를 부여하는 것이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st41">
-      <h3><i>41</i>불완전한 요구사항 다루기</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="74">원문 61쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>때로는 특정 요구사항에 대한 정보가 누락된 것을 알고 있을 것이다. 이러한 격차를 표시하기 위해 TBD(To Be Determined) 표기법을 사용한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st42">
-      <h3><i>42</i>사용자 인터페이스와 SRS</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="74">원문 61쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>사용자 인터페이스 디자인을 SRS에 통합하는 것은 장단점을 모두 갖고 있다. 장점으로는 가용 사용자 인터페이스 탐색, 시뮬레이션 도구 등을 통해 요구사항을 현실화한다는 것이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st43">
-      <h3><i>43</i>소프트웨어 요구사항명세서 템플릿</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="74">원문 61쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>모든 소프트웨어의 개발은 프로젝트에 대해 표준 SRS 템플릿을 도입해야 한다. SRS 템플 릿은 여러 종류가 있는데, 프로젝트 유형에 맞는 템플릿을 도입하는 것이 좋다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st44">
-      <h3><i>44</i>전반적인 설명</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="74">원문 61쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>2.1 제품 관점 2.2 사용자 클래스 및 특징 2.3 운영환경 2.4 설계 및 구현 제약 조건 2.5 가정 및 의존성</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st45">
-      <h3><i>45</i>시스템 기능</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="74">원문 61쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>3.1 시스템 기능 3.1.1 설명 3.1.2 기능적 요구사항</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st46">
-      <h3><i>46</i>데이터 요구사항</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="74">원문 61쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>4.1 논리 데이터 모델 4.2 데이터 사전 4.3 보고서 4.4 데이터 수집, 무결성, 보존 및 폐기</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st47">
-      <h3><i>47</i>외부 인터페이스 요구사항</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="74">원문 61쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>5.1 사용자 인터페이스 5.2 소프트웨어 인터페이스 5.3 하드웨어 인터페이스 5.4 통신 인터페이스</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st48">
-      <h3><i>48</i>품질 속성</h3>
-      <aside class="side">
-        <p class="pt">요구사항 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="74">원문 61쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>6.1 사용성 / 요구사항 명세하기 기기(장비･공구) 안전･유의 사항 젝트 관련 산출물에 대해서도 이해해야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 57쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -1336,195 +195,45 @@
 <div class="lv">
   <div class="lvh"><b>4. 요구사항 검증하기</b><span>능력단위요소 · <code>2001020219_23v6.4</code></span></div>
   <div class="lvb">
-    <div class="step" id="st49">
-      <h3><i>49</i>소프트웨어 요구사항 검증</h3>
+    <div class="step" id="st4">
+      <h3><i>4</i>4-1. 요구사항 검증</h3>
       <aside class="side">
-        <p class="pt">요구사항 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">소프트웨어 요구사항명세서가 문서 표준을 준수하여 사용자가 이해 가능한 내용으로 일관성 있고, 완성도 있게 작성되었는지를 검증할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">요구사항 검증하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="99">원문 86쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 7항목 · 실습 3절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>SW 요구사항 검증</li><li>SW 요구사항 검증(Verification)과 확인(Validation)의 차이</li><li>SW 요구사항 검증 범위</li><li>SW 요구사항 검증 기준</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>소프트웨어 요구사항명세서가 문서 표준을 준수하여 사용자가 이해 가능한 내용으로 일관성 있고, 완성도 있게 작성되었는지를 검증할 수 있다.</li><li>작성한 요구사항명세서의 오류, 잘못된 가정, 불명확한 설명, 비표준적인 내용 등이 있는지 확인을 위해 조사(Inspection) 혹은 검토(Review)를 실시할 수 있다.</li><li>기술 환경, 구현 가능성, 안정성 등을 고려하여 요구된 도출 사항들을 검증할 수 있다.</li><li>분석 단계의 개념 모델링 결과물이 있을 경우 표기법, 모델 원칙 준수 여부 판단 등을 통해 모델을 검증할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>SW 요구사항 검증</dt><dd><blockquote>SW 요구사항 검증이란 SW 개발의 기준선(Baseline)이 되는 요구사항명세서가 올바르 게 작성되었는지 점검하는 것을 의미한다.</blockquote></dd><dt>SW 요구사항 검증(Verification)과 확인(Validation)의 차이</dt><dd><blockquote>SW 제품을 만드는 각 공정의 중간 산출물의 품질을 지속적으로 점검하는 두 가지 점 검 방식은 크게 검증(Verification)과 확인(Validation)으로 나뉜다.</blockquote></dd><dt>SW 요구사항 검증 범위</dt><dd><blockquote>SW 요구사항 검증은 요구사항명세서가 미리 정해진 산출물 작성 품질 기준에 부합하도록 올바르게 작성되었는지 점검하는 것이다.</blockquote></dd><dt>SW 요구사항 검증 기준</dt><dd><blockquote>요구사항명세서를 검증하기 위한 품질 기준을 의미하며, 이해관계자의 기대와 품질 표준을 만족시킬 수 있도록 요구사항을 올바르게 기술하였는지를 검증하기 위해서는 이해 관계자들이 합의한 객관적인 검증 기준이 필요하다.</blockquote></dd><dt>요구사항 검증 기법</dt><dd><blockquote>동료 검토(Peer Review)는 산출물 작성자와 이해관계자가 참여하여 요구사항명세서에서 결함을 찾는 것으로, 명문화된 산출물 표준을 준수하여 기록하였는지, 검토자가 요구사항 내용을 동일하게 이해할 수 있도록 쉽고 명확하게, 그리고 일관성 있게 작성하였는지 등을 점검한다.</blockquote></dd><dt>ISO/IEC 25010 – 시스템 및 SW 품질 요구사항 및 평가 모델</dt><dd><blockquote>ISO/IEC 25010은 SW 품질 평가를 위해 광범위한 기준을 제공하는 품질 요구사항 및 평가 모델로서, SW 제품의 품질을 평가할 때 어떤 특성이 고려되어야 한는지를 결정하는 데 도움을 준다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>소프트웨어 요구사항 검증</dd></dl>
+
+<h4>해 보기</h4>
+<h5>요구사항 검증하기</h5><div class='prep'><b>재료·자료</b><span>프로젝트 비전문서 / 요구사항명세서</span><b>기기·도구</b><span>개인용 컴퓨터, 빔 프로젝터 / 웹 브라우저 / 문서 작성용 소프트웨어, 문서 조회용 소프트웨어(PDF 조회 등)</span><b>유의 사항</b><span>요구사항 검증 주관자는 대상 업무에 대한 지식을 빠르게 효과적으로 습득하고. 프로젝 / 트 관련 산출물에 대해서도 이해해야 한다. / 요구사항 검증 주관자는 관련 도메인에 대한 경험과 지식을 보유하고 있어야 하며, 요 / 구사항 검증 준비를 철저히 해야 한다. / 비전 문서 작성 절차와 항목에 대해 이해하는 것이 매우 중요하다. / 요구사항명세서 작성 절차와 항목에 대해 이해하는 것이 매우 중요하다. / 이해관계자와 자주 만나서 신뢰 관계를 형성한다.</span></div><div class='doh'><b>1</b><span>애플리케이션 SW 요구사항 검증 기준을 수립한다.</span></div><ol class='dos'><li>SW 요구사항 검증을 위한 품질 특성을 정의한다.</li><li>SW 요구사항 명세 품질 평가 항목을 정의한다.</li><li>SW 요구사항 명세 품질 평가표를 작성(선택적 수행)한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>애플리케이션 SW 요구사항 검증 기준을 수립한다.</li><li>소프트웨어 요구사항명세서가 문서 표준을 준수하여 사용자가 이해 가능한 내용으로 일관성 있고, 완성도 있게 작성되었는지를 검증할 수 있다.</li><li>작성한 요구사항명세서의 오류, 잘못된 가정, 불명확한 설명, 비표준적인 내용 등이 있는지 확인을 위해 조사(Inspection) 혹은 검토(Review)를 실시할 수 있다.</li><li>기술 환경, 구현 가능성, 안정성 등을 고려하여 요구된 도출 사항들을 검증할 수 있다.</li><li>분석 단계의 개념 모델링 결과물이 있을 경우 표기법, 모델 원칙 준수 여부 판단 등을 통해 모델을 검증할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st50">
-      <h3><i>50</i>SW 요구사항 검증</h3>
-      <aside class="side">
-        <p class="pt">요구사항 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="99">원문 86쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>SW 요구사항 검증이란 SW 개발의 기준선(Baseline)이 되는 요구사항명세서가 올바르 게 작성되었는지 점검하는 것을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st51">
-      <h3><i>51</i>SW 요구사항 검증(Verification)과 확인(Validation)의 차이</h3>
-      <aside class="side">
-        <p class="pt">요구사항 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="99">원문 86쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>SW 제품을 만드는 각 공정의 중간 산출물의 품질을 지속적으로 점검하는 두 가지 점 검 방식은 크게 검증(Verification)과 확인(Validation)으로 나뉜다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st52">
-      <h3><i>52</i>SW 요구사항 검증 범위</h3>
-      <aside class="side">
-        <p class="pt">요구사항 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="100">원문 87쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>SW 요구사항 검증은 요구사항명세서가 미리 정해진 산출물 작성 품질 기준에 부합하도록 올바르게 작성되었는지 점검하는 것이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st53">
-      <h3><i>53</i>SW 요구사항 검증 기준</h3>
-      <aside class="side">
-        <p class="pt">요구사항 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="100">원문 87쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>요구사항명세서를 검증하기 위한 품질 기준을 의미하며, 이해관계자의 기대와 품질 표준을 만족시킬 수 있도록 요구사항을 올바르게 기술하였는지를 검증하기 위해서는 이해 관계자들이 합의한 객관적인 검증 기준이 필요하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st54">
-      <h3><i>54</i>요구사항 검증 기법</h3>
-      <aside class="side">
-        <p class="pt">요구사항 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="101">원문 88쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>동료 검토(Peer Review)는 산출물 작성자와 이해관계자가 참여하여 요구사항명세서에서 결함을 찾는 것으로, 명문화된 산출물 표준을 준수하여 기록하였는지, 검토자가 요구사항 내용을 동일하게 이해할 수 있도록 쉽고 명확하게, 그리고 일관성 있게 작성하였는지 등을 점검한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st55">
-      <h3><i>55</i>ISO/IEC 25010 – 시스템 및 SW 품질 요구사항 및 평가 모델</h3>
-      <aside class="side">
-        <p class="pt">요구사항 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020219_23v6" data-page="101">원문 88쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 논술형 시험 · 평가자 질문 · 평가자 체크리스트 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>ISO/IEC 25010은 SW 품질 평가를 위해 광범위한 기준을 제공하는 품질 요구사항 및 평가 모델로서, SW 제품의 품질을 평가할 때 어떤 특성이 고려되어야 한는지를 결정하는 데 도움을 준다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 86쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
   </div>
 </div>
 
-<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
-원문 LM2001020219_23v6_애플리케이션 요구사항 분석_20251108.pdf</footer>
+<footer>담당 정우균 · 개념과 절차는 <b>NCS 학습모듈 LM2001020219_23v6_애플리케이션 요구사항 분석_20251108.pdf</b> 에서
+옮긴 것입니다 — 한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지)</footer>
 </div>
 <script>
-/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+/* 빠른 이동 — 지금 보는 꼭지를 표시하고, 좁은 화면에서는 여닫습니다. */
 (function () {
   var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
   var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));

@@ -1,13 +1,30 @@
-<meta charset="utf-8"><title>애플리케이션 테스트 수행 — 준비 교안</title>
+<meta charset="utf-8"><title>애플리케이션 테스트 수행 — 학습 가이드</title>
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="stylesheet" href="../assets/guide.css">
 <style>
-  /* 원문 인용 — 우리가 쓴 안내와 눈으로 구분되어야 한다 */
-  .bd blockquote{margin:10px 0 16px;padding:10px 14px;border-left:3px solid #000;
-                 background:#fafafa;font-size:13.5px;line-height:1.8;color:#222}
-  .bd p.none{color:#888;font-size:13px}
-  .bd ul.sub{margin:8px 0 16px;padding-left:20px;font-size:13.5px;line-height:1.9}
-  aside.side .v .btn{font-size:11.5px}
+  /* 학습 가이드 — 개념 / 실습 / 확인 세 덩어리가 눈으로 구분되어야 한다 */
+  .bd h4{margin:22px 0 8px;font-size:14px;padding-bottom:5px;border-bottom:1px solid #000}
+  .bd h4:first-child{margin-top:0}
+  .bd h5{margin:16px 0 5px;font-size:13px;font-weight:700}
+  .bd blockquote{margin:5px 0 12px;padding:9px 13px;border-left:3px solid #999;
+                 background:#fafafa;font-size:13px;line-height:1.8;color:#333}
+  .cc{margin:0 0 6px}
+  .cc dt{font-weight:700;font-size:13.5px;margin:14px 0 0}
+  .cc dd{margin:4px 0 0}
+  .doh{display:flex;gap:9px;align-items:baseline;margin:16px 0 4px;font-size:13.5px;
+       font-weight:700}
+  .doh b{flex:0 0 auto;width:21px;height:21px;line-height:19px;text-align:center;
+         border:1px solid #000;font-size:11.5px}
+  ol.dos{margin:2px 0 0 30px;padding:0;font-size:13px;line-height:1.85}
+  ol.dos li{margin:3px 0}
+  .prep{display:grid;grid-template-columns:76px 1fr;gap:3px 10px;font-size:12.5px;
+        border:1px solid #ccc;padding:10px 13px;margin:6px 0 2px;background:#fafafa}
+  .prep b{color:#555;font-weight:400}
+  ul.goal{margin:6px 0 0;padding-left:20px;font-size:13.5px;line-height:1.9}
+  ul.chk{margin:6px 0 0;padding:0;list-style:none;font-size:13.5px;line-height:1.95}
+  ul.chk li::before{content:"\2610  "}
+  .none{color:#888;font-size:12.5px}
+  .srcline{font-size:11.5px;color:#888;margin:8px 0 0}
 </style>
 <script src="../assets/auth.js"></script>
 <script>EXAM_AUTH.guard("../");</script>
@@ -17,7 +34,7 @@
 <div class="top"><div class="tbar">
   <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
   <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
-  / 애플리케이션 테스트 수행 / 준비 교안</small></div>
+  / 애플리케이션 테스트 수행 / 학습 가이드</small></div>
   <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
@@ -25,49 +42,45 @@
 <button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
 
 <nav id="qnav" aria-label="빠른 이동">
-  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
-  <i class="qg">애플리케이션 테스트 수행하기</i><a href="#st1"><b>1</b><span>테스트의 개요</span></a><a href="#st2"><b>2</b><span>프로젝트 수행 단계에 따른 테스트의 분류</span></a><a href="#st3"><b>3</b><span>프로젝트 수행 단계에 따른 테스트의 접근 방법</span></a><a href="#st4"><b>4</b><span>단위 테스트</span></a><a href="#st5"><b>5</b><span>통합 테스트</span></a><a href="#st6"><b>6</b><span>시스템 테스트</span></a><a href="#st7"><b>7</b><span>인수 테스트</span></a><a href="#st8"><b>8</b><span>테스트 기반(Test Bases)에 따른 테스트의 종류</span></a><a href="#st9"><b>9</b><span>테스트 자동화 도구</span></a><a href="#st10"><b>10</b><span>테스트 자동화</span></a><a href="#st11"><b>11</b><span>테스트 도구 평가 방법 및 요소</span></a><a href="#st12"><b>12</b><span>테스트 단계를 지원하는 도구의 종류는 &lt;표 1-5&gt;와 같다.</span></a><a href="#st13"><b>13</b><span>결함의 정의</span></a><a href="#st14"><b>14</b><span>결함은 프로그램과 명세서 간의 차이, 업무 내용 불일치이다.</span></a><a href="#st15"><b>15</b><span>결함은 기대 결과와 실제 관찰 결과 간의 차이이다.</span></a><a href="#st16"><b>16</b><span>시스템이 사용자가 기대하는 타당한 기대치를 만족시키지 못할 때 변경이 필요한 모든 것은</span></a><a href="#st17"><b>17</b><span>결함 관리 프로세스</span></a><a href="#st18"><b>18</b><span>결함 관리 계획</span></a><a href="#st19"><b>19</b><span>결함 기록</span></a><a href="#st20"><b>20</b><span>결함 검토</span></a><a href="#st21"><b>21</b><span>결함 수정</span></a><a href="#st22"><b>22</b><span>결함 재확인</span></a><a href="#st23"><b>23</b><span>결함 상태 추적 및 모니터링 활동</span></a><a href="#st24"><b>24</b><span>최종 결함 분석 및 보고서 작성</span></a><a href="#st25"><b>25</b><span>결함의 상태 및 추적</span></a><a href="#st26"><b>26</b><span>결함 등록(Open)</span></a><a href="#st27"><b>27</b><span>결함 검토(Reviewed)</span></a><a href="#st28"><b>28</b><span>결함 할당(Assigned)</span></a><a href="#st29"><b>29</b><span>결함 수정(Resolved)</span></a><a href="#st30"><b>30</b><span>결함 조치 보류(Deferred)</span></a><a href="#st31"><b>31</b><span>결함 종료(Closed)</span></a><a href="#st32"><b>32</b><span>결함 해제(Clarified)</span></a><a href="#st33"><b>33</b><span>결함 분류</span></a><a href="#st34"><b>34</b><span>시스템 결함</span></a><a href="#st35"><b>35</b><span>기능 결함</span></a><a href="#st36"><b>36</b><span>GUI 결함</span></a><a href="#st37"><b>37</b><span>문서 결함</span></a><a href="#st38"><b>38</b><span>High</span></a><a href="#st39"><b>39</b><span>Medium</span></a><i class="qg">애플리케이션 결함 조치하기</i><a href="#st40"><b>40</b><span>소프트웨어 테스트 기법</span></a><a href="#st41"><b>41</b><span>단위 테스트 기법</span></a><a href="#st42"><b>42</b><span>프로그램 코드 검토 기법</span></a><a href="#st43"><b>43</b><span>소프트웨어 인스펙션(Software Inspection)의 개요</span></a><a href="#st44"><b>44</b><span>인스펙션 중점 항목</span></a><a href="#st45"><b>45</b><span>코드 인스펙션의 프로세스와 수행 내용</span></a><a href="#st46"><b>46</b><span>범위 계획</span></a><a href="#st47"><b>47</b><span>인스펙션 회의</span></a><a href="#st48"><b>48</b><span>후속 처리</span></a>
+  <a class="qt" href="#top"><b>&uarr;</b><span>맨 위로</span></a>
+  <i class="qg">애플리케이션 테스트 수행하기</i><a href="#st1"><b>1</b><span>애플리케이션 테스트 수행</span></a><a href="#st2"><b>2</b><span>애플리케이션 결함 관리</span></a><i class="qg">애플리케이션 결함 조치하기</i><a href="#st3"><b>3</b><span>애플리케이션 결함 조치 우선순위 결정</span></a><a href="#st4"><b>4</b><span>애플리케이션 결함 조치 관리</span></a>
 </nav>
 
 <div class="wrap" id="top">
 
-<h1>애플리케이션 테스트 수행 — 준비 교안</h1>
+<h1>애플리케이션 테스트 수행 — 학습 가이드</h1>
 <p class="sub">능력단위 <code>2001020227_23v6</code> · 3수준 ·
-48시간 · 단계 48개 · 평가 서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
+48시간 · 꼭지 4개 · 개념 48항목 · 실습 81절차</p>
 
-<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<h2 class="sec" id="g0">0. 시작하기 전에</h2>
 <div class="sect">
   <aside class="side">
     <p class="pt">요구사항대로 응용소프트웨어가 구현되었는지를 검증하기 위해서 분석된 테스트 케이스에 따라 테스트를 수행하고 결함을 조치할 수 있다.</p>
-    <b class="sh">선수학습</b>
+    <b class="sh">먼저 알아야 할 것</b>
     <p class="v">응용SW 기초 기술 활용(2001020232_23v5), 개발자 환경 구축(2001020233_23v5), 화면 구현(200102 0225_23v6), 프로그래밍 언어 응용(2001020230_23v5), 애플리케이션 배포(2001020214_23v6)</p>
-    <b class="sh">원문</b>
-    <p class="src">LM2001020227_23v6_애플리케이션 테스트 수행_20251108.pdf (96쪽)</p>
+    <b class="sh">평가</b>
+    <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
   </aside>
   <div class="bd">
-<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
-   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
-   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
-<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
-   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
-   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+<h4>이 문서를 쓰는 법</h4>
+<p>꼭지마다 <b>무엇을 할 수 있게 되나 → 알아야 할 것 → 해 보기 → 스스로 확인</b>
+   순서입니다. 읽고 끝내지 말고 <b>해 보기</b>를 손으로 따라 하십시오.
+   마지막 <b>스스로 확인</b>을 전부 «할 수 있다» 고 말할 수 있으면 다음 꼭지로 갑니다.</p>
+<p>자세한 설명과 표·그림은 <b>학습모듈 원문</b>에 있습니다. 꼭지마다 있는
+   <b>[원문 N쪽]</b> 단추를 누르면 그 자리가 바로 펼쳐집니다.</p>
 
 <h4>핵심 용어</h4>
 <p>소프트웨어 테스트, 결함 관리, 테스트 자동화, 프로그램 디버깅, 프로그램 코드 검토, 품질 관리, 테스트 방법론, 결함 조치 관리, 테스트 관리, 테스트 수행</p>
 
-<h4>능력단위요소</h4>
+<h4>차례</h4>
 <table class="wide">
-  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
-      <th>학습 내용</th><th style="width:74px">단계</th></tr>
-  <tr><td class="c">1</td><td>애플리케이션 테스트 수행하기</td><td>애플리케이션 테스트 수행 · 애플리케이션 결함 관리</td><td class="c">39</td></tr>
-  <tr><td class="c">2</td><td>애플리케이션 결함 조치하기</td><td>애플리케이션 결함 조치 우선순위 결정 · 애플리케이션 결함 조치 관리</td><td class="c">9</td></tr>
+  <tr><th style="width:44px">꼭지</th><th style="width:250px">학습 내용</th>
+      <th>능력단위요소</th><th style="width:58px">개념</th><th style="width:58px">실습</th></tr>
+  <tr><td class="c">1</td><td>1-1. 애플리케이션 테스트 수행</td><td>애플리케이션 테스트 수행하기</td><td class="c">12</td><td class="c">10</td></tr>
+  <tr><td class="c">2</td><td>1-2. 애플리케이션 결함 관리</td><td>애플리케이션 테스트 수행하기</td><td class="c">27</td><td class="c">5</td></tr>
+  <tr><td class="c">3</td><td>2-1. 애플리케이션 결함 조치 우선순위 결정</td><td>애플리케이션 결함 조치하기</td><td class="c">2</td><td class="c">7</td></tr>
+  <tr><td class="c">4</td><td>2-2. 애플리케이션 결함 조치 관리</td><td>애플리케이션 결함 조치하기</td><td class="c">7</td><td class="c">59</td></tr>
 </table>
-
-<div class="try">
-  <b class="t">쓰는 법</b>
-  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
-  한 단계가 대략 수업 10~20분에 해당합니다.
-</div>
   </div>
 </div>
 
@@ -75,1015 +88,65 @@
   <div class="lvh"><b>1. 애플리케이션 테스트 수행하기</b><span>능력단위요소 · <code>2001020227_23v6.1</code></span></div>
   <div class="lvb">
     <div class="step" id="st1">
-      <h3><i>1</i>테스트의 개요</h3>
+      <h3><i>1</i>1-1. 애플리케이션 테스트 수행</h3>
       <aside class="side">
-        <p class="pt">애플리케이션 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
+        <p class="pt">애플리케이션 테스트 계획에 따라 서버 모듈, 화면 모듈, 데이터 입출력, 인터페이스 등 기능 단위가 요구사항을 충족하는지에 대한 테스트를 수행할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">애플리케이션 테스트 수행하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 12항목 · 실습 10절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트 과정에 필요한 역할은 소프트웨어 아키텍트와 테스트 매니저이다. [그림 1-1]과 같이 두 역할은 개발 프로세스 모델 또는 소프트웨어 개발 생명 주기(SDLC: Software Developement Life Cycle)의 V 모델에서 각각 좌측과 우측의 핵심 역할을 담당하고 서로 보완 관계에 있다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>애플리케이션 테스트 계획에 따라 서버 모듈, 화면 모듈, 데이터 입출력, 인터페이스 등 기능 단위가 요구사항을 충족하는지에 대한 테스트를 수행할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>테스트의 개요</dt><dd><blockquote>테스트 과정에 필요한 역할은 소프트웨어 아키텍트와 테스트 매니저이다. [그림 1-1]과 같이 두 역할은 개발 프로세스 모델 또는 소프트웨어 개발 생명 주기(SDLC: Software Developement Life Cycle)의 V 모델에서 각각 좌측과 우측의 핵심 역할을 담당하고 서로 보완 관계에 있다.</blockquote></dd><dt>프로젝트 수행 단계에 따른 테스트의 분류</dt><dd><blockquote>작은 소프트웨어 단위(컴포넌트 또는 모듈)를 테스트하는 것으로서, 일반적으로 개발 자 자신에 의해 행해진다.</blockquote></dd><dt>단위 테스트</dt><dd><blockquote>테스트 가능한 단위로 작게 분리된 소프트웨어 내에서 결함을 찾고 기능을 검증하는 테스트 활동이다. 구조적 테스트, 기능성 테스트, 리소스 관련 테스트, 강건성 테스트 등 특정 비기능 성 테스트 등이 포함되어 수행되며, 컴포넌트 명세, 소프트웨어 상세 설계, 데이터 모델 명세 등을 이용하여 테스트한다.</blockquote></dd><dt>통합 테스트</dt><dd><blockquote>통합 테스트는 컴포넌트 간 인터페이스 테스트를 하고 운영체제(OS), 파일 시스템, 하드웨어 또는 시스템 간 인터페이스와 같은 각각 다른 부분과 상호 연동이 정상적으로 작동하는지 여부를 테스트한다.</blockquote></dd><dt>시스템 테스트</dt><dd><blockquote>컴퓨터 시스템을 완벽하게 검사하기 위한 목적 또는 성능 목표를 가지고 테스트한다. 시스템 테스트는 개발 프로젝트 차원에서 정의된 전체 시스템의 동작과 관련되어 있다.</blockquote></dd><dt>인수 테스트</dt><dd><blockquote>시스템의 일부 또는 특정한 비기능적인 특성에 대해 인수 테스트를 통해 확인하며, &lt;표 1-3&gt;과 같이 6가지의 종류로 구분해서 테스트한다.</blockquote></dd><dt>테스트 기반(Test Bases)에 따른 테스트의 종류</dt><dd><blockquote>테스트의 종류는 &lt;표 1-4&gt;와 같이 명세 기반, 구조 기반, 경험 기반 테스트의 세 가지 종류로 나누어진다.</blockquote></dd><dt>테스트 자동화 도구</dt><dd><blockquote>소프트웨어 테스트는 소프트웨어 개발에 소요되는 총 시간과 비용의 절반 이상을 차지 하기도 할 정도로 많은 자원이 투입되는 프로세스이다.</blockquote></dd><dt>테스트 자동화</dt><dd><blockquote>테스트 자동화란 사람이 하던 반복적 테스트 절차를 자동화 도구를 활용하여 준비, 구현, 수행, 분석 등을 스크립트 형태로 구현함으로써, 시간과 인력 투입의 부담을 최소화하면서 운영 중인 시스템을 모니터링하거나 UI가 없는 서비스의 경우에도 정밀한 테스트가 가능하도록 하는 것이다.</blockquote></dd><dt>테스트 도구 평가 방법 및 요소</dt><dd><blockquote>테스트 도구가 지원하는 모든 사항에 대해 종류별로 나열하고 기록하여야 한다. 또테스트에 해당하는 요소에 대한 목표 또는 평균값을 설정하고 설정된 기준으로 평가한다.</blockquote></dd><dt>테스트 단계를 지원하는 도구의 종류는 &lt;표 1-5&gt;와 같다.</dt><dd><blockquote>테스트 활동 테스트 도구 테스트 계획 요구사항 관리고객 요구사항 정의 및 변경 사항 관리 테스트 케이스 생성 테스트 기법에 따른 테스트 데이터 및 케이스 작성 커버리지 분석 대상 시스템에 대한 테스트 완료 범위의 척도 테스트 수행 테스트 자동화 기능 테스트 등 테스트 도구를 활용하여 자동화를 통한 테스트의 효율성 제고 코딩 표준, 런타임 오류 등을 검증 대상 시스템 시뮬레이션을 통한 오류 검</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>프로젝트 수행 단계에 따른 테스트의 접근 방법</dd></dl>
+
+<h4>해 보기</h4>
+<h5>애플리케이션 테스트 수행하기</h5><div class='prep'><b>재료·자료</b><span>국제 표준 규격(ISO/IEC 29119,ISO/IEC 25000,ISO/IEC 9126,IEEE 829) 기준 / ISTQB Syllabus(테스트 지식 체계) / CSTE CBOK(테스트 지식 체계) / TMMI(테스트 역량 인증 체계) / 테스트 계획서</span><b>기기·도구</b><span>컴퓨터, 대형 모니터, 프린터, 인터넷 / 테스트 관련 애플리케이션 서버, 데이터베이스 서버</span><b>유의 사항</b><span>테스트 계획서에서 테스트 시작 일자, 종료 일자, 테스트 수행 절차를 파악한다. / 테스트 케이스의 업무 흐름도와 시나리오를 충실하게 이해하기 위해 노력한다. / 테스트 데이터를 파악하여 실제 업무 데이터와의 유사도를 파악하고 이해하기 위해 노 / 력한다. / 테스트 인력의 역량과 투입 가능 시점에 대하여 관련된 사용자와 충분한 검토와 협의를 / 수행한다. / 단계별 테스트 수행 시 사용할 도구를 파악하고 도구의 사용 방법을 학습한다. / 단위 테스트에서 사용할 입출력, 산술식, 연동 시스템, 인터페이스를 업무 단위별로 파 / 악한다. / 테스트 환경 구축 시 각종 서버가 수행할 업무와 서버의 처리 용량을 파악한다. / 테스트 자동화 도구 사용 시 자동화 도구에 대한 교육을 사전에 실시한다. / 10</span></div><div class='doh'><b>1</b><span>테스트 계획서를 확인한다.</span></div><ol class='dos'><li>테스트 목적과 범위를 확인한다.</li><li>테스트 실행 계획을 확인한다.</li><li>테스트 케이스를 확인한다.</li><li>테스트 데이터를 확인한다.</li><li>테스트 환경을 확인한다.</li></ol><div class='doh'><b>2</b><span>기능 단위 테스트를 수행한다.</span></div><ol class='dos'><li>서버 모듈, 화면 모듈, 데이터 입출력, 인터페이스 등의 연계를 통하여 업무별 기능을 정의한다.</li><li>기능 단위 테스트를 통합하여 테스트 항목을 정의한다.</li><li>단위 테스트를 수행한다.</li><li>통합 테스트를 수행한다.</li><li>성능 테스트를 수행한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>테스트 계획서를 확인한다.</li><li>기능 단위 테스트를 수행한다.</li><li>애플리케이션 테스트 계획에 따라 서버 모듈, 화면 모듈, 데이터 입출력, 인터페이스 등 기능 단위가 요구사항을 충족하는지에 대한 테스트를 수행할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 3쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
     <div class="step" id="st2">
-      <h3><i>2</i>프로젝트 수행 단계에 따른 테스트의 분류</h3>
+      <h3><i>2</i>1-2. 애플리케이션 결함 관리</h3>
       <aside class="side">
-        <p class="pt">애플리케이션 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>작은 소프트웨어 단위(컴포넌트 또는 모듈)를 테스트하는 것으로서, 일반적으로 개발 자 자신에 의해 행해진다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st3">
-      <h3><i>3</i>프로젝트 수행 단계에 따른 테스트의 접근 방법</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>단위 테스트</li><li>통합 테스트</li><li>시스템 테스트</li><li>인수 테스트</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st4">
-      <h3><i>4</i>단위 테스트</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트 가능한 단위로 작게 분리된 소프트웨어 내에서 결함을 찾고 기능을 검증하는 테스트 활동이다. 구조적 테스트, 기능성 테스트, 리소스 관련 테스트, 강건성 테스트 등 특정 비기능 성 테스트 등이 포함되어 수행되며, 컴포넌트 명세, 소프트웨어 상세 설계, 데이터 모델 명세 등을 이용하여 테스트한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st5">
-      <h3><i>5</i>통합 테스트</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>통합 테스트는 컴포넌트 간 인터페이스 테스트를 하고 운영체제(OS), 파일 시스템, 하드웨어 또는 시스템 간 인터페이스와 같은 각각 다른 부분과 상호 연동이 정상적으로 작동하는지 여부를 테스트한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st6">
-      <h3><i>6</i>시스템 테스트</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>컴퓨터 시스템을 완벽하게 검사하기 위한 목적 또는 성능 목표를 가지고 테스트한다. 시스템 테스트는 개발 프로젝트 차원에서 정의된 전체 시스템의 동작과 관련되어 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st7">
-      <h3><i>7</i>인수 테스트</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="19">원문 6쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템의 일부 또는 특정한 비기능적인 특성에 대해 인수 테스트를 통해 확인하며, &lt;표 1-3&gt;과 같이 6가지의 종류로 구분해서 테스트한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st8">
-      <h3><i>8</i>테스트 기반(Test Bases)에 따른 테스트의 종류</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="19">원문 6쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트의 종류는 &lt;표 1-4&gt;와 같이 명세 기반, 구조 기반, 경험 기반 테스트의 세 가지 종류로 나누어진다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st9">
-      <h3><i>9</i>테스트 자동화 도구</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="20">원문 7쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 테스트는 소프트웨어 개발에 소요되는 총 시간과 비용의 절반 이상을 차지 하기도 할 정도로 많은 자원이 투입되는 프로세스이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st10">
-      <h3><i>10</i>테스트 자동화</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="20">원문 7쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트 자동화란 사람이 하던 반복적 테스트 절차를 자동화 도구를 활용하여 준비, 구현, 수행, 분석 등을 스크립트 형태로 구현함으로써, 시간과 인력 투입의 부담을 최소화하면서 운영 중인 시스템을 모니터링하거나 UI가 없는 서비스의 경우에도 정밀한 테스트가 가능하도록 하는 것이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st11">
-      <h3><i>11</i>테스트 도구 평가 방법 및 요소</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="21">원문 8쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트 도구가 지원하는 모든 사항에 대해 종류별로 나열하고 기록하여야 한다. 또테스트에 해당하는 요소에 대한 목표 또는 평균값을 설정하고 설정된 기준으로 평가한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st12">
-      <h3><i>12</i>테스트 단계를 지원하는 도구의 종류는 &lt;표 1-5&gt;와 같다.</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="21">원문 8쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트 활동 테스트 도구 테스트 계획 요구사항 관리고객 요구사항 정의 및 변경 사항 관리 테스트 케이스 생성 테스트 기법에 따른 테스트 데이터 및 케이스 작성 커버리지 분석 대상 시스템에 대한 테스트 완료 범위의 척도 테스트 수행 테스트 자동화 기능 테스트 등 테스트 도구를 활용하여 자동화를 통한 테스트의 효율성 제고 코딩 표준, 런타임 오류 등을 검증 대상 시스템 시뮬레이션을 통한 오류 검</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st13">
-      <h3><i>13</i>결함의 정의</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
+        <p class="pt">애플리케이션 테스트 수행으로 발견된 결함을 유형별로 기록할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">애플리케이션 테스트 수행하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 27항목 · 실습 5절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>결함은 프로그램과 명세서 간의 차이, 업무 내용 불일치이다.</li><li>결함은 기대 결과와 실제 관찰 결과 간의 차이이다.</li><li>시스템이 사용자가 기대하는 타당한 기대치를 만족시키지 못할 때 변경이 필요한 모든 것은</li><li>결함 관리 프로세스</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>애플리케이션 테스트 수행으로 발견된 결함을 유형별로 기록할 수 있다.</li><li>애플리케이션 테스트 수행 결과 발견된 결함에 대해서 원인을 분석하고 개선 방안을 도출할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>결함 관리 프로세스</dt><dd><blockquote>결함 관리 프로세스는 [그림 1-6]과 같이 7개의 활동으로 구성된다.</blockquote></dd><dt>결함 관리 계획</dt><dd><blockquote>결함 관리 계획은 전체 프로세스에서 결함 관리에 대한 일정, 인력, 업무 프로세스를 확보하여 계획을 수립하는 것을 말한다.</blockquote></dd><dt>결함 기록</dt><dd><blockquote>테스터는 발견된 결함에 대한 정보를 결함 관리 DB에 기록한다.</blockquote></dd><dt>결함 검토</dt><dd><blockquote>등록된 결함에 있어서 주요 내용을 검토하고, 결함을 수정할 개발자에게 전달한다.</blockquote></dd><dt>결함 수정</dt><dd><blockquote>개발자는 할당된 결함의 프로그램을 수정한다.</blockquote></dd><dt>결함 재확인</dt><dd><blockquote>테스터는 개발자가 수정한 내용을 확인하고 다시 테스트를 수행한다.</blockquote></dd><dt>결함 상태 추적 및 모니터링 활동</dt><dd><blockquote>결함 관리 팀장은 결함 관리 데이터베이스를 이용하여 대시보드 또는 게시판 형태의 서비스를 제공한다.</blockquote></dd><dt>최종 결함 분석 및 보고서 작성</dt><dd><blockquote>발견된 결함에 대한 내용과 이해관계자들의 의견이 반영된 보고서를 작성하고 결함 관리를 종료한다.</blockquote></dd><dt>결함의 상태 및 추적</dt><dd><blockquote>결함은 여러 상태를 가지고 있으며, 이 상태의 변화를 지속적으로 추적 관리하는 것이 결함 관리의 주요 작업 중 하나이다.</blockquote></dd><dt>결함 등록(Open)</dt><dd><blockquote>테스터와 품질 관리(QA) 담당자에 의해 결함이 처음 발견되어 등록되었지만, 아직 분석이 되지 않은 상태이다.</blockquote></dd><dt>결함 검토(Reviewed)</dt><dd><blockquote>등록된 결함을 담당 모듈 개발자, 테스터, 프로그램 리더, 품질 관리(QA) 담당자와 검토하는 상태이다.</blockquote></dd><dt>결함 할당(Assigned)</dt><dd><blockquote>결함의 영향 분석 및 수정을 위해 개발자와 문제 해결 담당자에게 할당된 상태이다.</blockquote></dd><dt>결함 수정(Resolved)</dt><dd><blockquote>개발자에 의해 결함의 수정이 완료된 상태이다.</blockquote></dd><dt>결함 조치 보류(Deferred)</dt><dd><blockquote>수정이 필요한 결함이지만 현재 수정이 불가능해서 연기된 상태로서 우선순위, 일정 등을 고려하여 재오픈을 준비하는 상태이다.</blockquote></dd><dt>결함 종료(Closed)</dt><dd><blockquote>발견된 결함이 해결되고 테스터와 품질 관리(QA) 담당자에 의해 종료 승인을 한 상태</blockquote></dd><dt>결함 해제(Clarified)</dt><dd><blockquote>테스터, 프로그램 리더, 품질 관리(QA) 담당자가 결함을 검토한 결과, 결함이 아니라고 판명된 경우이다.</blockquote></dd><dt>결함 분류</dt><dd><blockquote>결함은 여러 가지 유형으로 나뉘며, 결함을 분석하는 단계에서 이러한 유형을 나누어야 한다. 결함 유형은 크게 시스템 결함, 기능 결함, GUI(Graphical User Interface) 결함, 문서 결함의 네 가지 유형으로 분류된다.</blockquote></dd><dt>시스템 결함</dt><dd><blockquote>비정상적인 종료/중단, 응답 시간 지연, 데이터베이스 에러 등 주로 애플리케이션 환경과 데이터베이스 처리에서 발생하는 결함을 말한다.</blockquote></dd><dt>기능 결함</dt><dd><blockquote>사용자의 요구사항 미반영/불일치, 부정확한 비즈니스 프로세스, 스크립트 에러, 타 시 스템 연동 시 오류 등 기획, 설계, 업무 시나리오 단계에서 발생된 결함을 말한다.</blockquote></dd><dt>GUI 결함</dt><dd><blockquote>GUI 결함은 응용 프로그램의 UI 비일관성, 부정확한 커서/메시지, 데이터 타입의 표시 오류 등으로 사용자 화면 설계에서 발생된 결함을 말한다.</blockquote></dd><dt>문서 결함</dt><dd><blockquote>기획자, 사용자, 개발자 간의 의사소통과 기록이 원활하지 않은 경우에 발생하는 결함으로 사용자의 온라인/오프라인 매뉴얼의 불일치, 요구사항 분석서와 기능 요구사항의 불일치로 인한 불완전한 상태의 문서의 경우를 말한다.</blockquote></dd><dt>High</dt><dd><blockquote>시스템이 중단(또는 다운)되어 더 이상 프로세스를 진행할 수 없게 만드는 결함으로 시 스템의 핵심 요구사항 미구현, 시스템 다운, 장시간 시스템 응답 지연, 시스템 복구 후 데이터 왜곡 등의 경우를 말한다.</blockquote></dd><dt>Medium</dt><dd><blockquote>시스템의 흐름에 영향을 미치는 결함으로 부정확한 기능, 부정확한 업무 프로세스, 데이터 필드 형식의 오류, 데이터베이스 에러, 보안 관련 오류 등의 경우를 말한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>결함의 정의 · 결함은 프로그램과 명세서 간의 차이, 업무 내용 불일치이다. · 결함은 기대 결과와 실제 관찰 결과 간의 차이이다. · 시스템이 사용자가 기대하는 타당한 기대치를 만족시키지 못할 때 변경이 필요한 모든 것은</dd></dl>
+
+<h4>해 보기</h4>
+<h5>애플리케이션 결함 관리하기</h5><div class='prep'><b>재료·자료</b><span>국제 표준 규격(ISO/IEC 29119,ISO/IEC 25000,ISO/IEC 9126,IEEE 829) 기준 / ISTQB Syllabus(테스트 지식 체계) / CSTE CBOK(테스트 지식 체계) / 결함 관리 대장</span><b>기기·도구</b><span>컴퓨터, 대형 모니터, 프린터, 인터넷, 결함 관리 데이터베이스 서버 등 / 결함 추적 관리 시스템</span><b>유의 사항</b><span>테스트를 수행하여 발견된 결함을 기록하는 절차를 파악한다. / 26 / 발견된 결함을 관리할 결함 관리 양식과 기록 방법을 파악한다. / 기록된 테스트 관리 양식의 결함을 유형별로 분류하는 방법과 결함 상태를 확인하는 방 / 법을 파악하고 기록하는 용어에 대해 학습한다. / 결함 원인 분석 시 사용되는 파레토 다이어그램과 피시본 다이어그램의 작성 방법을 학 / 습한다. / 결함에 대한 추적 관리 시 테스터와 개발자 간에 쓰이는 용어를 학습한다. / 결함 추적 관리 시스템을 사용하는 경우 테스트 그룹과 개발자 그룹 간의 의사소통 채 / 널을 위해 업무 프로세스별 테스터와 개발자의 업무 분장을 파악한다. / 결함 분석 보고서 작성 시 결함 분류에 대한 기준을 파악한다.</span></div><div class='doh'><b>1</b><span>애플리케이션 테스트 수행으로 발견된 결함을 기록하고 분류한다.</span></div><ol class='dos'><li>발견된 결함을 관리할 테스트 관리 양식을 작성한다.</li><li>테스트 관리 양식에 발견된 결함을 &lt;표 1-12&gt;와 같이 기록한다.</li><li>기록된 테스트 관리 양식의 결함을 유형별로 분류하고 결함 상태를 확인한다.</li></ol><div class='doh'><b>2</b><span>결함에 대한 원인을 분석하고 개선 방안을 도출한다.</span></div><ol class='dos'><li>발생한 결함에 대하여 결함 원인을 분석한다.</li><li>분석한 원인을 근거로 개선 방안을 도출한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>애플리케이션 테스트 수행으로 발견된 결함을 기록하고 분류한다.</li><li>결함에 대한 원인을 분석하고 개선 방안을 도출한다.</li><li>애플리케이션 테스트 수행으로 발견된 결함을 유형별로 기록할 수 있다.</li><li>애플리케이션 테스트 수행 결과 발견된 결함에 대해서 원인을 분석하고 개선 방안을 도출할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st14">
-      <h3><i>14</i>결함은 프로그램과 명세서 간의 차이, 업무 내용 불일치이다.</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>결함은 기대 결과와 실제 관찰 결과 간의 차이이다.</li><li>시스템이 사용자가 기대하는 타당한 기대치를 만족시키지 못할 때 변경이 필요한 모든 것은</li><li>결함 관리 프로세스</li><li>결함 관리 계획</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st15">
-      <h3><i>15</i>결함은 기대 결과와 실제 관찰 결과 간의 차이이다.</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>시스템이 사용자가 기대하는 타당한 기대치를 만족시키지 못할 때 변경이 필요한 모든 것은</li><li>결함 관리 프로세스</li><li>결함 관리 계획</li><li>결함 기록</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st16">
-      <h3><i>16</i>시스템이 사용자가 기대하는 타당한 기대치를 만족시키지 못할 때 변경이 필요한 모든 것은</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>결함 관리 프로세스</li><li>결함 관리 계획</li><li>결함 기록</li><li>결함 검토</li></ul>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st17">
-      <h3><i>17</i>결함 관리 프로세스</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>결함 관리 프로세스는 [그림 1-6]과 같이 7개의 활동으로 구성된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st18">
-      <h3><i>18</i>결함 관리 계획</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>결함 관리 계획은 전체 프로세스에서 결함 관리에 대한 일정, 인력, 업무 프로세스를 확보하여 계획을 수립하는 것을 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st19">
-      <h3><i>19</i>결함 기록</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="35">원문 22쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스터는 발견된 결함에 대한 정보를 결함 관리 DB에 기록한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st20">
-      <h3><i>20</i>결함 검토</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="35">원문 22쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>등록된 결함에 있어서 주요 내용을 검토하고, 결함을 수정할 개발자에게 전달한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st21">
-      <h3><i>21</i>결함 수정</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="35">원문 22쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발자는 할당된 결함의 프로그램을 수정한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st22">
-      <h3><i>22</i>결함 재확인</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="35">원문 22쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스터는 개발자가 수정한 내용을 확인하고 다시 테스트를 수행한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st23">
-      <h3><i>23</i>결함 상태 추적 및 모니터링 활동</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="35">원문 22쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>결함 관리 팀장은 결함 관리 데이터베이스를 이용하여 대시보드 또는 게시판 형태의 서비스를 제공한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st24">
-      <h3><i>24</i>최종 결함 분석 및 보고서 작성</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="35">원문 22쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>발견된 결함에 대한 내용과 이해관계자들의 의견이 반영된 보고서를 작성하고 결함 관리를 종료한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st25">
-      <h3><i>25</i>결함의 상태 및 추적</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="35">원문 22쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>결함은 여러 상태를 가지고 있으며, 이 상태의 변화를 지속적으로 추적 관리하는 것이 결함 관리의 주요 작업 중 하나이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st26">
-      <h3><i>26</i>결함 등록(Open)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="36">원문 23쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스터와 품질 관리(QA) 담당자에 의해 결함이 처음 발견되어 등록되었지만, 아직 분석이 되지 않은 상태이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st27">
-      <h3><i>27</i>결함 검토(Reviewed)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="36">원문 23쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>등록된 결함을 담당 모듈 개발자, 테스터, 프로그램 리더, 품질 관리(QA) 담당자와 검토하는 상태이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st28">
-      <h3><i>28</i>결함 할당(Assigned)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="36">원문 23쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>결함의 영향 분석 및 수정을 위해 개발자와 문제 해결 담당자에게 할당된 상태이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st29">
-      <h3><i>29</i>결함 수정(Resolved)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="36">원문 23쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발자에 의해 결함의 수정이 완료된 상태이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st30">
-      <h3><i>30</i>결함 조치 보류(Deferred)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="36">원문 23쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>수정이 필요한 결함이지만 현재 수정이 불가능해서 연기된 상태로서 우선순위, 일정 등을 고려하여 재오픈을 준비하는 상태이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st31">
-      <h3><i>31</i>결함 종료(Closed)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="36">원문 23쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>발견된 결함이 해결되고 테스터와 품질 관리(QA) 담당자에 의해 종료 승인을 한 상태</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st32">
-      <h3><i>32</i>결함 해제(Clarified)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="36">원문 23쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스터, 프로그램 리더, 품질 관리(QA) 담당자가 결함을 검토한 결과, 결함이 아니라고 판명된 경우이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st33">
-      <h3><i>33</i>결함 분류</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="36">원문 23쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>결함은 여러 가지 유형으로 나뉘며, 결함을 분석하는 단계에서 이러한 유형을 나누어야 한다. 결함 유형은 크게 시스템 결함, 기능 결함, GUI(Graphical User Interface) 결함, 문서 결함의 네 가지 유형으로 분류된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st34">
-      <h3><i>34</i>시스템 결함</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="36">원문 23쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>비정상적인 종료/중단, 응답 시간 지연, 데이터베이스 에러 등 주로 애플리케이션 환경과 데이터베이스 처리에서 발생하는 결함을 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st35">
-      <h3><i>35</i>기능 결함</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="37">원문 24쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>사용자의 요구사항 미반영/불일치, 부정확한 비즈니스 프로세스, 스크립트 에러, 타 시 스템 연동 시 오류 등 기획, 설계, 업무 시나리오 단계에서 발생된 결함을 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st36">
-      <h3><i>36</i>GUI 결함</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="37">원문 24쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>GUI 결함은 응용 프로그램의 UI 비일관성, 부정확한 커서/메시지, 데이터 타입의 표시 오류 등으로 사용자 화면 설계에서 발생된 결함을 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st37">
-      <h3><i>37</i>문서 결함</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="37">원문 24쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기획자, 사용자, 개발자 간의 의사소통과 기록이 원활하지 않은 경우에 발생하는 결함 으로 사용자의 온라인/오프라인 매뉴얼의 불일치, 요구사항 분석서와 기능 요구사항의 불일치로 인한 불완전한 상태의 문서의 경우를 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st38">
-      <h3><i>38</i>High</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="38">원문 25쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템이 중단(또는 다운)되어 더 이상 프로세스를 진행할 수 없게 만드는 결함으로 시 스템의 핵심 요구사항 미구현, 시스템 다운, 장시간 시스템 응답 지연, 시스템 복구 후 데이터 왜곡 등의 경우를 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st39">
-      <h3><i>39</i>Medium</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="38">원문 25쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템의 흐름에 영향을 미치는 결함으로 부정확한 기능, 부정확한 업무 프로세스, 데이터 필드 형식의 오류, 데이터베이스 에러, 보안 관련 오류 등의 경우를 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 21쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -1092,247 +155,77 @@
 <div class="lv">
   <div class="lvh"><b>2. 애플리케이션 결함 조치하기</b><span>능력단위요소 · <code>2001020227_23v6.2</code></span></div>
   <div class="lvb">
-    <div class="step" id="st40">
-      <h3><i>40</i>소프트웨어 테스트 기법</h3>
+    <div class="step" id="st3">
+      <h3><i>3</i>2-1. 애플리케이션 결함 조치 우선순위 결정</h3>
       <aside class="side">
-        <p class="pt">애플리케이션 결함 조치 우선순위 결정</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
+        <p class="pt">애플리케이션 테스트 수행 결과에서 발견된 결함을 식별하고 조치에 대한 우선순위를 결정하고 적용할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">애플리케이션 결함 조치하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="51">원문 38쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 2항목 · 실습 7절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>단위 테스트 기법</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>애플리케이션 테스트 수행 결과에서 발견된 결함을 식별하고 조치에 대한 우선순위를 결정하고 적용할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>단위 테스트 기법</dt><dd><blockquote>Java 환경이라면 대부분 JUnit이라는 단위 테스트 프레임워크를 통해 &lt;표 2-1&gt;과 같이 단위 테스트를 할 수 있어야 한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>소프트웨어 테스트 기법</dd></dl>
+
+<h4>해 보기</h4>
+<h5>애플리케이션 결함 조치 우선순위 결정하기</h5><div class='prep'><b>재료·자료</b><span>국제 표준 규격(ISO/IEC 29119,ISO/IEC 25000,ISO/IEC 9126,IEEE 829) 기준 / ISTQB Syllabus(테스트 지식 체계) / CSTE CBOK(테스트 지식 체계) / 결함 관리 대장 / 테스트 결과 보고서</span><b>기기·도구</b><span>컴퓨터, 대형 모니터, 프린터, 인터넷</span><b>유의 사항</b><span>테스트 결과 보고서의 결함 목록과 결함 내용을 파악한다. / 결함 관리 대장의 기록 방법과 규칙을 사전에 파악하고 이해하기 위해 노력한다. / 발견된 결함에 대해 업무 흐름도와 시나리오를 이해하고 결함이 발견된 위치를 파악한다. / 단위 업무별 심각도에 대한 범위나 측정 구간에 대한 기준을 사전에 학습한다. / 결함 유형을 정의하고 각각의 유형별로 학습한다. / 결함 내용에 대한 개선 방안과 개선해야 할 내용을 사용자와 사전에 협의한다. / 조치 우선순위를 결정하기 위한 평가 중 정량적인 방법과 정성적인 방법에 대해 학습한다. / 프로그램 리더와 개발자의 투입 가능 시점과 조치 우선순위에 대하여 관련된 사용자와 / 충분한 검토와 협의를 수행한다. / 단계별 테스트 수행 시 사용할 도구를 파악하고 도구의 사용 방법을 학습한다. / 필요시 프로젝트 단계에 따른 테스트 교육을 사전에 실시한다. / 46</span></div><div class='doh'><b>1</b><span>결함에 대한 개선 방안을 확인한다.</span></div><ol class='dos'><li>테스트 결함 목록과 개선 방안을 확인한다.</li><li>테스트별로 결함에 대한 원인을 분류한다.</li><li>결함의 개선 방안 범위를 지정한다.</li><li>결함 유형별로 개선 효과를 정의한다.</li></ol><div class='doh'><b>2</b><span>개선 방안에 대한 우선순위를 결정한다.</span></div><ol class='dos'><li>업무별 기준에 가중치를 부여한다.</li><li>단위 업무와 연결하여 심각도를 계산한다.</li><li>부여된 가중치와 심각도를 고려하여 우선순위를 결정한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>결함에 대한 개선 방안을 확인한다.</li><li>개선 방안에 대한 우선순위를 결정한다.</li><li>애플리케이션 테스트 수행 결과에서 발견된 결함을 식별하고 조치에 대한 우선순위를 결정하고 적용할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 38쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st41">
-      <h3><i>41</i>단위 테스트 기법</h3>
+    <div class="step" id="st4">
+      <h3><i>4</i>2-2. 애플리케이션 결함 조치 관리</h3>
       <aside class="side">
-        <p class="pt">애플리케이션 결함 조치 우선순위 결정</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="51">원문 38쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>Java 환경이라면 대부분 JUnit이라는 단위 테스트 프레임워크를 통해 &lt;표 2-1&gt;과 같이 단위 테스트를 할 수 있어야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st42">
-      <h3><i>42</i>프로그램 코드 검토 기법</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 조치 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
+        <p class="pt">결함이 발생한 소스를 분석하고 기존에 구현된 로직과의 연관성을 고려하여 부작용이 최소화 되도록 결함을 제거할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">애플리케이션 결함 조치하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="68">원문 55쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 7항목 · 실습 59절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>소프트웨어 인스펙션(Software Inspection)의 개요</li><li>인스펙션 중점 항목</li><li>코드 인스펙션의 프로세스와 수행 내용</li><li>범위 계획</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>결함이 발생한 소스를 분석하고 기존에 구현된 로직과의 연관성을 고려하여 부작용이 최소화 되도록 결함을 제거할 수 있다.</li><li>애플리케이션 테스트 결과 결함 조치로 변경되는 소스의 버전을 관리하고 결함 조치 결과에 대한 이력을 관리할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>소프트웨어 인스펙션(Software Inspection)의 개요</dt><dd><blockquote>인스펙션으로 부르기도 한다. 수 없다. 이는 상당한 시간이 필요한 작업이며, 통계에 따르면 인스펙션을 적절히 수행하 면 에러의 90%까지 찾아낼 수 있다.</blockquote></dd><dt>인스펙션 중점 항목</dt><dd><blockquote>프로젝트에서 소프트웨어 인스펙션 업무는 품질 보증(QA)이 주관하여 담당 또는 부서에서 실시하나, 아키텍트가 각 단계에서 원활한 업무 수행을 위해 지원을 하여야 한다.</blockquote></dd><dt>범위 계획</dt><dd><blockquote>(Capacity Plan) 얼마만큼 인스펙션 할 것인가? 인스펙션의 범위와 범위 선정 기준을 결정함 (Overview) 자동 인스펙션 수행 (Preparation) 계획서 작성, 체크리스트 작성, 계획 공지, 대상 산출</blockquote></dd><dt>인스펙션 회의</dt><dd><blockquote>(Inspection Meeting) 사전 검토 실시, 미팅 실시 (Rework) 개발 원작자가 직접 작업함</blockquote></dd><dt>후속 처리</dt><dd><blockquote>(Follow-up) 결과 분석서 작성 및 보고 - 전수 검사, Quality Metric, 결함 분석 - 일정 및 관련자, 대상 산출물 및 준비물 정의 - 표준 체크리스트를 테일러링 하여 인스펙션 체크 리스트 작성 - 메일이나 공지를 통해 관련자에게 사전 공지 (가) 자동 코드 인스펙션 전체 개발된 프로그램을 대상으로 자동 인스펙션을 수행한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>프로그램 코드 검토 기법 · 코드 인스펙션의 프로세스와 수행 내용</dd></dl>
+
+<h4>해 보기</h4>
+<h5>애플리케이션 결함 조치 관리하기</h5><div class='prep'><b>재료·자료</b><span>국제 표준 규격(ISO/IEC 29119,ISO/IEC 25000,ISO/IEC 9126,IEEE 829) 기준 / ISTQB Syllabus(테스트 지식 체계) / CSTE CBOK(테스트 지식 체계) / 결함 관리 대장</span><b>기기·도구</b><span>컴퓨터, 대형 모니터, 프린터, 인터넷</span><b>유의 사항</b><span>결함 조치 수행을 위한 결함 우선순위와 개선할 사항을 파악한다. / 63 / 개발 인력의 역량과 투입 가능 시점에 대하여 관련된 사용자와 충분한 검토와 협의를 / 거친다. / 결함 조치에 대한 가이드라인을 파악하고 결함 조치 방법에 대해 학습한다. / 결함 제거 시 개발 코드 가이드라인(Code Style)을 사전에 학습한다. / 결함 제거 이후 제거한 내용에 대한 양식과 문서를 사전에 정의하고 교육을 실시한다. / 형상 관리의 업무 프로세스와 관리 방법에 대해 교육을 실시한다. / 형상 관리에 사용할 관리 도구의 장점과 단점에 대해 사전에 학습한다. / 결함이 제거된 소스 코드에 대한 변경 이력을 관리할 수 있는 형상 관리 도구를 사전 / 에 학습한다. / 형상통제위원회의 인력 구성과 운영 방법에 대해 사전에 학습한다. / 고객의 개선 사항을 구조 설계서와 코드 설계서에 반영하는 방법을 사전에 정의하고 학 / 습한다. / 형상 감사 시 감사 대상 업무, 대상 기간, 감사 대상 항목을 정하는 기준을 수립하고 / 감사 대상 내용을 파악한다.</span></div><div class='doh'><b>1</b><span>우선순위에 따라 결함을 제거한다.</span></div><ol class='dos'><li>결함 조치 일정을 수립한다.</li><li>결함의 가이드라인을 확인한다.</li><li>테스팅 과정에서 만들어진 결함 예) 테스트 도구 결함, 테스트 스크립트 오류, 버그가 아닌 것을 버그로 간주 Configuration, 타이밍, 메모 리 오류</li><li>서버가 다운된 경우</li><li>프린터, 관련 장비 등 디바이스의 연결 오류</li><li>네트워크 오류가 발생한 경우 (2) 개발 표준(Standard) 결함의 가이드라인을 확인한다.</li><li>StringBuffer를 String으로 선언한 경우 (for문 안에서만 적용됨. 성능 가이드 참조)</li><li>클래스 변수(Class Member Variable)를 설명하는 주석 문 미작성(응용 프로그램 코딩 가이드 참조)</li><li>String 변수명의 접두어가 str로 시작되지 않은 경우 (응용 프로그램 명명 가이드 참조) (3) 프로그램 일관성(Consistency) 결함의 가이드라인을 확인한다.</li><li>입력 필드에 대한 Validation이 누락된 경우</li><li>반드시 필요한 기능 버튼이 누락되어 있는 경우</li><li>기능 버튼을 클릭했으나, 아무 action이 없는 경우 모듈 구조가 설계 구조와 미 일치(코딩 문제)</li><li>설계 로직은 A+B=C로 되어 있으나, 구현 로직은 A-B=C가 된 경우 분석, 설계 산출물(Input 산출 물) 오류로 인한 코딩 에러</li><li>컴포넌트 설계서에 명시된 패키지 오류로 코딩 오류 발생</li><li>프로그램 설계서에서 Default값이 잘못 설계된 경우 (4) 데이터(Data) 결함의 가이드라인을 확인한다.</li><li>변수 자릿수를 30자로 선언해야 하는데 10자리로 선언한 경우</li><li>변수의 default값을 true로 설정해야 하나 false로 한 경우 시험 데이터의 부적절로 인한 오류</li><li>시험 데이터 미준비</li><li>A 업무 테스트 시 시험 데이터가 B 업무에 대한 데이터가 준비된 경우 SQL을 사용한 DB 질의/ 갱신 오류</li><li>조회 결과에 정렬 기준이 없어, 데이터가 랜덤하게 표시되는 경우</li><li>입력, 수정, 삭제를 하였으나, DB 데이터에 입력, 수정, 삭제가 안 되어 있는 경우 연계 화면 간의 데이터 전달 오류</li><li>타 업무 화면으로 데이터를 전달했으나, 해당 화면에 데이터가 제대로 전달되지 않은 경우 가이드라인 결함 내용 철자(스펠링) 오류, 구두점, format 등</li><li>윈도우 제목, 화면 표시 항목 등에 철자 오류가 있을 경우 버튼, 레이어명, 메시지, UI 등이 표준 미준수</li><li>UI스타일 가이드 표준을 준수하지 않았거나 화면 간 일관성이 결여된 경우</li><li>기능 수행 시 표시되는 오류 메시지의 표시 형식이나 내 용이 다른 화면의 그것과 다른 경우</li><li>기능 표준을 준수하지 않았거나 동일 기능이 화면 간에 일관성 있게 구현되지 않은 경우 (5) 조건 상태(Condition)와 연산(Calculation) 결함의 가이드라인을 확인한다.</li><li>IF, Evaluate(CASE), While, For문 등을 포함하는 조건문 관련 오류 연산 오류</li><li>화면의 A, B 필드에 값을 입력했으나 자동 계산 필드인 C 필드의 값이 두 값의 연산값을 나타내고 있지 않거나 아무 변화가 없는 경우 Logic, pointers, loops, recursion, computation, 기능상의 오류</li><li>기능 수행 중 에러(웹 페이지 오류, 런타임 오류 등)가 발생하는 경우</li><li>정상적인 입력 사항에 대한 처리는 정상적으로 수행되지만, 예외적인 입력 사항에 대하여 에러를 발생시키는 경우</li><li>예외적인 업무 흐름(업무 순서를 바꿔서 처리하거나 업무 흐름 상 발생할 수 있는 예외적인 경로 수행)에 대하여 에러를 발생 시키는 경우</li><li>입력 필드에서 탭 키를 눌러도 다음 입력 필드로 이동하지 않는 경우</li><li>동일한 화면을 중복 호출하는 버튼이 삽입된 경우</li><li>동일한 데이터를 불필요하게 화면에 중복해서 표시하는 경우</li><li>동일한 값으로 중복으로 입력해도 성공적으로 작업이 처리되는 경우 기능 결과가 예상 결과와 맞지 않음</li><li>기능 수행 시 정상적으로 작업이 처리되었다는 메시지가 표시되나 실제로 확인해 보면 그렇지 않은 경우</li><li>필수 항목을 미입력하였으나, 성공적으로 처리된 경우</li><li>기능이 불완전하게 수행되는 경우 (2건을 삭제하였으나 결과는 1건만 삭제된 경우 등) 버튼 동작 및 연계 화면 오류</li><li>연계 화면을 링크하는 버튼을 클릭했을 때 해당 화면이 정상적으로 로딩되지 않고, 빈 화면 or 다른 화면 or 오류 메시지가 표시되는 경우</li><li>데이터가 연속적으로 표시되지 않고, 페이지마다 간헐적으로 표시된 경우</li><li>‘다음’, ‘이전’ 버튼을 클릭했을 때 해당 데이터가 표시되지 않고, 오류 메시지가 표시된 경우 및 해당 페이지로 이동하지 않는 경우</li><li>버튼이 비활성되어야 하나, 활성화된 경우 (6) 기능 체크(Checking)와 예외 처리(Exception) 결함의 가이드라인을 확인한다.</li><li>기능 수행 시, 표시되는 오류 메시지의 내용이 코드값이나 기호 등으로 표시되는 경우</li><li>필수 입력 항목 이외의 항목에 대하여 입력 여부를 체크하는 경우 예외 처리(Exception Handling) 오류</li><li>입력 필드에 invalid 한 값을 입력하고 기능 버튼을 클릭했을 때 적절한 메시지를 보여주지 못하는 경우</li><li>입력 필드에 max length를 초과하는 값을 입력하고 기능 버튼을 클릭했을 때 적절한 메시지를 보여주지 못하는 경우</li><li>입력 필드에 invalid 한 값(max length 초과하는 값 포함)을 입력하고 기능 버튼을 클릭했을 때 아무 action이 없는 경우</li><li>결함을 제거한다.</li></ol><div class='doh'><b>2</b><span>결함 조치 후 변경 사항을 형상 관리한다.</span></div><ol class='dos'><li>변경되는 소스의 버전을 관리한다.</li><li>결함 조치 결과 이력을 관리한다.</li><li>변경된 결함의 형상 상태를 기록한다.</li><li>형상 감사 계획을 수립하고 기록한다.</li><li>고객 요구사항 정의서</li><li>S/W 요구사항 정의서</li><li>구조 설계서</li><li>상세 설계서</li><li>테스트 설계서 인터넷 뱅킹 업무 개시로 인한 자금</li><li>고객 요구사항 정의서</li><li>S/W 요구사항 정의서 - 현재 변경 완료된 업무만 제출 (2) 형상 관리에 대한 대상과 항목 그리고 결과물이 명확하게 기록되어 있는지 확인한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>우선순위에 따라 결함을 제거한다.</li><li>결함 조치 후 변경 사항을 형상 관리한다.</li><li>결함이 발생한 소스를 분석하고 기존에 구현된 로직과의 연관성을 고려하여 부작용이 최소화 되도록 결함을 제거할 수 있다.</li><li>애플리케이션 테스트 결과 결함 조치로 변경되는 소스의 버전을 관리하고 결함 조치 결과에 대한 이력을 관리할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st43">
-      <h3><i>43</i>소프트웨어 인스펙션(Software Inspection)의 개요</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 조치 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="68">원문 55쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>인스펙션으로 부르기도 한다. 수 없다. 이는 상당한 시간이 필요한 작업이며, 통계에 따르면 인스펙션을 적절히 수행하 면 에러의 90%까지 찾아낼 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st44">
-      <h3><i>44</i>인스펙션 중점 항목</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 조치 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="68">원문 55쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>프로젝트에서 소프트웨어 인스펙션 업무는 품질 보증(QA)이 주관하여 담당 또는 부서에서 실시하나, 아키텍트가 각 단계에서 원활한 업무 수행을 위해 지원을 하여야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st45">
-      <h3><i>45</i>코드 인스펙션의 프로세스와 수행 내용</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 조치 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="69">원문 56쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>범위 계획</li><li>인스펙션 회의</li><li>후속 처리</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st46">
-      <h3><i>46</i>범위 계획</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 조치 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="69">원문 56쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>(Capacity Plan) 얼마만큼 인스펙션 할 것인가? 인스펙션의 범위와 범위 선정 기준을 결정함 (Overview) 자동 인스펙션 수행 (Preparation) 계획서 작성, 체크리스트 작성, 계획 공지, 대상 산출</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st47">
-      <h3><i>47</i>인스펙션 회의</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 조치 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="69">원문 56쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>(Inspection Meeting) 사전 검토 실시, 미팅 실시 (Rework) 개발 원작자가 직접 작업함</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st48">
-      <h3><i>48</i>후속 처리</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 결함 조치 관리</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020227_23v6" data-page="69">원문 56쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>(Follow-up) 결과 분석서 작성 및 보고 - 전수 검사, Quality Metric, 결함 분석 - 일정 및 관련자, 대상 산출물 및 준비물 정의 - 표준 체크리스트를 테일러링 하여 인스펙션 체크 리스트 작성 - 메일이나 공지를 통해 관련자에게 사전 공지 (가) 자동 코드 인스펙션 전체 개발된 프로그램을 대상으로 자동 인스펙션을 수행한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 55쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
   </div>
 </div>
 
-<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
-원문 LM2001020227_23v6_애플리케이션 테스트 수행_20251108.pdf</footer>
+<footer>담당 정우균 · 개념과 절차는 <b>NCS 학습모듈 LM2001020227_23v6_애플리케이션 테스트 수행_20251108.pdf</b> 에서
+옮긴 것입니다 — 한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지)</footer>
 </div>
 <script>
-/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+/* 빠른 이동 — 지금 보는 꼭지를 표시하고, 좁은 화면에서는 여닫습니다. */
 (function () {
   var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
   var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));

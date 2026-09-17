@@ -1,13 +1,30 @@
-<meta charset="utf-8"><title>자료구조 활용 — 준비 교안</title>
+<meta charset="utf-8"><title>자료구조 활용 — 학습 가이드</title>
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="stylesheet" href="../assets/guide.css">
 <style>
-  /* 원문 인용 — 우리가 쓴 안내와 눈으로 구분되어야 한다 */
-  .bd blockquote{margin:10px 0 16px;padding:10px 14px;border-left:3px solid #000;
-                 background:#fafafa;font-size:13.5px;line-height:1.8;color:#222}
-  .bd p.none{color:#888;font-size:13px}
-  .bd ul.sub{margin:8px 0 16px;padding-left:20px;font-size:13.5px;line-height:1.9}
-  aside.side .v .btn{font-size:11.5px}
+  /* 학습 가이드 — 개념 / 실습 / 확인 세 덩어리가 눈으로 구분되어야 한다 */
+  .bd h4{margin:22px 0 8px;font-size:14px;padding-bottom:5px;border-bottom:1px solid #000}
+  .bd h4:first-child{margin-top:0}
+  .bd h5{margin:16px 0 5px;font-size:13px;font-weight:700}
+  .bd blockquote{margin:5px 0 12px;padding:9px 13px;border-left:3px solid #999;
+                 background:#fafafa;font-size:13px;line-height:1.8;color:#333}
+  .cc{margin:0 0 6px}
+  .cc dt{font-weight:700;font-size:13.5px;margin:14px 0 0}
+  .cc dd{margin:4px 0 0}
+  .doh{display:flex;gap:9px;align-items:baseline;margin:16px 0 4px;font-size:13.5px;
+       font-weight:700}
+  .doh b{flex:0 0 auto;width:21px;height:21px;line-height:19px;text-align:center;
+         border:1px solid #000;font-size:11.5px}
+  ol.dos{margin:2px 0 0 30px;padding:0;font-size:13px;line-height:1.85}
+  ol.dos li{margin:3px 0}
+  .prep{display:grid;grid-template-columns:76px 1fr;gap:3px 10px;font-size:12.5px;
+        border:1px solid #ccc;padding:10px 13px;margin:6px 0 2px;background:#fafafa}
+  .prep b{color:#555;font-weight:400}
+  ul.goal{margin:6px 0 0;padding-left:20px;font-size:13.5px;line-height:1.9}
+  ul.chk{margin:6px 0 0;padding:0;list-style:none;font-size:13.5px;line-height:1.95}
+  ul.chk li::before{content:"\2610  "}
+  .none{color:#888;font-size:12.5px}
+  .srcline{font-size:11.5px;color:#888;margin:8px 0 0}
 </style>
 <script src="../assets/auth.js"></script>
 <script>EXAM_AUTH.guard("../");</script>
@@ -17,7 +34,7 @@
 <div class="top"><div class="tbar">
   <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
   <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
-  / 자료구조 활용 / 준비 교안</small></div>
+  / 자료구조 활용 / 학습 가이드</small></div>
   <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
@@ -25,49 +42,45 @@
 <button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
 
 <nav id="qnav" aria-label="빠른 이동">
-  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
-  <i class="qg">기본 자료구조 활용하기</i><a href="#st1"><b>1</b><span>자료구조 및 성능 개념</span></a><a href="#st2"><b>2</b><span>자료구조 개념</span></a><a href="#st3"><b>3</b><span>자료구조별 연산 성능 및 복잡도 분석</span></a><a href="#st4"><b>4</b><span>자료구조 알고리즘 및 프로그래밍 언어별 자료구조 구현 방식</span></a><a href="#st5"><b>5</b><span>자료구조 알고리즘 종류</span></a><a href="#st6"><b>6</b><span>프로그래밍 언어별 자료구조</span></a><a href="#st7"><b>7</b><span>시간 및 공간 복잡도 분석 방식</span></a><a href="#st8"><b>8</b><span>Big-O 표기법</span></a><a href="#st9"><b>9</b><span>알고리즘 성능 분석 기준</span></a><a href="#st10"><b>10</b><span>공간 효율성 개념</span></a><a href="#st11"><b>11</b><span>자료구조 활용</span></a><a href="#st12"><b>12</b><span>기능별 자료구조 매핑 방법</span></a><a href="#st13"><b>13</b><span>자료 흐름도 및 클래스 설계 방법</span></a><a href="#st14"><b>14</b><span>기능 정의</span></a><a href="#st15"><b>15</b><span>데이터 특성 분석</span></a><a href="#st16"><b>16</b><span>연산 요구 분석</span></a><a href="#st17"><b>17</b><span>자료구조 후보 도출</span></a><a href="#st18"><b>18</b><span>성능 및 구현</span></a><a href="#st19"><b>19</b><span>최적 자료구조 선택</span></a><a href="#st20"><b>20</b><span>입력/출력 정의</span></a><a href="#st21"><b>21</b><span>처리 정의</span></a><a href="#st22"><b>22</b><span>데이터 저장소 정의</span></a><a href="#st23"><b>23</b><span>데이터 흐름 정의</span></a><a href="#st24"><b>24</b><span>예외 흐름 정의</span></a><i class="qg">정렬 및 탐색 알고리즘 활용하기</i><a href="#st25"><b>25</b><span>정렬 알고리즘 기본 개념</span></a><a href="#st26"><b>26</b><span>정렬 알고리즘 정의</span></a><a href="#st27"><b>27</b><span>정렬 테스트와 검증 절차</span></a><a href="#st28"><b>28</b><span>정렬 알고리즘의 유형 및 동작 원리</span></a><a href="#st29"><b>29</b><span>정렬 알고리즘 분류 및 선택 기준</span></a><a href="#st30"><b>30</b><span>정렬 알고리즘 분류 기준</span></a><a href="#st31"><b>31</b><span>정렬 알고리즘 선택 기준</span></a><a href="#st32"><b>32</b><span>응용 알고리즘 활용 사례</span></a><a href="#st33"><b>33</b><span>주요 탐색 알고리즘의 원리와 특성</span></a><a href="#st34"><b>34</b><span>선형 탐색(Linear Search)</span></a><a href="#st35"><b>35</b><span>이진 탐색(Binary Search)</span></a><a href="#st36"><b>36</b><span>보간 탐색(Interpolation Search)</span></a><a href="#st37"><b>37</b><span>트리 기반 탐색</span></a><a href="#st38"><b>38</b><span>AVL 트리 기반 탐색</span></a><a href="#st39"><b>39</b><span>트라이(Trie) 탐색</span></a><a href="#st40"><b>40</b><span>B 트리 / B+ 트리 탐색</span></a><a href="#st41"><b>41</b><span>탐색 알고리즘 선택 기준</span></a><a href="#st42"><b>42</b><span>데이터 정렬</span></a><a href="#st43"><b>43</b><span>데이터 구조</span></a><a href="#st44"><b>44</b><span>데이터 특성</span></a><a href="#st45"><b>45</b><span>성능 및 리소스</span></a>
+  <a class="qt" href="#top"><b>&uarr;</b><span>맨 위로</span></a>
+  <i class="qg">기본 자료구조 활용하기</i><a href="#st1"><b>1</b><span>자료구조 특성 및 차이점 파악</span></a><a href="#st2"><b>2</b><span>자료구조 활용</span></a><i class="qg">정렬 및 탐색 알고리즘 활용하기</i><a href="#st3"><b>3</b><span>데이터 정렬 알고리즘 활용</span></a><a href="#st4"><b>4</b><span>데이터 탐색 알고리즘 활용</span></a>
 </nav>
 
 <div class="wrap" id="top">
 
-<h1>자료구조 활용 — 준비 교안</h1>
+<h1>자료구조 활용 — 학습 가이드</h1>
 <p class="sub">능력단위 <code>2001020235_23v1</code> · 5수준 ·
-32시간 · 단계 45개 · 평가 문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
+32시간 · 꼭지 4개 · 개념 45항목 · 실습 33절차</p>
 
-<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<h2 class="sec" id="g0">0. 시작하기 전에</h2>
 <div class="sect">
   <aside class="side">
     <p class="pt">자료구조 유형별 특성을 고려하여 애플리케이션 구현과 정렬 및 탐색 알고리즘에 적합한 자료구조를 선정하여 활용할 수 있다.</p>
-    <b class="sh">선수학습</b>
+    <b class="sh">먼저 알아야 할 것</b>
     <p class="v">프로그래밍 언어 응용(LM2001020230_23v5), 요구사항 확인(LM2001020201_23v5), 기본 자료구조 개념, 알고리즘 기초</p>
-    <b class="sh">원문</b>
-    <p class="src">LM2001020235_23v1_자료구조 활용_20251108.pdf (97쪽)</p>
+    <b class="sh">평가</b>
+    <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
   </aside>
   <div class="bd">
-<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
-   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
-   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
-<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
-   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
-   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+<h4>이 문서를 쓰는 법</h4>
+<p>꼭지마다 <b>무엇을 할 수 있게 되나 → 알아야 할 것 → 해 보기 → 스스로 확인</b>
+   순서입니다. 읽고 끝내지 말고 <b>해 보기</b>를 손으로 따라 하십시오.
+   마지막 <b>스스로 확인</b>을 전부 «할 수 있다» 고 말할 수 있으면 다음 꼭지로 갑니다.</p>
+<p>자세한 설명과 표·그림은 <b>학습모듈 원문</b>에 있습니다. 꼭지마다 있는
+   <b>[원문 N쪽]</b> 단추를 누르면 그 자리가 바로 펼쳐집니다.</p>
 
 <h4>핵심 용어</h4>
 <p>자료구조, 시간 복잡도, 공간 복잡도, 선형 구조, 비선형 구조, 노드, 포인터, 탐색, 삽입·삭제 연산</p>
 
-<h4>능력단위요소</h4>
+<h4>차례</h4>
 <table class="wide">
-  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
-      <th>학습 내용</th><th style="width:74px">단계</th></tr>
-  <tr><td class="c">1</td><td>기본 자료구조 활용하기</td><td>자료구조 특성 및 차이점 파악 · 자료구조 활용</td><td class="c">24</td></tr>
-  <tr><td class="c">2</td><td>정렬 및 탐색 알고리즘 활용하기</td><td>데이터 정렬 알고리즘 활용 · 데이터 탐색 알고리즘 활용</td><td class="c">21</td></tr>
+  <tr><th style="width:44px">꼭지</th><th style="width:250px">학습 내용</th>
+      <th>능력단위요소</th><th style="width:58px">개념</th><th style="width:58px">실습</th></tr>
+  <tr><td class="c">1</td><td>1-1. 자료구조 특성 및 차이점 파악</td><td>기본 자료구조 활용하기</td><td class="c">6</td><td class="c">11</td></tr>
+  <tr><td class="c">2</td><td>1-2. 자료구조 활용</td><td>기본 자료구조 활용하기</td><td class="c">18</td><td class="c">4</td></tr>
+  <tr><td class="c">3</td><td>2-1. 데이터 정렬 알고리즘 활용</td><td>정렬 및 탐색 알고리즘 활용하기</td><td class="c">8</td><td class="c">6</td></tr>
+  <tr><td class="c">4</td><td>2-2. 데이터 탐색 알고리즘 활용</td><td>정렬 및 탐색 알고리즘 활용하기</td><td class="c">13</td><td class="c">12</td></tr>
 </table>
-
-<div class="try">
-  <b class="t">쓰는 법</b>
-  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
-  한 단계가 대략 수업 10~20분에 해당합니다.
-</div>
   </div>
 </div>
 
@@ -75,625 +88,65 @@
   <div class="lvh"><b>1. 기본 자료구조 활용하기</b><span>능력단위요소 · <code>2001020235_23v1.1</code></span></div>
   <div class="lvb">
     <div class="step" id="st1">
-      <h3><i>1</i>자료구조 및 성능 개념</h3>
+      <h3><i>1</i>1-1. 자료구조 특성 및 차이점 파악</h3>
       <aside class="side">
-        <p class="pt">자료구조 특성 및 차이점 파악</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
+        <p class="pt">자료구조의 각 유형별 특성 및 차이점을 파악할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">기본 자료구조 활용하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 6항목 · 실습 11절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>자료구조 개념</li><li>자료구조별 연산 성능 및 복잡도 분석</li><li>자료구조 알고리즘 및 프로그래밍 언어별 자료구조 구현 방식</li><li>자료구조 알고리즘 종류</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>자료구조의 각 유형별 특성 및 차이점을 파악할 수 있다.</li><li>애플리케이션과 알고리즘에 적합한 자료구조를 선정할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>자료구조 개념</dt><dd><blockquote>김진수(2023), Cormen(2009) 등의 연구에 따르면 자료구조는 자료를 저장하고 조직하여 효율적인 접근 및 처리를 가능하게 하는 방식을 의미하며 알고리즘을 적용하여 프로그램의 성능과 효율성에 결정적인 영향을 미치는 요소로 정의한다.</blockquote></dd><dt>자료구조별 연산 성능 및 복잡도 분석</dt><dd><blockquote>입력 데이터 크기(n)에 따라 알고리즘 또는 연산 실행 과정의 소요 시간 증가율을 수학적으로 표현한 것으로 Cormen(2009)의 연구에서 언급하고 있는 Big-O 표기 법을 사용한다.</blockquote></dd><dt>자료구조 알고리즘 종류</dt><dd><blockquote>데이터 집합에서 원하는 값을 찾기 위한 알고리즘이다. 데이터를 오름차순, 내림차순 등 정해진 순서로 재배열하기 위한 알고리즘이다.</blockquote></dd><dt>프로그래밍 언어별 자료구조</dt><dd><blockquote>자바는 컬렉션 프레임워크를 통해 다양한 자료구조를 표준 라이브러리로 제공한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>자료구조 및 성능 개념 · 자료구조 알고리즘 및 프로그래밍 언어별 자료구조 구현 방식</dd></dl>
+
+<h4>해 보기</h4>
+<h5>자료구조 특성 및 차이점 파악하기</h5><div class='doh'><b>1</b><span>자료구조의 각 유형별 특성 및 차이점을 분석한다.</span></div><ol class='dos'><li>주요 자료구조 유형을 목록으로 작성한다.</li></ol><div class='doh'><b>2</b><span>인덱스를 통한</span></div><div class='doh'><b>3</b><span>크기 고정</span></div><div class='doh'><b>4</b><span>O(1): 앞에</span></div><div class='doh'><b>5</b><span>O(n): 임의</span></div><div class='doh'><b>6</b><span>O(1): 앞에</span></div><div class='doh'><b>7</b><span>O(n): 임의</span></div><div class='doh'><b>8</b><span>포인터로 요소</span></div><div class='doh'><b>9</b><span>동작 시 크기</span></div><div class='doh'><b>10</b><span>입출력 방향</span></div><div class='doh'><b>11</b><span>유연한 큐 구조</span></div><div class='doh'><b>12</b><span>O(log n):</span></div><div class='doh'><b>13</b><span>O(n): 비균형</span></div><div class='doh'><b>14</b><span>계층적 데이터</span></div><div class='doh'><b>15</b><span>중복되지 않음</span></div><div class='doh'><b>16</b><span>이진 탐색트리,</span></div><div class='doh'><b>17</b><span>O(1 ~ n2):</span></div><div class='doh'><b>18</b><span>순환/무순환</span></div><div class='doh'><b>19</b><span>방향/무방향,</span></div><ol class='dos'><li>각 자료구조의 개념을 정리한다.</li></ol><div class='doh'><b>20</b><span>O(log</span></div><div class='doh'><b>21</b><span>최대/최소</span></div><div class='doh'><b>22</b><span>정렬과 우선순위</span></div><div class='doh'><b>23</b><span>O(m): 문자열</span></div><div class='doh'><b>24</b><span>문자열 검색</span></div><div class='doh'><b>25</b><span>중복 노드</span></div><div class='doh'><b>26</b><span>O(log n)</span></div><div class='doh'><b>27</b><span>디스크 I/O</span></div><div class='doh'><b>28</b><span>범위 탐색에</span></div><ol class='dos'><li>자료구조 간 처리 속도, 메모리 효율 등 특성을 비교 분석한다.</li><li>시스템에 활용한 자료구조 사례를 조사한다.</li><li>각 자료구조의 동작 방식이나 구조를 도식으로 작성한다.</li><li>자료구조별 차이점을 요약하여 정리한다.</li></ol><div class='doh'><b>29</b><span>애플리케이션과 알고리즘에 적합한 자료구조를 선정한다.</span></div><ol class='dos'><li>애플리케이션 요구사항을 분석한다.</li><li>데이터 처리 알고리즘 특성을 분석한다.</li></ol><div class='doh'><b>30</b><span>삽입: 평균 O(1) 이하</span></div><div class='doh'><b>31</b><span>삭제: 불필요</span></div><div class='doh'><b>32</b><span>검색: 평균 O(1) 이상</span></div><div class='doh'><b>33</b><span>공간 효율성: 데이터 10만 건 이하 기준 100MB 이내</span></div><div class='doh'><b>34</b><span>사용 환경: Java, 멀티스레딩 환경</span></div><ol class='dos'><li>후보 자료구조를 조사하고 특성을 비교한다.</li><li>애플리케이션에 적합한 자료구조를 선정한다.</li><li>선정한 자료구조의 적용 가능성을 검증한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>자료구조의 각 유형별 특성 및 차이점을 분석한다.</li><li>인덱스를 통한</li><li>크기 고정</li><li>O(1): 앞에</li><li>O(n): 임의</li><li>O(1): 앞에</li><li>O(n): 임의</li><li>포인터로 요소</li><li>동작 시 크기</li><li>입출력 방향</li><li>유연한 큐 구조</li><li>O(log n):</li><li>O(n): 비균형</li><li>계층적 데이터</li><li>중복되지 않음</li><li>이진 탐색트리,</li><li>O(1 ~ n2):</li><li>순환/무순환</li><li>방향/무방향,</li><li>O(log</li><li>최대/최소</li><li>정렬과 우선순위</li><li>O(m): 문자열</li><li>문자열 검색</li><li>중복 노드</li><li>O(log n)</li><li>디스크 I/O</li><li>범위 탐색에</li><li>애플리케이션과 알고리즘에 적합한 자료구조를 선정한다.</li><li>삽입: 평균 O(1) 이하</li><li>삭제: 불필요</li><li>검색: 평균 O(1) 이상</li><li>공간 효율성: 데이터 10만 건 이하 기준 100MB 이내</li><li>사용 환경: Java, 멀티스레딩 환경</li><li>자료구조의 각 유형별 특성 및 차이점을 파악할 수 있다.</li><li>애플리케이션과 알고리즘에 적합한 자료구조를 선정할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 3쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
     <div class="step" id="st2">
-      <h3><i>2</i>자료구조 개념</h3>
+      <h3><i>2</i>1-2. 자료구조 활용</h3>
       <aside class="side">
-        <p class="pt">자료구조 특성 및 차이점 파악</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>김진수(2023), Cormen(2009) 등의 연구에 따르면 자료구조는 자료를 저장하고 조직하여 효율적인 접근 및 처리를 가능하게 하는 방식을 의미하며 알고리즘을 적용 하여 프로그램의 성능과 효율성에 결정적인 영향을 미치는 요소로 정의한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st3">
-      <h3><i>3</i>자료구조별 연산 성능 및 복잡도 분석</h3>
-      <aside class="side">
-        <p class="pt">자료구조 특성 및 차이점 파악</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>입력 데이터 크기(n)에 따라 알고리즘 또는 연산 실행 과정의 소요 시간 증가율을 수학적으로 표현한 것으로 Cormen(2009)의 연구에서 언급하고 있는 Big-O 표기 법을 사용한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st4">
-      <h3><i>4</i>자료구조 알고리즘 및 프로그래밍 언어별 자료구조 구현 방식</h3>
-      <aside class="side">
-        <p class="pt">자료구조 특성 및 차이점 파악</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>자료구조 알고리즘 종류</li><li>프로그래밍 언어별 자료구조</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st5">
-      <h3><i>5</i>자료구조 알고리즘 종류</h3>
-      <aside class="side">
-        <p class="pt">자료구조 특성 및 차이점 파악</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>데이터 집합에서 원하는 값을 찾기 위한 알고리즘이다. 데이터를 오름차순, 내림차순 등 정해진 순서로 재배열하기 위한 알고리즘이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st6">
-      <h3><i>6</i>프로그래밍 언어별 자료구조</h3>
-      <aside class="side">
-        <p class="pt">자료구조 특성 및 차이점 파악</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>자바는 컬렉션 프레임워크를 통해 다양한 자료구조를 표준 라이브러리로 제공한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st7">
-      <h3><i>7</i>시간 및 공간 복잡도 분석 방식</h3>
-      <aside class="side">
-        <p class="pt">자료구조 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">애플리케이션을 구현하기 위하여 선택한 자료구조를 활용할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">기본 자료구조 활용하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="32">원문 19쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 18항목 · 실습 4절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>Big-O 표기법</li><li>알고리즘 성능 분석 기준</li><li>공간 효율성 개념</li><li>자료구조 활용</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>애플리케이션을 구현하기 위하여 선택한 자료구조를 활용할 수 있다.</li><li>알고리즘 구성을 위하여 선택한 자료구조를 활용할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>Big-O 표기법</dt><dd><blockquote>알고리즘이나 연산의 시간, 공간 복잡도를 수학적으로 표현하는 방법으로 입력 크기 n이 커질 때 연산량이 증가하는 정도를 추상적으로 나타내는 표기법이다.</blockquote></dd><dt>알고리즘 성능 분석 기준</dt><dd><blockquote>소스 코드의 반복문, 조건문, 재귀 호출 등을 기준으로 입력 크기 증가에 따른 연산 량을 측정하여 복잡도를 산정한다.</blockquote></dd><dt>공간 효율성 개념</dt><dd><blockquote>알고리즘이나 자료구조가 메모리를 효율적으로 사용하는 정도를 나타내는 척도로 임베디드, 모바일 환경 등에서 중요하게 고려해야 한다.</blockquote></dd><dt>기능별 자료구조 매핑 방법</dt><dd><blockquote>애플리케이션에서 구현할 기능의 특성과 데이터 흐름을 고려하여 가장 적합한 자료구조를 선택하는 과정이다. 이 과정을 통해 기능의 처리 속도를 높이고, 메모리 사용을 최적화하며, 유지 보수성을 강화할 수 있다.</blockquote></dd><dt>자료 흐름도 및 클래스 설계 방법</dt><dd><blockquote>(가) 자료 흐름도 설계 절차</blockquote></dd><dt>기능 정의</dt><dd><blockquote>CRUD, 검색, 정렬, 필터링 등 기능을 세분화</blockquote></dd><dt>데이터 특성 분석</dt><dd><blockquote>각 기능에서 다루는 데이터의 크기와 형태(리스트, 트리, 해시 등), 실시간 처리 요구 여부를 분석</blockquote></dd><dt>연산 요구 분석</dt><dd><blockquote>어떤 연산이 성능에 영향을 미치는지 삽입, 삭제, 탐색 등의 주요 연산의 빈도와 중요도를 파악</blockquote></dd><dt>자료구조 후보 도출</dt><dd><blockquote>연산 복잡도와 구조적 특징을 기준으로 2~3개의 후보 자료구조를</blockquote></dd><dt>성능 및 구현</dt><dd><blockquote>난이도 평가 시간·공간 복잡도, 코드 구현의 용이성, 라이브러리 지원 여부 등을 종합적으로 고려</blockquote></dd><dt>최적 자료구조 선택</dt><dd><blockquote>성능, 구현 가능성, 유지 보수성 등을 종합적으로 고려하여 최종 자료구조 선택</blockquote></dd><dt>입력/출력 정의</dt><dd><blockquote>시스템에 들어오는 입력, 사용자 또는 다른 시스템으로 나가는</blockquote></dd><dt>처리 정의</dt><dd><blockquote>입력을 가공하여 출력을 생성하는 처리 과정 도출</blockquote></dd><dt>데이터 저장소 정의</dt><dd><blockquote>파일, DB, 메모리 등 데이터가 저장되는 위치 식별</blockquote></dd><dt>데이터 흐름 정의</dt><dd><blockquote>위 요소 간 데이터 이동 경로와 방향 정의</blockquote></dd><dt>예외 흐름 정의</dt><dd><blockquote>잘못된 입력, 시스템 오류 발생 시 흐름도에 포함 (나) 자료 흐름도 주요 기호 (다) 자료 흐름도 주요 기호를 활용한 사례 (가) 기능 분석 시스템 기능을 세분화하여 각 클래스가 담당할 책임을 정의한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>시간 및 공간 복잡도 분석 방식 · 자료구조 활용</dd></dl>
+
+<h4>해 보기</h4>
+<h5>자료구조 활용하기</h5><div class='doh'><b>1</b><span>선택한 자료구조를 실제 기능에 적용한다.</span></div><ol class='dos'><li>요구사항에 부합하는 자료구조를 선정한다.</li><li>선택한 자료구조를 기반으로 설계에 반영한다.</li><li>선택한 자료구조 기반의 코드를 구현한다.</li><li>자료구조가 적용된 시스템의 성능 및 적정성을 검토한다.</li></ol><div class='doh'><b>2</b><span>주요 자료구조 유형의 예시와 도식을 제공하여 자료구조 개념과 추상 데이터 타입 차이</span></div><div class='doh'><b>3</b><span>각 자료구조의 연산 복잡도와 공간 효율성을 표와 그래프를 제공하여 비교 분석하도록</span></div><div class='doh'><b>4</b><span>프로그래밍 언어별 자료구조 구현 방식을 설명하고 실습을 진행하여 언어별 자료구조</span></div><div class='doh'><b>5</b><span>다양한 요구사항 및 시나리오를 제공하고 해당 상황에 맞는 자료구조를 선정하고 그 근</span></div><div class='doh'><b>6</b><span>자료구조 활용의 적절성에 대한 소스 코드를 검토하고 토론을 통해 자료구조 선택의 중</span></div><div class='doh'><b>7</b><span>제공된 자료구조 유형의 예시와 도식을 파악하여 자료구조 개념과 추상 데이터 타입 차</span></div><div class='doh'><b>8</b><span>각 자료구조의 연산 복잡도와 공간 효율성을 표와 그래프를 작성하여 비교 분석하고 발</span></div><div class='doh'><b>9</b><span>프로그래밍 언어별 자료구조 구현 방식을 숙지하고 주어진 실습 자료에 맞는 자료구조</span></div><div class='doh'><b>10</b><span>다양한 요구사항 및 시나리오를 분석하여 해당 상황에 맞는 자료구조를 선정하고 그 근</span></div><div class='doh'><b>11</b><span>자료구조 활용의 적절성에 대한 소스 코드를 분석하고 토론을 통해 자료구조 선택의 중</span></div><div class='doh'><b>12</b><span>평가자는 학습자가 학습 목표를 성공적으로 달성하였는지를 평가해야 한다.</span></div><div class='doh'><b>13</b><span>평가자는 다음 사항을 평가해야 한다.</span></div>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>선택한 자료구조를 실제 기능에 적용한다.</li><li>주요 자료구조 유형의 예시와 도식을 제공하여 자료구조 개념과 추상 데이터 타입 차이</li><li>각 자료구조의 연산 복잡도와 공간 효율성을 표와 그래프를 제공하여 비교 분석하도록</li><li>프로그래밍 언어별 자료구조 구현 방식을 설명하고 실습을 진행하여 언어별 자료구조</li><li>다양한 요구사항 및 시나리오를 제공하고 해당 상황에 맞는 자료구조를 선정하고 그 근</li><li>자료구조 활용의 적절성에 대한 소스 코드를 검토하고 토론을 통해 자료구조 선택의 중</li><li>제공된 자료구조 유형의 예시와 도식을 파악하여 자료구조 개념과 추상 데이터 타입 차</li><li>각 자료구조의 연산 복잡도와 공간 효율성을 표와 그래프를 작성하여 비교 분석하고 발</li><li>프로그래밍 언어별 자료구조 구현 방식을 숙지하고 주어진 실습 자료에 맞는 자료구조</li><li>다양한 요구사항 및 시나리오를 분석하여 해당 상황에 맞는 자료구조를 선정하고 그 근</li><li>자료구조 활용의 적절성에 대한 소스 코드를 분석하고 토론을 통해 자료구조 선택의 중</li><li>평가자는 학습자가 학습 목표를 성공적으로 달성하였는지를 평가해야 한다.</li><li>평가자는 다음 사항을 평가해야 한다.</li><li>애플리케이션을 구현하기 위하여 선택한 자료구조를 활용할 수 있다.</li><li>알고리즘 구성을 위하여 선택한 자료구조를 활용할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st8">
-      <h3><i>8</i>Big-O 표기법</h3>
-      <aside class="side">
-        <p class="pt">자료구조 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="32">원문 19쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>알고리즘이나 연산의 시간, 공간 복잡도를 수학적으로 표현하는 방법으로 입력 크기 n이 커질 때 연산량이 증가하는 정도를 추상적으로 나타내는 표기법이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st9">
-      <h3><i>9</i>알고리즘 성능 분석 기준</h3>
-      <aside class="side">
-        <p class="pt">자료구조 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="33">원문 20쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소스 코드의 반복문, 조건문, 재귀 호출 등을 기준으로 입력 크기 증가에 따른 연산 량을 측정하여 복잡도를 산정한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st10">
-      <h3><i>10</i>공간 효율성 개념</h3>
-      <aside class="side">
-        <p class="pt">자료구조 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="33">원문 20쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>알고리즘이나 자료구조가 메모리를 효율적으로 사용하는 정도를 나타내는 척도로 임베디드, 모바일 환경 등에서 중요하게 고려해야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st11">
-      <h3><i>11</i>자료구조 활용</h3>
-      <aside class="side">
-        <p class="pt">자료구조 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>기능별 자료구조 매핑 방법</li><li>자료 흐름도 및 클래스 설계 방법</li><li>기능 정의</li><li>데이터 특성 분석</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st12">
-      <h3><i>12</i>기능별 자료구조 매핑 방법</h3>
-      <aside class="side">
-        <p class="pt">자료구조 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>애플리케이션에서 구현할 기능의 특성과 데이터 흐름을 고려하여 가장 적합한 자료구조를 선택하는 과정이다. 이 과정을 통해 기능의 처리 속도를 높이고, 메모리 사용을 최적화하며, 유지 보수성을 강화할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st13">
-      <h3><i>13</i>자료 흐름도 및 클래스 설계 방법</h3>
-      <aside class="side">
-        <p class="pt">자료구조 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>(가) 자료 흐름도 설계 절차</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st14">
-      <h3><i>14</i>기능 정의</h3>
-      <aside class="side">
-        <p class="pt">자료구조 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>CRUD, 검색, 정렬, 필터링 등 기능을 세분화</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st15">
-      <h3><i>15</i>데이터 특성 분석</h3>
-      <aside class="side">
-        <p class="pt">자료구조 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>각 기능에서 다루는 데이터의 크기와 형태(리스트, 트리, 해시 등), 실시간 처리 요구 여부를 분석</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st16">
-      <h3><i>16</i>연산 요구 분석</h3>
-      <aside class="side">
-        <p class="pt">자료구조 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>어떤 연산이 성능에 영향을 미치는지 삽입, 삭제, 탐색 등의 주요 연산의 빈도와 중요도를 파악</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st17">
-      <h3><i>17</i>자료구조 후보 도출</h3>
-      <aside class="side">
-        <p class="pt">자료구조 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연산 복잡도와 구조적 특징을 기준으로 2~3개의 후보 자료구조를</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st18">
-      <h3><i>18</i>성능 및 구현</h3>
-      <aside class="side">
-        <p class="pt">자료구조 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>난이도 평가 시간·공간 복잡도, 코드 구현의 용이성, 라이브러리 지원 여부 등을 종합적으로 고려</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st19">
-      <h3><i>19</i>최적 자료구조 선택</h3>
-      <aside class="side">
-        <p class="pt">자료구조 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>성능, 구현 가능성, 유지 보수성 등을 종합적으로 고려하여 최종 자료구조 선택</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st20">
-      <h3><i>20</i>입력/출력 정의</h3>
-      <aside class="side">
-        <p class="pt">자료구조 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템에 들어오는 입력, 사용자 또는 다른 시스템으로 나가는</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st21">
-      <h3><i>21</i>처리 정의</h3>
-      <aside class="side">
-        <p class="pt">자료구조 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>입력을 가공하여 출력을 생성하는 처리 과정 도출</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st22">
-      <h3><i>22</i>데이터 저장소 정의</h3>
-      <aside class="side">
-        <p class="pt">자료구조 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>파일, DB, 메모리 등 데이터가 저장되는 위치 식별</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st23">
-      <h3><i>23</i>데이터 흐름 정의</h3>
-      <aside class="side">
-        <p class="pt">자료구조 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>위 요소 간 데이터 이동 경로와 방향 정의</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st24">
-      <h3><i>24</i>예외 흐름 정의</h3>
-      <aside class="side">
-        <p class="pt">자료구조 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>잘못된 입력, 시스템 오류 발생 시 흐름도에 포함 (나) 자료 흐름도 주요 기호 (다) 자료 흐름도 주요 기호를 활용한 사례 (가) 기능 분석 시스템 기능을 세분화하여 각 클래스가 담당할 책임을 정의한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 19쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -702,559 +155,77 @@
 <div class="lv">
   <div class="lvh"><b>2. 정렬 및 탐색 알고리즘 활용하기</b><span>능력단위요소 · <code>2001020235_23v1.2</code></span></div>
   <div class="lvb">
-    <div class="step" id="st25">
-      <h3><i>25</i>정렬 알고리즘 기본 개념</h3>
+    <div class="step" id="st3">
+      <h3><i>3</i>2-1. 데이터 정렬 알고리즘 활용</h3>
       <aside class="side">
-        <p class="pt">데이터 정렬 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
+        <p class="pt">데이터를 정렬하기 위하여 알고리즘을 선택할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">정렬 및 탐색 알고리즘 활용하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="45">원문 32쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 8항목 · 실습 6절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>정렬 알고리즘 정의</li><li>정렬 테스트와 검증 절차</li><li>정렬 알고리즘의 유형 및 동작 원리</li><li>정렬 알고리즘 분류 및 선택 기준</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>데이터를 정렬하기 위하여 알고리즘을 선택할 수 있다.</li><li>애플리케이션을 구현하기 위하여 선택된 정렬 알고리즘을 구현할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>정렬 알고리즘 정의</dt><dd><blockquote>주어진 데이터를 특정 기준에 따라 재배열하는 과정으로 일반적으로 데이터 탐색, 분석, 저장 최적화에 앞서 필수적인 작업을 실행하는 알고리즘이다.</blockquote></dd><dt>정렬 알고리즘의 유형 및 동작 원리</dt><dd><blockquote>비교 기반 정렬 알고리즘은 원소 간의 크기를 비교하여 순서를 결정하는 알고리즘 원소값의 자릿수, 빈도 등과 같은 특징을 이용해 정렬하는 알고리즘이다.</blockquote></dd><dt>정렬 알고리즘 분류 기준</dt><dd><blockquote>비교 기반/非비교 기반 비교 기반: 버블, 퀵, 병합 非비교 기반: 기수, 계수 정렬 인접한 두 원소를 비교해 교환하며 가장 큰값을 뒤로 보내는 과정을 반복 구현이 간단하지만 속도가 느림 전체에서 최솟값을 찾아 맨 앞 또는 맨 뒤와 교환하며 정렬 교환 횟수 적지만 속도이미 정렬된 구간에 새로운 원소를 적절한 위치에 삽입 데이터가 거의 정렬된 경우 효율적임 재귀적/반복적 퀵 정렬 등 재귀적 구</blockquote></dd><dt>응용 알고리즘 활용 사례</dt><dd><blockquote>기본적인 정렬 및 탐색 알고리즘 외에도 산업 현장에서 다양한 응용 알고리즘이 사용되며, 이는 &lt;표 2-5&gt;와 같다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>정렬 알고리즘 기본 개념 · 정렬 테스트와 검증 절차 · 정렬 알고리즘 분류 및 선택 기준 · 정렬 알고리즘 선택 기준</dd></dl>
+
+<h4>해 보기</h4>
+<h5>데이터 정렬 알고리즘 활용하기</h5><div class='doh'><b>1</b><span>데이터를 정렬하기 위한 알고리즘을 선택한다.</span></div><ol class='dos'><li>정렬 알고리즘의 세부 종류와 특성을 정리한다.</li></ol><div class='doh'><b>2</b><span>인접한 두 요소를 비교하여 오름차순 또는 내림차순으로 정렬</span></div><div class='doh'><b>3</b><span>한 번의 패스에서 가장 큰 값을 맨 뒤로 버블처럼 이동시킴</span></div><div class='doh'><b>4</b><span>총 n-1번의 패스를 통해 정렬 완료</span></div><div class='doh'><b>5</b><span>간단하고 구현이 쉬움</span></div><div class='doh'><b>6</b><span>대부분의 경우 효율이 낮음</span></div><div class='doh'><b>7</b><span>이미 정렬된 경우에도 모든 비교를 수행</span></div><div class='doh'><b>8</b><span>전체 배열에서 가장 작은 값을 선택하여 맨 앞과 교환</span></div><div class='doh'><b>9</b><span>첫 번째부터 마지막 전까지 반복하여 정렬</span></div><div class='doh'><b>10</b><span>비교 횟수는 항상 동일하며 교환 횟수는 버블 정렬보다 작음</span></div><div class='doh'><b>11</b><span>동일값의 순서 보장이 되지 않음</span></div><div class='doh'><b>12</b><span>왼쪽에서 오른쪽으로 진행, 현재 값을 앞의 정렬된 부분과 비교하여 적절한 위치에 삽입</span></div><div class='doh'><b>13</b><span>작은 배열이나 부분적으로 정렬된 데이터에 유리함</span></div><div class='doh'><b>14</b><span>이미 정렬된 데이터에 대해 매우 빠르며, 동일값의 순서가 유지됨</span></div><div class='doh'><b>15</b><span>쉬운 구현, 실시간 입력 처리에 적합함</span></div><div class='doh'><b>16</b><span>피벗을 하나 선택, 피벗보다 작은 값은 왼쪽, 큰 값은 오른쪽으로 분할</span></div><div class='doh'><b>17</b><span>양쪽 리스트에 대해 재귀적으로 정렬 수행</span></div><div class='doh'><b>18</b><span>분할이 끝나면 각 분할을 병합 없이 결합</span></div><div class='doh'><b>19</b><span>평균 시간 복잡도: O(n log n)</span></div><div class='doh'><b>20</b><span>최악 시간 복잡도: O(n2), 이미 정렬된 경우</span></div><div class='doh'><b>21</b><span>공간 복잡도: O(log n), 재귀 호출 스택</span></div><div class='doh'><b>22</b><span>비안정 정렬, 실제 매우 빠르며, 가장 많이 사용됨</span></div><div class='doh'><b>23</b><span>리스트를 반으로 나누어 재귀적으로 정렬</span></div><div class='doh'><b>24</b><span>나뉜 리스트를 정렬된 상태로 병합함</span></div><div class='doh'><b>25</b><span>병합 과정에서 두 리스트를 비교하며 하나의 리스트로 만듦</span></div><div class='doh'><b>26</b><span>평균 및 최악 시간 복잡도: O(n log n)</span></div><div class='doh'><b>27</b><span>공간 복잡도: O(n), 병합 과정에 임시 배열 필요</span></div><div class='doh'><b>28</b><span>안정 정렬, 데이터 크기가 크고 외부 정렬이 필요한 경우에 적합</span></div><div class='doh'><b>29</b><span>구현은 간단하지만 메모리 소비가 큼</span></div><div class='doh'><b>30</b><span>입력 배열을 최대 힙/최소 힙으로 구성</span></div><div class='doh'><b>31</b><span>최댓값 또는 최솟값을 꺼내어 마지막 값과 교환</span></div><div class='doh'><b>32</b><span>힙 속성을 유지하도록 재정렬</span></div><div class='doh'><b>33</b><span>이를 반복하여 정렬된 배열 생성</span></div><div class='doh'><b>34</b><span>시간 복잡도: O(n log n), 평균/최악 동일</span></div><div class='doh'><b>35</b><span>공간 복잡도: O(n), 제자리 정렬 가능</span></div><div class='doh'><b>36</b><span>비안정 정렬, 삽입 및 삭제가 빈번한 경우 유리</span></div><div class='doh'><b>37</b><span>데이터가 완전한 정렬 상태일 필요 없음</span></div><div class='doh'><b>38</b><span>정렬 대상 숫자를 자릿수 기준으로 정렬</span></div><div class='doh'><b>39</b><span>자릿수마다 안정 정렬 알고리즘을 사용하여 정렬</span></div><div class='doh'><b>40</b><span>가장 낮은 자릿수부터 가장 높은 자릿수까지 반복</span></div><div class='doh'><b>41</b><span>시간 복잡도: O(k-n), k는 자릿수</span></div><div class='doh'><b>42</b><span>공간 복잡도: O(n + k)</span></div><div class='doh'><b>43</b><span>안정 정렬, 비교 기반 정렬보다 빠를 수 있음, 특히 정수/고정 길이 데이터에 유리</span></div><div class='doh'><b>44</b><span>문자열 정렬에 적용 가능하며 실수/음수에는 직접 적용 어려움</span></div><ol class='dos'><li>정렬 대상 데이터 특성을 분석한다.</li></ol><div class='doh'><b>45</b><span>전체 데이터 항목 수: 150,000개</span></div><div class='doh'><b>46</b><span>예상 정렬 시간: 단순 정렬 알고리즘 사용 시 성능 저하 예상 (O(n²) 불가)</span></div><div class='doh'><b>47</b><span>판단: 중대형 데이터에 해당하므로 병합, 힙, 퀵 정렬 등 고급 알고리즘 적용 필요</span></div><div class='doh'><b>48</b><span>데이터 구조: 이름-문자열 20자, 나이-정수형, 가입일-날짜</span></div><div class='doh'><b>49</b><span>항목당 메모리: 약 64바이트</span></div><div class='doh'><b>50</b><span>총 데이터 크기: 150,000개 * 64B = 약 9.15MB</span></div><div class='doh'><b>51</b><span>판단: 전체 메모리 사용량은 높지 않지만, 정렬 시 임시 버퍼 메모리 사용량 고려 필요</span></div><div class='doh'><b>52</b><span>사용 가능 메모리: 4GB 중 1.5GB 사용 가능</span></div><div class='doh'><b>53</b><span>사용 환경: 로컬 PC(병렬 처리 미지원, 싱글 스레드)</span></div><div class='doh'><b>54</b><span>결과: 데이터 샘플 10,000건 중 앞부분 1,000건은 오름차순으로 완전히 정렬되어 있음.</span></div><div class='doh'><b>55</b><span>추가 설명</span></div><div class='doh'><b>56</b><span>전체 데이터의 정렬률: 약 62%</span></div><div class='doh'><b>57</b><span>추가 설명</span></div><div class='doh'><b>58</b><span>본 데이터는 하루에 한 번 서버에서 수집된 로그 데이터로 배치 처리 방식으로 저장되어</span></div><div class='doh'><b>59</b><span>추가 설명</span></div><ol class='dos'><li>정렬 알고리즘을 선택하고 선택 근거를 정리한다.</li><li>선정 알고리즘의 특징 및 적합성</li></ol><div class='doh'><b>60</b><span>선정 알고리즘: 병합 정렬</span></div><div class='doh'><b>61</b><span>특징: 안정 정렬, 항상 O(n log n) 성능 보장, 대량 데이터에 강점</span></div><div class='doh'><b>62</b><span>데이터 조건: 동일 키 비율 약 15%, 순서 유지 필요</span></div><div class='doh'><b>63</b><span>적합성 판단: 안정성이 보장되고, 대규모 데이터에서도 일정한 처리 속도 유지 가능</span></div><ol class='dos'><li>후보 알고리즘 비교 알고리즘 안정성 평균 시간 복잡도 메모리 사용 대규모 적합성 병합 정렬 안정 O(n log n) 추가 메모리 필요 우수 삽입 정렬 안정 O(n2) 적음 낮음 퀵 정렬 불안정 O(n log n) 적음 우수 (3) 선택한 정렬 알고리즘을 샘플 데이터로 실행한다.</li><li>알고리즘 성능 검증 결과</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>데이터를 정렬하기 위한 알고리즘을 선택한다.</li><li>인접한 두 요소를 비교하여 오름차순 또는 내림차순으로 정렬</li><li>한 번의 패스에서 가장 큰 값을 맨 뒤로 버블처럼 이동시킴</li><li>총 n-1번의 패스를 통해 정렬 완료</li><li>간단하고 구현이 쉬움</li><li>대부분의 경우 효율이 낮음</li><li>이미 정렬된 경우에도 모든 비교를 수행</li><li>전체 배열에서 가장 작은 값을 선택하여 맨 앞과 교환</li><li>첫 번째부터 마지막 전까지 반복하여 정렬</li><li>비교 횟수는 항상 동일하며 교환 횟수는 버블 정렬보다 작음</li><li>동일값의 순서 보장이 되지 않음</li><li>왼쪽에서 오른쪽으로 진행, 현재 값을 앞의 정렬된 부분과 비교하여 적절한 위치에 삽입</li><li>작은 배열이나 부분적으로 정렬된 데이터에 유리함</li><li>이미 정렬된 데이터에 대해 매우 빠르며, 동일값의 순서가 유지됨</li><li>쉬운 구현, 실시간 입력 처리에 적합함</li><li>피벗을 하나 선택, 피벗보다 작은 값은 왼쪽, 큰 값은 오른쪽으로 분할</li><li>양쪽 리스트에 대해 재귀적으로 정렬 수행</li><li>분할이 끝나면 각 분할을 병합 없이 결합</li><li>평균 시간 복잡도: O(n log n)</li><li>최악 시간 복잡도: O(n2), 이미 정렬된 경우</li><li>공간 복잡도: O(log n), 재귀 호출 스택</li><li>비안정 정렬, 실제 매우 빠르며, 가장 많이 사용됨</li><li>리스트를 반으로 나누어 재귀적으로 정렬</li><li>나뉜 리스트를 정렬된 상태로 병합함</li><li>병합 과정에서 두 리스트를 비교하며 하나의 리스트로 만듦</li><li>평균 및 최악 시간 복잡도: O(n log n)</li><li>공간 복잡도: O(n), 병합 과정에 임시 배열 필요</li><li>안정 정렬, 데이터 크기가 크고 외부 정렬이 필요한 경우에 적합</li><li>구현은 간단하지만 메모리 소비가 큼</li><li>입력 배열을 최대 힙/최소 힙으로 구성</li><li>최댓값 또는 최솟값을 꺼내어 마지막 값과 교환</li><li>힙 속성을 유지하도록 재정렬</li><li>이를 반복하여 정렬된 배열 생성</li><li>시간 복잡도: O(n log n), 평균/최악 동일</li><li>공간 복잡도: O(n), 제자리 정렬 가능</li><li>비안정 정렬, 삽입 및 삭제가 빈번한 경우 유리</li><li>데이터가 완전한 정렬 상태일 필요 없음</li><li>정렬 대상 숫자를 자릿수 기준으로 정렬</li><li>자릿수마다 안정 정렬 알고리즘을 사용하여 정렬</li><li>가장 낮은 자릿수부터 가장 높은 자릿수까지 반복</li><li>시간 복잡도: O(k-n), k는 자릿수</li><li>공간 복잡도: O(n + k)</li><li>안정 정렬, 비교 기반 정렬보다 빠를 수 있음, 특히 정수/고정 길이 데이터에 유리</li><li>문자열 정렬에 적용 가능하며 실수/음수에는 직접 적용 어려움</li><li>전체 데이터 항목 수: 150,000개</li><li>예상 정렬 시간: 단순 정렬 알고리즘 사용 시 성능 저하 예상 (O(n²) 불가)</li><li>판단: 중대형 데이터에 해당하므로 병합, 힙, 퀵 정렬 등 고급 알고리즘 적용 필요</li><li>데이터 구조: 이름-문자열 20자, 나이-정수형, 가입일-날짜</li><li>항목당 메모리: 약 64바이트</li><li>총 데이터 크기: 150,000개 * 64B = 약 9.15MB</li><li>판단: 전체 메모리 사용량은 높지 않지만, 정렬 시 임시 버퍼 메모리 사용량 고려 필요</li><li>사용 가능 메모리: 4GB 중 1.5GB 사용 가능</li><li>사용 환경: 로컬 PC(병렬 처리 미지원, 싱글 스레드)</li><li>결과: 데이터 샘플 10,000건 중 앞부분 1,000건은 오름차순으로 완전히 정렬되어 있음.</li><li>추가 설명</li><li>전체 데이터의 정렬률: 약 62%</li><li>추가 설명</li><li>본 데이터는 하루에 한 번 서버에서 수집된 로그 데이터로 배치 처리 방식으로 저장되어</li><li>추가 설명</li><li>선정 알고리즘: 병합 정렬</li><li>특징: 안정 정렬, 항상 O(n log n) 성능 보장, 대량 데이터에 강점</li><li>데이터 조건: 동일 키 비율 약 15%, 순서 유지 필요</li><li>적합성 판단: 안정성이 보장되고, 대규모 데이터에서도 일정한 처리 속도 유지 가능</li><li>데이터를 정렬하기 위하여 알고리즘을 선택할 수 있다.</li><li>애플리케이션을 구현하기 위하여 선택된 정렬 알고리즘을 구현할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 32쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st26">
-      <h3><i>26</i>정렬 알고리즘 정의</h3>
+    <div class="step" id="st4">
+      <h3><i>4</i>2-2. 데이터 탐색 알고리즘 활용</h3>
       <aside class="side">
-        <p class="pt">데이터 정렬 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="45">원문 32쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>주어진 데이터를 특정 기준에 따라 재배열하는 과정으로 일반적으로 데이터 탐색, 분석, 저장 최적화에 앞서 필수적인 작업을 실행하는 알고리즘이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st27">
-      <h3><i>27</i>정렬 테스트와 검증 절차</h3>
-      <aside class="side">
-        <p class="pt">데이터 정렬 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="45">원문 32쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>정렬 알고리즘의 유형 및 동작 원리</li><li>정렬 알고리즘 분류 및 선택 기준</li><li>정렬 알고리즘 분류 기준</li><li>정렬 알고리즘 선택 기준</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st28">
-      <h3><i>28</i>정렬 알고리즘의 유형 및 동작 원리</h3>
-      <aside class="side">
-        <p class="pt">데이터 정렬 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="46">원문 33쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>비교 기반 정렬 알고리즘은 원소 간의 크기를 비교하여 순서를 결정하는 알고리즘 원소값의 자릿수, 빈도 등과 같은 특징을 이용해 정렬하는 알고리즘이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st29">
-      <h3><i>29</i>정렬 알고리즘 분류 및 선택 기준</h3>
-      <aside class="side">
-        <p class="pt">데이터 정렬 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="46">원문 33쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>정렬 알고리즘 분류 기준</li><li>정렬 알고리즘 선택 기준</li><li>응용 알고리즘 활용 사례</li></ul>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st30">
-      <h3><i>30</i>정렬 알고리즘 분류 기준</h3>
-      <aside class="side">
-        <p class="pt">데이터 정렬 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="46">원문 33쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>비교 기반/非비교 기반 비교 기반: 버블, 퀵, 병합 非비교 기반: 기수, 계수 정렬 인접한 두 원소를 비교해 교환하며 가장 큰값을 뒤로 보내는 과정을 반복 구현이 간단하지만 속도가 느림 전체에서 최솟값을 찾아 맨 앞 또는 맨 뒤와 교환하며 정렬 교환 횟수 적지만 속도이미 정렬된 구간에 새로운 원소를 적절한 위치에 삽입 데이터가 거의 정렬된 경우 효율적임 재귀적/반복적 퀵 정렬 등 재귀적 구</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st31">
-      <h3><i>31</i>정렬 알고리즘 선택 기준</h3>
-      <aside class="side">
-        <p class="pt">데이터 정렬 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="47">원문 34쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>응용 알고리즘 활용 사례</li></ul>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st32">
-      <h3><i>32</i>응용 알고리즘 활용 사례</h3>
-      <aside class="side">
-        <p class="pt">데이터 정렬 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="47">원문 34쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기본적인 정렬 및 탐색 알고리즘 외에도 산업 현장에서 다양한 응용 알고리즘이 사용되며, 이는 &lt;표 2-5&gt;와 같다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st33">
-      <h3><i>33</i>주요 탐색 알고리즘의 원리와 특성</h3>
-      <aside class="side">
-        <p class="pt">데이터 탐색 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">정렬된 데이터에서 원하는 것을 찾기 위한 탐색 알고리즘을 선택할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">정렬 및 탐색 알고리즘 활용하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="59">원문 46쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 13항목 · 실습 12절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>선형 탐색(Linear Search)</li><li>이진 탐색(Binary Search)</li><li>보간 탐색(Interpolation Search)</li><li>트리 기반 탐색</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>정렬된 데이터에서 원하는 것을 찾기 위한 탐색 알고리즘을 선택할 수 있다.</li><li>애플리케이션을 구현하기 위하여 선택된 탐색 알고리즘을 구현할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>선형 탐색(Linear Search)</dt><dd><blockquote>데이터를 처음부터 끝까지 차례대로 비교하여 원하는 값을 찾는 방식이다. 정렬 여부와 관계없이 적용이 가능하고 단순하지만 데이터 수가 많을 경우 탐색 시 간이 오래 걸린다.</blockquote></dd><dt>이진 탐색(Binary Search)</dt><dd><blockquote>정렬된 데이터의 중간값을 기준으로 비교하여 탐색 범위를 절반씩 좁혀 가며 원하는 값을 갖는 방식이다. 데이터는 오름차순, 내림차순 등으로 정렬되어 있어야 하며, 빠른 탐색이 가능하다.</blockquote></dd><dt>보간 탐색(Interpolation Search)</dt><dd><blockquote>데이터값의 분포를 기반으로 하여 예상 위치를 수학적으로 계산한 뒤, 그 위치부터 탐색을 시작하는 방식이다. 데이터가 균등하게 분포된 정렬 배열에서는 이진 탐색보다 더 빠른 성능을 낼 수 있다.</blockquote></dd><dt>트리 기반 탐색</dt><dd><blockquote>트리 구조에서는 각 노드의 왼쪽에 작은 값을, 오른쪽에 큰 값을 저장하며, 자식 노드를 따라 이동하는 방식으로 탐색이 진행된다.</blockquote></dd><dt>AVL 트리 기반 탐색</dt><dd><blockquote>AVL 트리는 이진 탐색 트리의 한 종류로, 모든 노드에서 왼쪽과 오른쪽 서브 트리의 높이 차이가 1 이하가 되도록 유지한다.</blockquote></dd><dt>트라이(Trie) 탐색</dt><dd><blockquote>문자열의 접두사를 트리 형태로 표현해, 문자의 순서에 따라 노드를 따라가며 탐색을 수행한다. 문자열 검색에 특화되어 있어 접두사 기반 탐색에 매우 빠르다.</blockquote></dd><dt>B 트리 / B+ 트리 탐색</dt><dd><blockquote>균형 잡힌 트리 구조를 활용해, 디스크 기반 대용량 데이터에서 키 범위 탐색을 수 데이터베이스와 파일 시스템에서 널리 사용되며, 한 노드에 여러 키를 저장함으로써 디스크 접근 횟수를 줄일 수 있다.</blockquote></dd><dt>탐색 알고리즘 선택 기준</dt><dd><blockquote>박재영(2020)은 실제 업무 현장에서는 배열이나 리스트보다 해시테이블과 트리 구조가 데이터 검색과 관리에 더 효율적이라고 지적한다.</blockquote></dd><dt>데이터 정렬</dt><dd><blockquote>데이터가 정렬되어 있으면 이진 탐색이나 보간 탐색을 적용할 수 있다. 반대로 정렬 되지 않은 경우에는 선형 탐색처럼 단순한 방법이 필요하다.</blockquote></dd><dt>데이터 구조</dt><dd><blockquote>배열처럼 인덱스 접근이 가능한 자료구조에서는 이진 탐색을 적용할 수 있다. 하지만 연결 리스트는 인덱스 접근이 불가능하므로 순차 탐색이 적합하다.</blockquote></dd><dt>데이터 특성</dt><dd><blockquote>소규모 데이터에서는 단순한 알고리즘도 충분히 빠르지만, 대규모 데이터에서는 복잡도가 낮은 알고리즘을 선택해야 성능 문제가 줄어든다.</blockquote></dd><dt>성능 및 리소스</dt><dd><blockquote>빠른 응답이 필요한 시스템은 O(log n) 이하의 알고리즘을 적용하는 것이 바람직하다. 트리 기반 탐색이나 재귀 호출은 추가 메모리가 필요하므로, 메모리 제약이 있는 환경에서는 반복문 기반 탐색을 고려해야 한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>주요 탐색 알고리즘의 원리와 특성</dd></dl>
+
+<h4>해 보기</h4>
+<h5>데이터 탐색 알고리즘 활용하기</h5><div class='doh'><b>1</b><span>정렬된 데이터에서 원하는 데이터 정보를 조회하기 위한 탐색 알고리즘을 선택한다.</span></div><ol class='dos'><li>정렬된 데이터의 특성을 파악한다.</li></ol><div class='doh'><b>2</b><span>대상 데이터 1: [3, 7, 12, 15, 15, 20]</span></div><div class='doh'><b>3</b><span>대상 데이터 2: [5, 3, 8, 6, 9]</span></div><div class='doh'><b>4</b><span>대상 데이터 1: [22, 19, 17, 13, 7]</span></div><div class='doh'><b>5</b><span>대상 데이터 2: [1, 2, 4, 6, 6, 9]</span></div><div class='doh'><b>6</b><span>대상 데이터 1: [1, 3, 5, 4, 6, 8]</span></div><div class='doh'><b>7</b><span>대상 데이터 2: [20, 18, 15, 10, 12, 8]</span></div><div class='doh'><b>8</b><span>총 크기 = 50,000 * 128바이트 = 6.1메가바이트</span></div><div class='doh'><b>9</b><span>변동 범위 = 1,199,000원</span></div><div class='doh'><b>10</b><span>60% 데이터가 10만 ~ 30만 원 구간에 집중</span></div><div class='doh'><b>11</b><span>극단값: 1,000원(최소), 1,200,000(최대)</span></div><div class='doh'><b>12</b><span>분포 형태: 우측 꼬리가 긴 비대칭</span></div><ol class='dos'><li>주요 탐색 알고리즘의 상세 동작 원리와 특성을 분석한다.</li></ol><div class='doh'><b>13</b><span>데이터: [3, 5, 7, 9, 12, 14, 18, 21]</span></div><div class='doh'><b>14</b><span>결론: 해당 데이터는 이진 탐색 알고리즘을 적용 가능하도록 전제 조건을 충족함</span></div><div class='doh'><b>15</b><span>구매 금액 분포도</span></div><ol class='dos'><li>상황에 따른 알고리즘 선택 기준을 정의한다.</li></ol><div class='doh'><b>16</b><span>모든 인접 원소가 증가 → 오름차순</span></div><div class='doh'><b>17</b><span>모든 인접 원소가 감소 → 내림차순</span></div><div class='doh'><b>18</b><span>증가·감소 규칙이 없음 → 비정렬</span></div><ol class='dos'><li>선택한 탐색 알고리즘을 구현하고 검증한다.</li></ol><div class='doh'><b>19</b><span>입력: 정렬된 배열 “arr”, 찾을 값 “target”</span></div><div class='doh'><b>20</b><span>포인터 1o, hi로 탐색 구간을 좁혀 가며 mid 인덱스에서 비교</span></div><div class='doh'><b>21</b><span>arr[mid] == target이면 인덱스 반환, 작으면 오른쪽, 크면 왼쪽 구간으로 이동</span></div><div class='doh'><b>22</b><span>종료 조건: 1o 〉 hi → 실패(없음)</span></div><div class='doh'><b>23</b><span>함수명: binary_search</span></div><div class='doh'><b>24</b><span>매개변수: arr: List[int], target: int, 1o: int = 0, hi: Optional[int] = None</span></div><div class='doh'><b>25</b><span>반환값: int (찾으면 인덱스, 못 찾으면 –1)</span></div><div class='doh'><b>26</b><span>전제: arr는 오름차순 정렬</span></div><div class='doh'><b>27</b><span>예외/검증: arr is None, 비정렬 탐지 옵션, 타입 검사(필요시)</span></div><div class='doh'><b>28</b><span>루프 기반 구현(재귀 스택 불필요 → 공간 O(1))</span></div><div class='doh'><b>29</b><span>음수/중복 값도 정상 동작(최초 발견 인덱스 반환)</span></div><div class='doh'><b>30</b><span>필요시 ‘첫 발생 인덱스/마지막 인덱스’ 변경 버전 제공 가능</span></div><div class='doh'><b>31</b><span>A1: [ ] (빈 배열)</span></div><div class='doh'><b>32</b><span>A2: [7]</span></div><div class='doh'><b>33</b><span>A3: [3, 9]</span></div><div class='doh'><b>34</b><span>A4: [1, 5, 9, 12, 20]</span></div><div class='doh'><b>35</b><span>A5: [2, 4, 4, 4, 9, 11] (중복 포함)</span></div><div class='doh'><b>36</b><span>A6: [5, 8, 13, 21, 34, 55, 89, 144] (짝수 길이)</span></div><div class='doh'><b>37</b><span>애플리케이션을 구현하기 위하여 선택된 탐색 알고리즘을 구현한다.</span></div><ol class='dos'><li>애플리케이션에서 필요한 탐색 기능을 정의한다.</li><li>필요한 탐색 기능에 가장 정합한 탐색 알고리즘을 선택하고 설계한다.</li></ol><div class='doh'><b>38</b><span>선정 알고리즘: 이진 탐색</span></div><div class='doh'><b>39</b><span>선정 이유: 정렬 데이터에서 빠른 검색 가능, 메모리 효율성 우수</span></div><div class='doh'><b>40</b><span>한계: 데이터가 변경될 경우 재정렬 필요</span></div><ol class='dos'><li>탐색 알고리즘을 구현한다.</li></ol><div class='doh'><b>41</b><span>입력 검증 항목</span></div><div class='doh'><b>42</b><span>arr != null</span></div><div class='doh'><b>43</b><span>arr.length ≥ 0</span></div><div class='doh'><b>44</b><span>(이진 탐색) isSorted(arr, comparator)</span></div><div class='doh'><b>45</b><span>low, high 경계 유효</span></div><div class='doh'><b>46</b><span>key 타입 일치</span></div><div class='doh'><b>47</b><span>(옵션) comparator != null</span></div><div class='doh'><b>48</b><span>데이터 크기 상한(예: ≤ 10^7)</span></div><div class='doh'><b>49</b><span>오류 처리 정책</span></div><div class='doh'><b>50</b><span>NULL_ARRAY→ 예외</span></div><div class='doh'><b>51</b><span>IllegalArgumentException</span></div><div class='doh'><b>52</b><span>UNSORTED_INPUT→ 예외+가이드 “정렬 후 호출”</span></div><div class='doh'><b>53</b><span>INDEX_OUT_OF_RANGE→ 즉시 -1 반환</span></div><div class='doh'><b>54</b><span>구간: [low, high] (둘 다 포함)</span></div><div class='doh'><b>55</b><span>초깃값: low = 0, high = n-1 (n=0이면 루프 진입 X)</span></div><div class='doh'><b>56</b><span>종료: low &gt; high</span></div><div class='doh'><b>57</b><span>불변식: “해답이 존재한다면 항상 [low, high] 안에 있다.”</span></div><div class='doh'><b>58</b><span>오버플로 안전 mid 공식 채택</span></div><div class='doh'><b>59</b><span>실패 케이스: TestCase_03</span></div><div class='doh'><b>60</b><span>발생 오류: NullPointerException</span></div><div class='doh'><b>61</b><span>원인: userList 객체 초기화 누락</span></div><div class='doh'><b>62</b><span>조치: initUserList() 메서드 호출 코드 추가</span></div><ol class='dos'><li>구현한 탐색 알고리즘을 실제 애플리케이션 기능에 통합한다.</li><li>구현한 알고리즘이 정확하게 작동하는지 효율적으로 동작하는지 검증하고 개선한다.</li></ol><div class='doh'><b>63</b><span>클라우드, AI 환경에서의 데이터 구조 구현을 위한 알고리즘을 선정하고 구현한다.</span></div><ol class='dos'><li>클라우드 및 특정 업무 도메인 환경에서 적용이 가능한 알고리즘의 특성을 정리한다.</li><li>클라우드 및 AI 환경의 데이터 구조 알고리즘을 구현한다.</li></ol><div class='doh'><b>64</b><span>데이터 유형</span></div><div class='doh'><b>65</b><span>데이터 규모 현황</span></div><div class='doh'><b>66</b><span>데이터 특성</span></div><div class='doh'><b>67</b><span>분석 결과 및 시사점</span></div><ol class='dos'><li>클라우드 및 AI 환경의 데이터 구조 알고리즘을 검증하고 배포한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>정렬된 데이터에서 원하는 데이터 정보를 조회하기 위한 탐색 알고리즘을 선택한다.</li><li>대상 데이터 1: [3, 7, 12, 15, 15, 20]</li><li>대상 데이터 2: [5, 3, 8, 6, 9]</li><li>대상 데이터 1: [22, 19, 17, 13, 7]</li><li>대상 데이터 2: [1, 2, 4, 6, 6, 9]</li><li>대상 데이터 1: [1, 3, 5, 4, 6, 8]</li><li>대상 데이터 2: [20, 18, 15, 10, 12, 8]</li><li>총 크기 = 50,000 * 128바이트 = 6.1메가바이트</li><li>변동 범위 = 1,199,000원</li><li>60% 데이터가 10만 ~ 30만 원 구간에 집중</li><li>극단값: 1,000원(최소), 1,200,000(최대)</li><li>분포 형태: 우측 꼬리가 긴 비대칭</li><li>데이터: [3, 5, 7, 9, 12, 14, 18, 21]</li><li>결론: 해당 데이터는 이진 탐색 알고리즘을 적용 가능하도록 전제 조건을 충족함</li><li>구매 금액 분포도</li><li>모든 인접 원소가 증가 → 오름차순</li><li>모든 인접 원소가 감소 → 내림차순</li><li>증가·감소 규칙이 없음 → 비정렬</li><li>입력: 정렬된 배열 “arr”, 찾을 값 “target”</li><li>포인터 1o, hi로 탐색 구간을 좁혀 가며 mid 인덱스에서 비교</li><li>arr[mid] == target이면 인덱스 반환, 작으면 오른쪽, 크면 왼쪽 구간으로 이동</li><li>종료 조건: 1o 〉 hi → 실패(없음)</li><li>함수명: binary_search</li><li>매개변수: arr: List[int], target: int, 1o: int = 0, hi: Optional[int] = None</li><li>반환값: int (찾으면 인덱스, 못 찾으면 –1)</li><li>전제: arr는 오름차순 정렬</li><li>예외/검증: arr is None, 비정렬 탐지 옵션, 타입 검사(필요시)</li><li>루프 기반 구현(재귀 스택 불필요 → 공간 O(1))</li><li>음수/중복 값도 정상 동작(최초 발견 인덱스 반환)</li><li>필요시 ‘첫 발생 인덱스/마지막 인덱스’ 변경 버전 제공 가능</li><li>A1: [ ] (빈 배열)</li><li>A2: [7]</li><li>A3: [3, 9]</li><li>A4: [1, 5, 9, 12, 20]</li><li>A5: [2, 4, 4, 4, 9, 11] (중복 포함)</li><li>A6: [5, 8, 13, 21, 34, 55, 89, 144] (짝수 길이)</li><li>애플리케이션을 구현하기 위하여 선택된 탐색 알고리즘을 구현한다.</li><li>선정 알고리즘: 이진 탐색</li><li>선정 이유: 정렬 데이터에서 빠른 검색 가능, 메모리 효율성 우수</li><li>한계: 데이터가 변경될 경우 재정렬 필요</li><li>입력 검증 항목</li><li>arr != null</li><li>arr.length ≥ 0</li><li>(이진 탐색) isSorted(arr, comparator)</li><li>low, high 경계 유효</li><li>key 타입 일치</li><li>(옵션) comparator != null</li><li>데이터 크기 상한(예: ≤ 10^7)</li><li>오류 처리 정책</li><li>NULL_ARRAY→ 예외</li><li>IllegalArgumentException</li><li>UNSORTED_INPUT→ 예외+가이드 “정렬 후 호출”</li><li>INDEX_OUT_OF_RANGE→ 즉시 -1 반환</li><li>구간: [low, high] (둘 다 포함)</li><li>초깃값: low = 0, high = n-1 (n=0이면 루프 진입 X)</li><li>종료: low &gt; high</li><li>불변식: “해답이 존재한다면 항상 [low, high] 안에 있다.”</li><li>오버플로 안전 mid 공식 채택</li><li>실패 케이스: TestCase_03</li><li>발생 오류: NullPointerException</li><li>원인: userList 객체 초기화 누락</li><li>조치: initUserList() 메서드 호출 코드 추가</li><li>클라우드, AI 환경에서의 데이터 구조 구현을 위한 알고리즘을 선정하고 구현한다.</li><li>데이터 유형</li><li>데이터 규모 현황</li><li>데이터 특성</li><li>분석 결과 및 시사점</li><li>정렬된 데이터에서 원하는 것을 찾기 위한 탐색 알고리즘을 선택할 수 있다.</li><li>애플리케이션을 구현하기 위하여 선택된 탐색 알고리즘을 구현할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st34">
-      <h3><i>34</i>선형 탐색(Linear Search)</h3>
-      <aside class="side">
-        <p class="pt">데이터 탐색 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="59">원문 46쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>데이터를 처음부터 끝까지 차례대로 비교하여 원하는 값을 찾는 방식이다. 정렬 여부와 관계없이 적용이 가능하고 단순하지만 데이터 수가 많을 경우 탐색 시 간이 오래 걸린다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st35">
-      <h3><i>35</i>이진 탐색(Binary Search)</h3>
-      <aside class="side">
-        <p class="pt">데이터 탐색 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="59">원문 46쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>정렬된 데이터의 중간값을 기준으로 비교하여 탐색 범위를 절반씩 좁혀 가며 원하는 값을 갖는 방식이다. 데이터는 오름차순, 내림차순 등으로 정렬되어 있어야 하며, 빠른 탐색이 가능하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st36">
-      <h3><i>36</i>보간 탐색(Interpolation Search)</h3>
-      <aside class="side">
-        <p class="pt">데이터 탐색 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="59">원문 46쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>데이터값의 분포를 기반으로 하여 예상 위치를 수학적으로 계산한 뒤, 그 위치부터 탐색을 시작하는 방식이다. 데이터가 균등하게 분포된 정렬 배열에서는 이진 탐색보다 더 빠른 성능을 낼 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st37">
-      <h3><i>37</i>트리 기반 탐색</h3>
-      <aside class="side">
-        <p class="pt">데이터 탐색 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="59">원문 46쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>트리 구조에서는 각 노드의 왼쪽에 작은 값을, 오른쪽에 큰 값을 저장하며, 자식 노드를 따라 이동하는 방식으로 탐색이 진행된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st38">
-      <h3><i>38</i>AVL 트리 기반 탐색</h3>
-      <aside class="side">
-        <p class="pt">데이터 탐색 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="60">원문 47쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>AVL 트리는 이진 탐색 트리의 한 종류로, 모든 노드에서 왼쪽과 오른쪽 서브 트리의 높이 차이가 1 이하가 되도록 유지한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st39">
-      <h3><i>39</i>트라이(Trie) 탐색</h3>
-      <aside class="side">
-        <p class="pt">데이터 탐색 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="60">원문 47쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>문자열의 접두사를 트리 형태로 표현해, 문자의 순서에 따라 노드를 따라가며 탐색을 수행한다. 문자열 검색에 특화되어 있어 접두사 기반 탐색에 매우 빠르다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st40">
-      <h3><i>40</i>B 트리 / B+ 트리 탐색</h3>
-      <aside class="side">
-        <p class="pt">데이터 탐색 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="60">원문 47쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>균형 잡힌 트리 구조를 활용해, 디스크 기반 대용량 데이터에서 키 범위 탐색을 수 데이터베이스와 파일 시스템에서 널리 사용되며, 한 노드에 여러 키를 저장함으로써 디스크 접근 횟수를 줄일 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st41">
-      <h3><i>41</i>탐색 알고리즘 선택 기준</h3>
-      <aside class="side">
-        <p class="pt">데이터 탐색 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="60">원문 47쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>박재영(2020)은 실제 업무 현장에서는 배열이나 리스트보다 해시테이블과 트리 구조가 데이터 검색과 관리에 더 효율적이라고 지적한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st42">
-      <h3><i>42</i>데이터 정렬</h3>
-      <aside class="side">
-        <p class="pt">데이터 탐색 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="60">원문 47쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>데이터가 정렬되어 있으면 이진 탐색이나 보간 탐색을 적용할 수 있다. 반대로 정렬 되지 않은 경우에는 선형 탐색처럼 단순한 방법이 필요하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st43">
-      <h3><i>43</i>데이터 구조</h3>
-      <aside class="side">
-        <p class="pt">데이터 탐색 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="61">원문 48쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>배열처럼 인덱스 접근이 가능한 자료구조에서는 이진 탐색을 적용할 수 있다. 하지만 연결 리스트는 인덱스 접근이 불가능하므로 순차 탐색이 적합하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st44">
-      <h3><i>44</i>데이터 특성</h3>
-      <aside class="side">
-        <p class="pt">데이터 탐색 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="61">원문 48쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소규모 데이터에서는 단순한 알고리즘도 충분히 빠르지만, 대규모 데이터에서는 복잡도가 낮은 알고리즘을 선택해야 성능 문제가 줄어든다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st45">
-      <h3><i>45</i>성능 및 리소스</h3>
-      <aside class="side">
-        <p class="pt">데이터 탐색 알고리즘 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020235_23v1" data-page="61">원문 48쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>빠른 응답이 필요한 시스템은 O(log n) 이하의 알고리즘을 적용하는 것이 바람직하다. 트리 기반 탐색이나 재귀 호출은 추가 메모리가 필요하므로, 메모리 제약이 있는 환경에서는 반복문 기반 탐색을 고려해야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 46쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
   </div>
 </div>
 
-<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
-원문 LM2001020235_23v1_자료구조 활용_20251108.pdf</footer>
+<footer>담당 정우균 · 개념과 절차는 <b>NCS 학습모듈 LM2001020235_23v1_자료구조 활용_20251108.pdf</b> 에서
+옮긴 것입니다 — 한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지)</footer>
 </div>
 <script>
-/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+/* 빠른 이동 — 지금 보는 꼭지를 표시하고, 좁은 화면에서는 여닫습니다. */
 (function () {
   var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
   var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));

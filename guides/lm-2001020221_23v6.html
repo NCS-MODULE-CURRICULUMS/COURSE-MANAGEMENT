@@ -1,13 +1,30 @@
-<meta charset="utf-8"><title>애플리케이션 설계 — 준비 교안</title>
+<meta charset="utf-8"><title>애플리케이션 설계 — 학습 가이드</title>
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="stylesheet" href="../assets/guide.css">
 <style>
-  /* 원문 인용 — 우리가 쓴 안내와 눈으로 구분되어야 한다 */
-  .bd blockquote{margin:10px 0 16px;padding:10px 14px;border-left:3px solid #000;
-                 background:#fafafa;font-size:13.5px;line-height:1.8;color:#222}
-  .bd p.none{color:#888;font-size:13px}
-  .bd ul.sub{margin:8px 0 16px;padding-left:20px;font-size:13.5px;line-height:1.9}
-  aside.side .v .btn{font-size:11.5px}
+  /* 학습 가이드 — 개념 / 실습 / 확인 세 덩어리가 눈으로 구분되어야 한다 */
+  .bd h4{margin:22px 0 8px;font-size:14px;padding-bottom:5px;border-bottom:1px solid #000}
+  .bd h4:first-child{margin-top:0}
+  .bd h5{margin:16px 0 5px;font-size:13px;font-weight:700}
+  .bd blockquote{margin:5px 0 12px;padding:9px 13px;border-left:3px solid #999;
+                 background:#fafafa;font-size:13px;line-height:1.8;color:#333}
+  .cc{margin:0 0 6px}
+  .cc dt{font-weight:700;font-size:13.5px;margin:14px 0 0}
+  .cc dd{margin:4px 0 0}
+  .doh{display:flex;gap:9px;align-items:baseline;margin:16px 0 4px;font-size:13.5px;
+       font-weight:700}
+  .doh b{flex:0 0 auto;width:21px;height:21px;line-height:19px;text-align:center;
+         border:1px solid #000;font-size:11.5px}
+  ol.dos{margin:2px 0 0 30px;padding:0;font-size:13px;line-height:1.85}
+  ol.dos li{margin:3px 0}
+  .prep{display:grid;grid-template-columns:76px 1fr;gap:3px 10px;font-size:12.5px;
+        border:1px solid #ccc;padding:10px 13px;margin:6px 0 2px;background:#fafafa}
+  .prep b{color:#555;font-weight:400}
+  ul.goal{margin:6px 0 0;padding-left:20px;font-size:13.5px;line-height:1.9}
+  ul.chk{margin:6px 0 0;padding:0;list-style:none;font-size:13.5px;line-height:1.95}
+  ul.chk li::before{content:"\2610  "}
+  .none{color:#888;font-size:12.5px}
+  .srcline{font-size:11.5px;color:#888;margin:8px 0 0}
 </style>
 <script src="../assets/auth.js"></script>
 <script>EXAM_AUTH.guard("../");</script>
@@ -17,7 +34,7 @@
 <div class="top"><div class="tbar">
   <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
   <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
-  / 애플리케이션 설계 / 준비 교안</small></div>
+  / 애플리케이션 설계 / 학습 가이드</small></div>
   <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
@@ -25,49 +42,47 @@
 <button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
 
 <nav id="qnav" aria-label="빠른 이동">
-  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
-  <i class="qg">공통 모듈 설계하기</i><a href="#st1"><b>1</b><span>공통 모듈(Module)</span></a><a href="#st2"><b>2</b><span>모듈의 개념</span></a><a href="#st3"><b>3</b><span>공통 모듈</span></a><a href="#st4"><b>4</b><span>공통 모듈에 대한 명세 작성 원칙</span></a><a href="#st5"><b>5</b><span>재사용(Reuse)</span></a><a href="#st6"><b>6</b><span>재사용 규모에 따른 분류</span></a><a href="#st7"><b>7</b><span>재사용을 위한 필요 항목</span></a><a href="#st8"><b>8</b><span>유스케이스(Use Case) 및 관계(포함과 확장)</span></a><a href="#st9"><b>9</b><span>유스케이스</span></a><a href="#st10"><b>10</b><span>포함과 확장 관계</span></a><a href="#st11"><b>11</b><span>모듈화(Modularity)</span></a><a href="#st12"><b>12</b><span>모듈화 개념</span></a><a href="#st13"><b>13</b><span>모듈화 필요성</span></a><a href="#st14"><b>14</b><span>공통 기능 모듈화 사례</span></a><a href="#st15"><b>15</b><span>응집도의 유형</span></a><a href="#st16"><b>16</b><span>응집도와 품질</span></a><a href="#st17"><b>17</b><span>결합도의 유형</span></a><a href="#st18"><b>18</b><span>결합도와 품질</span></a><a href="#st19"><b>19</b><span>시퀀스다이어그램(Sequence Diagram)</span></a><a href="#st20"><b>20</b><span>코드(Code)</span></a><a href="#st21"><b>21</b><span>코드의 기능</span></a><a href="#st22"><b>22</b><span>코드의 유형 분류</span></a><a href="#st23"><b>23</b><span>공통 모듈 인덱스</span></a><a href="#st24"><b>24</b><span>인덱스(Index)의 개념</span></a><a href="#st25"><b>25</b><span>공통 모듈 인덱스 방법</span></a><i class="qg">타 시스템 연동 설계하기</i><a href="#st26"><b>26</b><span>시스템 연동의 개념</span></a><a href="#st27"><b>27</b><span>데이터 연동</span></a><a href="#st28"><b>28</b><span>인터페이스(Interface) 연동</span></a><a href="#st29"><b>29</b><span>웹 서비스(Web Service) 연동</span></a><a href="#st30"><b>30</b><span>웹 서비스 연동 개념</span></a><a href="#st31"><b>31</b><span>웹 서비스 구성 요소</span></a><a href="#st32"><b>32</b><span>미들웨어 솔루션(Middleware Solution)</span></a><a href="#st33"><b>33</b><span>미들웨어 솔루션의 개념</span></a><a href="#st34"><b>34</b><span>미들웨어 솔루션의 유형</span></a><a href="#st35"><b>35</b><span>웹서버와 웹 애플리케이션 서버(WAS: Web Application Server)</span></a><a href="#st36"><b>36</b><span>웹서버(Web Server)</span></a><a href="#st37"><b>37</b><span>웹 애플리케이션 서버(WAS: Web Application Server)</span></a><a href="#st38"><b>38</b><span>웹서버와 와스서버의 일반적인 구성</span></a><a href="#st39"><b>39</b><span>가용성 향상을 위한 이중화</span></a><a href="#st40"><b>40</b><span>액티브-액티브(Active-Active) 방식</span></a><a href="#st41"><b>41</b><span>액티브-스탠바이(Active-StandBy) 방식</span></a><a href="#st42"><b>42</b><span>재해 복구 시스템(DRS: Disaster Recovery System)</span></a><a href="#st43"><b>43</b><span>복구 목표 시간과 복구 목표 시점</span></a><a href="#st44"><b>44</b><span>복구 목표 시간(RTO: Recovery Time Objective)</span></a><a href="#st45"><b>45</b><span>복구 목표 시점(RPO: Recovery Point Objective)</span></a><a href="#st46"><b>46</b><span>업무 영향 분석(BIA: Business Impact Analysis)</span></a><a href="#st47"><b>47</b><span>수행 절차</span></a><a href="#st48"><b>48</b><span>구성 요소</span></a>
+  <a class="qt" href="#top"><b>&uarr;</b><span>맨 위로</span></a>
+  <i class="qg">공통 모듈 설계하기</i><a href="#st1"><b>1</b><span>공통 모듈 식별 및 명세</span></a><a href="#st2"><b>2</b><span>공통 모듈 설계</span></a><a href="#st3"><b>3</b><span>공통 모듈 인덱스 및 기능 코드 설계</span></a><i class="qg">타 시스템 연동 설계하기</i><a href="#st4"><b>4</b><span>아키텍처를 고려한 타 시스템 연동 설계</span></a><a href="#st5"><b>5</b><span>미들웨어 솔루션 명세 작성</span></a><a href="#st6"><b>6</b><span>오류 예측 및 대응 방안 제시</span></a>
 </nav>
 
 <div class="wrap" id="top">
 
-<h1>애플리케이션 설계 — 준비 교안</h1>
+<h1>애플리케이션 설계 — 학습 가이드</h1>
 <p class="sub">능력단위 <code>2001020221_23v6</code> · 6수준 ·
-72시간 · 단계 48개 · 평가 서술형 시험 · 구두 발표 · 평가자 질문</p>
+72시간 · 꼭지 6개 · 개념 48항목 · 실습 93절차</p>
 
-<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<h2 class="sec" id="g0">0. 시작하기 전에</h2>
 <div class="sect">
   <aside class="side">
     <p class="pt">요구사항 확인을 통한 상세 분석 결과, 소프트웨어 아키텍처 가이드라인 및 소프트웨어 아키텍처 산출물에 의거하여 이에 따른 애플리케이션 구현을 수행하기 위해 공통 모듈 설계, 타 시스템 연동에 대하여 상세 설계할 수 있다.</p>
-    <b class="sh">선수학습</b>
+    <b class="sh">먼저 알아야 할 것</b>
     <p class="v">요구사항 확인(2001020201_23v5), 화면 설계(2001020224_23v6), 인터페이스 구현(2001020212_23v6), 통합 구현(2001020206_23v6), 개발 환경 운영 지원(2001020234_23v2)</p>
-    <b class="sh">원문</b>
-    <p class="src">LM2001020221_23v6_애플리케이션 설계_20251108.pdf (114쪽)</p>
+    <b class="sh">평가</b>
+    <p class="src">서술형 시험 · 구두 발표 · 평가자 질문</p>
   </aside>
   <div class="bd">
-<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
-   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
-   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
-<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
-   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
-   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+<h4>이 문서를 쓰는 법</h4>
+<p>꼭지마다 <b>무엇을 할 수 있게 되나 → 알아야 할 것 → 해 보기 → 스스로 확인</b>
+   순서입니다. 읽고 끝내지 말고 <b>해 보기</b>를 손으로 따라 하십시오.
+   마지막 <b>스스로 확인</b>을 전부 «할 수 있다» 고 말할 수 있으면 다음 꼭지로 갑니다.</p>
+<p>자세한 설명과 표·그림은 <b>학습모듈 원문</b>에 있습니다. 꼭지마다 있는
+   <b>[원문 N쪽]</b> 단추를 누르면 그 자리가 바로 펼쳐집니다.</p>
 
 <h4>핵심 용어</h4>
 <p>공통 모듈, 기능 명세, 화면 설계, 로직 설계, UML, 모듈화, 아키텍처, 시스템 연동, 미들웨어</p>
 
-<h4>능력단위요소</h4>
+<h4>차례</h4>
 <table class="wide">
-  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
-      <th>학습 내용</th><th style="width:74px">단계</th></tr>
-  <tr><td class="c">1</td><td>공통 모듈 설계하기</td><td>공통 모듈 식별 및 명세 · 공통 모듈 설계 · 공통 모듈 인덱스 및 기능 코드 설계</td><td class="c">25</td></tr>
-  <tr><td class="c">2</td><td>타 시스템 연동 설계하기</td><td>아키텍처를 고려한 타 시스템 연동 설계 · 미들웨어 솔루션 명세 작성 · 오류 예측 및 대응 방안 제시</td><td class="c">23</td></tr>
+  <tr><th style="width:44px">꼭지</th><th style="width:250px">학습 내용</th>
+      <th>능력단위요소</th><th style="width:58px">개념</th><th style="width:58px">실습</th></tr>
+  <tr><td class="c">1</td><td>1-1. 공통 모듈 식별 및 명세</td><td>공통 모듈 설계하기</td><td class="c">10</td><td class="c">12</td></tr>
+  <tr><td class="c">2</td><td>1-2. 공통 모듈 설계</td><td>공통 모듈 설계하기</td><td class="c">9</td><td class="c">21</td></tr>
+  <tr><td class="c">3</td><td>1-3. 공통 모듈 인덱스 및 기능 코드 설계</td><td>공통 모듈 설계하기</td><td class="c">6</td><td class="c">8</td></tr>
+  <tr><td class="c">4</td><td>2-1. 아키텍처를 고려한 타 시스템 연동 설계</td><td>타 시스템 연동 설계하기</td><td class="c">6</td><td class="c">15</td></tr>
+  <tr><td class="c">5</td><td>2-2. 미들웨어 솔루션 명세 작성</td><td>타 시스템 연동 설계하기</td><td class="c">7</td><td class="c">13</td></tr>
+  <tr><td class="c">6</td><td>2-3. 오류 예측 및 대응 방안 제시</td><td>타 시스템 연동 설계하기</td><td class="c">10</td><td class="c">24</td></tr>
 </table>
-
-<div class="try">
-  <b class="t">쓰는 법</b>
-  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
-  한 단계가 대략 수업 10~20분에 해당합니다.
-</div>
   </div>
 </div>
 
@@ -75,651 +90,97 @@
   <div class="lvh"><b>1. 공통 모듈 설계하기</b><span>능력단위요소 · <code>2001020221_23v6.1</code></span></div>
   <div class="lvb">
     <div class="step" id="st1">
-      <h3><i>1</i>공통 모듈(Module)</h3>
+      <h3><i>1</i>1-1. 공통 모듈 식별 및 명세</h3>
       <aside class="side">
-        <p class="pt">공통 모듈 식별 및 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">재사용성 확보와 중복 개발을 회피하기 위하여, 전체 시스템 차원과 단위 시스템 차원의 공통 부분을 식별하여 이에 대한 상세 명세를 작성할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">공통 모듈 설계하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 10항목 · 실습 12절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>모듈의 개념</li><li>공통 모듈</li><li>공통 모듈에 대한 명세 작성 원칙</li><li>재사용(Reuse)</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>재사용성 확보와 중복 개발을 회피하기 위하여, 전체 시스템 차원과 단위 시스템 차원의 공통 부분을 식별하여 이에 대한 상세 명세를 작성할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>모듈의 개념</dt><dd><blockquote>전체 프로그램의 기능 중 특정 기능을 처리할 수 있는 실행 코드를 의미하며, 자체적으로 컴파일하는 것이 가능하고 다른 프로그램에서 재사용이 가능하다.</blockquote></dd><dt>공통 모듈</dt><dd><blockquote>여러 기능 및 프로그램에서 공통적으로 사용할 수 있는 모듈을 의미하며, 날짜 처리를 위한 유틸리티 모듈 등이 해당된다.</blockquote></dd><dt>공통 모듈에 대한 명세 작성 원칙</dt><dd><blockquote>공통 모듈에 대한 명세를 작성할 때에는 다음과 같은 원칙을 준수해야 한다. 정확하게 작성한다. 에 대한 식별이 가능하도록 작성한다.</blockquote></dd><dt>재사용(Reuse)</dt><dd><blockquote>개발 시간 및 비용 절감을 위하여 이미 검증된 기능을 파악하고 재구성하여 시스템에 응용하기 위해 적합하게 최적화하는 작업이다.</blockquote></dd><dt>재사용 규모에 따른 분류</dt><dd><blockquote>함수와 객체 재사용 클래스나 메서드 단위로 사용하며, 소스 코드 등을 재사용 컴포넌트 재사용 컴포넌트 단위로 재사용하며, 컴포넌트 자체는 수정하지 않고 인터페이스를 통해 통신 애플리케이션 재사용 공통된 업무가 기능을 제공하도록 구현된 애플리케이션을 공유하여 재사용</blockquote></dd><dt>유스케이스</dt><dd><blockquote>통합 모델링 언어(UML: Unified Modeling Language)에서 시스템에 제공되는 고유 기능 단위이며, 액터(Actor, 행위자)를 통해 시스템이 수행하는 일의 목표이다.</blockquote></dd><dt>포함과 확장 관계</dt><dd><blockquote>유스케이스(Use Case, 사용 사례)의 구성 요소 간 관계에는 연관, 확장, 포함, 일반화, 그룹화 등이 있으며 기능 수행 시 반드시 포함하거나 선택적으로 수행할 수 있는 관계를 &lt;표 1-2&gt;와 같은 점선으로 표시한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>공통 모듈(Module) · 재사용을 위한 필요 항목 · 유스케이스(Use Case) 및 관계(포함과 확장)</dd></dl>
+
+<h4>해 보기</h4>
+<h5>공통 모듈 식별 및 명세하기</h5><div class='prep'><b>재료·자료</b><span>SW 개발 국제 표준(ISO/IEC 9126, ISO/IEC 14598, ISO/IEC 25000(SQuaRE), / CMMi 등) / 소프트웨어 테스트 관련 국제 표준(ISO/IEC/IEEE 29119) / 제안 요청서, 제안서, 요구사항 정의서 등의 요구사항 관련 산출물 / 업무 기능 분해도, 업무 배경도, 유스케이스 다이어그램 등의 분석 단계 산출물 / 요구사항명세서, 유스케이스 명세서와 같은 명세 산출물</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구(워드프로세서, 스프레드시트, 프레젠테이션 도구 등) / CASE 도구(SW 설계 지원 도구, SW 개발 지원 도구, SW 테스트 지원 도구 등) / UML 저작 도구(오픈 소스: StarUML)</span><b>유의 사항</b><span>실험 실습은 정해진 방법과 절차에 따라 실시하여야 한다. / 요구사항 정의서 등과 같은 분석 단계 산출물에 대한 이해가 필요하다. / UML 다이어그램의 유형과 작성 방법에 대해 사전에 학습한다. / 단위 시스템 및 전체 시스템에서 제공하는 업무 기능에 대해 파악할 수 있어야 한다. / 명세 작업을 진행하는 경우 명세의 일관성, 정확성, 완전성에 유의한다.</span></div><div class='doh'><b>1</b><span>전체 시스템 차원과 단위 시스템 차원의 공통 부분을 분석 및 식별한다.</span></div><ol class='dos'><li>전체 시스템 차원의 공통 부분을 분석 및 식별한다.</li><li>단위 시스템 차원의 공통 부분을 분석 및 식별한다.</li></ol><div class='doh'><b>2</b><span>업무 기능을 표준화하고, 누락된 기능을 추가하며 중복된 기능을 통합하기 위해 업무 기능 정제</span></div><ol class='dos'><li>용어 표준화를 검토한다.</li><li>누락 및 중복된 기능을 검토한다.</li></ol><div class='doh'><b>3</b><span>공통적으로 처리가 가능한 기능을 식별하여 공통 모듈 후보군으로 선정한다.</span></div><ol class='dos'><li>업무적으로 중복되거나 공통으로 처리가 가능한 기능을 식별하여 공통 모듈 후보군으로 선정한다.</li><li>후보군으로 선정된 기능이 공통 모듈로 관리될 가치가 있는지 검토한다.</li></ol><div class='doh'><b>4</b><span>공통 모듈의 세부 내용을 명세로 작성한다.</span></div><ol class='dos'><li>공통 모듈로 관리할 기능의 세부 내용을 상세히 기록한다.</li><li>공통 모듈에 고유한 ID를 부여하여 관리한다.</li><li>공통 모듈 후보군과 명세 내용을 관련 이해관계자와 함께 검토하는 회의를 진행한다.</li><li>공통 모듈의 변경 사항 발생 시 관리할 담당자를 지정한다.</li><li>공통 모듈을 통합 관리하기 위한 리포지토리를 구성한다.</li><li>공통 모듈 변경 시 적용할 절차를 정의한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>전체 시스템 차원과 단위 시스템 차원의 공통 부분을 분석 및 식별한다.</li><li>업무 기능을 표준화하고, 누락된 기능을 추가하며 중복된 기능을 통합하기 위해 업무 기능 정제</li><li>공통적으로 처리가 가능한 기능을 식별하여 공통 모듈 후보군으로 선정한다.</li><li>공통 모듈의 세부 내용을 명세로 작성한다.</li><li>재사용성 확보와 중복 개발을 회피하기 위하여, 전체 시스템 차원과 단위 시스템 차원의 공통 부분을 식별하여 이에 대한 상세 명세를 작성할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 3쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
     <div class="step" id="st2">
-      <h3><i>2</i>모듈의 개념</h3>
+      <h3><i>2</i>1-2. 공통 모듈 설계</h3>
       <aside class="side">
-        <p class="pt">공통 모듈 식별 및 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
+        <p class="pt">개발할 응용소프트웨어의 전반적인 기능과 구조를 이해하기 쉬운 크기로 공통 모듈을 설계할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">공통 모듈 설계하기</p>
+        <b class="sh">학습모듈</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="27">원문 14쪽</a></p>
+        <b class="sh">분량</b>
+        <p class="src">개념 9항목 · 실습 21절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>전체 프로그램의 기능 중 특정 기능을 처리할 수 있는 실행 코드를 의미하며, 자체적으로 컴파일하는 것이 가능하고 다른 프로그램에서 재사용이 가능하다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>개발할 응용소프트웨어의 전반적인 기능과 구조를 이해하기 쉬운 크기로 공통 모듈을 설계할 수 있다.</li><li>소프트웨어 측정 지표 중 모듈 간의 결합도는 줄이고 개별 모듈들의 내부 응집도는 높이기 위한 공통 모듈을 설계할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>모듈화 개념</dt><dd><blockquote>프로그램이 효율적으로 관리될 수 있도록 시스템을 분해하고 추상화함으로써 소프트웨 어 제품의 성능을 향상하거나 시스템의 수정 및 재사용, 유지 관리를 용이하게 하는 기법을 의미한다.</blockquote></dd><dt>모듈화 필요성</dt><dd><blockquote>모듈의 크기가 너무 작아서 모듈 개수가 많아지면 모듈 간의 통합 비용이 많이 들고, 모듈의 크기가 너무 크면 모듈 간의 통합 비용이 상대적으로 줄어드는 대신 모듈 하나를 개발하는 데 드는 비용이 커진다.</blockquote></dd><dt>공통 기능 모듈화 사례</dt><dd><blockquote>복잡한 계산식, 자주 사용하는 검증(Validation) 기능, 항상 연관되어 발생하는 조건식에 대한 입력값의 검증 등의 경우 별도의 공통 모듈로 구성하여 프로젝트의 재사용성을 향상할 수 있다.</blockquote></dd><dt>응집도의 유형</dt><dd><blockquote>기능적 응집도 (Functional Cohesion) 모듈 내부의 모든 기능이 단일한 목적을 위해 수행되는 경우 순차적 응집도 (Sequential Cohesion) 모듈 내에서 한 활동으로부터 나온 출력값을 다른 활동이 사용할 경우 통신적 응집도 (Communication Cohesion) 동일한 입력과 출력을 사용하여 다른 기능을 수행하는 활동들이 모여 절차적 응집도 (Procedural</blockquote></dd><dt>응집도와 품질</dt><dd><blockquote>다양한 기준으로 모듈을 구성할 수 있으나 품질 측면에서 기능적 응집도가 가장 품질이 높고, 우연적 응집도가 가장 낮다.</blockquote></dd><dt>결합도의 유형</dt><dd><blockquote>자료 결합도 (Data Coupling) 모듈 간의 인터페이스로 전달되는 파라미터를 통해서만 모듈 간의 상호 작용이 일어나는 경우 스탬프 결합도 (Stamp Coupling) 모듈 간의 인터페이스로 배열이나 Object, Structure 등이 전달되는 제어 결합도 (Control Coupling) 단순 처리할 대상인 값만 전달되는 게 아니라 어떻게 처리를 해야 한다는 제어 요소가 전달되는</blockquote></dd><dt>결합도와 품질</dt><dd><blockquote>다양한 결합으로 모듈을 구성할 수 있으나 품질 측면에서 자료 결합이 가장 품질이 높고, 내용 결합이 가장 낮다.</blockquote></dd><dt>시퀀스다이어그램(Sequence Diagram)</dt><dd><blockquote>기능 수행을 위해 시스템 내의 객체들이 다른 객체들과 어떻게 교류하는지를 보여 주는 다이어그램이다. 시간의 흐름에 따른 객체 간의 상호 작용을 명세화하여 나타낸 다이어그 램으로 객체와 생명선, 객체의 실행, 객체 사이의 메시지 등으로 구성된다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>모듈화(Modularity)</dd></dl>
+
+<h4>해 보기</h4>
+<h5>공통 모듈 설계하기</h5><div class='prep'><b>재료·자료</b><span>SW 개발 국제 표준(ISO/IEC 9126, ISO/IEC 14598, ISO15504, ISO/IEC 12207, / ISO/IEC 25000(SQuaRE), CMMi 등) / 소프트웨어 테스트 관련 국제 표준(ISO/IEC/IEEE 29119) / 업무 기능 분해도, 업무 배경도, 사용 사례 다이어그램 등의 분석 단계 산출물</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구(워드프로세서, 스프레드시트, 프레젠테이션 도구 등) / CASE 도구(SW 설계 지원 도구, SW 개발 지원 도구, SW 테스트 지원 도구 등) / UML 저작 도구(오픈 소스: StarUML) / 19</span><b>유의 사항</b><span>실험 실습은 정해진 방법과 절차에 따라 실시하여야 한다. / UML 다이어그램의 작성 방법에 대해 사전에 학습한다. / 업무 기능 분해도, 사용 사례 다이어그램 등의 분석 단계 산출물에 대한 이해가 필요하다. / 프로그램 개발 경험과 SQL 작성 경험이 필요하다.</span></div><div class='doh'><b>1</b><span>공통 모듈에 대한 설계를 진행한다.</span></div><ol class='dos'><li>공통 기능에 대한 흐름을 도식화한다.</li><li>공통 기능에 대한 화면 설계를 진행한다.</li><li>R(Read Only): 화면에 표시되며 편집 불가능한 경우</li><li>E(Editable ): 화면에 표시되며 편집 가능한 경우</li><li>H(Hidden): 화면에 표시되지 않는 경우(주로 다른 화면과 데이터를 주고 받을 때의 변수로 활용) Validation 항목별로 처리되어야 하는 Validation check(유효성 체크) 규칙을 아래 내용을 포함하도록 작성한다.</li><li>필수 여부: 해당 항목의 필수(mandatory) 여부</li><li>자릿수: 입력값의 자릿수</li><li>기타: 입력값의 type - 숫자의 경우 허용되는 값의 범위 - 입력값의 format / Display 시 format - Default값 (3) 관련 이벤트(Event) 항목을 작성한다.</li><li>S : 다른 화면 및 기능으로 데이터가 보내지는 경우</li><li>R : 다른 화면 및 기능으로부터 데이터를 받는 경우 관련 오브젝트 이벤트 처리를 위해 관련된 class 및 이동될 페이지, include 될 페이지 등을 기입한다.</li><li>공통 기능에 대한 프로그램 설계서를 작성한다.</li><li>공통 기능에 대한 쿼리(Query, 정보 요청)를 설계한다.</li></ol><div class='doh'><b>2</b><span>공통 배치 프로그램을 설계한다.</span></div><ol class='dos'><li>배치 수행 방법을 검토한다.</li><li>선행 조건 및 입력물을 검토한다.</li><li>작업 주기 및 소요 시간을 설계한다.</li><li>출력물을 검토한다.</li></ol><div class='doh'><b>3</b><span>공통 모듈에 대한 응집도와 결합도를 분석하여 모듈을 분리하거나 병합한다.</span></div><ol class='dos'><li>공통 모듈에 대한 응집도를 분석한다.</li><li>공통 모듈에 대한 결합도를 분석한다.</li><li>응집도와 결합도 분석 결과에 따라 공통 모듈에 대한 분리 및 병합 작업을 진행한다.</li><li>팬인/팬아웃을 분석하여 복잡도를 조절한다.</li><li>응집도 및 결합도, 팬인/팬아웃에 대한 최종 결과 검토를 진행한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>공통 모듈에 대한 설계를 진행한다.</li><li>공통 배치 프로그램을 설계한다.</li><li>공통 모듈에 대한 응집도와 결합도를 분석하여 모듈을 분리하거나 병합한다.</li><li>개발할 응용소프트웨어의 전반적인 기능과 구조를 이해하기 쉬운 크기로 공통 모듈을 설계할 수 있다.</li><li>소프트웨어 측정 지표 중 모듈 간의 결합도는 줄이고 개별 모듈들의 내부 응집도는 높이기 위한 공통 모듈을 설계할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 14쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
     <div class="step" id="st3">
-      <h3><i>3</i>공통 모듈</h3>
+      <h3><i>3</i>1-3. 공통 모듈 인덱스 및 기능 코드 설계</h3>
       <aside class="side">
-        <p class="pt">공통 모듈 식별 및 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>여러 기능 및 프로그램에서 공통적으로 사용할 수 있는 모듈을 의미하며, 날짜 처리를 위한 유틸리티 모듈 등이 해당된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st4">
-      <h3><i>4</i>공통 모듈에 대한 명세 작성 원칙</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 식별 및 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>공통 모듈에 대한 명세를 작성할 때에는 다음과 같은 원칙을 준수해야 한다. 정확하게 작성한다. 에 대한 식별이 가능하도록 작성한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st5">
-      <h3><i>5</i>재사용(Reuse)</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 식별 및 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발 시간 및 비용 절감을 위하여 이미 검증된 기능을 파악하고 재구성하여 시스템에 응용하기 위해 적합하게 최적화하는 작업이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st6">
-      <h3><i>6</i>재사용 규모에 따른 분류</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 식별 및 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>함수와 객체 재사용 클래스나 메서드 단위로 사용하며, 소스 코드 등을 재사용 컴포넌트 재사용 컴포넌트 단위로 재사용하며, 컴포넌트 자체는 수정하지 않고 인터페이스를 통해 통신 애플리케이션 재사용 공통된 업무가 기능을 제공하도록 구현된 애플리케이션을 공유하여 재사용</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st7">
-      <h3><i>7</i>재사용을 위한 필요 항목</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 식별 및 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>유스케이스(Use Case) 및 관계(포함과 확장)</li><li>유스케이스</li><li>포함과 확장 관계</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st8">
-      <h3><i>8</i>유스케이스(Use Case) 및 관계(포함과 확장)</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 식별 및 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>유스케이스</li><li>포함과 확장 관계</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st9">
-      <h3><i>9</i>유스케이스</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 식별 및 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>통합 모델링 언어(UML: Unified Modeling Language)에서 시스템에 제공되는 고유 기능 단위이며, 액터(Actor, 행위자)를 통해 시스템이 수행하는 일의 목표이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st10">
-      <h3><i>10</i>포함과 확장 관계</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 식별 및 명세</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>유스케이스(Use Case, 사용 사례)의 구성 요소 간 관계에는 연관, 확장, 포함, 일반화, 그룹화 등이 있으며 기능 수행 시 반드시 포함하거나 선택적으로 수행할 수 있는 관계를 &lt;표 1-2&gt;와 같은 점선으로 표시한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st11">
-      <h3><i>11</i>모듈화(Modularity)</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="27">원문 14쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>모듈화 개념</li><li>모듈화 필요성</li><li>공통 기능 모듈화 사례</li><li>응집도의 유형</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st12">
-      <h3><i>12</i>모듈화 개념</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="27">원문 14쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>프로그램이 효율적으로 관리될 수 있도록 시스템을 분해하고 추상화함으로써 소프트웨 어 제품의 성능을 향상하거나 시스템의 수정 및 재사용, 유지 관리를 용이하게 하는 기법을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st13">
-      <h3><i>13</i>모듈화 필요성</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="27">원문 14쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>모듈의 크기가 너무 작아서 모듈 개수가 많아지면 모듈 간의 통합 비용이 많이 들고, 모듈의 크기가 너무 크면 모듈 간의 통합 비용이 상대적으로 줄어드는 대신 모듈 하나를 개발하는 데 드는 비용이 커진다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st14">
-      <h3><i>14</i>공통 기능 모듈화 사례</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="28">원문 15쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>복잡한 계산식, 자주 사용하는 검증(Validation) 기능, 항상 연관되어 발생하는 조건식에 대한 입력값의 검증 등의 경우 별도의 공통 모듈로 구성하여 프로젝트의 재사용성을 향상할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st15">
-      <h3><i>15</i>응집도의 유형</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="28">원문 15쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기능적 응집도 (Functional Cohesion) 모듈 내부의 모든 기능이 단일한 목적을 위해 수행되는 경우 순차적 응집도 (Sequential Cohesion) 모듈 내에서 한 활동으로부터 나온 출력값을 다른 활동이 사용할 경우 통신적 응집도 (Communication Cohesion) 동일한 입력과 출력을 사용하여 다른 기능을 수행하는 활동들이 모여 절차적 응집도 (Procedural</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st16">
-      <h3><i>16</i>응집도와 품질</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="29">원문 16쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>다양한 기준으로 모듈을 구성할 수 있으나 품질 측면에서 기능적 응집도가 가장 품질이 높고, 우연적 응집도가 가장 낮다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st17">
-      <h3><i>17</i>결합도의 유형</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="29">원문 16쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>자료 결합도 (Data Coupling) 모듈 간의 인터페이스로 전달되는 파라미터를 통해서만 모듈 간의 상호 작용이 일어나는 경우 스탬프 결합도 (Stamp Coupling) 모듈 간의 인터페이스로 배열이나 Object, Structure 등이 전달되는 제어 결합도 (Control Coupling) 단순 처리할 대상인 값만 전달되는 게 아니라 어떻게 처리를 해야 한다는 제어 요소가 전달되는</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st18">
-      <h3><i>18</i>결합도와 품질</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="30">원문 17쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>다양한 결합으로 모듈을 구성할 수 있으나 품질 측면에서 자료 결합이 가장 품질이 높고, 내용 결합이 가장 낮다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st19">
-      <h3><i>19</i>시퀀스다이어그램(Sequence Diagram)</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="30">원문 17쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기능 수행을 위해 시스템 내의 객체들이 다른 객체들과 어떻게 교류하는지를 보여 주는 다이어그램이다. 시간의 흐름에 따른 객체 간의 상호 작용을 명세화하여 나타낸 다이어그 램으로 객체와 생명선, 객체의 실행, 객체 사이의 메시지 등으로 구성된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st20">
-      <h3><i>20</i>코드(Code)</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 인덱스 및 기능 코드 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">전반적인 처리 논리 구조에 예기치 못한 영향을 끼치지 않도록 공통 모듈 인터페이스의 인덱 스 번호나 기능 코드를 설계할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">공통 모듈 설계하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 6항목 · 실습 8절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>데이터를 사용 목적에 따라 그룹으로 분류 및 나열하고 특정 자료의 선별 및 추출 작업을 용이하게 하기 위해 부여한 숫자, 문자 및 기호 체계이다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>전반적인 처리 논리 구조에 예기치 못한 영향을 끼치지 않도록 공통 모듈 인터페이스의 인덱 스 번호나 기능 코드를 설계할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>코드(Code)</dt><dd><blockquote>데이터를 사용 목적에 따라 그룹으로 분류 및 나열하고 특정 자료의 선별 및 추출 작업을 용이하게 하기 위해 부여한 숫자, 문자 및 기호 체계이다.</blockquote></dd><dt>코드의 유형 분류</dt><dd><blockquote>(Sequence Code) 일정한 일련번호를 부여(순서 코드, 일련번호 코드) 1,2,3,...10 (Block Code) 공통 특성을 몇 개의 블록으로 구분하여 부여 10진 코드 (Decimal Code) 10진으로 분류하고 다시 10진으로 분류 010-011-099 그룹 분류 코드 (Group Classification 대상을 대분류, 소분류 등으로 구분하고 각 그룹 내에서 순차 번호를</blockquote></dd><dt>인덱스(Index)의 개념</dt><dd><blockquote>일반적으로 책의 내용 중에서 원하는 내용을 빠르게 검색하고 추출할 수 있도록 일정 한 순서에 따라 별도로 정리하여 놓은 목록을 의미한다.</blockquote></dd><dt>공통 모듈 인덱스 방법</dt><dd><blockquote>공통 모듈에 대한 인덱스는 공통 모듈을 유일하게 식별할 수 있는 번호 체계를 부여함으로써 공통 모듈에 대한 그룹화(Grouping)와 식별 및 정보 추출을 용이하게 하는 기법을 의미한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>코드의 기능 · 공통 모듈 인덱스</dd></dl>
+
+<h4>해 보기</h4>
+<h5>공통 모듈 인덱스 및 기능 코드 설계하기</h5><div class='prep'><b>재료·자료</b><span>SW 개발 국제 표준(ISO/IEC 9126, ISO/IEC 14598, ISO15504, ISO/IEC 12207, / ISO/IEC 25000(SQuaRE), CMMi 등) / 소프트웨어 테스트 관련 국제 표준(IISO/IEC/IEEE 29119) / 제안 요청서, 제안서, 요구사항 정의서 등의 요구사항 관련 산출물</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구(워드프로세서, 스프레드시트, 프레젠테이션 도구 등) / CASE 도구(SW 설계 지원 도구, SW 개발 지원 도구, SW 테스트 지원 도구 등)</span><b>유의 사항</b><span>실습은 정해진 방법과 절차에 따라 실시하여야 한다. / 41 / 요구사항 정의서 등과 같은 분석 단계 산출물에 대한 이해가 필요하다. / 단위 시스템 및 전체 시스템에서 제공하는 업무 기능에 대해 파악할 수 있어야 한다. / 인덱스를 부여한 후 누락되거나 중복된 항목이 없는지 최종 확인한다.</span></div><div class='doh'><b>1</b><span>단위 시스템별로 시스템별 기능 코드를 부여한다.</span></div><ol class='dos'><li>단위 시스템에 대한 명칭을 확인한다.</li><li>단위 시스템별로 대분류를 지정하여 그룹화한다.</li><li>단위 시스템별로 대분류를 중분류할지 여부에 대해 검토한다.</li><li>그룹화된 단위 시스템별로 기능 코드 번호를 부여한다.</li><li>단위 시스템별 기능 코드 번호에 대한 중복 여부를 확인한다.</li></ol><div class='doh'><b>2</b><span>: 시스템 대분류 1 자리(A~Z)</span></div><div class='doh'><b>3</b><span>: 시스템 중분류 1 자리(1~9, A~Z)</span></div><div class='doh'><b>4</b><span>: 시스템 분류 2 자리(10~99, AA~ZZ)</span></div><div class='doh'><b>5</b><span>전체 시스템 및 단위 시스템별로 공통 모듈에 대한 인덱스를 부여한다.</span></div><ol class='dos'><li>인덱스 번호 체계를 수립한다.</li><li>공통 모듈 식별을 위한 코드명 및 구조를 정의하고, 연관 시스템 및 버전을 관리한다.</li><li>공통 모듈 관리 대장에 시스템별로 인덱스를 부여한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>단위 시스템별로 시스템별 기능 코드를 부여한다.</li><li>: 시스템 대분류 1 자리(A~Z)</li><li>: 시스템 중분류 1 자리(1~9, A~Z)</li><li>: 시스템 분류 2 자리(10~99, AA~ZZ)</li><li>전체 시스템 및 단위 시스템별로 공통 모듈에 대한 인덱스를 부여한다.</li><li>전반적인 처리 논리 구조에 예기치 못한 영향을 끼치지 않도록 공통 모듈 인터페이스의 인덱 스 번호나 기능 코드를 설계할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st21">
-      <h3><i>21</i>코드의 기능</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 인덱스 및 기능 코드 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>코드의 유형 분류</li><li>공통 모듈 인덱스</li><li>인덱스(Index)의 개념</li><li>공통 모듈 인덱스 방법</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st22">
-      <h3><i>22</i>코드의 유형 분류</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 인덱스 및 기능 코드 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>(Sequence Code) 일정한 일련번호를 부여(순서 코드, 일련번호 코드) 1,2,3,...10 (Block Code) 공통 특성을 몇 개의 블록으로 구분하여 부여 10진 코드 (Decimal Code) 10진으로 분류하고 다시 10진으로 분류 010-011-099 그룹 분류 코드 (Group Classification 대상을 대분류, 소분류 등으로 구분하고 각 그룹 내에서 순차 번호를</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st23">
-      <h3><i>23</i>공통 모듈 인덱스</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 인덱스 및 기능 코드 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>인덱스(Index)의 개념</li><li>공통 모듈 인덱스 방법</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st24">
-      <h3><i>24</i>인덱스(Index)의 개념</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 인덱스 및 기능 코드 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>일반적으로 책의 내용 중에서 원하는 내용을 빠르게 검색하고 추출할 수 있도록 일정 한 순서에 따라 별도로 정리하여 놓은 목록을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st25">
-      <h3><i>25</i>공통 모듈 인덱스 방법</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 인덱스 및 기능 코드 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>공통 모듈에 대한 인덱스는 공통 모듈을 유일하게 식별할 수 있는 번호 체계를 부여함 으로써 공통 모듈에 대한 그룹화(Grouping)와 식별 및 정보 추출을 용이하게 하는 기법을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 39쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -728,611 +189,109 @@
 <div class="lv">
   <div class="lvh"><b>2. 타 시스템 연동 설계하기</b><span>능력단위요소 · <code>2001020221_23v6.2</code></span></div>
   <div class="lvb">
-    <div class="step" id="st26">
-      <h3><i>26</i>시스템 연동의 개념</h3>
+    <div class="step" id="st4">
+      <h3><i>4</i>2-1. 아키텍처를 고려한 타 시스템 연동 설계</h3>
       <aside class="side">
-        <p class="pt">아키텍처를 고려한 타 시스템 연동 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
+        <p class="pt">소프트웨어 아키텍처에서 정의한 타 시스템 연동 리스트 및 연동 방안을 참조하여, 타 시스템 연동 상세 설계의 가이드라인을 작성할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">타 시스템 연동 설계하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="62">원문 49쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 6항목 · 실습 15절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템 연동이란 서버와 네트워크를 활용하는 자동화 체계 등에서 동일한 기능을 수행하지 않는 단위 시스템 간에 접속을 통하여 업무(기능)를 수행하는 것을 의미한다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>소프트웨어 아키텍처에서 정의한 타 시스템 연동 리스트 및 연동 방안을 참조하여, 타 시스템 연동 상세 설계의 가이드라인을 작성할 수 있다.</li><li>소프트웨어 아키텍처의 정의를 반영한 연동 상세 설계 가이드라인에 따라, 타 시스템 연동 상세 설계를 할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>시스템 연동의 개념</dt><dd><blockquote>시스템 연동이란 서버와 네트워크를 활용하는 자동화 체계 등에서 동일한 기능을 수행하지 않는 단위 시스템 간에 접속을 통하여 업무(기능)를 수행하는 것을 의미한다.</blockquote></dd><dt>데이터 연동</dt><dd><blockquote>데이터 연동이란 데이터베이스를 공유하여 타 시스템과 연계하는 방법으로, 다른 연동 방식에 비해 자원 이용과 구축 시간을 절약할 수 있으며 주로 내부 시스템의 연동을 위해 사용된다.</blockquote></dd><dt>인터페이스(Interface) 연동</dt><dd><blockquote>인터페이스란 서로 독립적인 시스템의 상호 작용을 위한 접속 경계(Boundary)나 규칙을 의미하며, 인터페이스 연동을 위해서는 응용 프로그램 인터페이스(API: Application Program Interface), 원격 메서드 호출(RMI: Remote Method Invocation) 등을 통해 타 시스템과 연동이 가능하다.</blockquote></dd><dt>웹 서비스 연동 개념</dt><dd><blockquote>네트워크상에서 이기종 시스템 간에 표준화된 XML 메시지 및 여러 기술을 이용하여 시스템 간에 연동할 수 있는 기술이다.</blockquote></dd><dt>웹 서비스 구성 요소</dt><dd><blockquote>XML과 HTTP 등을 기본으로 이용하는 통신규약(Protocol)으로 이기종 컴퓨터의 데이터나 서비스를 호출할 수 있으며, 다양한 프로그램 언어에서 쉽게 작성 및 실행이 가능하다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>웹 서비스(Web Service) 연동</dd></dl>
+
+<h4>해 보기</h4>
+<h5>아키텍처를 고려한 타 시스템 연동 설계하기</h5><div class='prep'><b>재료·자료</b><span>SW 개발 국제 표준(ISO/IEC 9126, ISO/IEC 14598, ISO/IEC 25000(SQuaRE), / CMMi 등) / 소프트웨어 테스트 관련 국제 표준(ISO/IEC/IEEE 29119) / 업무 배경도, 아키텍처 구성 관련 타 시스템과의 연계 산출물</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구(워드프로세서, 스프레드시트, 프레젠테이션 도구 등) / CASE 도구(SW 설계 지원 도구, SW 개발 지원 도구, SW 테스트 지원 도구 등)</span><b>유의 사항</b><span>실습은 정해진 방법과 절차에 따라 실시하여야 한다. / 업무 배경도 및 아키텍처 구성 산출물을 참고하여 타 시스템 연동 구간을 식별할 수 있 / 어야 한다. / 타 시스템과 연동하기 위한 기술 요소에 대한 사전 학습이 필요하다. / 타 시스템과의 연동 상세 설계서의 경우 프로젝트 상황 및 표준, 외부 기관에서 제공받 / 은 데이터 등을 기준으로 최대한 상세히 작성하도록 한다.</span></div><div class='doh'><b>1</b><span>소프트웨어 아키텍처에서 정의한 타 시스템 연동 리스트 및 연동 방안을 검토한다.</span></div><ol class='dos'><li>타 시스템 연동 리스트를 검토한다.</li><li>타 시스템 연동 방식을 검토한다.</li></ol><div class='doh'><b>2</b><span>타 시스템 연동 상세 설계 가이드라인을 작성한다.</span></div><ol class='dos'><li>타 시스템 연동 목록 작성에 필요한 정보를 검토한다.</li><li>타 시스템 연동 목록 작성을 위한 설계 가이드라인을 작성한다.</li></ol><div class='doh'><b>3</b><span>타 시스템 연동 목록을 작성한다.</span></div><ol class='dos'><li>연계 구분 및 관련 시스템명을 작성한다.</li><li>인터페이스 ID를 작성한다.</li><li>인터페이스명과 설명을 작성한다.</li><li>인터페이스 주기, 연동 방식 등에 대해 작성한다.</li><li>프로그램 정보를 작성한다.</li><li>데이터 흐름 및 오류 처리 방안을 작성한다.</li></ol><div class='doh'><b>4</b><span>타 시스템 연동 상세 설계서를 작성한다.</span></div><ol class='dos'><li>인터페이스 정보를 작성한다.</li><li>인터페이스 데이터 항목을 작성한다.</li><li>작성된 설계서에 대해 검토한다.</li><li>개선 사항을 반영한다.</li><li>최종 설계 문서로 등록한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>소프트웨어 아키텍처에서 정의한 타 시스템 연동 리스트 및 연동 방안을 검토한다.</li><li>타 시스템 연동 상세 설계 가이드라인을 작성한다.</li><li>타 시스템 연동 목록을 작성한다.</li><li>타 시스템 연동 상세 설계서를 작성한다.</li><li>소프트웨어 아키텍처에서 정의한 타 시스템 연동 리스트 및 연동 방안을 참조하여, 타 시스템 연동 상세 설계의 가이드라인을 작성할 수 있다.</li><li>소프트웨어 아키텍처의 정의를 반영한 연동 상세 설계 가이드라인에 따라, 타 시스템 연동 상세 설계를 할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 질문 · 서술형 시험</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 49쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st27">
-      <h3><i>27</i>데이터 연동</h3>
+    <div class="step" id="st5">
+      <h3><i>5</i>2-2. 미들웨어 솔루션 명세 작성</h3>
       <aside class="side">
-        <p class="pt">아키텍처를 고려한 타 시스템 연동 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="62">원문 49쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>데이터 연동이란 데이터베이스를 공유하여 타 시스템과 연계하는 방법으로, 다른 연동 방식에 비해 자원 이용과 구축 시간을 절약할 수 있으며 주로 내부 시스템의 연동을 위해 사용된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st28">
-      <h3><i>28</i>인터페이스(Interface) 연동</h3>
-      <aside class="side">
-        <p class="pt">아키텍처를 고려한 타 시스템 연동 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="62">원문 49쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>인터페이스란 서로 독립적인 시스템의 상호 작용을 위한 접속 경계(Boundary)나 규칙을 의미하며, 인터페이스 연동을 위해서는 응용 프로그램 인터페이스(API: Application Program Interface), 원격 메서드 호출(RMI: Remote Method Invocation) 등을 통해 타 시스템과 연동이 가능하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st29">
-      <h3><i>29</i>웹 서비스(Web Service) 연동</h3>
-      <aside class="side">
-        <p class="pt">아키텍처를 고려한 타 시스템 연동 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="63">원문 50쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>웹 서비스 연동 개념</li><li>웹 서비스 구성 요소</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st30">
-      <h3><i>30</i>웹 서비스 연동 개념</h3>
-      <aside class="side">
-        <p class="pt">아키텍처를 고려한 타 시스템 연동 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="63">원문 50쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>네트워크상에서 이기종 시스템 간에 표준화된 XML 메시지 및 여러 기술을 이용하여 시스템 간에 연동할 수 있는 기술이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st31">
-      <h3><i>31</i>웹 서비스 구성 요소</h3>
-      <aside class="side">
-        <p class="pt">아키텍처를 고려한 타 시스템 연동 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="63">원문 50쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>XML과 HTTP 등을 기본으로 이용하는 통신규약(Protocol)으로 이기종 컴퓨터의 데이터나 서비스를 호출할 수 있으며, 다양한 프로그램 언어에서 쉽게 작성 및 실행이 가능하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st32">
-      <h3><i>32</i>미들웨어 솔루션(Middleware Solution)</h3>
-      <aside class="side">
-        <p class="pt">미들웨어 솔루션 명세 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">소프트웨어 아키텍처에 따라 선정된 개발 및 운영 환경에 사용될 기술 영역별 미들웨어 솔루 션에 대하여 명세를 작성할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">타 시스템 연동 설계하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="77">원문 64쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 7항목 · 실습 13절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>미들웨어 솔루션의 개념</li><li>미들웨어 솔루션의 유형</li><li>웹서버와 웹 애플리케이션 서버(WAS: Web Application Server)</li><li>웹서버(Web Server)</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>소프트웨어 아키텍처에 따라 선정된 개발 및 운영 환경에 사용될 기술 영역별 미들웨어 솔루 션에 대하여 명세를 작성할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>미들웨어 솔루션의 개념</dt><dd><blockquote>클라이언트와 서버 간의 통신을 담당하는 시스템 소프트웨어 또는 컴퓨터와 컴퓨터의 연결을 담당하는 소프트웨어로서, 중간을 의미하는 미들(middle)과 소프트웨어(Software) 를 의미하는 웨어(ware)의 합성어이다.</blockquote></dd><dt>미들웨어 솔루션의 유형</dt><dd><blockquote>미들웨어 유형 데이터베이스 데이터베이스 벤더에서 제공하는 클라이언트에서 데이터베이스와 연결하기 위한 미들웨어로, 이 제품을 사용하여 시스템을 구축하는 경우에 보통 2- 티어 아키텍처라고 한다.</blockquote></dd><dt>웹서버(Web Server)</dt><dd><blockquote>웹 브라우저(Web Client)의 요청을 받아 html 파일이나 이미지(jpg, gif 등), 자바스크 립트의 정적인 콘텐츠를 제공하며 대표적인 웹서버로 아파치가 있다.</blockquote></dd><dt>웹 애플리케이션 서버(WAS: Web Application Server)</dt><dd><blockquote>서버단(Server Level)에서 애플리케이션이 동작할 수 있는 환경을 제공하고, 안정적인 트랜잭션 처리 및 관리, 다른 이기종 시스템 간의 애플리케이션 연동을 지원한다.</blockquote></dd><dt>웹서버와 와스서버의 일반적인 구성</dt><dd><blockquote>사용자가 웹 브라우저를 통해 요청하는 경우 정적 데이터(이미지, 자바스크립트 등)는 웹서버가 처리하고, 동적 콘텐츠(DB 접속, 외부 시스템 연동 등)의 경우 와스로 서비스를 요청함으로써 서버 자원을 효율적으로 처리할 수 있도록 구성한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>미들웨어 솔루션(Middleware Solution) · 웹서버와 웹 애플리케이션 서버(WAS: Web Application Server)</dd></dl>
+
+<h4>해 보기</h4>
+<h5>미들웨어 솔루션 명세 작성하기</h5><div class='prep'><b>재료·자료</b><span>SW 개발 국제 표준(ISO/IEC 9126, ISO/IEC 14598, ISO/IEC 25000(SQuaRE), / CMMi 등) / 소프트웨어 테스트 관련 국제 표준(ISO/IEC/IEEE 29119) / 아키텍처 및 시스템 구성도와 같은 환경 구성 관련 산출물 / 미들웨어 솔루션에 대한 소개 및 설명서</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구(워드프로세서, 스프레드시트, 프레젠테이션 도구 등) / CASE 도구(SW 설계 지원 도구, SW 개발 지원 도구, SW 테스트 지원 도구 등)</span><b>유의 사항</b><span>실습은 정해진 방법과 절차에 따라 실시하여야 한다. / 미들웨어의 종류와 필요성에 대한 사전 학습이 필요하다. / 미들웨어 솔루션에 대한 명세 작업 후 아키텍처 및 제품 담당자와 함께 특이 사항이 없 / 는지 등에 대해 확인 작업을 진행한다.</span></div><div class='doh'><b>1</b><span>개발 및 운영 환경에 사용될 미들웨어 솔루션에 대해 확인한다.</span></div><ol class='dos'><li>아키텍처 구성 정보를 검토한다.</li><li>프로젝트의 구매 SW를 검토한다.</li><li>프로젝트에서 사용될 미들웨어 솔루션에 대해 정리한다.</li><li>누락된 솔루션에 대해 검토한다.</li></ol><div class='doh'><b>2</b><span>미들웨어 솔루션에 대한 명세서를 작성한다.</span></div><ol class='dos'><li>제조사의 제품 소개서 내용을 검토한다.</li><li>솔루션의 제공 기능 및 특징 등에 대해 검토한다.</li><li>솔루션의 제약사항에 대해 검토한다.</li><li>솔루션에 대한 명세서를 작성한다.</li><li>개요 ----------------------------------------------- ＯO</li><li>솔루션 정보 ------------------------------------------ ＯO</li><li>솔루션 특징 ------------------------------------------ ＯO</li><li>솔루션 지원 항목 -------------------------------------- ＯO</li><li>기타 ------------------------------------------------ ＯO 시스템 솔루션명 버전 제조사 사용 목적 주요 기능 제약사항 콘텐츠 관리 시스템 Tomacat Ver Apache Software Foundation 웹 애플리케이션 제공 부하 분산, 성능 최적화 특정 환경에서의 확장성 한계 사용자 관리 시스템 WebOOOO Ver OOOO 사용자 인증 및 권한 관리 안정적인 처리 속도, 보안 기능 특정 운영체제에서의 비호환성 결제 관리 시스템 JeOOOO Ver OOOO 결제 처리 및 트랜잭션 관리 실시간 데이터 처리, 모니터링 옵션 고사양 하드웨어 요구 연계 관리 시스템 InOOOO N/A OOOO 시스템 간 데이터 연계 및 통합 실시간 데이터 연계, 확장성 라이선스 비용 부담</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>개발 및 운영 환경에 사용될 미들웨어 솔루션에 대해 확인한다.</li><li>미들웨어 솔루션에 대한 명세서를 작성한다.</li><li>소프트웨어 아키텍처에 따라 선정된 개발 및 운영 환경에 사용될 기술 영역별 미들웨어 솔루 션에 대하여 명세를 작성할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 질문 · 서술형 시험</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 64쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st33">
-      <h3><i>33</i>미들웨어 솔루션의 개념</h3>
+    <div class="step" id="st6">
+      <h3><i>6</i>2-3. 오류 예측 및 대응 방안 제시</h3>
       <aside class="side">
-        <p class="pt">미들웨어 솔루션 명세 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="77">원문 64쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>클라이언트와 서버 간의 통신을 담당하는 시스템 소프트웨어 또는 컴퓨터와 컴퓨터의 연결을 담당하는 소프트웨어로서, 중간을 의미하는 미들(middle)과 소프트웨어(Software) 를 의미하는 웨어(ware)의 합성어이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st34">
-      <h3><i>34</i>미들웨어 솔루션의 유형</h3>
-      <aside class="side">
-        <p class="pt">미들웨어 솔루션 명세 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="77">원문 64쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>미들웨어 유형 데이터베이스 데이터베이스 벤더에서 제공하는 클라이언트에서 데이터베이스와 연결하기 위한 미들웨어로, 이 제품을 사용하여 시스템을 구축하는 경우에 보통 2- 티어 아키텍처라고 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st35">
-      <h3><i>35</i>웹서버와 웹 애플리케이션 서버(WAS: Web Application Server)</h3>
-      <aside class="side">
-        <p class="pt">미들웨어 솔루션 명세 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="78">원문 65쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>웹서버(Web Server)</li><li>웹 애플리케이션 서버(WAS: Web Application Server)</li><li>웹서버와 와스서버의 일반적인 구성</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st36">
-      <h3><i>36</i>웹서버(Web Server)</h3>
-      <aside class="side">
-        <p class="pt">미들웨어 솔루션 명세 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="78">원문 65쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>웹 브라우저(Web Client)의 요청을 받아 html 파일이나 이미지(jpg, gif 등), 자바스크 립트의 정적인 콘텐츠를 제공하며 대표적인 웹서버로 아파치가 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st37">
-      <h3><i>37</i>웹 애플리케이션 서버(WAS: Web Application Server)</h3>
-      <aside class="side">
-        <p class="pt">미들웨어 솔루션 명세 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="78">원문 65쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>서버단(Server Level)에서 애플리케이션이 동작할 수 있는 환경을 제공하고, 안정적인 트랜잭션 처리 및 관리, 다른 이기종 시스템 간의 애플리케이션 연동을 지원한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st38">
-      <h3><i>38</i>웹서버와 와스서버의 일반적인 구성</h3>
-      <aside class="side">
-        <p class="pt">미들웨어 솔루션 명세 작성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="78">원문 65쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>사용자가 웹 브라우저를 통해 요청하는 경우 정적 데이터(이미지, 자바스크립트 등)는 웹서버가 처리하고, 동적 콘텐츠(DB 접속, 외부 시스템 연동 등)의 경우 와스로 서비스를 요청함으로써 서버 자원을 효율적으로 처리할 수 있도록 구성한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st39">
-      <h3><i>39</i>가용성 향상을 위한 이중화</h3>
-      <aside class="side">
-        <p class="pt">오류 예측 및 대응 방안 제시</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">소프트웨어 아키텍처에 따른 시스템 간의 연동 시, 발생할 수 있는 오류를 예측하고 이의 대응 방안에 대해 제시할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">타 시스템 연동 설계하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="83">원문 70쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 10항목 · 실습 24절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>이중화 기술이란 복수의 시스템이나 장치 등을 활용함으로써 하나의 시스템에 장애가 발생 하는 경우에도 정상적인 서비스가 제공될 수 있도록 가용성(Availability)을 극대화하기 위한 기술을 통칭한다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>소프트웨어 아키텍처에 따른 시스템 간의 연동 시, 발생할 수 있는 오류를 예측하고 이의 대응 방안에 대해 제시할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>가용성 향상을 위한 이중화</dt><dd><blockquote>이중화 기술이란 복수의 시스템이나 장치 등을 활용함으로써 하나의 시스템에 장애가 발생하는 경우에도 정상적인 서비스가 제공될 수 있도록 가용성(Availability)을 극대화하기 위한 기술을 통칭한다.</blockquote></dd><dt>액티브-액티브(Active-Active) 방식</dt><dd><blockquote>평상시에도 모든 서버가 서비스를 제공하는 방식으로 운영되며, 한 서버에 장애가 발생하는 경우 다른 서버를 통해 서비스를 연속적으로 제공하는 방식이다.</blockquote></dd><dt>액티브-스탠바이(Active-StandBy) 방식</dt><dd><blockquote>평상시에는 한쪽 서버에서만 서비스를 제공하고, 장애가 발생하는 경우 다른 서버로 서비스를 이관하여 연속적인 서비스를 제공하는 방식이다.</blockquote></dd><dt>재해 복구 시스템(DRS: Disaster Recovery System)</dt><dd><blockquote>재해 복구 계획의 원활한 수행을 지원하기 위하여 평상시에 확보하여 두는, 정보시스템에서의 업무 연속성 유지를 위한 체계이다.</blockquote></dd><dt>복구 목표 시간과 복구 목표 시점</dt><dd><blockquote>장애 발생 시점을 기준으로 데이터 유실 및 시스템 다운 타임의 발생을 막으려면 많은 비용이 발생한다. 따라서 한정된 비용 안에서 데이터 유실 및 다운 타임에 대한 위험을 최소 화하기 위한 항목이 복구 목표 시간과 복구 목표 시점이다.</blockquote></dd><dt>복구 목표 시간(RTO: Recovery Time Objective)</dt><dd><blockquote>서비스가 중단된 경우 이를 복구하기까지는 서비스가 중단될 수 있는, 다운 타임에 대한 최대 허용 시간을 의미한다.</blockquote></dd><dt>복구 목표 시점(RPO: Recovery Point Objective)</dt><dd><blockquote>서비스가 중단된 경우 중단된 서비스를 복구할 때 데이터 유실에 대한 최대 허용 가능 한 시점을 의미한다. 즉, 현재로부터 가장 가까운 복원 지점(백업 시점)까지의 시간 목표라고 할 수 있다.</blockquote></dd><dt>업무 영향 분석(BIA: Business Impact Analysis)</dt><dd><blockquote>재해나 장애로 인해 서비스 운영의 문제가 발생할 것을 가정하고, 이에 따른 영향도 및 손실 평가를 조사하는 방법이다.</blockquote></dd><dt>구성 요소</dt><dd><blockquote>/ 오류 예측 및 대응 방안 제시하기 CMMi 등) 기기(장비･공구) 안전･유의 사항고 프로젝트 비용 및 일정, 특성을 고려하여 적용한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>수행 절차</dd></dl>
+
+<h4>해 보기</h4>
+<h5>오류 예측 및 대응 방안 제시하기</h5><div class='prep'><b>재료·자료</b><span>SW 개발 국제 표준(ISO/IEC 9126, ISO/IEC 14598, ISO/IEC 25000(SQuaRE), / CMMi 등) / 소프트웨어 테스트 관련 국제 표준(ISO/IEC/IEEE 29119) / 아키텍처 구성 및 시스템 연계 구성과 같은 환경 구성 산출물</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구(워드프로세서, 스프레드시트, 프레젠테이션 도구 등) / CASE 도구(SW 설계 지원 도구, SW 개발 지원 도구, SW 테스트 지원 도구 등)</span><b>유의 사항</b><span>실습은 정해진 방법과 절차에 따라 실시하여야 한다. / 시스템 연동과 관련된 연동 기술에 대한 이해가 필요하다. / 시스템 가용성 및 이중화 구성 환경에 대한 사전 학습이 필요하다. / 오류 방지 대책 수립 시 시스템 및 인프라 측면, 응용 프로그램 측면을 나누어 검토하 / 고 프로젝트 비용 및 일정, 특성을 고려하여 적용한다.</span></div><div class='doh'><b>1</b><span>시스템 연동 측면에서 발생이 가능한 오류 예측 및 대응 방안을 수립한다.</span></div><ol class='dos'><li>시스템 연계 구성도를 검토한다.</li><li>이중화 구성에 대해 검토한다.</li></ol><div class='doh'><b>2</b><span>데이터를 제공하는 시스템에 대해 발생이 가능한 오류를 예측하고 대응 방안을 수립한다.</span></div><ol class='dos'><li>입력 정보에 대해 발생할 수 있는 오류를 예측한다.</li><li>출력 정보에 대해 발생할 수 있는 오류를 예측한다.</li><li>입력 및 출력 정보 오류에 대해 오류 코드를 정의한다.</li></ol><div class='doh'><b>3</b><span>데이터를 제공받는 시스템에서 발생이 가능한 오류를 예측하고 방안을 수립한다.</span></div><ol class='dos'><li>전송 데이터 항목에 대한 검증 방안을 검토한다.</li><li>수신 데이터 항목에 대한 검증 방안을 검토한다.</li></ol><div class='doh'><b>4</b><span>시스템 연동 구간에 대한 단계별 로그 추가에 대해 검토한다.</span></div><ol class='dos'><li>시스템 간 연동에 대한 구성도를 검토한다.</li><li>단계별 로그를 생성할 수 있는지에 대해 검토한다.</li><li>인터페이스 호출 전</li><li>인터페이스 호출 후</li><li>인터페이스 실행 전</li><li>인터페이스 실행 후</li><li>전달 데이터</li><li>시스템 오류 내용 외부 시스템 (데이터 요청)</li><li>인터페이스 호출 전</li><li>인터페이스 호출 후 외부시스템 (데이터 제공)</li><li>인터페이스 실행 전</li><li>인터페이스 실행 후 수 외부 기관 연계에 대한 업무 및 담당자 정보를 작성하고 관리한다.</li><li>내외부 연동 리스트를 참고하여 관련 시스템 및 외부 기관을 식별한다.</li><li>외부 기관의 담당자 정보를 파악한다.</li><li>내부 시스템을 기준으로 외부 기관 담당자를 정리한다.</li><li>관련 기관 담당자 정보를 주기적으로 현행화한다.</li><li>시스템 변경 사항에 대해 관련 담당자에게 공지한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>시스템 연동 측면에서 발생이 가능한 오류 예측 및 대응 방안을 수립한다.</li><li>데이터를 제공하는 시스템에 대해 발생이 가능한 오류를 예측하고 대응 방안을 수립한다.</li><li>데이터를 제공받는 시스템에서 발생이 가능한 오류를 예측하고 방안을 수립한다.</li><li>시스템 연동 구간에 대한 단계별 로그 추가에 대해 검토한다.</li><li>소프트웨어 아키텍처에 따른 시스템 간의 연동 시, 발생할 수 있는 오류를 예측하고 이의 대응 방안에 대해 제시할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 질문 · 서술형 시험</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st40">
-      <h3><i>40</i>액티브-액티브(Active-Active) 방식</h3>
-      <aside class="side">
-        <p class="pt">오류 예측 및 대응 방안 제시</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="83">원문 70쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>평상시에도 모든 서버가 서비스를 제공하는 방식으로 운영되며, 한 서버에 장애가 발생 하는 경우 다른 서버를 통해 서비스를 연속적으로 제공하는 방식이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st41">
-      <h3><i>41</i>액티브-스탠바이(Active-StandBy) 방식</h3>
-      <aside class="side">
-        <p class="pt">오류 예측 및 대응 방안 제시</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="83">원문 70쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>평상시에는 한쪽 서버에서만 서비스를 제공하고, 장애가 발생하는 경우 다른 서버로 서비스를 이관하여 연속적인 서비스를 제공하는 방식이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st42">
-      <h3><i>42</i>재해 복구 시스템(DRS: Disaster Recovery System)</h3>
-      <aside class="side">
-        <p class="pt">오류 예측 및 대응 방안 제시</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="84">원문 71쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>재해 복구 계획의 원활한 수행을 지원하기 위하여 평상시에 확보하여 두는, 정보시스템에서의 업무 연속성 유지를 위한 체계이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st43">
-      <h3><i>43</i>복구 목표 시간과 복구 목표 시점</h3>
-      <aside class="side">
-        <p class="pt">오류 예측 및 대응 방안 제시</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="84">원문 71쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>장애 발생 시점을 기준으로 데이터 유실 및 시스템 다운 타임의 발생을 막으려면 많은 비용이 발생한다. 따라서 한정된 비용 안에서 데이터 유실 및 다운 타임에 대한 위험을 최소 화하기 위한 항목이 복구 목표 시간과 복구 목표 시점이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st44">
-      <h3><i>44</i>복구 목표 시간(RTO: Recovery Time Objective)</h3>
-      <aside class="side">
-        <p class="pt">오류 예측 및 대응 방안 제시</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="84">원문 71쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>서비스가 중단된 경우 이를 복구하기까지는 서비스가 중단될 수 있는, 다운 타임에 대한 최대 허용 시간을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st45">
-      <h3><i>45</i>복구 목표 시점(RPO: Recovery Point Objective)</h3>
-      <aside class="side">
-        <p class="pt">오류 예측 및 대응 방안 제시</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="84">원문 71쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>서비스가 중단된 경우 중단된 서비스를 복구할 때 데이터 유실에 대한 최대 허용 가능 한 시점을 의미한다. 즉, 현재로부터 가장 가까운 복원 지점(백업 시점)까지의 시간 목표라고 할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st46">
-      <h3><i>46</i>업무 영향 분석(BIA: Business Impact Analysis)</h3>
-      <aside class="side">
-        <p class="pt">오류 예측 및 대응 방안 제시</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="84">원문 71쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>재해나 장애로 인해 서비스 운영의 문제가 발생할 것을 가정하고, 이에 따른 영향도 및 손실 평가를 조사하는 방법이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st47">
-      <h3><i>47</i>수행 절차</h3>
-      <aside class="side">
-        <p class="pt">오류 예측 및 대응 방안 제시</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="84">원문 71쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>구성 요소</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st48">
-      <h3><i>48</i>구성 요소</h3>
-      <aside class="side">
-        <p class="pt">오류 예측 및 대응 방안 제시</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020221_23v6" data-page="85">원문 72쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>/ 오류 예측 및 대응 방안 제시하기 CMMi 등) 기기(장비･공구) 안전･유의 사항고 프로젝트 비용 및 일정, 특성을 고려하여 적용한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 70쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
   </div>
 </div>
 
-<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
-원문 LM2001020221_23v6_애플리케이션 설계_20251108.pdf</footer>
+<footer>담당 정우균 · 개념과 절차는 <b>NCS 학습모듈 LM2001020221_23v6_애플리케이션 설계_20251108.pdf</b> 에서
+옮긴 것입니다 — 한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지)</footer>
 </div>
 <script>
-/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+/* 빠른 이동 — 지금 보는 꼭지를 표시하고, 좁은 화면에서는 여닫습니다. */
 (function () {
   var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
   var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));

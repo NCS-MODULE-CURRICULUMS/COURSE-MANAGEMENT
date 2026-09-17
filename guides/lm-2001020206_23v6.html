@@ -1,13 +1,30 @@
-<meta charset="utf-8"><title>통합 구현 — 준비 교안</title>
+<meta charset="utf-8"><title>통합 구현 — 학습 가이드</title>
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="stylesheet" href="../assets/guide.css">
 <style>
-  /* 원문 인용 — 우리가 쓴 안내와 눈으로 구분되어야 한다 */
-  .bd blockquote{margin:10px 0 16px;padding:10px 14px;border-left:3px solid #000;
-                 background:#fafafa;font-size:13.5px;line-height:1.8;color:#222}
-  .bd p.none{color:#888;font-size:13px}
-  .bd ul.sub{margin:8px 0 16px;padding-left:20px;font-size:13.5px;line-height:1.9}
-  aside.side .v .btn{font-size:11.5px}
+  /* 학습 가이드 — 개념 / 실습 / 확인 세 덩어리가 눈으로 구분되어야 한다 */
+  .bd h4{margin:22px 0 8px;font-size:14px;padding-bottom:5px;border-bottom:1px solid #000}
+  .bd h4:first-child{margin-top:0}
+  .bd h5{margin:16px 0 5px;font-size:13px;font-weight:700}
+  .bd blockquote{margin:5px 0 12px;padding:9px 13px;border-left:3px solid #999;
+                 background:#fafafa;font-size:13px;line-height:1.8;color:#333}
+  .cc{margin:0 0 6px}
+  .cc dt{font-weight:700;font-size:13.5px;margin:14px 0 0}
+  .cc dd{margin:4px 0 0}
+  .doh{display:flex;gap:9px;align-items:baseline;margin:16px 0 4px;font-size:13.5px;
+       font-weight:700}
+  .doh b{flex:0 0 auto;width:21px;height:21px;line-height:19px;text-align:center;
+         border:1px solid #000;font-size:11.5px}
+  ol.dos{margin:2px 0 0 30px;padding:0;font-size:13px;line-height:1.85}
+  ol.dos li{margin:3px 0}
+  .prep{display:grid;grid-template-columns:76px 1fr;gap:3px 10px;font-size:12.5px;
+        border:1px solid #ccc;padding:10px 13px;margin:6px 0 2px;background:#fafafa}
+  .prep b{color:#555;font-weight:400}
+  ul.goal{margin:6px 0 0;padding-left:20px;font-size:13.5px;line-height:1.9}
+  ul.chk{margin:6px 0 0;padding:0;list-style:none;font-size:13.5px;line-height:1.95}
+  ul.chk li::before{content:"\2610  "}
+  .none{color:#888;font-size:12.5px}
+  .srcline{font-size:11.5px;color:#888;margin:8px 0 0}
 </style>
 <script src="../assets/auth.js"></script>
 <script>EXAM_AUTH.guard("../");</script>
@@ -17,7 +34,7 @@
 <div class="top"><div class="tbar">
   <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
   <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
-  / 통합 구현 / 준비 교안</small></div>
+  / 통합 구현 / 학습 가이드</small></div>
   <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
@@ -25,50 +42,48 @@
 <button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
 
 <nav id="qnav" aria-label="빠른 이동">
-  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
-  <i class="qg">연계 데이터 구성하기</i><a href="#st1"><b>1</b><span>통합 구현 개요</span></a><a href="#st2"><b>2</b><span>통합 구현의 개념</span></a><a href="#st3"><b>3</b><span>통합 구현의 필요성</span></a><a href="#st4"><b>4</b><span>주요 기능 및 역할</span></a><a href="#st5"><b>5</b><span>주요 구성 요소</span></a><a href="#st6"><b>6</b><span>연계 요구사항 분석</span></a><a href="#st7"><b>7</b><span>정의 및 개념</span></a><a href="#st8"><b>8</b><span>연계 요구사항 분석 절차</span></a><a href="#st9"><b>9</b><span>연계 데이터 식별 개요</span></a><a href="#st10"><b>10</b><span>연계 데이터 식별 개념</span></a><a href="#st11"><b>11</b><span>연계 데이터 식별 필요성</span></a><a href="#st12"><b>12</b><span>연계 데이터 식별 절차</span></a><a href="#st13"><b>13</b><span>연계 데이터 표준화 개요</span></a><a href="#st14"><b>14</b><span>연계 데이터 개념</span></a><a href="#st15"><b>15</b><span>연계 데이터 표준화 단계</span></a><a href="#st16"><b>16</b><span>연계 데이터 표준화 절차</span></a><a href="#st17"><b>17</b><span>연계 범위</span></a><a href="#st18"><b>18</b><span>코드 매핑</span></a><a href="#st19"><b>19</b><span>연계(인터페</span></a><i class="qg">연계 메커니즘 구성하기</i><a href="#st20"><b>20</b><span>연계 메커니즘(Integration Mechanism) 개념</span></a><a href="#st21"><b>21</b><span>연계 메커니즘의 정의</span></a><a href="#st22"><b>22</b><span>연계 메커니즘의 구성 요소</span></a><a href="#st23"><b>23</b><span>연계 방식의 개념</span></a><a href="#st24"><b>24</b><span>연계 데이터 생성 및 추출</span></a><a href="#st25"><b>25</b><span>연계 데이터 생성 및 추출의 정의</span></a><a href="#st26"><b>26</b><span>연계 데이터 생성 및 추출의 중요성</span></a><a href="#st27"><b>27</b><span>코드 매핑(Mapping) 및 데이터 변환</span></a><a href="#st28"><b>28</b><span>코드 매핑(Mapping) 및 데이터 변환의 개념</span></a><a href="#st29"><b>29</b><span>코드 매핑 및 데이터 변환의 필요성</span></a><a href="#st30"><b>30</b><span>인터페이스(I/F, Interface) 테이블(Table) 또는 파일 생성</span></a><a href="#st31"><b>31</b><span>인터페이스(I/F, Interface) 테이블(Table) 또는 파일 생성의 정의</span></a><a href="#st32"><b>32</b><span>인터페이스(I/F, Interface) 테이블(Table) 또는 파일 생성의 중요성</span></a><a href="#st33"><b>33</b><span>로그의 정의</span></a><a href="#st34"><b>34</b><span>로그(Log) 기록의 중요성</span></a><a href="#st35"><b>35</b><span>로그(Log) 기록의 주요 용도</span></a><a href="#st36"><b>36</b><span>연계 서버 또는 송신 어댑터의 정의</span></a><a href="#st37"><b>37</b><span>연계 서버 또는 송신 어댑터의 추세</span></a><a href="#st38"><b>38</b><span>연계 서버 또는 송신 어댑터의 주요 기능</span></a><a href="#st39"><b>39</b><span>연계 서버 또는 송신 어댑터의 용도</span></a><a href="#st40"><b>40</b><span>전송의 개념</span></a><a href="#st41"><b>41</b><span>전송의 중요성</span></a><a href="#st42"><b>42</b><span>연계 서버 또는 수신 어댑터의 개요</span></a><a href="#st43"><b>43</b><span>연계 서버/수신 어댑터의 기능</span></a><a href="#st44"><b>44</b><span>연계 서버/수신 어댑터의 용도</span></a><a href="#st45"><b>45</b><span>연계 서버/수신 어댑터의 최신 기술 동향</span></a><a href="#st46"><b>46</b><span>운영 DB에 연계 데이터 반영의 개요</span></a><a href="#st47"><b>47</b><span>운영 DB에 연계 데이터 반영의 중요성</span></a><a href="#st48"><b>48</b><span>운영 DB 반영의 기능 및 용도</span></a><a href="#st49"><b>49</b><span>연계 오류 개념</span></a><a href="#st50"><b>50</b><span>연계 오류의 정의</span></a><a href="#st51"><b>51</b><span>연계 오류의 유형</span></a><a href="#st52"><b>52</b><span>장애 및 오류 로그의 개념</span></a><a href="#st53"><b>53</b><span>장애 및 오류 로그의 중요성</span></a><a href="#st54"><b>54</b><span>장애/오류 로그의 활용 방안</span></a><a href="#st55"><b>55</b><span>장애 및 오류의 설계</span></a><a href="#st56"><b>56</b><span>장애 및 오류 분석·설계 개념</span></a><a href="#st57"><b>57</b><span>최신 기술 관점 주요 변화</span></a><a href="#st58"><b>58</b><span>분석 및 설계 절차</span></a><a href="#st59"><b>59</b><span>장애 및 오류 로그의 유형</span></a><a href="#st60"><b>60</b><span>장애 및 오류 로그의 파일 유형</span></a><a href="#st61"><b>61</b><span>연계 데이터 보안</span></a><a href="#st62"><b>62</b><span>연계 데이터 보안의 개념</span></a><a href="#st63"><b>63</b><span>연계 데이터 보안의 필요성</span></a><a href="#st64"><b>64</b><span>연계 데이터 보안의 유형</span></a><a href="#st65"><b>65</b><span>전송 구간(채널, Channel) 보안</span></a><a href="#st66"><b>66</b><span>전송 구간 보안의 개념</span></a><a href="#st67"><b>67</b><span>전송 구간 보안의 필요성</span></a><a href="#st68"><b>68</b><span>데이터 보안</span></a><a href="#st69"><b>69</b><span>데이터 보안의 개념</span></a><a href="#st70"><b>70</b><span>데이터 보안의 필요성</span></a><a href="#st71"><b>71</b><span>암·복호화 개념</span></a><a href="#st72"><b>72</b><span>암·복호화 필요성</span></a><i class="qg">내외부 연계 모듈 구현하기</i><a href="#st73"><b>73</b><span>내외부 연계 모듈 구현 환경 개요</span></a><a href="#st74"><b>74</b><span>내외부 연계 개념</span></a><a href="#st75"><b>75</b><span>내외부 연계 모듈 구현 환경 필요성</span></a><a href="#st76"><b>76</b><span>연계 모듈 구현 환경 유형</span></a><a href="#st77"><b>77</b><span>연계 모듈 구현 환경 조성 시 유의 사항</span></a><a href="#st78"><b>78</b><span>연계 모듈 환경 유형별 비교</span></a><a href="#st79"><b>79</b><span>DB 기반 연계 방식</span></a><a href="#st80"><b>80</b><span>EAI/ESB 방식</span></a><a href="#st81"><b>81</b><span>Web Service 방식</span></a><a href="#st82"><b>82</b><span>API/클라우드 네이티브 연계</span></a><a href="#st83"><b>83</b><span>하이브리드 연계</span></a><a href="#st84"><b>84</b><span>연계 모듈 테스트 설계 개요</span></a><a href="#st85"><b>85</b><span>연계 모듈 테스트 설계 개념</span></a><a href="#st86"><b>86</b><span>연계 모듈 테스트 설계 절차</span></a><a href="#st87"><b>87</b><span>연계 모듈 테스트 설계 시 유의 사항</span></a><a href="#st88"><b>88</b><span>최신 동향</span></a>
+  <a class="qt" href="#top"><b>&uarr;</b><span>맨 위로</span></a>
+  <i class="qg">연계 데이터 구성하기</i><a href="#st1"><b>1</b><span>연계 요구사항 분석</span></a><a href="#st2"><b>2</b><span>연계 데이터 표준화 수행</span></a><i class="qg">연계 메커니즘 구성하기</i><a href="#st3"><b>3</b><span>연계 메커니즘 정의</span></a><a href="#st4"><b>4</b><span>연계 오류 처리 방안 구현</span></a><a href="#st5"><b>5</b><span>연계 데이터 보안 적용</span></a><i class="qg">내외부 연계 모듈 구현하기</i><a href="#st6"><b>6</b><span>내외부 연계 모듈 구현</span></a><a href="#st7"><b>7</b><span>연계 모듈 테스트 설계</span></a>
 </nav>
 
 <div class="wrap" id="top">
 
-<h1>통합 구현 — 준비 교안</h1>
+<h1>통합 구현 — 학습 가이드</h1>
 <p class="sub">능력단위 <code>2001020206_23v6</code> · 5수준 ·
-48시간 · 단계 88개 · 평가 평가자 체크리스트 · 포트폴리오</p>
+48시간 · 꼭지 7개 · 개념 88항목 · 실습 110절차</p>
 
-<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<h2 class="sec" id="g0">0. 시작하기 전에</h2>
 <div class="sect">
   <aside class="side">
     <p class="pt">모듈 간의 분산이 이루어진 경우를 포함하여 단위 모듈 간의 데이터 관계를 분석하여 이를 기반으로 한 메커니즘을 통해 메커니즘 모듈 간의 효율적인 연계를 구현하고 검증할 수 있다.</p>
-    <b class="sh">선수학습</b>
+    <b class="sh">먼저 알아야 할 것</b>
     <p class="v">응용SW기초 기술 활용(2001020232_23v6), 프로그래밍 언어 활용(2001020231_23v5), 애플리케이션 테스트 수행(2001020227_23v6), 프로그래밍 언어 응용(2001020230_23v5), 화면 구현(2001020225 _23v6)</p>
-    <b class="sh">원문</b>
-    <p class="src">LM2001020206_23v6_통합 구현_20251108.pdf (139쪽)</p>
+    <b class="sh">평가</b>
+    <p class="src">평가자 체크리스트 · 포트폴리오</p>
   </aside>
   <div class="bd">
-<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
-   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
-   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
-<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
-   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
-   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+<h4>이 문서를 쓰는 법</h4>
+<p>꼭지마다 <b>무엇을 할 수 있게 되나 → 알아야 할 것 → 해 보기 → 스스로 확인</b>
+   순서입니다. 읽고 끝내지 말고 <b>해 보기</b>를 손으로 따라 하십시오.
+   마지막 <b>스스로 확인</b>을 전부 «할 수 있다» 고 말할 수 있으면 다음 꼭지로 갑니다.</p>
+<p>자세한 설명과 표·그림은 <b>학습모듈 원문</b>에 있습니다. 꼭지마다 있는
+   <b>[원문 N쪽]</b> 단추를 누르면 그 자리가 바로 펼쳐집니다.</p>
 
 <h4>핵심 용어</h4>
 <p>연계 데이터, 연계 메커니즘, 송수신 현황 모니터링, 데이터 보안, 연계 모듈, EAI(Enterprise Application Integration)/ESB(Enterprise Service Bus), 엔티티 관계도(ERD: Entity Relationship Diagram), 연계 (인터페이스) 정의서, 연계(인터페이스) 설계서</p>
 
-<h4>능력단위요소</h4>
+<h4>차례</h4>
 <table class="wide">
-  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
-      <th>학습 내용</th><th style="width:74px">단계</th></tr>
-  <tr><td class="c">1</td><td>연계 데이터 구성하기</td><td>연계 요구사항 분석 · 연계 데이터 표준화 수행</td><td class="c">19</td></tr>
-  <tr><td class="c">2</td><td>연계 메커니즘 구성하기</td><td>연계 메커니즘 정의 · 연계 오류 처리 방안 구현 · 연계 데이터 보안 적용</td><td class="c">53</td></tr>
-  <tr><td class="c">3</td><td>내외부 연계 모듈 구현하기</td><td>내외부 연계 모듈 구현 · 연계 모듈 테스트 설계</td><td class="c">16</td></tr>
+  <tr><th style="width:44px">꼭지</th><th style="width:250px">학습 내용</th>
+      <th>능력단위요소</th><th style="width:58px">개념</th><th style="width:58px">실습</th></tr>
+  <tr><td class="c">1</td><td>1-1. 연계 요구사항 분석</td><td>연계 데이터 구성하기</td><td class="c">8</td><td class="c">8</td></tr>
+  <tr><td class="c">2</td><td>1-2. 연계 데이터 표준화 수행</td><td>연계 데이터 구성하기</td><td class="c">11</td><td class="c">10</td></tr>
+  <tr><td class="c">3</td><td>2-1. 연계 메커니즘 정의</td><td>연계 메커니즘 구성하기</td><td class="c">29</td><td class="c">28</td></tr>
+  <tr><td class="c">4</td><td>2-2. 연계 오류 처리 방안 구현</td><td>연계 메커니즘 구성하기</td><td class="c">12</td><td class="c">18</td></tr>
+  <tr><td class="c">5</td><td>2-3. 연계 데이터 보안 적용</td><td>연계 메커니즘 구성하기</td><td class="c">12</td><td class="c">12</td></tr>
+  <tr><td class="c">6</td><td>3-1. 내외부 연계 모듈 구현</td><td>내외부 연계 모듈 구현하기</td><td class="c">11</td><td class="c">22</td></tr>
+  <tr><td class="c">7</td><td>3-2. 연계 모듈 테스트 설계</td><td>내외부 연계 모듈 구현하기</td><td class="c">5</td><td class="c">12</td></tr>
 </table>
-
-<div class="try">
-  <b class="t">쓰는 법</b>
-  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
-  한 단계가 대략 수업 10~20분에 해당합니다.
-</div>
   </div>
 </div>
 
@@ -76,495 +91,65 @@
   <div class="lvh"><b>1. 연계 데이터 구성하기</b><span>능력단위요소 · <code>2001020206_23v6.1</code></span></div>
   <div class="lvb">
     <div class="step" id="st1">
-      <h3><i>1</i>통합 구현 개요</h3>
+      <h3><i>1</i>1-1. 연계 요구사항 분석</h3>
       <aside class="side">
-        <p class="pt">연계 요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
+        <p class="pt">개발하고자 하는 응용 소프트웨어와 관련된 외부 및 내부 모듈 간의 데이터 연계 요구사항을 분석할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">연계 데이터 구성하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 8항목 · 실습 8절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>통합 구현의 개념</li><li>통합 구현의 필요성</li><li>주요 기능 및 역할</li><li>주요 구성 요소</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>개발하고자 하는 응용 소프트웨어와 관련된 외부 및 내부 모듈 간의 데이터 연계 요구사항을 분석할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>통합 구현의 개념</dt><dd><blockquote>통합 구현이란 새로운 서비스 창출을 위해 사용자의 요구사항을 해결하고 단위 기능을 연계·통합하는 과정이다. 즉, 여러 시스템 간의 데이터 및 기능을 연결하여 하나의 유기적인 서비스 환경을 만드는 것을 의미한다.</blockquote></dd><dt>주요 기능 및 역할</dt><dd><blockquote>송신 시스템에서 필요한 데이터를 생성하고, 연계 규격에 맞게 데이터를 송신한다. 중계 시스템을 통해 데이터 형식 변환, 오류 처리 및 매핑을 수행한다.</blockquote></dd><dt>주요 구성 요소</dt><dd><blockquote>데이터 생성, 변환, 송신 기능을 수행한다. 송수신 데이터의 오류 처리, 변환, 매핑을 수행한다. 데이터 정제, 변환, 저장 및 활용하는 기능을 수행한다.</blockquote></dd><dt>정의 및 개념</dt><dd><blockquote>연계 요구사항 분석이란 통합 구현을 위해 사용자의 요구사항을 분석하여 연계 데이터를 정의하고, 연계 시스템 아키텍처를 설계하는 작업을 의미하며, 통합 구현의 데이터 발생 패턴, 보안, 성능 등 다양한 관점에서 연계 데이터 및 연계 환경 구성을 분석하여 통합 구현의 설계 기반 자료를 마련한다.</blockquote></dd><dt>연계 요구사항 분석 절차</dt><dd><blockquote>(가) 현행 시스템 및 운영 환경 파악 H/W, N/W, S/W 구성, 응용 애플리케이션 구조, ERD(엔티티 관계도) 등을 확 (나) 사용자 요구사항 수집 인터뷰, 설문, 체크리스트, FGI 등을 통해 연계 목적·범위·데이터 항목·발생 주기를 식별한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>통합 구현 개요 · 통합 구현의 필요성 · 연계 요구사항 분석</dd></dl>
+
+<h4>해 보기</h4>
+<h5>연계 요구사항 분석하기</h5><div class='prep'><b>재료·자료</b><span>사용자 요구사항 인터뷰 내용(면담서), 회의록 / 하드웨어 및 시스템 소프트웨어, 네트워크 등 시스템 구성도(송신 시스템, 수신 시스템) / 테이블 정의서(송신 시스템, 수신 시스템) / 코드 정의서(송신 시스템, 수신 시스템) / 연계 분석을 위한 체크리스트(Checklist) / 요구사항 분석서</span><b>기기·도구</b><span>컴퓨터, 편집기(파워포인트, MS-Word, 한글 등)</span><b>유의 사항</b><span>사용자 요구사항을 인터뷰할 때에는 정중한 말씨와 상대방을 존중하는 태도로 임한다. / 사용자 요구사항을 인터뷰할 때에는 개인정보 등의 노출에 유의한다. / 하드웨어 및 소프트웨어를 사용할 때에는 전원 접지 및 전원 온, 오프 절차를 준수한다.</span></div><div class='doh'><b>1</b><span>연계 요구사항 분석을 위한 정보 수집 및 현황 확인 등 사전 작업을 준비한다.</span></div><ol class='dos'><li>송신 시스템과 수신 시스템의 하드웨어 구성, 시스템 소프트웨어 구성, 네트워크 현황을 확인한다.</li><li>송신 시스템과 수신 시스템에서 연계하고자 하는 데이터와 관련된 코드 정의서, 테이블 정의서를 확인한다.</li></ol><div class='doh'><b>2</b><span>사용자 인터뷰 및 면담을 수행하고 회의록을 작성한다.</span></div><ol class='dos'><li>사전에 준비한 시스템 구성도, 테이블 정의서, 코드 정의서, 연계 분석을 위한 체크리스트 (Checklist) 등을 배포 및 공유하고, 사용자 인터뷰를 진행한다.</li><li>사용자 인터뷰를 완료한 후 인터뷰 시 진행 내용, 확인 사항 등을 회의록에 정리한다.</li><li>정리된 회의록 내용은 사용자 인터뷰 시의 참석자에게 확인을 받는다.</li></ol><div class='doh'><b>3</b><span>연계 요구사항을 분석한다.</span></div><ol class='dos'><li>요구사항 분석을 위한 입력물을 파악한다.</li><li>요구사항 분석 시 도구 및 기법을 활용한다.</li></ol><div class='doh'><b>4</b><span>연계 요구사항 분석 결과물을 작성한다.</span></div><ol class='dos'><li>연계 요구사항 분석서를 작성한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>연계 요구사항 분석을 위한 정보 수집 및 현황 확인 등 사전 작업을 준비한다.</li><li>사용자 인터뷰 및 면담을 수행하고 회의록을 작성한다.</li><li>연계 요구사항을 분석한다.</li><li>연계 요구사항 분석 결과물을 작성한다.</li><li>개발하고자 하는 응용 소프트웨어와 관련된 외부 및 내부 모듈 간의 데이터 연계 요구사항을 분석할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 체크리스트 · 포트폴리오</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 3쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
     <div class="step" id="st2">
-      <h3><i>2</i>통합 구현의 개념</h3>
+      <h3><i>2</i>1-2. 연계 데이터 표준화 수행</h3>
       <aside class="side">
-        <p class="pt">연계 요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>통합 구현이란 새로운 서비스 창출을 위해 사용자의 요구사항을 해결하고 단위 기능을 연계·통합하는 과정이다. 즉, 여러 시스템 간의 데이터 및 기능을 연결하여 하나의 유기적인 서비스 환경을 만드는 것을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st3">
-      <h3><i>3</i>통합 구현의 필요성</h3>
-      <aside class="side">
-        <p class="pt">연계 요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>주요 기능 및 역할</li><li>주요 구성 요소</li><li>연계 요구사항 분석</li><li>정의 및 개념</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st4">
-      <h3><i>4</i>주요 기능 및 역할</h3>
-      <aside class="side">
-        <p class="pt">연계 요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>송신 시스템에서 필요한 데이터를 생성하고, 연계 규격에 맞게 데이터를 송신한다. 중계 시스템을 통해 데이터 형식 변환, 오류 처리 및 매핑을 수행한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st5">
-      <h3><i>5</i>주요 구성 요소</h3>
-      <aside class="side">
-        <p class="pt">연계 요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>데이터 생성, 변환, 송신 기능을 수행한다. 송수신 데이터의 오류 처리, 변환, 매핑을 수행한다. 데이터 정제, 변환, 저장 및 활용하는 기능을 수행한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st6">
-      <h3><i>6</i>연계 요구사항 분석</h3>
-      <aside class="side">
-        <p class="pt">연계 요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>정의 및 개념</li><li>연계 요구사항 분석 절차</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st7">
-      <h3><i>7</i>정의 및 개념</h3>
-      <aside class="side">
-        <p class="pt">연계 요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연계 요구사항 분석이란 통합 구현을 위해 사용자의 요구사항을 분석하여 연계 데이터를 정의하고, 연계 시스템 아키텍처를 설계하는 작업을 의미하며, 통합 구현의 데이터 발생 패턴, 보안, 성능 등 다양한 관점에서 연계 데이터 및 연계 환경 구성을 분석하여 통합 구현의 설계 기반 자료를 마련한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st8">
-      <h3><i>8</i>연계 요구사항 분석 절차</h3>
-      <aside class="side">
-        <p class="pt">연계 요구사항 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>(가) 현행 시스템 및 운영 환경 파악 H/W, N/W, S/W 구성, 응용 애플리케이션 구조, ERD(엔티티 관계도) 등을 확 (나) 사용자 요구사항 수집 인터뷰, 설문, 체크리스트, FGI 등을 통해 연계 목적·범위·데이터 항목·발생 주기를 식별한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st9">
-      <h3><i>9</i>연계 데이터 식별 개요</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 표준화 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
+        <p class="pt">개발하고자 하는 응용 소프트웨어와 관련된 외부 및 내부 모듈 간의 연계가 필요한 데이터를 식별할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">연계 데이터 구성하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="29">원문 16쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 11항목 · 실습 10절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>연계 데이터 식별 개념</li><li>연계 데이터 식별 필요성</li><li>연계 데이터 식별 절차</li><li>연계 데이터 표준화 개요</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>개발하고자 하는 응용 소프트웨어와 관련된 외부 및 내부 모듈 간의 연계가 필요한 데이터를 식별할 수 있다.</li><li>개발하고자 하는 응용 소프트웨어와 관련된 외부 및 내부 모듈 간의 연계를 위한 데이터 표준을 설계할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>연계 데이터 식별 개념</dt><dd><blockquote>연계 데이터 식별이란 개발하려는 응용 SW의 외부·내부 모듈 간 필요한 데이터를 식별하고, 이를 표준화·정의하여 연계(인터페이스) 설계에 반영하는 과정을 의미한다.</blockquote></dd><dt>연계 데이터 식별 절차</dt><dd><blockquote>(가) 연계 범위 및 항목 정의 연계 대상 시스템 간 데이터 그룹·단위 항목을 식별하고, 테이블/파일의 구성 항목 및 데이터 타입·길이·코드화 여부를 확인한다.</blockquote></dd><dt>연계 데이터 개념</dt><dd><blockquote>연계 데이터 표준화란, 송수신 시스템 간 교환되는 데이터를 식별하고 이를 코드·형식·길이·표현 방식 등의 기준에 맞추어 일관되게 변환·정의하는 과정을 의미하며, 연계 데이터 표준화 결과는 연계(인터페이스) 정의서로 문서화되어 시스템 설계와 구현에 반영된다.</blockquote></dd><dt>연계 데이터 표준화 단계</dt><dd><blockquote>연계 데이터 표준화는 다음과 같은 단계로 이루어지며, 각 단계에서 데이터 구조, 코드, 변경 관리, 전송 형식을 규격화하여 송수신 시스템 간 호환성을 확보하는 것을 목표로 한다.</blockquote></dd><dt>연계 데이터 표준화 절차</dt><dd><blockquote>주요 도구 및 기법</blockquote></dd><dt>연계 범위</dt><dd><blockquote>- 연계할 데이터 그룹·항목 식별 타입·길이·코드화 - 현행 시스템 테이블/파일 - 업무 데이터 - 데이터 분석 도구 - 인터뷰·워크숍 연계 데이터</blockquote></dd><dt>코드 매핑</dt><dd><blockquote>- 송신 코드 → 수신 - 표준 코드 통합·변환 규칙 - 표준 코드 목록 - 공통 코드 - 코드 매핑 툴 - 표준 코드 관리 코드 매핑표 데이터 구분 - 추가/수정/삭제 - 변경 일시, 변경 - 현행 변경 이력 - 변경 관리 - 테이블 형식(DB) 형식(Tag, Delimiter 등) 결정 - 표준 데이터 - 파일 전송 규격 - DB 설계 도구 - 파일 포맷 명세 데이터 표현</blockquote></dd><dt>연계(인터페</dt><dd><blockquote>- 인터페이스 ID, 항목, 타입, 길이, - 인터페이스 - 인터페이스 설계 연계(인터페이스) 정의서·명세서 / 연계 데이터 표준화 수행하기 기기(장비･공구) 안전･유의 사항 시스템 간에 연계하려는 정보를 상세화하며 범위와 항목을 정의한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>연계 데이터 식별 개요 · 연계 데이터 식별 필요성 · 연계 데이터 표준화 개요</dd></dl>
+
+<h4>해 보기</h4>
+<h5>연계 데이터 표준화 수행하기</h5><div class='prep'><b>재료·자료</b><span>연계 요구사항 분석서 / 테이블 정의서(송신 시스템, 수신 시스템) / 코드 정의서(송신 시스템, 수신 시스템) / 연계(인터페이스) 정의서 / 연계(인터페이스) 명세서</span><b>기기·도구</b><span>컴퓨터, 편집기(파워포인트, MS-Word, 한글 등)</span><b>유의 사항</b><span>연계 요구사항 분석을 파악할 때에는 정중한 말씨와 상대방을 존중하는 태도로 임한다. / 연계 요구사항을 파악할 때에는 개인정보 등의 노출에 유의한다. / 하드웨어 및 소프트웨어를 사용할 때에는 전원 접지 및 전원 온, 오프 절차를 준수한다.</span></div><div class='doh'><b>1</b><span>연계 범위 및 항목 정의한다.</span></div><ol class='dos'><li>연계 정보를 상세화한다.</li><li>연계 항목의 데이터 형식을 확인한다.</li></ol><div class='doh'><b>2</b><span>연계 코드 변환 및 매핑을 한다.</span></div><ol class='dos'><li>연계 코드 변환을 한다.</li><li>송신 시스템 코드를 수신 시스템 코드로 매핑한다.</li><li>송수신 시스템의 코드를 통합하여 표준화한 후 매핑한다.</li></ol><div class='doh'><b>3</b><span>연계 데이터 식별자와 변경 구분을 추가한다.</span></div><ol class='dos'><li>식별자(PK: Primary Key)를 추가한다.</li><li>변경 구분을 추가한다.</li><li>관리를 위한 정보를 추가한다.</li></ol><div class='doh'><b>4</b><span>연계 데이터를 표현한다.</span></div><ol class='dos'><li>연계(인터페이스) 정의서를 작성한다.</li><li>연계(인터페이스) 명세서를 작성한다.</li></ol><div class='doh'><b>5</b><span>DB ◦ FILE ( )</span></div>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>연계 범위 및 항목 정의한다.</li><li>연계 코드 변환 및 매핑을 한다.</li><li>연계 데이터 식별자와 변경 구분을 추가한다.</li><li>연계 데이터를 표현한다.</li><li>DB ◦ FILE ( )</li><li>개발하고자 하는 응용 소프트웨어와 관련된 외부 및 내부 모듈 간의 연계가 필요한 데이터를 식별할 수 있다.</li><li>개발하고자 하는 응용 소프트웨어와 관련된 외부 및 내부 모듈 간의 연계를 위한 데이터 표준을 설계할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 체크리스트 · 포트폴리오</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st10">
-      <h3><i>10</i>연계 데이터 식별 개념</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 표준화 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="29">원문 16쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연계 데이터 식별이란 개발하려는 응용 SW의 외부·내부 모듈 간 필요한 데이터를 식별 하고, 이를 표준화·정의하여 연계(인터페이스) 설계에 반영하는 과정을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st11">
-      <h3><i>11</i>연계 데이터 식별 필요성</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 표준화 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="29">원문 16쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>연계 데이터 식별 절차</li><li>연계 데이터 표준화 개요</li><li>연계 데이터 개념</li><li>연계 데이터 표준화 단계</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st12">
-      <h3><i>12</i>연계 데이터 식별 절차</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 표준화 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="29">원문 16쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>(가) 연계 범위 및 항목 정의 연계 대상 시스템 간 데이터 그룹·단위 항목을 식별하고, 테이블/파일의 구성 항목 및 데이터 타입·길이·코드화 여부를 확인한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st13">
-      <h3><i>13</i>연계 데이터 표준화 개요</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 표준화 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="30">원문 17쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>연계 데이터 개념</li><li>연계 데이터 표준화 단계</li><li>연계 데이터 표준화 절차</li><li>연계 범위</li></ul>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st14">
-      <h3><i>14</i>연계 데이터 개념</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 표준화 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="30">원문 17쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연계 데이터 표준화란, 송수신 시스템 간 교환되는 데이터를 식별하고 이를 코드·형식·길이·표현 방식 등의 기준에 맞추어 일관되게 변환·정의하는 과정을 의미하며, 연계 데이터 표준화 결과는 연계(인터페이스) 정의서로 문서화되어 시스템 설계와 구현에 반영된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st15">
-      <h3><i>15</i>연계 데이터 표준화 단계</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 표준화 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="31">원문 18쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연계 데이터 표준화는 다음과 같은 단계로 이루어지며, 각 단계에서 데이터 구조, 코드, 변경 관리, 전송 형식을 규격화하여 송수신 시스템 간 호환성을 확보하는 것을 목표로 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st16">
-      <h3><i>16</i>연계 데이터 표준화 절차</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 표준화 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="31">원문 18쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>주요 도구 및 기법</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st17">
-      <h3><i>17</i>연계 범위</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 표준화 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="32">원문 19쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>- 연계할 데이터 그룹·항목 식별 타입·길이·코드화 - 현행 시스템 테이블/파일 - 업무 데이터 - 데이터 분석 도구 - 인터뷰·워크숍 연계 데이터</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st18">
-      <h3><i>18</i>코드 매핑</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 표준화 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="32">원문 19쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>- 송신 코드 → 수신 - 표준 코드 통합·변환 규칙 - 표준 코드 목록 - 공통 코드 - 코드 매핑 툴 - 표준 코드 관리 코드 매핑표 데이터 구분 - 추가/수정/삭제 - 변경 일시, 변경 - 현행 변경 이력 - 변경 관리 - 테이블 형식(DB) 형식(Tag, Delimiter 등) 결정 - 표준 데이터 - 파일 전송 규격 - DB 설계 도구 - 파일 포맷 명세 데이터 표현</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st19">
-      <h3><i>19</i>연계(인터페</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 표준화 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="32">원문 19쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>- 인터페이스 ID, 항목, 타입, 길이, - 인터페이스 - 인터페이스 설계 연계(인터페이스) 정의서·명세서 / 연계 데이터 표준화 수행하기 기기(장비･공구) 안전･유의 사항 시스템 간에 연계하려는 정보를 상세화하며 범위와 항목을 정의한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 16쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -573,1380 +158,98 @@
 <div class="lv">
   <div class="lvh"><b>2. 연계 메커니즘 구성하기</b><span>능력단위요소 · <code>2001020206_23v6.2</code></span></div>
   <div class="lvb">
-    <div class="step" id="st20">
-      <h3><i>20</i>연계 메커니즘(Integration Mechanism) 개념</h3>
+    <div class="step" id="st3">
+      <h3><i>3</i>2-1. 연계 메커니즘 정의</h3>
       <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
+        <p class="pt">개발하고자 하는 응용 소프트웨어와 연계 대상 모듈 간의 특성을 고려하여 효율적 데이터 송수신 방법을 정의할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">연계 메커니즘 구성하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="44">원문 31쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 29항목 · 실습 28절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>연계 메커니즘의 정의</li><li>연계 메커니즘의 구성 요소</li><li>연계 방식의 개념</li><li>연계 데이터 생성 및 추출</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>개발하고자 하는 응용 소프트웨어와 연계 대상 모듈 간의 특성을 고려하여 효율적 데이터 송수신 방법을 정의할 수 있다.</li><li>개발하고자 하는 응용 소프트웨어와 연계 대상 모듈 간의 데이터 연계 요구사항을 고려하여 연계 주기를 정의할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>연계 메커니즘의 정의</dt><dd><blockquote>개발하고자 하는 응용 소프트웨어와 외부 시스템(연계 대상 모듈) 간의 데이터 송수신 요구사항을 충족하고, 데이터의 형식·전송 방식·보안·신뢰성을 고려하여, 데이터를 안정 적·효율적으로 교환하기 위한 기술적 체계와 프로세스를 의미한다.</blockquote></dd><dt>연계 메커니즘의 구성 요소</dt><dd><blockquote>연계 메커니즘은 크게 송신 시스템(Source System), 수신 시스템(Target System), 인터페이스 테이블 혹은 파일(I/F Table or File), 연계 서버(Integration Server) 어댑 터(Adapter), 로깅(Log) 및 모니터링의 5가지 주요 요소로 구성된다.</blockquote></dd><dt>연계 방식의 개념</dt><dd><blockquote>연계 방식은 송신 시스템과 수신 시스템 간 데이터 교환 시 어떤 전송 프로토콜, 어떤 데이터 형식, 어떤 연계 미들웨어/엔진을 사용할지를 정의하는 방식이다.</blockquote></dd><dt>연계 데이터 생성 및 추출의 정의</dt><dd><blockquote>연계 데이터 생성 및 추출이란, 운영 DB 혹은 애플리케이션에서 필요한 데이터를 선별·가공하여 다른 시스템으로 송신할 수 있도록 I/F 테이블(Interface Table), 파일 (File), 메시지(Message) 등 연계 대상 데이터를 생성하거나 추출하는 작업을 말한다.</blockquote></dd><dt>연계 데이터 생성 및 추출의 중요성</dt><dd><blockquote>연계 대상 데이터가 정확히 추출·생성되어야 하며, 누락·오류 시 전 시스템 연계 장애를 유발한다. 과도한 데이터 추출은 운영 DB 성능에 부담을 줄 수 있으므로, 배치 주기, 추출 대상 범위, 조건 설계가 중요하다.</blockquote></dd><dt>코드 매핑(Mapping) 및 데이터 변환의 개념</dt><dd><blockquote>코드 매핑(Mapping) 및 데이터 변환이란 송신 시스템에서 사용하는 코드와 데이터 타입(Type)·형식을 수신 시스템이 요구하는 코드 체계, 데이터 타입, 표준 규격 등에 맞게 변환하여 시스템 간 데이터 정합성(Consistency)과 상호 운용성(Interoperability) 을 확보하는 작업을 의미한다.</blockquote></dd><dt>코드 매핑 및 데이터 변환의 필요성</dt><dd><blockquote>서로 다른 시스템의 코드 체계, 데이터 형식 차이를 해소한다. 수신 시스템의 업무 규칙과 기준에 부합해야 한다.</blockquote></dd><dt>인터페이스(I/F, Interface) 테이블(Table) 또는 파일 생성의 정의</dt><dd><blockquote>인터페이스 테이블(I/F Table) 또는 인터페이스 파일이란 송수신 시스템 간 데이터 연계를 위해 데이터를 임시로 저장하거나 가공·변환·검증 후 다른 시스템으로 송수신할 수 있도록 구성한 중간 저장 영역을 의미한다.</blockquote></dd><dt>인터페이스(I/F, Interface) 테이블(Table) 또는 파일 생성의 중요성</dt><dd><blockquote>송수신 시스템 간 데이터 구조 차이를 완화하고, 표준화된 규격을 유지한다. 실시간 송수신이 어려운 경우 배치 기반 처리가 가능하다.</blockquote></dd><dt>로그의 정의</dt><dd><blockquote>로그(Log)란 송수신 시스템 간 데이터 연계 과정에서 발생하는 모든 처리 이력과 결과를 시간순으로 기록하고 저장하여 장애 분석, 운영 현황 모니터링, 감사·보안 등을 목적으로 활용하는 데이터 기록이다.</blockquote></dd><dt>로그(Log) 기록의 중요성</dt><dd><blockquote>데이터 송수신 오류, 전송 누락, 포맷 불일치 원인을 파악할 수 있다. 연계 건수, 처리 시간, 처리 결과를 실시간으로 확인한다.</blockquote></dd><dt>로그(Log) 기록의 주요 용도</dt><dd><blockquote>숙 연계 서버 또는 송신 어댑터(Adapter)</blockquote></dd><dt>연계 서버 또는 송신 어댑터의 정의</dt><dd><blockquote>연계 서버(Integration Server) 또는 송신 어댑터(Adapter)란 송신 시스템과 수신 시 스템 사이에서 서로 다른 시스템 간 데이터 형식, 통신 프로토콜, 전송 방식, 보안 정책의 차이를 해결하고 데이터를 변환·전송·모니터링·에러 처리하는 중계자(Mediator) 역할을 수행하는 소프트웨어 또는 모듈을 의미한다.</blockquote></dd><dt>연계 서버 또는 송신 어댑터의 추세</dt><dd><blockquote>과거에는 단순 전송 역할만 수행하였으나, 최신 기술 환경에서는 실시간 API 트래픽을 처리하고, 이벤트 기반 데이터를 전달하고, 보안 및 인증·권한 관리, 통합 관제 등 복합 적 기능을 수행하는 고도화된 플랫폼으로 발전하고 있다.</blockquote></dd><dt>연계 서버 또는 송신 어댑터의 주요 기능</dt><dd><blockquote>연계 서버 또는 송신 어댑터의 주요 기능으로는 데이터 변환(Transformation), 프로토 콜 변환(Protocol Conversion), 메시지 라우팅(Routing), 통합 모니터링 및 로깅, 보안 기능, 재처리 기능, 성능 최적화, 스케줄링, Event Handling 등이 있다.</blockquote></dd><dt>연계 서버 또는 송신 어댑터의 용도</dt><dd><blockquote>숚 전송의 개요</blockquote></dd><dt>전송의 개념</dt><dd><blockquote>전송(Transmission)이란 송신 시스템에서 생성된 연계 데이터를 네트워크를 통해 수신 시스템으로 전달하는 과정으로, 전송 방식과 전송 주기는 시스템 요구사항과 네트워크 환경, 데이터 중요도에 따라 설계된다.</blockquote></dd><dt>전송의 중요성</dt><dd><blockquote>실시간 전송 여부에 따라 데이터 적시성을 결정한다. 대용량 데이터는 Batch로 분산 처리한다. 서비스 수준 협약에 따른 전송 시간을 보장한다.</blockquote></dd><dt>연계 서버 또는 수신 어댑터의 개요</dt><dd><blockquote>연계 서버(Integration Server) 또는 수신 어댑터(Adapter)란 송신 시스템에서 전송된 데이터를 수신 시스템이 이해할 수 있는 형식으로 변환하고 인터페이스 테이블(I/F Table) 또는 파일에 적재하는 수신 측의 데이터 수용·변환·처리 엔진을 의미한다.</blockquote></dd><dt>연계 서버/수신 어댑터의 기능</dt><dd><blockquote>연계 서버/수신 어댑터의 기능은 다음과 같다. 데이터 변환 (Mapping/Transformation) 송신 데이터 구조 → 수신 데이터 구조로 변환 포맷, 필드명, 데이터 타입 매핑 프로토콜 변환 송신 ↔ 수신 간 다른 통신 프로토콜 변환 (예: FTP → HTTP, JMS → REST) 메시지 라우팅 수신 데이터의 목적지 결정 및 분배 조건부 라우팅, 콘텐츠 기반 라우팅 오류 처리 및 로</blockquote></dd><dt>연계 서버/수신 어댑터의 최신 기술 동향</dt><dd><blockquote>Kafka Connect, Pulsar IO 등으로, 수신 어댑터가 Kafka Consumer 혹은 Connector로 대체되는 추세이고, 실시간 데이터 흐름을 구축한다.</blockquote></dd><dt>운영 DB에 연계 데이터 반영의 개요</dt><dd><blockquote>운영 DB에 연계 데이터 반영이란 수신된 연계 데이터를 운영 DB 테이블의 스키마 및 규칙에 맞게 변환(매핑)하고, 적재·갱신하는 작업이다.</blockquote></dd><dt>운영 DB에 연계 데이터 반영의 중요성</dt><dd><blockquote>운영 DB 반영 오류 시, 전체 업무에 대해 오류를 초래한다. 운영 DB가 최신 상태로 유지되어야 업무 서비스의 중단을 방지한다.</blockquote></dd><dt>운영 DB 반영의 기능 및 용도</dt><dd><blockquote>운영 DB 반영의 기능 및 용도는 다음과 같다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>연계 메커니즘(Integration Mechanism) 개념 · 연계 데이터 생성 및 추출 · 코드 매핑(Mapping) 및 데이터 변환 · 인터페이스(I/F, Interface) 테이블(Table) 또는 파일 생성 · 연계 서버/수신 어댑터의 용도</dd></dl>
+
+<h4>해 보기</h4>
+<h5>연계 메커니즘 정의하기</h5><div class='prep'><b>재료·자료</b><span>하드웨어 및 시스템 소프트웨어, 네트워크 등 시스템 구성도(송신 시스템, 수신 시스템) / 연계 요구사항 분석서 / 테이블 정의서(송신 시스템, 수신 시스템) / 코드 정의서(송신 시스템, 수신 시스템) / 연계(인터페이스) 정의서 / 연계(인터페이스) 명세서 / 송수신 절차도 또는 연계 메커니즘 정의서, 연계 아키텍처 설계서 / 40 / 인터페이스(I/F: Interface) 테이블(파일 Layout) 정의서 / 로그 테이블(파일 Layout) 정의서 / 코드 매핑 테이블(파일 Layout) 정의서</span><b>기기·도구</b><span>컴퓨터, 편집기(파워포인트, MS-Word, 한글 등)</span><b>유의 사항</b><span>연계 인터페이스 정의서 및 명세서를 작성할 때에는 개인정보 등의 노출에 유의한다. / 하드웨어 및 소프트웨어를 사용할 때에는 전원 접지 및 전원 온, 오프 절차를 준수한다.</span></div><div class='doh'><b>1</b><span>연계 메커니즘의 구성 요소를 파악한다.</span></div><ol class='dos'><li>송신 시스템(Source System)의 구성 요소를 파악한다.</li><li>수신 시스템(Target System)의 구성 요소를 파악한다.</li><li>인터페이스 테이블 또는 파일의 구성 요소를 파악한다.</li><li>연계 서버(Integration Server)/어댑터(Adapter)의 구성 요소를 파악한다.</li><li>로깅(Log) 및 모니터링의 구성 요소를 파악한다.</li><li>인터페이스(I/F, Interface) 테이블(Table) 또는 파일 생성 구성 요소를 파악한다.</li></ol><div class='doh'><b>2</b><span>연계 메커니즘 구성 요소별 최신 기술 동향을 파악한다.</span></div><ol class='dos'><li>연계 메커니즘의 동향을 파악한다.</li><li>연계 서버 및 송신 어댑터의 최신 기술 동향을 파악한다.</li><li>전송의 최신 기술 동향을 파악한다.</li><li>운영 DB 반영의 최신 기술 동향을 파악한다.</li><li>연계 데이터 생성·추출 최신 동향을 파악한다.</li><li>코드 매핑 및 데이터 변환 방식 최신 동향을 파악한다.</li><li>인터페이스 테이블 및 파일 생성의 최신 기술 동향을 파악한다.</li><li>로그 기록의 최신 기술 동향을 파악한다.</li></ol><div class='doh'><b>3</b><span>연계 메커니즘의 유형을 파악한다.</span></div><ol class='dos'><li>연계 메커니즘의 유형을 파악한다.</li><li>연계 방식의 유형을 파악한다.</li><li>연계 데이터 생성 및 추출 방식 유형을 파악한다.</li><li>코드 매핑 및 데이터 변환 수행 방식 유형을 파악한다.</li></ol><div class='doh'><b>4</b><span>연계 메커니즘 정의서를 작성한다.</span></div><ol class='dos'><li>연계 아키텍처 설계서를 파악한다.</li><li>확인된 연계 아키텍처 설계서(송수신 시스템의 시스템 구성도)를 참고하여 송수신 절차 또는 연계 메커니즘을 작성한다.</li></ol><div class='doh'><b>5</b><span>송신 시스템과 수신 시스템은 각각 인터넷망과 내부망인 인트라넷망에 연결되어 있음</span></div><div class='doh'><b>6</b><span>송신 시스템과 수신 시스템은 별도 전용선을 설치하여 연계할 예정으로, 중간에 중계 서버를 도입하여</span></div><div class='doh'><b>7</b><span>중계 서버에는 연계 서버 엔진의 송수신 처리 기록(Logging)과 모니터링을 위한 별도의 데이터베이스</span></div><div class='doh'><b>8</b><span>송신 시스템과 수신 시스템은 각각 웹(WEB), 웹 애플리케이션 서버(WAS: Web Application</span></div><ol class='dos'><li>연계 메커니즘 정의서(설계서)를 작성한다.</li><li>송신 시스템의 응용 애플리케이션과 운영 DB, 데이터 발생 시점 및 주기 등을 확인한 후, 운영 DB에서 데이터 추출 및 생성 방법과 구현 방식을 정의, 설계한다.</li><li>송신 시스템과 수신 시스템의 코드 정의서를 확인하여, 코드 변환 필요성 및 가능 여부, 변환 시점 등을 코드 매핑 내역서로 정의하고 코드 매핑 테이블을 설계한다.</li><li>레이아웃(구조, Layout)으로 인터페이스 테이블 또는 파일을 설계한다.</li><li>연계 메커니즘 단계별 진행 상태를 모니터링하고, 처리 결과를 확인할 수 있는 로그 테이블을 정의하고 설계한다.</li><li>운영 DB에 연계 데이터를 반영하는 주기 및 반영 프로그램 구현 방식을 정의, 설계한다.</li><li>연계 메커니즘 구간(영역)별 구성 요소의 정의 및 설계 결과는 연계 메커니즘 구성도와 연계 메커니즘 정의서(설계서)에 반영한다.</li><li>연계 요구사항과 불일치 사항, 구현 불가능한 사항이 없는지 최종 점검한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>연계 메커니즘의 구성 요소를 파악한다.</li><li>연계 메커니즘 구성 요소별 최신 기술 동향을 파악한다.</li><li>연계 메커니즘의 유형을 파악한다.</li><li>연계 메커니즘 정의서를 작성한다.</li><li>송신 시스템과 수신 시스템은 각각 인터넷망과 내부망인 인트라넷망에 연결되어 있음</li><li>송신 시스템과 수신 시스템은 별도 전용선을 설치하여 연계할 예정으로, 중간에 중계 서버를 도입하여</li><li>중계 서버에는 연계 서버 엔진의 송수신 처리 기록(Logging)과 모니터링을 위한 별도의 데이터베이스</li><li>송신 시스템과 수신 시스템은 각각 웹(WEB), 웹 애플리케이션 서버(WAS: Web Application</li><li>개발하고자 하는 응용 소프트웨어와 연계 대상 모듈 간의 특성을 고려하여 효율적 데이터 송수신 방법을 정의할 수 있다.</li><li>개발하고자 하는 응용 소프트웨어와 연계 대상 모듈 간의 데이터 연계 요구사항을 고려하여 연계 주기를 정의할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 체크리스트 · 포트폴리오</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 31쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st21">
-      <h3><i>21</i>연계 메커니즘의 정의</h3>
+    <div class="step" id="st4">
+      <h3><i>4</i>2-2. 연계 오류 처리 방안 구현</h3>
       <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="44">원문 31쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발하고자 하는 응용 소프트웨어와 외부 시스템(연계 대상 모듈) 간의 데이터 송수신 요구사항을 충족하고, 데이터의 형식·전송 방식·보안·신뢰성을 고려하여, 데이터를 안정 적·효율적으로 교환하기 위한 기술적 체계와 프로세스를 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st22">
-      <h3><i>22</i>연계 메커니즘의 구성 요소</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="45">원문 32쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연계 메커니즘은 크게 송신 시스템(Source System), 수신 시스템(Target System), 인터페이스 테이블 혹은 파일(I/F Table or File), 연계 서버(Integration Server) 어댑 터(Adapter), 로깅(Log) 및 모니터링의 5가지 주요 요소로 구성된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st23">
-      <h3><i>23</i>연계 방식의 개념</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="45">원문 32쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연계 방식은 송신 시스템과 수신 시스템 간 데이터 교환 시 어떤 전송 프로토콜, 어떤 데이터 형식, 어떤 연계 미들웨어/엔진을 사용할지를 정의하는 방식이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st24">
-      <h3><i>24</i>연계 데이터 생성 및 추출</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="45">원문 32쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>연계 데이터 생성 및 추출의 정의</li><li>연계 데이터 생성 및 추출의 중요성</li><li>코드 매핑(Mapping) 및 데이터 변환</li><li>코드 매핑(Mapping) 및 데이터 변환의 개념</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st25">
-      <h3><i>25</i>연계 데이터 생성 및 추출의 정의</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="45">원문 32쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연계 데이터 생성 및 추출이란, 운영 DB 혹은 애플리케이션에서 필요한 데이터를 선별·가공하여 다른 시스템으로 송신할 수 있도록 I/F 테이블(Interface Table), 파일 (File), 메시지(Message) 등 연계 대상 데이터를 생성하거나 추출하는 작업을 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st26">
-      <h3><i>26</i>연계 데이터 생성 및 추출의 중요성</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="45">원문 32쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연계 대상 데이터가 정확히 추출·생성되어야 하며, 누락·오류 시 전 시스템 연계 장애를 유발한다. 과도한 데이터 추출은 운영 DB 성능에 부담을 줄 수 있으므로, 배치 주기, 추출 대상 범위, 조건 설계가 중요하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st27">
-      <h3><i>27</i>코드 매핑(Mapping) 및 데이터 변환</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="46">원문 33쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>코드 매핑(Mapping) 및 데이터 변환의 개념</li><li>코드 매핑 및 데이터 변환의 필요성</li><li>인터페이스(I/F, Interface) 테이블(Table) 또는 파일 생성</li><li>인터페이스(I/F, Interface) 테이블(Table) 또는 파일 생성의 정의</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st28">
-      <h3><i>28</i>코드 매핑(Mapping) 및 데이터 변환의 개념</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="46">원문 33쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>코드 매핑(Mapping) 및 데이터 변환이란 송신 시스템에서 사용하는 코드와 데이터 타입(Type)·형식을 수신 시스템이 요구하는 코드 체계, 데이터 타입, 표준 규격 등에 맞게 변환하여 시스템 간 데이터 정합성(Consistency)과 상호 운용성(Interoperability) 을 확보하는 작업을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st29">
-      <h3><i>29</i>코드 매핑 및 데이터 변환의 필요성</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="46">원문 33쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>서로 다른 시스템의 코드 체계, 데이터 형식 차이를 해소한다. 수신 시스템의 업무 규칙과 기준에 부합해야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st30">
-      <h3><i>30</i>인터페이스(I/F, Interface) 테이블(Table) 또는 파일 생성</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="47">원문 34쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>인터페이스(I/F, Interface) 테이블(Table) 또는 파일 생성의 정의</li><li>인터페이스(I/F, Interface) 테이블(Table) 또는 파일 생성의 중요성</li><li>로그의 정의</li><li>로그(Log) 기록의 중요성</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st31">
-      <h3><i>31</i>인터페이스(I/F, Interface) 테이블(Table) 또는 파일 생성의 정의</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="47">원문 34쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>인터페이스 테이블(I/F Table) 또는 인터페이스 파일이란 송수신 시스템 간 데이터 연계를 위해 데이터를 임시로 저장하거나 가공·변환·검증 후 다른 시스템으로 송수신할 수 있도록 구성한 중간 저장 영역을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st32">
-      <h3><i>32</i>인터페이스(I/F, Interface) 테이블(Table) 또는 파일 생성의 중요성</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="47">원문 34쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>송수신 시스템 간 데이터 구조 차이를 완화하고, 표준화된 규격을 유지한다. 실시간 송수신이 어려운 경우 배치 기반 처리가 가능하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st33">
-      <h3><i>33</i>로그의 정의</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="47">원문 34쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>로그(Log)란 송수신 시스템 간 데이터 연계 과정에서 발생하는 모든 처리 이력과 결과를 시간순으로 기록하고 저장하여 장애 분석, 운영 현황 모니터링, 감사·보안 등을 목적으로 활용하는 데이터 기록이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st34">
-      <h3><i>34</i>로그(Log) 기록의 중요성</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="48">원문 35쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>데이터 송수신 오류, 전송 누락, 포맷 불일치 원인을 파악할 수 있다. 연계 건수, 처리 시간, 처리 결과를 실시간으로 확인한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st35">
-      <h3><i>35</i>로그(Log) 기록의 주요 용도</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="48">원문 35쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>숙 연계 서버 또는 송신 어댑터(Adapter)</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st36">
-      <h3><i>36</i>연계 서버 또는 송신 어댑터의 정의</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="48">원문 35쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연계 서버(Integration Server) 또는 송신 어댑터(Adapter)란 송신 시스템과 수신 시 스템 사이에서 서로 다른 시스템 간 데이터 형식, 통신 프로토콜, 전송 방식, 보안 정책의 차이를 해결하고 데이터를 변환·전송·모니터링·에러 처리하는 중계자(Mediator) 역할을 수행하는 소프트웨어 또는 모듈을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st37">
-      <h3><i>37</i>연계 서버 또는 송신 어댑터의 추세</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="48">원문 35쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>과거에는 단순 전송 역할만 수행하였으나, 최신 기술 환경에서는 실시간 API 트래픽을 처리하고, 이벤트 기반 데이터를 전달하고, 보안 및 인증·권한 관리, 통합 관제 등 복합 적 기능을 수행하는 고도화된 플랫폼으로 발전하고 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st38">
-      <h3><i>38</i>연계 서버 또는 송신 어댑터의 주요 기능</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="49">원문 36쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연계 서버 또는 송신 어댑터의 주요 기능으로는 데이터 변환(Transformation), 프로토 콜 변환(Protocol Conversion), 메시지 라우팅(Routing), 통합 모니터링 및 로깅, 보안 기능, 재처리 기능, 성능 최적화, 스케줄링, Event Handling 등이 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st39">
-      <h3><i>39</i>연계 서버 또는 송신 어댑터의 용도</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="49">원문 36쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>숚 전송의 개요</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st40">
-      <h3><i>40</i>전송의 개념</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="49">원문 36쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>전송(Transmission)이란 송신 시스템에서 생성된 연계 데이터를 네트워크를 통해 수신 시스템으로 전달하는 과정으로, 전송 방식과 전송 주기는 시스템 요구사항과 네트워크 환경, 데이터 중요도에 따라 설계된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st41">
-      <h3><i>41</i>전송의 중요성</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="50">원문 37쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>실시간 전송 여부에 따라 데이터 적시성을 결정한다. 대용량 데이터는 Batch로 분산 처리한다. 서비스 수준 협약에 따른 전송 시간을 보장한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st42">
-      <h3><i>42</i>연계 서버 또는 수신 어댑터의 개요</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="50">원문 37쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연계 서버(Integration Server) 또는 수신 어댑터(Adapter)란 송신 시스템에서 전송된 데이터를 수신 시스템이 이해할 수 있는 형식으로 변환하고 인터페이스 테이블(I/F Table) 또는 파일에 적재하는 수신 측의 데이터 수용·변환·처리 엔진을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st43">
-      <h3><i>43</i>연계 서버/수신 어댑터의 기능</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="50">원문 37쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연계 서버/수신 어댑터의 기능은 다음과 같다. 데이터 변환 (Mapping/Transformation) 송신 데이터 구조 → 수신 데이터 구조로 변환 포맷, 필드명, 데이터 타입 매핑 프로토콜 변환 송신 ↔ 수신 간 다른 통신 프로토콜 변환 (예: FTP → HTTP, JMS → REST) 메시지 라우팅 수신 데이터의 목적지 결정 및 분배 조건부 라우팅, 콘텐츠 기반 라우팅 오류 처리 및 로</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st44">
-      <h3><i>44</i>연계 서버/수신 어댑터의 용도</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="51">원문 38쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>연계 서버/수신 어댑터의 최신 기술 동향</li><li>운영 DB에 연계 데이터 반영의 개요</li><li>운영 DB에 연계 데이터 반영의 중요성</li><li>운영 DB 반영의 기능 및 용도</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st45">
-      <h3><i>45</i>연계 서버/수신 어댑터의 최신 기술 동향</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="51">원문 38쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>Kafka Connect, Pulsar IO 등으로, 수신 어댑터가 Kafka Consumer 혹은 Connector로 대체되는 추세이고, 실시간 데이터 흐름을 구축한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st46">
-      <h3><i>46</i>운영 DB에 연계 데이터 반영의 개요</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="51">원문 38쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>운영 DB에 연계 데이터 반영이란 수신된 연계 데이터를 운영 DB 테이블의 스키마 및 규칙에 맞게 변환(매핑)하고, 적재·갱신하는 작업이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st47">
-      <h3><i>47</i>운영 DB에 연계 데이터 반영의 중요성</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="51">원문 38쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>운영 DB 반영 오류 시, 전체 업무에 대해 오류를 초래한다. 운영 DB가 최신 상태로 유지되어야 업무 서비스의 중단을 방지한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st48">
-      <h3><i>48</i>운영 DB 반영의 기능 및 용도</h3>
-      <aside class="side">
-        <p class="pt">연계 메커니즘 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>운영 DB 반영의 기능 및 용도는 다음과 같다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st49">
-      <h3><i>49</i>연계 오류 개념</h3>
-      <aside class="side">
-        <p class="pt">연계 오류 처리 방안 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
+        <p class="pt">개발하고자 하는 응용 소프트웨어와 연계 대상 내외부 모듈 간의 연계 목적을 고려하여 데이 터 연계 실패 시 처리 방안을 정의할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">연계 메커니즘 구성하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="69">원문 56쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 12항목 · 실습 18절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>연계 오류의 정의</li><li>연계 오류의 유형</li><li>장애 및 오류 로그의 개념</li><li>장애 및 오류 로그의 중요성</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>개발하고자 하는 응용 소프트웨어와 연계 대상 내외부 모듈 간의 연계 목적을 고려하여 데이 터 연계 실패 시 처리 방안을 정의할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>연계 오류의 정의</dt><dd><blockquote>연계 오류란 서로 다른 시스템 간 데이터를 주고받는 과정(연계)에서 데이터가 정상적으로 전송·수신·저장·처리되지 못해 발생하는 문제를 말한다.</blockquote></dd><dt>연계 오류의 유형</dt><dd><blockquote>연계 오류의 유형은 다음과 같이 구분할 수 있다.</blockquote></dd><dt>장애 및 오류 로그의 개념</dt><dd><blockquote>장애/오류 로그(Log)란 시스템이나 프로그램에서 처리 중 발생한 장애나 오류 상황을 기록한 데이터이다. 즉, 어떤 시점에 어떤 이유로 어떤 오류(장애)가 발생하였는지 어떤 데이터를 처리하다 발생하였는지를 추적할 수 있도록 남겨 두는 일종의 흔적 기록이다.</blockquote></dd><dt>장애 및 오류 로그의 중요성</dt><dd><blockquote>로그를 통해 장애 발생 원인을 규명할 수 있다. 로그 분석으로 장애 원인을 빠르게 찾아 즉시 조치가 가능하다.</blockquote></dd><dt>장애/오류 로그의 활용 방안</dt><dd><blockquote>시스템 로그, 인터페이스 로그를 통합 조회하거나 장애 여부를 실시간으로 확인할 장애 유형에 대한 통계를 추출하거나 재발 방지 대책을 수립할 수 있다.</blockquote></dd><dt>장애 및 오류 분석·설계 개념</dt><dd><blockquote>장애 및 오류 분석·설계란 시스템의 정상 운영을 방해하거나 데이터 정합성을 훼손하는 오류·예외·실패 상황을 정의하고 이러한 상황을 탐지·기록·분석·대응하기 위한 로그 체계, 코드 설계, 데이터 저장 구조를 체계적으로 정립하는 활동을 의미한다.</blockquote></dd><dt>최신 기술 관점 주요 변화</dt><dd><blockquote>장애 지점이 다양화(노드, 컨테이너, API, 네트워크)된다. 서비스 단위별 장애 추적이 필요하다. 로그 수집·분석을 머신러닝으로 자동화할 수 있다.</blockquote></dd><dt>분석 및 설계 절차</dt><dd><blockquote>장애 탐지 대시보드(e.g. Prometheus, Grafana, ELK, Datadog)에서 장애 여부, 알람 발생 여부, 트렌드 등을 파악한다.</blockquote></dd><dt>장애 및 오류 로그의 유형</dt><dd><blockquote>장애 및 오류 로그의 유형은 크게 기록 단위 기준과 영향 범위 기준으로 구분할 수 있다. 기록 단위 기준에 따른 오류 로그 유형은 크게 시스템 로그, 연계 로그, 데이터 로그로 구분하여 분류할 수 있다.</blockquote></dd><dt>장애 및 오류 로그의 파일 유형</dt><dd><blockquote>장애 및 오류 로그의 파일 유형은 다음과 같이 시스템 로그, 연계 로그, 데이터 로그로 구분하여 분류할 수 있다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>연계 오류 개념 · 장애 및 오류의 설계</dd></dl>
+
+<h4>해 보기</h4>
+<h5>연계 오류 처리 방안 구현하기</h5><div class='prep'><b>재료·자료</b><span>코드 정의서(송신 시스템, 수신 시스템) / 송수신 절차도 또는 연계 메커니즘 정의서, 연계 아키텍처 설계서 / 연계(인터페이스) 정의서 / 연계(인터페이스) 명세서 / 인터페이스(I/F: Interface) 테이블(파일 Layout) 정의서 / 오류 코드 정의서 / 로그 테이블(파일 Layout) 정의서 / 오류 로그 테이블(파일 Layout) 정의서 / 화면 설계서(사용자 인터페이스 설계서)</span><b>기기·도구</b><span>컴퓨터, 편집기(파워포인트, MS-Word, 한글 등)</span><b>유의 사항</b><span>연계 인터페이스 현황을 파악할 때에는 정중한 말씨와 상대방을 존중하는 태도로 임한다. / 연계 인터페이스 정의서를 작성할 때에는 개인정보 등의 노출에 유의한다. / 하드웨어 및 소프트웨어를 사용할 때에는 전원 접지 및 전원 온, 오프 절차를 준수한다.</span></div><div class='doh'><b>1</b><span>연계 오류 유형과 원인을 파악한다.</span></div><ol class='dos'><li>연계 오류의 유형을 파악한다.</li><li>연계 오류의 주요 원인을 파악한다.</li><li>연계 오류의 영향을 파악한다.</li><li>연계 오류 관리 및 처리 방안을 파악한다.</li><li>오류 해결 방안을 마련한다.</li><li>오류 해결 방안을 적용한다.</li><li>오류 해결 여부를 확인한다.</li><li>예방 관리를 수행한다.</li></ol><div class='doh'><b>2</b><span>장애 및 오류 현황을 관리한다.</span></div><ol class='dos'><li>장애 및 오류 관리 대상을 파악한다.</li><li>장애 및 오류 코드와 메시지를 정의한다.</li></ol><div class='doh'><b>3</b><span>은(는) 필수</span></div><div class='doh'><b>4</b><span>은(는) 허용</span></div><div class='doh'><b>5</b><span>이(가) 존재합니다.</span></div><div class='doh'><b>6</b><span>오류 로그 테이블을 설계한다.</span></div><ol class='dos'><li>오류 로그 테이블의 설계 방식을 파악한다.</li><li>오류 로그 테이블의 정보를 관리한다.</li></ol><div class='doh'><b>7</b><span>오류 발생한 데이터가 포함된 행(Row)의 식별값(식별자)</span></div><div class='doh'><b>8</b><span>오류가 발생한 항목(칼럼)</span></div><div class='doh'><b>9</b><span>오류 코드</span></div><div class='doh'><b>10</b><span>오류 내용</span></div><div class='doh'><b>11</b><span>처리 일시나 송수신 일시와 구분하여 오류 발생 일시</span></div><div class='doh'><b>12</b><span>연계 데이터의 담당자 정보</span></div><div class='doh'><b>13</b><span>재작업이나 오류 발생의 선후 관계</span></div><div class='doh'><b>14</b><span>시간적 순서 정보(추적 용이) 등 부가적인 정보</span></div><ol class='dos'><li>오류 로그 테이블의 설계 항목 및 방법을 파악한다.</li></ol><div class='doh'><b>15</b><span>장애 및 오류 처리 구현 방식을 결정한다.</span></div><ol class='dos'><li>장애 및 오류 처리 수행을 한 사항을 결정한다.</li></ol><div class='doh'><b>16</b><span>송신 시스템: 운영 DB에서 연계 데이터 추출 및 생성 시점</span></div><div class='doh'><b>17</b><span>송신 시스템과 수신 시스템 중 결정: 결정한 코드 매핑이나 데이터</span></div><div class='doh'><b>18</b><span>수신 시스템: 운영 DB에 데이터 반영 시점</span></div><div class='doh'><b>19</b><span>로그(Log) 테이블과 통합 vs 로그(Log) 테이블과 분리하여 설계</span></div><div class='doh'><b>20</b><span>연계(인터페이스) 테이블(파일) 전체 vs 개별 연계 데이터 ⇨ 트랜</span></div><ol class='dos'><li>송신 시스템의 발생 가능한 오류 내용을 식별하여 오류 코드를 정의 및 설계한다.</li><li>송수신 시스템에서 관리할 연계(인터페이스) 단위와 연계 데이터 단위의 오류 관리 정보를 식별 및 정의한다.</li><li>식별된 오류 관리 정보 중 공통 코드 관리 대상은 송수신 시스템의 코드 정의서에 코드를 부여하여 추가한다.</li><li>오류 로그(Log) 테이블(파일) 정의서를 작성한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>연계 오류 유형과 원인을 파악한다.</li><li>장애 및 오류 현황을 관리한다.</li><li>은(는) 필수</li><li>은(는) 허용</li><li>이(가) 존재합니다.</li><li>오류 로그 테이블을 설계한다.</li><li>오류 발생한 데이터가 포함된 행(Row)의 식별값(식별자)</li><li>오류가 발생한 항목(칼럼)</li><li>오류 코드</li><li>오류 내용</li><li>처리 일시나 송수신 일시와 구분하여 오류 발생 일시</li><li>연계 데이터의 담당자 정보</li><li>재작업이나 오류 발생의 선후 관계</li><li>시간적 순서 정보(추적 용이) 등 부가적인 정보</li><li>장애 및 오류 처리 구현 방식을 결정한다.</li><li>송신 시스템: 운영 DB에서 연계 데이터 추출 및 생성 시점</li><li>송신 시스템과 수신 시스템 중 결정: 결정한 코드 매핑이나 데이터</li><li>수신 시스템: 운영 DB에 데이터 반영 시점</li><li>로그(Log) 테이블과 통합 vs 로그(Log) 테이블과 분리하여 설계</li><li>연계(인터페이스) 테이블(파일) 전체 vs 개별 연계 데이터 ⇨ 트랜</li><li>개발하고자 하는 응용 소프트웨어와 연계 대상 내외부 모듈 간의 연계 목적을 고려하여 데이 터 연계 실패 시 처리 방안을 정의할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 체크리스트 · 포트폴리오</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 56쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st50">
-      <h3><i>50</i>연계 오류의 정의</h3>
+    <div class="step" id="st5">
+      <h3><i>5</i>2-3. 연계 데이터 보안 적용</h3>
       <aside class="side">
-        <p class="pt">연계 오류 처리 방안 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="69">원문 56쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연계 오류란 서로 다른 시스템 간 데이터를 주고받는 과정(연계)에서 데이터가 정상적 으로 전송·수신·저장·처리되지 못해 발생하는 문제를 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st51">
-      <h3><i>51</i>연계 오류의 유형</h3>
-      <aside class="side">
-        <p class="pt">연계 오류 처리 방안 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="69">원문 56쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연계 오류의 유형은 다음과 같이 구분할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st52">
-      <h3><i>52</i>장애 및 오류 로그의 개념</h3>
-      <aside class="side">
-        <p class="pt">연계 오류 처리 방안 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="69">원문 56쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>장애/오류 로그(Log)란 시스템이나 프로그램에서 처리 중 발생한 장애나 오류 상황을 기록한 데이터이다. 즉, 어떤 시점에 어떤 이유로 어떤 오류(장애)가 발생하였는지 어떤 데이터를 처리하다 발생하였는지를 추적할 수 있도록 남겨 두는 일종의 흔적 기록이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st53">
-      <h3><i>53</i>장애 및 오류 로그의 중요성</h3>
-      <aside class="side">
-        <p class="pt">연계 오류 처리 방안 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="70">원문 57쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>로그를 통해 장애 발생 원인을 규명할 수 있다. 로그 분석으로 장애 원인을 빠르게 찾아 즉시 조치가 가능하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st54">
-      <h3><i>54</i>장애/오류 로그의 활용 방안</h3>
-      <aside class="side">
-        <p class="pt">연계 오류 처리 방안 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="70">원문 57쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템 로그, 인터페이스 로그를 통합 조회하거나 장애 여부를 실시간으로 확인할 장애 유형에 대한 통계를 추출하거나 재발 방지 대책을 수립할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st55">
-      <h3><i>55</i>장애 및 오류의 설계</h3>
-      <aside class="side">
-        <p class="pt">연계 오류 처리 방안 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="70">원문 57쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>장애 및 오류 분석·설계 개념</li><li>최신 기술 관점 주요 변화</li><li>분석 및 설계 절차</li><li>장애 및 오류 로그의 유형</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st56">
-      <h3><i>56</i>장애 및 오류 분석·설계 개념</h3>
-      <aside class="side">
-        <p class="pt">연계 오류 처리 방안 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="70">원문 57쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>장애 및 오류 분석·설계란 시스템의 정상 운영을 방해하거나 데이터 정합성을 훼손하는 오류·예외·실패 상황을 정의하고 이러한 상황을 탐지·기록·분석·대응하기 위한 로그 체계, 코드 설계, 데이터 저장 구조를 체계적으로 정립하는 활동을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st57">
-      <h3><i>57</i>최신 기술 관점 주요 변화</h3>
-      <aside class="side">
-        <p class="pt">연계 오류 처리 방안 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="71">원문 58쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>장애 지점이 다양화(노드, 컨테이너, API, 네트워크)된다. 서비스 단위별 장애 추적이 필요하다. 로그 수집·분석을 머신러닝으로 자동화할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st58">
-      <h3><i>58</i>분석 및 설계 절차</h3>
-      <aside class="side">
-        <p class="pt">연계 오류 처리 방안 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="71">원문 58쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>장애 탐지 대시보드(e.g. Prometheus, Grafana, ELK, Datadog)에서 장애 여부, 알람 발생 여부, 트렌드 등을 파악한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st59">
-      <h3><i>59</i>장애 및 오류 로그의 유형</h3>
-      <aside class="side">
-        <p class="pt">연계 오류 처리 방안 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="72">원문 59쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>장애 및 오류 로그의 유형은 크게 기록 단위 기준과 영향 범위 기준으로 구분할 수 있다. 기록 단위 기준에 따른 오류 로그 유형은 크게 시스템 로그, 연계 로그, 데이터 로그로 구분하여 분류할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st60">
-      <h3><i>60</i>장애 및 오류 로그의 파일 유형</h3>
-      <aside class="side">
-        <p class="pt">연계 오류 처리 방안 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="72">원문 59쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>장애 및 오류 로그의 파일 유형은 다음과 같이 시스템 로그, 연계 로그, 데이터 로그로 구분하여 분류할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st61">
-      <h3><i>61</i>연계 데이터 보안</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 보안 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">응용 소프트웨어와 관련된 내외부 모듈 간의 연계 데이터의 중요성을 고려하여 송수신 시 보안을 적용할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">연계 메커니즘 구성하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="84">원문 71쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 12항목 · 실습 12절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>연계 데이터 보안의 개념</li><li>연계 데이터 보안의 필요성</li><li>연계 데이터 보안의 유형</li><li>전송 구간(채널, Channel) 보안</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>응용 소프트웨어와 관련된 내외부 모듈 간의 연계 데이터의 중요성을 고려하여 송수신 시 보안을 적용할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>연계 데이터 보안의 개념</dt><dd><blockquote>연계 데이터 보안이란 서로 다른 시스템 간 데이터를 송수신(연계)하는 과정에서 무단 접근, 탈취, 변조, 위변조 등을 방지하기 위해 전송 구간과 저장 구간(데이터 자체)에 암호화 및 보호 기술을 적용하는 모든 활동을 의미한다.</blockquote></dd><dt>연계 데이터 보안의 필요성</dt><dd><blockquote>개인정보보호법, 전자금융감독규정, ISO/IEC 27001, GDPR 등의 법 및 규제를 준수해야 한다. 해킹, 내부자 유출, 중간자 공격(MITM: Man-In-The-Middle) 등으로부터 데이터를 보호한다.</blockquote></dd><dt>연계 데이터 보안의 유형</dt><dd><blockquote>연계 데이터 보안의 유형은 전송 구간 보안과 데이터 보안으로 구분할 수 있다.</blockquote></dd><dt>전송 구간 보안의 개념</dt><dd><blockquote>전송 구간 보안(채널 보안)이란 송수신 시스템 간 네트워크 구간에서 데이터가 전송될 때, 외부에서 가로채거나 변조하지 못하도록 통신 자체를 암호화 또는 보호하는 기술을</blockquote></dd><dt>데이터 보안의 개념</dt><dd><blockquote>데이터 보안이란 데이터 그 자체를 암호화하거나 무결성을 보장하여, 저장 중이거나 이 동 중에도 노출·유출·변조를 방지하는 것을 의미한다.</blockquote></dd><dt>암·복호화 개념</dt><dd><blockquote>평문을 암호문으로 변환한다. 암호문을 평문으로 복원한다. 암·복호화에 사용하는 비밀 값이다.</blockquote></dd><dt>암·복호화 필요성</dt><dd><blockquote>/ 연계 데이터 보안 적용하기 기기(장비･공구) 안전･유의 사항 웹서비스, API 통신에 표준이다. 서버-서버, MSA 간 인증 강화에 사용된다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>연계 데이터 보안 · 전송 구간(채널, Channel) 보안 · 전송 구간 보안의 필요성 · 데이터 보안 · 데이터 보안의 필요성</dd></dl>
+
+<h4>해 보기</h4>
+<h5>연계 데이터 보안 적용하기</h5><div class='prep'><b>재료·자료</b><span>송수신 절차도 또는 연계 메커니즘 정의서, 연계 아키텍처 설계서 / 연계(인터페이스) 정의서 / 연계(인터페이스) 명세서 / 인터페이스(I/F: Interface) 테이블(파일 Layout) 정의서 / 암호화 라이브러리(API: Application Programming Interface)</span><b>기기·도구</b><span>컴퓨터, 편집기(파워포인트, MS-Word, 한글 등)</span><b>유의 사항</b><span>연계 인터페이스 또는 명세서를 작성할 때에는 개인정보 등의 노출에 유의한다. / 하드웨어 및 소프트웨어를 사용할 때에는 전원 접지 및 전원 온, 오프 절차를 준수한다. / 74</span></div><div class='doh'><b>1</b><span>전송 구간 보안 방식을 결정한다.</span></div><ol class='dos'><li>전송 구간 암호화 방식을 결정한다.</li><li>송수신 간 물리적 망 분리 방식을 결정한다.</li><li>VPN (가상사설망) 보안 방식을 결정한다.</li><li>최신 기술 동향을 파악한다.</li></ol><div class='doh'><b>2</b><span>데이터 보안 방식을 파악한다.</span></div><ol class='dos'><li>데이터 암호화 대상을 식별한다.</li><li>암·복호화 구성 요소를 파악한다.</li><li>암·복호화 처리 프로세스를 파악한다.</li><li>암·복호화 알고리즘 방식을 파악한다.</li><li>연계 데이터 암호화 방식을 위한 결정 사항을 파악한다.</li><li>암호화 대상 속성(칼럼)의 데이터 길이를 수정한다.</li><li>암호화 알고리즘 라이브러리(API)를 확보하여 설치한다.</li><li>연계 응용 프로그램에서 선정된 암호화 적용 대상 속성(칼럼)을 암·복호화한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>전송 구간 보안 방식을 결정한다.</li><li>데이터 보안 방식을 파악한다.</li><li>응용 소프트웨어와 관련된 내외부 모듈 간의 연계 데이터의 중요성을 고려하여 송수신 시 보안을 적용할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 체크리스트 · 포트폴리오</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st62">
-      <h3><i>62</i>연계 데이터 보안의 개념</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 보안 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="84">원문 71쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연계 데이터 보안이란 서로 다른 시스템 간 데이터를 송수신(연계)하는 과정에서 무단 접근, 탈취, 변조, 위변조 등을 방지하기 위해 전송 구간과 저장 구간(데이터 자체)에 암호화 및 보호 기술을 적용하는 모든 활동을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st63">
-      <h3><i>63</i>연계 데이터 보안의 필요성</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 보안 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="84">원문 71쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개인정보보호법, 전자금융감독규정, ISO/IEC 27001, GDPR 등의 법 및 규제를 준수해야 한다. 해킹, 내부자 유출, 중간자 공격(MITM: Man-In-The-Middle) 등으로부터 데이터를 보호한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st64">
-      <h3><i>64</i>연계 데이터 보안의 유형</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 보안 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="85">원문 72쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연계 데이터 보안의 유형은 전송 구간 보안과 데이터 보안으로 구분할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st65">
-      <h3><i>65</i>전송 구간(채널, Channel) 보안</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 보안 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="85">원문 72쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>전송 구간 보안의 개념</li><li>전송 구간 보안의 필요성</li><li>데이터 보안</li><li>데이터 보안의 개념</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st66">
-      <h3><i>66</i>전송 구간 보안의 개념</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 보안 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="85">원문 72쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>전송 구간 보안(채널 보안)이란 송수신 시스템 간 네트워크 구간에서 데이터가 전송될 때, 외부에서 가로채거나 변조하지 못하도록 통신 자체를 암호화 또는 보호하는 기술을</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st67">
-      <h3><i>67</i>전송 구간 보안의 필요성</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 보안 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="85">원문 72쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>데이터 보안</li><li>데이터 보안의 개념</li><li>데이터 보안의 필요성</li><li>암·복호화 개념</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st68">
-      <h3><i>68</i>데이터 보안</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 보안 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="85">원문 72쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>데이터 보안의 개념</li><li>데이터 보안의 필요성</li><li>암·복호화 개념</li><li>암·복호화 필요성</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st69">
-      <h3><i>69</i>데이터 보안의 개념</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 보안 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="85">원문 72쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>데이터 보안이란 데이터 그 자체를 암호화하거나 무결성을 보장하여, 저장 중이거나 이 동 중에도 노출·유출·변조를 방지하는 것을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st70">
-      <h3><i>70</i>데이터 보안의 필요성</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 보안 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="85">원문 72쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>암·복호화 개념</li><li>암·복호화 필요성</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st71">
-      <h3><i>71</i>암·복호화 개념</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 보안 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="86">원문 73쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>평문을 암호문으로 변환한다. 암호문을 평문으로 복원한다. 암·복호화에 사용하는 비밀 값이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st72">
-      <h3><i>72</i>암·복호화 필요성</h3>
-      <aside class="side">
-        <p class="pt">연계 데이터 보안 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="86">원문 73쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>/ 연계 데이터 보안 적용하기 기기(장비･공구) 안전･유의 사항 웹서비스, API 통신에 표준이다. 서버-서버, MSA 간 인증 강화에 사용된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 71쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -1955,429 +258,77 @@
 <div class="lv">
   <div class="lvh"><b>3. 내외부 연계 모듈 구현하기</b><span>능력단위요소 · <code>2001020206_23v6.3</code></span></div>
   <div class="lvb">
-    <div class="step" id="st73">
-      <h3><i>73</i>내외부 연계 모듈 구현 환경 개요</h3>
+    <div class="step" id="st6">
+      <h3><i>6</i>3-1. 내외부 연계 모듈 구현</h3>
       <aside class="side">
-        <p class="pt">내외부 연계 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
+        <p class="pt">구성된 연계 메커니즘에 대한 명세서를 참조하여 연계 모듈 구현을 위한 논리적, 물리적 환경을 준비할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">내외부 연계 모듈 구현하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="96">원문 83쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 11항목 · 실습 22절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>내외부 연계 개념</li><li>내외부 연계 모듈 구현 환경 필요성</li><li>연계 모듈 구현 환경 유형</li><li>연계 모듈 구현 환경 조성 시 유의 사항</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>구성된 연계 메커니즘에 대한 명세서를 참조하여 연계 모듈 구현을 위한 논리적, 물리적 환경을 준비할 수 있다.</li><li>구성된 연계 메커니즘에 대한 명세서를 참조하여 외부 시스템과의 연계 모듈을 구현할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>내외부 연계 개념</dt><dd><blockquote>내외부 연계 모듈 구현 환경은 서로 다른 시스템 간 데이터 교환 및 서비스 연계를 실현하기 위해 필요한 기술적·물리적 실행 환경을 의미한다.</blockquote></dd><dt>내외부 연계 모듈 구현 환경 필요성</dt><dd><blockquote>기관/부서/플랫폼 간 운영되는 서로 다른 환경에서의 데이터의 일관성을 보장한다. 연계 모듈을 통해 데이터 흐름 자동화 및 실시간/배치 처리가 가능하다.</blockquote></dd><dt>연계 모듈 구현 환경 유형</dt><dd><blockquote>Trigger, Procedure, 배치 프로그램 DB 내부 오브젝트 활용, 구축 용이, 성능 의존도 대규모 확장성 한계 → 클라우드 DBMS 확장 및 CDC(Change Data Capture) 활용 EAI/ESB 어댑터·중계 서버·메시지 큐대규모 통합 환경 적합, 표준화된 미들웨어 구조 기존 ESB → 경량화된 API Gateway, Event Streaming으로 Service 방식 W</blockquote></dd><dt>연계 모듈 구현 환경 조성 시 유의 사항</dt><dd><blockquote>중복, 지연, 손실 방지를 위한 데이터 검증(Validation) 및 오류 로깅 체계가 필요 전송 구간 암호화(SSL/TLS, VPN), 인증·인가(OAuth2.0, JWT), 데이터 암호화 (AES, RSA 등) 등 보안성을 확보할 필요가 있다.</blockquote></dd><dt>DB 기반 연계 방식</dt><dd><blockquote>데이터베이스(DBMS) 내부 오브젝트(Trigger, Procedure 등)나 배치 프로그램을 통해 데이터 변화를 감지·추출하여 다른 시스템과 연계하는 방식으로 가장 전통적이며 단순한 연계 방법이다.</blockquote></dd><dt>EAI/ESB 방식</dt><dd><blockquote>(가) EAI(Enterprise Application Integration) 기업 내 다양한 시스템 간 데이터를 통합하기 위한 미들웨어 솔루션이다.</blockquote></dd><dt>Web Service 방식</dt><dd><blockquote>SOAP, WSDL, UDDI 등 웹 표준 기술 기반으로 시스템 간 서비스를 호출하고 응답하는 방식으로 SOA(Service Oriented Architecture) 구현의 대표적 기술이다.</blockquote></dd><dt>API/클라우드 네이티브 연계</dt><dd><blockquote>클라우드·MSA(Microservices Architecture) 환경에서 REST API, gRPC, 이벤트 스트리밍(Kafka 등)을 활용한 연계 및 API Gateway, Service Mesh(Istio, Linkerd) 등을 통해 서비스 간 통신·보안·모니터링을 관리할 수 있다.</blockquote></dd><dt>하이브리드 연계</dt><dd><blockquote>기존 레거시 시스템(온프레미스)과 신규 시스템(클라우드, SaaS) 간 다양한 연계 방식을 혼합 적용하는 방식으로 DB 기반 + EAI + API Gateway 혼합 등의 방식 등 (가) 장점 현실적인 이전·확장 전략, 레거시 자산 활용 가능 등의 장점이 있다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>내외부 연계 모듈 구현 환경 개요 · 연계 모듈 환경 유형별 비교</dd></dl>
+
+<h4>해 보기</h4>
+<h5>내외부 연계 모듈 구현하기</h5><div class='prep'><b>재료·자료</b><span>코드 정의서(송신 시스템, 수신 시스템) / 송수신 절차도 또는 연계 메커니즘 정의서, 연계 아키텍처 설계서 / 인터페이스(I/F: Interface) 테이블(파일 Layout) 정의서 / 코드 매핑 내역서 / 오류 코드 정의서 / 로그 테이블(파일 Layout) 정의서 / 오류 로그 테이블(파일 Layout) 정의서 / 프로그램 설계서 또는 프로그램 명세서 / 송신용 연계 응용 프로그램, 수신용 연계 응용 프로그램 / 송수신 연계(인터페이스) 테이블(파일)별 데이터, 송수신 시스템별 코드 테이블의 데이 / 터, 오류 코드 테이블의 데이터, 코드 매핑 테이블의 데이터 / 90</span><b>기기·도구</b><span>DBMS 및 JDK 1.6 이상 설치가 완료된 컴퓨터 / DBMS는 송신 데이터베이스 사용자(DB User) &lt;User 계정: senduser&gt;, 수신 데이터 / 베이스 사용자(DB User) &lt;User 계정: recvuser&gt; 생성하여 접속, 객체 생성, 객체 사용 / 등 권한 부여를 완료하고 DB가 서비스 되고 있는 상태 / ※ 데이터베이스 사용자(DB User) 계정의 비밀번호(Password)는 계정과 동일하게 지정함 / 예) 데이터베이스 사용자(DB User) 계정/비밀번호(PWD, Password): senduser/senduser / 컴퓨터, 편집기(파워포인트, MS-Word, 한글 등)</span><b>유의 사항</b><span>DBMS 및 JDK 등을 사용할 때에는 사전에 제품의 라이선스 인증을 확인한다. / DBMS를 사용할 때에는 민감정보 등 개인정보 저장 시 노출이 되지 않도록 유의한다.</span></div><div class='doh'><b>1</b><span>연계 모듈 구현 환경을 구성한다.</span></div><ol class='dos'><li>연계 모듈 구현 환경 변경 사항을 파악한다.</li><li>EAI/ESB 기반 연계 모듈 구현 환경을 구축한다.</li></ol><div class='doh'><b>2</b><span>웹 서비스 방식에 의한 연계 모듈 구현 환경을 구성한다.</span></div><ol class='dos'><li>웹 서비스 기본 구조 및 구성 요소를 파악한다.</li><li>웹 서비스 방식에 의한 연계 모듈 구현 환경을 구축한다.</li></ol><div class='doh'><b>3</b><span>연계 메커니즘 정의서 또는 연계 아키텍처 설계서를 확인 및 점검한다.</span></div><ol class='dos'><li>연계 메커니즘 정의서 중 송수신 시스템에서의 연계 응용 프로그램 구현 방식, 연계(인터페 이스) 데이터 생성 방식(테이블 vs 파일), 코드 매핑 및 데이터 변환 처리 위치(송신 시스템 vs 수신 시스템)를 확인한다.</li><li>송수신 시스템 각각에서 연계 응용 프로그램 구현은 자바 프로그램(Java Program) 방식으로 연계 메커니즘 정의서를 수정 및 보완한다.</li><li>연계(인터페이스) 데이터 생성은 파일 방식으로 연계 메커니즘 정의서를 수정 및 보완한다.</li><li>코드 매핑 테이블 생성 위치를 송신 시스템의 운영 DB로 연계 메커니즘 정의서를 수정 및 보완한다.</li><li>연계 응용 프로그램 구현과 연계 데이터 생성 방식의 변경으로 영향받거나 연관된 부분이 있는지 확인하여 일관된 내용으로 수정 및 보완한다.</li></ol><div class='doh'><b>4</b><span>송신 시스템의 연계 모듈 구현 환경을 구축한다.</span></div><ol class='dos'><li>송신용 데이터베이스 사용자의 생성 여부, 송신용 데이터베이스 사용자 및 비밀번호로 접근가능 여부 등 데이터베이스 관리 시스템 환경을 점검한다.</li><li>송신용 데이터베이스 사용자의 채용 공고 테이블과 코드 테이블, 코드 매핑 테이블, 송신용 오류 코드 테이블을 생성하고 데이터를 입력한다.</li><li>연계 파일, 로그 파일, 오류 로그 파일이 위치할 송신 디렉터리를 생성한다.</li><li>송신 시스템의 연계 파일, 로그 파일, 오류 로그 파일 정의서의 내용을 확인 및 점검한다.</li><li>수신용 데이터베이스 사용자의 생성 여부, 수신용 데이터베이스 사용자 및 비밀번호로 접근가능 여부 등 데이터베이스 관리 시스템 환경을 점검한다.</li><li>수신용 데이터베이스 사용자의 공고 정보 테이블과 코드 테이블, 수신용 오류 코드 테이블을 생성하고 데이터를 입력한다.</li><li>연계 파일, 로그 파일, 오류 로그 파일이 위치할 수신 디렉터리를 생성한다.</li><li>수신 시스템의 연계 파일, 로그 파일, 오류 로그 파일 정의서의 내용을 확인 및 점검한다.</li><li>컴퓨터에서 자바 개발 도구 설치 여부, 설치 버전 등의 환경을 확인 및 점검한다.</li><li>송신 시스템의 연계 응용 프로그램 설계서를 작성한다.</li></ol><div class='doh'><b>5</b><span>송신용 데이터베이스 사용자(DB User) 계정으로 데이터베이스 연결(DB Connection) 생성</span></div><div class='doh'><b>6</b><span>송신용 연계(인터페이스) 파일, 로그 파일, 오류 로그 파일 생성</span></div><div class='doh'><b>7</b><span>송신용 DB에서 채용 공고 테이블의 데이터 추출(Select)</span></div><div class='doh'><b>8</b><span>추출한 데이터 중 코드 데이터를 수신 시스템의 코드로 매핑 처리</span></div><div class='doh'><b>9</b><span>송신 시스템 채용 공고 테이블과 수신 시스템 공고 정보 테이블의 연계 데이터 중 데이터</span></div><div class='doh'><b>10</b><span>송신용 연계(인터페이스) 파일에 변환 완료된 데이터 로우(Row, 행) 단위로 기록(Write)</span></div><div class='doh'><b>11</b><span>데이터 추출, 코드 매핑, 변환, 연계(인터페이스) 파일 기록 등 처리 단계별 송신용 로그</span></div><div class='doh'><b>12</b><span>처리 단계별 오류 발생 시 송신용 오류 코드 테이블 참고하여 송신용 오류 로그 파일에</span></div><ol class='dos'><li>수신 시스템의 연계 응용 프로그램 설계서를 작성한다.</li><li>작성한 송수신 연계 응용 프로그램 설계서의 내용을 자바 언어를 사용하여 단독 배치 형식으로 개발한다.</li><li>송수신 환경에서 개발한 연계 응용 프로그램을 각각 컴파일하고, 실행한다.</li></ol><div class='doh'><b>13</b><span>수신용 데이터베이스 사용자(DB User) 계정으로 데이터베이스 연결(DB Connection) 생성</span></div><div class='doh'><b>14</b><span>수신용 연계(인터페이스) 파일, 로그 파일, 오류 로그 파일 생성</span></div><div class='doh'><b>15</b><span>수신용 연계(인터페이스) 파일을 읽기 모드(Read Mode)로 열어서 한 행(Row)씩 로드</span></div><div class='doh'><b>16</b><span>파일에서 로드(Load)한 데이터를 구분자(Delimiter, :)를 활용하여 각 속성(칼럼)으로 분할</span></div><div class='doh'><b>17</b><span>각 속성의 데이터 유효성 점검(Validation Check)</span></div><div class='doh'><b>18</b><span>분할된 속성(칼럼) 중 코드가 존재할 경우, 수신용 코드 테이블에 존재하는 코드인지 확인</span></div><div class='doh'><b>19</b><span>행(Row)의 분할된 모든 속성(칼럼)이 데이터 유효성 점검(Validation Check)를 통과하여</span></div><div class='doh'><b>20</b><span>연계(인터페이스) 파일 읽기 모드로 생성, 데이터 Load, 각 속성(칼럼) 분할, 데이터</span></div><div class='doh'><b>21</b><span>처리 단계별 오류 발생 시 도는 데이터 유효성 점검(Validation Check) 시 유효하지 않은</span></div>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>연계 모듈 구현 환경을 구성한다.</li><li>웹 서비스 방식에 의한 연계 모듈 구현 환경을 구성한다.</li><li>연계 메커니즘 정의서 또는 연계 아키텍처 설계서를 확인 및 점검한다.</li><li>송신 시스템의 연계 모듈 구현 환경을 구축한다.</li><li>송신용 데이터베이스 사용자(DB User) 계정으로 데이터베이스 연결(DB Connection) 생성</li><li>송신용 연계(인터페이스) 파일, 로그 파일, 오류 로그 파일 생성</li><li>송신용 DB에서 채용 공고 테이블의 데이터 추출(Select)</li><li>추출한 데이터 중 코드 데이터를 수신 시스템의 코드로 매핑 처리</li><li>송신 시스템 채용 공고 테이블과 수신 시스템 공고 정보 테이블의 연계 데이터 중 데이터</li><li>송신용 연계(인터페이스) 파일에 변환 완료된 데이터 로우(Row, 행) 단위로 기록(Write)</li><li>데이터 추출, 코드 매핑, 변환, 연계(인터페이스) 파일 기록 등 처리 단계별 송신용 로그</li><li>처리 단계별 오류 발생 시 송신용 오류 코드 테이블 참고하여 송신용 오류 로그 파일에</li><li>수신용 데이터베이스 사용자(DB User) 계정으로 데이터베이스 연결(DB Connection) 생성</li><li>수신용 연계(인터페이스) 파일, 로그 파일, 오류 로그 파일 생성</li><li>수신용 연계(인터페이스) 파일을 읽기 모드(Read Mode)로 열어서 한 행(Row)씩 로드</li><li>파일에서 로드(Load)한 데이터를 구분자(Delimiter, :)를 활용하여 각 속성(칼럼)으로 분할</li><li>각 속성의 데이터 유효성 점검(Validation Check)</li><li>분할된 속성(칼럼) 중 코드가 존재할 경우, 수신용 코드 테이블에 존재하는 코드인지 확인</li><li>행(Row)의 분할된 모든 속성(칼럼)이 데이터 유효성 점검(Validation Check)를 통과하여</li><li>연계(인터페이스) 파일 읽기 모드로 생성, 데이터 Load, 각 속성(칼럼) 분할, 데이터</li><li>처리 단계별 오류 발생 시 도는 데이터 유효성 점검(Validation Check) 시 유효하지 않은</li><li>구성된 연계 메커니즘에 대한 명세서를 참조하여 연계 모듈 구현을 위한 논리적, 물리적 환경을 준비할 수 있다.</li><li>구성된 연계 메커니즘에 대한 명세서를 참조하여 외부 시스템과의 연계 모듈을 구현할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 체크리스트 · 포트폴리오</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 83쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st74">
-      <h3><i>74</i>내외부 연계 개념</h3>
+    <div class="step" id="st7">
+      <h3><i>7</i>3-2. 연계 모듈 테스트 설계</h3>
       <aside class="side">
-        <p class="pt">내외부 연계 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="96">원문 83쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>내외부 연계 모듈 구현 환경은 서로 다른 시스템 간 데이터 교환 및 서비스 연계를 실현하기 위해 필요한 기술적·물리적 실행 환경을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st75">
-      <h3><i>75</i>내외부 연계 모듈 구현 환경 필요성</h3>
-      <aside class="side">
-        <p class="pt">내외부 연계 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="97">원문 84쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기관/부서/플랫폼 간 운영되는 서로 다른 환경에서의 데이터의 일관성을 보장한다. 연계 모듈을 통해 데이터 흐름 자동화 및 실시간/배치 처리가 가능하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st76">
-      <h3><i>76</i>연계 모듈 구현 환경 유형</h3>
-      <aside class="side">
-        <p class="pt">내외부 연계 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="97">원문 84쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>Trigger, Procedure, 배치 프로그램 DB 내부 오브젝트 활용, 구축 용이, 성능 의존도 대규모 확장성 한계 → 클라우드 DBMS 확장 및 CDC(Change Data Capture) 활용 EAI/ESB 어댑터·중계 서버·메시지 큐대규모 통합 환경 적합, 표준화된 미들웨어 구조 기존 ESB → 경량화된 API Gateway, Event Streaming으로 Service 방식 W</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st77">
-      <h3><i>77</i>연계 모듈 구현 환경 조성 시 유의 사항</h3>
-      <aside class="side">
-        <p class="pt">내외부 연계 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="98">원문 85쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>중복, 지연, 손실 방지를 위한 데이터 검증(Validation) 및 오류 로깅 체계가 필요 전송 구간 암호화(SSL/TLS, VPN), 인증·인가(OAuth2.0, JWT), 데이터 암호화 (AES, RSA 등) 등 보안성을 확보할 필요가 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st78">
-      <h3><i>78</i>연계 모듈 환경 유형별 비교</h3>
-      <aside class="side">
-        <p class="pt">내외부 연계 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="99">원문 86쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>DB 기반 연계 방식</li><li>EAI/ESB 방식</li><li>Web Service 방식</li><li>API/클라우드 네이티브 연계</li></ul>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st79">
-      <h3><i>79</i>DB 기반 연계 방식</h3>
-      <aside class="side">
-        <p class="pt">내외부 연계 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="99">원문 86쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>데이터베이스(DBMS) 내부 오브젝트(Trigger, Procedure 등)나 배치 프로그램을 통해 데이터 변화를 감지·추출하여 다른 시스템과 연계하는 방식으로 가장 전통적이며 단순한 연계 방법이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st80">
-      <h3><i>80</i>EAI/ESB 방식</h3>
-      <aside class="side">
-        <p class="pt">내외부 연계 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="99">원문 86쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>(가) EAI(Enterprise Application Integration) 기업 내 다양한 시스템 간 데이터를 통합하기 위한 미들웨어 솔루션이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st81">
-      <h3><i>81</i>Web Service 방식</h3>
-      <aside class="side">
-        <p class="pt">내외부 연계 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="100">원문 87쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>SOAP, WSDL, UDDI 등 웹 표준 기술 기반으로 시스템 간 서비스를 호출하고 응답하는 방식으로 SOA(Service Oriented Architecture) 구현의 대표적 기술이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st82">
-      <h3><i>82</i>API/클라우드 네이티브 연계</h3>
-      <aside class="side">
-        <p class="pt">내외부 연계 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="101">원문 88쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>클라우드·MSA(Microservices Architecture) 환경에서 REST API, gRPC, 이벤트 스트리밍(Kafka 등)을 활용한 연계 및 API Gateway, Service Mesh(Istio, Linkerd) 등을 통해 서비스 간 통신·보안·모니터링을 관리할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st83">
-      <h3><i>83</i>하이브리드 연계</h3>
-      <aside class="side">
-        <p class="pt">내외부 연계 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="101">원문 88쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기존 레거시 시스템(온프레미스)과 신규 시스템(클라우드, SaaS) 간 다양한 연계 방식을 혼합 적용하는 방식으로 DB 기반 + EAI + API Gateway 혼합 등의 방식 등 (가) 장점 현실적인 이전·확장 전략, 레거시 자산 활용 가능 등의 장점이 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st84">
-      <h3><i>84</i>연계 모듈 테스트 설계 개요</h3>
-      <aside class="side">
-        <p class="pt">연계 모듈 테스트 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
+        <p class="pt">연계 모듈의 안정적인 작동 여부와 모듈 간 인터페이스를 통해 연동된 데이터의 무결성을 검증할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">내외부 연계 모듈 구현하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="118">원문 105쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 5항목 · 실습 12절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>연계 모듈 테스트 설계 개념</li><li>연계 모듈 테스트 설계 절차</li><li>연계 모듈 테스트 설계 시 유의 사항</li><li>최신 동향</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>연계 모듈의 안정적인 작동 여부와 모듈 간 인터페이스를 통해 연동된 데이터의 무결성을 검증할 수 있다.</li><li>구현된 연계 모듈을 테스트할 수 있는 테스트 케이스를 작성하고, 단위 테스트를 수행하기 위한 테스트 조건을 명세화할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>연계 모듈 테스트 설계 개념</dt><dd><blockquote>연계 모듈 테스트 설계란 송신·수신 시스템 간 데이터 전송 및 인터페이스 처리 과정에서 발생 가능한 오류·무결성 위반 등을 검증하기 위해 테스트 케이스를 설계하고, 이를 기반으로 실제 연계 모듈을 시험·검증하는 활동을 말한다.</blockquote></dd><dt>연계 모듈 테스트 설계 절차</dt><dd><blockquote>연계 모듈 테스트 설계는 일반적으로 다음 단계로 수행된다. 테스트 범위는 송신 시스템 → 연계 서버(중계) → 수신 시스템 전 구간으로 할 수 있으며, 테스트 대상은 DB, 인터페이스 테이블, 로그/오류 테이블, 응용 프로그램 단위로 구분할 수 있다.</blockquote></dd><dt>연계 모듈 테스트 설계 시 유의 사항</dt><dd><blockquote>송신·수신 DB 간 값·건수·포맷 일치를 확인한다. 예상치 못한 오류 발생 시 로그 기록, 오류 코드 반환, 관리자 알림 체계가 필요하다.</blockquote></dd><dt>최신 동향</dt><dd><blockquote>Selenium, JUnit, Postman, Apache JMeter, K6 등 자동화 도구를 활용하고, API Gateway 환경에서 OpenAPI 기반 자동 생성 테스트 스크립트를 활용한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>연계 모듈 테스트 설계 개요</dd></dl>
+
+<h4>해 보기</h4>
+<h5>연계 모듈 테스트 설계하기</h5><div class='prep'><b>재료·자료</b><span>송신 데이터베이스 사용자(DB User) 계정 및 수신 데이터베이스 사용자(DB User) 계 / 정이 생성된 데이터베이스 관리 시스템(DBMS: Database Management System) 설치 / 환경 / 프로그램 설계서 또는 프로그램 명세서 / 송신 데이터베이스 사용자(DB User) 계정으로 생성한 채용 공고 테이블, 사용자 테이 / 블, 코드 테이블, 코드 매핑 테이블, 오류 코드 테이블과 각 테이블의 데이터 / 수신 데이터베이스 사용자(DB User) 계정으로 생성한 공고 정보 테이블, 코드 테이블, / 오류 코드 테이블과 각 테이블의 데이터 / 연계(인터페이스) 파일 및 로그 파일, 오류 로그 파일이 생성될 송수신 디렉터리 / (Directory, 폴더) / 단위 테스트 케이스 및 연계(인터페이스) 테스트 케이스(Testcase)</span><b>기기·도구</b><span>데이터베이스 관리 시스템(DBMS: Database Management System) 및 자바 개발 도 / 구(JDK: Java Development Kit) 1.6 이상 설치가 완료된 컴퓨터 / 데이터베이스 관리 시스템(DBMS: Database Management System)은 송신 데이터베 / 이스 사용자(DB User) &lt;User 계정: senduser&gt;, 수신 데이터베이스 사용자(DB User) / &lt;User 계정: recvuser&gt; 생성하여 접속, 객체(Object) 생성, 객체(Object) 사용 등 권한 / 부여를 완료하고 DB가 서비스되고 있는 상태 / 컴퓨터, 편집기(파워포인트, MS-Word, 한글 등)</span><b>유의 사항</b><span>DBMS 및 JDK를 실습할 때에는 사전에 해당 제품의 라이선스 인증 여부를 확인한다. / DBMS 내의 개인정보에 대해서는 노출되지 않도록 유의한다. / 109</span></div><div class='doh'><b>1</b><span>연계 모듈 테스트 구간 및 범위를 파악한다.</span></div><div class='doh'><b>2</b><span>연계 모듈 테스트 케이스를 작성하고 명세화한다.</span></div><ol class='dos'><li>송수신용 연계 응용 프로그램의 단위 테스트 케이스를 작성하고 명세화한다.</li><li>연계 테스트 케이스를 작성하고 명세화한다.</li></ol><div class='doh'><b>3</b><span>분 후 채용</span></div><div class='doh'><b>4</b><span>연계 테스트를 수행 및 검증한다.</span></div><ol class='dos'><li>연계 테스트 환경을 구축한다.</li></ol><div class='doh'><b>5</b><span>.○○.○○</span></div><div class='doh'><b>6</b><span>.○○.○○</span></div><div class='doh'><b>7</b><span>.○○.○○</span></div><div class='doh'><b>8</b><span>.○○.○○</span></div><div class='doh'><b>9</b><span>.○○.○○</span></div><div class='doh'><b>10</b><span>.○○.○○</span></div><div class='doh'><b>11</b><span>.○○.○○</span></div><div class='doh'><b>12</b><span>.○○.○○</span></div><div class='doh'><b>13</b><span>.○○.○○</span></div><div class='doh'><b>14</b><span>.○○.○○</span></div><div class='doh'><b>15</b><span>.○○.○○</span></div><div class='doh'><b>16</b><span>.○○.○○</span></div><div class='doh'><b>17</b><span>.○○.○○</span></div><ol class='dos'><li>연계 테스트를 수행한다.</li></ol><div class='doh'><b>18</b><span>.○○.○○</span></div><div class='doh'><b>19</b><span>.○○.○○</span></div><div class='doh'><b>20</b><span>.○○.○○</span></div><div class='doh'><b>21</b><span>.○○.○○</span></div><div class='doh'><b>22</b><span>.○○.○○</span></div><div class='doh'><b>23</b><span>.○○.○○</span></div><div class='doh'><b>24</b><span>.○○.○○</span></div><div class='doh'><b>25</b><span>.○○.○○</span></div><div class='doh'><b>26</b><span>.○○.○○</span></div><ol class='dos'><li>연계 테스트 수행 결과를 검증한다.</li></ol><div class='doh'><b>27</b><span>연계 테스트 케이스를 작성 및 명세화한다.</span></div><ol class='dos'><li>송신용 연계 응용 프로그램 및 수신용 연계 응용 프로그램에 대한 단위 테스트 케이스를 각각 작성하고 명세화한다.</li><li>연계 테스트 케이스를 작성하고 명세화한다.</li><li>송수신 기관 간의 사전 협의를 통해 테스트 기간, 방법, 절차, 환경, 환경 구축 기간 등을 결정하고 연계 테스트 환경을 구축한다.</li><li>연계 테스트 환경을 점검 및 확인한다.</li><li>송신 시스템의 연계 응용 프로그램을 실행하여 단위 테스트를 수행하고, 결과를 검증한다.</li><li>생성된 송신 시스템 연계 파일을 수신 디렉터리의 연계 파일 위치에 복사하여 이동시키고, 연계 파일명을 수신용 연계 파일명의 기준에 맞도록 수정한다.</li><li>수신 시스템의 연계 응용 프로그램을 실행하여 단위 테스트를 수행하고, 결과를 검증한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>연계 모듈 테스트 구간 및 범위를 파악한다.</li><li>연계 모듈 테스트 케이스를 작성하고 명세화한다.</li><li>분 후 채용</li><li>연계 테스트를 수행 및 검증한다.</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>.○○.○○</li><li>연계 테스트 케이스를 작성 및 명세화한다.</li><li>연계 모듈의 안정적인 작동 여부와 모듈 간 인터페이스를 통해 연동된 데이터의 무결성을 검증할 수 있다.</li><li>구현된 연계 모듈을 테스트할 수 있는 테스트 케이스를 작성하고, 단위 테스트를 수행하기 위한 테스트 조건을 명세화할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 체크리스트 · 포트폴리오</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st85">
-      <h3><i>85</i>연계 모듈 테스트 설계 개념</h3>
-      <aside class="side">
-        <p class="pt">연계 모듈 테스트 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="118">원문 105쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연계 모듈 테스트 설계란 송신·수신 시스템 간 데이터 전송 및 인터페이스 처리 과정에서 발생 가능한 오류·무결성 위반 등을 검증하기 위해 테스트 케이스를 설계하고, 이를 기반으로 실제 연계 모듈을 시험·검증하는 활동을 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st86">
-      <h3><i>86</i>연계 모듈 테스트 설계 절차</h3>
-      <aside class="side">
-        <p class="pt">연계 모듈 테스트 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="119">원문 106쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>연계 모듈 테스트 설계는 일반적으로 다음 단계로 수행된다. 테스트 범위는 송신 시스템 → 연계 서버(중계) → 수신 시스템 전 구간으로 할 수 있으며, 테스트 대상은 DB, 인터페이스 테이블, 로그/오류 테이블, 응용 프로그램 단위로 구분할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st87">
-      <h3><i>87</i>연계 모듈 테스트 설계 시 유의 사항</h3>
-      <aside class="side">
-        <p class="pt">연계 모듈 테스트 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="119">원문 106쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>송신·수신 DB 간 값·건수·포맷 일치를 확인한다. 예상치 못한 오류 발생 시 로그 기록, 오류 코드 반환, 관리자 알림 체계가 필요하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st88">
-      <h3><i>88</i>최신 동향</h3>
-      <aside class="side">
-        <p class="pt">연계 모듈 테스트 설계</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020206_23v6" data-page="120">원문 107쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>Selenium, JUnit, Postman, Apache JMeter, K6 등 자동화 도구를 활용하고, API Gateway 환경에서 OpenAPI 기반 자동 생성 테스트 스크립트를 활용한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 105쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
   </div>
 </div>
 
-<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
-원문 LM2001020206_23v6_통합 구현_20251108.pdf</footer>
+<footer>담당 정우균 · 개념과 절차는 <b>NCS 학습모듈 LM2001020206_23v6_통합 구현_20251108.pdf</b> 에서
+옮긴 것입니다 — 한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지)</footer>
 </div>
 <script>
-/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+/* 빠른 이동 — 지금 보는 꼭지를 표시하고, 좁은 화면에서는 여닫습니다. */
 (function () {
   var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
   var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));

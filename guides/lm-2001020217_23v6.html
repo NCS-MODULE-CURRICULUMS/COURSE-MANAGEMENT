@@ -1,13 +1,30 @@
-<meta charset="utf-8"><title>애플리케이션 리팩토링 — 준비 교안</title>
+<meta charset="utf-8"><title>애플리케이션 리팩토링 — 학습 가이드</title>
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="stylesheet" href="../assets/guide.css">
 <style>
-  /* 원문 인용 — 우리가 쓴 안내와 눈으로 구분되어야 한다 */
-  .bd blockquote{margin:10px 0 16px;padding:10px 14px;border-left:3px solid #000;
-                 background:#fafafa;font-size:13.5px;line-height:1.8;color:#222}
-  .bd p.none{color:#888;font-size:13px}
-  .bd ul.sub{margin:8px 0 16px;padding-left:20px;font-size:13.5px;line-height:1.9}
-  aside.side .v .btn{font-size:11.5px}
+  /* 학습 가이드 — 개념 / 실습 / 확인 세 덩어리가 눈으로 구분되어야 한다 */
+  .bd h4{margin:22px 0 8px;font-size:14px;padding-bottom:5px;border-bottom:1px solid #000}
+  .bd h4:first-child{margin-top:0}
+  .bd h5{margin:16px 0 5px;font-size:13px;font-weight:700}
+  .bd blockquote{margin:5px 0 12px;padding:9px 13px;border-left:3px solid #999;
+                 background:#fafafa;font-size:13px;line-height:1.8;color:#333}
+  .cc{margin:0 0 6px}
+  .cc dt{font-weight:700;font-size:13.5px;margin:14px 0 0}
+  .cc dd{margin:4px 0 0}
+  .doh{display:flex;gap:9px;align-items:baseline;margin:16px 0 4px;font-size:13.5px;
+       font-weight:700}
+  .doh b{flex:0 0 auto;width:21px;height:21px;line-height:19px;text-align:center;
+         border:1px solid #000;font-size:11.5px}
+  ol.dos{margin:2px 0 0 30px;padding:0;font-size:13px;line-height:1.85}
+  ol.dos li{margin:3px 0}
+  .prep{display:grid;grid-template-columns:76px 1fr;gap:3px 10px;font-size:12.5px;
+        border:1px solid #ccc;padding:10px 13px;margin:6px 0 2px;background:#fafafa}
+  .prep b{color:#555;font-weight:400}
+  ul.goal{margin:6px 0 0;padding-left:20px;font-size:13.5px;line-height:1.9}
+  ul.chk{margin:6px 0 0;padding:0;list-style:none;font-size:13.5px;line-height:1.95}
+  ul.chk li::before{content:"\2610  "}
+  .none{color:#888;font-size:12.5px}
+  .srcline{font-size:11.5px;color:#888;margin:8px 0 0}
 </style>
 <script src="../assets/auth.js"></script>
 <script>EXAM_AUTH.guard("../");</script>
@@ -17,7 +34,7 @@
 <div class="top"><div class="tbar">
   <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
   <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
-  / 애플리케이션 리팩토링 / 준비 교안</small></div>
+  / 애플리케이션 리팩토링 / 학습 가이드</small></div>
   <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
@@ -25,50 +42,45 @@
 <button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
 
 <nav id="qnav" aria-label="빠른 이동">
-  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
-  <i class="qg">리팩토링 기준 수립하기</i><a href="#st1"><b>1</b><span>리팩토링 개념</span></a><a href="#st2"><b>2</b><span>리팩토링 시점</span></a><a href="#st3"><b>3</b><span>기능 추가 시</span></a><a href="#st4"><b>4</b><span>버그 수정 시</span></a><a href="#st5"><b>5</b><span>지속 수행</span></a><a href="#st6"><b>6</b><span>깨끗한 코드(Clean Code)의 기준</span></a><a href="#st7"><b>7</b><span>가독성이 좋은 코드</span></a><a href="#st8"><b>8</b><span>변경이 쉬운 코드</span></a><a href="#st9"><b>9</b><span>중복 없는 코드</span></a><a href="#st10"><b>10</b><span>주의 깊게 짜인 코드</span></a><a href="#st11"><b>11</b><span>리팩토링 주의 사항</span></a><a href="#st12"><b>12</b><span>기능 보존의 원칙</span></a><a href="#st13"><b>13</b><span>작은 단위로 점진적으로 진행</span></a><a href="#st14"><b>14</b><span>자동화된 테스트의 활용</span></a><a href="#st15"><b>15</b><span>버전 관리 시스템 적극 활용</span></a><a href="#st16"><b>16</b><span>코드 리뷰와 협업</span></a><a href="#st17"><b>17</b><span>문서화와 공유</span></a><i class="qg">소스코드 분석하기</i><a href="#st18"><b>18</b><span>개발 표준</span></a><a href="#st19"><b>19</b><span>주요 내용</span></a><a href="#st20"><b>20</b><span>소스코드 디렉터리 구조</span></a><a href="#st21"><b>21</b><span>애플리케이션 개발 보안</span></a><a href="#st22"><b>22</b><span>애플리케이션 보안 약점</span></a><a href="#st23"><b>23</b><span>애플리케이션 보안 약점 진단 도구</span></a><a href="#st24"><b>24</b><span>불필요한 코드(Dead Code)</span></a><a href="#st25"><b>25</b><span>불필요한 코드(Dead Code) 예시</span></a><a href="#st26"><b>26</b><span>불필요한 코드 분석 방법</span></a><i class="qg">리팩토링 적용하기</i><a href="#st27"><b>27</b><span>리팩토링 기법</span></a><a href="#st28"><b>28</b><span>메서드 이동</span></a><a href="#st29"><b>29</b><span>메서드 추출</span></a><a href="#st30"><b>30</b><span>임시 Inline 정리</span></a><a href="#st31"><b>31</b><span>임시 변수 참조 변경</span></a><a href="#st32"><b>32</b><span>보안 취약점</span></a><a href="#st33"><b>33</b><span>내재된 SQL 삽입 취약점</span></a><a href="#st34"><b>34</b><span>내재된 크로스 사이트 스크립트</span></a><a href="#st35"><b>35</b><span>회귀 테스트 개념</span></a><a href="#st36"><b>36</b><span>회귀 테스트 정의</span></a><a href="#st37"><b>37</b><span>회귀 테스트 종류</span></a><a href="#st38"><b>38</b><span>회귀 테스트 방법</span></a><a href="#st39"><b>39</b><span>단위 테스트 프레임워크</span></a><a href="#st40"><b>40</b><span>xUnit 프레임워크</span></a><a href="#st41"><b>41</b><span>xUnit 관련 Method</span></a>
+  <a class="qt" href="#top"><b>&uarr;</b><span>맨 위로</span></a>
+  <i class="qg">리팩토링 기준 수립하기</i><a href="#st1"><b>1</b><span>리팩토링 기준 수립</span></a><i class="qg">소스코드 분석하기</i><a href="#st2"><b>2</b><span>소스코드 분석</span></a><i class="qg">리팩토링 적용하기</i><a href="#st3"><b>3</b><span>리팩토링 적용</span></a><a href="#st4"><b>4</b><span>리팩토링 기능 확인</span></a>
 </nav>
 
 <div class="wrap" id="top">
 
-<h1>애플리케이션 리팩토링 — 준비 교안</h1>
+<h1>애플리케이션 리팩토링 — 학습 가이드</h1>
 <p class="sub">능력단위 <code>2001020217_23v6</code> · 6수준 ·
-32시간 · 단계 41개 · 평가 평가자 질문 · 서술형 시험 · 구두 발표 · 문제해결 시나리오 · 논술형 시험</p>
+32시간 · 꼭지 4개 · 개념 41항목 · 실습 31절차</p>
 
-<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<h2 class="sec" id="g0">0. 시작하기 전에</h2>
 <div class="sect">
   <aside class="side">
     <p class="pt">소스코드가 수행하는 기능을 유지하면서 코드 가독성 및 잠재적 결함을 제거하도록 코드를 개선할 수 있다.</p>
-    <b class="sh">선수학습</b>
+    <b class="sh">먼저 알아야 할 것</b>
     <p class="v">응용SW 기초 기술 활용(2001020232_23v5), 소프트웨어 공학 활용(2001020228_23v6), 소프트웨어개발 방법론 활용(2001020229_23v6)</p>
-    <b class="sh">원문</b>
-    <p class="src">LM2001020217_23v6_애플리케이션 리팩토링_20251108.pdf (81쪽)</p>
+    <b class="sh">평가</b>
+    <p class="src">평가자 질문 · 서술형 시험 · 구두 발표 · 문제해결 시나리오 · 논술형 시험</p>
   </aside>
   <div class="bd">
-<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
-   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
-   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
-<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
-   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
-   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+<h4>이 문서를 쓰는 법</h4>
+<p>꼭지마다 <b>무엇을 할 수 있게 되나 → 알아야 할 것 → 해 보기 → 스스로 확인</b>
+   순서입니다. 읽고 끝내지 말고 <b>해 보기</b>를 손으로 따라 하십시오.
+   마지막 <b>스스로 확인</b>을 전부 «할 수 있다» 고 말할 수 있으면 다음 꼭지로 갑니다.</p>
+<p>자세한 설명과 표·그림은 <b>학습모듈 원문</b>에 있습니다. 꼭지마다 있는
+   <b>[원문 N쪽]</b> 단추를 누르면 그 자리가 바로 펼쳐집니다.</p>
 
 <h4>핵심 용어</h4>
 <p>소스코드 분석, 소스코드 분석 도구 룰 세트, 회귀 테스트, 개발 보안, 잠재 결함, Clean Code, 기능 테스트</p>
 
-<h4>능력단위요소</h4>
+<h4>차례</h4>
 <table class="wide">
-  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
-      <th>학습 내용</th><th style="width:74px">단계</th></tr>
-  <tr><td class="c">1</td><td>리팩토링 기준 수립하기</td><td>리팩토링 기준 수립</td><td class="c">17</td></tr>
-  <tr><td class="c">2</td><td>소스코드 분석하기</td><td>소스코드 분석</td><td class="c">9</td></tr>
-  <tr><td class="c">3</td><td>리팩토링 적용하기</td><td>리팩토링 적용 · 리팩토링 기능 확인</td><td class="c">15</td></tr>
+  <tr><th style="width:44px">꼭지</th><th style="width:250px">학습 내용</th>
+      <th>능력단위요소</th><th style="width:58px">개념</th><th style="width:58px">실습</th></tr>
+  <tr><td class="c">1</td><td>1-1. 리팩토링 기준 수립</td><td>리팩토링 기준 수립하기</td><td class="c">17</td><td class="c">10</td></tr>
+  <tr><td class="c">2</td><td>2-1. 소스코드 분석</td><td>소스코드 분석하기</td><td class="c">9</td><td class="c">9</td></tr>
+  <tr><td class="c">3</td><td>3-1. 리팩토링 적용</td><td>리팩토링 적용하기</td><td class="c">8</td><td class="c">6</td></tr>
+  <tr><td class="c">4</td><td>3-2. 리팩토링 기능 확인</td><td>리팩토링 적용하기</td><td class="c">7</td><td class="c">6</td></tr>
 </table>
-
-<div class="try">
-  <b class="t">쓰는 법</b>
-  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
-  한 단계가 대략 수업 10~20분에 해당합니다.
-</div>
   </div>
 </div>
 
@@ -76,443 +88,33 @@
   <div class="lvh"><b>1. 리팩토링 기준 수립하기</b><span>능력단위요소 · <code>2001020217_23v6.1</code></span></div>
   <div class="lvb">
     <div class="step" id="st1">
-      <h3><i>1</i>리팩토링 개념</h3>
+      <h3><i>1</i>1-1. 리팩토링 기준 수립</h3>
       <aside class="side">
-        <p class="pt">리팩토링 기준 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
+        <p class="pt">리팩토링을 적용하여 달성하려는 품질 목표를 수립할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">리팩토링 기준 수립하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 17항목 · 실습 10절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>리팩토링(Refactoring)은 소프트웨어 기능(동작)에는 변함이 없도록 하면서 내부 구조를 개선하여 소프트웨어의 가독성, 유지보수성, 확장성, 재사용성, 그리고 궁극적으로 성능을 향상하기 위한 개발 기법을 말한다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>리팩토링을 적용하여 달성하려는 품질 목표를 수립할 수 있다.</li><li>리팩토링 결과의 완전성을 검증할 수 있는 체크리스트를 수립할 수 있다.</li><li>리팩토링에 활용할 수 있는 도구 및 절차를 수립할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>리팩토링 개념</dt><dd><blockquote>리팩토링(Refactoring)은 소프트웨어 기능(동작)에는 변함이 없도록 하면서 내부 구조를 개선하여 소프트웨어의 가독성, 유지보수성, 확장성, 재사용성, 그리고 궁극적으로 성능을 향상하기 위한 개발 기법을 말한다.</blockquote></dd><dt>리팩토링 시점</dt><dd><blockquote>한 번에 대대적으로 진행하거나 너무 빈번한 리팩토링보다는 작은 단위로, 테스트할 수 있는 상태에서 점진적으로 수행하는 것이 좋다.</blockquote></dd><dt>기능 추가 시</dt><dd><blockquote>새로운 기능을 추가하기 전에 기존 코드를 충분히 이해하고 구조를 개선하기 위해 리팩토링을 수행한다. 이를 통해 코드의 중복과 잠재적인 결함을 미리 줄일 수 있으며, 이후 기능 추가나 수정 작업을 더 빠르고 원활하게 진행할 수 있다.</blockquote></dd><dt>버그 수정 시</dt><dd><blockquote>버그를 수정하기 어렵거나, 같은 유형의 버그가 반복적으로 발생한다면 리팩토링이 필요 하다. 소스코드를 정리하여 버그뿐만 아니라 잠재적인 결함을 제거할 수 있다.</blockquote></dd><dt>지속 수행</dt><dd><blockquote>별도의 시간을 내서 리팩토링을 수행하는 것이 아니라 틈틈이 지속해야 소스코드의 잠재적인 위험을 제거하게 되며 소프트웨어의 생명력을 지속할 수 있다.</blockquote></dd><dt>가독성이 좋은 코드</dt><dd><blockquote>단순하고 직접적으로 잘 쓰인 문장처럼 읽히고 설계자의 의도가 보이는 코드로, 추상화와 단순한 제어문으로 구성된 코드를 말한다.</blockquote></dd><dt>변경이 쉬운 코드</dt><dd><blockquote>작성자가 아닌 사람도 읽기 쉽고 고치기 쉬운 코드로, 이를 위해서는 의미 있은 이름이 부여되고 특정한 목적을 달성하는 방법은 하나만 제공한다.</blockquote></dd><dt>중복 없는 코드</dt><dd><blockquote>같은 작업을 여러 차례 반복하지 않는 코드로, 같은 작업을 여러 차례 반복한다면 코드가 문제 해결을 제대로 하지 못한다는 증거이다.</blockquote></dd><dt>주의 깊게 짜인 코드</dt><dd><blockquote>고치려고 살펴봐도 딱히 손댈 곳이 없는, 작성자가 이미 모든 상황을 고려하여 작성된 소스코드를 말한다.</blockquote></dd><dt>리팩토링 주의 사항</dt><dd><blockquote>리팩토링은 코드 품질을 높이고 유지보수를 쉽게 하지만, 잘못 진행하면 오히려 위험을 초래할 수 있다. 리팩토링은 작고 안전하게, 테스트와 함께, 협업과 소통을 바탕으로 진행해야 하며, 언제든 복구가 가능한 환경에서 단계적으로 실행하는 것이 핵심이다.</blockquote></dd><dt>기능 보존의 원칙</dt><dd><blockquote>리팩토링의 목적은 코드의 구조 개선이지, 동작하는 기능을 변경하는 것이 아니기 때문에 리팩토링 전후로 모든 기능이 동일하게 동작하는지 반드시 확인해야 한다.</blockquote></dd><dt>작은 단위로 점진적으로 진행</dt><dd><blockquote>한 번에 많은 부분을 수정하면 오류 발생 가능성이 커지므로 작은 단위로 나누어 리팩 토링하고, 단계마다 테스트를 수행한다.</blockquote></dd><dt>자동화된 테스트의 활용</dt><dd><blockquote>자동화된 테스트(단위/통합 테스트)를 활용하여 리팩토링 전후로 테스트를 반복 실행하고 기존 기능에 문제가 생기지 않도록 확인한다.</blockquote></dd><dt>버전 관리 시스템 적극 활용</dt><dd><blockquote>변경 이력을 추적할 수 있도록 Git 등 버전 관리 시스템을 사용하여 문제가 생겼을 경우 언제든 이전 상태로 롤백할 수 있어야 한다.</blockquote></dd><dt>코드 리뷰와 협업</dt><dd><blockquote>혼자만의 판단으로 대규모 리팩토링을 진행하지 말고, 동료와 코드 리뷰를 통해 개선 방향을 논의한다. 협업 환경에서는 변경 사항을 충분히 공유하고, 팀의 합의를 끌어내는 것이 중요하다.</blockquote></dd><dt>문서화와 공유</dt><dd><blockquote>리팩토링 후 변경된 코드 구조나 설계 의도를 문서화하여 팀원과 공유하면 향후 유지 보수 시 큰 도움이 된다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>깨끗한 코드(Clean Code)의 기준</dd></dl>
+
+<h4>해 보기</h4>
+<h5>리팩토링 기준 수립하기</h5><div class='doh'><b>1</b><span>리팩토링을 적용하여 달성하려는 품질 목표를 수립한다.</span></div><ol class='dos'><li>대상 애플리케이션의 문제를 식별하고 정의한다.</li></ol><div class='doh'><b>2</b><span>리팩토링 대상 선정을 위한 분석 도구를 선정하고 설치한다.</span></div><ol class='dos'><li>분석 도구 선정 소스코드 분석 도구를 식별하고 분석 목표, 소스코드 특성에 따라 분석 도구를 선정한다.</li><li>소스코드 분석 도구 설치 및 기본 설정 (1) 소스코드 분석 도구 설치 파일 확보 소스코드 분석 도구는 오픈소스를 확보하거나 상용 소프트웨어를 구매하여 설치 파일을 확보한다.</li><li>소스코드 분석 도구 실행 (1) 분석하고 싶은 파일이나 패키지를 선택하고 마우스 오른쪽 버튼을 클릭한 후 열리는 단축 메뉴에서 PMD 메뉴를 선택한다.</li><li>소스코드 분석 결과 정리 소스코드 분석 결과의 문제점을 도출하고 그에 대한 조치 방법을 정리한다.</li><li>대상 애플리케이션의 리팩토링 세부 기법을 선정한다.</li><li>리팩토링 결과를 평가하기 위한 지표 정의 및 기간, 공수를 산정한다.</li></ol><div class='doh'><b>3</b><span>리팩토링 결과의 완전성을 검증할 수 있는 체크리스트를 작성한다.</span></div><ol class='dos'><li>리팩토링 결과의 완전성을 검증하는 점검 항목을 식별한다.</li></ol><div class='doh'><b>4</b><span>리팩토링에 활용할 수 있는 도구 및 절차를 수립한다.</span></div><ol class='dos'><li>리팩토링 절차를 수립한다.</li><li>리팩토링 단계별 도구와 절차를 확정하고 교육한다.</li></ol><div class='doh'><b>5</b><span>리팩토링을 적용하여 달성하려는 품질 목표를 수립할 수 있도록 지도한다.</span></div><div class='doh'><b>6</b><span>리팩토링 적용 대상을 선정하기 위한 소스코드 분석 방법을 체계적으로 설명한다.</span></div><div class='doh'><b>7</b><span>소스코드의 문제 사항을 분석할 수 있는 방법 및 도구 활용 방법에 대해 설명한다.</span></div><div class='doh'><b>8</b><span>분석 결과를 검토하여 리팩토링 방법 선정에 대하여 설명하고, 시나리오에 따라 수행해</span></div><div class='doh'><b>9</b><span>리팩토링 결과를 검증할 수 있는 체크리스트 및 테스트 시나리오를 작성하도록 하고</span></div><div class='doh'><b>10</b><span>리팩토링 수행 활동 및 케이스별 고려 사항을 설명한다.</span></div><div class='doh'><b>11</b><span>리팩토링을 적용하여 달성하려는 품질 목표를 수립한다.</span></div><div class='doh'><b>12</b><span>리팩토링 적용 대상을 선정하기 위한 소스코드 분석 방법을 숙지한다.</span></div><div class='doh'><b>13</b><span>소스코드의 문제 사항을 분석할 수 있는 방법 및 도구 활용 방법에 대해 파악하고 도구</span></div><div class='doh'><b>14</b><span>분석 결과를 분석하여 리팩토링 방법 선정에 대하여 파악하고, 시나리오에 따라 수행해</span></div><div class='doh'><b>15</b><span>리팩토링 결과를 검증할 수 있는 체크리스트 및 테스트 시나리오를 작성해 보고 토의를</span></div><div class='doh'><b>16</b><span>리팩토링 수행 활동 및 케이스별 고려 사항을 숙지한다.</span></div><div class='doh'><b>17</b><span>평가자는 학습자가 학습 목표를 성공적으로 달성하였는지를 평가해야 한다.</span></div><div class='doh'><b>18</b><span>평가자는 다음 사항을 평가해야 한다.</span></div>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>리팩토링을 적용하여 달성하려는 품질 목표를 수립한다.</li><li>리팩토링 대상 선정을 위한 분석 도구를 선정하고 설치한다.</li><li>리팩토링 결과의 완전성을 검증할 수 있는 체크리스트를 작성한다.</li><li>리팩토링에 활용할 수 있는 도구 및 절차를 수립한다.</li><li>리팩토링을 적용하여 달성하려는 품질 목표를 수립할 수 있도록 지도한다.</li><li>리팩토링 적용 대상을 선정하기 위한 소스코드 분석 방법을 체계적으로 설명한다.</li><li>소스코드의 문제 사항을 분석할 수 있는 방법 및 도구 활용 방법에 대해 설명한다.</li><li>분석 결과를 검토하여 리팩토링 방법 선정에 대하여 설명하고, 시나리오에 따라 수행해</li><li>리팩토링 결과를 검증할 수 있는 체크리스트 및 테스트 시나리오를 작성하도록 하고</li><li>리팩토링 수행 활동 및 케이스별 고려 사항을 설명한다.</li><li>리팩토링을 적용하여 달성하려는 품질 목표를 수립한다.</li><li>리팩토링 적용 대상을 선정하기 위한 소스코드 분석 방법을 숙지한다.</li><li>소스코드의 문제 사항을 분석할 수 있는 방법 및 도구 활용 방법에 대해 파악하고 도구</li><li>분석 결과를 분석하여 리팩토링 방법 선정에 대하여 파악하고, 시나리오에 따라 수행해</li><li>리팩토링 결과를 검증할 수 있는 체크리스트 및 테스트 시나리오를 작성해 보고 토의를</li><li>리팩토링 수행 활동 및 케이스별 고려 사항을 숙지한다.</li><li>평가자는 학습자가 학습 목표를 성공적으로 달성하였는지를 평가해야 한다.</li><li>평가자는 다음 사항을 평가해야 한다.</li><li>리팩토링을 적용하여 달성하려는 품질 목표를 수립할 수 있다.</li><li>리팩토링 결과의 완전성을 검증할 수 있는 체크리스트를 수립할 수 있다.</li><li>리팩토링에 활용할 수 있는 도구 및 절차를 수립할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 질문 · 서술형 시험 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st2">
-      <h3><i>2</i>리팩토링 시점</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기준 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>한 번에 대대적으로 진행하거나 너무 빈번한 리팩토링보다는 작은 단위로, 테스트할 수 있는 상태에서 점진적으로 수행하는 것이 좋다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st3">
-      <h3><i>3</i>기능 추가 시</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기준 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>새로운 기능을 추가하기 전에 기존 코드를 충분히 이해하고 구조를 개선하기 위해 리팩토링을 수행한다. 이를 통해 코드의 중복과 잠재적인 결함을 미리 줄일 수 있으며, 이후 기능 추가나 수정 작업을 더 빠르고 원활하게 진행할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st4">
-      <h3><i>4</i>버그 수정 시</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기준 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>버그를 수정하기 어렵거나, 같은 유형의 버그가 반복적으로 발생한다면 리팩토링이 필요 하다. 소스코드를 정리하여 버그뿐만 아니라 잠재적인 결함을 제거할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st5">
-      <h3><i>5</i>지속 수행</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기준 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>별도의 시간을 내서 리팩토링을 수행하는 것이 아니라 틈틈이 지속해야 소스코드의 잠재적인 위험을 제거하게 되며 소프트웨어의 생명력을 지속할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st6">
-      <h3><i>6</i>깨끗한 코드(Clean Code)의 기준</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기준 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>가독성이 좋은 코드</li><li>변경이 쉬운 코드</li><li>중복 없는 코드</li><li>주의 깊게 짜인 코드</li></ul>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st7">
-      <h3><i>7</i>가독성이 좋은 코드</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기준 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>단순하고 직접적으로 잘 쓰인 문장처럼 읽히고 설계자의 의도가 보이는 코드로, 추상화와 단순한 제어문으로 구성된 코드를 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st8">
-      <h3><i>8</i>변경이 쉬운 코드</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기준 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>작성자가 아닌 사람도 읽기 쉽고 고치기 쉬운 코드로, 이를 위해서는 의미 있은 이름이 부여되고 특정한 목적을 달성하는 방법은 하나만 제공한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st9">
-      <h3><i>9</i>중복 없는 코드</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기준 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>같은 작업을 여러 차례 반복하지 않는 코드로, 같은 작업을 여러 차례 반복한다면 코드가 문제 해결을 제대로 하지 못한다는 증거이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st10">
-      <h3><i>10</i>주의 깊게 짜인 코드</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기준 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>고치려고 살펴봐도 딱히 손댈 곳이 없는, 작성자가 이미 모든 상황을 고려하여 작성된 소스코드를 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st11">
-      <h3><i>11</i>리팩토링 주의 사항</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기준 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>리팩토링은 코드 품질을 높이고 유지보수를 쉽게 하지만, 잘못 진행하면 오히려 위험을 초래할 수 있다. 리팩토링은 작고 안전하게, 테스트와 함께, 협업과 소통을 바탕으로 진행해야 하며, 언제든 복구가 가능한 환경에서 단계적으로 실행하는 것이 핵심이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st12">
-      <h3><i>12</i>기능 보존의 원칙</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기준 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>리팩토링의 목적은 코드의 구조 개선이지, 동작하는 기능을 변경하는 것이 아니기 때문에 리팩토링 전후로 모든 기능이 동일하게 동작하는지 반드시 확인해야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st13">
-      <h3><i>13</i>작은 단위로 점진적으로 진행</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기준 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>한 번에 많은 부분을 수정하면 오류 발생 가능성이 커지므로 작은 단위로 나누어 리팩 토링하고, 단계마다 테스트를 수행한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st14">
-      <h3><i>14</i>자동화된 테스트의 활용</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기준 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>자동화된 테스트(단위/통합 테스트)를 활용하여 리팩토링 전후로 테스트를 반복 실행하고 기존 기능에 문제가 생기지 않도록 확인한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st15">
-      <h3><i>15</i>버전 관리 시스템 적극 활용</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기준 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>변경 이력을 추적할 수 있도록 Git 등 버전 관리 시스템을 사용하여 문제가 생겼을 경우 언제든 이전 상태로 롤백할 수 있어야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st16">
-      <h3><i>16</i>코드 리뷰와 협업</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기준 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>혼자만의 판단으로 대규모 리팩토링을 진행하지 말고, 동료와 코드 리뷰를 통해 개선 방향을 논의한다. 협업 환경에서는 변경 사항을 충분히 공유하고, 팀의 합의를 끌어내는 것이 중요하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st17">
-      <h3><i>17</i>문서화와 공유</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기준 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 질문 · 서술형 시험 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>리팩토링 후 변경된 코드 구조나 설계 의도를 문서화하여 팀원과 공유하면 향후 유지 보수 시 큰 도움이 된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 3쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -521,236 +123,34 @@
 <div class="lv">
   <div class="lvh"><b>2. 소스코드 분석하기</b><span>능력단위요소 · <code>2001020217_23v6.2</code></span></div>
   <div class="lvb">
-    <div class="step" id="st18">
-      <h3><i>18</i>개발 표준</h3>
+    <div class="step" id="st2">
+      <h3><i>2</i>2-1. 소스코드 분석</h3>
       <aside class="side">
-        <p class="pt">소스코드 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">개발 표준을 만족하지 않는 소스코드를 식별할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">소스코드 분석하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 논술형 시험</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 9항목 · 실습 9절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템 개발을 위한 환경 구성과 표준을 설명한 문서로 개발자 및 관리자에게 일관성 있는 개발이 가능하도록 정보를 제공한다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>개발 표준을 만족하지 않는 소스코드를 식별할 수 있다.</li><li>성능 개선과 이해도 증진을 위하여 불필요한 소스코드를 식별할 수 있다.</li><li>잠재 결함 요소를 내포한 소드코드를 식별할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>개발 표준</dt><dd><blockquote>시스템 개발을 위한 환경 구성과 표준을 설명한 문서로 개발자 및 관리자에게 일관성 있는 개발이 가능하도록 정보를 제공한다.</blockquote></dd><dt>주요 내용</dt><dd><blockquote>소스코드 개발에 있어서 기본적인 규칙을 설명한다. 4.1 코딩 원칙 (예시) 주석은 모든 코드에 상세히 기술하는 것을 원칙으로 한다.</blockquote></dd><dt>소스코드 디렉터리 구조</dt><dd><blockquote>애플리케이션의 안정적인 운영과 유지보수를 위해, 성능 및 가독성을 보장하는 코드 작성 규칙에 따라 소스코드 저장 구조를 준수해야 한다.</blockquote></dd><dt>애플리케이션 개발 보안</dt><dd><blockquote>개발 과정에서 개발자 실수, 논리적 에러 등으로 인해 소스코드에 내재된 보안 취약점을 최소화하고, 보안 위협에 대응할 수 있는 안전한 애플리케이션을 개발하기 위한 일련의 과정을 의미한다.</blockquote></dd><dt>애플리케이션 보안 약점</dt><dd><blockquote>애플리케이션 결함, 오류 등으로 사이버 공격, 정보 유출 등을 유발할 가능성이 있는 잠재적인 취약점을 말한다.</blockquote></dd><dt>애플리케이션 보안 약점 진단 도구</dt><dd><blockquote>개발 중에 소스코드상의 애플리케이션 보안 취약점을 식별하고 식별된 소스코드의 위치를 정리할 수 있도록 지원하는 도구를 말한다.</blockquote></dd><dt>불필요한 코드(Dead Code)</dt><dd><blockquote>애플리케이션에서 불필요한 코드는 실행은 되지만 결과가 다른 응용 프로그램에 사용될 수 없는 코드이다. 불필요한 코드의 실행은 연산 처리 시간과 메모리의 낭비를 초래한다.</blockquote></dd><dt>불필요한 코드(Dead Code) 예시</dt><dd><blockquote>int foo (int a, int b) int c = ab; return a*b; 비록 a를 b로 나누는 것이 연산 처리되고 전혀 사용되 지 않더라도 0으로 나누기가 발생할 때는 예외 처리될</blockquote></dd><dt>불필요한 코드 분석 방법</dt><dd><blockquote>유효 변수 분석을 통하여 소스코드의 정적 코드 분석과 데이터 흐름 분석을 수행하 여 제어 흐름 분석을 통한 코드 분석의 미흡한 부분을 보완한다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>소스코드 분석하기</h5><div class='doh'><b>1</b><span>개발 표준을 만족하지 않는 소스코드를 식별한다.</span></div><ol class='dos'><li>소스코드 분석 도구에 개발 표준 기준 적용 개발 표준에 정의된 내용을 만족하지 않는 소스코드를 식별하기 위해 분석 도구의 룰을 세팅한다. 동료 검토 등 육안 식별을 위해서 점검 항목을 작성한다.</li><li>정적 소스코드 분석 도구 활용 정적 소스코드 분석 도구는 소스코드를 실행하지 않고 코드의 잠재적인 오류, 취약점, 그리고 코딩 표준 준수 여부를 분석하는 자동화 도구이다. ‘정적’이라는 용어는 프로그 램을 실행하지 않고 코드 자체를 검사한다는 점에서 유래하였으며, 주요 기능은 다음과 같다.</li><li>동적 소스코드 분석 도구 활용 동적 소스코드 분석 도구는 실제로 프로그램을 실행하여 발생하는 동작을 분석하고 잠재적인 문제점을 파악하는 데 사용되는 자동화 도구이다. 프로그램이 실행되는 동안의 메모리 사용, 함수 호출, 네트워크 활동 등을 모니터링하여 정적 분석 도구로는 발견하 기 어려운 런타임 오류나 성능 병목 지점, 보안 취약점을 찾아낸다.</li><li>소스코드 리뷰 수행 소스코드 분석 도구를 활용하여 개발 표준을 준수하지 않은 사항을 식별한다. 일부 주석 작성 규칙, 표준 용어 미적용 사례, 보안 취약점 등은 분석 도구에서 전체를 식별할 수 없으므로 샘플링하여 리뷰를 수행한다.</li><li>개발 표준을 준수하지 않은 소스코드 목록 작성 소스코드 분석 도구의 분석 결과를 출력하여 코드 위치, 우선순위, 위반 룰 등의 항목으로 개발 표준을 위반한 소스코드 목록을 작성한다.</li></ol><div class='doh'><b>2</b><span>성능 개선과 이해도 증진을 위하여 불필요한 소스코드를 식별한다.</span></div><ol class='dos'><li>성능 개선을 위한 불필요한 소스코드 식별 소스코드 분석 도구의 결과 중 성능 관련 위험을 내포한 소스코드와 중복된 코드를 식별하여 정리한다.</li></ol><div class='doh'><b>3</b><span>잠재 결함 요소를 내포한 소스코드를 식별한다.</span></div><ol class='dos'><li>소스코드 분석 도구를 활용한다.</li><li>소프트웨어 개발 보안 기준을 활용하여 분석한다.</li><li>소프트웨어 개발 보안 기준을 활용한 분석 결과를 정리한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>개발 표준을 만족하지 않는 소스코드를 식별한다.</li><li>성능 개선과 이해도 증진을 위하여 불필요한 소스코드를 식별한다.</li><li>잠재 결함 요소를 내포한 소스코드를 식별한다.</li><li>개발 표준을 만족하지 않는 소스코드를 식별할 수 있다.</li><li>성능 개선과 이해도 증진을 위하여 불필요한 소스코드를 식별할 수 있다.</li><li>잠재 결함 요소를 내포한 소드코드를 식별할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 문제해결 시나리오 · 서술형 시험 · 논술형 시험</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st19">
-      <h3><i>19</i>주요 내용</h3>
-      <aside class="side">
-        <p class="pt">소스코드 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 논술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소스코드 개발에 있어서 기본적인 규칙을 설명한다. 4.1 코딩 원칙 (예시) 주석은 모든 코드에 상세히 기술하는 것을 원칙으로 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st20">
-      <h3><i>20</i>소스코드 디렉터리 구조</h3>
-      <aside class="side">
-        <p class="pt">소스코드 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="35">원문 22쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 논술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>애플리케이션의 안정적인 운영과 유지보수를 위해, 성능 및 가독성을 보장하는 코드 작성 규칙에 따라 소스코드 저장 구조를 준수해야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st21">
-      <h3><i>21</i>애플리케이션 개발 보안</h3>
-      <aside class="side">
-        <p class="pt">소스코드 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="37">원문 24쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 논술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발 과정에서 개발자 실수, 논리적 에러 등으로 인해 소스코드에 내재된 보안 취약점을 최소화하고, 보안 위협에 대응할 수 있는 안전한 애플리케이션을 개발하기 위한 일련의 과정을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st22">
-      <h3><i>22</i>애플리케이션 보안 약점</h3>
-      <aside class="side">
-        <p class="pt">소스코드 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="37">원문 24쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 논술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>애플리케이션 결함, 오류 등으로 사이버 공격, 정보 유출 등을 유발할 가능성이 있는 잠재적인 취약점을 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st23">
-      <h3><i>23</i>애플리케이션 보안 약점 진단 도구</h3>
-      <aside class="side">
-        <p class="pt">소스코드 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="37">원문 24쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 논술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발 중에 소스코드상의 애플리케이션 보안 취약점을 식별하고 식별된 소스코드의 위치를 정리할 수 있도록 지원하는 도구를 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st24">
-      <h3><i>24</i>불필요한 코드(Dead Code)</h3>
-      <aside class="side">
-        <p class="pt">소스코드 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="37">원문 24쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 논술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>애플리케이션에서 불필요한 코드는 실행은 되지만 결과가 다른 응용 프로그램에 사용될 수 없는 코드이다. 불필요한 코드의 실행은 연산 처리 시간과 메모리의 낭비를 초래한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st25">
-      <h3><i>25</i>불필요한 코드(Dead Code) 예시</h3>
-      <aside class="side">
-        <p class="pt">소스코드 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="37">원문 24쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 논술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>int foo (int a, int b) int c = ab; return a*b; 비록 a를 b로 나누는 것이 연산 처리되고 전혀 사용되 지 않더라도 0으로 나누기가 발생할 때는 예외 처리될</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st26">
-      <h3><i>26</i>불필요한 코드 분석 방법</h3>
-      <aside class="side">
-        <p class="pt">소스코드 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="37">원문 24쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 논술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>유효 변수 분석을 통하여 소스코드의 정적 코드 분석과 데이터 흐름 분석을 수행하 여 제어 흐름 분석을 통한 코드 분석의 미흡한 부분을 보완한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 21쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -759,403 +159,77 @@
 <div class="lv">
   <div class="lvh"><b>3. 리팩토링 적용하기</b><span>능력단위요소 · <code>2001020217_23v6.3</code></span></div>
   <div class="lvb">
-    <div class="step" id="st27">
-      <h3><i>27</i>리팩토링 기법</h3>
+    <div class="step" id="st3">
+      <h3><i>3</i>3-1. 리팩토링 적용</h3>
       <aside class="side">
-        <p class="pt">리팩토링 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
+        <p class="pt">리팩토링을 위한 소스코드 구조를 개선할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">리팩토링 적용하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 8항목 · 실습 6절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>메서드 이동</li><li>메서드 추출</li><li>임시 Inline 정리</li><li>임시 변수 참조 변경</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>리팩토링을 위한 소스코드 구조를 개선할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>메서드 이동</dt><dd><blockquote>메서드 이동은 특정 기능이 정의된 클래스보다, 그 기능을 다른 클래스의 메서드에서 더 자주 사용하는 경우에 수행한다.</blockquote></dd><dt>메서드 추출</dt><dd><blockquote>메서드가 너무 길거나 코드에 주석을 달아야만 의도를 이해할 수 있을 때, 그 소스코드를 분리하여 별도의 메서드를 만든다.</blockquote></dd><dt>임시 Inline 정리</dt><dd><blockquote>수식의 결괏값을 가지는 임시 변수가 있고 그 임시 변수가 다른 리팩토링을 하는 데방해가 된다면, 해당 임시 변수를 참조하는 코드를 모두 원래 수식으로 변경하는 기법 double basePrice = anOrder.basePrice0; return (basePrice ) 1000); return (anOrder.basePrice0 &gt; 1000);</blockquote></dd><dt>임시 변수 참조 변경</dt><dd><blockquote>결괏값을 저장하기 위해 임시 변수를 호출하여 사용하고 있다면, 수식을 추출하여 메서 드로 만들고, 임시 변수를 참조하는 곳을 찾아 모두 메서드 호출로 변경한다.</blockquote></dd><dt>내재된 SQL 삽입 취약점</dt><dd><blockquote>데이터베이스와 연동된 응용 프로그램에서 입력 데이터에 대하여 유효성 검증을 하지 않을 경우, 공격자(해커)가 입력 데이터에 SQL 쿼리문을 삽입하여 데이터베이스로부터 정보를 열람하거나 조작할 수 있는 취약점을 말한다.</blockquote></dd><dt>내재된 크로스 사이트 스크립트</dt><dd><blockquote>외부 입력값에 스크립트가 삽입되지 못하도록 문자 변환 함수 또는 메서드를 사용하여 &lt; &gt; &amp; “ 등을 &amp;lt; &amp;gt; &amp;amp; &amp;quot;로 치환한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>리팩토링 기법 · 보안 취약점</dd></dl>
+
+<h4>해 보기</h4>
+<h5>리팩토링 적용하기</h5><div class='doh'><b>1</b><span>리팩토링을 위한 소스코드 구조를 개선한다.</span></div><ol class='dos'><li>하나의 객체에 기능이 여러 개가 있을 때 로직을 추출한다.</li><li>객체 기능을 이동한다.</li><li>객체를 추출한다.</li></ol><div class='doh'><b>2</b><span>식별된 잠재 결함 요소를 내포한 소스코드를 개선한다.</span></div><ol class='dos'><li>소스코드 개선 부분을 확인한다.</li><li>가이드에 따라 소스코드를 개선한다.</li><li>개선 코드를 컴파일한 후 테스트하여 확인한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>리팩토링을 위한 소스코드 구조를 개선한다.</li><li>식별된 잠재 결함 요소를 내포한 소스코드를 개선한다.</li><li>리팩토링을 위한 소스코드 구조를 개선할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 평가자 질문 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 40쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st28">
-      <h3><i>28</i>메서드 이동</h3>
+    <div class="step" id="st4">
+      <h3><i>4</i>3-2. 리팩토링 기능 확인</h3>
       <aside class="side">
-        <p class="pt">리팩토링 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>메서드 이동은 특정 기능이 정의된 클래스보다, 그 기능을 다른 클래스의 메서드에서 더 자주 사용하는 경우에 수행한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st29">
-      <h3><i>29</i>메서드 추출</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="54">원문 41쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>메서드가 너무 길거나 코드에 주석을 달아야만 의도를 이해할 수 있을 때, 그 소스코드를 분리하여 별도의 메서드를 만든다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st30">
-      <h3><i>30</i>임시 Inline 정리</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="54">원문 41쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>수식의 결괏값을 가지는 임시 변수가 있고 그 임시 변수가 다른 리팩토링을 하는 데방해가 된다면, 해당 임시 변수를 참조하는 코드를 모두 원래 수식으로 변경하는 기법 double basePrice = anOrder.basePrice0; return (basePrice ) 1000); return (anOrder.basePrice0 &gt; 1000);</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st31">
-      <h3><i>31</i>임시 변수 참조 변경</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="54">원문 41쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>결괏값을 저장하기 위해 임시 변수를 호출하여 사용하고 있다면, 수식을 추출하여 메서 드로 만들고, 임시 변수를 참조하는 곳을 찾아 모두 메서드 호출로 변경한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st32">
-      <h3><i>32</i>보안 취약점</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="55">원문 42쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>내재된 SQL 삽입 취약점</li><li>내재된 크로스 사이트 스크립트</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st33">
-      <h3><i>33</i>내재된 SQL 삽입 취약점</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="55">원문 42쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>데이터베이스와 연동된 응용 프로그램에서 입력 데이터에 대하여 유효성 검증을 하지 않을 경우, 공격자(해커)가 입력 데이터에 SQL 쿼리문을 삽입하여 데이터베이스로부터 정보를 열람하거나 조작할 수 있는 취약점을 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st34">
-      <h3><i>34</i>내재된 크로스 사이트 스크립트</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 적용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="56">원문 43쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>외부 입력값에 스크립트가 삽입되지 못하도록 문자 변환 함수 또는 메서드를 사용하여 &lt; &gt; &amp; “ 등을 &amp;lt; &amp;gt; &amp;amp; &amp;quot;로 치환한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st35">
-      <h3><i>35</i>회귀 테스트 개념</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기능 확인</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
+        <p class="pt">개선한 소스코드가 초기 기능을 유지하는지 확인할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">리팩토링 적용하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="63">원문 50쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 7항목 · 실습 6절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>회귀 테스트 정의</li><li>회귀 테스트 종류</li><li>회귀 테스트 방법</li><li>단위 테스트 프레임워크</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>개선한 소스코드가 초기 기능을 유지하는지 확인할 수 있다.</li><li>개선한 소스코드가 리팩토링 체크리스트를 만족하는지 검토할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>회귀 테스트 정의</dt><dd><blockquote>기능 추가나 오류를 수정한 애플리케이션에 새로이 유입된 오류가 없는지 확인하는 일종의 반복 시험이다.</blockquote></dd><dt>회귀 테스트 종류</dt><dd><blockquote>블랙박스 테스트로, 전체 프로그램에 다양한 입력값을 넣고 출력값을 검사하는 테스 트 유형이다. 화이트박스 테스트로, 주로 함수나 모듈 단위로 독립적인 테스트 케이스를 수행하는 테스트 유형이다.</blockquote></dd><dt>회귀 테스트 방법</dt><dd><blockquote>자동화 테스트를 통해 주기적으로 오류가 보고될 수 있게 하며, 이전 버전과 현재 버전을 비교하여 변화된 부분과 연관이 있는 기능을 선택하여 테스트한다.</blockquote></dd><dt>xUnit 프레임워크</dt><dd><blockquote>단위 테스트 프레임워크 계열을 통칭하는 명칭인 xUnit은 C, Java, C++ 등 다양한 언어로 구현된 단위 기능의 테스트를 자동화할 수 있는 테스트 코드를 개발하고 실행 할 수 있는 환경을 제공하는 기술이다.</blockquote></dd><dt>xUnit 관련 Method</dt><dd><blockquote>테스트 코드를 작성하기 위해 Method를 구현하여 테스트 코드를 반복적으로 테스트한다. Method assertArrayEquals(a,b) 배열 a와 b가 일치함을 확인한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>회귀 테스트 개념 · 단위 테스트 프레임워크</dd></dl>
+
+<h4>해 보기</h4>
+<h5>리팩토링 기능 확인하기</h5><div class='doh'><b>1</b><span>개선한 소스코드가 초기 기능을 유지하는지 소스코드를 확인한다.</span></div><ol class='dos'><li>자동 테스트를 실행할 수 있는 환경을 구축한다.</li><li>xUnit을 활용한 테스트를 수행한다.</li></ol><div class='doh'><b>2</b><span>개선한 소스코드가 초기 기능을 유지하는지 통합 테스트를 수행한다.</span></div><ol class='dos'><li>기존 기능 테스트 시나리오를 확보한다.</li><li>기능 테스트를 위한 테스트 데이터를 구축한다.</li><li>기능 테스트 시나리오 기준으로 테스트를 수행한다.</li><li>기능 테스트 수행 결과를 기록하고 보고한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>개선한 소스코드가 초기 기능을 유지하는지 소스코드를 확인한다.</li><li>개선한 소스코드가 초기 기능을 유지하는지 통합 테스트를 수행한다.</li><li>개선한 소스코드가 초기 기능을 유지하는지 확인할 수 있다.</li><li>개선한 소스코드가 리팩토링 체크리스트를 만족하는지 검토할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 평가자 질문 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st36">
-      <h3><i>36</i>회귀 테스트 정의</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기능 확인</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="63">원문 50쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기능 추가나 오류를 수정한 애플리케이션에 새로이 유입된 오류가 없는지 확인하는 일종의 반복 시험이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st37">
-      <h3><i>37</i>회귀 테스트 종류</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기능 확인</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="63">원문 50쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>블랙박스 테스트로, 전체 프로그램에 다양한 입력값을 넣고 출력값을 검사하는 테스 트 유형이다. 화이트박스 테스트로, 주로 함수나 모듈 단위로 독립적인 테스트 케이스를 수행하는 테스트 유형이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st38">
-      <h3><i>38</i>회귀 테스트 방법</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기능 확인</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="63">원문 50쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>자동화 테스트를 통해 주기적으로 오류가 보고될 수 있게 하며, 이전 버전과 현재 버전을 비교하여 변화된 부분과 연관이 있는 기능을 선택하여 테스트한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st39">
-      <h3><i>39</i>단위 테스트 프레임워크</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기능 확인</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="64">원문 51쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>xUnit 프레임워크</li><li>xUnit 관련 Method</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st40">
-      <h3><i>40</i>xUnit 프레임워크</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기능 확인</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="64">원문 51쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>단위 테스트 프레임워크 계열을 통칭하는 명칭인 xUnit은 C, Java, C++ 등 다양한 언어로 구현된 단위 기능의 테스트를 자동화할 수 있는 테스트 코드를 개발하고 실행 할 수 있는 환경을 제공하는 기술이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st41">
-      <h3><i>41</i>xUnit 관련 Method</h3>
-      <aside class="side">
-        <p class="pt">리팩토링 기능 확인</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020217_23v6" data-page="64">원문 51쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트 코드를 작성하기 위해 Method를 구현하여 테스트 코드를 반복적으로 테스트한다. Method assertArrayEquals(a,b) 배열 a와 b가 일치함을 확인한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 50쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
   </div>
 </div>
 
-<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
-원문 LM2001020217_23v6_애플리케이션 리팩토링_20251108.pdf</footer>
+<footer>담당 정우균 · 개념과 절차는 <b>NCS 학습모듈 LM2001020217_23v6_애플리케이션 리팩토링_20251108.pdf</b> 에서
+옮긴 것입니다 — 한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지)</footer>
 </div>
 <script>
-/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+/* 빠른 이동 — 지금 보는 꼭지를 표시하고, 좁은 화면에서는 여닫습니다. */
 (function () {
   var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
   var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));

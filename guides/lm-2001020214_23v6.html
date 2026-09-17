@@ -1,13 +1,30 @@
-<meta charset="utf-8"><title>애플리케이션 배포 — 준비 교안</title>
+<meta charset="utf-8"><title>애플리케이션 배포 — 학습 가이드</title>
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="stylesheet" href="../assets/guide.css">
 <style>
-  /* 원문 인용 — 우리가 쓴 안내와 눈으로 구분되어야 한다 */
-  .bd blockquote{margin:10px 0 16px;padding:10px 14px;border-left:3px solid #000;
-                 background:#fafafa;font-size:13.5px;line-height:1.8;color:#222}
-  .bd p.none{color:#888;font-size:13px}
-  .bd ul.sub{margin:8px 0 16px;padding-left:20px;font-size:13.5px;line-height:1.9}
-  aside.side .v .btn{font-size:11.5px}
+  /* 학습 가이드 — 개념 / 실습 / 확인 세 덩어리가 눈으로 구분되어야 한다 */
+  .bd h4{margin:22px 0 8px;font-size:14px;padding-bottom:5px;border-bottom:1px solid #000}
+  .bd h4:first-child{margin-top:0}
+  .bd h5{margin:16px 0 5px;font-size:13px;font-weight:700}
+  .bd blockquote{margin:5px 0 12px;padding:9px 13px;border-left:3px solid #999;
+                 background:#fafafa;font-size:13px;line-height:1.8;color:#333}
+  .cc{margin:0 0 6px}
+  .cc dt{font-weight:700;font-size:13.5px;margin:14px 0 0}
+  .cc dd{margin:4px 0 0}
+  .doh{display:flex;gap:9px;align-items:baseline;margin:16px 0 4px;font-size:13.5px;
+       font-weight:700}
+  .doh b{flex:0 0 auto;width:21px;height:21px;line-height:19px;text-align:center;
+         border:1px solid #000;font-size:11.5px}
+  ol.dos{margin:2px 0 0 30px;padding:0;font-size:13px;line-height:1.85}
+  ol.dos li{margin:3px 0}
+  .prep{display:grid;grid-template-columns:76px 1fr;gap:3px 10px;font-size:12.5px;
+        border:1px solid #ccc;padding:10px 13px;margin:6px 0 2px;background:#fafafa}
+  .prep b{color:#555;font-weight:400}
+  ul.goal{margin:6px 0 0;padding-left:20px;font-size:13.5px;line-height:1.9}
+  ul.chk{margin:6px 0 0;padding:0;list-style:none;font-size:13.5px;line-height:1.95}
+  ul.chk li::before{content:"\2610  "}
+  .none{color:#888;font-size:12.5px}
+  .srcline{font-size:11.5px;color:#888;margin:8px 0 0}
 </style>
 <script src="../assets/auth.js"></script>
 <script>EXAM_AUTH.guard("../");</script>
@@ -17,7 +34,7 @@
 <div class="top"><div class="tbar">
   <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
   <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
-  / 애플리케이션 배포 / 준비 교안</small></div>
+  / 애플리케이션 배포 / 학습 가이드</small></div>
   <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
@@ -25,51 +42,49 @@
 <button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
 
 <nav id="qnav" aria-label="빠른 이동">
-  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
-  <i class="qg">애플리케이션 배포 환경 구성하기</i><a href="#st1"><b>1</b><span>소스코드 빌드 과정의 이해</span></a><a href="#st2"><b>2</b><span>컴파일 언어(C, C++ 등)</span></a><a href="#st3"><b>3</b><span>바이트 코드(Byte Code) 언어(Java, C# 등)</span></a><a href="#st4"><b>4</b><span>인터프리터 언어(Javascript, Python, Ruby 등)</span></a><a href="#st5"><b>5</b><span>애플리케이션 배포(Release) 환경</span></a><a href="#st6"><b>6</b><span>웹 서버(Web Server)</span></a><a href="#st7"><b>7</b><span>WAS(Web Application Server: 웹 애플리케이션 서버)</span></a><a href="#st8"><b>8</b><span>애플리케이션 배포 단위</span></a><a href="#st9"><b>9</b><span>jar(Java Archive)</span></a><a href="#st10"><b>10</b><span>war(Web Archive)</span></a><a href="#st11"><b>11</b><span>ear(Enterprise Archive)</span></a><a href="#st12"><b>12</b><span>형상관리(Configuration Management) 시스템</span></a><a href="#st13"><b>13</b><span>형상관리의 범위</span></a><a href="#st14"><b>14</b><span>형상관리 시스템에서 사용하는 용어</span></a><i class="qg">애플리케이션 소스 검증하기</i><a href="#st15"><b>15</b><span>코드 인스펙션(Code Inspection)</span></a><a href="#st16"><b>16</b><span>코드 인스펙션 Rule 유형</span></a><a href="#st17"><b>17</b><span>코드 작성 Rule 심각도 구분(예시)</span></a><a href="#st18"><b>18</b><span>정규 표현식(Regular Expression)</span></a><a href="#st19"><b>19</b><span>소스코드 검증 도구</span></a><a href="#st20"><b>20</b><span>검증 도구의 구분</span></a><a href="#st21"><b>21</b><span>소스코드 검증 도구의 용도</span></a><a href="#st22"><b>22</b><span>테스트 프레임워크(동적 분석 도구)의 구성</span></a><a href="#st23"><b>23</b><span>테스트 프레임워크의 구성</span></a><a href="#st24"><b>24</b><span>Junit 테스트 프레임워크</span></a><i class="qg">애플리케이션 빌드하기</i><a href="#st25"><b>25</b><span>지속적인 통합(CI: Continuous Integration) 환경</span></a><a href="#st26"><b>26</b><span>빌드 도구</span></a><a href="#st27"><b>27</b><span>테스트 도구</span></a><a href="#st28"><b>28</b><span>소스코드 품질 측정 도구(코드 인스펙션)</span></a><a href="#st29"><b>29</b><span>테스트 커버리지 측정 도구</span></a><a href="#st30"><b>30</b><span>빌드 스케줄 관리 도구</span></a><a href="#st31"><b>31</b><span>테스트 커버리지</span></a><a href="#st32"><b>32</b><span>테스트 커버리지의 의미</span></a><a href="#st33"><b>33</b><span>테스트 커버리지 측정 유형</span></a><a href="#st34"><b>34</b><span>빌드 스케줄 관리 도구</span></a><a href="#st35"><b>35</b><span>빌드 스케줄 관리 도구의 구성</span></a><a href="#st36"><b>36</b><span>빌드 스케줄 관리 도구의 기능</span></a><i class="qg">애플리케이션 배포하기</i><a href="#st37"><b>37</b><span>운영 환경의 특징</span></a><a href="#st38"><b>38</b><span>네트워크 관점</span></a><a href="#st39"><b>39</b><span>계정 관리 부문</span></a><a href="#st40"><b>40</b><span>보안 취약점 부문</span></a><a href="#st41"><b>41</b><span>프로그램 통제 부문 전자금융감독규정</span></a><a href="#st42"><b>42</b><span>적용 대상 프로그램 종류 및 등록·변경·폐기 방법을 마련할 것(운영 절차 수립)</span></a><a href="#st43"><b>43</b><span>프로그램 변경 전후 내용을 기록·관리할 것(변경 내역에 대한 이력 관리)</span></a><a href="#st44"><b>44</b><span>프로그램 등록·변경·폐기 내용의 정당성에 대해 제3자의 검증을 받을 것(소스 변경 내역,</span></a><a href="#st45"><b>45</b><span>변경 필요시 해당 프로그램을 개발 또는 테스트 시스템으로 복사 후 수정할 것(운영 환경</span></a><a href="#st46"><b>46</b><span>프로그램에 대한 접근은 업무 담당자에 한정할 것(소스에 대한 개발자별 접근 관리 적용)</span></a><a href="#st47"><b>47</b><span>운영 시스템 적용은 처리하는 정보의 기밀성, 무결성, 가용성을 고려하여 충분한 테스트 및</span></a><a href="#st48"><b>48</b><span>프로그램 반출, 실행 프로그램의 생성 및 운영 시스템 등록은 해당 프로그램 담당자 이외의</span></a><a href="#st49"><b>49</b><span>운영체제, 데이터베이스 관리 프로그램 등의 시스템 프로그램도 응용 프로그램과 동일한 수</span></a><a href="#st50"><b>50</b><span>프로그램 설명서, 입출력 레코드 설명서, 프로그램 목록 및 사용자·운영자 지침서 등 프로그</span></a><a href="#st51"><b>51</b><span>전자 금융 거래에 사용되는 전산 프로그램은 실제 업무를 처리하는 정보 처리 시스템에 설</span></a>
+  <a class="qt" href="#top"><b>&uarr;</b><span>맨 위로</span></a>
+  <i class="qg">애플리케이션 배포 환경 구성하기</i><a href="#st1"><b>1</b><span>애플리케이션 배포 환경 구성</span></a><a href="#st2"><b>2</b><span>애플리케이션 배포 환경 설정</span></a><i class="qg">애플리케이션 소스 검증하기</i><a href="#st3"><b>3</b><span>애플리케이션 소스 확인</span></a><a href="#st4"><b>4</b><span>애플리케이션 소스 검증</span></a><i class="qg">애플리케이션 빌드하기</i><a href="#st5"><b>5</b><span>애플리케이션 빌드 실행</span></a><a href="#st6"><b>6</b><span>애플리케이션 실행 검증</span></a><i class="qg">애플리케이션 배포하기</i><a href="#st7"><b>7</b><span>애플리케이션 배포</span></a><a href="#st8"><b>8</b><span>애플리케이션 운영 및 복원</span></a>
 </nav>
 
 <div class="wrap" id="top">
 
-<h1>애플리케이션 배포 — 준비 교안</h1>
+<h1>애플리케이션 배포 — 학습 가이드</h1>
 <p class="sub">능력단위 <code>2001020214_23v6</code> · 3수준 ·
-40시간 · 단계 51개 · 평가 서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
+40시간 · 꼭지 8개 · 개념 51항목 · 실습 59절차</p>
 
-<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<h2 class="sec" id="g0">0. 시작하기 전에</h2>
 <div class="sect">
   <aside class="side">
     <p class="pt">애플리케이션 배포 환경을 구성하고, 구현이 완료된 애플리케이션의 소스 검증 후 빌드하여 운영 환경에 배포할 수 있다.</p>
-    <b class="sh">선수학습</b>
+    <b class="sh">먼저 알아야 할 것</b>
     <p class="v">프로그래밍 언어 활용(2001020231_23v5), 응용SW 기초 기술 활용(2001020232_23v5), 화면 구현(20 01020225_23v6), 개발 환경 운영 지원(2001020234_23v2), 애플리케이션 테스트 수행(LM200102022 7_23v6)</p>
-    <b class="sh">원문</b>
-    <p class="src">LM2001020214_23v6_애플리케이션 배포_20251108.pdf (84쪽)</p>
+    <b class="sh">평가</b>
+    <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
   </aside>
   <div class="bd">
-<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
-   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
-   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
-<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
-   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
-   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+<h4>이 문서를 쓰는 법</h4>
+<p>꼭지마다 <b>무엇을 할 수 있게 되나 → 알아야 할 것 → 해 보기 → 스스로 확인</b>
+   순서입니다. 읽고 끝내지 말고 <b>해 보기</b>를 손으로 따라 하십시오.
+   마지막 <b>스스로 확인</b>을 전부 «할 수 있다» 고 말할 수 있으면 다음 꼭지로 갑니다.</p>
+<p>자세한 설명과 표·그림은 <b>학습모듈 원문</b>에 있습니다. 꼭지마다 있는
+   <b>[원문 N쪽]</b> 단추를 누르면 그 자리가 바로 펼쳐집니다.</p>
 
 <h4>핵심 용어</h4>
 <p>애플리케이션 배포, 애플리케이션 빌드, 소스코드 분석 도구, IT 서비스 관리(ITSM) 시스템, 형상관리시스 템, 반출(Check Out), 반입(Check In)</p>
 
-<h4>능력단위요소</h4>
+<h4>차례</h4>
 <table class="wide">
-  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
-      <th>학습 내용</th><th style="width:74px">단계</th></tr>
-  <tr><td class="c">1</td><td>애플리케이션 배포 환경 구성하기</td><td>애플리케이션 배포 환경 구성 · 애플리케이션 배포 환경 설정</td><td class="c">14</td></tr>
-  <tr><td class="c">2</td><td>애플리케이션 소스 검증하기</td><td>애플리케이션 소스 확인 · 애플리케이션 소스 검증</td><td class="c">10</td></tr>
-  <tr><td class="c">3</td><td>애플리케이션 빌드하기</td><td>애플리케이션 빌드 실행 · 애플리케이션 실행 검증</td><td class="c">12</td></tr>
-  <tr><td class="c">4</td><td>애플리케이션 배포하기</td><td>애플리케이션 배포 · 애플리케이션 운영 및 복원</td><td class="c">15</td></tr>
+  <tr><th style="width:44px">꼭지</th><th style="width:250px">학습 내용</th>
+      <th>능력단위요소</th><th style="width:58px">개념</th><th style="width:58px">실습</th></tr>
+  <tr><td class="c">1</td><td>1-1. 애플리케이션 배포 환경 구성</td><td>애플리케이션 배포 환경 구성하기</td><td class="c">7</td><td class="c">8</td></tr>
+  <tr><td class="c">2</td><td>1-2. 애플리케이션 배포 환경 설정</td><td>애플리케이션 배포 환경 구성하기</td><td class="c">7</td><td class="c">6</td></tr>
+  <tr><td class="c">3</td><td>2-1. 애플리케이션 소스 확인</td><td>애플리케이션 소스 검증하기</td><td class="c">4</td><td class="c">6</td></tr>
+  <tr><td class="c">4</td><td>2-2. 애플리케이션 소스 검증</td><td>애플리케이션 소스 검증하기</td><td class="c">6</td><td class="c">10</td></tr>
+  <tr><td class="c">5</td><td>3-1. 애플리케이션 빌드 실행</td><td>애플리케이션 빌드하기</td><td class="c">9</td><td class="c">10</td></tr>
+  <tr><td class="c">6</td><td>3-2. 애플리케이션 실행 검증</td><td>애플리케이션 빌드하기</td><td class="c">3</td><td class="c">8</td></tr>
+  <tr><td class="c">7</td><td>4-1. 애플리케이션 배포</td><td>애플리케이션 배포하기</td><td class="c">4</td><td class="c">4</td></tr>
+  <tr><td class="c">8</td><td>4-2. 애플리케이션 운영 및 복원</td><td>애플리케이션 배포하기</td><td class="c">11</td><td class="c">7</td></tr>
 </table>
-
-<div class="try">
-  <b class="t">쓰는 법</b>
-  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
-  한 단계가 대략 수업 10~20분에 해당합니다.
-</div>
   </div>
 </div>
 
@@ -77,365 +92,65 @@
   <div class="lvh"><b>1. 애플리케이션 배포 환경 구성하기</b><span>능력단위요소 · <code>2001020214_23v6.1</code></span></div>
   <div class="lvb">
     <div class="step" id="st1">
-      <h3><i>1</i>소스코드 빌드 과정의 이해</h3>
+      <h3><i>1</i>1-1. 애플리케이션 배포 환경 구성</h3>
       <aside class="side">
-        <p class="pt">애플리케이션 배포 환경 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
+        <p class="pt">애플리케이션 빌드와 배포를 위한 환경 구성 방안을 계획할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">애플리케이션 배포 환경 구성하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 7항목 · 실습 8절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>빌드는 소스코드를 실행할 수 있는 상태로 변환하는 과정을 말하며, 프로그래밍 언어의 유형에 따라 빌드 과정이 상이하다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>애플리케이션 빌드와 배포를 위한 환경 구성 방안을 계획할 수 있다.</li><li>애플리케이션 배포를 위한 도구와 시스템을 결정할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>소스코드 빌드 과정의 이해</dt><dd><blockquote>빌드는 소스코드를 실행할 수 있는 상태로 변환하는 과정을 말하며, 프로그래밍 언어의 유형에 따라 빌드 과정이 상이하다.</blockquote></dd><dt>컴파일 언어(C, C++ 등)</dt><dd><blockquote>컴파일 언어는 기계어로 바로 변환되어 실행되기 때문에 가장 속도가 빠르고 보안에 유리하다. 하지만 소스 변경 시마다 컴파일 과정을 통해서 빌드 작업을 수행하기 때문에 빌드 과정이 오래 걸린다.</blockquote></dd><dt>바이트 코드(Byte Code) 언어(Java, C# 등)</dt><dd><blockquote>바이트 코드(Byte Code) 언어는 컴파일의 결과물이 실행 파일이 아닌 ‘class’라는 바이트 코드 파일로 생성되고 가상 실행 환경인 JRE(Java Runtime Environment), CLI(Common Language Infrastructure)에서 한 줄씩 실행하는 방식으로 빌드된다.</blockquote></dd><dt>인터프리터 언어(Javascript, Python, Ruby 등)</dt><dd><blockquote>인터프리터 언어는 컴파일 언어와 다르게 한 줄씩 번역되어 실행된다. 인터프리터 언어는 컴파일하는 과정에서 메모리가 훨씬 적게 소모되고 빠른 시간에 컴파일을 진행할</blockquote></dd><dt>애플리케이션 배포(Release) 환경</dt><dd><blockquote>애플리케이션 배포는 개발자 또는 사용자가 애플리케이션을 실행, 테스트할 수 있도록 컴파일된 프로그램, 실행에 필요한 리소스(이미지, 환경 설정 파일 등)를 서버상의 적합한 위치로 이동하는 작업을 말한다.</blockquote></dd><dt>웹 서버(Web Server)</dt><dd><blockquote>사용자의 http 요청을 받아 웹 컨테이터에 요청을 전달하고 결괏값을 받아와 사용자에 게 전송하는 역할을 수행한다.</blockquote></dd><dt>WAS(Web Application Server: 웹 애플리케이션 서버)</dt><dd><blockquote>사용자의 요청을 받아 동적인 처리를 수행하는 프로그램 실행 부분을 배포한다. WAS 구성 및 운용을 위한 국제 표준 규격을 정하고 있으며, 제품마다 배포 방식과 설정이 일부 다르다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>애플리케이션 배포 환경 구성하기</h5><div class='prep'><b>재료·자료</b><span>애플리케이션 개발 환경 구성도 / 애플리케이션 배포 대상, 배포 항목 / 애플리케이션 형상관리 지침서 / 애플리케이션 배포 절차 설명서 / 애플리케이션 형상관리 도구 매뉴얼 / 애플리케이션 빌드 도구 매뉴얼 / 애플리케이션 배포 도구 매뉴얼</span><b>기기·도구</b><span>애플리케이션 배포 환경: 형상관리 도구, 빌드 도구, 배포 도구 등 / 전산 장비: 인터넷, 컴퓨터, 프린터, 복사기, 빔 프로젝터 등 / 지원 도구: 문서 작성 도구 등 / OA 소프트웨어: 워드프로세서, 스프레드시트, 프레젠테이션 도구 등 / 6</span><b>유의 사항</b><span>응용SW애플리케이션 아키텍처와 개발 환경에 대한 이해를 바탕으로 빌드와 배포 환경 / 을 구성해야 한다. / 응용SW 개발 환경의 형상관리 도구와 빌드･배포 도구 등에 대한 이해를 바탕으로 자 / 동화 도구를 활용하여 애플리케이션 배포 업무를 수행할 수 있어야 한다. / 응용SW의 개발 언어, 환경, 플랫폼, 아키텍처에 따라 빌드 및 배포 절차와 방법이 달 / 라질 수 있으므로 다양한 환경에 적용할 수 있도록 지속적인 학습이 필요하다.</span></div><div class='doh'><b>1</b><span>프로젝트의 배포 관리 요건을 분석하고 배포 환경 구성 방안을 계획한다.</span></div><ol class='dos'><li>프로젝트의 애플리케이션의 기술적인 특성을 확인하고 배포 방식을 정의한다.</li><li>개발하려는 애플리케이션의 인프라 환경을 확인하고 배포 대상 서버를 확인한다.</li></ol><div class='doh'><b>2</b><span>애플리케이션 배포를 위한 도구와 시스템을 선정한다.</span></div><ol class='dos'><li>소스 형상관리 도구를 선정한다.</li><li>빌드 도구를 선정한다.</li><li>빌드 스케줄 관리 도구를 선정한다.</li><li>테스트 도구를 선정한다.</li><li>검토 대상 코드 인스펙션 점검 도구를 파악한다.</li><li>애플리케이션 개발에 적합한 코드 인스펙션 점검 도구를 선정한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>프로젝트의 배포 관리 요건을 분석하고 배포 환경 구성 방안을 계획한다.</li><li>애플리케이션 배포를 위한 도구와 시스템을 선정한다.</li><li>애플리케이션 빌드와 배포를 위한 환경 구성 방안을 계획할 수 있다.</li><li>애플리케이션 배포를 위한 도구와 시스템을 결정할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 평가자 질문</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 3쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
     <div class="step" id="st2">
-      <h3><i>2</i>컴파일 언어(C, C++ 등)</h3>
+      <h3><i>2</i>1-2. 애플리케이션 배포 환경 설정</h3>
       <aside class="side">
-        <p class="pt">애플리케이션 배포 환경 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>컴파일 언어는 기계어로 바로 변환되어 실행되기 때문에 가장 속도가 빠르고 보안에 유리하다. 하지만 소스 변경 시마다 컴파일 과정을 통해서 빌드 작업을 수행하기 때문에 빌드 과정이 오래 걸린다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st3">
-      <h3><i>3</i>바이트 코드(Byte Code) 언어(Java, C# 등)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 배포 환경 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>바이트 코드(Byte Code) 언어는 컴파일의 결과물이 실행 파일이 아닌 ‘class’라는 바이트 코드 파일로 생성되고 가상 실행 환경인 JRE(Java Runtime Environment), CLI(Common Language Infrastructure)에서 한 줄씩 실행하는 방식으로 빌드된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st4">
-      <h3><i>4</i>인터프리터 언어(Javascript, Python, Ruby 등)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 배포 환경 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>인터프리터 언어는 컴파일 언어와 다르게 한 줄씩 번역되어 실행된다. 인터프리터 언어는 컴파일하는 과정에서 메모리가 훨씬 적게 소모되고 빠른 시간에 컴파일을 진행할</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st5">
-      <h3><i>5</i>애플리케이션 배포(Release) 환경</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 배포 환경 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>애플리케이션 배포는 개발자 또는 사용자가 애플리케이션을 실행, 테스트할 수 있도록 컴파일된 프로그램, 실행에 필요한 리소스(이미지, 환경 설정 파일 등)를 서버상의 적합한 위치로 이동하는 작업을 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st6">
-      <h3><i>6</i>웹 서버(Web Server)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 배포 환경 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>사용자의 http 요청을 받아 웹 컨테이터에 요청을 전달하고 결괏값을 받아와 사용자에 게 전송하는 역할을 수행한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st7">
-      <h3><i>7</i>WAS(Web Application Server: 웹 애플리케이션 서버)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 배포 환경 구성</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>사용자의 요청을 받아 동적인 처리를 수행하는 프로그램 실행 부분을 배포한다. WAS 구성 및 운용을 위한 국제 표준 규격을 정하고 있으며, 제품마다 배포 방식과 설정이 일부 다르다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st8">
-      <h3><i>8</i>애플리케이션 배포 단위</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 배포 환경 설정</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">결정한 애플리케이션 배포 환경을 위한 도구와 시스템을 설치할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">애플리케이션 배포 환경 구성하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="24">원문 11쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 7항목 · 실습 6절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>애플리케이션은 배포 시 단순히 컴파일된 실행 파일 또는 Byte Code를 복사하는 방식 이 외에 다양한 단위로 묶음, 패키징을 통해서 배포할 수 있다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>결정한 애플리케이션 배포 환경을 위한 도구와 시스템을 설치할 수 있다.</li><li>설치한 시스템과 도구 운영을 위해 상세 구성 및 설정을 할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>애플리케이션 배포 단위</dt><dd><blockquote>애플리케이션은 배포 시 단순히 컴파일된 실행 파일 또는 Byte Code를 복사하는 방식 이 외에 다양한 단위로 묶음, 패키징을 통해서 배포할 수 있다.</blockquote></dd><dt>jar(Java Archive)</dt><dd><blockquote>Java 라이브러리, 리소스, property 파일들을 포함한다. 프로그램에서 참조하는 라이브 러리, 구현된 비즈니스 서비스를 배포할 때 jar 단위로 패키징하여 배포한다.</blockquote></dd><dt>war(Web Archive)</dt><dd><blockquote>웹 컨테이너에 배포되는 배포 형식으로 Servlet, jar 파일과 WEB-INF 폴더에 있는 web.xml 파일로 구성된다.</blockquote></dd><dt>ear(Enterprise Archive)</dt><dd><blockquote>jar와 war를 묶어서 하나의 완성된 웹 애플리케이션 서비스를 제공할 수 있다.</blockquote></dd><dt>형상관리(Configuration Management) 시스템</dt><dd><blockquote>형상관리 시스템은 서비스 제공 대상 형상 항목을 식별하여 기준선(Baseline)을 설정하고, 형상 항목 변경 과정에서 점검, 검증 등의 체계적인 통제를 통해 형상 항목 간의 일관성과 추적성을 확보하기 위한 시스템이다.</blockquote></dd><dt>형상관리의 범위</dt><dd><blockquote>형상관리 범위는 신규 프로젝트 및 보완 개발, 업무 시스템의 운영/유지･보수, 전산 설비 및 시스템 소프트웨어 등과 관련된 작업, 사용자(EUC: End User Computing) 파일 관리 등을 포함한다.</blockquote></dd><dt>형상관리 시스템에서 사용하는 용어</dt><dd><blockquote>소프트웨어의 전체 생명 주기, 즉 계획부터 개발, 운영, 유지･보수, 폐기까지 발생하는 모든 활동을 지속적으로 관리하는 것을 의미한다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>애플리케이션 배포 환경 설정하기</h5><div class='prep'><b>재료·자료</b><span>애플리케이션 개발 환경 구성도 / 애플리케이션 배포 대상, 배포 항목 / 애플리케이션 형상관리 지침서 / 애플리케이션 배포 절차 설명서 / 애플리케이션 형상관리 도구 매뉴얼 / 애플리케이션 빌드 도구 매뉴얼 / 애플리케이션 배포 도구 매뉴얼</span><b>기기·도구</b><span>애플리케이션 배포환경: 형상관리 도구, 빌드 도구, 배포 도구 등 / 전산 장비: 인터넷, 컴퓨터, 프린터, 복사기, 빔 프로젝터 등 / 지원 도구: 문서 작성 도구 등 / OA 소프트웨어: 워드프로세서, 스프레드시트, 프레젠테이션 도구 등</span><b>유의 사항</b><span>응용SW애플리케이션 아키텍처와 개발 환경에 대한 이해를 바탕으로 빌드와 배포 환경 / 을 구성해야 한다. / 응용SW 개발 환경의 형상관리 도구와 빌드･배포 도구 등에 대한 이해를 바탕으로 자 / 동화 도구를 활용하여 애플리케이션 배포 업무를 수행할 수 있어야 한다. / 응용SW의 개발 언어, 환경, 플랫폼, 아키텍처에 따라 빌드 및 배포 절차와 방법이 달 / 라질 수 있으므로 다양한 환경에 적용할 수 있도록 지속적인 학습이 필요하다.</span></div><div class='doh'><b>1</b><span>애플리케이션 배포를 위한 도구와 시스템을 설치한다.</span></div><ol class='dos'><li>빌드·배포 환경을 정의한다.</li><li>선정된 빌드·배포 도구를 설치한다(서버단).</li><li>선정된 빌드·배포 도구를 설치한다(클라이언트단).</li></ol><div class='doh'><b>2</b><span>애플리케이션 개발 기간(개발 프로젝트) 중 적용할 배포 절차 및 역할을 정의한다.</span></div><ol class='dos'><li>애플리케이션 개발 기간 중 사용할 배포 유형 및 기준을 정의한다.</li><li>애플리케이션 개발 기간 중 사용할 애플리케이션 배포 절차를 정의한다.</li><li>애플리케이션 개발 기간 중 배포를 위한 관계자들의 역할과 책임을 정의한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>애플리케이션 배포를 위한 도구와 시스템을 설치한다.</li><li>애플리케이션 개발 기간(개발 프로젝트) 중 적용할 배포 절차 및 역할을 정의한다.</li><li>결정한 애플리케이션 배포 환경을 위한 도구와 시스템을 설치할 수 있다.</li><li>설치한 시스템과 도구 운영을 위해 상세 구성 및 설정을 할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 평가자 질문</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st9">
-      <h3><i>9</i>jar(Java Archive)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 배포 환경 설정</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="24">원문 11쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>Java 라이브러리, 리소스, property 파일들을 포함한다. 프로그램에서 참조하는 라이브 러리, 구현된 비즈니스 서비스를 배포할 때 jar 단위로 패키징하여 배포한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st10">
-      <h3><i>10</i>war(Web Archive)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 배포 환경 설정</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="24">원문 11쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>웹 컨테이너에 배포되는 배포 형식으로 Servlet, jar 파일과 WEB-INF 폴더에 있는 web.xml 파일로 구성된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st11">
-      <h3><i>11</i>ear(Enterprise Archive)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 배포 환경 설정</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="24">원문 11쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>jar와 war를 묶어서 하나의 완성된 웹 애플리케이션 서비스를 제공할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st12">
-      <h3><i>12</i>형상관리(Configuration Management) 시스템</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 배포 환경 설정</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="24">원문 11쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>형상관리 시스템은 서비스 제공 대상 형상 항목을 식별하여 기준선(Baseline)을 설정하고, 형상 항목 변경 과정에서 점검, 검증 등의 체계적인 통제를 통해 형상 항목 간의 일관성과 추적성을 확보하기 위한 시스템이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st13">
-      <h3><i>13</i>형상관리의 범위</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 배포 환경 설정</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="24">원문 11쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>형상관리 범위는 신규 프로젝트 및 보완 개발, 업무 시스템의 운영/유지･보수, 전산 설비 및 시스템 소프트웨어 등과 관련된 작업, 사용자(EUC: End User Computing) 파일 관리 등을 포함한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st14">
-      <h3><i>14</i>형상관리 시스템에서 사용하는 용어</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 배포 환경 설정</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="25">원문 12쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어의 전체 생명 주기, 즉 계획부터 개발, 운영, 유지･보수, 폐기까지 발생하는 모든 활동을 지속적으로 관리하는 것을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 11쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -444,262 +159,66 @@
 <div class="lv">
   <div class="lvh"><b>2. 애플리케이션 소스 검증하기</b><span>능력단위요소 · <code>2001020214_23v6.2</code></span></div>
   <div class="lvb">
-    <div class="step" id="st15">
-      <h3><i>15</i>코드 인스펙션(Code Inspection)</h3>
+    <div class="step" id="st3">
+      <h3><i>3</i>2-1. 애플리케이션 소스 확인</h3>
       <aside class="side">
-        <p class="pt">애플리케이션 소스 확인</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">정상적으로 작동하는 소프트웨어 빌드를 위해 형상관리 서버로부터 소스코드를 체크아웃할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">애플리케이션 소스 검증하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="33">원문 20쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 4항목 · 실습 6절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>코드 인스펙션은 정적 테스트의 가장 일반적인 유형으로, 사전에 정의된 코드 작성 규칙 (Rule) 기반으로 소스코드를 점검하여 작성 규칙에 위반되는 소스코드를 추출하는 분석 도구로 애플리케이션 개발 시 대부분 사용되며, 빌드 도구와 연계하여 빌드·배포 수행 시 자동적으로 점검할 수 있다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>정상적으로 작동하는 소프트웨어 빌드를 위해 형상관리 서버로부터 소스코드를 체크아웃할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>코드 인스펙션(Code Inspection)</dt><dd><blockquote>코드 인스펙션은 정적 테스트의 가장 일반적인 유형으로, 사전에 정의된 코드 작성 규칙 (Rule) 기반으로 소스코드를 점검하여 작성 규칙에 위반되는 소스코드를 추출하는 분석 도구로 애플리케이션 개발 시 대부분 사용되며, 빌드 도구와 연계하여 빌드·배포 수행 시 자동적으로 점검할 수 있다.</blockquote></dd><dt>코드 인스펙션 Rule 유형</dt><dd><blockquote>애플리케이션의 성능에 영향을 미칠 수 있는 코드를 점검하는 Rule이다. 메모리 누수, 미사용 변수, 메서드 여부 등을 확인하여 메모리를 낭비하는 코드를 식별한다.</blockquote></dd><dt>코드 작성 Rule 심각도 구분(예시)</dt><dd><blockquote>에러 발생 가능성이 매우 높거나 메모리 누수가 발생되는 코드로, 반드시 수정되어야 하는 위반 사항을 말한다.</blockquote></dd><dt>정규 표현식(Regular Expression)</dt><dd><blockquote>정규 표현식은 특정한 규칙을 가진 문자열의 집합을 표현하는 범용적인 방식을 말한다. 코드 인스펙션 도구의 코드 작성 규칙은 일반적으로 정규식으로 표현되며, 정규식의 내 용을 수정해서 점검 Rule의 내용을 수정할 수 있다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>애플리케이션 소스 확인하기</h5><div class='prep'><b>재료·자료</b><span>소스코드 검증 지침 / 소스코드 검증 도구 매뉴얼 / 애플리케이션 형상관리 지침서 / 애플리케이션 형상관리 도구 매뉴얼</span><b>기기·도구</b><span>애플리케이션 배포 환경: 형상관리 도구 / 애플리케이션 검증 도구: 정적 소스코드 분석 도구, 동적 소스코드 분석 도구 등 / 전산 장비: 인터넷, 컴퓨터, 프린터, 복사기, 빔 프로젝터 등 / 지원 도구: 문서 작성 도구 등 / OA 소프트웨어: 워드프로세서, 스프레드시트, 프레젠테이션 도구 등</span><b>유의 사항</b><span>소스코드 검증 기법에 대한 이해를 바탕으로 소스코드 검증 도구 사용 방법을 실습할 / 수 있어야 한다. / 응용SW 개발 환경의 형상관리 도구와 빌드·배포 도구 등에 대한 이해를 바탕으로 자 / 동화 도구를 활용하여 애플리케이션 배포 업무를 수행할 수 있어야 한다. / 응용SW의 개발 언어, 환경, 플랫폼, 아키텍처에 따라 빌드·배포 절차와 방법이 달라질 / 수 있으므로 다양한 환경에 적용할 수 있도록 지속적인 학습이 필요하다.</span></div><div class='doh'><b>1</b><span>코드 인스펙션 점검 Rule을 정의한다.</span></div><ol class='dos'><li>선정된 코드 인스펙션 점검 도구에서 제공되는 점검 Rule을 확인한다.</li><li>애플리케이션에 정의된 개발 표준을 바탕으로 추가･보완할 점검 Rule이 없는지 확인한다. 일반적으로 코딩 점검 도구에서 기본으로 제공하는 점검 Rule을 동일하게 반영하지만, 대형 프로젝트 또는 개발 도구, 프레임워크에 의해서 특정 함수를 필수로 사용해야 하는 경우 또는 애플리케이션 내의 명명 규칙 준수 여부를 체크하기 위해서 점검 Rule을 새롭게 추가, 변경한다.</li><li>추가·보완이 필요한 점검 Rule을 추가･수정하여 반영한다.</li><li>코드 인스펙션 점검 수행을 위한 수행 절차를 정의한다.</li></ol><div class='doh'><b>2</b><span>변경 대상이 되는 애플리케이션 소스를 형상관리 서버로부터 반출(Check Out)한다.</span></div><ol class='dos'><li>변경이 요구되는 대상 응용 프로그램, 개편 일정 등을 종합적으로 정리한 개편 계획서를 작성하여 관리자의 승인을 받는다. 이때 개편 유형에 따라 설계계획서, 설계검토의뢰서, 구축 계획서, 구축검토의뢰서 등을 선별적으로 함께 작성한다.</li><li>변경이 요구되는 자원(응용 프로그램 소스 등)을 반출하기 위한 반출의뢰서를 작성하여 관리 자의 승인을 받은 후 반출(Check Out)한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>코드 인스펙션 점검 Rule을 정의한다.</li><li>변경 대상이 되는 애플리케이션 소스를 형상관리 서버로부터 반출(Check Out)한다.</li><li>정상적으로 작동하는 소프트웨어 빌드를 위해 형상관리 서버로부터 소스코드를 체크아웃할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 20쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st16">
-      <h3><i>16</i>코드 인스펙션 Rule 유형</h3>
+    <div class="step" id="st4">
+      <h3><i>4</i>2-2. 애플리케이션 소스 검증</h3>
       <aside class="side">
-        <p class="pt">애플리케이션 소스 확인</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="33">원문 20쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>애플리케이션의 성능에 영향을 미칠 수 있는 코드를 점검하는 Rule이다. 메모리 누수, 미사용 변수, 메서드 여부 등을 확인하여 메모리를 낭비하는 코드를 식별한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st17">
-      <h3><i>17</i>코드 작성 Rule 심각도 구분(예시)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 소스 확인</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>에러 발생 가능성이 매우 높거나 메모리 누수가 발생되는 코드로, 반드시 수정되어야 하는 위반 사항을 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st18">
-      <h3><i>18</i>정규 표현식(Regular Expression)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 소스 확인</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>정규 표현식은 특정한 규칙을 가진 문자열의 집합을 표현하는 범용적인 방식을 말한다. 코드 인스펙션 도구의 코드 작성 규칙은 일반적으로 정규식으로 표현되며, 정규식의 내 용을 수정해서 점검 Rule의 내용을 수정할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st19">
-      <h3><i>19</i>소스코드 검증 도구</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 소스 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
+        <p class="pt">소스코드 검증 도구를 활용하여 애플리케이션에서 사용한 라이브러리, 소스, 로직 등의 오류가 있는지를 검증할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">애플리케이션 소스 검증하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="40">원문 27쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 6항목 · 실습 10절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>검증 도구의 구분</li><li>소스코드 검증 도구의 용도</li><li>테스트 프레임워크(동적 분석 도구)의 구성</li><li>테스트 프레임워크의 구성</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>소스코드 검증 도구를 활용하여 애플리케이션에서 사용한 라이브러리, 소스, 로직 등의 오류가 있는지를 검증할 수 있다.</li><li>소스코드의 환경 설정, 운영 환경 정보, 대상 시스템 정보 등에 오류가 있는지 확인할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>검증 도구의 구분</dt><dd><blockquote>소스코드 검증 도구는 구현된 SW를 실행하지 않고 테스트하는 정적 테스트 도구와 구현된 SW를 실행하여 동작을 보면서 테스트하는 동적 테스트 도구로 구분한다.</blockquote></dd><dt>소스코드 검증 도구의 용도</dt><dd><blockquote>정적 테스트 도구는 테스트하기 전에 코딩 오류, 성능 저하, 보안 취약점 등의 결함을 조기에 발견할 수 있도록 지원한다.</blockquote></dd><dt>테스트 프레임워크(동적 분석 도구)의 구성</dt><dd><blockquote>테스트 프레임워크는 테스트 케이스를 별도의 테스트 코드로 작성하고 동작시킬 수 있는 환경을 제공하는 도구로, 개발자의 반복적이고 시간이 많이 소요되는 테스트 작업을 자동 화하여 테스트에 소요되는 시간과 노력을 절감할 수 있게 한다.</blockquote></dd><dt>테스트 프레임워크의 구성</dt><dd><blockquote>테스트를 수행할 코드 작성 및 자동화된 운영 환경을 구성한다. 빌드 도구와 연계하 여 빌드 수행 시 해당 테스트 코드를 동작시켜 자동화된 테스트 환경을 제공한다.</blockquote></dd><dt>Junit 테스트 프레임워크</dt><dd><blockquote>Java, 오픈소스 기반의 테스트 프레임워크로 Java 개발 환경의 범용적인 표준으로 사용되며(Eclipse 개발 도구에 기본 내장 기능), 다음과 같이 테스트 가능한 Assert 함수를 제공한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>소스코드 검증 도구</dd></dl>
+
+<h4>해 보기</h4>
+<h5>애플리케이션 소스 검증하기</h5><div class='prep'><b>재료·자료</b><span>소스코드 검증 지침 / 소스코드 검증 도구 매뉴얼 / 애플리케이션 형상관리 지침서 / 애플리케이션 형상관리 도구 매뉴얼</span><b>기기·도구</b><span>애플리케이션 배포 환경: 형상관리 도구 / 애플리케이션 검증 도구: 정적 소스코드 분석 도구, 동적 소스코드 분석 도구 등 / 전산 장비: 인터넷, 컴퓨터, 프린터, 복사기, 빔 프로젝터 등 / 지원 도구: 문서 작성 도구 등 / OA 소프트웨어: 워드프로세서, 스프레드시트, 프레젠테이션 도구 등</span><b>유의 사항</b><span>소스코드 검증 기법에 대한 이해를 바탕으로 소스코드 검증 도구 사용 방법을 실습할 / 수 있어야 한다. / 응용SW 개발 환경의 형상관리 도구와 빌드·배포 도구 등에 대한 이해를 바탕으로 자 / 동화 도구를 활용하여 애플리케이션 배포 업무를 수행할 수 있어야 한다. / 응용SW의 개발 언어, 환경, 플랫폼, 아키텍처에 따라 빌드·배포 절차와 방법이 달라질 / 수 있으므로 다양한 환경에 적용할 수 있도록 지속적인 학습이 필요하다.</span></div><div class='doh'><b>1</b><span>코드 인스펙션을 수행하고 점검 결과를 검증한다.</span></div><ol class='dos'><li>배포 대상인 애플리케이션에 대해서 코드 인스펙션을 수행한다.</li><li>코드 인스펙션 결과를 확인하고 오탐(False Positive) 여부를 확인한다.</li><li>전체 적용 대상 점검 Rule을 대상으로 심각도, 적용 유무 등 관리 기준을 정의한다.</li><li>오탐이거나 보완이 필요한 Rule에 대해 수정한다.</li></ol><div class='doh'><b>2</b><span>코드 인스펙션 점검 결과를 반영한 Rule을 가이드하고 개발 조직이 반영하게 한다.</span></div><ol class='dos'><li>개발 팀을 대상으로 코드 인스펙션 점검 결과를 반영한 Rule을 가이드한다.</li><li>코드 인스펙션 점검 결과를 파악하고 개발 조직에 전달한다.</li><li>개발 조직의 주요 위반 사항을 정리하여 준수 사항 가이드를 작성, 전달한다.</li></ol><div class='doh'><b>3</b><span>도입된 테스트 프레임워크를 기반으로 테스트 코드를 작성하고 테스트를 수행한다.</span></div><ol class='dos'><li>테스트 코드 작성 기준을 정의한다.</li><li>테스트 코드를 작성한다.</li><li>작성한 테스트 코드를 실행한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>코드 인스펙션을 수행하고 점검 결과를 검증한다.</li><li>코드 인스펙션 점검 결과를 반영한 Rule을 가이드하고 개발 조직이 반영하게 한다.</li><li>도입된 테스트 프레임워크를 기반으로 테스트 코드를 작성하고 테스트를 수행한다.</li><li>소스코드 검증 도구를 활용하여 애플리케이션에서 사용한 라이브러리, 소스, 로직 등의 오류가 있는지를 검증할 수 있다.</li><li>소스코드의 환경 설정, 운영 환경 정보, 대상 시스템 정보 등에 오류가 있는지 확인할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st20">
-      <h3><i>20</i>검증 도구의 구분</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 소스 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="40">원문 27쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소스코드 검증 도구는 구현된 SW를 실행하지 않고 테스트하는 정적 테스트 도구와 구현된 SW를 실행하여 동작을 보면서 테스트하는 동적 테스트 도구로 구분한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st21">
-      <h3><i>21</i>소스코드 검증 도구의 용도</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 소스 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="40">원문 27쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>정적 테스트 도구는 테스트하기 전에 코딩 오류, 성능 저하, 보안 취약점 등의 결함을 조기에 발견할 수 있도록 지원한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st22">
-      <h3><i>22</i>테스트 프레임워크(동적 분석 도구)의 구성</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 소스 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="41">원문 28쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트 프레임워크는 테스트 케이스를 별도의 테스트 코드로 작성하고 동작시킬 수 있는 환경을 제공하는 도구로, 개발자의 반복적이고 시간이 많이 소요되는 테스트 작업을 자동 화하여 테스트에 소요되는 시간과 노력을 절감할 수 있게 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st23">
-      <h3><i>23</i>테스트 프레임워크의 구성</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 소스 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="41">원문 28쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트를 수행할 코드 작성 및 자동화된 운영 환경을 구성한다. 빌드 도구와 연계하 여 빌드 수행 시 해당 테스트 코드를 동작시켜 자동화된 테스트 환경을 제공한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st24">
-      <h3><i>24</i>Junit 테스트 프레임워크</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 소스 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="41">원문 28쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>Java, 오픈소스 기반의 테스트 프레임워크로 Java 개발 환경의 범용적인 표준으로 사용되며(Eclipse 개발 도구에 기본 내장 기능), 다음과 같이 테스트 가능한 Assert 함수를 제공한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 27쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -708,314 +227,66 @@
 <div class="lv">
   <div class="lvh"><b>3. 애플리케이션 빌드하기</b><span>능력단위요소 · <code>2001020214_23v6.3</code></span></div>
   <div class="lvb">
-    <div class="step" id="st25">
-      <h3><i>25</i>지속적인 통합(CI: Continuous Integration) 환경</h3>
+    <div class="step" id="st5">
+      <h3><i>5</i>3-1. 애플리케이션 빌드 실행</h3>
       <aside class="side">
-        <p class="pt">애플리케이션 빌드 실행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">애플리케이션 소스코드 검증 결과 문제가 없는 경우 해당 소스코드를 빌드 시스템으로 이관할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">애플리케이션 빌드하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 9항목 · 실습 10절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>애플리케이션 개발 과정 중 지속적으로 개발된 프로그램을 통합, 빌드, 배포하여 애플리케 이션의 개발 내역을 검증, 테스트할 수 있는 환경을 말한다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>애플리케이션 소스코드 검증 결과 문제가 없는 경우 해당 소스코드를 빌드 시스템으로 이관할 수 있다.</li><li>애플리케이션 빌드 절차에 따른 빌드 스크립트를 작성할 수 있다.</li><li>작성한 빌드 스크립트 또는 도구를 활용하여 애플리케이션 빌드를 실행할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>지속적인 통합(CI: Continuous Integration) 환경</dt><dd><blockquote>애플리케이션 개발 과정 중 지속적으로 개발된 프로그램을 통합, 빌드, 배포하여 애플리케 이션의 개발 내역을 검증, 테스트할 수 있는 환경을 말한다.</blockquote></dd><dt>빌드 도구</dt><dd><blockquote>애플리케이션의 배포 단위, 형식에 따라 소스코드를 컴파일, 패키징, 배포하는 스크립트를 제공하고 수행하는 도구이다(Ant, Maven 등).</blockquote></dd><dt>테스트 도구</dt><dd><blockquote>개발된 소스코드를 테스트할 수 있는 테스트 코드를 작성, 동작시킬 수 있는 도구로, 통합 빌드 수행 시 연결할 수 있다(Junit, DBUnit, StrutsTestCase 등).</blockquote></dd><dt>소스코드 품질 측정 도구(코드 인스펙션)</dt><dd><blockquote>정해진 소스코드 작성 규칙에 따라 소스코드를 점검하고 규칙 위반 여부를 체크하는 도구로, 통합 빌드 수행 시 연결할 수 있다(PMD, FindBugs 등).</blockquote></dd><dt>테스트 커버리지 측정 도구</dt><dd><blockquote>소스코드 내 테스트가 가능한 경로 중 테스트 도구를 통해서 테스트된 커버리지를 측정하는 도구이다(Clover, JCoverage, ElcEmma 등).</blockquote></dd><dt>빌드 스케줄 관리 도구</dt><dd><blockquote>작성된 빌드 스크립트를 정해진 조건, 시간에 기동하고 진행 상태, 수행 결과를 관리하는 도구이다(Anthill, CruiseControl, Hudson 등).</blockquote></dd><dt>테스트 커버리지의 의미</dt><dd><blockquote>테스트 커버리지는 전체 프로그램의 범위 대비 테스트 수행 시 해당 테스트 수행을 위해 동작된 프로그램의 범위 비율을 의미한다.</blockquote></dd><dt>테스트 커버리지 측정 유형</dt><dd><blockquote>개발 소스의 각 라인이 수행되었는지를 확인하는 측정 지표이다. 개발 소스의 각 분기문이 수행되었는지를 확인하는 측정 지표이다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>테스트 커버리지</dd></dl>
+
+<h4>해 보기</h4>
+<h5>애플리케이션 빌드 실행하기</h5><div class='prep'><b>재료·자료</b><span>애플리케이션 빌드 지침서 / 애플리케이션 빌드 절차 설명서 / 애플리케이션 빌드 도구 매뉴얼</span><b>기기·도구</b><span>애플리케이션 배포 환경: 빌드 도구 / 전산 장비: 인터넷, 컴퓨터, 프린터, 복사기, 빔 프로젝터 등 / 지원 도구: 문서 작성 도구 등 / OA 소프트웨어: 워드프로세서, 스프레드시트, 프레젠테이션 도구 등</span><b>유의 사항</b><span>응용SW 개발 환경의 형상관리 도구와 빌드･배포 도구 등에 대한 이해를 바탕으로 자 / 동화 도구를 활용하여 애플리케이션 배포 업무를 수행할 수 있어야 한다. / 응용SW의 개발 언어, 환경, 플랫폼, 아키텍처에 따라 빌드 및 배포 절차와 방법이 달 / 라질 수 있으므로 다양한 환경에 적용할 수 있도록 지속적인 학습이 필요하다.</span></div><div class='doh'><b>1</b><span>애플리케이션 빌드 스크립트 작성을 위한 빌드 단위를 정의한다.</span></div><ol class='dos'><li>애플리케이션 리소스 중 설치되는 부분과 배포되는 부분을 분리한다.</li><li>애플리케이션 배포를 위해서 공통적으로 우선 배포되어야 하는 부분을 분리한다.</li><li>업무 모듈에 따라서 애플리케이션 배포 단위를 정의한다.</li><li>다수 서버에 동시 배포해야 하는 배포 작업을 정의한다.</li><li>빌드 수행 시 버전 규칙을 정의한다.</li></ol><div class='doh'><b>2</b><span>애플리케이션 빌드 절차에 따라 빌드 스크립트를 작성한다.</span></div><ol class='dos'><li>정해진 빌드 단위에 따라서 빌드 스크립트를 작성한다.</li><li>코드 인스펙션 도구를 빌드 스크립트에 연계한다.</li><li>테스트 도구를 빌드 스크립트에 연계한다.</li><li>테스트 커버리지 측정 도구를 빌드 스크립트에 연계한다.</li><li>빌드 스케줄러 관리 도구를 설정한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>애플리케이션 빌드 스크립트 작성을 위한 빌드 단위를 정의한다.</li><li>애플리케이션 빌드 절차에 따라 빌드 스크립트를 작성한다.</li><li>애플리케이션 소스코드 검증 결과 문제가 없는 경우 해당 소스코드를 빌드 시스템으로 이관할 수 있다.</li><li>애플리케이션 빌드 절차에 따른 빌드 스크립트를 작성할 수 있다.</li><li>작성한 빌드 스크립트 또는 도구를 활용하여 애플리케이션 빌드를 실행할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 39쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st26">
-      <h3><i>26</i>빌드 도구</h3>
+    <div class="step" id="st6">
+      <h3><i>6</i>3-2. 애플리케이션 실행 검증</h3>
       <aside class="side">
-        <p class="pt">애플리케이션 빌드 실행</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>애플리케이션의 배포 단위, 형식에 따라 소스코드를 컴파일, 패키징, 배포하는 스크립트를 제공하고 수행하는 도구이다(Ant, Maven 등).</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st27">
-      <h3><i>27</i>테스트 도구</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 빌드 실행</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발된 소스코드를 테스트할 수 있는 테스트 코드를 작성, 동작시킬 수 있는 도구로, 통합 빌드 수행 시 연결할 수 있다(Junit, DBUnit, StrutsTestCase 등).</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st28">
-      <h3><i>28</i>소스코드 품질 측정 도구(코드 인스펙션)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 빌드 실행</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>정해진 소스코드 작성 규칙에 따라 소스코드를 점검하고 규칙 위반 여부를 체크하는 도구로, 통합 빌드 수행 시 연결할 수 있다(PMD, FindBugs 등).</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st29">
-      <h3><i>29</i>테스트 커버리지 측정 도구</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 빌드 실행</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소스코드 내 테스트가 가능한 경로 중 테스트 도구를 통해서 테스트된 커버리지를 측정 하는 도구이다(Clover, JCoverage, ElcEmma 등).</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st30">
-      <h3><i>30</i>빌드 스케줄 관리 도구</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 빌드 실행</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>작성된 빌드 스크립트를 정해진 조건, 시간에 기동하고 진행 상태, 수행 결과를 관리하는 도구이다(Anthill, CruiseControl, Hudson 등).</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st31">
-      <h3><i>31</i>테스트 커버리지</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 빌드 실행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>테스트 커버리지의 의미</li><li>테스트 커버리지 측정 유형</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st32">
-      <h3><i>32</i>테스트 커버리지의 의미</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 빌드 실행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트 커버리지는 전체 프로그램의 범위 대비 테스트 수행 시 해당 테스트 수행을 위해 동작된 프로그램의 범위 비율을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st33">
-      <h3><i>33</i>테스트 커버리지 측정 유형</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 빌드 실행</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발 소스의 각 라인이 수행되었는지를 확인하는 측정 지표이다. 개발 소스의 각 분기문이 수행되었는지를 확인하는 측정 지표이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st34">
-      <h3><i>34</i>빌드 스케줄 관리 도구</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 실행 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
+        <p class="pt">애플리케이션 빌드 실행 결과를 확인하여 정상적으로 완료되었는지를 확인할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">애플리케이션 빌드하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="61">원문 48쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 3항목 · 실습 8절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>빌드 스케줄 관리 도구의 구성</li><li>빌드 스케줄 관리 도구의 기능</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>애플리케이션 빌드 실행 결과를 확인하여 정상적으로 완료되었는지를 확인할 수 있다.</li><li>애플리케이션 빌드 실패 시 문제 내용과 원인을 파악하여 개발자에게 설명할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>빌드 스케줄 관리 도구의 구성</dt><dd><blockquote>빌드 스케줄 관리 도구는 별도의 웹 애플리케이션으로 구성되어 웹 서버상에 배포되고, 관리자 화면을 통해서 빌드 스크립트, 형상관리 도구 등과 연계되며, 이메일을 통해서 관련 개발자, 관리자들에게 빌드 수행 결과를 제공한다.</blockquote></dd><dt>빌드 스케줄 관리 도구의 기능</dt><dd><blockquote>빌드 작업의 작업 주기, 작업 시간을 설정한다. 등록된 빌드 작업의 진행 상태를 대기 중, 진행 중, 완료, 오류 유형으로 구분하여 수행 이력을 관리한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>빌드 스케줄 관리 도구</dd></dl>
+
+<h4>해 보기</h4>
+<h5>애플리케이션 실행 검증하기</h5><div class='prep'><b>재료·자료</b><span>애플리케이션 빌드 지침서 / 애플리케이션 빌드 절차 설명서 / 애플리케이션 빌드 도구 매뉴얼</span><b>기기·도구</b><span>애플리케이션 배포 환경: 빌드 도구 / 전산 장비: 인터넷, 컴퓨터, 프린터, 복사기, 빔 프로젝터 등 / 지원 도구: 문서 작성 도구 등 / OA 소프트웨어: 워드프로세서, 스프레드시트, 프레젠테이션 도구 등</span><b>유의 사항</b><span>응용SW 개발 환경의 형상관리 도구와 빌드･배포 도구 등에 대한 이해를 바탕으로 자 / 동화 도구를 활용하여 애플리케이션 배포 업무를 수행할 수 있어야 한다. / 응용SW의 개발 언어, 환경, 플랫폼, 아키텍처에 따라 빌드 및 배포 절차와 방법이 달 / 라질 수 있으므로 다양한 환경에 적용할 수 있도록 지속적인 학습이 필요하다.</span></div><div class='doh'><b>1</b><span>작성한 빌드 스크립트를 활용하여 애플리케이션 빌드를 수행하고 결과를 확인한다.</span></div><ol class='dos'><li>개발자별 애플리케이션 빌드를 수행한다.</li><li>애플리케이션 전체 통합 빌드를 수행한다.</li><li>빌드 결과를 확인한다.</li><li>빌드 중 수행된 테스트 수행 결과를 확인한다.</li><li>빌드 중 수행된 테스트 커버리지 결과를 확인한다.</li><li>빌드 중 수행된 코드 인스펙션 점검 결과를 확인한다.</li></ol><div class='doh'><b>2</b><span>빌드 중 발생된 오류 사항을 확인하고 대응한다.</span></div><ol class='dos'><li>빌드 중 발생된 오류 사항을 확인하고 원인을 분석한다.</li><li>오류 사항을 확인하고 대응한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>작성한 빌드 스크립트를 활용하여 애플리케이션 빌드를 수행하고 결과를 확인한다.</li><li>빌드 중 발생된 오류 사항을 확인하고 대응한다.</li><li>애플리케이션 빌드 실행 결과를 확인하여 정상적으로 완료되었는지를 확인할 수 있다.</li><li>애플리케이션 빌드 실패 시 문제 내용과 원인을 파악하여 개발자에게 설명할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st35">
-      <h3><i>35</i>빌드 스케줄 관리 도구의 구성</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 실행 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="61">원문 48쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>빌드 스케줄 관리 도구는 별도의 웹 애플리케이션으로 구성되어 웹 서버상에 배포되고, 관리자 화면을 통해서 빌드 스크립트, 형상관리 도구 등과 연계되며, 이메일을 통해서 관련 개발자, 관리자들에게 빌드 수행 결과를 제공한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st36">
-      <h3><i>36</i>빌드 스케줄 관리 도구의 기능</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 실행 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="61">원문 48쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">서술형 시험 · 평가자 질문 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>빌드 작업의 작업 주기, 작업 시간을 설정한다. 등록된 빌드 작업의 진행 상태를 대기 중, 진행 중, 완료, 오류 유형으로 구분하여 수행 이력을 관리한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 48쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -1024,403 +295,77 @@
 <div class="lv">
   <div class="lvh"><b>4. 애플리케이션 배포하기</b><span>능력단위요소 · <code>2001020214_23v6.4</code></span></div>
   <div class="lvb">
-    <div class="step" id="st37">
-      <h3><i>37</i>운영 환경의 특징</h3>
+    <div class="step" id="st7">
+      <h3><i>7</i>4-1. 애플리케이션 배포</h3>
       <aside class="side">
-        <p class="pt">애플리케이션 배포</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
+        <p class="pt">애플리케이션 실행 환경에 대한 정보를 확인할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">애플리케이션 배포하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="70">원문 57쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 4항목 · 실습 4절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기업의 IT 인프라 운영 환경은 안정적인 IT 서비스 운영 관리를 위해서 애플리케이션 배포 및 변경 작업에 대한 관리, 통제를 강화하고 있으며, 여러 가지 제약 사항을 가지고 있다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>애플리케이션 실행 환경에 대한 정보를 확인할 수 있다.</li><li>애플리케이션 배포 절차에 따라 운영 환경에 적용할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>운영 환경의 특징</dt><dd><blockquote>기업의 IT 인프라 운영 환경은 안정적인 IT 서비스 운영 관리를 위해서 애플리케이션 배포 및 변경 작업에 대한 관리, 통제를 강화하고 있으며, 여러 가지 제약 사항을 가지고 있다.</blockquote></dd><dt>네트워크 관점</dt><dd><blockquote>운영 환경은 일반적으로 인터넷망과 분리되어 직접적인 연결을 허용하지 않고 있으며, 별도의 내부망을 구성하고 방화벽을 통해서 인가된 IP를 통해서만 접근을 허용한다.</blockquote></dd><dt>계정 관리 부문</dt><dd><blockquote>기업의 운영 환경은 접근 계정을 별도 IP 관리시스템을 통해서 관리하고 있으며, 정부의 보안 관리 기준에 따라 정기적으로 패스워드(password)를 변경하는 형태로 관리된 다.</blockquote></dd><dt>보안 취약점 부문</dt><dd><blockquote>해킹 위협의 증가로 기업의 운영 환경은 다양한 보안 취약점 점검을 주기적으로 수행하고 보안 취약점을 보완한다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>애플리케이션 배포하기</h5><div class='prep'><b>재료·자료</b><span>애플리케이션 배포 지침서 / 애플리케이션 운영 배포 절차 설명서 / 애플리케이션 배포 도구 매뉴얼</span><b>기기·도구</b><span>애플리케이션 배포 환경: 배포 도구 / 전산 장비: 인터넷, 컴퓨터, 프린터, 복사기, 빔 프로젝터 등 / 지원 도구: 문서 작성 도구 등 / OA 소프트웨어: 워드프로세서, 스프레드시트, 프레젠테이션 도구 등</span><b>유의 사항</b><span>응용SW 개발 환경의 형상관리 도구와 빌드･배포 도구 등에 대한 이해를 바탕으로 자 / 동화 도구를 활용하여 애플리케이션 배포 업무를 수행할 수 있어야 한다. / 응용SW의 개발 언어, 환경, 플랫폼, 아키텍처에 따라 빌드 및 배포 절차와 방법이 달 / 라질 수 있으므로 다양한 환경에 적용할 수 있도록 지속적인 학습이 필요하다.</span></div><div class='doh'><b>1</b><span>애플리케이션 실행 환경에 대한 정보를 확인한다.</span></div><ol class='dos'><li>애플리케이션 배포 환경을 확인한다.</li><li>애플리케이션 배포 환경의 제약 사항을 확인한다.</li></ol><div class='doh'><b>2</b><span>애플리케이션 배포 절차에 따라 운영 환경에 적용한다.</span></div><ol class='dos'><li>이행 의뢰서를 작성한다.</li><li>이행 작업이 정상적으로 되었는지 작업 결과를 확인한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>애플리케이션 실행 환경에 대한 정보를 확인한다.</li><li>애플리케이션 배포 절차에 따라 운영 환경에 적용한다.</li><li>애플리케이션 실행 환경에 대한 정보를 확인할 수 있다.</li><li>애플리케이션 배포 절차에 따라 운영 환경에 적용할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — —</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 57쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st38">
-      <h3><i>38</i>네트워크 관점</h3>
+    <div class="step" id="st8">
+      <h3><i>8</i>4-2. 애플리케이션 운영 및 복원</h3>
       <aside class="side">
-        <p class="pt">애플리케이션 배포</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="70">원문 57쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>운영 환경은 일반적으로 인터넷망과 분리되어 직접적인 연결을 허용하지 않고 있으며, 별도의 내부망을 구성하고 방화벽을 통해서 인가된 IP를 통해서만 접근을 허용한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st39">
-      <h3><i>39</i>계정 관리 부문</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 배포</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="70">원문 57쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>기업의 운영 환경은 접근 계정을 별도 IP 관리시스템을 통해서 관리하고 있으며, 정부의 보안 관리 기준에 따라 정기적으로 패스워드(password)를 변경하는 형태로 관리된 다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st40">
-      <h3><i>40</i>보안 취약점 부문</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 배포</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="70">원문 57쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>해킹 위협의 증가로 기업의 운영 환경은 다양한 보안 취약점 점검을 주기적으로 수행 하고 보안 취약점을 보완한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st41">
-      <h3><i>41</i>프로그램 통제 부문 전자금융감독규정</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 운영 및 복원</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">애플리케이션 배포 후 정상적으로 작동하는지를 확인할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">애플리케이션 배포하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="73">원문 60쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 11항목 · 실습 7절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>금융권 애플리케이션의 경우 안정적인 애플리케이션 운영 및 변경 작업을 수행하기 위해서 프로그램 통제 부문에 대한 기본 규정을 제시하고 있으며, 금융 애플리케이션을 운영 환경에 배포·운영하기 위해서는 해당 기준을 준수하는 애플리케이션 배포·운영 환경과 절차를 구현해야 한다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>애플리케이션 배포 후 정상적으로 작동하는지를 확인할 수 있다.</li><li>애플리케이션 배포 결과 문제가 발생했을 경우 적용 내용을 이전 상태로 복원할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>프로그램 통제 부문 전자금융감독규정</dt><dd><blockquote>금융권 애플리케이션의 경우 안정적인 애플리케이션 운영 및 변경 작업을 수행하기 위해서 프로그램 통제 부문에 대한 기본 규정을 제시하고 있으며, 금융 애플리케이션을 운영 환경에 배포·운영하기 위해서는 해당 기준을 준수하는 애플리케이션 배포·운영 환경과 절차를 구현해야 한다.</blockquote></dd><dt>프로그램 등록·변경·폐기 내용의 정당성에 대해 제3자의 검증을 받을 것(소스 변경 내역,</dt><dd><blockquote>테스트 수행 결과에 대한 검증)</blockquote></dd><dt>변경 필요시 해당 프로그램을 개발 또는 테스트 시스템으로 복사 후 수정할 것(운영 환경</dt><dd><blockquote>에서 직접 변경 금지)</blockquote></dd><dt>운영 시스템 적용은 처리하는 정보의 기밀성, 무결성, 가용성을 고려하여 충분한 테스트 및</dt><dd><blockquote>관련 책임자 승인 후에 실시할 것(상위 관리자의 승인 절차, 테스트 결과 확인)</blockquote></dd><dt>프로그램 반출, 실행 프로그램의 생성 및 운영 시스템 등록은 해당 프로그램 담당자 이외의</dt><dd><blockquote>사람이 수행할 것(개발자와 배포 담당자 분리)</blockquote></dd><dt>운영체제, 데이터베이스 관리 프로그램 등의 시스템 프로그램도 응용 프로그램과 동일한 수</dt><dd><blockquote>준으로 관리할 것(시스템 프로그램, 시스템SW에 대해서도 동일 수준으로 관리)</blockquote></dd><dt>프로그램 설명서, 입출력 레코드 설명서, 프로그램 목록 및 사용자·운영자 지침서 등 프로그</dt><dd><blockquote>램 유지･보수에 필요한 문서를 작성·관리할 것(프로그램 변경 시 관련 설계 산출물, 매뉴얼에 대해서도 업데이트 수행)</blockquote></dd><dt>전자 금융 거래에 사용되는 전산 프로그램은 실제 업무를 처리하는 정보 처리 시스템에 설</dt><dd><blockquote>치하기 전에 자체 보안성 검증을 실시할 것(인프라, 소스코드 보안 취약점 점검) / 애플리케이션 운영 및 복원하기 기기(장비･공구) 안전･유의 사항 동화 도구를 활용하여 애플리케이션 배포 업무를 수행할 수 있어야 한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>적용 대상 프로그램 종류 및 등록·변경·폐기 방법을 마련할 것(운영 절차 수립) · 프로그램 변경 전후 내용을 기록·관리할 것(변경 내역에 대한 이력 관리) · 프로그램에 대한 접근은 업무 담당자에 한정할 것(소스에 대한 개발자별 접근 관리 적용)</dd></dl>
+
+<h4>해 보기</h4>
+<h5>애플리케이션 운영 및 복원하기</h5><div class='prep'><b>재료·자료</b><span>애플리케이션 배포 지침서 / 애플리케이션 운영 배포 절차 설명서 / 애플리케이션 배포 도구 매뉴얼</span><b>기기·도구</b><span>애플리케이션 배포환경: 배포 도구 / 전산 장비: 인터넷, 컴퓨터, 프린터, 복사기, 빔 프로젝터 등 / 지원 도구: 문서 작성 도구 등 / OA 소프트웨어: 워드프로세서, 스프레드시트, 프레젠테이션 도구 등</span><b>유의 사항</b><span>응용SW 개발 환경의 형상관리 도구와 빌드･배포 도구 등에 대한 이해를 바탕으로 자 / 동화 도구를 활용하여 애플리케이션 배포 업무를 수행할 수 있어야 한다. / 응용SW의 개발 언어, 환경, 플랫폼, 아키텍처에 따라 빌드 및 배포 절차와 방법이 달 / 라질 수 있으므로 다양한 환경에 적용할 수 있도록 지속적인 학습이 필요하다.</span></div><div class='doh'><b>1</b><span>애플리케이션 배포 후 정상적으로 작동하는지를 확인한다.</span></div><ol class='dos'><li>배포 담당자가 배포 결과를 확인한다.</li><li>개발자가 배포 결과를 확인한다.</li></ol><div class='doh'><b>2</b><span>애플리케이션 배포 결과 문제가 발생했을 경우 적용 내용을 이전 상태로 복원한다.</span></div><ol class='dos'><li>오류 원인을 확인한다.</li><li>배포 작업을 이전 상태로 복원한다.</li></ol><div class='doh'><b>3</b><span>애플리케이션 운영 환경 전환(이관) 방안을 수립하고 애플리케이션 운영 전환을 수행한다.</span></div><ol class='dos'><li>신규 시스템 운영 환경 전환(이관) 프로세스를 설계한다.</li><li>운영 및 유지･보수 전환을 수행한다.</li><li>운영 및 유지･보수 전환을 종료한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>애플리케이션 배포 후 정상적으로 작동하는지를 확인한다.</li><li>애플리케이션 배포 결과 문제가 발생했을 경우 적용 내용을 이전 상태로 복원한다.</li><li>애플리케이션 운영 환경 전환(이관) 방안을 수립하고 애플리케이션 운영 전환을 수행한다.</li><li>애플리케이션 배포 후 정상적으로 작동하는지를 확인할 수 있다.</li><li>애플리케이션 배포 결과 문제가 발생했을 경우 적용 내용을 이전 상태로 복원할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — —</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st42">
-      <h3><i>42</i>적용 대상 프로그램 종류 및 등록·변경·폐기 방법을 마련할 것(운영 절차 수립)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 운영 및 복원</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="73">원문 60쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>프로그램 변경 전후 내용을 기록·관리할 것(변경 내역에 대한 이력 관리)</li><li>프로그램 등록·변경·폐기 내용의 정당성에 대해 제3자의 검증을 받을 것(소스 변경 내역,</li><li>변경 필요시 해당 프로그램을 개발 또는 테스트 시스템으로 복사 후 수정할 것(운영 환경</li><li>프로그램에 대한 접근은 업무 담당자에 한정할 것(소스에 대한 개발자별 접근 관리 적용)</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st43">
-      <h3><i>43</i>프로그램 변경 전후 내용을 기록·관리할 것(변경 내역에 대한 이력 관리)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 운영 및 복원</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="73">원문 60쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>프로그램 등록·변경·폐기 내용의 정당성에 대해 제3자의 검증을 받을 것(소스 변경 내역,</li><li>변경 필요시 해당 프로그램을 개발 또는 테스트 시스템으로 복사 후 수정할 것(운영 환경</li><li>프로그램에 대한 접근은 업무 담당자에 한정할 것(소스에 대한 개발자별 접근 관리 적용)</li><li>운영 시스템 적용은 처리하는 정보의 기밀성, 무결성, 가용성을 고려하여 충분한 테스트 및</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st44">
-      <h3><i>44</i>프로그램 등록·변경·폐기 내용의 정당성에 대해 제3자의 검증을 받을 것(소스 변경 내역,</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 운영 및 복원</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="73">원문 60쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트 수행 결과에 대한 검증)</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st45">
-      <h3><i>45</i>변경 필요시 해당 프로그램을 개발 또는 테스트 시스템으로 복사 후 수정할 것(운영 환경</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 운영 및 복원</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="73">원문 60쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>에서 직접 변경 금지)</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st46">
-      <h3><i>46</i>프로그램에 대한 접근은 업무 담당자에 한정할 것(소스에 대한 개발자별 접근 관리 적용)</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 운영 및 복원</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="73">원문 60쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>운영 시스템 적용은 처리하는 정보의 기밀성, 무결성, 가용성을 고려하여 충분한 테스트 및</li><li>프로그램 반출, 실행 프로그램의 생성 및 운영 시스템 등록은 해당 프로그램 담당자 이외의</li><li>운영체제, 데이터베이스 관리 프로그램 등의 시스템 프로그램도 응용 프로그램과 동일한 수</li><li>프로그램 설명서, 입출력 레코드 설명서, 프로그램 목록 및 사용자·운영자 지침서 등 프로그</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st47">
-      <h3><i>47</i>운영 시스템 적용은 처리하는 정보의 기밀성, 무결성, 가용성을 고려하여 충분한 테스트 및</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 운영 및 복원</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="73">원문 60쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>관련 책임자 승인 후에 실시할 것(상위 관리자의 승인 절차, 테스트 결과 확인)</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st48">
-      <h3><i>48</i>프로그램 반출, 실행 프로그램의 생성 및 운영 시스템 등록은 해당 프로그램 담당자 이외의</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 운영 및 복원</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="73">원문 60쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>사람이 수행할 것(개발자와 배포 담당자 분리)</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st49">
-      <h3><i>49</i>운영체제, 데이터베이스 관리 프로그램 등의 시스템 프로그램도 응용 프로그램과 동일한 수</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 운영 및 복원</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="73">원문 60쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>준으로 관리할 것(시스템 프로그램, 시스템SW에 대해서도 동일 수준으로 관리)</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st50">
-      <h3><i>50</i>프로그램 설명서, 입출력 레코드 설명서, 프로그램 목록 및 사용자·운영자 지침서 등 프로그</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 운영 및 복원</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="73">원문 60쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>램 유지･보수에 필요한 문서를 작성·관리할 것(프로그램 변경 시 관련 설계 산출물, 매뉴얼에 대해서도 업데이트 수행)</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st51">
-      <h3><i>51</i>전자 금융 거래에 사용되는 전산 프로그램은 실제 업무를 처리하는 정보 처리 시스템에 설</h3>
-      <aside class="side">
-        <p class="pt">애플리케이션 운영 및 복원</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020214_23v6" data-page="73">원문 60쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>치하기 전에 자체 보안성 검증을 실시할 것(인프라, 소스코드 보안 취약점 점검) / 애플리케이션 운영 및 복원하기 기기(장비･공구) 안전･유의 사항 동화 도구를 활용하여 애플리케이션 배포 업무를 수행할 수 있어야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 60쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
   </div>
 </div>
 
-<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
-원문 LM2001020214_23v6_애플리케이션 배포_20251108.pdf</footer>
+<footer>담당 정우균 · 개념과 절차는 <b>NCS 학습모듈 LM2001020214_23v6_애플리케이션 배포_20251108.pdf</b> 에서
+옮긴 것입니다 — 한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지)</footer>
 </div>
 <script>
-/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+/* 빠른 이동 — 지금 보는 꼭지를 표시하고, 좁은 화면에서는 여닫습니다. */
 (function () {
   var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
   var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));

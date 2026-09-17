@@ -1,13 +1,30 @@
-<meta charset="utf-8"><title>정적모델 설계 — 준비 교안</title>
+<meta charset="utf-8"><title>정적모델 설계 — 학습 가이드</title>
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="stylesheet" href="../assets/guide.css">
 <style>
-  /* 원문 인용 — 우리가 쓴 안내와 눈으로 구분되어야 한다 */
-  .bd blockquote{margin:10px 0 16px;padding:10px 14px;border-left:3px solid #000;
-                 background:#fafafa;font-size:13.5px;line-height:1.8;color:#222}
-  .bd p.none{color:#888;font-size:13px}
-  .bd ul.sub{margin:8px 0 16px;padding-left:20px;font-size:13.5px;line-height:1.9}
-  aside.side .v .btn{font-size:11.5px}
+  /* 학습 가이드 — 개념 / 실습 / 확인 세 덩어리가 눈으로 구분되어야 한다 */
+  .bd h4{margin:22px 0 8px;font-size:14px;padding-bottom:5px;border-bottom:1px solid #000}
+  .bd h4:first-child{margin-top:0}
+  .bd h5{margin:16px 0 5px;font-size:13px;font-weight:700}
+  .bd blockquote{margin:5px 0 12px;padding:9px 13px;border-left:3px solid #999;
+                 background:#fafafa;font-size:13px;line-height:1.8;color:#333}
+  .cc{margin:0 0 6px}
+  .cc dt{font-weight:700;font-size:13.5px;margin:14px 0 0}
+  .cc dd{margin:4px 0 0}
+  .doh{display:flex;gap:9px;align-items:baseline;margin:16px 0 4px;font-size:13.5px;
+       font-weight:700}
+  .doh b{flex:0 0 auto;width:21px;height:21px;line-height:19px;text-align:center;
+         border:1px solid #000;font-size:11.5px}
+  ol.dos{margin:2px 0 0 30px;padding:0;font-size:13px;line-height:1.85}
+  ol.dos li{margin:3px 0}
+  .prep{display:grid;grid-template-columns:76px 1fr;gap:3px 10px;font-size:12.5px;
+        border:1px solid #ccc;padding:10px 13px;margin:6px 0 2px;background:#fafafa}
+  .prep b{color:#555;font-weight:400}
+  ul.goal{margin:6px 0 0;padding-left:20px;font-size:13.5px;line-height:1.9}
+  ul.chk{margin:6px 0 0;padding:0;list-style:none;font-size:13.5px;line-height:1.95}
+  ul.chk li::before{content:"\2610  "}
+  .none{color:#888;font-size:12.5px}
+  .srcline{font-size:11.5px;color:#888;margin:8px 0 0}
 </style>
 <script src="../assets/auth.js"></script>
 <script>EXAM_AUTH.guard("../");</script>
@@ -17,7 +34,7 @@
 <div class="top"><div class="tbar">
   <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
   <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
-  / 정적모델 설계 / 준비 교안</small></div>
+  / 정적모델 설계 / 학습 가이드</small></div>
   <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
@@ -25,49 +42,46 @@
 <button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
 
 <nav id="qnav" aria-label="빠른 이동">
-  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
-  <i class="qg">정적 분석모델 검증하기</i><a href="#st1"><b>1</b><span>UML(Unified Modeling Language)의 이해</span></a><a href="#st2"><b>2</b><span>UML의 구성 요소</span></a><a href="#st3"><b>3</b><span>정적 다이어그램과 동적 다이어그램</span></a><a href="#st4"><b>4</b><span>UML을 이용한 모델링</span></a><a href="#st5"><b>5</b><span>설계 패턴, MVC(Model-View-Controller) 패턴 이해</span></a><a href="#st6"><b>6</b><span>컨트롤러(Controller) 컴포넌트</span></a><a href="#st7"><b>7</b><span>모델(Model) 컴포넌트</span></a><a href="#st8"><b>8</b><span>뷰(View) 컴포넌트</span></a><a href="#st9"><b>9</b><span>정적 분석모델의 이해</span></a><a href="#st10"><b>10</b><span>소프트웨어 분석 단계와 설계 단계에서의 정적모델</span></a><a href="#st11"><b>11</b><span>정적모델의 구성 요소</span></a><a href="#st12"><b>12</b><span>정적모델 검증에 필요한 정적 분석 규칙</span></a><a href="#st13"><b>13</b><span>정적모델 명명 규칙</span></a><a href="#st14"><b>14</b><span>개발 플랫폼 기반 설계 패턴 규칙</span></a><a href="#st15"><b>15</b><span>정적모델 정합성 검증을 위한 체크리스트</span></a><i class="qg">정적모델 상세화하기</i><a href="#st16"><b>16</b><span>분석 클래스 모델의 이해</span></a><a href="#st17"><b>17</b><span>경계 클래스(Boundary Class)</span></a><a href="#st18"><b>18</b><span>제어 클래스(Control Class)</span></a><a href="#st19"><b>19</b><span>엔티티 클래스(Entity Class)</span></a><a href="#st20"><b>20</b><span>클래스 설계 원칙의 이해</span></a><a href="#st21"><b>21</b><span>객체지향 프로그래밍의 4대 핵심 원칙</span></a><a href="#st22"><b>22</b><span>SOLID 원칙: 객체지향 설계의 핵심</span></a><a href="#st23"><b>23</b><span>클래스 설계 품질 요소, 응집도와 결합도의 이해</span></a><a href="#st24"><b>24</b><span>정적 설계모델 명세서의 작성 방법</span></a><a href="#st25"><b>25</b><span>작성 방법</span></a><a href="#st26"><b>26</b><span>작성 항목</span></a><a href="#st27"><b>27</b><span>정적 설계모델 명세서 검토</span></a><a href="#st28"><b>28</b><span>분석 클래스 모델의 조직화 검토 기준</span></a><a href="#st29"><b>29</b><span>분석 클래스 명세서 검토 기준</span></a><a href="#st30"><b>30</b><span>클래스 다이어그램의 개요</span></a><a href="#st31"><b>31</b><span>클래스 다이어그램의 기본 구성 요소</span></a><a href="#st32"><b>32</b><span>정적 설계모델 설계서의 작성 방법</span></a><a href="#st33"><b>33</b><span>작성 방법</span></a><a href="#st34"><b>34</b><span>작성 항목</span></a>
+  <a class="qt" href="#top"><b>&uarr;</b><span>맨 위로</span></a>
+  <i class="qg">정적 분석모델 검증하기</i><a href="#st1"><b>1</b><span>정적모델 상세 분석</span></a><a href="#st2"><b>2</b><span>정적 분석모델 정합성 검증</span></a><i class="qg">정적모델 상세화하기</i><a href="#st3"><b>3</b><span>정적 설계모델 상세화</span></a><a href="#st4"><b>4</b><span>정적 설계모델 명세화</span></a><a href="#st5"><b>5</b><span>정적 설계모델 도식화</span></a>
 </nav>
 
 <div class="wrap" id="top">
 
-<h1>정적모델 설계 — 준비 교안</h1>
+<h1>정적모델 설계 — 학습 가이드</h1>
 <p class="sub">능력단위 <code>2001020222_23v6</code> · 6수준 ·
-40시간 · 단계 34개 · 평가 포트폴리오 · 평가자 체크리스트</p>
+40시간 · 꼭지 5개 · 개념 34항목 · 실습 69절차</p>
 
-<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<h2 class="sec" id="g0">0. 시작하기 전에</h2>
 <div class="sect">
   <aside class="side">
     <p class="pt">요구사항 확인을 통한 상세 분석 결과, 소프트웨어 아키텍처 가이드라인 및 소프트웨어 아키텍처 산출물에 의거하여 애플리케이션 구현을 위한 정적모델을 설계하고 검증할 수 있다.</p>
-    <b class="sh">선수학습</b>
+    <b class="sh">먼저 알아야 할 것</b>
     <p class="v">개발 방법론의 이해, 소프트웨어 아키텍처의 이해, 객체지향 설계의 이해, UML 도구의 이해, 기능 모델링 (2001020220_23v3)</p>
-    <b class="sh">원문</b>
-    <p class="src">LM2001020222_23v6_정적모델 설계_20251108.pdf (104쪽)</p>
+    <b class="sh">평가</b>
+    <p class="src">포트폴리오 · 평가자 체크리스트</p>
   </aside>
   <div class="bd">
-<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
-   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
-   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
-<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
-   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
-   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+<h4>이 문서를 쓰는 법</h4>
+<p>꼭지마다 <b>무엇을 할 수 있게 되나 → 알아야 할 것 → 해 보기 → 스스로 확인</b>
+   순서입니다. 읽고 끝내지 말고 <b>해 보기</b>를 손으로 따라 하십시오.
+   마지막 <b>스스로 확인</b>을 전부 «할 수 있다» 고 말할 수 있으면 다음 꼭지로 갑니다.</p>
+<p>자세한 설명과 표·그림은 <b>학습모듈 원문</b>에 있습니다. 꼭지마다 있는
+   <b>[원문 N쪽]</b> 단추를 누르면 그 자리가 바로 펼쳐집니다.</p>
 
 <h4>핵심 용어</h4>
 <p>정적모델, 객체지향, UML 모델링, 설계 패턴, 분석 클래스, 엔티티 클래스, 경계 클래스, 제어 클래스</p>
 
-<h4>능력단위요소</h4>
+<h4>차례</h4>
 <table class="wide">
-  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
-      <th>학습 내용</th><th style="width:74px">단계</th></tr>
-  <tr><td class="c">1</td><td>정적 분석모델 검증하기</td><td>정적모델 상세 분석 · 정적 분석모델 정합성 검증</td><td class="c">15</td></tr>
-  <tr><td class="c">2</td><td>정적모델 상세화하기</td><td>정적 설계모델 상세화 · 정적 설계모델 명세화 · 정적 설계모델 도식화</td><td class="c">19</td></tr>
+  <tr><th style="width:44px">꼭지</th><th style="width:250px">학습 내용</th>
+      <th>능력단위요소</th><th style="width:58px">개념</th><th style="width:58px">실습</th></tr>
+  <tr><td class="c">1</td><td>1-1. 정적모델 상세 분석</td><td>정적 분석모델 검증하기</td><td class="c">8</td><td class="c">5</td></tr>
+  <tr><td class="c">2</td><td>1-2. 정적 분석모델 정합성 검증</td><td>정적 분석모델 검증하기</td><td class="c">7</td><td class="c">14</td></tr>
+  <tr><td class="c">3</td><td>2-1. 정적 설계모델 상세화</td><td>정적모델 상세화하기</td><td class="c">8</td><td class="c">25</td></tr>
+  <tr><td class="c">4</td><td>2-2. 정적 설계모델 명세화</td><td>정적모델 상세화하기</td><td class="c">6</td><td class="c">13</td></tr>
+  <tr><td class="c">5</td><td>2-3. 정적 설계모델 도식화</td><td>정적모델 상세화하기</td><td class="c">5</td><td class="c">12</td></tr>
 </table>
-
-<div class="try">
-  <b class="t">쓰는 법</b>
-  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
-  한 단계가 대략 수업 10~20분에 해당합니다.
-</div>
   </div>
 </div>
 
@@ -75,391 +89,65 @@
   <div class="lvh"><b>1. 정적 분석모델 검증하기</b><span>능력단위요소 · <code>2001020222_23v6.1</code></span></div>
   <div class="lvb">
     <div class="step" id="st1">
-      <h3><i>1</i>UML(Unified Modeling Language)의 이해</h3>
+      <h3><i>1</i>1-1. 정적모델 상세 분석</h3>
       <aside class="side">
-        <p class="pt">정적모델 상세 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">소프트웨어 아키텍처 설계 가이드라인을 참조하여 정적모델 상세 분석 내역을 확인할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">정적 분석모델 검증하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 8항목 · 실습 5절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>UML은 소프트웨어의 청사진을 작성하는 표준 언어로, 이를 이용하여 산출물을 통한 가시 화, 명세화, 문서화가 가능한 도구이다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>소프트웨어 아키텍처 설계 가이드라인을 참조하여 정적모델 상세 분석 내역을 확인할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>UML(Unified Modeling Language)의 이해</dt><dd><blockquote>UML은 소프트웨어의 청사진을 작성하는 표준 언어로, 이를 이용하여 산출물을 통한 가시 화, 명세화, 문서화가 가능한 도구이다.</blockquote></dd><dt>UML의 구성 요소</dt><dd><blockquote>UML은 모델의 기본 요소인 사물과 사물 간의 관계를 나타내는 관계, 사물들 간의 관계를 도식화한 다이어그램 등으로 구성된다.</blockquote></dd><dt>정적 다이어그램과 동적 다이어그램</dt><dd><blockquote>시스템의 정적인 부분을 가시화하기 위하여 다이어그램을 이용하여 표현한 것으로 주요 다이어그램은 아래와 같다.</blockquote></dd><dt>UML을 이용한 모델링</dt><dd><blockquote>요구사항의 정의 단계에서 주로 유스케이스 다이어그램을 사용하여 시스템으로부터 도출된 기능적 요구사항을 표현한다.</blockquote></dd><dt>설계 패턴, MVC(Model-View-Controller) 패턴 이해</dt><dd><blockquote>소프트웨어 아키텍처 설계 가이드 라인에 정의된 설계 패턴을 바탕으로 해당 패턴 요소별 정적모델 설계 요소들을 상세 분석하고, 이를 바탕으로 소프트웨어 응용 설계를 진행하게 되므로 설계 패턴에 대한 이해가 중요하다.</blockquote></dd><dt>컨트롤러(Controller) 컴포넌트</dt><dd><blockquote>전체적인 제어 흐름을 관리하는 역할을 하는 영역으로 모델과 뷰 영역 간 흐름을 조정하는 역할을 한다. 사용자 인터페이스에서 발생된 이벤트를 입력받아 처리한다.</blockquote></dd><dt>모델(Model) 컴포넌트</dt><dd><blockquote>애플리케이션에서 비즈니스 핵심 기능 로직과 데이터를 다루는 영역이다. 데이터를 캡슐화하고 애플리케이션에 특화된 프로세스 로직을 수행하는 영역이다.</blockquote></dd><dt>뷰(View) 컴포넌트</dt><dd><blockquote>클라이언트에게 보여지는 프레젠테이션 로직이 구현되는 영역이다. 다양한 뷰로 구현이 가능하며 다양한 방법으로 모델 컴포넌트 영역에서 처리한 정보를 보여 준다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>정적모델 상세 분석하기</h5><div class='prep'><b>재료·자료</b><span>요구사항 정의서, 유스케이스 기술서 / 소프트웨어 아키텍처 설계 가이드라인</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구(워드프로세서, 스프레드시트, 프레젠테이션 도구 등) / 설계용 소프트웨어(UML 모델링 도구)</span><b>유의 사항</b><span>UML의 정적 다이어그램(클래스, 패키지 등)은 국제 표준 표기법이므로 기본 구조와 표 / 기 규칙을 반드시 숙지한 후, 실습한다. / 팀원과 협업할 때 파일 덮어쓰기나 충돌 방지를 위해 공용 폴더나 클라우드 공유 시 주 / 의하여 파일을 저장한다. / UML 작성 도구(예: StarUML)는 저장을 주기적으로 수행하고, 작업한 파일은 버전 이 / 름을 명확히 기재하여야 한다. / 실습 예제에 실제 사용자 이름, 전화번호, 이메일 등 개인정보와 민감정보를 입력하지 / 않도록 주의한다.</span></div><div class='doh'><b>1</b><span>소프트웨어 아키텍처 설계 가이드라인을 확인한다.</span></div><ol class='dos'><li>설계 가이드라인에서 정의된 설계 패턴을 파악한다.</li><li>소프트웨어 설계를 위한 표준 설계 지침 등을 확인한다.</li></ol><div class='doh'><b>2</b><span>정적모델 상세 분석에 필요한 요소들을 확인한다.</span></div><ol class='dos'><li>설계 가이드라인에서 정의된 설계 패턴의 요소별 정적모델 요소를 식별한다.</li><li>유스케이스 분석을 통해 정적모델을 상세 분석한다.</li><li>분석 단계에서 도출된 분석 클래스 요소들을 상세 분석한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>소프트웨어 아키텍처 설계 가이드라인을 확인한다.</li><li>정적모델 상세 분석에 필요한 요소들을 확인한다.</li><li>소프트웨어 아키텍처 설계 가이드라인을 참조하여 정적모델 상세 분석 내역을 확인할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 포트폴리오 · 평가자 체크리스트</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 3쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
     <div class="step" id="st2">
-      <h3><i>2</i>UML의 구성 요소</h3>
+      <h3><i>2</i>1-2. 정적 분석모델 정합성 검증</h3>
       <aside class="side">
-        <p class="pt">정적모델 상세 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>UML은 모델의 기본 요소인 사물과 사물 간의 관계를 나타내는 관계, 사물들 간의 관계를 도식화한 다이어그램 등으로 구성된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st3">
-      <h3><i>3</i>정적 다이어그램과 동적 다이어그램</h3>
-      <aside class="side">
-        <p class="pt">정적모델 상세 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템의 정적인 부분을 가시화하기 위하여 다이어그램을 이용하여 표현한 것으로 주요 다이어그램은 아래와 같다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st4">
-      <h3><i>4</i>UML을 이용한 모델링</h3>
-      <aside class="side">
-        <p class="pt">정적모델 상세 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>요구사항의 정의 단계에서 주로 유스케이스 다이어그램을 사용하여 시스템으로부터 도출된 기능적 요구사항을 표현한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st5">
-      <h3><i>5</i>설계 패턴, MVC(Model-View-Controller) 패턴 이해</h3>
-      <aside class="side">
-        <p class="pt">정적모델 상세 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 아키텍처 설계 가이드 라인에 정의된 설계 패턴을 바탕으로 해당 패턴 요소별 정적모델 설계 요소들을 상세 분석하고, 이를 바탕으로 소프트웨어 응용 설계를 진행하게 되므로 설계 패턴에 대한 이해가 중요하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st6">
-      <h3><i>6</i>컨트롤러(Controller) 컴포넌트</h3>
-      <aside class="side">
-        <p class="pt">정적모델 상세 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="19">원문 6쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>전체적인 제어 흐름을 관리하는 역할을 하는 영역으로 모델과 뷰 영역 간 흐름을 조정 하는 역할을 한다. 사용자 인터페이스에서 발생된 이벤트를 입력받아 처리한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st7">
-      <h3><i>7</i>모델(Model) 컴포넌트</h3>
-      <aside class="side">
-        <p class="pt">정적모델 상세 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="19">원문 6쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>애플리케이션에서 비즈니스 핵심 기능 로직과 데이터를 다루는 영역이다. 데이터를 캡슐화하고 애플리케이션에 특화된 프로세스 로직을 수행하는 영역이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st8">
-      <h3><i>8</i>뷰(View) 컴포넌트</h3>
-      <aside class="side">
-        <p class="pt">정적모델 상세 분석</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="19">원문 6쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>클라이언트에게 보여지는 프레젠테이션 로직이 구현되는 영역이다. 다양한 뷰로 구현이 가능하며 다양한 방법으로 모델 컴포넌트 영역에서 처리한 정보를 보여 준다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st9">
-      <h3><i>9</i>정적 분석모델의 이해</h3>
-      <aside class="side">
-        <p class="pt">정적 분석모델 정합성 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
+        <p class="pt">분석된 정적모델을 대상으로 분석모델의 정합성을 검증할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">정적 분석모델 검증하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="27">원문 14쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 7항목 · 실습 14절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>소프트웨어 분석 단계와 설계 단계에서의 정적모델</li><li>정적모델의 구성 요소</li><li>정적모델 검증에 필요한 정적 분석 규칙</li><li>정적모델 명명 규칙</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>분석된 정적모델을 대상으로 분석모델의 정합성을 검증할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>소프트웨어 분석 단계와 설계 단계에서의 정적모델</dt><dd><blockquote>소프트웨어 분석 단계에서의 관점이 요구사항을 이해하는 관점이라면, 설계 단계에서는 구체적으로 요구사항을 어떻게 해결할 것인가의 관점이라고 할 수 있다.</blockquote></dd><dt>정적모델의 구성 요소</dt><dd><blockquote>소프트웨어 설계 단계에서 활용되는 정적모델인 클래스 다이어그램의 구성 요소는 아래 공통의 속성과 메서드, 관계, 의미 등을 공유하는 객체들의 집합이다.</blockquote></dd><dt>정적모델 검증에 필요한 정적 분석 규칙</dt><dd><blockquote>정적모델의 각 요소들에 대한 명명 규칙과, 정의된 플랫폼 환경에 따라 규칙을 정의함으로써 정적 분석모델을 검증할 수 있다.</blockquote></dd><dt>정적모델 명명 규칙</dt><dd><blockquote>소프트웨어 설계 가이드라인에 정의된 명명 규칙을 준수하는지 검증할 수 있는 규칙들을 정의한다. 상세 설계 단계에서는 실제 구현 단계에서 명명된 이름을 사용할 수 있도록 영문으로 된 이름을 기술해야 한다.</blockquote></dd><dt>개발 플랫폼 기반 설계 패턴 규칙</dt><dd><blockquote>개발 플랫폼의 종류에 따라 정적모델 요소 식별 및 식별된 요소들 간의 관계, 예를 들어 인프라 클래스의 상속 여부 등을 규칙으로 정한다.</blockquote></dd><dt>정적모델 정합성 검증을 위한 체크리스트</dt><dd><blockquote>지 확인한다. 지 확인한다. 반영되었는지 확인한다. 할 수 있을 정도로 충분한 의미를 담고 있는지 확인한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>정적 분석모델의 이해</dd></dl>
+
+<h4>해 보기</h4>
+<h5>정적 분석모델 정합성 검증하기</h5><div class='prep'><b>재료·자료</b><span>소프트웨어 아키텍처 설계 가이드라인 / 요구사항 정의서, 유스케이스 기술서, 분석 클래스 모델</span><b>기기·도구</b><span>전산 장비 (컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구 (워드프로세서, 스프레드시트, 프레젠테이션 도구 등) / 설계용 소프트웨어 (UML 모델링 도구)</span><b>유의 사항</b><span>UML의 정적 다이어그램(클래스, 패키지 등)은 국제 표준 표기법이므로 기본 구조와 표 / 기 규칙을 반드시 숙지한 후, 실습한다. / 18 / 팀원과 협업할 때 파일 덮어쓰기나 충돌 방지를 위해 공용 폴더나 클라우드 공유 시 주 / 의하여 파일을 저장한다. / UML 작성 도구(예: StarUML)는 저장을 주기적으로 수행하고, 작업한 파일은 버전 이 / 름을 명확히 기재하여야 한다. / 실습 예제에 실제 사용자 이름, 전화번호, 이메일 등 개인정보와 민감정보를 입력하지 / 않도록 주의한다.</span></div><div class='doh'><b>1</b><span>소프트웨어 설계 가이드라인에서 정의된 설계 지침을 준수하였는지 확인한다.</span></div><ol class='dos'><li>설계 가이드라인의 설계 지침 준수 사항을 체크리스트로 작성한다.</li><li>체크리스트를 검토하여 정적 분석모델을 보완한다.</li></ol><div class='doh'><b>2</b><span>유스케이스를 기반으로 정적모델 비즈니스 설계 관점에서 정합성을 검증한다.</span></div><ol class='dos'><li>유스케이스와 정적 분석모델 사이의 모든 요소들이 도출되었는지 검증한다.</li><li>유스케이스와 정적 분석모델 사이의 CRUD 매트릭스를 작성한다.</li><li>작성된 CRUD 매트릭스를 이용하여 정적모델 정합성을 검증한다.</li><li>정적모델 정합성을 검증하고 체크리스트를 작성하여 검토한다.</li><li>체크리스트 검토 결과를 확인하여 정적 분석모델을 보완한다. [활용 서식 참조: 체크리스트 양식]</li></ol><div class='doh'><b>3</b><span>분석 단계에서 도출된 분석 클래스의 요소 관점에서 정적 분석모델의 정합성을 검증한다.</span></div><ol class='dos'><li>분석 클래스 요소 관점에서 정합성을 검증한다.</li><li>각 분석 클래스별로 정적 분석모델의 정합성을 검증한다.</li><li>정합성 검증을 위한 체크리스트를 작성한다.</li><li>작성된 체크리스트를 이용하여 리뷰를 통해 검증한다.</li></ol><div class='doh'><b>4</b><span>개발 플랫폼에서의 기술적인 관점에서 정적 분석모델을 검증한다.</span></div><ol class='dos'><li>개발 플랫폼에 기반하여 기술적인 부분을 고려한 규칙들이 적용되었는지 검증한다.</li><li>보안, 성능, 외부 인터페이스 등 비기능적인 행위(동작)들이 플랫폼에 기반하여 기술적으로 고려되었는지 검증한다.</li><li>검증 결과를 토대로 정적 분석모델을 보완한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>소프트웨어 설계 가이드라인에서 정의된 설계 지침을 준수하였는지 확인한다.</li><li>유스케이스를 기반으로 정적모델 비즈니스 설계 관점에서 정합성을 검증한다.</li><li>분석 단계에서 도출된 분석 클래스의 요소 관점에서 정적 분석모델의 정합성을 검증한다.</li><li>개발 플랫폼에서의 기술적인 관점에서 정적 분석모델을 검증한다.</li><li>분석된 정적모델을 대상으로 분석모델의 정합성을 검증할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 포트폴리오 · 평가자 체크리스트</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st10">
-      <h3><i>10</i>소프트웨어 분석 단계와 설계 단계에서의 정적모델</h3>
-      <aside class="side">
-        <p class="pt">정적 분석모델 정합성 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="27">원문 14쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 분석 단계에서의 관점이 요구사항을 이해하는 관점이라면, 설계 단계에서는 구체적으로 요구사항을 어떻게 해결할 것인가의 관점이라고 할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st11">
-      <h3><i>11</i>정적모델의 구성 요소</h3>
-      <aside class="side">
-        <p class="pt">정적 분석모델 정합성 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="27">원문 14쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 설계 단계에서 활용되는 정적모델인 클래스 다이어그램의 구성 요소는 아래 공통의 속성과 메서드, 관계, 의미 등을 공유하는 객체들의 집합이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st12">
-      <h3><i>12</i>정적모델 검증에 필요한 정적 분석 규칙</h3>
-      <aside class="side">
-        <p class="pt">정적 분석모델 정합성 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="29">원문 16쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>정적모델의 각 요소들에 대한 명명 규칙과, 정의된 플랫폼 환경에 따라 규칙을 정의함으로써 정적 분석모델을 검증할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st13">
-      <h3><i>13</i>정적모델 명명 규칙</h3>
-      <aside class="side">
-        <p class="pt">정적 분석모델 정합성 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="29">원문 16쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 설계 가이드라인에 정의된 명명 규칙을 준수하는지 검증할 수 있는 규칙들을 정의한다. 상세 설계 단계에서는 실제 구현 단계에서 명명된 이름을 사용할 수 있도록 영문으로 된 이름을 기술해야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st14">
-      <h3><i>14</i>개발 플랫폼 기반 설계 패턴 규칙</h3>
-      <aside class="side">
-        <p class="pt">정적 분석모델 정합성 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="29">원문 16쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발 플랫폼의 종류에 따라 정적모델 요소 식별 및 식별된 요소들 간의 관계, 예를 들어 인프라 클래스의 상속 여부 등을 규칙으로 정한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st15">
-      <h3><i>15</i>정적모델 정합성 검증을 위한 체크리스트</h3>
-      <aside class="side">
-        <p class="pt">정적 분석모델 정합성 검증</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="30">원문 17쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>지 확인한다. 지 확인한다. 반영되었는지 확인한다. 할 수 있을 정도로 충분한 의미를 담고 있는지 확인한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 14쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -468,507 +156,109 @@
 <div class="lv">
   <div class="lvh"><b>2. 정적모델 상세화하기</b><span>능력단위요소 · <code>2001020222_23v6.2</code></span></div>
   <div class="lvb">
-    <div class="step" id="st16">
-      <h3><i>16</i>분석 클래스 모델의 이해</h3>
+    <div class="step" id="st3">
+      <h3><i>3</i>2-1. 정적 설계모델 상세화</h3>
       <aside class="side">
-        <p class="pt">정적 설계모델 상세화</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
+        <p class="pt">분석된 정적모델을 정적 설계모델로 변환하기 위해 변환 규칙을 정의할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">정적모델 상세화하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="41">원문 28쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 8항목 · 실습 25절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>분석 클래스 모델을 구성하는 분석 클래스들은 그 역할과 책임에 따라 경계 클래스, 제어 클래스, 엔티티 클래스로 분류할 수 있다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>분석된 정적모델을 정적 설계모델로 변환하기 위해 변환 규칙을 정의할 수 있다.</li><li>정적 설계모델의 엔티티 클래스, 경계 클래스, 제어 클래스를 상세화할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>분석 클래스 모델의 이해</dt><dd><blockquote>분석 클래스 모델을 구성하는 분석 클래스들은 그 역할과 책임에 따라 경계 클래스, 제어 클래스, 엔티티 클래스로 분류할 수 있다.</blockquote></dd><dt>경계 클래스(Boundary Class)</dt><dd><blockquote>시스템과 외부 액터와의 상호 작용을 표현하는 데 사용되는 클래스로 주로 화면, 외부 시스템과의 인터페이스 등이 정의된다.</blockquote></dd><dt>제어 클래스(Control Class)</dt><dd><blockquote>비즈니스 로직의 처리 흐름을 제어 또는 조정하거나 트랜잭션을 처리할 때 사용되는 클래스이다. 경계 클래스에서 입력된 값을 전달받아 제어 클래스에서 정의한 비즈니스 로직에 따라 출력값을 제공한다.</blockquote></dd><dt>엔티티 클래스(Entity Class)</dt><dd><blockquote>비즈니스 로직 처리 흐름이 수행되는 과정에서 저장소에 저장되어야 하는 정보를 표현하는 클래스이다. 엔티티 클래스의 정보는 시스템이 종료된다 해도 정보값이 유지되어야 하므로 영구적인 데이터가 파일 또는 데이터베이스로 구현된다.</blockquote></dd><dt>클래스 설계 원칙의 이해</dt><dd><blockquote>클래스 설계 원칙은 객체지향 설계에서 클래스의 구조와 동작을 정의하는 데 있어 중요한 지침을 제공한다.</blockquote></dd><dt>객체지향 프로그래밍의 4대 핵심 원칙</dt><dd><blockquote>객체지향 프로그래밍은 현실 세계의 개체들을 소프트웨어 객체로 모델링을 할 때 네가지 원칙을 기반으로 한다. 캡슐화는 객체의 데이터와 메서드를 하나의 단위로 묶고, 외부에서의 직접적인 접근을 제한하는 원칙이다.</blockquote></dd><dt>SOLID 원칙: 객체지향 설계의 핵심</dt><dd><blockquote>SOLID 원칙은 Robert C. Martin이 제시한 다섯 가지 객체지향 설계 원칙으로, 현대 소프트웨어 개발에서 클래스의 구조와 동작을 정의하는 데 있어 가장 중요한 지침 중 클래스는 하나의 책임만 가져야 하며, 단일 기능만을 수행해야 한다.</blockquote></dd><dt>클래스 설계 품질 요소, 응집도와 결합도의 이해</dt><dd><blockquote>응집도(Cohesion)와 결합도(Coupling)는 클래스 설계의 품질을 결정짓는 핵심 요소이 다. 두 개념은 객체지향 설계의 기본 원칙과 밀접하게 관련 있으며, 잘 설계된 클래스는 높은 응집도와 낮은 결합도를 가진다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>정적 설계모델 상세화하기</h5><div class='prep'><b>재료·자료</b><span>요구사항 분석 산출물 / 애플리케이션 분석 단계의 정적 분석 클래스 / 소프트웨어 아키텍처에 정의된 설계 패턴</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구(워드프로세서, 스프레드시트, 프레젠테이션 도구 등) / 설계용 소프트웨어(UML 모델링 도구, StarUML)</span><b>유의 사항</b><span>UML의 정적 다이어그램(클래스, 패키지 등)은 국제 표준 표기법이므로 기본 구조와 표 / 39 / 기 규칙을 반드시 숙지한 후, 실습한다. / 팀원과 협업할 때 파일 덮어쓰기나 충돌 방지를 위해 공용 폴더나 클라우드 공유 시 주 / 의하여 파일을 저장한다. / UML 작성 도구(예: StarUML)는 저장을 주기적으로 수행하고, 작업한 파일은 버전 이 / 름을 명확히 기재하여야 한다. / 실습 예제에 실제 사용자 이름, 전화번호, 이메일 등 개인정보와 민감정보를 입력하지 / 않도록 주의한다.</span></div><div class='doh'><b>1</b><span>정적 분석모델 상세화는 다음과 같은 순서로 진행한다.</span></div><div class='doh'><b>2</b><span>정적 분석모델을 정적 설계모델로 변환하기 위한 규칙을 정의한다.</span></div><ol class='dos'><li>정적 설계모델의 명명 규칙을 정의한다.</li><li>정적 분석모델과 설계 클래스 변환 규칙을 정의한다.</li><li>정적 설계모델 상세화 규칙을 숙지하고 이를 기준으로 상세화를 진행하도록 한다.</li><li>경계 클래스는 외부에 구체적인 구현 방법이 노출되어서는 안 된다.</li><li>경계 클래스의 변경이 경계 클래스를 이용하는 제어 클래스의 불필요한 변경을 유발하지 않아야한다.</li><li>제어 클래스는 경계 클래스와 엔티티 클래스에 독립적으로 표현해야 한다.</li><li>제어 클래스의 비즈니스 로직을 구현하는 방법이 노출되지 않아야 한다.</li><li>엔티티 클래스는 데이터 로직만을 제공해야 한다.</li><li>엔티티 클래스는 구현 방법이 외부에 노출되지 않아야 한다.</li><li>정적 설계모델 클래스별 변환 규칙을 정의한다.</li></ol><div class='doh'><b>3</b><span>경계 클래스를 상세화한다.</span></div><ol class='dos'><li>UI 클래스를 상세화한다.</li><li>SI 클래스를 상세화한다.</li><li>DI 클래스를 상세화한다.</li></ol><div class='doh'><b>4</b><span>제어 클래스를 상세화한다.</span></div><ol class='dos'><li>시스템이 처리해야 할 비즈니스 로직 및 제어 로직을 제어 클래스의 오퍼레이션으로 표현한다.</li><li>제어 클래스의 오퍼레이션들이 공유하는 정보를 속성으로 표현한다.</li><li>영속적으로 유지되어야 하는 정보를 엔티티 클래스의 속성으로 표현한다.</li><li>영속적인 정보의 관리를 위한 기능을 엔티티 클래스의 오퍼레이션으로 표현한다.</li><li>클래스 모델 간의 관계를 검토하여 보완한다.</li><li>클래스 모델을 통합, 분할하여 작성한다.</li><li>클래스 모델을 제거하여 작성한다.</li><li>체크리스트를 작성하여 클래스 모델을 검토 후 개선한다.</li><li>설계 클래스와 클래스 유형과의 관계를 숙지한다.</li><li>설계 클래스 속성과 오퍼레이션을 상세 정의한다.</li><li>클래스 간의 상호 관계를 상세 정의한다.</li><li>인스펙션을 통해 설계 클래스 모델을 검토하고 보완한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>정적 분석모델 상세화는 다음과 같은 순서로 진행한다.</li><li>정적 분석모델을 정적 설계모델로 변환하기 위한 규칙을 정의한다.</li><li>경계 클래스를 상세화한다.</li><li>제어 클래스를 상세화한다.</li><li>분석된 정적모델을 정적 설계모델로 변환하기 위해 변환 규칙을 정의할 수 있다.</li><li>정적 설계모델의 엔티티 클래스, 경계 클래스, 제어 클래스를 상세화할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 포트폴리오 · 평가자 체크리스트</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 28쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st17">
-      <h3><i>17</i>경계 클래스(Boundary Class)</h3>
+    <div class="step" id="st4">
+      <h3><i>4</i>2-2. 정적 설계모델 명세화</h3>
       <aside class="side">
-        <p class="pt">정적 설계모델 상세화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="41">원문 28쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템과 외부 액터와의 상호 작용을 표현하는 데 사용되는 클래스로 주로 화면, 외부 시스템과의 인터페이스 등이 정의된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st18">
-      <h3><i>18</i>제어 클래스(Control Class)</h3>
-      <aside class="side">
-        <p class="pt">정적 설계모델 상세화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="43">원문 30쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>비즈니스 로직의 처리 흐름을 제어 또는 조정하거나 트랜잭션을 처리할 때 사용되는 클래스이다. 경계 클래스에서 입력된 값을 전달받아 제어 클래스에서 정의한 비즈니스 로직에 따라 출력값을 제공한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st19">
-      <h3><i>19</i>엔티티 클래스(Entity Class)</h3>
-      <aside class="side">
-        <p class="pt">정적 설계모델 상세화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="44">원문 31쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>비즈니스 로직 처리 흐름이 수행되는 과정에서 저장소에 저장되어야 하는 정보를 표현 하는 클래스이다. 엔티티 클래스의 정보는 시스템이 종료된다 해도 정보값이 유지되어야 하므로 영구적인 데이터가 파일 또는 데이터베이스로 구현된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st20">
-      <h3><i>20</i>클래스 설계 원칙의 이해</h3>
-      <aside class="side">
-        <p class="pt">정적 설계모델 상세화</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="45">원문 32쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>클래스 설계 원칙은 객체지향 설계에서 클래스의 구조와 동작을 정의하는 데 있어 중요한 지침을 제공한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st21">
-      <h3><i>21</i>객체지향 프로그래밍의 4대 핵심 원칙</h3>
-      <aside class="side">
-        <p class="pt">정적 설계모델 상세화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="45">원문 32쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>객체지향 프로그래밍은 현실 세계의 개체들을 소프트웨어 객체로 모델링을 할 때 네가지 원칙을 기반으로 한다. 캡슐화는 객체의 데이터와 메서드를 하나의 단위로 묶고, 외부에서의 직접적인 접근을 제한하는 원칙이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st22">
-      <h3><i>22</i>SOLID 원칙: 객체지향 설계의 핵심</h3>
-      <aside class="side">
-        <p class="pt">정적 설계모델 상세화</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="47">원문 34쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>SOLID 원칙은 Robert C. Martin이 제시한 다섯 가지 객체지향 설계 원칙으로, 현대 소프트웨어 개발에서 클래스의 구조와 동작을 정의하는 데 있어 가장 중요한 지침 중 클래스는 하나의 책임만 가져야 하며, 단일 기능만을 수행해야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st23">
-      <h3><i>23</i>클래스 설계 품질 요소, 응집도와 결합도의 이해</h3>
-      <aside class="side">
-        <p class="pt">정적 설계모델 상세화</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="49">원문 36쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>응집도(Cohesion)와 결합도(Coupling)는 클래스 설계의 품질을 결정짓는 핵심 요소이 다. 두 개념은 객체지향 설계의 기본 원칙과 밀접하게 관련 있으며, 잘 설계된 클래스는 높은 응집도와 낮은 결합도를 가진다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st24">
-      <h3><i>24</i>정적 설계모델 명세서의 작성 방법</h3>
-      <aside class="side">
-        <p class="pt">정적 설계모델 명세화</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
+        <p class="pt">상세화된 정적 설계모델의 명세서를 작성할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">정적모델 상세화하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="63">원문 50쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 6항목 · 실습 13절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 관점이나 설계 관점에서 구현 단계를 고려하여 각 클래스별로 상세한 명세를 기술한다. 패키지를 이용하여 조직화된 정적 설계모델 정보를 상세히 기술한다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>상세화된 정적 설계모델의 명세서를 작성할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>정적 설계모델 명세서의 작성 방법</dt><dd><blockquote>소프트웨어 관점이나 설계 관점에서 구현 단계를 고려하여 각 클래스별로 상세한 명세를 기술한다. 패키지를 이용하여 조직화된 정적 설계모델 정보를 상세히 기술한다.</blockquote></dd><dt>작성 방법</dt><dd><blockquote>분석 패키지를 이용하여 계층적으로 구조화하고, 클래스 이름, 속성 및 오퍼레이션을 정확하고 구체적으로 정의하고, 각각의 클래스는 상세하게 명세를 기술한다.</blockquote></dd><dt>작성 항목</dt><dd><blockquote>소프트웨어 관점이나 설계 관점에서의 설계 클래스 모형을 작성하고 클래스별 상세한 명세를 기술한다. 정적 설계모델 명세서의 작성 목적과 개략적인 요약 내용을 기술한다.</blockquote></dd><dt>정적 설계모델 명세서 검토</dt><dd><blockquote>효율적인 애플리케이션 구현과 유지 관리를 위해 각 클래스들이 패키지에 적절하게 배치되 어야 한다. 정적 설계모델 명세서를 작성한 후 아래 기준에 따라 검토한다.</blockquote></dd><dt>분석 클래스 모델의 조직화 검토 기준</dt><dd><blockquote>(가) 패키지의 이름은 패키지에 속한 모든 클래스를 대표하는가? (나) 패키지는 높은 응집도와 낮은 결합도를 가져야 한다.</blockquote></dd><dt>분석 클래스 명세서 검토 기준</dt><dd><blockquote>각 분석 패키지 내의 분석 클래스 다이어그램을 구성하는 경계 클래스, 제어 클래스, 엔티티 클래스와 이들 간의 관계에 대해 검토한다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>정적 설계모델 명세화하기</h5><div class='prep'><b>재료·자료</b><span>분석 클래스 상세 모델 / 정적모델 명세서 작성 가이드라인</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구(워드프로세서, 스프레드시트, 프레젠테이션 도구 등) / 설계용 소프트웨어(UML 모델링 도구)</span><b>유의 사항</b><span>UML의 정적 다이어그램(클래스, 패키지 등)은 국제 표준 표기법이므로 기본 구조와 표 / 기 규칙을 반드시 숙지한 후, 실습한다. / 팀원과 협업할 때 파일 덮어쓰기나 충돌 방지를 위해 공용 폴더나 클라우드 공유 시 주 / 의하여 파일을 저장한다. / UML 작성 도구(예: StarUML)는 저장을 주기적으로 수행하고, 작업한 파일은 버전 이 / 름을 명확히 기재하여야 한다. / 실습 예제에 실제 사용자 이름, 전화번호, 이메일 등 개인정보와 민감정보를 입력하지 / 않도록 주의한다.</span></div><div class='doh'><b>1</b><span>상세화된 정적 설계모델을 숙지한다.</span></div><ol class='dos'><li>제어 클래스, 경계 클래스, 엔티티 클래스 등의 속성과 연산 등을 확인한다.</li><li>설계 패턴이 적용된 설계 클래스들을 확인한다.</li></ol><div class='doh'><b>2</b><span>정적 설계모델 명세서 작성 가이드라인을 확인한다.</span></div><div class='doh'><b>3</b><span>정적 설계모델 명세서를 작성한다.</span></div><ol class='dos'><li>개요 항목을 작성한다.</li><li>시스템 구성 항목을 작성한다.</li><li>유스케이스 실현 명세 항목을 작성한다.</li><li>사용자가 로그인 화면에서 아이디와 비밀번호를 입력한다.</li><li>시스템은 계정을 확인하고 비밀번호를 검증한다.</li><li>인증이 성공하면 시스템은 사용자 세션을 생성하고 메인 화면을 표시한다.</li></ol><div class='doh'><b>4</b><span>정적 설계모델 명세서 작성 사례를 찾아보고 참조한다.</span></div><ol class='dos'><li>정적 설계모델 명세서의 목차 작성 사례를 참조한다.</li><li>정적 설계모델 명세서의 작성 예시를 참조한다.</li><li>정적 설계모델 명세서 작성 가이드라인에 준하여 작성되었는지 확인한다.</li><li>정적 설계모델 명세서가 구현 단계를 고려하여 상세하게 작성되었는지 확인한다.</li><li>검토된 사항을 정리하여 정적 설계모델 명세서를 보완한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>상세화된 정적 설계모델을 숙지한다.</li><li>정적 설계모델 명세서 작성 가이드라인을 확인한다.</li><li>정적 설계모델 명세서를 작성한다.</li><li>정적 설계모델 명세서 작성 사례를 찾아보고 참조한다.</li><li>상세화된 정적 설계모델의 명세서를 작성할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 포트폴리오 · 평가자 체크리스트</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 50쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st25">
-      <h3><i>25</i>작성 방법</h3>
+    <div class="step" id="st5">
+      <h3><i>5</i>2-3. 정적 설계모델 도식화</h3>
       <aside class="side">
-        <p class="pt">정적 설계모델 명세화</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="63">원문 50쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>분석 패키지를 이용하여 계층적으로 구조화하고, 클래스 이름, 속성 및 오퍼레이션을 정확하고 구체적으로 정의하고, 각각의 클래스는 상세하게 명세를 기술한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st26">
-      <h3><i>26</i>작성 항목</h3>
-      <aside class="side">
-        <p class="pt">정적 설계모델 명세화</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="63">원문 50쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 관점이나 설계 관점에서의 설계 클래스 모형을 작성하고 클래스별 상세한 명세를 기술한다. 정적 설계모델 명세서의 작성 목적과 개략적인 요약 내용을 기술한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st27">
-      <h3><i>27</i>정적 설계모델 명세서 검토</h3>
-      <aside class="side">
-        <p class="pt">정적 설계모델 명세화</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="64">원문 51쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>효율적인 애플리케이션 구현과 유지 관리를 위해 각 클래스들이 패키지에 적절하게 배치되 어야 한다. 정적 설계모델 명세서를 작성한 후 아래 기준에 따라 검토한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st28">
-      <h3><i>28</i>분석 클래스 모델의 조직화 검토 기준</h3>
-      <aside class="side">
-        <p class="pt">정적 설계모델 명세화</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="64">원문 51쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>(가) 패키지의 이름은 패키지에 속한 모든 클래스를 대표하는가? (나) 패키지는 높은 응집도와 낮은 결합도를 가져야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st29">
-      <h3><i>29</i>분석 클래스 명세서 검토 기준</h3>
-      <aside class="side">
-        <p class="pt">정적 설계모델 명세화</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="64">원문 51쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>각 분석 패키지 내의 분석 클래스 다이어그램을 구성하는 경계 클래스, 제어 클래스, 엔티티 클래스와 이들 간의 관계에 대해 검토한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st30">
-      <h3><i>30</i>클래스 다이어그램의 개요</h3>
-      <aside class="side">
-        <p class="pt">정적 설계모델 도식화</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
+        <p class="pt">설계용 도구를 활용하여 정적 설계모델을 도식화할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">정적모델 상세화하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="75">원문 62쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 5항목 · 실습 12절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>클래스 다이어그램은 정적 설계모델의 대표적인 다이어그램으로 시스템을 구성하는 클래 스, 클래스 요소들, 클래스 간의 관계를 표현한다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>설계용 도구를 활용하여 정적 설계모델을 도식화할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>클래스 다이어그램의 개요</dt><dd><blockquote>클래스 다이어그램은 정적 설계모델의 대표적인 다이어그램으로 시스템을 구성하는 클래 스, 클래스 요소들, 클래스 간의 관계를 표현한다.</blockquote></dd><dt>클래스 다이어그램의 기본 구성 요소</dt><dd><blockquote>클래스는 사각형으로 표현되고 클래스명, 속성, 오퍼레이션으로 구성된다. 클래스는 구체적으로 의미 있는 이름으로 명명하고 &lt;&lt;stereotype&gt;&gt;을 정의할 수 있다.</blockquote></dd><dt>정적 설계모델 설계서의 작성 방법</dt><dd><blockquote>소프트웨어 관점이나 설계 관점에서 구현 단계를 고려하여 정적 설계모델을 상세하게 작성</blockquote></dd><dt>작성 방법</dt><dd><blockquote>설계 클래스를 도출하기 위해서는 우선 유스케이스별로 시퀀스다이어그램을 작성하도록하고, 여기서 도출된 객체 및 클래스의 연관 관계를 파악하여 유스케이스별로 클래스 다이어그램를 작성한다.</blockquote></dd><dt>작성 항목</dt><dd><blockquote>소프트웨어 관점이나 설계 관점에서의 설계 클래스 모형을 작성하고 클래스별로 상세한 명세를 기술한다. 유스케이스별로 대응되도록 작성한다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>정적 설계모델 도식화하기</h5><div class='prep'><b>재료·자료</b><span>상세화된 분석 클래스 모델 / 정적 설계모델 명세서</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구(워드프로세서, 스프레드시트, 프레젠테이션 도구 등) / 설계용 소프트웨어(UML 모델링 도구)</span><b>유의 사항</b><span>UML의 정적 다이어그램(클래스, 패키지 등)은 국제 표준 표기법이므로 기본 구조와 표 / 기 규칙을 반드시 숙지한 후, 실습한다. / 팀원과 협업할 때 파일 덮어쓰기나 충돌 방지를 위해 공용 폴더나 클라우드 공유 시 주 / 의하여 파일을 저장한다. / UML 작성 도구(예: StarUML)는 저장을 주기적으로 수행하고, 작업한 파일은 버전 이 / 름을 명확히 기재하여야 한다. / 실습 예제에 실제 사용자 이름, 전화번호, 이메일 등 개인정보와 민감정보를 입력하지 / 않도록 주의한다.</span></div><div class='doh'><b>1</b><span>설계용 도구를 설치하고, 도구 사용자 가이드 문서를 참고하여 사용법을 익힌다.</span></div><ol class='dos'><li>설계용 도구 다운로드 사이트에 접속하여 설치 파일을 다운로드받는다.</li><li>다운로드받은 설치 파일을 이용하여 설치한다.</li><li>설치된 UML 설계 도구의 사용법을 숙지한다.</li></ol><div class='doh'><b>2</b><span>도식화할 클래스 다이어그램을 종이에 미리 스케치한다.</span></div><div class='doh'><b>3</b><span>정적 설계모델 가운데 클래스 다이어그램을 도식화한다.</span></div><ol class='dos'><li>다이어그램 모델을 선택한다.</li><li>클래스를 생성한다.</li><li>클래스의 속성을 추가한다.</li><li>클래스의 오퍼레이션을 추가한다.</li><li>클래스 간의 관계를 추가한다.</li><li>클래스를 보완하여 완성한다.</li><li>다음과 같이 완성된 로그인 관리 클래스 다이어그램의 사례를 참조한다.</li></ol><div class='doh'><b>4</b><span>정적 설계모델 설계서를 작성한다.</span></div><ol class='dos'><li>정적 설계모델 설계서를 작성한다.</li><li>작성된 정적 설계모델 설계서를 검토하고 수정하여 완성한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>설계용 도구를 설치하고, 도구 사용자 가이드 문서를 참고하여 사용법을 익힌다.</li><li>도식화할 클래스 다이어그램을 종이에 미리 스케치한다.</li><li>정적 설계모델 가운데 클래스 다이어그램을 도식화한다.</li><li>정적 설계모델 설계서를 작성한다.</li><li>설계용 도구를 활용하여 정적 설계모델을 도식화할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 포트폴리오 · 평가자 체크리스트</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st31">
-      <h3><i>31</i>클래스 다이어그램의 기본 구성 요소</h3>
-      <aside class="side">
-        <p class="pt">정적 설계모델 도식화</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="75">원문 62쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>클래스는 사각형으로 표현되고 클래스명, 속성, 오퍼레이션으로 구성된다. 클래스는 구체적으로 의미 있는 이름으로 명명하고 &lt;&lt;stereotype&gt;&gt;을 정의할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st32">
-      <h3><i>32</i>정적 설계모델 설계서의 작성 방법</h3>
-      <aside class="side">
-        <p class="pt">정적 설계모델 도식화</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="81">원문 68쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 관점이나 설계 관점에서 구현 단계를 고려하여 정적 설계모델을 상세하게 작성</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st33">
-      <h3><i>33</i>작성 방법</h3>
-      <aside class="side">
-        <p class="pt">정적 설계모델 도식화</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="81">원문 68쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>설계 클래스를 도출하기 위해서는 우선 유스케이스별로 시퀀스다이어그램을 작성하도록 하고, 여기서 도출된 객체 및 클래스의 연관 관계를 파악하여 유스케이스별로 클래스 다이어그램를 작성한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st34">
-      <h3><i>34</i>작성 항목</h3>
-      <aside class="side">
-        <p class="pt">정적 설계모델 도식화</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020222_23v6" data-page="81">원문 68쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 관점이나 설계 관점에서의 설계 클래스 모형을 작성하고 클래스별로 상세한 명세를 기술한다. 유스케이스별로 대응되도록 작성한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 62쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
   </div>
 </div>
 
-<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
-원문 LM2001020222_23v6_정적모델 설계_20251108.pdf</footer>
+<footer>담당 정우균 · 개념과 절차는 <b>NCS 학습모듈 LM2001020222_23v6_정적모델 설계_20251108.pdf</b> 에서
+옮긴 것입니다 — 한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지)</footer>
 </div>
 <script>
-/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+/* 빠른 이동 — 지금 보는 꼭지를 표시하고, 좁은 화면에서는 여닫습니다. */
 (function () {
   var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
   var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));

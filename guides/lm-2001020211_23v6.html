@@ -1,13 +1,30 @@
-<meta charset="utf-8"><title>서버프로그램 구현 — 준비 교안</title>
+<meta charset="utf-8"><title>서버프로그램 구현 — 학습 가이드</title>
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="stylesheet" href="../assets/guide.css">
 <style>
-  /* 원문 인용 — 우리가 쓴 안내와 눈으로 구분되어야 한다 */
-  .bd blockquote{margin:10px 0 16px;padding:10px 14px;border-left:3px solid #000;
-                 background:#fafafa;font-size:13.5px;line-height:1.8;color:#222}
-  .bd p.none{color:#888;font-size:13px}
-  .bd ul.sub{margin:8px 0 16px;padding-left:20px;font-size:13.5px;line-height:1.9}
-  aside.side .v .btn{font-size:11.5px}
+  /* 학습 가이드 — 개념 / 실습 / 확인 세 덩어리가 눈으로 구분되어야 한다 */
+  .bd h4{margin:22px 0 8px;font-size:14px;padding-bottom:5px;border-bottom:1px solid #000}
+  .bd h4:first-child{margin-top:0}
+  .bd h5{margin:16px 0 5px;font-size:13px;font-weight:700}
+  .bd blockquote{margin:5px 0 12px;padding:9px 13px;border-left:3px solid #999;
+                 background:#fafafa;font-size:13px;line-height:1.8;color:#333}
+  .cc{margin:0 0 6px}
+  .cc dt{font-weight:700;font-size:13.5px;margin:14px 0 0}
+  .cc dd{margin:4px 0 0}
+  .doh{display:flex;gap:9px;align-items:baseline;margin:16px 0 4px;font-size:13.5px;
+       font-weight:700}
+  .doh b{flex:0 0 auto;width:21px;height:21px;line-height:19px;text-align:center;
+         border:1px solid #000;font-size:11.5px}
+  ol.dos{margin:2px 0 0 30px;padding:0;font-size:13px;line-height:1.85}
+  ol.dos li{margin:3px 0}
+  .prep{display:grid;grid-template-columns:76px 1fr;gap:3px 10px;font-size:12.5px;
+        border:1px solid #ccc;padding:10px 13px;margin:6px 0 2px;background:#fafafa}
+  .prep b{color:#555;font-weight:400}
+  ul.goal{margin:6px 0 0;padding-left:20px;font-size:13.5px;line-height:1.9}
+  ul.chk{margin:6px 0 0;padding:0;list-style:none;font-size:13.5px;line-height:1.95}
+  ul.chk li::before{content:"\2610  "}
+  .none{color:#888;font-size:12.5px}
+  .srcline{font-size:11.5px;color:#888;margin:8px 0 0}
 </style>
 <script src="../assets/auth.js"></script>
 <script>EXAM_AUTH.guard("../");</script>
@@ -17,7 +34,7 @@
 <div class="top"><div class="tbar">
   <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
   <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
-  / 서버프로그램 구현 / 준비 교안</small></div>
+  / 서버프로그램 구현 / 학습 가이드</small></div>
   <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
@@ -25,51 +42,50 @@
 <button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
 
 <nav id="qnav" aria-label="빠른 이동">
-  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
-  <i class="qg">개발 환경 구축하기</i><a href="#st1"><b>1</b><span>응용 소프트웨어의 개념</span></a><a href="#st2"><b>2</b><span>응용 소프트웨어의 정의</span></a><a href="#st3"><b>3</b><span>응용 소프트웨어의 특성</span></a><a href="#st4"><b>4</b><span>응용 소프트웨어의 유형</span></a><a href="#st5"><b>5</b><span>개발 환경의 개념</span></a><a href="#st6"><b>6</b><span>개발 환경의 정의</span></a><a href="#st7"><b>7</b><span>개발 환경의 유형</span></a><a href="#st8"><b>8</b><span>개발 하드웨어 환경</span></a><a href="#st9"><b>9</b><span>클라이언트(Client) 환경 구성</span></a><a href="#st10"><b>10</b><span>서버(Server) 환경 구성</span></a><a href="#st11"><b>11</b><span>최신 개발 하드웨어 트렌드</span></a><a href="#st12"><b>12</b><span>개발 소프트웨어 환경</span></a><a href="#st13"><b>13</b><span>시스템 소프트웨어</span></a><a href="#st14"><b>14</b><span>개발 도구 소프트웨어 구성</span></a><a href="#st15"><b>15</b><span>형상관리의 개념</span></a><a href="#st16"><b>16</b><span>형상관리의 필요성</span></a><a href="#st17"><b>17</b><span>형상관리 절차</span></a><a href="#st18"><b>18</b><span>형상관리 최신 트렌드</span></a><i class="qg">공통 모듈 구현하기</i><a href="#st19"><b>19</b><span>공통 모듈에 대한 이해</span></a><a href="#st20"><b>20</b><span>재사용(Reuse)</span></a><a href="#st21"><b>21</b><span>공통 모듈의 종류</span></a><a href="#st22"><b>22</b><span>소프트웨어 모듈 응집도</span></a><a href="#st23"><b>23</b><span>응집도의 유형</span></a><a href="#st24"><b>24</b><span>응집도와 품질</span></a><a href="#st25"><b>25</b><span>소프트웨어 모듈 결합도</span></a><a href="#st26"><b>26</b><span>결합도의 유형</span></a><a href="#st27"><b>27</b><span>결합도와 품질</span></a><a href="#st28"><b>28</b><span>테스트 케이스의 이해</span></a><a href="#st29"><b>29</b><span>테스트 케이스(Test Case)의 개념</span></a><a href="#st30"><b>30</b><span>테스트 케이스의 구성 요소</span></a><a href="#st31"><b>31</b><span>테스트 프로세스</span></a><a href="#st32"><b>32</b><span>테스트 프로세스의 구성</span></a><a href="#st33"><b>33</b><span>테스트 프로세스의 단계</span></a><i class="qg">서버 프로그램 구현하기</i><a href="#st34"><b>34</b><span>프로세스의 이해</span></a><a href="#st35"><b>35</b><span>프로세스의 정의</span></a><a href="#st36"><b>36</b><span>프로세스의 구성 요소</span></a><a href="#st37"><b>37</b><span>프로세스와 응용 SW의 관계</span></a><a href="#st38"><b>38</b><span>프로세스의 맵(Map)</span></a><a href="#st39"><b>39</b><span>구조적 분석 기법에서의 자료 흐름도</span></a><a href="#st40"><b>40</b><span>객체 지향 분석 기법에서의 사용 사례 다이어그램</span></a><a href="#st41"><b>41</b><span>프로그램 언어</span></a><a href="#st42"><b>42</b><span>프로그램 언어 개념</span></a><a href="#st43"><b>43</b><span>프로그램 언어의 유형</span></a><a href="#st44"><b>44</b><span>프레임워크(Framework)에 대한 이해</span></a><a href="#st45"><b>45</b><span>소프트웨어 프레임워크의 정의</span></a><a href="#st46"><b>46</b><span>프레임워크의 특징</span></a><a href="#st47"><b>47</b><span>데이터 저장 계층 또는 영속 계층(Persistence Layer)에 대한 이해</span></a><a href="#st48"><b>48</b><span>소프트웨어(SW) 개발 보안</span></a><a href="#st49"><b>49</b><span>소프트웨어 개발 보안의 개념</span></a><a href="#st50"><b>50</b><span>소프트웨어 개발 보안 가이드의 구성</span></a><a href="#st51"><b>51</b><span>소프트웨어 테스트의 이해</span></a><a href="#st52"><b>52</b><span>소프트웨어 테스트의 개념</span></a><a href="#st53"><b>53</b><span>소프트웨어 테스트의 원칙</span></a><a href="#st54"><b>54</b><span>소프트웨어 테스트의 명세</span></a><a href="#st55"><b>55</b><span>테스트 결과 정리</span></a><a href="#st56"><b>56</b><span>테스트 요약 문서</span></a><a href="#st57"><b>57</b><span>품질 상태</span></a><a href="#st58"><b>58</b><span>테스트 결과서</span></a><a href="#st59"><b>59</b><span>테스트 실행 절차 및 평가</span></a><i class="qg">배치 프로그램 구현하기</i><a href="#st60"><b>60</b><span>배치 프로그램의 이해</span></a><a href="#st61"><b>61</b><span>배치 프로그램의 개념</span></a><a href="#st62"><b>62</b><span>배치 프로그램의 필수 요소</span></a><a href="#st63"><b>63</b><span>배치 스케줄러(Scheduler)</span></a><a href="#st64"><b>64</b><span>배치 스케줄러의 개념</span></a><a href="#st65"><b>65</b><span>배치 스케줄러의 종류</span></a><a href="#st66"><b>66</b><span>디버그(Debug)와 디버거(Debugger)</span></a><a href="#st67"><b>67</b><span>디버그(Debug)의 개념</span></a><a href="#st68"><b>68</b><span>디버거(Debugger)의 개념</span></a><a href="#st69"><b>69</b><span>디버거(Debugger) 사용법</span></a><a href="#st70"><b>70</b><span>디버그 뷰(Debug View)</span></a><a href="#st71"><b>71</b><span>중단점(Break Pointer) 설정</span></a><a href="#st72"><b>72</b><span>디버그 모드(Debug Mode)에서의 스텝(Step) 단위 진행</span></a>
+  <a class="qt" href="#top"><b>&uarr;</b><span>맨 위로</span></a>
+  <i class="qg">개발 환경 구축하기</i><a href="#st1"><b>1</b><span>개발 환경 준비</span></a><a href="#st2"><b>2</b><span>개발 환경 구축</span></a><i class="qg">공통 모듈 구현하기</i><a href="#st3"><b>3</b><span>공통 모듈 구현</span></a><a href="#st4"><b>4</b><span>공통 모듈 테스트 계획 수립</span></a><i class="qg">서버 프로그램 구현하기</i><a href="#st5"><b>5</b><span>서버 프로그램 확인</span></a><a href="#st6"><b>6</b><span>서버 프로그램 구현</span></a><a href="#st7"><b>7</b><span>서버 프로그램 테스트 수행</span></a><i class="qg">배치 프로그램 구현하기</i><a href="#st8"><b>8</b><span>배치 프로그램 구현</span></a><a href="#st9"><b>9</b><span>배치 프로그램 테스트 수행</span></a>
 </nav>
 
 <div class="wrap" id="top">
 
-<h1>서버프로그램 구현 — 준비 교안</h1>
+<h1>서버프로그램 구현 — 학습 가이드</h1>
 <p class="sub">능력단위 <code>2001020211_23v6</code> · 5수준 ·
-72시간 · 단계 72개 · 평가 포트폴리오 · 평가자 체크리스트</p>
+72시간 · 꼭지 9개 · 개념 72항목 · 실습 78절차</p>
 
-<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<h2 class="sec" id="g0">0. 시작하기 전에</h2>
 <div class="sect">
   <aside class="side">
     <p class="pt">애플리케이션 설계를 기반으로 개발에 필요한 환경을 구성하고, 프로그래밍 언어와 도구를 활용하여 공통 모듈, 업무 프로그램과 배치 프로그램을 구현할 수 있다.</p>
-    <b class="sh">선수학습</b>
+    <b class="sh">먼저 알아야 할 것</b>
     <p class="v">응용 SW 기초 기술 활용(2001020232_23v5), 프로그램 언어 활용(2001020231_23v5), 프로그래밍 언어 응용(2001020230_23v5), 애플리케이션 배포(2001020214_23v6)</p>
-    <b class="sh">원문</b>
-    <p class="src">LM2001020211_23v6_서버 프로그램 구현_20251108.pdf (130쪽)</p>
+    <b class="sh">평가</b>
+    <p class="src">포트폴리오 · 평가자 체크리스트</p>
   </aside>
   <div class="bd">
-<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
-   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
-   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
-<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
-   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
-   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+<h4>이 문서를 쓰는 법</h4>
+<p>꼭지마다 <b>무엇을 할 수 있게 되나 → 알아야 할 것 → 해 보기 → 스스로 확인</b>
+   순서입니다. 읽고 끝내지 말고 <b>해 보기</b>를 손으로 따라 하십시오.
+   마지막 <b>스스로 확인</b>을 전부 «할 수 있다» 고 말할 수 있으면 다음 꼭지로 갑니다.</p>
+<p>자세한 설명과 표·그림은 <b>학습모듈 원문</b>에 있습니다. 꼭지마다 있는
+   <b>[원문 N쪽]</b> 단추를 누르면 그 자리가 바로 펼쳐집니다.</p>
 
 <h4>핵심 용어</h4>
 <p>요구사항 분석, 시스템 아키텍처, 애플리케이션 아키텍처, 공통 모듈, 서버, 형상관리, 단위 테스트</p>
 
-<h4>능력단위요소</h4>
+<h4>차례</h4>
 <table class="wide">
-  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
-      <th>학습 내용</th><th style="width:74px">단계</th></tr>
-  <tr><td class="c">1</td><td>개발 환경 구축하기</td><td>개발 환경 준비 · 개발 환경 구축</td><td class="c">18</td></tr>
-  <tr><td class="c">2</td><td>공통 모듈 구현하기</td><td>공통 모듈 구현 · 공통 모듈 테스트 계획 수립</td><td class="c">15</td></tr>
-  <tr><td class="c">3</td><td>서버 프로그램 구현하기</td><td>서버 프로그램 확인 · 서버 프로그램 구현 · 서버 프로그램 테스트 수행</td><td class="c">26</td></tr>
-  <tr><td class="c">4</td><td>배치 프로그램 구현하기</td><td>배치 프로그램 구현 · 배치 프로그램 테스트 수행</td><td class="c">13</td></tr>
+  <tr><th style="width:44px">꼭지</th><th style="width:250px">학습 내용</th>
+      <th>능력단위요소</th><th style="width:58px">개념</th><th style="width:58px">실습</th></tr>
+  <tr><td class="c">1</td><td>1-1. 개발 환경 준비</td><td>개발 환경 구축하기</td><td class="c">7</td><td class="c">17</td></tr>
+  <tr><td class="c">2</td><td>1-2. 개발 환경 구축</td><td>개발 환경 구축하기</td><td class="c">11</td><td class="c">9</td></tr>
+  <tr><td class="c">3</td><td>2-1. 공통 모듈 구현</td><td>공통 모듈 구현하기</td><td class="c">9</td><td class="c">7</td></tr>
+  <tr><td class="c">4</td><td>2-2. 공통 모듈 테스트 계획 수립</td><td>공통 모듈 구현하기</td><td class="c">6</td><td class="c">11</td></tr>
+  <tr><td class="c">5</td><td>3-1. 서버 프로그램 확인</td><td>서버 프로그램 구현하기</td><td class="c">7</td><td class="c">5</td></tr>
+  <tr><td class="c">6</td><td>3-2. 서버 프로그램 구현</td><td>서버 프로그램 구현하기</td><td class="c">10</td><td class="c">7</td></tr>
+  <tr><td class="c">7</td><td>3-3. 서버 프로그램 테스트 수행</td><td>서버 프로그램 구현하기</td><td class="c">9</td><td class="c">9</td></tr>
+  <tr><td class="c">8</td><td>4-1. 배치 프로그램 구현</td><td>배치 프로그램 구현하기</td><td class="c">6</td><td class="c">6</td></tr>
+  <tr><td class="c">9</td><td>4-2. 배치 프로그램 테스트 수행</td><td>배치 프로그램 구현하기</td><td class="c">7</td><td class="c">7</td></tr>
 </table>
-
-<div class="try">
-  <b class="t">쓰는 법</b>
-  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
-  한 단계가 대략 수업 10~20분에 해당합니다.
-</div>
   </div>
 </div>
 
@@ -77,469 +93,65 @@
   <div class="lvh"><b>1. 개발 환경 구축하기</b><span>능력단위요소 · <code>2001020211_23v6.1</code></span></div>
   <div class="lvb">
     <div class="step" id="st1">
-      <h3><i>1</i>응용 소프트웨어의 개념</h3>
+      <h3><i>1</i>1-1. 개발 환경 준비</h3>
       <aside class="side">
-        <p class="pt">개발 환경 준비</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
+        <p class="pt">응용 소프트웨어 개발에 필요한 하드웨어 및 소프트웨어의 필요 사항을 검토하고, 이에 따라 개발 환경에 필요한 준비를 수행할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">개발 환경 구축하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 7항목 · 실습 17절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>응용 소프트웨어의 정의</li><li>응용 소프트웨어의 특성</li><li>응용 소프트웨어의 유형</li><li>개발 환경의 개념</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>응용 소프트웨어 개발에 필요한 하드웨어 및 소프트웨어의 필요 사항을 검토하고, 이에 따라 개발 환경에 필요한 준비를 수행할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>응용 소프트웨어의 정의</dt><dd><blockquote>응용 소프트웨어(Application Software)는 특정 사용자 요구를 충족시키기 위해 컴퓨터 시스템에서 실행되는 프로그램을 의미하며, 운영체제(OS)와 같은 시스템 소프트웨어와 달리, 사용자가 필요로 하는 구체적인 업무 처리나 기능 수행을 목적으로 한다.</blockquote></dd><dt>응용 소프트웨어의 특성</dt><dd><blockquote>사용자 혹은 조직의 문제 해결, 업무 자동화, 정보 처리 등을 지원한다. 특정 산업, 업무, 조직의 업무 규칙(Business Rule)을 반영한다.</blockquote></dd><dt>응용 소프트웨어의 유형</dt><dd><blockquote>데스크톱 응용 SW PC 기반 독립 실행 프로그램 MS Word, AutoCAD 웹 기반 응용 SW 웹 브라우저에서 실행되는 서비스 인터넷 뱅킹, 전자정부 서비스 모바일 응용 SW 스마트폰, 태블릿에서 실행되는 앱 SNS 앱, 모바일 쇼핑 앱임베디드 응용 SW 특정 하드웨어 장비에 내장되어 구동 자동차 ECU, POS 단말 SW 클라우드 응용 SW SaaS 형태로 제공되는 응용 SW Goog</blockquote></dd><dt>개발 환경의 정의</dt><dd><blockquote>응용 SW 개발 환경은 응용 소프트웨어를 개발·빌드·테스트·배포하기 위해 필요한 하드 웨어, 소프트웨어, 네트워크, 개발 도구 및 인프라의 집합을 의미하며, 개발자가 소프트 웨어를 효율적이고 안정적으로, 높은 품질 수준을 유지하여 개발할 수 있도록 지원하는 인프라와 도구들의 통합된 시스템으로 구성된다.</blockquote></dd><dt>개발 환경의 유형</dt><dd><blockquote>개발 환경의 로컬 개발 환경 유형으로는 서버 기반 개발 환경, 가상화 개발 환경, 클라 우드 개발 환경, DevOps 통합 환경 등이 있다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>응용 소프트웨어의 개념 · 개발 환경의 개념</dd></dl>
+
+<h4>해 보기</h4>
+<h5>개발 환경 준비하기</h5><div class='prep'><b>재료·자료</b><span>요구사항 정의서 / 시스템 아키텍처</span><b>기기·도구</b><span>컴퓨터 또는 PC, 네트워크 장비, 프린터, 빔 프로젝트 / CASE 도구(SW 개발 지원 도구, SW 테스트 지원 도구 등) / 형상관리 도구 / 개발 프로그램</span><b>유의 사항</b><span>CASE 도구를 활용하여 실습할 때에는 사전에 CASE 도구의 정품 인증 여부를 확인한다. / 형상관리 도구를 활용하여 실습할 때에는 형상관리 DB 등의 손상에 유의한다.</span></div><div class='doh'><b>1</b><span>목표시스템의 운영환경을 분석한다.</span></div><ol class='dos'><li>목표시스템의 환경을 파악한다.</li><li>목표시스템의 운영환경을 분석한다.</li><li>목표시스템의 개발 환경을 분석한다.</li><li>목표시스템의 응용 SW의 요구사항을 분석한다.</li></ol><div class='doh'><b>2</b><span>개발 언어 및 하드웨어 사양을 고려한 구현 도구를 선정한다.</span></div><ol class='dos'><li>개발 언어의 선정 (1) 개발 언어의 선정 기준 개발 언어의 선정 기준으로는 적정성, 효율성, 이식성, 친밀성, 범용성, 생태계 및 DevOps/클라우드 적합성 등이 있다.</li><li>개발 도구의 선정 (1) 통합 개발 환경의 종류 및 특징 통합 개발 환경 개발사 운영체제 언어 라이선스 IntelliJ IDEA JetBrains Windows, macOS, Linux Java, Kotlin, Python, JS, Go 등 상용 (Community 무료) Visual Studio Code Microsoft Windows, macOS, Linux JavaScript, TypeScript, Python, Go, PHP, C#, Java 무료 (MIT) Eclipse Eclipse 재단 Windows, macOS, Linux Java, C/C++, PHP 등 Eclipse Public License PyCharm JetBrains Windows, macOS, Linux Python, Django, HTML/CSS/JS 상용 (Community 무료) Rider JetBrains Windows, macOS, Linux C#, .NET, ASP.NET, Blazor 상용 Xcode Apple macOS Swift, Objective-C, C++ 무료 Android Studio Google Windows, macOS, Linux Kotlin, Java 무료 GitHub Codespaces GitHub 클라우드 기반 다수 언어 지원 (VS Code 호환) 사용량 과금 Gitpod Gitpod 클라우드 기반 다수 언어 지원 (VS Code 호환) 사용량 과금 (2) 최신 개발 환경 트렌드 (가) 클라우드 IDE GitHub Codespaces, Gitpod 등으로 원격 개발, 협업 개발 가속화가 가능하며, 인프라 준비 없이 즉시 개발 환경 구축이 가능하다.</li></ol><div class='doh'><b>3</b><span>프로그램의 배포 및 라이브러리 관리를 위한 빌드(Build) 도구를 선정한다.</span></div><ol class='dos'><li>빌드 도구 Gradle, Maven, Ant의 특징</li><li>최신 빌드 도구 트렌드를 파악한다.</li><li>빌드 도구의 선정 기준을 정한다.</li></ol><div class='doh'><b>4</b><span>개발 인원을 고려한 형상관리 도구를 선정한다.</span></div><ol class='dos'><li>형상관리 도구의 종류 항목 CVS Subversion (SVN) Git 라이선스 GNU GPL v2.0 Apache License v2.0 GNU GPL v2.0 적용 언어 무관 무관 무관 OS Windows/Linux Windows/Linux/mac OS Windows/Linux/macOS 실행 환경 Command Line Interface, 일부 Third-Party GUI Command Line Interface, GUI Command Line Interface, GUI GUI 도구 TortoiseCVS 등 TortoiseSVN, WinSVN 등 SourceTree, GitKraken, GitHub Desktop, GitLens, GitLab UI 등</li><li>최신 형상관리 도구 트렌드 (1) Git 중심의 분산 버전 관리 (가) 현업 개발에서 Git이 사실상 표준로컬 개발 → 중앙 저장소 → CI/CD 파이프라인으로 연계 (나) 협업 개발 필수 기능 (2) 클라우드 기반 형상관리 (가) SaaS로 형상관리 도구 활용 증가 (나) 주요 플랫폼: GitHub, GitLab, Bitbucket, Azure DevOps (다) 특징: 코드 저장소 + CI/CD + 이슈 관리 통합, 보안, 권한 관리 강화, AI 코드 리뷰, 자동화 기능 제공 (Copilot, Code Suggestions 등) (3) GUI 기반 툴 강화 (가) CLI만 사용하는 시대는 지남 (나) 인기 GUI 도구: GitHub Desktop, SourceTree, GitKraken, GitLens (VS Code Extension), (다) 로컬에서 쉽고 직관적으로 브랜치 관리 가능 (4) DevOps와 통합 (가) Git은 CI/CD 도구와 필수적으로 연동 (나) 예시: GitHub Actions, GitLab CI/CD, Azure Pipelines (다) 코드부터 배포까지 자동화 (Pipeline as Code) 항목 CVS Subversion (SVN) Git 특징 중앙 집중식 저장 소 기반 협업 시 충돌 방지에 유리하나 분산 개발에 취약 중앙 집중식 저장소 기커밋 히스토리 관리 용이, SVN Hook 등으로 배포 자동화 가능 분산 버전 관리로컬 저장소/협업 모두 지원 브랜치 관리, Pull/Merge Request, CI/CD와 긴밀히 통합 클라우드 연동 연동 어려움 연동 가능하나 제한적 GitHub, GitLab, Bitbucket, Azure DevOps 등과 클라우드 네이티브 연계 DevOps 통합 낮음가능 매우 우수 (CI/CD, GitOps, Code Review, Issue Tracking 연계) (5) 보안 스캐닝 통합 (가) Git 저장소 스캔: Secret 검출 (나) Dependency Vulnerability Check 도구: Snyk, SonarQube, GitHub Advanced Security</li><li>형상관리 도구의 선정 기준을 설정한다.</li><li>형상관리 도구를 선정한다.</li></ol><div class='doh'><b>5</b><span>프로젝트 검증에 적합한 테스트 도구를 선정한다.</span></div><ol class='dos'><li>테스트 도구의 유형을 파악한다.</li><li>최신 테스트 도구 트렌드를 파악한다.</li><li>테스트 도구 선정 기준을 정한다.</li><li>테스트 도구의 선정 최신 프로젝트 테스트 도구로는 DevOps, 클라우드, AI와 밀접하게 연계되어야 하며, 단순 기능 검증에서 벗어나 품질, 보안, 성능, 유지보수성 통합 검증으로 확장되어야하며, 테스트 자동화, CI/CD 통합, 클라우드 기반 서비스를 포함하여 보안 취약점 점 검은 DevSecOps 관점에서 반드시 포함할 필요가 있다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>목표시스템의 운영환경을 분석한다.</li><li>개발 언어 및 하드웨어 사양을 고려한 구현 도구를 선정한다.</li><li>프로그램의 배포 및 라이브러리 관리를 위한 빌드(Build) 도구를 선정한다.</li><li>개발 인원을 고려한 형상관리 도구를 선정한다.</li><li>프로젝트 검증에 적합한 테스트 도구를 선정한다.</li><li>응용 소프트웨어 개발에 필요한 하드웨어 및 소프트웨어의 필요 사항을 검토하고, 이에 따라 개발 환경에 필요한 준비를 수행할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 포트폴리오 · 평가자 체크리스트</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 3쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
     <div class="step" id="st2">
-      <h3><i>2</i>응용 소프트웨어의 정의</h3>
+      <h3><i>2</i>1-2. 개발 환경 구축</h3>
       <aside class="side">
-        <p class="pt">개발 환경 준비</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>응용 소프트웨어(Application Software)는 특정 사용자 요구를 충족시키기 위해 컴퓨터 시스템에서 실행되는 프로그램을 의미하며, 운영체제(OS)와 같은 시스템 소프트웨어와 달리, 사용자가 필요로 하는 구체적인 업무 처리나 기능 수행을 목적으로 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st3">
-      <h3><i>3</i>응용 소프트웨어의 특성</h3>
-      <aside class="side">
-        <p class="pt">개발 환경 준비</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>사용자 혹은 조직의 문제 해결, 업무 자동화, 정보 처리 등을 지원한다. 특정 산업, 업무, 조직의 업무 규칙(Business Rule)을 반영한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st4">
-      <h3><i>4</i>응용 소프트웨어의 유형</h3>
-      <aside class="side">
-        <p class="pt">개발 환경 준비</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>데스크톱 응용 SW PC 기반 독립 실행 프로그램 MS Word, AutoCAD 웹 기반 응용 SW 웹 브라우저에서 실행되는 서비스 인터넷 뱅킹, 전자정부 서비스 모바일 응용 SW 스마트폰, 태블릿에서 실행되는 앱 SNS 앱, 모바일 쇼핑 앱임베디드 응용 SW 특정 하드웨어 장비에 내장되어 구동 자동차 ECU, POS 단말 SW 클라우드 응용 SW SaaS 형태로 제공되는 응용 SW Goog</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st5">
-      <h3><i>5</i>개발 환경의 개념</h3>
-      <aside class="side">
-        <p class="pt">개발 환경 준비</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>개발 환경의 정의</li><li>개발 환경의 유형</li></ul>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st6">
-      <h3><i>6</i>개발 환경의 정의</h3>
-      <aside class="side">
-        <p class="pt">개발 환경 준비</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>응용 SW 개발 환경은 응용 소프트웨어를 개발·빌드·테스트·배포하기 위해 필요한 하드 웨어, 소프트웨어, 네트워크, 개발 도구 및 인프라의 집합을 의미하며, 개발자가 소프트 웨어를 효율적이고 안정적으로, 높은 품질 수준을 유지하여 개발할 수 있도록 지원하는 인프라와 도구들의 통합된 시스템으로 구성된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st7">
-      <h3><i>7</i>개발 환경의 유형</h3>
-      <aside class="side">
-        <p class="pt">개발 환경 준비</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발 환경의 로컬 개발 환경 유형으로는 서버 기반 개발 환경, 가상화 개발 환경, 클라 우드 개발 환경, DevOps 통합 환경 등이 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st8">
-      <h3><i>8</i>개발 하드웨어 환경</h3>
-      <aside class="side">
-        <p class="pt">개발 환경 구축</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">응용 소프트웨어 개발에 필요한 하드웨어 및 소프트웨어를 설치하고 설정하여 개발 환경을 구축할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">개발 환경 구축하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="33">원문 20쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 11항목 · 실습 9절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발 환경의 하드웨어는 운영환경과 유사한 구조로 구성하는 것이 원칙이며, 안정성, 확장 성, 성능을 고려하여 구축해야 한다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>응용 소프트웨어 개발에 필요한 하드웨어 및 소프트웨어를 설치하고 설정하여 개발 환경을 구축할 수 있다.</li><li>사전에 수립된 형상관리 방침에 따라 운영 정책에 부합하는 형상관리 환경을 구축할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>개발 하드웨어 환경</dt><dd><blockquote>개발 환경의 하드웨어는 운영환경과 유사한 구조로 구성하는 것이 원칙이며, 안정성, 확장 성, 성능을 고려하여 구축해야 한다.</blockquote></dd><dt>클라이언트(Client) 환경 구성</dt><dd><blockquote>클라이언트 서버 시스템에서 제공하는 서비스를 활용하기 위해 사용자와의 인터페이스 (Interface)를 제공하는 하드웨어로, 일반적으로 PC(Client/Server 화면), 웹 브라우저 환경, 모바일 디바이스가 클라이언트로 활용된다.</blockquote></dd><dt>서버(Server) 환경 구성</dt><dd><blockquote>서버 환경은 목적에 따라 애플리케이션 서버, 데이터베이스 서버, 파일 서버, 개발 빌드 서버, 테스트 서버 등으로 나눌 수 있다.</blockquote></dd><dt>시스템 소프트웨어</dt><dd><blockquote>하드웨어 운영을 위한 운영체제로서, Windows, Linux, UNIX 등의 환경으로 구성된다. 현재는 특히 클라우드 환경에 최적화된 OS 선택이 중요하며, 개발 환경은 운영환경과 동일한 OS 버전으로 맞추는 것이 원칙이다.</blockquote></dd><dt>개발 도구 소프트웨어 구성</dt><dd><blockquote>고객의 요구사항 수집, 분석, 추적, 협업을 지원한다. 최근에는 애자일, DevOps 연계로 협업 툴과 연동성이 높은 SaaS 기반 요구사항 관리 도구가 선호된다.</blockquote></dd><dt>형상관리의 개념</dt><dd><blockquote>형상관리는 소스코드뿐만 아니라 문서, 설계 산출물, 스크립트, 빌드 결과물 등 다양한 개발 산출물을 관리 대상으로 포함하며, 협업 기반 개발 환경에서 필수적인 핵심 프로 세스로 자리잡고 있다.</blockquote></dd><dt>형상관리 절차</dt><dd><blockquote>형상 식별을 위해서는 관리해야 할 형상 항목(산출물)을 식별하고, 이름과 관리 번호를 부여하고, 트리(Tree) 구조로 계층적 관리를 하는 것이 필요하다, 추가로 프로 젝트 기반 표준화를 하고, 개발 프로세스를 정립하고, 산출물 목록과 식별자 관리를 할 필요가 있다.</blockquote></dd><dt>형상관리 최신 트렌드</dt><dd><blockquote>중앙 집중식(SVN) 대비 협업 효율을 향상할 수 있다. 소스 관리부터 빌드, 배포까지 자동화할 수 있다. IaC 기반 형상관리로 인프라까지 관리 대상을 확대할 수 있다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>최신 개발 하드웨어 트렌드 · 개발 소프트웨어 환경 · 형상관리의 필요성</dd></dl>
+
+<h4>해 보기</h4>
+<h5>개발 환경 구축하기</h5><div class='prep'><b>재료·자료</b><span>요구사항 정의서 / 시스템 아키텍처</span><b>기기·도구</b><span>컴퓨터 또는 PC, 네트워크 장비, 프린터, 빔 프로젝트 / CASE 도구(SW 개발 지원 도구, SW 테스트 지원 도구 등) / 형상관리 도구 / 개발 프로그램</span><b>유의 사항</b><span>CASE 도구를 활용하여 실습 시에는 사전에 CASE 도구의 정품 인증 여부를 확인한다. / 형상관리 도구를 활용하여 실습 시에는 형상관리 DB 등의 손상에 유의한다. / 31</span></div><div class='doh'><b>1</b><span>통합 개발 환경 도구를 설치한다.</span></div><ol class='dos'><li>요구사항에 적합한 통합 개발 환경 도구를 다운받는다.</li><li>다운받은 통합 개발 환경 도구를 설치한다.</li><li>통합 개발 환경 도구를 실행한다.</li></ol><div class='doh'><b>2</b><span>Java 웹 애플리케이션 환경을 구성한다.</span></div><ol class='dos'><li>Spring 프레임워크 환경을 구성한다.</li><li>Spring 프레임워크 기반의 웹 애플리케이션 프로젝트를 생성한다.</li><li>단위 테스트 자동화 도구의 설치 여부를 확인한다.</li></ol><div class='doh'><b>3</b><span>형상관리 도구 Git를 설치한다.</span></div><ol class='dos'><li>형상관리 도구를 다운로드한다.</li><li>형상관리 도구를 설치한다.</li><li>설치한 형상관리 도구의 환경을 설정한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>통합 개발 환경 도구를 설치한다.</li><li>Java 웹 애플리케이션 환경을 구성한다.</li><li>형상관리 도구 Git를 설치한다.</li><li>응용 소프트웨어 개발에 필요한 하드웨어 및 소프트웨어를 설치하고 설정하여 개발 환경을 구축할 수 있다.</li><li>사전에 수립된 형상관리 방침에 따라 운영 정책에 부합하는 형상관리 환경을 구축할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 포트폴리오 · 평가자 체크리스트</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st9">
-      <h3><i>9</i>클라이언트(Client) 환경 구성</h3>
-      <aside class="side">
-        <p class="pt">개발 환경 구축</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="33">원문 20쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>클라이언트 서버 시스템에서 제공하는 서비스를 활용하기 위해 사용자와의 인터페이스 (Interface)를 제공하는 하드웨어로, 일반적으로 PC(Client/Server 화면), 웹 브라우저 환경, 모바일 디바이스가 클라이언트로 활용된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st10">
-      <h3><i>10</i>서버(Server) 환경 구성</h3>
-      <aside class="side">
-        <p class="pt">개발 환경 구축</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>서버 환경은 목적에 따라 애플리케이션 서버, 데이터베이스 서버, 파일 서버, 개발 빌드 서버, 테스트 서버 등으로 나눌 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st11">
-      <h3><i>11</i>최신 개발 하드웨어 트렌드</h3>
-      <aside class="side">
-        <p class="pt">개발 환경 구축</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="36">원문 23쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>개발 소프트웨어 환경</li><li>시스템 소프트웨어</li><li>개발 도구 소프트웨어 구성</li><li>형상관리의 개념</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st12">
-      <h3><i>12</i>개발 소프트웨어 환경</h3>
-      <aside class="side">
-        <p class="pt">개발 환경 구축</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="37">원문 24쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>시스템 소프트웨어</li><li>개발 도구 소프트웨어 구성</li><li>형상관리의 개념</li><li>형상관리의 필요성</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st13">
-      <h3><i>13</i>시스템 소프트웨어</h3>
-      <aside class="side">
-        <p class="pt">개발 환경 구축</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="37">원문 24쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>하드웨어 운영을 위한 운영체제로서, Windows, Linux, UNIX 등의 환경으로 구성 된다. 현재는 특히 클라우드 환경에 최적화된 OS 선택이 중요하며, 개발 환경은 운영환경과 동일한 OS 버전으로 맞추는 것이 원칙이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st14">
-      <h3><i>14</i>개발 도구 소프트웨어 구성</h3>
-      <aside class="side">
-        <p class="pt">개발 환경 구축</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="39">원문 26쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>고객의 요구사항 수집, 분석, 추적, 협업을 지원한다. 최근에는 애자일, DevOps 연계로 협업 툴과 연동성이 높은 SaaS 기반 요구사항 관리 도구가 선호된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st15">
-      <h3><i>15</i>형상관리의 개념</h3>
-      <aside class="side">
-        <p class="pt">개발 환경 구축</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="41">원문 28쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>형상관리는 소스코드뿐만 아니라 문서, 설계 산출물, 스크립트, 빌드 결과물 등 다양한 개발 산출물을 관리 대상으로 포함하며, 협업 기반 개발 환경에서 필수적인 핵심 프로 세스로 자리잡고 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st16">
-      <h3><i>16</i>형상관리의 필요성</h3>
-      <aside class="side">
-        <p class="pt">개발 환경 구축</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="41">원문 28쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>형상관리 절차</li><li>형상관리 최신 트렌드</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st17">
-      <h3><i>17</i>형상관리 절차</h3>
-      <aside class="side">
-        <p class="pt">개발 환경 구축</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="41">원문 28쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>형상 식별을 위해서는 관리해야 할 형상 항목(산출물)을 식별하고, 이름과 관리 번호를 부여하고, 트리(Tree) 구조로 계층적 관리를 하는 것이 필요하다, 추가로 프로 젝트 기반 표준화를 하고, 개발 프로세스를 정립하고, 산출물 목록과 식별자 관리를 할 필요가 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st18">
-      <h3><i>18</i>형상관리 최신 트렌드</h3>
-      <aside class="side">
-        <p class="pt">개발 환경 구축</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="43">원문 30쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>중앙 집중식(SVN) 대비 협업 효율을 향상할 수 있다. 소스 관리부터 빌드, 배포까지 자동화할 수 있다. IaC 기반 형상관리로 인프라까지 관리 대상을 확대할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 20쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -548,392 +160,66 @@
 <div class="lv">
   <div class="lvh"><b>2. 공통 모듈 구현하기</b><span>능력단위요소 · <code>2001020211_23v6.2</code></span></div>
   <div class="lvb">
-    <div class="step" id="st19">
-      <h3><i>19</i>공통 모듈에 대한 이해</h3>
+    <div class="step" id="st3">
+      <h3><i>3</i>2-1. 공통 모듈 구현</h3>
       <aside class="side">
-        <p class="pt">공통 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">공통 모듈의 상세 설계를 기반으로 프로그래밍 언어와 도구를 활용하여 업무 프로세스 및 서비스의 구현에 필요한 공통 모듈을 작성할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">공통 모듈 구현하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="56">원문 43쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 9항목 · 실습 7절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>공통 모듈은 정보 시스템 구축 시 자주 사용하는 기능들로서 재사용이 가능하게 패키지로 제공하는 독립된 모듈을 의미한다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>공통 모듈의 상세 설계를 기반으로 프로그래밍 언어와 도구를 활용하여 업무 프로세스 및 서비스의 구현에 필요한 공통 모듈을 작성할 수 있다.</li><li>소프트웨어 측정 지표 중 모듈 간의 결합도는 줄이고 개별 모듈들의 내부 응집도를 높인 공통 모듈을 구현할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>공통 모듈에 대한 이해</dt><dd><blockquote>공통 모듈은 정보 시스템 구축 시 자주 사용하는 기능들로서 재사용이 가능하게 패키지로 제공하는 독립된 모듈을 의미한다.</blockquote></dd><dt>재사용(Reuse)</dt><dd><blockquote>목표시스템의 개발 시간 및 비용 절감을 위하여 검증된 기능을 파악하고 재구성하여 시스템에 응용하기 위한 최적화 작업이다.</blockquote></dd><dt>공통 모듈의 종류</dt><dd><blockquote>목표시스템을 구축하기 위하여 구현하는 공통 모듈들은 공통 모듈의 설계를 기반으로 프로그래밍 언어와 도구를 활용하여 작성한다.</blockquote></dd><dt>소프트웨어 모듈 응집도</dt><dd><blockquote>응집도는 모듈 내부에서 구성 요소 간에 밀접한 관계를 맺고 있는 정도로 평가되며, 응집도가 높을수록 필요한 요소들로 구성되어 있고 낮을수록 관련이 적은 요소들로 구성되어</blockquote></dd><dt>응집도의 유형</dt><dd><blockquote>한 모듈 안의 기능들의 연관성 정도를 나타낸다. 응집도 유형 기능적 응집도 (Functional Cohesion) 모듈 내부의 모든 기능이 단일한 목적을 위해 수행되는 경우이다.</blockquote></dd><dt>응집도와 품질</dt><dd><blockquote>목표시스템의 기준에 따라 모듈을 구성할 수 있으나, 품질 측면에서는 응집도의 유형 중 기능적 응집도가 가장 높고 우연적 응집도가 가장 낮다.</blockquote></dd><dt>소프트웨어 모듈 결합도</dt><dd><blockquote>결합도는 모듈과 모듈 간의 관련성 정도를 나타내며, 관련이 적을수록 모듈의 독립성이 높아져 모듈 간 영향이 적어지게 된다.</blockquote></dd><dt>결합도의 유형</dt><dd><blockquote>응집도 유형 자료 결합도 (Data Coupling) 모듈 간의 인터페이스로 전달되는 파라미터를 통해서만 모듈 간의 상호 작용이 일어나는 경우이다.</blockquote></dd><dt>결합도와 품질</dt><dd><blockquote>목표시스템의 환경에 따라 모듈 구성의 결합 정도를 결정할 수 있으나, 품질 측면에서 결합도의 유형 중 자료 결합도의 품질이 가장 높고, 내용 결합도의 품질이 가장 낮다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>공통 모듈 구현하기</h5><div class='prep'><b>재료·자료</b><span>공통 모듈 관리 대장, 공통 모듈 프로그램 설계서 / 요구사항 정의서 / 시스템 아키텍처</span><b>기기·도구</b><span>컴퓨터 또는 PC, 네트워크 장비, 프린터, 빔 프로젝트 / CASE 도구(SW 개발 지원 도구, SW 테스트 지원 도구 등) / 형상관리 도구</span><b>유의 사항</b><span>공통 모듈 설계 산출물에 대한 이해가 선행되어야 한다. / 프로그램 개발 경험과 SQL 작성 경험이 필요하다.</span></div><div class='doh'><b>1</b><span>공통 모듈의 상세 설계를 기반으로 작성해야 할 공통 모듈을 확인한다.</span></div><ol class='dos'><li>공통 모듈 관리 대장을 확인한다.</li><li>공통 모듈 프로그램 설계서를 확인한다.</li></ol><div class='doh'><b>2</b><span>공통 모듈의 상세 설계 산출물을 기반으로 공통 모듈을 구현한다.</span></div><ol class='dos'><li>공통 모듈을 구현하기 위한 I/O 오브젝트(DTO/VO)를 정의한다.</li><li>공통 모듈을 구현하기 위한 SQL을 작성한다.</li><li>데이터 접근 객체(DAO: Data Access Object)를 구현한다.</li><li>서비스(Service) 클래스를 구현한다.</li><li>컨트롤러(Controller) 클래스를 구현한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>공통 모듈의 상세 설계를 기반으로 작성해야 할 공통 모듈을 확인한다.</li><li>공통 모듈의 상세 설계 산출물을 기반으로 공통 모듈을 구현한다.</li><li>공통 모듈의 상세 설계를 기반으로 프로그래밍 언어와 도구를 활용하여 업무 프로세스 및 서비스의 구현에 필요한 공통 모듈을 작성할 수 있다.</li><li>소프트웨어 측정 지표 중 모듈 간의 결합도는 줄이고 개별 모듈들의 내부 응집도를 높인 공통 모듈을 구현할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 체크리스트 · 포트폴리오</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 43쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st20">
-      <h3><i>20</i>재사용(Reuse)</h3>
+    <div class="step" id="st4">
+      <h3><i>4</i>2-2. 공통 모듈 테스트 계획 수립</h3>
       <aside class="side">
-        <p class="pt">공통 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="56">원문 43쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>목표시스템의 개발 시간 및 비용 절감을 위하여 검증된 기능을 파악하고 재구성하여 시스템에 응용하기 위한 최적화 작업이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st21">
-      <h3><i>21</i>공통 모듈의 종류</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="56">원문 43쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>목표시스템을 구축하기 위하여 구현하는 공통 모듈들은 공통 모듈의 설계를 기반으로 프로그래밍 언어와 도구를 활용하여 작성한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st22">
-      <h3><i>22</i>소프트웨어 모듈 응집도</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="57">원문 44쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>응집도는 모듈 내부에서 구성 요소 간에 밀접한 관계를 맺고 있는 정도로 평가되며, 응집도가 높을수록 필요한 요소들로 구성되어 있고 낮을수록 관련이 적은 요소들로 구성되어</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st23">
-      <h3><i>23</i>응집도의 유형</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="57">원문 44쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>한 모듈 안의 기능들의 연관성 정도를 나타낸다. 응집도 유형 기능적 응집도 (Functional Cohesion) 모듈 내부의 모든 기능이 단일한 목적을 위해 수행되는 경우이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st24">
-      <h3><i>24</i>응집도와 품질</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="58">원문 45쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>목표시스템의 기준에 따라 모듈을 구성할 수 있으나, 품질 측면에서는 응집도의 유형 중 기능적 응집도가 가장 높고 우연적 응집도가 가장 낮다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st25">
-      <h3><i>25</i>소프트웨어 모듈 결합도</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="59">원문 46쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>결합도는 모듈과 모듈 간의 관련성 정도를 나타내며, 관련이 적을수록 모듈의 독립성이 높아져 모듈 간 영향이 적어지게 된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st26">
-      <h3><i>26</i>결합도의 유형</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="59">원문 46쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>응집도 유형 자료 결합도 (Data Coupling) 모듈 간의 인터페이스로 전달되는 파라미터를 통해서만 모듈 간의 상호 작용이 일어나는 경우이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st27">
-      <h3><i>27</i>결합도와 품질</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="59">원문 46쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>목표시스템의 환경에 따라 모듈 구성의 결합 정도를 결정할 수 있으나, 품질 측면에서 결합도의 유형 중 자료 결합도의 품질이 가장 높고, 내용 결합도의 품질이 가장 낮다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st28">
-      <h3><i>28</i>테스트 케이스의 이해</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 테스트 계획 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">개발된 공통 모듈의 내부 기능과 제공하는 인터페이스에 대해 테스트할 수 있는 테스트 케이 스를 작성하고, 단위 테스트를 수행하기 위한 테스트 조건을 명세화할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">공통 모듈 구현하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="67">원문 54쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 6항목 · 실습 11절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>테스트 케이스(Test Case)의 개념</li><li>테스트 케이스의 구성 요소</li><li>테스트 프로세스</li><li>테스트 프로세스의 구성</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>개발된 공통 모듈의 내부 기능과 제공하는 인터페이스에 대해 테스트할 수 있는 테스트 케이 스를 작성하고, 단위 테스트를 수행하기 위한 테스트 조건을 명세화할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>테스트 케이스(Test Case)의 개념</dt><dd><blockquote>테스트 케이스란 요구사항을 준수하는지 검증하기 위하여 테스트 조건, 입력값, 예상 출력값 및 수행한 결과 등 테스트 조건을 명세한 것이다.</blockquote></dd><dt>테스트 케이스의 구성 요소</dt><dd><blockquote>식별자(Identifier) 항목 식별자, 일련번호 테스트 항목(Test Item) 테스트할 모듈 또는 기능 입력 명세(Input Specification) 입력값 또는 테스트 조건 출력 명세(Output Specification) 테스트 케이스 실행 시 기대되는 출력값 결과 환경 설정(Environmental Needs) 테스트 수행 시 필요한 하드웨어나 소프트웨어 환경 특수 절차 요구 (</blockquote></dd><dt>테스트 프로세스</dt><dd><blockquote>테스트 프로세스는 테스트 수행과 관련된 활동들이 의도된 테스트 목적과 조건을 달성할 수 있도록 도와주는 역할을 한다.</blockquote></dd><dt>테스트 프로세스의 구성</dt><dd><blockquote>테스트 프로세스는 계획 및 제어, 분석 및 설계, 구현 및 실행, 평가, 완료 단계로 구성</blockquote></dd><dt>테스트 프로세스의 단계</dt><dd><blockquote>테스트의 목표와 목적을 달성하기 위해 필요한 활동을 계획하고, 계획에 준수하여 진행되고 있는지 지속적인 제어 활동을 하는 단계이다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>테스트 케이스의 이해</dd></dl>
+
+<h4>해 보기</h4>
+<h5>공통 모듈 테스트 계획 수립하기</h5><div class='prep'><b>재료·자료</b><span>공통 모듈 관리 대장, 공통 모듈 프로그램 설계서 / 요구사항 정의서 / 개발된 공통 모듈 산출물</span><b>기기·도구</b><span>컴퓨터 또는 PC, 네트워크 장비, 프린터, 빔 프로젝트 / CASE 도구(SW 개발 지원 도구, SW 테스트 지원 도구 등) / 형상관리 도구</span><b>유의 사항</b><span>공통 모듈 설계 산출물에 대한 이해가 선행되어야 한다. / 목표시스템의 요구사항 범위에 대한 이해가 필요하다.</span></div><div class='doh'><b>1</b><span>단위 테스트 케이스 작성을 위한 참조 문서를 수집한다.</span></div><div class='doh'><b>2</b><span>단위 테스트 케이스를 작성한다.</span></div><ol class='dos'><li>단위 테스트 방식을 결정한다.</li><li>단위 테스트의 범위를 결정한다.</li><li>단위 테스트의 방식과 범위에 따라 테스트 케이스를 작성한다.</li></ol><div class='doh'><b>3</b><span>작성된 단위 테스트 케이스를 내부 검토한다.</span></div><ol class='dos'><li>단위 테스트 케이스의 적정성을 검토한다.</li><li>요구사항에 충족할 수 있는 테스트 범위인지 검토한다.</li><li>공통 모듈은 다른 모듈에서 활용되므로 활용성이나 영향도 등을 고려하여 검토한다.</li></ol><div class='doh'><b>4</b><span>작성된 단위 테스트 케이스를 고객에게 승인을 획득한다.</span></div><div class='doh'><b>5</b><span>테스트를 명세하기 위한 테스트 도구를 설정한다.</span></div><ol class='dos'><li>단위 테스트 도구를 사용하기 위한 Wizard를 선택한다.</li><li>테스트 케이스(Test Case)의 이름을 입력하고 Next를 클릭한다.</li><li>테스트를 수행할 함수를 선택하고 Finish를 클릭한다.</li><li>테스트 구문을 작성한다.</li><li>테스트 도구를 실행한다.</li></ol><div class='doh'><b>6</b><span>테스트 결과를 명세화한다.</span></div>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>단위 테스트 케이스 작성을 위한 참조 문서를 수집한다.</li><li>단위 테스트 케이스를 작성한다.</li><li>작성된 단위 테스트 케이스를 내부 검토한다.</li><li>작성된 단위 테스트 케이스를 고객에게 승인을 획득한다.</li><li>테스트를 명세하기 위한 테스트 도구를 설정한다.</li><li>테스트 결과를 명세화한다.</li><li>개발된 공통 모듈의 내부 기능과 제공하는 인터페이스에 대해 테스트할 수 있는 테스트 케이 스를 작성하고, 단위 테스트를 수행하기 위한 테스트 조건을 명세화할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 체크리스트 · 포트폴리오</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st29">
-      <h3><i>29</i>테스트 케이스(Test Case)의 개념</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 테스트 계획 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="67">원문 54쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트 케이스란 요구사항을 준수하는지 검증하기 위하여 테스트 조건, 입력값, 예상 출력값 및 수행한 결과 등 테스트 조건을 명세한 것이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st30">
-      <h3><i>30</i>테스트 케이스의 구성 요소</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 테스트 계획 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="67">원문 54쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>식별자(Identifier) 항목 식별자, 일련번호 테스트 항목(Test Item) 테스트할 모듈 또는 기능 입력 명세(Input Specification) 입력값 또는 테스트 조건 출력 명세(Output Specification) 테스트 케이스 실행 시 기대되는 출력값 결과 환경 설정(Environmental Needs) 테스트 수행 시 필요한 하드웨어나 소프트웨어 환경 특수 절차 요구 (</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st31">
-      <h3><i>31</i>테스트 프로세스</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 테스트 계획 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="68">원문 55쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트 프로세스는 테스트 수행과 관련된 활동들이 의도된 테스트 목적과 조건을 달성할 수 있도록 도와주는 역할을 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st32">
-      <h3><i>32</i>테스트 프로세스의 구성</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 테스트 계획 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="68">원문 55쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트 프로세스는 계획 및 제어, 분석 및 설계, 구현 및 실행, 평가, 완료 단계로 구성</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st33">
-      <h3><i>33</i>테스트 프로세스의 단계</h3>
-      <aside class="side">
-        <p class="pt">공통 모듈 테스트 계획 수립</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="68">원문 55쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 포트폴리오</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트의 목표와 목적을 달성하기 위해 필요한 활동을 계획하고, 계획에 준수하여 진행되고 있는지 지속적인 제어 활동을 하는 단계이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 54쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -942,678 +228,98 @@
 <div class="lv">
   <div class="lvh"><b>3. 서버 프로그램 구현하기</b><span>능력단위요소 · <code>2001020211_23v6.3</code></span></div>
   <div class="lvb">
-    <div class="step" id="st34">
-      <h3><i>34</i>프로세스의 이해</h3>
+    <div class="step" id="st5">
+      <h3><i>5</i>3-1. 서버 프로그램 확인</h3>
       <aside class="side">
-        <p class="pt">서버 프로그램 확인</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
+        <p class="pt">업무 프로세스 맵과 세부 업무 프로세스를 확인할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">서버 프로그램 구현하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="78">원문 65쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 7항목 · 실습 5절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>프로세스의 정의</li><li>프로세스의 구성 요소</li><li>프로세스와 응용 SW의 관계</li><li>프로세스의 맵(Map)</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>업무 프로세스 맵과 세부 업무 프로세스를 확인할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>프로세스의 정의</dt><dd><blockquote>프로세스(Process)란 개인이나 조직이 한 개 이상의 정보 자원(Input)을 활용하여, 가치 있는 산출물(Output)을 고객(Customer)에게 제공하기 위해 수행하는 모든 관련 활동들의 집합을 의미한다.</blockquote></dd><dt>프로세스의 구성 요소</dt><dd><blockquote>프로세스의 필수 구성 요소에는 프로세스 책임자(Owner), 프로세스 맵(Map), 프로세스 Task, 프로세스 성과 지표, 프로세스 조직, 경영자의 리더십(Leadership) 등이 있다.</blockquote></dd><dt>프로세스와 응용 SW의 관계</dt><dd><blockquote>응용 SW는 실제 업무 프로세스를 시스템화·자동화하기 위해 개발되며, 프로세스와 응용 SW와의 관계는 다음과 같다.</blockquote></dd><dt>프로세스의 맵(Map)</dt><dd><blockquote>프로세스의 Map은 상위 프로세스에서 하위 프로세스로의 흐름 체계를 도식화한 청사진으로 다양한 형태로 표현할 수 있다.</blockquote></dd><dt>구조적 분석 기법에서의 자료 흐름도</dt><dd><blockquote>비즈니스 로직 업무 프로세스 요소 응용 SW 설계 적용 프로세스 Map 시스템 아키텍처, 기능 모듈 설계 프로세스 Task 프로그램 단위 기능 설계 (Use Case, User Story) 프로세스 성과 지표 시스템 KPI, Dashboard 개발 프로세스 Owner 시스템 담당자, PM 역할 화면 흐름도, API 설계</blockquote></dd><dt>객체 지향 분석 기법에서의 사용 사례 다이어그램</dt><dd><blockquote>/ 서버 프로그램 확인하기 기기(장비･공구) 안전･유의 사항 업무 프로세스를 확인하기 위해서는 애플리케이션 설계 단계에서 작성한 프로그램 관리 대장을 통해 작성해야 할 업무 프로그램들을 확인하고 프로그램 설계서와 업무 프로세스 맵을 확인한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>프로세스의 이해</dd></dl>
+
+<h4>해 보기</h4>
+<h5>서버 프로그램 확인하기</h5><div class='prep'><b>재료·자료</b><span>프로그램 관리 대장, 프로그램 설계서, 화면 설계서 / 요구사항 정의서 / 시스템 아키텍처</span><b>기기·도구</b><span>컴퓨터 또는 PC, 네트워크 장비, 프린터, 빔 프로젝트 / CASE 도구(SW 개발 지원 도구, SW 테스트 지원 도구 등) / 형상관리 도구 / 69</span><b>유의 사항</b><span>설계 산출물에 대한 이해가 선행되어야 한다. / 완료된 산출물은 형상관리 서버에 반영하여야 한다.</span></div><div class='doh'><b>1</b><span>상세 설계를 기반으로 담당 업무를 확인한다.</span></div><ol class='dos'><li>프로그램 관리 대장을 확인한다.(활용 서식 프로그램 관리 대장 참고) 프로그램 관리 대장은 설계 단계에서 작성된 구현해야 할 전체 시스템의 프로그램 목록 산출물이다. 아래 예시는 이순신 담당자가 구현해야 할 우편번호 조회 기능을 확인 한 예시이다.</li><li>업무 프로세스 맵을 확인한다.</li></ol><div class='doh'><b>2</b><span>세부 업무 프로세스를 확인한다.</span></div><ol class='dos'><li>프로그램 설계서를 확인한다.</li><li>화면 설계서를 확인한다.</li><li>화면 레이아웃을 확인한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>상세 설계를 기반으로 담당 업무를 확인한다.</li><li>세부 업무 프로세스를 확인한다.</li><li>업무 프로세스 맵과 세부 업무 프로세스를 확인할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 포트폴리오 · 평가자 체크리스트</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 65쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st35">
-      <h3><i>35</i>프로세스의 정의</h3>
+    <div class="step" id="st6">
+      <h3><i>6</i>3-2. 서버 프로그램 구현</h3>
       <aside class="side">
-        <p class="pt">서버 프로그램 확인</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="78">원문 65쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>프로세스(Process)란 개인이나 조직이 한 개 이상의 정보 자원(Input)을 활용하여, 가치 있는 산출물(Output)을 고객(Customer)에게 제공하기 위해 수행하는 모든 관련 활동들의 집합을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st36">
-      <h3><i>36</i>프로세스의 구성 요소</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 확인</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="79">원문 66쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>프로세스의 필수 구성 요소에는 프로세스 책임자(Owner), 프로세스 맵(Map), 프로세스 Task, 프로세스 성과 지표, 프로세스 조직, 경영자의 리더십(Leadership) 등이 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st37">
-      <h3><i>37</i>프로세스와 응용 SW의 관계</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 확인</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="79">원문 66쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>응용 SW는 실제 업무 프로세스를 시스템화·자동화하기 위해 개발되며, 프로세스와 응용 SW와의 관계는 다음과 같다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st38">
-      <h3><i>38</i>프로세스의 맵(Map)</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 확인</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="80">원문 67쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>프로세스의 Map은 상위 프로세스에서 하위 프로세스로의 흐름 체계를 도식화한 청사진으로 다양한 형태로 표현할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st39">
-      <h3><i>39</i>구조적 분석 기법에서의 자료 흐름도</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 확인</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="80">원문 67쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>비즈니스 로직 업무 프로세스 요소 응용 SW 설계 적용 프로세스 Map 시스템 아키텍처, 기능 모듈 설계 프로세스 Task 프로그램 단위 기능 설계 (Use Case, User Story) 프로세스 성과 지표 시스템 KPI, Dashboard 개발 프로세스 Owner 시스템 담당자, PM 역할 화면 흐름도, API 설계</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st40">
-      <h3><i>40</i>객체 지향 분석 기법에서의 사용 사례 다이어그램</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 확인</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="81">원문 68쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>/ 서버 프로그램 확인하기 기기(장비･공구) 안전･유의 사항 업무 프로세스를 확인하기 위해서는 애플리케이션 설계 단계에서 작성한 프로그램 관리 대장을 통해 작성해야 할 업무 프로그램들을 확인하고 프로그램 설계서와 업무 프로세스 맵을 확인한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st41">
-      <h3><i>41</i>프로그램 언어</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
+        <p class="pt">세부 업무 프로세스를 기반으로 프로그래밍 언어와 도구를 활용하여 서비스의 구현에 필요한 업무 프로그램을 구현할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">서버 프로그램 구현하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="88">원문 75쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 10항목 · 실습 7절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>프로그램 언어 개념</li><li>프로그램 언어의 유형</li><li>프레임워크(Framework)에 대한 이해</li><li>소프트웨어 프레임워크의 정의</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>세부 업무 프로세스를 기반으로 프로그래밍 언어와 도구를 활용하여 서비스의 구현에 필요한 업무 프로그램을 구현할 수 있다.</li><li>개발하고자 하는 목표시스템의 잠재적 보안 취약성이 제거될 수 있도록 서버 프로그램을 구현 할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>프로그램 언어 개념</dt><dd><blockquote>프로그램 언어란 사람이 작성한 명령을 컴퓨터가 실행 가능한 형태로 변환하기 위한 규칙 기반 언어를 의미한다.</blockquote></dd><dt>프로그램 언어의 유형</dt><dd><blockquote>적용 환경/사례 절차 지향 언어 C, Pascal - 명령문 순차 실행 - 하드웨어 제어 용이 임베디드 SW, 시스템 프로그 객체 지향 언어 Java, C#, Python - 캡슐화, 상속, 다형성 - 유지보수 용이 웹서비스, 모바일 앱, 서버 프함수형 언어 Scala, Haskell - 불변성, 수학적 함수 사용 - 병렬 처리 유리 빅데이터, 함수형 서버 개발 스크립트 언어 JavaScri</blockquote></dd><dt>소프트웨어 프레임워크의 정의</dt><dd><blockquote>on Interface), 설정 정보 등의 집합으로서 재사용이 가능하도록 소프트웨어 구성에 필요한 기본 뼈대를 제공한다.</blockquote></dd><dt>프레임워크의 특징</dt><dd><blockquote>(modularity) 프레임워크는 인터페이스에 의한 캡슐화를 통해서 모듈화를 강화하고 설계와 구현의 변경에 따르는 영향을 극소화하여 소프트웨어의 품질을 향상시킨다.</blockquote></dd><dt>데이터 저장 계층 또는 영속 계층(Persistence Layer)에 대한 이해</dt><dd><blockquote>DAO/DTO/VO란 영속 계층(Persistence Layer)에서 사용되는 특정 패턴을 통해 구현되는 Java Bean이다.</blockquote></dd><dt>소프트웨어 개발 보안의 개념</dt><dd><blockquote>소프트웨어 개발 보안은 SW 개발 과정에서 개발자의 실수, 논리적 오류 등으로 인해 SW에 내포될 수 있는 보안 취약점을 최소화하고, 사이버 보안 위협에 대응할 수 있는 안전한 SW를 개발하기 위한 일련의 보안 활동을 의미한다.</blockquote></dd><dt>소프트웨어 개발 보안 가이드의 구성</dt><dd><blockquote>입력 데이터 검증 및 표현 프로그램 입력값에 대한 검증 누락 또는 부적절한 검증, 데이터의 잘못된 형식 지정으로 인해 발생할 수 있는 보안 약점 ※ SQL 삽입, 자원 삽입, 크로스 사이트 스크립트 등 26개 보안 기능(인증, 접근 제어, 기밀성, 암호화, 권한 관리 등)을 적절하지 않게 구현 시 발생할 수 있는 보안 약점 ※ 부적절한 인가, 중요 정보 평문 저장(또는 전송) 등 24개 시간</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>프로그램 언어 · 프레임워크(Framework)에 대한 이해 · 소프트웨어(SW) 개발 보안</dd></dl>
+
+<h4>해 보기</h4>
+<h5>서버 프로그램 구현하기</h5><div class='prep'><b>재료·자료</b><span>프로그램 설계서, 화면 설계서, 화면 레이아웃 / 요구사항 정의서 / 시스템 아키텍처</span><b>기기·도구</b><span>컴퓨터 또는 PC, 네트워크 장비, 프린터, 빔 프로젝트 / CASE 도구(SW 개발 지원 도구, SW 테스트 지원 도구 등) / 형상관리 도구</span><b>유의 사항</b><span>공통 모듈 설계 산출물에 대한 이해가 선행되어야 한다. / 프로그램 개발 경험과 SQL 작성 경험이 필요하다.</span></div><div class='doh'><b>1</b><span>세부 업무 프로세스를 기반으로 업무 프로그램을 구현한다.</span></div><ol class='dos'><li>업무 프로그램을 구현하기 위한 I/O 오브젝트(DTO/VO)를 정의한다.</li><li>업무 프로그램을 구현하기 위한 Data를 준비한다.</li><li>업무 프로그램을 구현하기 위한 SQL을 작성한다.</li><li>데이터 접근 객체(DAO: Data Access Object)를 구현한다.</li><li>서비스(Service) 클래스를 구현한다.</li><li>Java 시큐어 코딩 가이드에 의한 보안 취약성을 제거하는 코드를 구현한다.</li><li>컨트롤러(Controller) 클래스를 구현한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>세부 업무 프로세스를 기반으로 업무 프로그램을 구현한다.</li><li>세부 업무 프로세스를 기반으로 프로그래밍 언어와 도구를 활용하여 서비스의 구현에 필요한 업무 프로그램을 구현할 수 있다.</li><li>개발하고자 하는 목표시스템의 잠재적 보안 취약성이 제거될 수 있도록 서버 프로그램을 구현 할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 포트폴리오 · 평가자 체크리스트</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 75쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st42">
-      <h3><i>42</i>프로그램 언어 개념</h3>
+    <div class="step" id="st7">
+      <h3><i>7</i>3-3. 서버 프로그램 테스트 수행</h3>
       <aside class="side">
-        <p class="pt">서버 프로그램 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="88">원문 75쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>프로그램 언어란 사람이 작성한 명령을 컴퓨터가 실행 가능한 형태로 변환하기 위한 규칙 기반 언어를 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st43">
-      <h3><i>43</i>프로그램 언어의 유형</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="88">원문 75쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>적용 환경/사례 절차 지향 언어 C, Pascal - 명령문 순차 실행 - 하드웨어 제어 용이 임베디드 SW, 시스템 프로그 객체 지향 언어 Java, C#, Python - 캡슐화, 상속, 다형성 - 유지보수 용이 웹서비스, 모바일 앱, 서버 프함수형 언어 Scala, Haskell - 불변성, 수학적 함수 사용 - 병렬 처리 유리 빅데이터, 함수형 서버 개발 스크립트 언어 JavaScri</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st44">
-      <h3><i>44</i>프레임워크(Framework)에 대한 이해</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="88">원문 75쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>소프트웨어 프레임워크의 정의</li><li>프레임워크의 특징</li><li>데이터 저장 계층 또는 영속 계층(Persistence Layer)에 대한 이해</li><li>소프트웨어(SW) 개발 보안</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st45">
-      <h3><i>45</i>소프트웨어 프레임워크의 정의</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="88">원문 75쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>on Interface), 설정 정보 등의 집합으로서 재사용이 가능하도록 소프트웨어 구성에 필요한 기본 뼈대를 제공한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st46">
-      <h3><i>46</i>프레임워크의 특징</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="89">원문 76쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>(modularity) 프레임워크는 인터페이스에 의한 캡슐화를 통해서 모듈화를 강화하고 설계와 구현의 변경에 따르는 영향을 극소화하여 소프트웨어의 품질을 향상시킨다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st47">
-      <h3><i>47</i>데이터 저장 계층 또는 영속 계층(Persistence Layer)에 대한 이해</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="89">원문 76쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>DAO/DTO/VO란 영속 계층(Persistence Layer)에서 사용되는 특정 패턴을 통해 구현되는 Java Bean이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st48">
-      <h3><i>48</i>소프트웨어(SW) 개발 보안</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="90">원문 77쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>소프트웨어 개발 보안의 개념</li><li>소프트웨어 개발 보안 가이드의 구성</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st49">
-      <h3><i>49</i>소프트웨어 개발 보안의 개념</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="90">원문 77쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 개발 보안은 SW 개발 과정에서 개발자의 실수, 논리적 오류 등으로 인해 SW에 내포될 수 있는 보안 취약점을 최소화하고, 사이버 보안 위협에 대응할 수 있는 안전한 SW를 개발하기 위한 일련의 보안 활동을 의미한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st50">
-      <h3><i>50</i>소프트웨어 개발 보안 가이드의 구성</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="90">원문 77쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>입력 데이터 검증 및 표현 프로그램 입력값에 대한 검증 누락 또는 부적절한 검증, 데이터의 잘못된 형식 지정으로 인해 발생할 수 있는 보안 약점 ※ SQL 삽입, 자원 삽입, 크로스 사이트 스크립트 등 26개 보안 기능(인증, 접근 제어, 기밀성, 암호화, 권한 관리 등)을 적절하지 않게 구현 시 발생할 수 있는 보안 약점 ※ 부적절한 인가, 중요 정보 평문 저장(또는 전송) 등 24개 시간</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st51">
-      <h3><i>51</i>소프트웨어 테스트의 이해</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">개발된 업무 프로그램의 내부 기능과 제공하는 인터페이스에 대해 테스트를 수행할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">서버 프로그램 구현하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="97">원문 84쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 9항목 · 실습 9절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>소프트웨어 테스트의 개념</li><li>소프트웨어 테스트의 원칙</li><li>소프트웨어 테스트의 명세</li><li>테스트 결과 정리</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>개발된 업무 프로그램의 내부 기능과 제공하는 인터페이스에 대해 테스트를 수행할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>소프트웨어 테스트의 개념</dt><dd><blockquote>소프트웨어 테스트란 구현된 애플리케이션이나 시스템을 사용자의 요구사항이 만족되었는지 확인하기 위하여 기능 및 비기능 요소의 결함을 찾아내는 활동이다.</blockquote></dd><dt>소프트웨어 테스트의 원칙</dt><dd><blockquote>일반적으로 개발자가 자신이 개발한 소스코드에 대해서는 자신이 테스팅을 할 경우 결함을 발견하는 것이 쉬운 일이 아니다.</blockquote></dd><dt>테스트 결과 정리</dt><dd><blockquote>테스트가 완료되면 테스트 계획과 테스트 케이스 설계부터 단계별 테스트 시나리오, 테스트 결과까지 모두 포함된 문서를 일관성 있게 작성한다.</blockquote></dd><dt>테스트 요약 문서</dt><dd><blockquote>테스트 계획, 소요 비용, 테스트 결과에 의해 판단이 가능한 대상 소프트웨어의 품질 상태를 포함한 요약 문서를 작성한다.</blockquote></dd><dt>품질 상태</dt><dd><blockquote>품질 상태는 품질 지표인 테스트 성공률, 발생한 결함의 수와 결함의 중요도, 테스트 커버리지 등이 포함된다.</blockquote></dd><dt>테스트 결과서</dt><dd><blockquote>테스트 결과서는 결함에 관련된 내용을 중점적으로 기록하며, 결함의 내용, 결함의 재현 순서를 상세하게 기록한다.</blockquote></dd><dt>테스트 실행 절차 및 평가</dt><dd><blockquote>단계별 테스트 종료 시 테스트 실행 절차를 리뷰하고 결과에 대한 평가를 수행하며, 그 결과에 따라 실행 절차를 최적화하여 다음 테스트에 적용한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>소프트웨어 테스트의 이해 · 소프트웨어 테스트의 명세</dd></dl>
+
+<h4>해 보기</h4>
+<h5>서버 프로그램 테스트 수행하기</h5><div class='prep'><b>재료·자료</b><span>프로그램 설계서, 화면 설계서, 화면 레이아웃 / 요구사항 정의서 / 개발된 프로그램 산출물</span><b>기기·도구</b><span>컴퓨터 또는 PC, 네트워크 장비, 프린터, 빔 프로젝트 / CASE 도구(SW 개발 지원 도구, SW 테스트 지원 도구 등) / 형상관리 도구</span><b>유의 사항</b><span>프로그램 설계 산출물에 대한 이해가 선행되어야 한다. / 테스트와 디버그의 이해가 선행되어야 한다.</span></div><div class='doh'><b>1</b><span>단위 테스트 케이스를 작성한다.(활용 서식 단위 테스트 케이스 참고)</span></div><ol class='dos'><li>단위 테스트 방식을 결정한다.</li><li>단위 테스트의 범위를 결정한다.</li><li>단위 테스트의 방식과 범위에 따라 테스트 케이스를 작성한다.</li><li>작성된 단위 테스트 케이스를 내부 검토한다.</li><li>작성된 단위 테스트 케이스를 고객에게 승인을 획득한다.</li></ol><div class='doh'><b>2</b><span>테스트를 명세하기 위한 테스트 도구를 설정한다.</span></div><ol class='dos'><li>단위 테스트 도구를 실행한 후 테스트 케이스(Test Case)를 생성한다.</li><li>테스트를 수행할 함수를 선택하고 Finish를 클릭한다.</li><li>테스트 구문을 작성한다.</li><li>테스트 도구를 실행한다.</li></ol><div class='doh'><b>3</b><span>테스트 결과를 명세화한다.</span></div>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>단위 테스트 케이스를 작성한다.(활용 서식 단위 테스트 케이스 참고)</li><li>테스트를 명세하기 위한 테스트 도구를 설정한다.</li><li>테스트 결과를 명세화한다.</li><li>개발된 업무 프로그램의 내부 기능과 제공하는 인터페이스에 대해 테스트를 수행할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 포트폴리오 · 평가자 체크리스트</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st52">
-      <h3><i>52</i>소프트웨어 테스트의 개념</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="97">원문 84쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 테스트란 구현된 애플리케이션이나 시스템을 사용자의 요구사항이 만족되었는지 확인하기 위하여 기능 및 비기능 요소의 결함을 찾아내는 활동이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st53">
-      <h3><i>53</i>소프트웨어 테스트의 원칙</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="97">원문 84쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>일반적으로 개발자가 자신이 개발한 소스코드에 대해서는 자신이 테스팅을 할 경우 결함을 발견하는 것이 쉬운 일이 아니다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st54">
-      <h3><i>54</i>소프트웨어 테스트의 명세</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="98">원문 85쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>테스트 결과 정리</li><li>테스트 요약 문서</li><li>품질 상태</li><li>테스트 결과서</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st55">
-      <h3><i>55</i>테스트 결과 정리</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="98">원문 85쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트가 완료되면 테스트 계획과 테스트 케이스 설계부터 단계별 테스트 시나리오, 테스트 결과까지 모두 포함된 문서를 일관성 있게 작성한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st56">
-      <h3><i>56</i>테스트 요약 문서</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="98">원문 85쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트 계획, 소요 비용, 테스트 결과에 의해 판단이 가능한 대상 소프트웨어의 품질 상태를 포함한 요약 문서를 작성한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st57">
-      <h3><i>57</i>품질 상태</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="98">원문 85쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>품질 상태는 품질 지표인 테스트 성공률, 발생한 결함의 수와 결함의 중요도, 테스트 커버리지 등이 포함된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st58">
-      <h3><i>58</i>테스트 결과서</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="98">원문 85쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>테스트 결과서는 결함에 관련된 내용을 중점적으로 기록하며, 결함의 내용, 결함의 재현 순서를 상세하게 기록한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st59">
-      <h3><i>59</i>테스트 실행 절차 및 평가</h3>
-      <aside class="side">
-        <p class="pt">서버 프로그램 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="98">원문 85쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">포트폴리오 · 평가자 체크리스트</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>단계별 테스트 종료 시 테스트 실행 절차를 리뷰하고 결과에 대한 평가를 수행하며, 그 결과에 따라 실행 절차를 최적화하여 다음 테스트에 적용한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 84쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -1622,351 +328,77 @@
 <div class="lv">
   <div class="lvh"><b>4. 배치 프로그램 구현하기</b><span>능력단위요소 · <code>2001020211_23v6.4</code></span></div>
   <div class="lvb">
-    <div class="step" id="st60">
-      <h3><i>60</i>배치 프로그램의 이해</h3>
+    <div class="step" id="st8">
+      <h3><i>8</i>4-1. 배치 프로그램 구현</h3>
       <aside class="side">
-        <p class="pt">배치 프로그램 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">애플리케이션 설계를 기반으로 프로그래밍 언어와 도구를 활용하여 배치 프로그램 구현 기술에 부합하는 배치 프로그램을 구현할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">배치 프로그램 구현하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="107">원문 94쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 6항목 · 실습 6절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>배치 프로그램의 개념</li><li>배치 프로그램의 필수 요소</li><li>배치 스케줄러(Scheduler)</li><li>배치 스케줄러의 개념</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>애플리케이션 설계를 기반으로 프로그래밍 언어와 도구를 활용하여 배치 프로그램 구현 기술에 부합하는 배치 프로그램을 구현할 수 있다.</li><li>목표시스템을 구성하는 하위 시스템 간의 연동 시 안정적이고 안전하게 동작할 수 있는 배치 프로그램을 구현할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>배치 프로그램의 개념</dt><dd><blockquote>배치 프로그램이란 사용자와의 상호 작용 없이 일련의 작업들을 작업 단위로 묶어 정기적으로 반복하여 수행하거나 정해진 규칙에 따라 일괄 처리하는 것이다.</blockquote></dd><dt>배치 프로그램의 필수 요소</dt><dd><blockquote>대용량 데이터 대용량의 데이터를 처리할 수 있어야 한다. 심각한 오류 상황 외에는 사용자의 개입 없이 동작해야 한다.</blockquote></dd><dt>배치 스케줄러의 개념</dt><dd><blockquote>배치 스케줄러는 일괄 처리(Batch Processing)를 위해 주기적으로 발생하거나 반복적으로 발생하는 작업을 지원하는 도구이다.</blockquote></dd><dt>배치 스케줄러의 종류</dt><dd><blockquote>스프링 배치는 스피링소스(Spring Source)사와 엑센추어(Accenture)사의 공동 작업으로 2007년에 탄생한 배치 기반 오픈소스 프레임워크이다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>배치 프로그램의 이해 · 배치 스케줄러(Scheduler)</dd></dl>
+
+<h4>해 보기</h4>
+<h5>배치 프로그램 구현하기</h5><div class='prep'><b>재료·자료</b><span>배치 설계서 / 시스템 아키텍처</span><b>기기·도구</b><span>컴퓨터 또는 PC, 네트워크 장비, 프린터, 빔 프로젝트 / CASE 도구(SW 개발 지원 도구, SW 테스트 지원 도구 등) / 형상관리 도구</span><b>유의 사항</b><span>배치 설계 산출물에 대한 이해가 선행되어야 한다. / 프로그램 개발 경험과 SQL 작성 경험이 필요하다.</span></div><div class='doh'><b>1</b><span>애플리케이션 설계를 기반으로 배치 프로그램을 확인한다.</span></div><ol class='dos'><li>프로그램 관리 대장을 확인한다.</li><li>배치 설계서를 확인한다.</li></ol><div class='doh'><b>2</b><span>애플리케이션 설계를 기반으로 배치 프로그램을 구현한다.</span></div><ol class='dos'><li>배치 프로그램을 구현하기 위한 SQL을 작성한다.</li><li>배치 프로그램을 구현하기 위한 I/O 오브젝트(DTO/VO)를 정의한다.</li><li>배치 프로그램을 구현하기 위한 데이터 접근 오브젝트(DAO)를 작성한다.</li><li>배치 프로그램을 구현하기 위한 스케줄러 클래스를 작성한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>애플리케이션 설계를 기반으로 배치 프로그램을 확인한다.</li><li>애플리케이션 설계를 기반으로 배치 프로그램을 구현한다.</li><li>애플리케이션 설계를 기반으로 프로그래밍 언어와 도구를 활용하여 배치 프로그램 구현 기술에 부합하는 배치 프로그램을 구현할 수 있다.</li><li>목표시스템을 구성하는 하위 시스템 간의 연동 시 안정적이고 안전하게 동작할 수 있는 배치 프로그램을 구현할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — —</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 94쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st61">
-      <h3><i>61</i>배치 프로그램의 개념</h3>
+    <div class="step" id="st9">
+      <h3><i>9</i>4-2. 배치 프로그램 테스트 수행</h3>
       <aside class="side">
-        <p class="pt">배치 프로그램 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="107">원문 94쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>배치 프로그램이란 사용자와의 상호 작용 없이 일련의 작업들을 작업 단위로 묶어 정기적으로 반복하여 수행하거나 정해진 규칙에 따라 일괄 처리하는 것이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st62">
-      <h3><i>62</i>배치 프로그램의 필수 요소</h3>
-      <aside class="side">
-        <p class="pt">배치 프로그램 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="107">원문 94쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>대용량 데이터 대용량의 데이터를 처리할 수 있어야 한다. 심각한 오류 상황 외에는 사용자의 개입 없이 동작해야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st63">
-      <h3><i>63</i>배치 스케줄러(Scheduler)</h3>
-      <aside class="side">
-        <p class="pt">배치 프로그램 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="108">원문 95쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>배치 스케줄러의 개념</li><li>배치 스케줄러의 종류</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st64">
-      <h3><i>64</i>배치 스케줄러의 개념</h3>
-      <aside class="side">
-        <p class="pt">배치 프로그램 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="108">원문 95쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>배치 스케줄러는 일괄 처리(Batch Processing)를 위해 주기적으로 발생하거나 반복적 으로 발생하는 작업을 지원하는 도구이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st65">
-      <h3><i>65</i>배치 스케줄러의 종류</h3>
-      <aside class="side">
-        <p class="pt">배치 프로그램 구현</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="108">원문 95쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>스프링 배치는 스피링소스(Spring Source)사와 엑센추어(Accenture)사의 공동 작업으로 2007년에 탄생한 배치 기반 오픈소스 프레임워크이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st66">
-      <h3><i>66</i>디버그(Debug)와 디버거(Debugger)</h3>
-      <aside class="side">
-        <p class="pt">배치 프로그램 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">개발된 배치 프로그램의 테스트를 수행할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">배치 프로그램 구현하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="115">원문 102쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 7항목 · 실습 7절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>디버그(Debug)의 개념</li><li>디버거(Debugger)의 개념</li><li>디버거(Debugger) 사용법</li><li>디버그 뷰(Debug View)</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>개발된 배치 프로그램의 테스트를 수행할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>디버그(Debug)의 개념</dt><dd><blockquote>디버그(Debug) 또는 디버깅(Debugging)은 컴퓨터 프로그램의 논리적인 오류(Bug)를 찾아내는 과정을 말한다.</blockquote></dd><dt>디버거(Debugger)의 개념</dt><dd><blockquote>디버거는 디버그를 돕는 도구이다. 디버거는 디버깅을 하려는 코드에 중단점을 지정하 여 프로그램 실행을 중단하고, 코드를 단계적으로 실행하여 저장된 값을 확인할 수 있도록 지원한다.</blockquote></dd><dt>중단점(Break Pointer) 설정</dt><dd><blockquote>편집기 왼쪽에 파란 부분(마커 바)을 더블 클릭하거나 해당 위치에서 마우스 오른쪽을 클릭하여 ‘Toggle Breakpoint’를 선택한다.</blockquote></dd><dt>디버그 모드(Debug Mode)에서의 스텝(Step) 단위 진행</dt><dd><blockquote>이 가능해진다. 하지 않는 Step Over 등의 기능으로 스텝 단위로 디버깅을 한다. / 배치 프로그램 테스트 수행하기 기기(장비･공구) 안전･유의 사항 배치 스케줄(Schedule) 주기를 테스트가 가능한 주기로 변경하여 로그에 정상적으로 출력 되는지 확인한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>디버그(Debug)와 디버거(Debugger) · 디버거(Debugger) 사용법 · 디버그 뷰(Debug View)</dd></dl>
+
+<h4>해 보기</h4>
+<h5>배치 프로그램 테스트 수행하기</h5><div class='prep'><b>재료·자료</b><span>배치 설계서 / 개발된 프로그램 산출물</span><b>기기·도구</b><span>컴퓨터 또는 PC, 네트워크 장비, 프린터, 빔 프로젝트 / CASE 도구(SW 개발 지원 도구, SW 테스트 지원 도구 등) / 형상관리 도구</span><b>유의 사항</b><span>설계 산출물에 대한 이해가 선행되어야 한다. / 테스트와 디버그의 이해가 선행되어야 한다.</span></div><div class='doh'><b>1</b><span>배치 프로그램 주기를 변경한다.</span></div><div class='doh'><b>2</b><span>배치 프로그램을 디버깅하여 정상적으로 동작하는지 검증한다.</span></div><ol class='dos'><li>디버그 모드(Debug Mode)로 실행한다.</li><li>검증할 코드 라인에 중단점(Break Point)을 지정하여 코드를 검증한다.</li></ol><div class='doh'><b>3</b><span>배치 프로그램의 로그를 확인한다.</span></div><div class='doh'><b>4</b><span>목적 테이블에서 정상적으로 배치 프로그램이 실행되었는지 확인한다.</span></div><ol class='dos'><li>배치 프로그램을 실행하기 전 데이터를 확인한다.</li><li>배치 프로그램을 실행하였을 경우의 대상 데이터를 확인한다.</li><li>배치 프로그램을 실행한 후의 데이터를 확인한다.</li></ol><div class='doh'><b>5</b><span>배치 프로그램이 정상적으로 실행되지 않았을 경우 오류를 확인한다.</span></div><ol class='dos'><li>데이터가 목적에 맞지 않게 처리된 경우는 참조 테이블의 데이터를 확인하여 오류를 확인한다.</li><li>로그에 실패가 출력된 경우 디버깅을 통해 오류를 확인한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>배치 프로그램 주기를 변경한다.</li><li>배치 프로그램을 디버깅하여 정상적으로 동작하는지 검증한다.</li><li>배치 프로그램의 로그를 확인한다.</li><li>목적 테이블에서 정상적으로 배치 프로그램이 실행되었는지 확인한다.</li><li>배치 프로그램이 정상적으로 실행되지 않았을 경우 오류를 확인한다.</li><li>개발된 배치 프로그램의 테스트를 수행할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — —</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st67">
-      <h3><i>67</i>디버그(Debug)의 개념</h3>
-      <aside class="side">
-        <p class="pt">배치 프로그램 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="115">원문 102쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>디버그(Debug) 또는 디버깅(Debugging)은 컴퓨터 프로그램의 논리적인 오류(Bug)를 찾아내는 과정을 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st68">
-      <h3><i>68</i>디버거(Debugger)의 개념</h3>
-      <aside class="side">
-        <p class="pt">배치 프로그램 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="115">원문 102쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>디버거는 디버그를 돕는 도구이다. 디버거는 디버깅을 하려는 코드에 중단점을 지정하 여 프로그램 실행을 중단하고, 코드를 단계적으로 실행하여 저장된 값을 확인할 수 있도록 지원한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st69">
-      <h3><i>69</i>디버거(Debugger) 사용법</h3>
-      <aside class="side">
-        <p class="pt">배치 프로그램 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="115">원문 102쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>디버그 뷰(Debug View)</li><li>중단점(Break Pointer) 설정</li><li>디버그 모드(Debug Mode)에서의 스텝(Step) 단위 진행</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st70">
-      <h3><i>70</i>디버그 뷰(Debug View)</h3>
-      <aside class="side">
-        <p class="pt">배치 프로그램 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="115">원문 102쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>중단점(Break Pointer) 설정</li><li>디버그 모드(Debug Mode)에서의 스텝(Step) 단위 진행</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st71">
-      <h3><i>71</i>중단점(Break Pointer) 설정</h3>
-      <aside class="side">
-        <p class="pt">배치 프로그램 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="116">원문 103쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>편집기 왼쪽에 파란 부분(마커 바)을 더블 클릭하거나 해당 위치에서 마우스 오른쪽을 클릭하여 ‘Toggle Breakpoint’를 선택한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st72">
-      <h3><i>72</i>디버그 모드(Debug Mode)에서의 스텝(Step) 단위 진행</h3>
-      <aside class="side">
-        <p class="pt">배치 프로그램 테스트 수행</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020211_23v6" data-page="116">원문 103쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">—</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>이 가능해진다. 하지 않는 Step Over 등의 기능으로 스텝 단위로 디버깅을 한다. / 배치 프로그램 테스트 수행하기 기기(장비･공구) 안전･유의 사항 배치 스케줄(Schedule) 주기를 테스트가 가능한 주기로 변경하여 로그에 정상적으로 출력 되는지 확인한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 102쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
   </div>
 </div>
 
-<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
-원문 LM2001020211_23v6_서버 프로그램 구현_20251108.pdf</footer>
+<footer>담당 정우균 · 개념과 절차는 <b>NCS 학습모듈 LM2001020211_23v6_서버 프로그램 구현_20251108.pdf</b> 에서
+옮긴 것입니다 — 한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지)</footer>
 </div>
 <script>
-/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+/* 빠른 이동 — 지금 보는 꼭지를 표시하고, 좁은 화면에서는 여닫습니다. */
 (function () {
   var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
   var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));

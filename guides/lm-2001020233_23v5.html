@@ -1,13 +1,30 @@
-<meta charset="utf-8"><title>개발자 환경 구축 — 준비 교안</title>
+<meta charset="utf-8"><title>개발자 환경 구축 — 학습 가이드</title>
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="stylesheet" href="../assets/guide.css">
 <style>
-  /* 원문 인용 — 우리가 쓴 안내와 눈으로 구분되어야 한다 */
-  .bd blockquote{margin:10px 0 16px;padding:10px 14px;border-left:3px solid #000;
-                 background:#fafafa;font-size:13.5px;line-height:1.8;color:#222}
-  .bd p.none{color:#888;font-size:13px}
-  .bd ul.sub{margin:8px 0 16px;padding-left:20px;font-size:13.5px;line-height:1.9}
-  aside.side .v .btn{font-size:11.5px}
+  /* 학습 가이드 — 개념 / 실습 / 확인 세 덩어리가 눈으로 구분되어야 한다 */
+  .bd h4{margin:22px 0 8px;font-size:14px;padding-bottom:5px;border-bottom:1px solid #000}
+  .bd h4:first-child{margin-top:0}
+  .bd h5{margin:16px 0 5px;font-size:13px;font-weight:700}
+  .bd blockquote{margin:5px 0 12px;padding:9px 13px;border-left:3px solid #999;
+                 background:#fafafa;font-size:13px;line-height:1.8;color:#333}
+  .cc{margin:0 0 6px}
+  .cc dt{font-weight:700;font-size:13.5px;margin:14px 0 0}
+  .cc dd{margin:4px 0 0}
+  .doh{display:flex;gap:9px;align-items:baseline;margin:16px 0 4px;font-size:13.5px;
+       font-weight:700}
+  .doh b{flex:0 0 auto;width:21px;height:21px;line-height:19px;text-align:center;
+         border:1px solid #000;font-size:11.5px}
+  ol.dos{margin:2px 0 0 30px;padding:0;font-size:13px;line-height:1.85}
+  ol.dos li{margin:3px 0}
+  .prep{display:grid;grid-template-columns:76px 1fr;gap:3px 10px;font-size:12.5px;
+        border:1px solid #ccc;padding:10px 13px;margin:6px 0 2px;background:#fafafa}
+  .prep b{color:#555;font-weight:400}
+  ul.goal{margin:6px 0 0;padding-left:20px;font-size:13.5px;line-height:1.9}
+  ul.chk{margin:6px 0 0;padding:0;list-style:none;font-size:13.5px;line-height:1.95}
+  ul.chk li::before{content:"\2610  "}
+  .none{color:#888;font-size:12.5px}
+  .srcline{font-size:11.5px;color:#888;margin:8px 0 0}
 </style>
 <script src="../assets/auth.js"></script>
 <script>EXAM_AUTH.guard("../");</script>
@@ -17,7 +34,7 @@
 <div class="top"><div class="tbar">
   <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
   <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
-  / 개발자 환경 구축 / 준비 교안</small></div>
+  / 개발자 환경 구축 / 학습 가이드</small></div>
   <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
@@ -25,49 +42,47 @@
 <button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
 
 <nav id="qnav" aria-label="빠른 이동">
-  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
-  <i class="qg">운영체제 기초 활용하기</i><a href="#st1"><b>1</b><span>운영체제의 주요 기능</span></a><a href="#st2"><b>2</b><span>운영체제의 종류</span></a><a href="#st3"><b>3</b><span>운영체제 기본 명령어 사용 환경</span></a><a href="#st4"><b>4</b><span>CLI(Command Line Interface)의 특징</span></a><a href="#st5"><b>5</b><span>GUI(Graphic User Interface) 기본 사용법</span></a><a href="#st6"><b>6</b><span>운영체제 기본 명령어</span></a><a href="#st7"><b>7</b><span>윈도우 기본 명령어</span></a><a href="#st8"><b>8</b><span>리눅스 기본 명령어</span></a><a href="#st9"><b>9</b><span>운영체제 프로세스 개요</span></a><a href="#st10"><b>10</b><span>운영체제의 프로세스의 개념</span></a><a href="#st11"><b>11</b><span>운영체제의 프로세스의 특징</span></a><a href="#st12"><b>12</b><span>운영체제 프로세스 종류</span></a><a href="#st13"><b>13</b><span>순차 프로세스</span></a><a href="#st14"><b>14</b><span>병행 프로세스</span></a><a href="#st15"><b>15</b><span>프로세스 상태의 개념</span></a><a href="#st16"><b>16</b><span>상태(State)</span></a><a href="#st17"><b>17</b><span>준비 리스트(Ready List)와 대기 리스트(Waiting List)</span></a><i class="qg">기본 개발 환경 구축하기</i><a href="#st18"><b>18</b><span>운영체제별 개발 환경의 이해</span></a><a href="#st19"><b>19</b><span>시스템 설치 보고서의 이해</span></a><a href="#st20"><b>20</b><span>시스템 개요</span></a><a href="#st21"><b>21</b><span>시스템 설치 작업 요약</span></a><a href="#st22"><b>22</b><span>상세 작업 내역</span></a><a href="#st23"><b>23</b><span>플랫폼 설치 결과</span></a><a href="#st24"><b>24</b><span>시스템 설치 결과</span></a><a href="#st25"><b>25</b><span>시스템 정기 점검</span></a><a href="#st26"><b>26</b><span>응용소프트웨어 개발도구 종류 및 용도</span></a><a href="#st27"><b>27</b><span>개발도구 종류</span></a><a href="#st28"><b>28</b><span>개발 환경 장비별 버전의 종류</span></a><a href="#st29"><b>29</b><span>개발 환경 프레임워크의 이해</span></a><a href="#st30"><b>30</b><span>통합 개발 환경의 이해</span></a><a href="#st31"><b>31</b><span>개발도구의 종류</span></a>
+  <a class="qt" href="#top"><b>&uarr;</b><span>맨 위로</span></a>
+  <i class="qg">운영체제 기초 활용하기</i><a href="#st1"><b>1</b><span>운영체제 식별</span></a><a href="#st2"><b>2</b><span>운영체제 기본 명령어 활용</span></a><a href="#st3"><b>3</b><span>운영체제 기초 활용</span></a><i class="qg">기본 개발 환경 구축하기</i><a href="#st4"><b>4</b><span>운영체제 설치</span></a><a href="#st5"><b>5</b><span>개발도구 설치</span></a><a href="#st6"><b>6</b><span>개발도구 활용</span></a>
 </nav>
 
 <div class="wrap" id="top">
 
-<h1>개발자 환경 구축 — 준비 교안</h1>
+<h1>개발자 환경 구축 — 학습 가이드</h1>
 <p class="sub">능력단위 <code>2001020233_23v5</code> · 2수준 ·
-48시간 · 단계 31개 · 평가 문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
+48시간 · 꼭지 6개 · 개념 31항목 · 실습 27절차</p>
 
-<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<h2 class="sec" id="g0">0. 시작하기 전에</h2>
 <div class="sect">
   <aside class="side">
     <p class="pt">응용소프트웨어 개발을 위하여 운영체제의 기초 기술을 적용하여 응용소프트웨어 개발에 필요한 개발자 환경을 구축할 수 있다.</p>
-    <b class="sh">선수학습</b>
+    <b class="sh">먼저 알아야 할 것</b>
     <p class="v">프로그래밍 언어 활용(LM2001020231_23v5), 운영체제 종류, 운영체제 설치, 개발도구 종류, 개발도구 활용</p>
-    <b class="sh">원문</b>
-    <p class="src">LM2001020233_23v5_.개발자 환경 구축_20251108.pdf (91쪽)</p>
+    <b class="sh">평가</b>
+    <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
   </aside>
   <div class="bd">
-<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
-   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
-   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
-<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
-   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
-   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+<h4>이 문서를 쓰는 법</h4>
+<p>꼭지마다 <b>무엇을 할 수 있게 되나 → 알아야 할 것 → 해 보기 → 스스로 확인</b>
+   순서입니다. 읽고 끝내지 말고 <b>해 보기</b>를 손으로 따라 하십시오.
+   마지막 <b>스스로 확인</b>을 전부 «할 수 있다» 고 말할 수 있으면 다음 꼭지로 갑니다.</p>
+<p>자세한 설명과 표·그림은 <b>학습모듈 원문</b>에 있습니다. 꼭지마다 있는
+   <b>[원문 N쪽]</b> 단추를 누르면 그 자리가 바로 펼쳐집니다.</p>
 
 <h4>핵심 용어</h4>
 <p>정보자산 목록, 응용소프트웨어, 운영체제 개념, 운영체제 종류, 운영체제 설치, 운영체제 환경 설정, 개발 환경 구축, 시스템 구성도, 개발도구</p>
 
-<h4>능력단위요소</h4>
+<h4>차례</h4>
 <table class="wide">
-  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
-      <th>학습 내용</th><th style="width:74px">단계</th></tr>
-  <tr><td class="c">1</td><td>운영체제 기초 활용하기</td><td>운영체제 식별 · 운영체제 기본 명령어 활용 · 운영체제 기초 활용</td><td class="c">17</td></tr>
-  <tr><td class="c">2</td><td>기본 개발 환경 구축하기</td><td>운영체제 설치 · 개발도구 설치 · 개발도구 활용</td><td class="c">14</td></tr>
+  <tr><th style="width:44px">꼭지</th><th style="width:250px">학습 내용</th>
+      <th>능력단위요소</th><th style="width:58px">개념</th><th style="width:58px">실습</th></tr>
+  <tr><td class="c">1</td><td>1-1. 운영체제 식별</td><td>운영체제 기초 활용하기</td><td class="c">2</td><td class="c">5</td></tr>
+  <tr><td class="c">2</td><td>1-2. 운영체제 기본 명령어 활용</td><td>운영체제 기초 활용하기</td><td class="c">6</td><td class="c">6</td></tr>
+  <tr><td class="c">3</td><td>1-3. 운영체제 기초 활용</td><td>운영체제 기초 활용하기</td><td class="c">9</td><td class="c">3</td></tr>
+  <tr><td class="c">4</td><td>2-1. 운영체제 설치</td><td>기본 개발 환경 구축하기</td><td class="c">8</td><td class="c">3</td></tr>
+  <tr><td class="c">5</td><td>2-2. 개발도구 설치</td><td>기본 개발 환경 구축하기</td><td class="c">4</td><td class="c">5</td></tr>
+  <tr><td class="c">6</td><td>2-3. 개발도구 활용</td><td>기본 개발 환경 구축하기</td><td class="c">2</td><td class="c">5</td></tr>
 </table>
-
-<div class="try">
-  <b class="t">쓰는 법</b>
-  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
-  한 단계가 대략 수업 10~20분에 해당합니다.
-</div>
   </div>
 </div>
 
@@ -75,443 +90,97 @@
   <div class="lvh"><b>1. 운영체제 기초 활용하기</b><span>능력단위요소 · <code>2001020233_23v5.1</code></span></div>
   <div class="lvb">
     <div class="step" id="st1">
-      <h3><i>1</i>운영체제의 주요 기능</h3>
+      <h3><i>1</i>1-1. 운영체제 식별</h3>
       <aside class="side">
-        <p class="pt">운영체제 식별</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
+        <p class="pt">응용소프트웨어 개발에 필요한 다양한 운영체제의 특징을 식별할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">운영체제 기초 활용하기</p>
+        <b class="sh">학습모듈</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="16">원문 3쪽</a></p>
+        <b class="sh">분량</b>
+        <p class="src">개념 2항목 · 실습 5절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>운영체제의 주요 기능은 아래와 같다. 한정된 시간 내 최대한의 데이터를 처리 처리 요청으로부터 처리 완료까지 소요시간 최소화 시스템 장애의 처리</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>응용소프트웨어 개발에 필요한 다양한 운영체제의 특징을 식별할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>운영체제의 주요 기능</dt><dd><blockquote>운영체제의 주요 기능은 아래와 같다. 한정된 시간 내 최대한의 데이터를 처리 처리 요청으로부터 처리 완료까지 소요시간 최소화 시스템 장애의 처리</blockquote></dd><dt>운영체제의 종류</dt><dd><blockquote>운영체제의 종류는 아래와 같다. 마이크로소프트(Microsoft)사 제품으로 유료로 다양한 라이선스 정책이 적용되어 있다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>운영체제 식별하기</h5><div class='prep'><b>재료·자료</b><span>운영체제 매뉴얼 / 정보 자산 목록 / 응용시스템 구성도 / 서버 구성도 / 네트워크 구성도</span><b>기기·도구</b><span>운영체제(OS) / 통합 개발 환경(Eclipse 등) / 컴퓨터(인터넷 연결) / 터미널/콘솔 환경 / 서버 및 네트워크 장비 / 문서 작성 도구</span><b>유의 사항</b><span>개발 환경 현황을 분석하기 위해서 조직의 담당 부서 책임자와의 면담을 통하여 정보 / 자산을 식별하고 현황을 파악한다. / 시스템 OS 매뉴얼을 통해 제품 사양에 대해 사전에 파악하고, 권장하는 하드웨어 스펙 / 및 개발 환경을 파악한다. / 개발 환경 구축이 가용한 자원 내에서 해당 장비에 최적화된 테스트를 할 수 있도록 / 6 / 개발 환경이 정의된 아키텍처 설계서와 같은 설계 문서를 확보하고 작업하여야 한다. / 정보 자산별 업무 목적에 따라 사용하는 운영체제가 달라질 수 있으므로, 운영체제별 / 특징에 대해 사전에 파악하고 개발 환경을 설계, 구축하여야 한다. / 개발 환경 구축의 경우 해당 장비 이해관계자와의 긴밀한 협조가 필요하다.</span></div><div class='doh'><b>1</b><span>응용소프트웨어 개발에 필요한 운영체제 식별을 위해 정보 자산을 분석한다.</span></div><ol class='dos'><li>개발 환경의 운영체제에 대해 파악한다.</li><li>개발 서버의 세부 정보에 대해 파악한다.</li></ol><div class='doh'><b>2</b><span>개발 환경의 운영체제별로 구성 및 특징을 식별한다.</span></div><ol class='dos'><li>윈도우 서버 설정값에 대해 파악한다.</li><li>Linux(CentOS or RHEL) 설정값에 대해 파악한다.</li><li>Unix (AIX 7.1) 설정값에 대해 파악한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>응용소프트웨어 개발에 필요한 운영체제 식별을 위해 정보 자산을 분석한다.</li><li>개발 환경의 운영체제별로 구성 및 특징을 식별한다.</li><li>응용소프트웨어 개발에 필요한 다양한 운영체제의 특징을 식별할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 3쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
     <div class="step" id="st2">
-      <h3><i>2</i>운영체제의 종류</h3>
+      <h3><i>2</i>1-2. 운영체제 기본 명령어 활용</h3>
       <aside class="side">
-        <p class="pt">운영체제 식별</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
+        <p class="pt">CLI(Command Line Interface) 및 GUI(Graphic User Interface) 환경에서 운영체제의 기본 명령어를 활용할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">운영체제 기초 활용하기</p>
+        <b class="sh">학습모듈</b>
+        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="24">원문 11쪽</a></p>
+        <b class="sh">분량</b>
+        <p class="src">개념 6항목 · 실습 6절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>운영체제의 종류는 아래와 같다. 마이크로소프트(Microsoft)사 제품으로 유료로 다양한 라이선스 정책이 적용되어 있다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>CLI(Command Line Interface) 및 GUI(Graphic User Interface) 환경에서 운영체제의 기본 명령어를 활용할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>운영체제 기본 명령어 사용 환경</dt><dd><blockquote>운영체제(O/S)를 제어하기 위한 수단은 CLI(Command Line Interface)와 GUI(Graphic U ser Interface)가 있다.</blockquote></dd><dt>CLI(Command Line Interface)의 특징</dt><dd><blockquote>CLI는 사용자가 직접 명령어를 입력하여 컴퓨터 시스템에 명령을 내리는 방식 텍스트 기반의 작업 환경 사용자와 컴퓨터 간 텍스트 터미널을 통해 상호 작용하는 방식 작업 명령은 사용자가 키보드 등을 통해 문자열 형태로 입력, 출력도 문자열 형태</blockquote></dd><dt>GUI(Graphic User Interface) 기본 사용법</dt><dd><blockquote>GUI는 사용자가 마우스 등을 통해 윈도우에서 프로그램을 실행하고 파일을 이동하는 방식 마우스 기반 제어시스템 기반의 작업 환경 제어프로그램을 통해 사용자와 컴퓨터가 상호작용 하는 방식 마우스 기반의 제어시스템의 GUI가 제공되고 설치도 화면 위주로 사용</blockquote></dd><dt>윈도우 기본 명령어</dt><dd><blockquote>윈도우 운영체제의 기본 명령어는 다음과 같다.</blockquote></dd><dt>리눅스 기본 명령어</dt><dd><blockquote>리눅스 운영체제의 기본 명령어는 아래와 같다. 현재 위치의 파일 목록 조회 디렉터리 이동 디렉터리 생성 파일의 내용을 화면에 출력 화면에 출력되는 결과를 파일로 저장 redirection 자주 수행하는 명령어 설정 / 운영체제 기본 명령어 활용하기 기기(장비･공구) 안전･유의 사항 자산을 식별하고 현황을 파악한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>운영체제 기본 명령어</dd></dl>
+
+<h4>해 보기</h4>
+<h5>운영체제 기본 명령어 활용하기</h5><div class='prep'><b>재료·자료</b><span>운영체제 매뉴얼 / 정보 자산 목록 / 응용시스템 구성도 / 서버 구성도 / 네트워크 구성도</span><b>기기·도구</b><span>운영체제(OS) / 통합 개발 환경(Eclipse 등) / 컴퓨터(인터넷 연결) / 터미널/콘솔 환경 / 서버 및 네트워크 장비 / 문서 작성 도구</span><b>유의 사항</b><span>개발 환경 현황을 분석하기 위해서 조직의 담당 부서의 책임자와의 면담을 통하여 정보 / 자산을 식별하고 현황을 파악한다. / 시스템 OS 매뉴얼을 통해 제품 사양에 대해 사전에 파악하고, 권장하는 하드웨어 스펙 / 및 개발 환경을 파악한다. / 개발 환경 구축이 가용한 자원 내에서 해당 장비에 최적화된 테스트를 할 수 있도록 / 개발 환경이 정의된 아키텍처 설계서와 같은 설계 문서를 확보하고 작업하여야 한다. / 정보 자산별 업무 목적에 따라 사용하는 운영체제가 달라질 수 있으므로, 운영체제별 / 특징에 대해 사전에 파악하고 개발 환경을 설계, 구축하여야 한다. / 개발 환경 구축의 경우 해당 장비 이해관계자와의 긴밀한 협조가 필요하다. / 15</span></div><div class='doh'><b>1</b><span>CLI(Command Line Interface) 환경을 준비한다.</span></div><ol class='dos'><li>윈도우 OS CLI 환경을 준비한다.</li><li>리눅스 OS CLI 환경을 준비한다.</li></ol><div class='doh'><b>2</b><span>CLI 명령어를 실행한다.</span></div><ol class='dos'><li>윈도우 OS 경우 CLI 기반 환경에서의 기본 명령어를 입력한 후 관련 내용을 확인한다.</li><li>리눅스 OS 경우 CLI 기반 환경에서의 기본 명령어를 입력한 후 관련 내용을 확인한다.</li></ol><div class='doh'><b>3</b><span>GUI(Graphic User Interface) 환경에서 운영체제의 기본 명령어를 활용한다.</span></div><ol class='dos'><li>윈도우 OS 경우 GUI 기반 환경에서의 기본 명령어를 입력한 후 관련 내용을 확인한다.</li><li>리눅스 OS 경우 GUI 기반 환경에서의 기본 명령어를 입력한 후 관련 내용을 확인한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>CLI(Command Line Interface) 환경을 준비한다.</li><li>CLI 명령어를 실행한다.</li><li>GUI(Graphic User Interface) 환경에서 운영체제의 기본 명령어를 활용한다.</li><li>CLI(Command Line Interface) 및 GUI(Graphic User Interface) 환경에서 운영체제의 기본 명령어를 활용할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 11쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
     <div class="step" id="st3">
-      <h3><i>3</i>운영체제 기본 명령어 사용 환경</h3>
+      <h3><i>3</i>1-3. 운영체제 기초 활용</h3>
       <aside class="side">
-        <p class="pt">운영체제 기본 명령어 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="24">원문 11쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>운영체제(O/S)를 제어하기 위한 수단은 CLI(Command Line Interface)와 GUI(Graphic U ser Interface)가 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st4">
-      <h3><i>4</i>CLI(Command Line Interface)의 특징</h3>
-      <aside class="side">
-        <p class="pt">운영체제 기본 명령어 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="24">원문 11쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>CLI는 사용자가 직접 명령어를 입력하여 컴퓨터 시스템에 명령을 내리는 방식 텍스트 기반의 작업 환경 사용자와 컴퓨터 간 텍스트 터미널을 통해 상호 작용하는 방식 작업 명령은 사용자가 키보드 등을 통해 문자열 형태로 입력, 출력도 문자열 형태</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st5">
-      <h3><i>5</i>GUI(Graphic User Interface) 기본 사용법</h3>
-      <aside class="side">
-        <p class="pt">운영체제 기본 명령어 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="24">원문 11쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>GUI는 사용자가 마우스 등을 통해 윈도우에서 프로그램을 실행하고 파일을 이동하는 방식 마우스 기반 제어시스템 기반의 작업 환경 제어프로그램을 통해 사용자와 컴퓨터가 상호작용 하는 방식 마우스 기반의 제어시스템의 GUI가 제공되고 설치도 화면 위주로 사용</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st6">
-      <h3><i>6</i>운영체제 기본 명령어</h3>
-      <aside class="side">
-        <p class="pt">운영체제 기본 명령어 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="24">원문 11쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>윈도우 기본 명령어</li><li>리눅스 기본 명령어</li></ul>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st7">
-      <h3><i>7</i>윈도우 기본 명령어</h3>
-      <aside class="side">
-        <p class="pt">운영체제 기본 명령어 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="24">원문 11쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>윈도우 운영체제의 기본 명령어는 다음과 같다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st8">
-      <h3><i>8</i>리눅스 기본 명령어</h3>
-      <aside class="side">
-        <p class="pt">운영체제 기본 명령어 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="26">원문 13쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>리눅스 운영체제의 기본 명령어는 아래와 같다. 현재 위치의 파일 목록 조회 디렉터리 이동 디렉터리 생성 파일의 내용을 화면에 출력 화면에 출력되는 결과를 파일로 저장 redirection 자주 수행하는 명령어 설정 / 운영체제 기본 명령어 활용하기 기기(장비･공구) 안전･유의 사항 자산을 식별하고 현황을 파악한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st9">
-      <h3><i>9</i>운영체제 프로세스 개요</h3>
-      <aside class="side">
-        <p class="pt">운영체제 기초 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
+        <p class="pt">운영체제에서 제공하는 작업 우선순위 설정 방법을 이용하여 애플리케이션의 작업 우선순위를 조정할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">운영체제 기초 활용하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="33">원문 20쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 9항목 · 실습 3절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>운영체제 제공 작업 우선순위 설정 방법을 이용하여 애플리케이션 작업 우선순위를 조정할</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>운영체제에서 제공하는 작업 우선순위 설정 방법을 이용하여 애플리케이션의 작업 우선순위를 조정할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>운영체제 프로세스 개요</dt><dd><blockquote>운영체제 제공 작업 우선순위 설정 방법을 이용하여 애플리케이션 작업 우선순위를 조정할</blockquote></dd><dt>순차 프로세스</dt><dd><blockquote>(가) 프로세스 문맥: 상태 워드나 레지스터들 (나) 기억장치 문맥: 데이터 세그먼트, 코드 세그먼트, 실행 스택 등 (다) 프로세스와 연관된 속성들 1) 프로세스 이름: 프로세스가 생성될 때 할당된 내부 번호 2) 우선순위: CPU를 할당하는 스케줄링에 사용 3) 권한: 정보 보호 및 수행할 연산을 지정</blockquote></dd><dt>병행 프로세스</dt><dd><blockquote>프로그램은 요리법처럼 수동적인 명령어 묶음이며, 프로세스는 요리사가 실제로 요리하는 것처럼 능동적으로 실행 중인 프로그램이다.</blockquote></dd><dt>상태(State)</dt><dd><blockquote>프로그램은 다음의 일련의 상태들을 순환한다. 프로세스가 처음 생성되어 운영체제에 실행을 요청하는 단계이다. 주기억장치(메인 메모리)에 할당되기 위해 대기하고 있다.</blockquote></dd><dt>준비 리스트(Ready List)와 대기 리스트(Waiting List)</dt><dd><blockquote>준비 리스트(Ready List)와 대기 리스트(Waiting List)는 각각 준비 상태와 대기 상태에 있는 프로세스들을 관리하는 대기열이다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>운영체제의 프로세스의 개념 · 운영체제의 프로세스의 특징 · 운영체제 프로세스 종류 · 프로세스 상태의 개념</dd></dl>
+
+<h4>해 보기</h4>
+<h5>운영체제 기초 활용하기</h5><div class='prep'><b>재료·자료</b><span>운영체제 매뉴얼 / 정보 자산 목록 / 응용시스템 구성도 / 서버 구성도 / 네트워크 구성도</span><b>기기·도구</b><span>운영체제(OS) / 통합 개발 환경(Eclipse 등) / 24 / 컴퓨터(인터넷 연결) / 터미널/콘솔 환경 / 서버 및 네트워크 장비 / 문서 작성 도구</span><b>유의 사항</b><span>개발 환경 현황을 분석하기 위해서 조직의 담당 부서 책임자와의 면담을 통하여 정보 / 자산을 식별하고 현황을 파악한다. / 시스템 OS 매뉴얼을 통해 제품 사양에 대해 사전에 파악하고, 권장하는 하드웨어 스펙 / 및 개발 환경을 파악한다. / 개발 환경 구축이 가용한 자원 내에서 해당 장비에 최적화된 테스트를 할 수 있도록 / 개발 환경이 정의된 아키텍처 설계서와 같은 설계 문서를 확보하고 작업하여야 한다. / 정보 자산별 업무 목적에 따라 사용하는 운영체제가 달라질 수 있으므로, 운영체제별 / 특징에 대해 사전에 파악하고 개발 환경을 설계, 구축하여야 한다. / 개발 환경 구축의 경우 해당 장비 이해관계자와의 긴밀한 협조가 필요하다.</span></div><div class='doh'><b>1</b><span>윈도우 운영체제에서 제공하는 작업 우선순위 설정 방법을 이용하여 작업 우선순위를 변경한다.</span></div><ol class='dos'><li>윈도우 운영체제의 특징을 파악한다.</li><li>윈도우 운영체제에서 작업 우선순위 설정을 수행한다.</li></ol><div class='doh'><b>2</b><span>리눅스 운영체제에서 제공하는 작업 우선순위 설정 방법을 이용하여 작업 우선순위를 변경한다.</span></div><ol class='dos'><li>리눅스 프로세스 우선순위 명령어 사용법을 파악한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>윈도우 운영체제에서 제공하는 작업 우선순위 설정 방법을 이용하여 작업 우선순위를 변경한다.</li><li>리눅스 운영체제에서 제공하는 작업 우선순위 설정 방법을 이용하여 작업 우선순위를 변경한다.</li><li>운영체제에서 제공하는 작업 우선순위 설정 방법을 이용하여 애플리케이션의 작업 우선순위를 조정할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st10">
-      <h3><i>10</i>운영체제의 프로세스의 개념</h3>
-      <aside class="side">
-        <p class="pt">운영체제 기초 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="33">원문 20쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>운영체제의 프로세스의 특징</li><li>운영체제 프로세스 종류</li><li>순차 프로세스</li><li>병행 프로세스</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st11">
-      <h3><i>11</i>운영체제의 프로세스의 특징</h3>
-      <aside class="side">
-        <p class="pt">운영체제 기초 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="33">원문 20쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>운영체제 프로세스 종류</li><li>순차 프로세스</li><li>병행 프로세스</li><li>프로세스 상태의 개념</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st12">
-      <h3><i>12</i>운영체제 프로세스 종류</h3>
-      <aside class="side">
-        <p class="pt">운영체제 기초 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="33">원문 20쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>순차 프로세스</li><li>병행 프로세스</li><li>프로세스 상태의 개념</li><li>상태(State)</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st13">
-      <h3><i>13</i>순차 프로세스</h3>
-      <aside class="side">
-        <p class="pt">운영체제 기초 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="33">원문 20쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>(가) 프로세스 문맥: 상태 워드나 레지스터들 (나) 기억장치 문맥: 데이터 세그먼트, 코드 세그먼트, 실행 스택 등 (다) 프로세스와 연관된 속성들 1) 프로세스 이름: 프로세스가 생성될 때 할당된 내부 번호 2) 우선순위: CPU를 할당하는 스케줄링에 사용 3) 권한: 정보 보호 및 수행할 연산을 지정</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st14">
-      <h3><i>14</i>병행 프로세스</h3>
-      <aside class="side">
-        <p class="pt">운영체제 기초 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>프로그램은 요리법처럼 수동적인 명령어 묶음이며, 프로세스는 요리사가 실제로 요리하는 것처럼 능동적으로 실행 중인 프로그램이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st15">
-      <h3><i>15</i>프로세스 상태의 개념</h3>
-      <aside class="side">
-        <p class="pt">운영체제 기초 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="35">원문 22쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>상태(State)</li><li>준비 리스트(Ready List)와 대기 리스트(Waiting List)</li></ul>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st16">
-      <h3><i>16</i>상태(State)</h3>
-      <aside class="side">
-        <p class="pt">운영체제 기초 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="35">원문 22쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>프로그램은 다음의 일련의 상태들을 순환한다. 프로세스가 처음 생성되어 운영체제에 실행을 요청하는 단계이다. 주기억장치(메인 메모리)에 할당되기 위해 대기하고 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st17">
-      <h3><i>17</i>준비 리스트(Ready List)와 대기 리스트(Waiting List)</h3>
-      <aside class="side">
-        <p class="pt">운영체제 기초 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="35">원문 22쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>준비 리스트(Ready List)와 대기 리스트(Waiting List)는 각각 준비 상태와 대기 상태에 있는 프로세스들을 관리하는 대기열이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 20쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -520,377 +189,109 @@
 <div class="lv">
   <div class="lvh"><b>2. 기본 개발 환경 구축하기</b><span>능력단위요소 · <code>2001020233_23v5.2</code></span></div>
   <div class="lvb">
-    <div class="step" id="st18">
-      <h3><i>18</i>운영체제별 개발 환경의 이해</h3>
+    <div class="step" id="st4">
+      <h3><i>4</i>2-1. 운영체제 설치</h3>
       <aside class="side">
-        <p class="pt">운영체제 설치</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">응용소프트웨어 개발을 위하여 선정된 운영체제를 설치할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">기본 개발 환경 구축하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="47">원문 34쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 8항목 · 실습 3절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발 환경 구축은 설치하는 운영체제에 따라 웹 서버, 데이터베이스, 프로그래밍 언어가 상이할 수 있다. 운영체제별로 종속되는 소프트웨어가 있거나 호환성 확보를 위해서 별도의 프로그램을 필요에 따라 설치할 수 있다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>응용소프트웨어 개발을 위하여 선정된 운영체제를 설치할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>운영체제별 개발 환경의 이해</dt><dd><blockquote>개발 환경 구축은 설치하는 운영체제에 따라 웹 서버, 데이터베이스, 프로그래밍 언어가 상이할 수 있다. 운영체제별로 종속되는 소프트웨어가 있거나 호환성 확보를 위해서 별도의 프로그램을 필요에 따라 설치할 수 있다.</blockquote></dd><dt>시스템 설치 보고서의 이해</dt><dd><blockquote>운영체제 및 개발도구 설치 후 시스템이 성공적으로 설치되었음을 확인하기 위해 개발 환경에 설치된 시스템의 개요 및 개발 환경, 설치 작업 요약, 설치 시 문제점과 문제점 해결 방법 등을 보고서에 작성할 수 있다.</blockquote></dd><dt>시스템 개요</dt><dd><blockquote>설치된 시스템의 전반적인 개요 및 그 특징을 설명하고 시스템의 구성 및 운영 환경에 대해 기술한다. Server 8 Core 50 user 100 user</blockquote></dd><dt>시스템 설치 작업 요약</dt><dd><blockquote>시스템 설치 작업의 전반적인 내용을 요약해서 기술하며 서버 주소, 작업 내역 및 결과, 운영 환경, DB, 애플리케이션별 작업 내역을 기술한다.</blockquote></dd><dt>상세 작업 내역</dt><dd><blockquote>개발 환경 내 운영체제, 데이터베이스, 애플리케이션 설치 현황 및 계정 정보에 대해 상세 작업 사례 WEB, WAS, DB 서버 설치 운영 환경을 반영하여 설치 데이터베이스 adminUser 애플리케이션 TestUser1 Document Root C:\j**s Log Directory C:\j**s\log</blockquote></dd><dt>플랫폼 설치 결과</dt><dd><blockquote>플랫폼 설치가 완료된 상태를 검토하기 위한 결과물로 구분(S/W, D/B, VPN 등 기타), 장비(UNIX, NT 등), S/W명, 설치 일자, 설치 테스트 결과(성공/실패), 설치 수량 등을 기술한다.</blockquote></dd><dt>시스템 설치 결과</dt><dd><blockquote>모든 시스템의 구성 요소가 계획대로 설치되었는지 검증하고 설치 완료 상태를 보고하는 것으로 시스템명, 설치 일시, 설치 테스트, 설치 담당자 등을 기술한다.</blockquote></dd><dt>시스템 정기 점검</dt><dd><blockquote>안전하게 관리한다. / 운영체제 설치하기 기기(장비･공구) 안전･유의 사항 별하고 현황을 파악한다. 스펙 및 개발 환경을 파악한다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>운영체제 설치하기</h5><div class='prep'><b>재료·자료</b><span>운영체제 매뉴얼 / 정보 자산 목록 / 응용시스템 구성도 / 서버 구성도 / 네트워크 구성도</span><b>기기·도구</b><span>운영체제(OS) / 통합 개발 환경(Eclipse 등) / 컴퓨터(인터넷 연결) / 터미널/콘솔 환경 / 서버 및 네트워크 장비 / 문서 작성 도구</span><b>유의 사항</b><span>개발 환경 구축을 위해서 조직 담당 부서의 책임자와의 면담을 통하여 정보 자산을 식 / 별하고 현황을 파악한다. / 개발도구 설치 매뉴얼을 통해 제품 사양에 대해 사전에 파악하고, 권장하는 하드웨어 / 스펙 및 개발 환경을 파악한다. / 개발 환경 구축이 가용한 자원 내에서 해당 장비에 최적화된 테스트를 할 수 있도록 / 개발 환경이 정의된 아키텍처 설계서와 같은 설계 문서를 확보하고 작업하여야 한다. / 정보 자산별 업무 목적에 따라 사용하는 운영체제 및 개발도구가 달라질 수 있으므로, / 운영체제별 특징에 대해 사전에 파악하고 개발 환경을 설계, 구축하여야 한다. / 개발 환경 구축의 경우 해당 장비 이해관계자와의 긴밀한 협조가 필요하다. / 38</span></div><div class='doh'><b>1</b><span>응용소프트웨어 개발 환경 구축 계획을 수립한다.</span></div><ol class='dos'><li>응용소프트웨어 개발 환경 구축을 위한 작업 구성을 수행한다.</li></ol><div class='doh'><b>2</b><span>응용소프트웨어 개발을 위해 선정된 운영체제를 설치한다.</span></div><ol class='dos'><li>윈도우(Windows) OS를 설치한다.</li><li>리눅스(Linux) 계열 우분트 OS를 설치한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>응용소프트웨어 개발 환경 구축 계획을 수립한다.</li><li>응용소프트웨어 개발을 위해 선정된 운영체제를 설치한다.</li><li>응용소프트웨어 개발을 위하여 선정된 운영체제를 설치할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 34쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st19">
-      <h3><i>19</i>시스템 설치 보고서의 이해</h3>
+    <div class="step" id="st5">
+      <h3><i>5</i>2-2. 개발도구 설치</h3>
       <aside class="side">
-        <p class="pt">운영체제 설치</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="47">원문 34쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>운영체제 및 개발도구 설치 후 시스템이 성공적으로 설치되었음을 확인하기 위해 개발 환경에 설치된 시스템의 개요 및 개발 환경, 설치 작업 요약, 설치 시 문제점과 문제점 해결 방법 등을 보고서에 작성할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st20">
-      <h3><i>20</i>시스템 개요</h3>
-      <aside class="side">
-        <p class="pt">운영체제 설치</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="48">원문 35쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>설치된 시스템의 전반적인 개요 및 그 특징을 설명하고 시스템의 구성 및 운영 환경에 대해 기술한다. Server 8 Core 50 user 100 user</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st21">
-      <h3><i>21</i>시스템 설치 작업 요약</h3>
-      <aside class="side">
-        <p class="pt">운영체제 설치</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="48">원문 35쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>시스템 설치 작업의 전반적인 내용을 요약해서 기술하며 서버 주소, 작업 내역 및 결과, 운영 환경, DB, 애플리케이션별 작업 내역을 기술한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st22">
-      <h3><i>22</i>상세 작업 내역</h3>
-      <aside class="side">
-        <p class="pt">운영체제 설치</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="48">원문 35쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발 환경 내 운영체제, 데이터베이스, 애플리케이션 설치 현황 및 계정 정보에 대해 상세 작업 사례 WEB, WAS, DB 서버 설치 운영 환경을 반영하여 설치 데이터베이스 adminUser 애플리케이션 TestUser1 Document Root C:\j**s Log Directory C:\j**s\log</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st23">
-      <h3><i>23</i>플랫폼 설치 결과</h3>
-      <aside class="side">
-        <p class="pt">운영체제 설치</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="49">원문 36쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>플랫폼 설치가 완료된 상태를 검토하기 위한 결과물로 구분(S/W, D/B, VPN 등 기타), 장비(UNIX, NT 등), S/W명, 설치 일자, 설치 테스트 결과(성공/실패), 설치 수량 등을 기술한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st24">
-      <h3><i>24</i>시스템 설치 결과</h3>
-      <aside class="side">
-        <p class="pt">운영체제 설치</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="49">원문 36쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>모든 시스템의 구성 요소가 계획대로 설치되었는지 검증하고 설치 완료 상태를 보고하는 것으로 시스템명, 설치 일시, 설치 테스트, 설치 담당자 등을 기술한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st25">
-      <h3><i>25</i>시스템 정기 점검</h3>
-      <aside class="side">
-        <p class="pt">운영체제 설치</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="49">원문 36쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>안전하게 관리한다. / 운영체제 설치하기 기기(장비･공구) 안전･유의 사항 별하고 현황을 파악한다. 스펙 및 개발 환경을 파악한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st26">
-      <h3><i>26</i>응용소프트웨어 개발도구 종류 및 용도</h3>
-      <aside class="side">
-        <p class="pt">개발도구 설치</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
+        <p class="pt">응용소프트웨어 개발에 필요한 개발도구를 설치할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">기본 개발 환경 구축하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="56">원문 43쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 4항목 · 실습 5절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발 환경 내의 개발도구의 종류 및 장비별 버전, 개발 프레임워크 개념은 다음과 같다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>응용소프트웨어 개발에 필요한 개발도구를 설치할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>응용소프트웨어 개발도구 종류 및 용도</dt><dd><blockquote>개발 환경 내의 개발도구의 종류 및 장비별 버전, 개발 프레임워크 개념은 다음과 같다.</blockquote></dd><dt>개발도구 종류</dt><dd><blockquote>개발도구별로 용도, 운영체제, 설치 소프트웨어(S/W) 등이 있으며 사례는 아래와 같다.</blockquote></dd><dt>개발 환경 장비별 버전의 종류</dt><dd><blockquote>장비별 서버 종류, 설치 버전의 종류는 아래와 같다.</blockquote></dd><dt>개발 환경 프레임워크의 이해</dt><dd><blockquote>개발 환경 프레임워크의 기준 및 상세 내역은 아래와 같다. 스프링 X.X.X 스프링 X.XX 버전 전자정부 프레임워크 X.X 전자정부 프레임워크를 사용하기 위한 기본 라이브러리 / 개발도구 설치하기 기기(장비･공구) 안전･유의 사항 자산을 식별하고 현황을 파악한다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>개발도구 설치하기</h5><div class='prep'><b>재료·자료</b><span>운영체제 매뉴얼 / 정보 자산 목록 / 응용시스템 구성도 / 서버 구성도 / 네트워크 구성도</span><b>기기·도구</b><span>운영체제(OS) / 통합 개발 환경(Eclipse 등) / 컴퓨터(인터넷 연결) / 터미널/콘솔 환경 / 서버 및 네트워크 장비 / 문서 작성 도구</span><b>유의 사항</b><span>개발 환경 현황을 분석하기 위해서 조직 담당 부서의 책임자와의 면담을 통하여 정보 / 자산을 식별하고 현황을 파악한다. / 시스템 OS 매뉴얼을 통해 제품 사양에 대해 사전에 파악하고, 권장하는 하드웨어 스펙 / 및 개발 환경을 파악한다. / 개발 환경 구축이 가용한 자원 내에서 해당 장비에 최적화된 테스트를 할 수 있도록 / 개발 환경이 정의된 아키텍처 설계서와 같은 설계 문서를 확보하고 작업하여야 한다. / 정보 자산별 업무 목적에 따라 사용하는 운영체제가 달라질 수 있으므로, 운영체제별 / 특징에 대해 사전에 파악하고 개발 환경을 설계, 구축하여야 한다. / 개발 환경 구축의 경우 해당 장비 이해관계자와의 긴밀한 협조가 필요하다. / 46</span></div><div class='doh'><b>1</b><span>응용소프트웨어 설치 전, JDK를 설치한 후 JAVA_HOME 환경변수와 Path를 설정한다.</span></div><ol class='dos'><li>응용소프트웨어 설치 전 사전에 설치해야 하는 프로그램(예, JDK)을 조사한 후 설치한다.</li><li>Java 실행 관련 환경변수를 등록한다.</li><li>Java 실행 관련 환경변수를 등록한다.</li></ol><div class='doh'><b>2</b><span>응용소프트웨어 개발에 필요한 개발도구를 절차에 따라 설치한다.</span></div><ol class='dos'><li>사전 설치 파일을 설치한 후 이클립스(Eclipse) 파일을 LOCAL PC로 복사 후 설치한다.</li><li>이클립스(Eclipse)를 설치한 후 Tomcat 연동한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>응용소프트웨어 설치 전, JDK를 설치한 후 JAVA_HOME 환경변수와 Path를 설정한다.</li><li>응용소프트웨어 개발에 필요한 개발도구를 절차에 따라 설치한다.</li><li>응용소프트웨어 개발에 필요한 개발도구를 설치할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 43쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st27">
-      <h3><i>27</i>개발도구 종류</h3>
+    <div class="step" id="st6">
+      <h3><i>6</i>2-3. 개발도구 활용</h3>
       <aside class="side">
-        <p class="pt">개발도구 설치</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="56">원문 43쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발도구별로 용도, 운영체제, 설치 소프트웨어(S/W) 등이 있으며 사례는 아래와 같다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st28">
-      <h3><i>28</i>개발 환경 장비별 버전의 종류</h3>
-      <aside class="side">
-        <p class="pt">개발도구 설치</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="56">원문 43쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>장비별 서버 종류, 설치 버전의 종류는 아래와 같다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st29">
-      <h3><i>29</i>개발 환경 프레임워크의 이해</h3>
-      <aside class="side">
-        <p class="pt">개발도구 설치</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="57">원문 44쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발 환경 프레임워크의 기준 및 상세 내역은 아래와 같다. 스프링 X.X.X 스프링 X.XX 버전 전자정부 프레임워크 X.X 전자정부 프레임워크를 사용하기 위한 기본 라이브러리 / 개발도구 설치하기 기기(장비･공구) 안전･유의 사항 자산을 식별하고 현황을 파악한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st30">
-      <h3><i>30</i>통합 개발 환경의 이해</h3>
-      <aside class="side">
-        <p class="pt">개발도구 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">응용소프트웨어 개발 환경에 맞도록 개발도구를 활용할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">기본 개발 환경 구축하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="68">원문 55쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 2항목 · 실습 5절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>통합 개발 환경을 뜻하는 ‘IDE’는 ‘Integrated Development Environment’의 약자로 개발을 하면서 사용하는 도구들의 집합을 말한다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>응용소프트웨어 개발 환경에 맞도록 개발도구를 활용할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>통합 개발 환경의 이해</dt><dd><blockquote>통합 개발 환경을 뜻하는 ‘IDE’는 ‘Integrated Development Environment’의 약자로 개발을 하면서 사용하는 도구들의 집합을 말한다.</blockquote></dd><dt>개발도구의 종류</dt><dd><blockquote>개발 환경에서 개발도구의 종류는 아래와 같다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>개발도구 활용하기</h5><div class='prep'><b>재료·자료</b><span>운영체제 매뉴얼 / 정보 자산 목록 / 응용시스템 구성도 / 서버 구성도 / 네트워크 구성도</span><b>기기·도구</b><span>운영체제(OS) / 통합 개발 환경(Eclipse 등) / 컴퓨터(인터넷 연결) / 터미널/콘솔 환경 / 서버 및 네트워크 장비 / 문서 작성 도구</span><b>유의 사항</b><span>개발 환경 현황을 분석하기 위해서 조직 담당 부서의 책임자와의 면담을 통하여 정보 / 자산을 식별하고 현황을 파악한다. / 시스템 OS 매뉴얼을 통해 제품 사양에 대해 사전에 파악하고, 권장하는 하드웨어 스펙 / 및 개발 환경을 파악한다. / 개발 환경 구축이 가용한 자원 내에서 해당 장비에 최적화된 테스트를 할 수 있도록 / 개발 환경이 정의된 아키텍처 설계서와 같은 설계 문서를 확보하고 작업하여야 한다. / 정보 자산별 업무 목적에 따라 사용하는 운영체제가 달라질 수 있으므로, 운영체제별 / 특징에 대해 사전에 파악하고 개발 환경을 설계, 구축하여야 한다. / 개발 환경 구축의 경우 해당 장비 이해관계자와의 긴밀한 협조가 필요하다. / 58</span></div><div class='doh'><b>1</b><span>응용소프트웨어 개발 환경을 파악한다.</span></div><ol class='dos'><li>개발 환경의 운영체제에 대해 파악한다.</li><li>개발 서버의 세부 정보에 대해 파악한다.</li></ol><div class='doh'><b>2</b><span>응용소프트웨어 개발 환경에 맞도록 개발도구를 활용한다.</span></div><ol class='dos'><li>이클립스에서 프로젝트 소스를 추가한 후 소스 관리 프로그램과 연동한다.</li><li>이클립스에서 웹 서버를 추가한다.</li><li>테스트 URL을 확인한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>응용소프트웨어 개발 환경을 파악한다.</li><li>응용소프트웨어 개발 환경에 맞도록 개발도구를 활용한다.</li><li>응용소프트웨어 개발 환경에 맞도록 개발도구를 활용할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st31">
-      <h3><i>31</i>개발도구의 종류</h3>
-      <aside class="side">
-        <p class="pt">개발도구 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020233_23v5" data-page="69">원문 56쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 서술형 시험 · 평가자 질문 · 구두 발표</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발 환경에서 개발도구의 종류는 아래와 같다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 55쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
   </div>
 </div>
 
-<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
-원문 LM2001020233_23v5_.개발자 환경 구축_20251108.pdf</footer>
+<footer>담당 정우균 · 개념과 절차는 <b>NCS 학습모듈 LM2001020233_23v5_.개발자 환경 구축_20251108.pdf</b> 에서
+옮긴 것입니다 — 한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지)</footer>
 </div>
 <script>
-/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+/* 빠른 이동 — 지금 보는 꼭지를 표시하고, 좁은 화면에서는 여닫습니다. */
 (function () {
   var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
   var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));

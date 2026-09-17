@@ -1,13 +1,30 @@
-<meta charset="utf-8"><title>소프트웨어공학 활용 — 준비 교안</title>
+<meta charset="utf-8"><title>소프트웨어공학 활용 — 학습 가이드</title>
 <link rel="stylesheet" href="../assets/site.css">
 <link rel="stylesheet" href="../assets/guide.css">
 <style>
-  /* 원문 인용 — 우리가 쓴 안내와 눈으로 구분되어야 한다 */
-  .bd blockquote{margin:10px 0 16px;padding:10px 14px;border-left:3px solid #000;
-                 background:#fafafa;font-size:13.5px;line-height:1.8;color:#222}
-  .bd p.none{color:#888;font-size:13px}
-  .bd ul.sub{margin:8px 0 16px;padding-left:20px;font-size:13.5px;line-height:1.9}
-  aside.side .v .btn{font-size:11.5px}
+  /* 학습 가이드 — 개념 / 실습 / 확인 세 덩어리가 눈으로 구분되어야 한다 */
+  .bd h4{margin:22px 0 8px;font-size:14px;padding-bottom:5px;border-bottom:1px solid #000}
+  .bd h4:first-child{margin-top:0}
+  .bd h5{margin:16px 0 5px;font-size:13px;font-weight:700}
+  .bd blockquote{margin:5px 0 12px;padding:9px 13px;border-left:3px solid #999;
+                 background:#fafafa;font-size:13px;line-height:1.8;color:#333}
+  .cc{margin:0 0 6px}
+  .cc dt{font-weight:700;font-size:13.5px;margin:14px 0 0}
+  .cc dd{margin:4px 0 0}
+  .doh{display:flex;gap:9px;align-items:baseline;margin:16px 0 4px;font-size:13.5px;
+       font-weight:700}
+  .doh b{flex:0 0 auto;width:21px;height:21px;line-height:19px;text-align:center;
+         border:1px solid #000;font-size:11.5px}
+  ol.dos{margin:2px 0 0 30px;padding:0;font-size:13px;line-height:1.85}
+  ol.dos li{margin:3px 0}
+  .prep{display:grid;grid-template-columns:76px 1fr;gap:3px 10px;font-size:12.5px;
+        border:1px solid #ccc;padding:10px 13px;margin:6px 0 2px;background:#fafafa}
+  .prep b{color:#555;font-weight:400}
+  ul.goal{margin:6px 0 0;padding-left:20px;font-size:13.5px;line-height:1.9}
+  ul.chk{margin:6px 0 0;padding:0;list-style:none;font-size:13.5px;line-height:1.95}
+  ul.chk li::before{content:"\2610  "}
+  .none{color:#888;font-size:12.5px}
+  .srcline{font-size:11.5px;color:#888;margin:8px 0 0}
 </style>
 <script src="../assets/auth.js"></script>
 <script>EXAM_AUTH.guard("../");</script>
@@ -17,7 +34,7 @@
 <div class="top"><div class="tbar">
   <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 /
   <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a>
-  / 소프트웨어공학 활용 / 준비 교안</small></div>
+  / 소프트웨어공학 활용 / 학습 가이드</small></div>
   <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
 </div></div>
 <script>EXAM_AUTH.paintTop("../");</script>
@@ -25,49 +42,45 @@
 <button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
 
 <nav id="qnav" aria-label="빠른 이동">
-  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
-  <i class="qg">CASE 도구 활용하기</i><a href="#st1"><b>1</b><span>CASE 도구(Computer Aided Software Engineering Tool)</span></a><a href="#st2"><b>2</b><span>CASE 도구 개요</span></a><a href="#st3"><b>3</b><span>CASE 도구 등장 배경</span></a><a href="#st4"><b>4</b><span>CASE 도구의 목표</span></a><a href="#st5"><b>5</b><span>CASE 도구 종류</span></a><a href="#st6"><b>6</b><span>계층적 분류</span></a><a href="#st7"><b>7</b><span>기능적 분류</span></a><a href="#st8"><b>8</b><span>소프트웨어 개발 수명 주기에 따른 분류</span></a><a href="#st9"><b>9</b><span>소프트웨어 사용 목적에 따른 분류</span></a><a href="#st10"><b>10</b><span>CASE 도구 도입의 성패 요인</span></a><a href="#st11"><b>11</b><span>도입의 성공 요인</span></a><a href="#st12"><b>12</b><span>도입의 실패 요인</span></a><a href="#st13"><b>13</b><span>도입 시 고려 사항</span></a><a href="#st14"><b>14</b><span>업무 매뉴얼</span></a><a href="#st15"><b>15</b><span>업무 매뉴얼 작성 목표</span></a><a href="#st16"><b>16</b><span>업무 매뉴얼 구성 요소</span></a><a href="#st17"><b>17</b><span>이슈 관리</span></a><a href="#st18"><b>18</b><span>이슈 관리 방법</span></a><a href="#st19"><b>19</b><span>이슈 관리 시스템 (Issue Tracking System)</span></a><i class="qg">품질 요구사항 확인하기</i><a href="#st20"><b>20</b><span>소프트웨어 품질 요구사항</span></a><a href="#st21"><b>21</b><span>소프트웨어 요구사항명세서</span></a><a href="#st22"><b>22</b><span>품질 요구사항 분류</span></a><a href="#st23"><b>23</b><span>소프트웨어 표준</span></a><a href="#st24"><b>24</b><span>제품 표준</span></a><a href="#st25"><b>25</b><span>개발 공정(프로세스) 표준</span></a><a href="#st26"><b>26</b><span>품질 표준 특성과 평가 기준</span></a><a href="#st27"><b>27</b><span>품질 표준 특성과 평가 항목</span></a><a href="#st28"><b>28</b><span>품질 측정 메트릭</span></a><a href="#st29"><b>29</b><span>소프트웨어 개발 공정 평가 표준</span></a><a href="#st30"><b>30</b><span>소프트웨어 프로세스 품질 인증(Software Process 인증)</span></a><a href="#st31"><b>31</b><span>품질 점검 기법</span></a><a href="#st32"><b>32</b><span>정적 검증과 동적 검증</span></a><a href="#st33"><b>33</b><span>인스펙션</span></a><a href="#st34"><b>34</b><span>워크스루(Walkthrough)</span></a><a href="#st35"><b>35</b><span>동료 검토(Peer Review)</span></a><a href="#st36"><b>36</b><span>결함 관리 기법</span></a><a href="#st37"><b>37</b><span>결함(Defect) 구분</span></a><a href="#st38"><b>38</b><span>결함 유형</span></a><a href="#st39"><b>39</b><span>결함 해결 방법</span></a>
+  <a class="qt" href="#top"><b>&uarr;</b><span>맨 위로</span></a>
+  <i class="qg">CASE 도구 활용하기</i><a href="#st1"><b>1</b><span>CASE 도구 선정</span></a><a href="#st2"><b>2</b><span>CASE 도구 활용</span></a><i class="qg">품질 요구사항 확인하기</i><a href="#st3"><b>3</b><span>품질 표준과 평가 기준 정의</span></a><a href="#st4"><b>4</b><span>개발 공정과 제품 품질 점검</span></a>
 </nav>
 
 <div class="wrap" id="top">
 
-<h1>소프트웨어공학 활용 — 준비 교안</h1>
+<h1>소프트웨어공학 활용 — 학습 가이드</h1>
 <p class="sub">능력단위 <code>2001020228_23v6</code> · 6수준 ·
-32시간 · 단계 39개 · 평가 문제해결 시나리오 · 사례 연구 · 평가자 체크리스트 · 서술형 시험</p>
+32시간 · 꼭지 4개 · 개념 39항목 · 실습 50절차</p>
 
-<h2 class="sec" id="g0">0. 이 교과는 무엇인가</h2>
+<h2 class="sec" id="g0">0. 시작하기 전에</h2>
 <div class="sect">
   <aside class="side">
     <p class="pt">응용소프트웨어 개발과 프로세스 적용 활동의 관련된 지식을 바탕으로 소프트웨어의 완전성을 보장하고, 소프트웨어 품질을 평가하기 위해 CASE 도구와 형상관리를 통해 소프트웨어공학 기술을 적용할 수 있다.</p>
-    <b class="sh">선수학습</b>
+    <b class="sh">먼저 알아야 할 것</b>
     <p class="v">소프트웨어공학, SW품질관리, 요구사항 확인(2001020201_23v5), 애플리케이션 테스트 관리(2001020226 _23v6), 애플리케이션 테스트 수행(2001020227_23v6)</p>
-    <b class="sh">원문</b>
-    <p class="src">LM2001020228_23v6_소프트웨어공학 활용_20251108.pdf (100쪽)</p>
+    <b class="sh">평가</b>
+    <p class="src">문제해결 시나리오 · 사례 연구 · 평가자 체크리스트 · 서술형 시험</p>
   </aside>
   <div class="bd">
-<p>이 문서는 <b>수업 준비용</b>입니다. 심사에 내는 표준 강의 교안(6시트)과 다릅니다.
-   차례와 단계는 <b>NCS 학습모듈 원문의 짜임새</b>를 그대로 따랐고,
-   각 단계에 <b>무엇을 준비하고 무엇을 확인할지</b>를 적었습니다.</p>
-<p><b>내용은 원문을 보십시오.</b> 학습모듈 본문은 한국직업능력연구원 저작물이라
-   이 사이트에 옮겨 두지 않습니다. 단계마다 있는 <b>[원문 N쪽]</b> 단추가
-   그 자리를 바로 펼칩니다(로컬 서버로 열었을 때).</p>
+<h4>이 문서를 쓰는 법</h4>
+<p>꼭지마다 <b>무엇을 할 수 있게 되나 → 알아야 할 것 → 해 보기 → 스스로 확인</b>
+   순서입니다. 읽고 끝내지 말고 <b>해 보기</b>를 손으로 따라 하십시오.
+   마지막 <b>스스로 확인</b>을 전부 «할 수 있다» 고 말할 수 있으면 다음 꼭지로 갑니다.</p>
+<p>자세한 설명과 표·그림은 <b>학습모듈 원문</b>에 있습니다. 꼭지마다 있는
+   <b>[원문 N쪽]</b> 단추를 누르면 그 자리가 바로 펼쳐집니다.</p>
 
 <h4>핵심 용어</h4>
 <p>소프트웨어공학, 소프트웨어 개발, CASE 도구, 품질 요구사항, 품질 표준, 품질 평가 항목, 개발 공정 품질, 응용소프트웨어 제품 품질, 결함 관리</p>
 
-<h4>능력단위요소</h4>
+<h4>차례</h4>
 <table class="wide">
-  <tr><th style="width:48px">번호</th><th style="width:230px">요소</th>
-      <th>학습 내용</th><th style="width:74px">단계</th></tr>
-  <tr><td class="c">1</td><td>CASE 도구 활용하기</td><td>CASE 도구 선정 · CASE 도구 활용</td><td class="c">19</td></tr>
-  <tr><td class="c">2</td><td>품질 요구사항 확인하기</td><td>품질 표준과 평가 기준 정의 · 개발 공정과 제품 품질 점검</td><td class="c">20</td></tr>
+  <tr><th style="width:44px">꼭지</th><th style="width:250px">학습 내용</th>
+      <th>능력단위요소</th><th style="width:58px">개념</th><th style="width:58px">실습</th></tr>
+  <tr><td class="c">1</td><td>1-1. CASE 도구 선정</td><td>CASE 도구 활용하기</td><td class="c">13</td><td class="c">16</td></tr>
+  <tr><td class="c">2</td><td>1-2. CASE 도구 활용</td><td>CASE 도구 활용하기</td><td class="c">6</td><td class="c">18</td></tr>
+  <tr><td class="c">3</td><td>2-1. 품질 표준과 평가 기준 정의</td><td>품질 요구사항 확인하기</td><td class="c">9</td><td class="c">3</td></tr>
+  <tr><td class="c">4</td><td>2-2. 개발 공정과 제품 품질 점검</td><td>품질 요구사항 확인하기</td><td class="c">11</td><td class="c">13</td></tr>
 </table>
-
-<div class="try">
-  <b class="t">쓰는 법</b>
-  왼쪽 <b>목차</b>에서 오늘 나갈 단계를 고르십시오.
-  한 단계가 대략 수업 10~20분에 해당합니다.
-</div>
   </div>
 </div>
 
@@ -75,495 +88,65 @@
   <div class="lvh"><b>1. CASE 도구 활용하기</b><span>능력단위요소 · <code>2001020228_23v6.1</code></span></div>
   <div class="lvb">
     <div class="step" id="st1">
-      <h3><i>1</i>CASE 도구(Computer Aided Software Engineering Tool)</h3>
+      <h3><i>1</i>1-1. CASE 도구 선정</h3>
       <aside class="side">
-        <p class="pt">CASE 도구 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
+        <p class="pt">개발하고자 하는 응용소프트웨어에 적용할 개발 방법론을 지원하는 최적의 CASE 도구를 선정 할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">CASE 도구 활용하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 13항목 · 실습 16절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>CASE 도구 개요</li><li>CASE 도구 등장 배경</li><li>CASE 도구의 목표</li><li>CASE 도구 종류</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>개발하고자 하는 응용소프트웨어에 적용할 개발 방법론을 지원하는 최적의 CASE 도구를 선정 할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>CASE 도구 개요</dt><dd><blockquote>CASE 도구는 소프트웨어공학의 개발 방법론을 컴퓨터 기반으로 구현하여, 소프트웨어 개발 계획 수립, 요구사항 분석 및 설계, 개발 및 테스트, 유지 보수까지 소프트웨어 개발의 전 과정을 자동화할 수 있다.</blockquote></dd><dt>CASE 도구 등장 배경</dt><dd><blockquote>업무를 자동화 체계적으로 개발할 수 있는 자동화된 도구를 도입</blockquote></dd><dt>계층적 분류</dt><dd><blockquote>깁슨(Michel L.Gibson) 교수는 다음과 같이 CASE를 상위(Upper) CASE와 하위 (Lower) CASE, 통합(Integrated) CASE로 분류한다.</blockquote></dd><dt>기능적 분류</dt><dd><blockquote>CASE 도구를 제공하는 기능 중심으로 분류하면 프로세스 모델링 관리, 프로젝트 계획 수립, 위험 분석, 요구사항 관리, 품질 보증, 데이터베이스 관리, 소프트웨어 형상관리, 분석 및 설계, 프로토타이핑 및 시뮬레이션, 화면 설계 및 개발, 프로그래밍, 통합 및 테스트, 리엔지니어링 도구 등과 같이 분류할 수 있다.</blockquote></dd><dt>소프트웨어 개발 수명 주기에 따른 분류</dt><dd><blockquote>소프트웨어 개발 수명 주기에 따라 활용되는 CASE 도구들을 분류하면 다음과 같다.</blockquote></dd><dt>소프트웨어 사용 목적에 따른 분류</dt><dd><blockquote>소프트웨어 사용 목적에 따른 CASE 도구들을 분류하면 다음과 같다.</blockquote></dd><dt>도입의 성공 요인</dt><dd><blockquote>- CASE 도구에 대한 정확한 이해를 바탕으로 도입한다. - CASE 도구 활용을 위해 필요한 교육과 컨설팅을 충분히 고려한다.</blockquote></dd><dt>도입의 실패 요인</dt><dd><blockquote>- CASE 도구가 모든 것을 자동화하는 환상적 도구라는 잘못된 기대를 한다. - CASE 도구를 사용할 사용자들의 능력 수준을 무시하고 도입한다.</blockquote></dd><dt>도입 시 고려 사항</dt><dd><blockquote>CASE 도구를 도입하여 해결해야 하는 업무를 파악하고 도입 목적을 명확하게 정의한다. 도입 목적을 명확하게 정의하지 못할 경우, 도입 전·후의 효과에 대한 측정을 수행하기 어렵다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>CASE 도구(Computer Aided Software Engineering Tool) · CASE 도구의 목표 · CASE 도구 종류 · CASE 도구 도입의 성패 요인</dd></dl>
+
+<h4>해 보기</h4>
+<h5>CASE 도구 선정하기</h5><div class='prep'><b>재료·자료</b><span>정보통신단체표준(1999). TTA.IS-14471</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구(워드프로세서, 스프레드시트, 프레젠테이션 도구 등) / CASE 도구(SW설계 지원 도구, SW 개발 지원 도구, SW 테스트 지원 도구 등)</span><b>유의 사항</b><span>조직 내에 CASE 도구 도입 목표와 도입 정책이 이미 정의되어 있다면 그것을 활용한다. / 8 / 도입할 CASE 도구의 수가 적거나 후보가 정의되어 있다면 평가 과정을 바로 수행한다. / 검토 대상 CASE 도구들의 현재 상태와 멀지 않은 장래에 발생할 수 있는 변화 사항(업 / 그레이드 일정 등)을 반드시 확인해야 한다.</span></div><div class='doh'><b>1</b><span>응용 SW 개발 및 유지 보수 업무를 위해 필요한 CASE 도구 도입 목표를 정하고, CASE 도</span></div><ol class='dos'><li>CASE 도구 도입 목표를 설정한다.</li></ol><div class='doh'><b>2</b><span>예 ②아니요</span></div><ol class='dos'><li>CASE 도구 선정 및 도입 정책을 정의한다.</li><li>‘공사’라 함은 증축 공사, 개축 공사, 신축 공사, 시설·설비 공사, 각종 개보수 공사 등을 말한다.</li></ol><div class='doh'><b>3</b><span>수요 부서에서 품명, 규격, 수량, 용도를 명기하여 구매 팀에 요청하며 구매에 필요한 시</span></div><div class='doh'><b>4</b><span>물품 구매의 경우 자산 팀의 협조 결재를 득하여 청구하여야 한다.</span></div><div class='doh'><b>5</b><span>정보화 기자재의 구매는 정보 인프라 팀, 영상 음향 장비의 구매는 자산 팀의 협조를 득하</span></div><div class='doh'><b>6</b><span>공사 계약은 시설 팀을 경유하여 청구하여야 한다.</span></div><div class='doh'><b>7</b><span>청구 총액이 100만 원 이상인 경우 예산 부서의 협조 결재를 득하여 구매 청구하여야 한다.</span></div><div class='doh'><b>8</b><span>행정기관 등의 장은 정보시스템 사업에서 하드웨어를 도입하는 경우 한국정보통신기술협</span></div><div class='doh'><b>9</b><span>행정기관 등의 장은 정보시스템 사업에서 소프트웨어를 개발하고자 하는 경우 전자정부</span></div><div class='doh'><b>10</b><span>하드웨어 및 상용SW를 구매하려는 경우에는 다음 각 호의 제품을 우선 구매하여야 한다.</span></div><ol class='dos'><li>「소프트웨어 진흥법」 제20조에 따른 품질 인증(GS인증) 1등급 제품</li><li>「산업기술혁신촉진법」 제16조에 따른 신제품 인증(NEP) 제품</li><li>「산업기술혁신촉진법」 제15조의2에 따른 신기술 인증(NET) 제품</li></ol><div class='doh'><b>11</b><span>행정기관 등의 장은 제4항 각 호의 제품 도입 시 중소기업자가 개발한 제품을 우선적으</span></div><ol class='dos'><li>CASE 도구 선정 및 도입 계획을 수립한다.</li><li>평가 위원 선정</li><li>상용SW 평가 항목 및 배점 기준 (3) CASE 도구 선정 및 도입 계획서를 의사 결정자에게 보고하고 승인을 받은 후 유관 부서 또는 관련자들에게 배포한다.</li></ol><div class='doh'><b>12</b><span>소프트웨어 개발･유지 보수에 필요한 CASE 도구 도입 기준 수립</span></div><div class='doh'><b>13</b><span>CASE 도구 도입을 위한 표준 프로세스 정립</span></div><div class='doh'><b>14</b><span>CASE 도구 선정 및 평가 조직 확보 및 공유</span></div><div class='doh'><b>15</b><span>CASE 도구 도입 정책</span></div><div class='doh'><b>16</b><span>CASE 도구 도입 프로세스</span></div><div class='doh'><b>17</b><span>CASE 도구 도입을 위한 조직의 업무 목표 정의</span></div><div class='doh'><b>18</b><span>CASE 도구 도입 요구사항 식별 및 정외</span></div><div class='doh'><b>19</b><span>도입 가능한 CASE 도구 조사</span></div><div class='doh'><b>20</b><span>제약사항 식별 및 검토</span></div><div class='doh'><b>21</b><span>내부 개발 가능성 검토</span></div><div class='doh'><b>22</b><span>도구 평가 기준 준비</span></div><div class='doh'><b>23</b><span>기능 및 관련 기술 평가 및 검토</span></div><div class='doh'><b>24</b><span>도구 및 공급사 평가 실시</span></div><div class='doh'><b>25</b><span>응용 SW 개발 및 유지 보수 업무에 사용이 가능한 CASE 도구들을 조사하여 용도와 기능에</span></div><ol class='dos'><li>응용 SW 개발 및 유지 보수 업무에 사용되는 모든 CASE 도구를 조사하여 목록화한다.</li><li>동종 업무 또는 유사 프로젝트에서 활용했던 CASE 도구, 이미 활용하고 있는 CASE 도구 들을 조사하여 목록화한다.</li><li>조사 대상 CASE 도구 목록에 있는 CASE 도구들의 용도와 제공 기능, 도입 비용 등을 조사하여 정리한다.</li><li>CASE 도구 조사 내용을 용도와 기능, 개발 방법론과 활용 시기, 활용 시 특이 사항 등에 따라 분류하고 CASE 도구 목록을 정리한다.</li></ol><div class='doh'><b>26</b><span>CASE 도구 목록과 CASE 도구 조사서를 기반으로 정성 및 정량 평가를 실시하고 도입할</span></div><ol class='dos'><li>CASE 도구 도입 목표와 도입 정책과 지침 등을 참고하여 CASE 도구 평가 기준을 정의한다.</li><li>CASE 도구 목록에 있는 CASE 도구들을 평가하고 평가 점수가 높은 순으로 3개의 도구를 후보로 선정한다.</li><li>CASE 도구를 사용할 사용자와 의사 결정자들을 대상으로 CASE 도구 평가 결과와 후보 목록을 공개하고 토론을 통해 평가 결과를 재검토하고 최종적으로 CASE 도구를 선정한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>응용 SW 개발 및 유지 보수 업무를 위해 필요한 CASE 도구 도입 목표를 정하고, CASE 도</li><li>예 ②아니요</li><li>수요 부서에서 품명, 규격, 수량, 용도를 명기하여 구매 팀에 요청하며 구매에 필요한 시</li><li>물품 구매의 경우 자산 팀의 협조 결재를 득하여 청구하여야 한다.</li><li>정보화 기자재의 구매는 정보 인프라 팀, 영상 음향 장비의 구매는 자산 팀의 협조를 득하</li><li>공사 계약은 시설 팀을 경유하여 청구하여야 한다.</li><li>청구 총액이 100만 원 이상인 경우 예산 부서의 협조 결재를 득하여 구매 청구하여야 한다.</li><li>행정기관 등의 장은 정보시스템 사업에서 하드웨어를 도입하는 경우 한국정보통신기술협</li><li>행정기관 등의 장은 정보시스템 사업에서 소프트웨어를 개발하고자 하는 경우 전자정부</li><li>하드웨어 및 상용SW를 구매하려는 경우에는 다음 각 호의 제품을 우선 구매하여야 한다.</li><li>행정기관 등의 장은 제4항 각 호의 제품 도입 시 중소기업자가 개발한 제품을 우선적으</li><li>소프트웨어 개발･유지 보수에 필요한 CASE 도구 도입 기준 수립</li><li>CASE 도구 도입을 위한 표준 프로세스 정립</li><li>CASE 도구 선정 및 평가 조직 확보 및 공유</li><li>CASE 도구 도입 정책</li><li>CASE 도구 도입 프로세스</li><li>CASE 도구 도입을 위한 조직의 업무 목표 정의</li><li>CASE 도구 도입 요구사항 식별 및 정외</li><li>도입 가능한 CASE 도구 조사</li><li>제약사항 식별 및 검토</li><li>내부 개발 가능성 검토</li><li>도구 평가 기준 준비</li><li>기능 및 관련 기술 평가 및 검토</li><li>도구 및 공급사 평가 실시</li><li>응용 SW 개발 및 유지 보수 업무에 사용이 가능한 CASE 도구들을 조사하여 용도와 기능에</li><li>CASE 도구 목록과 CASE 도구 조사서를 기반으로 정성 및 정량 평가를 실시하고 도입할</li><li>개발하고자 하는 응용소프트웨어에 적용할 개발 방법론을 지원하는 최적의 CASE 도구를 선정 할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 문제해결 시나리오 · 사례 연구</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 3쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
     <div class="step" id="st2">
-      <h3><i>2</i>CASE 도구 개요</h3>
+      <h3><i>2</i>1-2. CASE 도구 활용</h3>
       <aside class="side">
-        <p class="pt">CASE 도구 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>CASE 도구는 소프트웨어공학의 개발 방법론을 컴퓨터 기반으로 구현하여, 소프트웨어 개발 계획 수립, 요구사항 분석 및 설계, 개발 및 테스트, 유지 보수까지 소프트웨어 개발의 전 과정을 자동화할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st3">
-      <h3><i>3</i>CASE 도구 등장 배경</h3>
-      <aside class="side">
-        <p class="pt">CASE 도구 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>업무를 자동화 체계적으로 개발할 수 있는 자동화된 도구를 도입</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st4">
-      <h3><i>4</i>CASE 도구의 목표</h3>
-      <aside class="side">
-        <p class="pt">CASE 도구 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="16">원문 3쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>CASE 도구 종류</li><li>계층적 분류</li><li>기능적 분류</li><li>소프트웨어 개발 수명 주기에 따른 분류</li></ul>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st5">
-      <h3><i>5</i>CASE 도구 종류</h3>
-      <aside class="side">
-        <p class="pt">CASE 도구 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>계층적 분류</li><li>기능적 분류</li><li>소프트웨어 개발 수명 주기에 따른 분류</li><li>소프트웨어 사용 목적에 따른 분류</li></ul>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st6">
-      <h3><i>6</i>계층적 분류</h3>
-      <aside class="side">
-        <p class="pt">CASE 도구 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>깁슨(Michel L.Gibson) 교수는 다음과 같이 CASE를 상위(Upper) CASE와 하위 (Lower) CASE, 통합(Integrated) CASE로 분류한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st7">
-      <h3><i>7</i>기능적 분류</h3>
-      <aside class="side">
-        <p class="pt">CASE 도구 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="17">원문 4쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>CASE 도구를 제공하는 기능 중심으로 분류하면 프로세스 모델링 관리, 프로젝트 계획 수립, 위험 분석, 요구사항 관리, 품질 보증, 데이터베이스 관리, 소프트웨어 형상관리, 분석 및 설계, 프로토타이핑 및 시뮬레이션, 화면 설계 및 개발, 프로그래밍, 통합 및 테스트, 리엔지니어링 도구 등과 같이 분류할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st8">
-      <h3><i>8</i>소프트웨어 개발 수명 주기에 따른 분류</h3>
-      <aside class="side">
-        <p class="pt">CASE 도구 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="18">원문 5쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 개발 수명 주기에 따라 활용되는 CASE 도구들을 분류하면 다음과 같다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st9">
-      <h3><i>9</i>소프트웨어 사용 목적에 따른 분류</h3>
-      <aside class="side">
-        <p class="pt">CASE 도구 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">개념</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="19">원문 6쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 사용 목적에 따른 CASE 도구들을 분류하면 다음과 같다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>정의 문장을 그대로 읽어 주지 마십시오. 한 번 읽고 덮은 다음, 자기 말로 다시 말할 수 있는지 스스로 확인하고 들어가십시오.</p>
-<h4>준비</h4>
-<p>이 말을 처음 듣는 사람에게 30초 안에 설명한다면 무엇부터 말하겠습니까. 그 한 문장을 적어 두십시오.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 정의를 외워 말하는지, 자기 말로 바꿔 말하는지 구분해서 들으십시오. 외운 것은 다음 주에 사라집니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st10">
-      <h3><i>10</i>CASE 도구 도입의 성패 요인</h3>
-      <aside class="side">
-        <p class="pt">CASE 도구 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="19">원문 6쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
-      </aside>
-      <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>도입의 성공 요인</li><li>도입의 실패 요인</li><li>도입 시 고려 사항</li></ul>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st11">
-      <h3><i>11</i>도입의 성공 요인</h3>
-      <aside class="side">
-        <p class="pt">CASE 도구 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="19">원문 6쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>- CASE 도구에 대한 정확한 이해를 바탕으로 도입한다. - CASE 도구 활용을 위해 필요한 교육과 컨설팅을 충분히 고려한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st12">
-      <h3><i>12</i>도입의 실패 요인</h3>
-      <aside class="side">
-        <p class="pt">CASE 도구 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="20">원문 7쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>- CASE 도구가 모든 것을 자동화하는 환상적 도구라는 잘못된 기대를 한다. - CASE 도구를 사용할 사용자들의 능력 수준을 무시하고 도입한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st13">
-      <h3><i>13</i>도입 시 고려 사항</h3>
-      <aside class="side">
-        <p class="pt">CASE 도구 선정</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="20">원문 7쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>CASE 도구를 도입하여 해결해야 하는 업무를 파악하고 도입 목적을 명확하게 정의 한다. 도입 목적을 명확하게 정의하지 못할 경우, 도입 전·후의 효과에 대한 측정을 수행하기 어렵다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st14">
-      <h3><i>14</i>업무 매뉴얼</h3>
-      <aside class="side">
-        <p class="pt">CASE 도구 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">CASE 도구가 제공하는 다양한 기능들 중 응용소프트웨어 개발 시 활용할 기능을 식별할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">CASE 도구 활용하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="33">원문 20쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 6항목 · 실습 18절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>업무 매뉴얼은 지침, 가이드, 핸드북의 명칭으로도 쓰인다. 업무 매뉴얼(Manual) 업무 수행 시 동일 목표를 달성하기 위해 표준화된 업무 처리 방법이나 순서에 따라 업무를 수행할 수 있도록 표준화한 업무 수행 지침서를 말하며, 소책자, 편람, 안내서, 사용 설명서를 의미하기도 한다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>CASE 도구가 제공하는 다양한 기능들 중 응용소프트웨어 개발 시 활용할 기능을 식별할 수 있다.</li><li>CASE 도구 활용을 위한 절차와 표준을 정의하고 CASE 도구 사용 중 발생하는 이슈를 해결 할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>업무 매뉴얼</dt><dd><blockquote>업무 매뉴얼은 지침, 가이드, 핸드북의 명칭으로도 쓰인다. 업무 매뉴얼(Manual) 업무 수행 시 동일 목표를 달성하기 위해 표준화된 업무 처리 방법이나 순서에 따라 업무를 수행할 수 있도록 표준화한 업무 수행 지침서를 말하며, 소책자, 편람, 안내서, 사용 설명서를 의미하기도 한다.</blockquote></dd><dt>업무 매뉴얼 작성 목표</dt><dd><blockquote>업무 매뉴얼 작성 목표는 업무 처리 방식과 절차의 표준화를 통해 사무 생산성 향상을 도모하는 것이다.</blockquote></dd><dt>업무 매뉴얼 구성 요소</dt><dd><blockquote>업무 매뉴얼에는 일반적으로 다음 사항이 포함된다. 업무 매뉴얼의 필요성, 목적과 구성 내용 업무 매뉴얼에서 다루고 있는 업무의 개요 단계별/기능별 점검 사항 업무의 성격에 따라 단계와 시기 또는 기능별 처리 방법이나 점검 사항을 제시 서식/템플릿 업무에 필요한 서식이나 템플릿의 예성공 및 실패 요인 업무 운영 시 참고할 수 있는 주요 성공 요인, 장애 요인과 해결 방법을 실제 사례와 함께 제</blockquote></dd><dt>이슈 관리</dt><dd><blockquote>- 이슈와 위험의 상관관계 이슈(Issue, Problem)와 위험(Risk) 이슈(Issue, 혹은 Problem)는 프로젝트 목표 달성에 영향을 가져올 수 있는 ‘발생된(Realized)’ 위험으로 정의되며, 위험은 아직 발생되지 않았으나 발생할 가능성(Probability)이 있는 것, 발생할 경우 프로 젝트 수행에 중요한 영향(Impact)을 가져올 수 있는 것, 적절하게 대처할 경우</blockquote></dd><dt>이슈 관리 방법</dt><dd><blockquote>식별된 이슈를 목록화하여 관리하고, 처리할 우선순위와 이슈 처리 담당자를 지정하고, 이슈 해결 상황을 모니터링하는 일련의 행위를 이슈 관리라고 한다.</blockquote></dd><dt>이슈 관리 시스템 (Issue Tracking System)</dt><dd><blockquote>프로젝트 수행 과정에서 사용하는 이슈 관리 시스템은 이슈를 적절하게 관리할 수 있도록 만들어진 시스템을 말한다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>CASE 도구 활용하기</h5><div class='prep'><b>재료·자료</b><span>정보통신단체표준(1999). TTA.IS-14471</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구(워드프로세서, 스프레드시트, 프레젠테이션 도구 등) / CASE 도구(SW 설계 지원 도구, SW 개발 지원 도구, SW 테스트 지원 도구 등)</span><b>유의 사항</b><span>판매처에서 제공한 CASE 도구 사용 가이드라 해도 직접 사용해 보고 조직에 맞게 작 / 성한다. / CASE 도구 유지 보수를 위한 업무 매뉴얼은 작성 후 운영 담당자 검토를 통해 최적화 / 한다. / 기존에 사용하던 CASE 도구와 새로 채택한 CASE 도구의 사용법이 많이 달라 교체할 / 때 학습 시간이 오래 걸릴 것으로 예상되는 경우에는 사용자 대상 교육을 강화한다.</span></div><div class='doh'><b>1</b><span>채택된 CASE 도구가 제공하는 기능과 사용자를 식별하고, 업무 매뉴얼을 작성한다.</span></div><ol class='dos'><li>CASE 도구가 제공하는 기능을 검토하고 활용할 기능을 식별하여 목록화한다.</li><li>CASE 도구의 활용 기능별로 표준 사용 가이드를 작성한다.</li></ol><div class='doh'><b>2</b><span>대분류 메뉴</span></div><div class='doh'><b>3</b><span>소분류 메뉴</span></div><div class='doh'><b>4</b><span>검색 조건 영역</span></div><div class='doh'><b>5</b><span>조회 결과 영역</span></div><div class='doh'><b>6</b><span>상세 결과 영역</span></div><div class='doh'><b>7</b><span>처리 버튼</span></div><div class='doh'><b>8</b><span>검색 항목명에서 ‘기금’을 조회하면 조회 영역에 ‘기금’에 대한 등록 단어 개수와 도메인</span></div><div class='doh'><b>9</b><span>조회 결과를 선택하면 단어 탭에 ‘기금’이 포함된 단어가 조회된다. 만약 ‘기금’이 포함된</span></div><div class='doh'><b>10</b><span>단어 탭에서 기금을 선택하면 선택된 단어와 조합된 표준 용어 탭에 조회된다. 이때 만약</span></div><div class='doh'><b>11</b><span>용어 신규 탭에서 ‘지급’을 조회하면 조회 영역에 ‘지급’에 대한 등록 단어 개수와 도메인</span></div><div class='doh'><b>12</b><span>조회 결과를 선택하면 단어 탭에 ‘지급’이 포함된 단어가 조회된다. 만약 ‘지급’이 포함된</span></div><div class='doh'><b>13</b><span>단어 탭에서 ‘지급’을 선택하면 선택된 단어와 조합된 표준 용어 탭에 조회된다. 이때 선</span></div><ol class='dos'><li>CASE 도구 설치 및 운영을 위한 업무 매뉴얼을 작성한다.</li></ol><div class='doh'><b>14</b><span>CASE 도구에 대해 사용자 교육과 유지 보수 담당자 교육을 실시한다.</span></div><ol class='dos'><li>사용자 또는 유지 보수 교육 대상을 식별하고 목록화한다.</li><li>교육생 규모를 기반으로 교육 방법과 횟수, 교육 시간과 강사, 교육 장소 등을 포함하여 교육 계획을 수립한다.</li></ol><div class='doh'><b>15</b><span>프레임워크의 이해</span></div><div class='doh'><b>16</b><span>프레임워크를 활용한 개발 방법</span></div><div class='doh'><b>17</b><span>미들웨어에 대한 이해 및 사용법</span></div><div class='doh'><b>18</b><span>UI 개발 도구 교육</span></div><div class='doh'><b>19</b><span>OPENPMS 교육</span></div><div class='doh'><b>20</b><span>형상관리 도구</span></div><div class='doh'><b>21</b><span>패키지 툴 교육</span></div><div class='doh'><b>22</b><span>데이터베이스 운영 관련</span></div><div class='doh'><b>23</b><span>DBMS 설치 및 운영 방법</span></div><div class='doh'><b>24</b><span>전반적 교육과정에 대한 만족도</span></div><ol class='dos'><li>교육은 규정된 시간을 지키며 진행되었습니까?</li><li>교수자는 교육 내용을 알기 쉽게 설명해 주었습니까?</li><li>교수자는 학습자가 수업에 적극적으로 참여하도록 유도하며 동기를 부여하였습니까?</li><li>수업 전반에 걸쳐 교수와의 소통이 원활하였습니까?</li></ol><div class='doh'><b>25</b><span>교육 내용에 대한 만족도</span></div><ol class='dos'><li>본 수업을 통해 CASE 도구 사용을 위한 기초 개념 습득에 도움이 되었습니까?</li><li>교육 프로그램의 난이도는 적당하였습니까?</li><li>CASE 도구 활용 능력을 키우는 데 도움이 되었습니까?</li><li>본인이 참여한 교육의 후속 및 심화 프로그램에 계속 참여할 생각이 있습니까? II. 교육 운영</li><li>교육 시설 및 장소에 만족하셨습니까?</li><li>전반적인 운영에 만족하셨습니까?</li><li>교육 시간 및 진행 기간은 적절하였습니까?</li></ol><div class='doh'><b>26</b><span>CASE 도구 사용 시 발생할 수 있는 문제 상황에 대한 처리 담당자 및 처리 프로세스를 수립</span></div><ol class='dos'><li>CASE 도구 판매처로부터 자주 발생하는 문제, 또는 문제로 오인식되는 경우에 대한 안내 자료를 제공받아 정리한다.</li><li>예상되지 않은 문제 상황을 처리하도록 프로세스를 수립하고 단계별로 담당자를 정하여 이슈를 처리한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>채택된 CASE 도구가 제공하는 기능과 사용자를 식별하고, 업무 매뉴얼을 작성한다.</li><li>대분류 메뉴</li><li>소분류 메뉴</li><li>검색 조건 영역</li><li>조회 결과 영역</li><li>상세 결과 영역</li><li>처리 버튼</li><li>검색 항목명에서 ‘기금’을 조회하면 조회 영역에 ‘기금’에 대한 등록 단어 개수와 도메인</li><li>조회 결과를 선택하면 단어 탭에 ‘기금’이 포함된 단어가 조회된다. 만약 ‘기금’이 포함된</li><li>단어 탭에서 기금을 선택하면 선택된 단어와 조합된 표준 용어 탭에 조회된다. 이때 만약</li><li>용어 신규 탭에서 ‘지급’을 조회하면 조회 영역에 ‘지급’에 대한 등록 단어 개수와 도메인</li><li>조회 결과를 선택하면 단어 탭에 ‘지급’이 포함된 단어가 조회된다. 만약 ‘지급’이 포함된</li><li>단어 탭에서 ‘지급’을 선택하면 선택된 단어와 조합된 표준 용어 탭에 조회된다. 이때 선</li><li>CASE 도구에 대해 사용자 교육과 유지 보수 담당자 교육을 실시한다.</li><li>프레임워크의 이해</li><li>프레임워크를 활용한 개발 방법</li><li>미들웨어에 대한 이해 및 사용법</li><li>UI 개발 도구 교육</li><li>OPENPMS 교육</li><li>형상관리 도구</li><li>패키지 툴 교육</li><li>데이터베이스 운영 관련</li><li>DBMS 설치 및 운영 방법</li><li>전반적 교육과정에 대한 만족도</li><li>교육 내용에 대한 만족도</li><li>CASE 도구 사용 시 발생할 수 있는 문제 상황에 대한 처리 담당자 및 처리 프로세스를 수립</li><li>CASE 도구가 제공하는 다양한 기능들 중 응용소프트웨어 개발 시 활용할 기능을 식별할 수 있다.</li><li>CASE 도구 활용을 위한 절차와 표준을 정의하고 CASE 도구 사용 중 발생하는 이슈를 해결 할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 문제해결 시나리오 · 사례 연구</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st15">
-      <h3><i>15</i>업무 매뉴얼 작성 목표</h3>
-      <aside class="side">
-        <p class="pt">CASE 도구 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="33">원문 20쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>업무 매뉴얼 작성 목표는 업무 처리 방식과 절차의 표준화를 통해 사무 생산성 향상을 도모하는 것이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st16">
-      <h3><i>16</i>업무 매뉴얼 구성 요소</h3>
-      <aside class="side">
-        <p class="pt">CASE 도구 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>업무 매뉴얼에는 일반적으로 다음 사항이 포함된다. 업무 매뉴얼의 필요성, 목적과 구성 내용 업무 매뉴얼에서 다루고 있는 업무의 개요 단계별/기능별 점검 사항 업무의 성격에 따라 단계와 시기 또는 기능별 처리 방법이나 점검 사항을 제시 서식/템플릿 업무에 필요한 서식이나 템플릿의 예성공 및 실패 요인 업무 운영 시 참고할 수 있는 주요 성공 요인, 장애 요인과 해결 방법을 실제 사례와 함께 제</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st17">
-      <h3><i>17</i>이슈 관리</h3>
-      <aside class="side">
-        <p class="pt">CASE 도구 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>- 이슈와 위험의 상관관계 이슈(Issue, Problem)와 위험(Risk) 이슈(Issue, 혹은 Problem)는 프로젝트 목표 달성에 영향을 가져올 수 있는 ‘발생된(Realized)’ 위험으로 정의되며, 위험은 아직 발생되지 않았으나 발생할 가능성(Probability)이 있는 것, 발생할 경우 프로 젝트 수행에 중요한 영향(Impact)을 가져올 수 있는 것, 적절하게 대처할 경우</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st18">
-      <h3><i>18</i>이슈 관리 방법</h3>
-      <aside class="side">
-        <p class="pt">CASE 도구 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="34">원문 21쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>식별된 이슈를 목록화하여 관리하고, 처리할 우선순위와 이슈 처리 담당자를 지정하고, 이슈 해결 상황을 모니터링하는 일련의 행위를 이슈 관리라고 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st19">
-      <h3><i>19</i>이슈 관리 시스템 (Issue Tracking System)</h3>
-      <aside class="side">
-        <p class="pt">CASE 도구 활용</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="35">원문 22쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">문제해결 시나리오 · 사례 연구</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>프로젝트 수행 과정에서 사용하는 이슈 관리 시스템은 이슈를 적절하게 관리할 수 있도록 만들어진 시스템을 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 20쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
@@ -572,533 +155,77 @@
 <div class="lv">
   <div class="lvh"><b>2. 품질 요구사항 확인하기</b><span>능력단위요소 · <code>2001020228_23v6.2</code></span></div>
   <div class="lvb">
-    <div class="step" id="st20">
-      <h3><i>20</i>소프트웨어 품질 요구사항</h3>
+    <div class="step" id="st3">
+      <h3><i>3</i>2-1. 품질 표준과 평가 기준 정의</h3>
       <aside class="side">
-        <p class="pt">품질 표준과 평가 기준 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
+        <p class="pt">요구사항명세서에 기술된 요구사항을 바탕으로 품질 표준을 정의하고 품질 평가 항목과 지침을 제공할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">품질 요구사항 확인하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="50">원문 37쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 9항목 · 실습 3절차</p>
       </aside>
       <div class="bd">
-<h4>이 아래로 나뉩니다</h4>
-<ul class="sub"><li>소프트웨어 요구사항명세서</li><li>품질 요구사항 분류</li><li>소프트웨어 표준</li><li>제품 표준</li></ul>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>요구사항명세서에 기술된 요구사항을 바탕으로 품질 표준을 정의하고 품질 평가 항목과 지침을 제공할 수 있다.</li><li>요구사항명세서에 기술된 요구사항들이 품질 표준에 따라 올바르게 기술되었는지를 검증하기 위한 품질 특성과 평가 기준을 제공할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>소프트웨어 요구사항명세서</dt><dd><blockquote>소프트웨어 요구사항명세서는 소프트웨어 요구사항을 체계적이고 명확하게 정의한 문서이다. 고객과 개발자가 협의를 통하여 공통의 목표와 기대를 기술하고 소프트웨어 제품이나 서비스에 대한 개발 기준선을 제공하므로 요구사항명세서는 명확하고 완전하게 정의되어야 한다.</blockquote></dd><dt>품질 요구사항 분류</dt><dd><blockquote>품질 요구사항은 응용 SW 개발의 성공적인 구축과 운영을 위해 관리가 필요한 품질 항목, 품질 평가 대상, 품질 평가 목표에 대한 요구사항을 기술한 것이다.</blockquote></dd><dt>소프트웨어 표준</dt><dd><blockquote>소프트웨어 표준은 소프트웨어 개발 공정 또는 소프트웨어 제품에 적용되어야 하는 규칙, 지침을 정의한 것을 말한다.</blockquote></dd><dt>제품 표준</dt><dd><blockquote>개발하고 있는 소프트웨어 제품에 적용되는 표준을 가리킨다. 요구사항명세서의 구조와 같은 ‘문서 표준’, 객체지향 개발에서 클래스 정의에 사용할 표준 주석 헤더와 같은 ‘문서화 표준’, 프로그래밍 언어를 사용하는 방식을 정의한 ‘코딩 표준’ 등을 포함한다.</blockquote></dd><dt>개발 공정(프로세스) 표준</dt><dd><blockquote>소프트웨어 개발 기간을 준수해야 하는 프로세스들을 정의한 표준이다. 요구사항 명세 화·설계·검증 프로세스에 대한 정의, 프로세스 지원 도구, 프로세스 수행 중에 작성되 어야 하는 산출물 및 문서에 대한 설명을 포함한다.</blockquote></dd><dt>품질 표준 특성과 평가 기준</dt><dd><blockquote>소프트웨어 품질 특성에는 사용자에 의한 외부 관점을 나타내는 ‘외부 품질’, 개발자 측면의 내부 관점을 나타내는 ‘품질 기준(부특성 또는 평가 항목)’, 품질을 측정하고 관리하기 위한 ‘메트릭(Metric)’의 세 가지 차원이 포함된다.</blockquote></dd><dt>품질 표준 특성과 평가 항목</dt><dd><blockquote>ISO/IEC 9126에서는 소프트웨어가 가질 수 있는 6가지 품질 특성을 정의하고 있다. 각 품질 특성에는 세분화된 부특성(평가 항목)을 정의하고 있으며, 부특성별로 표준 측정 메트릭을 제시한다.</blockquote></dd><dt>품질 측정 메트릭</dt><dd><blockquote>메트릭(Metric)은 품질 기준별로 품질 측정 방법과 측정값의 유효 범위 등을 정의한 것이다. 품질 평가 항목을 객관적인 수치로 정량화할 수 있도록 정의한다.</blockquote></dd><dt>함께 나오는 것</dt><dd class='none'>소프트웨어 품질 요구사항</dd></dl>
+
+<h4>해 보기</h4>
+<h5>품질 표준과 평가 기준 정의하기</h5><div class='prep'><b>재료·자료</b><span>SW 제품 품질 국제 표준(ISO/IEC 9126, IEEE1061, ISO/IEC 14598, ISO 9000 등) / SW 프로세스 품질 국제 표준(ISO15504, ISO/IEC 12207 등) / 소프트웨어 품질 요구사항 작성 지침(정보통신단체표준 TTAK.KO-11.0112) / 소프트웨어 표준 적합성 평가 절차(정보통신단체표준 TTAS.KO-11.0077) / 표준 적합성 평가 도구 요구사항(정보통신단체표준 TTAS.KO-11.0061)</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구(워드프로세서, 스프레드시트, 프레젠테이션 도구 등)</span><b>유의 사항</b><span>품질 요구사항은 시스템 전체에 중요한 영향을 미치므로 목표에 적합한 품질 특성을 정 / 의한다. / 품질 측정 메트릭은 특정 값을 계산하는 방법을 기술하고, 지표는 의미가 있는 값의 범 / 위를 기술한다. / 44</span></div><div class='doh'><b>1</b><span>요구사항명세서를 검토하여 품질 요구사항을 도출하고 품질 특성과 평가 항목, 평가 지침을 정</span></div><ol class='dos'><li>요구사항명세서를 검토하고 품질 요구사항을 도출한다.</li><li>품질 요구사항과 관련된 품질 특성을 추출하고 품질 특성별로 평가 항목(부특성)과 평가 기준을 정의한다.</li></ol><div class='doh'><b>2</b><span>품질 요구사항을 기반으로 소프트웨어 개발 공정 표준과 제품 표준을 정의한다.</span></div><ol class='dos'><li>소프트웨어 개발을 위해 현재 채택되었거나 채택될 개발 공정을 검토하고, 품질 요구사항에 맞게 커스터마이징 해서 개발 공정 표준을 수립한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>요구사항명세서를 검토하여 품질 요구사항을 도출하고 품질 특성과 평가 항목, 평가 지침을 정</li><li>품질 요구사항을 기반으로 소프트웨어 개발 공정 표준과 제품 표준을 정의한다.</li><li>요구사항명세서에 기술된 요구사항을 바탕으로 품질 표준을 정의하고 품질 평가 항목과 지침을 제공할 수 있다.</li><li>요구사항명세서에 기술된 요구사항들이 품질 표준에 따라 올바르게 기술되었는지를 검증하기 위한 품질 특성과 평가 기준을 제공할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 37쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
 
-    <div class="step" id="st21">
-      <h3><i>21</i>소프트웨어 요구사항명세서</h3>
+    <div class="step" id="st4">
+      <h3><i>4</i>2-2. 개발 공정과 제품 품질 점검</h3>
       <aside class="side">
-        <p class="pt">품질 표준과 평가 기준 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="50">원문 37쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 요구사항명세서는 소프트웨어 요구사항을 체계적이고 명확하게 정의한 문서 이다. 고객과 개발자가 협의를 통하여 공통의 목표와 기대를 기술하고 소프트웨어 제품이나 서비스에 대한 개발 기준선을 제공하므로 요구사항명세서는 명확하고 완전하게 정의되어야 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st22">
-      <h3><i>22</i>품질 요구사항 분류</h3>
-      <aside class="side">
-        <p class="pt">품질 표준과 평가 기준 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>품질 요구사항은 응용 SW 개발의 성공적인 구축과 운영을 위해 관리가 필요한 품질 항목, 품질 평가 대상, 품질 평가 목표에 대한 요구사항을 기술한 것이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st23">
-      <h3><i>23</i>소프트웨어 표준</h3>
-      <aside class="side">
-        <p class="pt">품질 표준과 평가 기준 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 표준은 소프트웨어 개발 공정 또는 소프트웨어 제품에 적용되어야 하는 규칙, 지침을 정의한 것을 말한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st24">
-      <h3><i>24</i>제품 표준</h3>
-      <aside class="side">
-        <p class="pt">품질 표준과 평가 기준 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>개발하고 있는 소프트웨어 제품에 적용되는 표준을 가리킨다. 요구사항명세서의 구조와 같은 ‘문서 표준’, 객체지향 개발에서 클래스 정의에 사용할 표준 주석 헤더와 같은 ‘문서화 표준’, 프로그래밍 언어를 사용하는 방식을 정의한 ‘코딩 표준’ 등을 포함한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st25">
-      <h3><i>25</i>개발 공정(프로세스) 표준</h3>
-      <aside class="side">
-        <p class="pt">품질 표준과 평가 기준 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="52">원문 39쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 개발 기간을 준수해야 하는 프로세스들을 정의한 표준이다. 요구사항 명세 화·설계·검증 프로세스에 대한 정의, 프로세스 지원 도구, 프로세스 수행 중에 작성되 어야 하는 산출물 및 문서에 대한 설명을 포함한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st26">
-      <h3><i>26</i>품질 표준 특성과 평가 기준</h3>
-      <aside class="side">
-        <p class="pt">품질 표준과 평가 기준 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 품질 특성에는 사용자에 의한 외부 관점을 나타내는 ‘외부 품질’, 개발자 측면의 내부 관점을 나타내는 ‘품질 기준(부특성 또는 평가 항목)’, 품질을 측정하고 관리하기 위한 ‘메트릭(Metric)’의 세 가지 차원이 포함된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st27">
-      <h3><i>27</i>품질 표준 특성과 평가 항목</h3>
-      <aside class="side">
-        <p class="pt">품질 표준과 평가 기준 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="53">원문 40쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>ISO/IEC 9126에서는 소프트웨어가 가질 수 있는 6가지 품질 특성을 정의하고 있다. 각 품질 특성에는 세분화된 부특성(평가 항목)을 정의하고 있으며, 부특성별로 표준 측정 메트릭을 제시한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st28">
-      <h3><i>28</i>품질 측정 메트릭</h3>
-      <aside class="side">
-        <p class="pt">품질 표준과 평가 기준 정의</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="54">원문 41쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>메트릭(Metric)은 품질 기준별로 품질 측정 방법과 측정값의 유효 범위 등을 정의한 것 이다. 품질 평가 항목을 객관적인 수치로 정량화할 수 있도록 정의한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st29">
-      <h3><i>29</i>소프트웨어 개발 공정 평가 표준</h3>
-      <aside class="side">
-        <p class="pt">개발 공정과 제품 품질 점검</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
+        <p class="pt">개발 공정 품질 관점에서 표준 준수 여부를 확인하고, 응용소프트웨어의 제품 품질 관점에서 결함을 식별하여 해결할 수 있다.</p>
+        <b class="sh">능력단위요소</b>
+        <p class="v">품질 요구사항 확인하기</p>
+        <b class="sh">학습모듈</b>
         <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="74">원문 61쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
+        <b class="sh">분량</b>
+        <p class="src">개념 11항목 · 실습 13절차</p>
       </aside>
       <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 개발 공정이란 소프트웨어를 개발하고 유지하는 작업 흐름(Work-flow)에 적용 되는 활동, 방법, 규칙 등을 말한다.</blockquote>
+<h4>이 꼭지를 마치면</h4>
+<ul class="goal"><li>개발 공정 품질 관점에서 표준 준수 여부를 확인하고, 응용소프트웨어의 제품 품질 관점에서 결함을 식별하여 해결할 수 있다.</li></ul>
 
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
+<h4>알아야 할 것</h4>
+<dl class='cc'><dt>소프트웨어 개발 공정 평가 표준</dt><dd><blockquote>소프트웨어 개발 공정이란 소프트웨어를 개발하고 유지하는 작업 흐름(Work-flow)에 적용 되는 활동, 방법, 규칙 등을 말한다.</blockquote></dd><dt>소프트웨어 프로세스 품질 인증(Software Process 인증)</dt><dd><blockquote>국내 소프트웨어 업체의 소프트웨어 사업 수행 능력 강화와 부실 방지를 목적으로, 5개 영역, 17개 평가 항목, 70개 세부 평가 항목으로 구성된 소프트웨어 개발 단계별 작업 절차 및 산출물 관리 역량 등을 분석함으로써 소프트웨어 개발 프로세스 역량 수준을 평가하고, 2개 등급(2등급, 3등급)으로 인증한다.</blockquote></dd><dt>품질 점검 기법</dt><dd><blockquote>소프트웨어 개발 공정과 개발 제품이 설정된 품질 요구에 부합하는지 확인하는 품질 보증 활동을 확인과 검증이라 한다.</blockquote></dd><dt>정적 검증과 동적 검증</dt><dd><blockquote>검증은 정적 검증과 동적 검증으로 나눌 수 있다. 정적 검증은 소프트웨어를 실행하지 않고 제품의 정확성을 체크하는 방법이고, 동적 검증은 제품이나 프로토타입을 실행하는 방법이다.</blockquote></dd><dt>인스펙션</dt><dd><blockquote>1970년대 초 IBM의 마이클 페이건에 의해 정립된 개념으로 소프트웨어 요구, 설계, 원시 코드 등을 저작자 외의 다른 전문가 또는 팀이 검사하여 오류를 찾아내는 공식적 검토 방법이다.</blockquote></dd><dt>워크스루(Walkthrough)</dt><dd><blockquote>워크스루는 가상의 입력에 대하여 원시 코드의 수행을 문장 하나씩 짚어 보는 작업으로, 데이터 정의 부분, 매뉴얼, 명세 등 프로그램이 아닌 부분도 검토 대상이 된다.</blockquote></dd><dt>동료 검토(Peer Review)</dt><dd><blockquote>동료 검토는 2~3명(주로 2명)이 진행하는 코드 리뷰의 형태를 말한다. 코드 리뷰는 코드 작성자가 모니터를 보면서 코드를 설명하고 다른 한 사람이 설명을 들으면서 아이 디어를 제안하거나 결함을 발견하는 형태로 진행된다.</blockquote></dd><dt>결함 관리 기법</dt><dd><blockquote>소프트웨어의 품질을 보증하고 향상하기 위해서는 검증 및 확인(Verification and Validation) 결과 또는 테스트 수행 결과 발견된 결함을 식별, 분석하여 제거하고, 이에 따라 변경되는 설계 및 소스 버전과 이력 관리가 필요하다.</blockquote></dd><dt>결함(Defect) 구분</dt><dd><blockquote>결함은 다양하게 정의되며, 일반적으로 요구사항을 충족시키지 못하게 하는 원인에 따라 아래와 같이 구분할 수 있다.</blockquote></dd><dt>결함 유형</dt><dd><blockquote>요구사항 명세의 표준 미준수/불명확/불완전 등의 ‘요구사항 분석 관련 결함’, 설계 표준 미준수 및 불명확, 인터페이스 불일치 등의 ‘설계서 결함’, 코딩 표준 미준수, 인터 페이스 결함, 데이터 결함 등의 ‘구현 단계에서 유입되는 결함’이 있다.</blockquote></dd><dt>결함 해결 방법</dt><dd><blockquote>발견된 결함에 대해서 결함 관리 시스템을 통해 해결한다. 결함이 발견되면 결함 관리 시스템에 등록(Bug Open)하고, 결함의 중요도와 심각도를 검토한 후, 수정 여부를 결정(Triage)한다.</blockquote></dd></dl>
+
+<h4>해 보기</h4>
+<h5>개발 공정과 제품 품질 점검하기</h5><div class='prep'><b>재료·자료</b><span>SW 제품 품질 국제 표준(ISO/IEC 9126, IEEE1061, ISO/IEC 14598, ISO 9000 등) / SW 프로세스 품질 국제 표준(ISO15504, ISO/IEC 12207 등) / 소프트웨어 품질 요구사항 작성 지침(정보통신단체표준 TTAK.KO-11.0112) / 소프트웨어 표준 적합성 평가 절차(정보통신단체표준 TTAS.KO-11.0077) / 표준 적합성 평가도구 요구사항(정보통신단체표준 TTAS.KO-11.0061)</span><b>기기·도구</b><span>전산 장비(컴퓨터, 프린터, 빔 프로젝터, 네트워크 장비 등) / OA 도구(워드프로세서, 스프레드시트, 프레젠테이션 도구 등)</span><b>유의 사항</b><span>품질 활동 계획서는 프로젝트 수행 계획서와 전사 품질 관리 표준을 기반으로 작성한다. / 품질 검토 조직 구성 시 테스트 전문가와 업무 전문가, 전사 품질 관리자를 포함한다.</span></div><div class='doh'><b>1</b><span>개발 공정과 제품 품질 관리를 위한 주기적인 점검 계획을 수립한다.</span></div><ol class='dos'><li>품질 관리 활동을 수행할 조직을 구성하고 담당 역할과 책임을 명시한다.</li><li>품질 목표를 확인하고 조정한다.</li><li>품질 관리 활동별로 일정을 수립한다.</li><li>품질 관리 활동별로 상세 절차와 관련 문서 양식을 작성한다.</li></ol><div class='doh'><b>2</b><span>품질 평가를 위한 데이터를 수집하고 평가 항목과 기준에 따라 개발 공정과 제품에 대한 품질을</span></div><ol class='dos'><li>품질 관리 활동 일정에 따라 수행할 품질 관리 활동을 파악한다.</li><li>품질 관리 활동별로 대상 산출물과 자료를 수집하고 품질 관리 활동 절차에 따라 품질 점검을 실시한다.</li><li>이해관계자 관련 - 시스템과 관련된 이해관계자를 모두 파악하여 요구사항을 빠짐없이 도출하였는가? - 사용자와 고객이 다를 경우, 사용자와 고객의 관점에서 각각 요구사항을 도출하였는가? - 시스템 관리자, 인수 책임자의 요구사항을 모두 도출하였는가?</li><li>요구사항 도출의 완전성 - 기능, 비기능, 시스템 인터페이스, 사용자 인터페이스 요구사항을 모두 도출하였는가? - 요구사항 수용을 위해 필요한 전제 조건을 빠짐없이 기술하였는가? - 소프트웨어 설계 및 개발에 영향을 주는 기술적인 제약사항을 모두 기술하였는가? 산출물 품질 검토 체크리스트 - 요구사항 정의서에 기술된 내용에 영향을 주는 가정을 모두 기술하였는가? - 요구사항 간의 중복 및 충돌은 발생하지 않는가? - 업무 범위서 및 프로젝트 수행 계획서와 비교하여 범위를 벗어나는 요구사항이 없는가? - 업무 범위서, 유스케이스와 비교하여 누락된 요구사항은 없는가?</li><li>요구사항 표현의 정확성 - 주관적인 해석이 가능하지 않도록 요구사항을 명확히 기술하였는가? - 명확한 표현을 사용하여 수행 주체 및 처리 내용을 기술하였는가? - 요구사항은 리뷰 혹은 테스트를 통해서 검증, 측정할 수 있도록 기술하였는가? - 비기능 요구사항은 정량적으로 측정이 가능하도록 기술하였는가? - 요구사항의 출처를 명시하여 근거 자료를 확보하였는가? - 요구사항과 관련된 인터뷰 결과서, 회의록 등을 명시하였는가? - 요구사항을 요청한 요청자(조직, 포커스 그룹 등)를 명시하였는가?</li><li>수용 여부 판단 - 중요도는 비즈니스적인 관점에서 식별하였는가? - 기술 난이도는 프로젝트 환경(비용, 인적 자원 등) 및 구현 방안 등을 고려하여 식별하였는가? - 중요도 및 기술 난이도를 고려하여 수용 범위를 확정하였는가? 유스케이 스다이어 그램 - 시스템과 직접 상호 작용 하는 외부 사용자, 내부 사용자, 시스템 관리자, 타 시스 템이 모두 액터로 도출되었는가? - 조직도와 비교하여 시스템의 사용자가 액터로 매핑되었는가?</li></ol><div class='doh'><b>3</b><span>액티비티 다이어그램(TO-BE)과 비교하여 시스템을 직접 사용하는 역할이 액터로</span></div><ol class='dos'><li>유스케이스 식별 - 비즈니스 모델링에 의해 파악된 업무 기능 요구사항을 유스케이스로 빠짐없이 정의 하였는가? - 기능 요구사항은 유스케이스와 매핑되는가? - 유스케이스의 이름으로부터 유스케이스의 수행 목적을 알 수 있는가? - 액터 관점에서 업무적으로 의미 있는 단위의 일을 수행하도록 정의하였는가? - 도출 기준에 따라서 유스케이스의 크기(Granularity)는 일관성이 있는가? - 시스템이 제공하는 기능을 업무별로 모두 작성하였는가?</li><li>액터와 유스케이스 간 관계 - 액터와 유스케이스 간의 관계를 정확히 표현하였는가? - 모든 액터가 하나 이상의 유스케이스에 연결되었는가? - 베이스 유스케이스에 대해 하나 이상의 주액터가 연결되었는가? - 주액터와 유스케이스 간 관계(방향성 있는 연관 관계), 부액터와 유스케이스 간 관계 (방향성 없는 연관 관계)를 명확히 표현하였는가? ...</li><li>품질 점검 활동에 대한 보고서를 작성하고 관련자들에게 보고한다.</li></ol>
+
+<h4>스스로 확인</h4>
+<ul class='chk'><li>개발 공정과 제품 품질 관리를 위한 주기적인 점검 계획을 수립한다.</li><li>품질 평가를 위한 데이터를 수집하고 평가 항목과 기준에 따라 개발 공정과 제품에 대한 품질을</li><li>액티비티 다이어그램(TO-BE)과 비교하여 시스템을 직접 사용하는 역할이 액터로</li><li>개발 공정 품질 관점에서 표준 준수 여부를 확인하고, 응용소프트웨어의 제품 품질 관점에서 결함을 식별하여 해결할 수 있다.</li></ul>
+<p class="srcline">평가 방법 — 평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
 <div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st30">
-      <h3><i>30</i>소프트웨어 프로세스 품질 인증(Software Process 인증)</h3>
-      <aside class="side">
-        <p class="pt">개발 공정과 제품 품질 점검</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="74">원문 61쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>국내 소프트웨어 업체의 소프트웨어 사업 수행 능력 강화와 부실 방지를 목적으로, 5개 영역, 17개 평가 항목, 70개 세부 평가 항목으로 구성된 소프트웨어 개발 단계별 작업 절차 및 산출물 관리 역량 등을 분석함으로써 소프트웨어 개발 프로세스 역량 수준을 평가하고, 2개 등급(2등급, 3등급)으로 인증한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st31">
-      <h3><i>31</i>품질 점검 기법</h3>
-      <aside class="side">
-        <p class="pt">개발 공정과 제품 품질 점검</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="75">원문 62쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어 개발 공정과 개발 제품이 설정된 품질 요구에 부합하는지 확인하는 품질 보증 활동을 확인과 검증이라 한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st32">
-      <h3><i>32</i>정적 검증과 동적 검증</h3>
-      <aside class="side">
-        <p class="pt">개발 공정과 제품 품질 점검</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="75">원문 62쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>검증은 정적 검증과 동적 검증으로 나눌 수 있다. 정적 검증은 소프트웨어를 실행하지 않고 제품의 정확성을 체크하는 방법이고, 동적 검증은 제품이나 프로토타입을 실행하는 방법이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st33">
-      <h3><i>33</i>인스펙션</h3>
-      <aside class="side">
-        <p class="pt">개발 공정과 제품 품질 점검</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="75">원문 62쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>1970년대 초 IBM의 마이클 페이건에 의해 정립된 개념으로 소프트웨어 요구, 설계, 원시 코드 등을 저작자 외의 다른 전문가 또는 팀이 검사하여 오류를 찾아내는 공식적 검토 방법이다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st34">
-      <h3><i>34</i>워크스루(Walkthrough)</h3>
-      <aside class="side">
-        <p class="pt">개발 공정과 제품 품질 점검</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="77">원문 64쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>워크스루는 가상의 입력에 대하여 원시 코드의 수행을 문장 하나씩 짚어 보는 작업으로, 데이터 정의 부분, 매뉴얼, 명세 등 프로그램이 아닌 부분도 검토 대상이 된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st35">
-      <h3><i>35</i>동료 검토(Peer Review)</h3>
-      <aside class="side">
-        <p class="pt">개발 공정과 제품 품질 점검</p>
-        <b class="sh">성격</b>
-        <p class="v">판단</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="77">원문 64쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>동료 검토는 2~3명(주로 2명)이 진행하는 코드 리뷰의 형태를 말한다. 코드 리뷰는 코드 작성자가 모니터를 보면서 코드를 설명하고 다른 한 사람이 설명을 들으면서 아이 디어를 제안하거나 결함을 발견하는 형태로 진행된다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>여기는 «무엇인가» 가 아니라 «어느 쪽을 고를 것인가» 입니다. 판단 기준이 몇 개인지부터 세어 두십시오.</p>
-<h4>준비</h4>
-<p>고르기 어려운 상황을 하나 만들어 두십시오. 기준이 서로 부딪치는 사례라야 판단을 연습할 수 있습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 «상황이 이러면 이쪽» 이라고 근거를 대며 고르면 넘어갑니다. 근거 없이 고르면 아직 기준이 안 선 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st36">
-      <h3><i>36</i>결함 관리 기법</h3>
-      <aside class="side">
-        <p class="pt">개발 공정과 제품 품질 점검</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="78">원문 65쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>소프트웨어의 품질을 보증하고 향상하기 위해서는 검증 및 확인(Verification and Validation) 결과 또는 테스트 수행 결과 발견된 결함을 식별, 분석하여 제거하고, 이에 따라 변경되는 설계 및 소스 버전과 이력 관리가 필요하다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st37">
-      <h3><i>37</i>결함(Defect) 구분</h3>
-      <aside class="side">
-        <p class="pt">개발 공정과 제품 품질 점검</p>
-        <b class="sh">성격</b>
-        <p class="v">내용</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="78">원문 65쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>결함은 다양하게 정의되며, 일반적으로 요구사항을 충족시키지 못하게 하는 원인에 따라 아래와 같이 구분할 수 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>이 항목이 앞뒤 항목과 어떻게 이어지는지 한 문장으로 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>슬라이드 한 장으로 줄여 보십시오. 한 장에 안 들어가면 아직 정리가 덜 된 것입니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 이 항목을 자기 말로 설명할 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st38">
-      <h3><i>38</i>결함 유형</h3>
-      <aside class="side">
-        <p class="pt">개발 공정과 제품 품질 점검</p>
-        <b class="sh">성격</b>
-        <p class="v">도구</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="78">원문 65쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>요구사항 명세의 표준 미준수/불명확/불완전 등의 ‘요구사항 분석 관련 결함’, 설계 표준 미준수 및 불명확, 인터페이스 불일치 등의 ‘설계서 결함’, 코딩 표준 미준수, 인터 페이스 결함, 데이터 결함 등의 ‘구현 단계에서 유입되는 결함’이 있다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>실물을 준비하십시오. 화면 캡처든 예시 문서든, 눈으로 볼 것이 있어야 합니다.</p>
-<h4>준비</h4>
-<p>현장에서 실제로 쓰는 것 하나를 골라 두십시오. 교재의 예시만으로는 잘 와닿지 않습니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생이 그것을 직접 열어 보고 어디가 무엇인지 짚을 수 있으면 넘어갑니다.
-</div>
-      </div>
-    </div>
-
-    <div class="step" id="st39">
-      <h3><i>39</i>결함 해결 방법</h3>
-      <aside class="side">
-        <p class="pt">개발 공정과 제품 품질 점검</p>
-        <b class="sh">성격</b>
-        <p class="v">절차</p>
-        <b class="sh">원문</b>
-        <p class="v"><a class="btn" href="#" data-pdf="2001020228_23v6" data-page="78">원문 65쪽</a></p>
-        <b class="sh">평가</b>
-        <p class="src">평가자 체크리스트 · 사례 연구 · 서술형 시험</p>
-      </aside>
-      <div class="bd">
-<h4>원문 요지</h4>
-<blockquote>발견된 결함에 대해서 결함 관리 시스템을 통해 해결한다. 결함이 발견되면 결함 관리 시스템에 등록(Bug Open)하고, 결함의 중요도와 심각도를 검토한 후, 수정 여부를 결정(Triage)한다.</blockquote>
-
-<h4>읽는 법</h4>
-<p>단계의 개수와 순서를 먼저 잡으십시오. 순서가 왜 그 순서인지 말할 수 있어야 합니다.</p>
-<h4>준비</h4>
-<p>칠판에 그릴 흐름도를 미리 한 번 그려 보십시오. 즉석에서 그리면 화살표가 엉킵니다.</p>
-<div class="try">
-  <b class="t">확인</b>
-  훈련생에게 단계를 순서 없이 늘어놓고 다시 배열하게 해 보십시오. 순서를 못 맞추면 아직 절차를 모르는 것입니다.
+  <b class="t">막히면</b>
+  옆의 <b>원문 61쪽</b> 단추를 누르십시오.
+  이 꼭지의 자세한 설명과 표·그림이 그 자리에 있습니다.
 </div>
       </div>
     </div>
   </div>
 </div>
 
-<footer>담당 정우균 · 출처 NCS 학습모듈(한국직업능력연구원, 공공누리 제2유형) ·
-원문 LM2001020228_23v6_소프트웨어공학 활용_20251108.pdf</footer>
+<footer>담당 정우균 · 개념과 절차는 <b>NCS 학습모듈 LM2001020228_23v6_소프트웨어공학 활용_20251108.pdf</b> 에서
+옮긴 것입니다 — 한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지)</footer>
 </div>
 <script>
-/* 빠른 이동 — 지금 보는 단계를 표시하고, 좁은 화면에서는 여닫습니다. */
+/* 빠른 이동 — 지금 보는 꼭지를 표시하고, 좁은 화면에서는 여닫습니다. */
 (function () {
   var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
   var links = [].slice.call(nav.querySelectorAll('a[href^="#st"]'));
