@@ -128,6 +128,13 @@ for c in courses:
         owner.setdefault(g, cid)
         if not (ROOT / g).exists():
             err(f"items-{cid}.js: CM_GUIDES 의 '{mid}' 에 해당하는 {g} 가 없습니다")
+    # 학습하기 — 표의 단추가 CM_STUDY 를 보고 study/<과정>-<모듈>.html 로 간다
+    study = jsvar(f"items-{cid}.js", "CM_STUDY") or {}
+    for mid in study:
+        sp = f"study/{cid}-{mid}.html"
+        owner.setdefault(sp, cid)
+        if not (ROOT / sp).exists():
+            err(f"items-{cid}.js: CM_STUDY 의 '{mid}' 에 해당하는 {sp} 가 없습니다")
 
 # 허브 카드 — index.html 이 sections.js 로 그리므로 HTML 링크에는 안 나온다
 hub = set()
