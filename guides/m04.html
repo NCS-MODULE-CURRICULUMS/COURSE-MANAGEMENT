@@ -225,77 +225,113 @@
 
 <div class="lab">
   <b class="t">실습 1-1</b>
-  <b>자신의 PC 를 대상으로 현행 시스템 조사하기</b>
-  <p><b>목적</b> — 조사 항목 여섯 가지를 실제 환경에서 확인하는 절차를 익힙니다.
-     조사 대상은 평가에서 제공되는 시스템이지만, 절차를 익히기 위해 먼저
-     자신의 PC 를 대상으로 수행합니다.</p>
-  <p><b>준비물</b> — PC, 명령 프롬프트, 스프레드시트</p>
+  <b>환경 정보 수집하고 근거 자료 남기기</b>
+  <p><b>목적</b> — 현업에서 쓰는 방법으로 환경 정보를 수집하고,
+     조사표의 근거가 될 자료를 남깁니다. 조사표는 혼자 제출하지 않습니다.
+     <b>어디서 나온 값인지 보여 주는 자료</b>가 함께 가야 「확인했다」가 성립합니다.</p>
+  <p><b>준비물</b> — PC, 명령 프롬프트, PowerShell, 스프레드시트</p>
 
-  <p><b>절차 1. 명령 프롬프트 실행</b><br>
-     ⊞ + R 을 누르고 <code>cmd</code> 를 입력한 뒤 Enter 를 누릅니다.
-     아래와 같은 검은 창이 열립니다.</p>
-<div class="term">Microsoft Windows [Version 10.0.26200.9457]
-(c) Microsoft Corporation. All rights reserved.
+  <p><b>절차 1. 시스템 요약 화면 캡처</b><br>
+     ⊞ + R 을 누르고 <code>msinfo32</code> 를 입력합니다.
+     「시스템 정보」 창이 열리면 왼쪽에서 <b>시스템 요약</b>을 선택합니다.
+     OS 이름, 버전, 프로세서, 설치된 물리 메모리가 한 화면에 나옵니다.
+     ⊞ + Shift + S 로 이 화면을 캡처하여 <code>근거_01_시스템요약.png</code> 로 저장합니다.</p>
+  <div class="note"><b>참고</b> — 현업에서 서버가 몇 대뿐일 때 가장 먼저 하는 일이
+    이 화면을 캡처하는 것입니다. 글로 옮겨 적는 것보다 빠르고, 옮겨 적다 틀릴 일도 없습니다.</div>
 
-C:\Users\hong&gt;<i>_</i></div>
+  <p><b>절차 2. 전체 정보를 텍스트 파일로 저장</b><br>
+     명령 프롬프트(⊞ + R → <code>cmd</code>)를 열고 다음을 입력합니다.
+     화면에 아무것도 나오지 않는 것이 정상입니다. 결과가 파일로 들어갔기 때문입니다.</p>
+<div class="term">C:\Users\hong&gt;<b>systeminfo &gt; 근거_02_systeminfo.txt</b>
 
-  <p><b>절차 2. 운영체제 확인</b><br>
-     <code>ver</code> 을 입력합니다. 출력된 버전을 조사표의 「운영체제」 항목에 기록합니다.</p>
-<div class="term">C:\Users\hong&gt;<b>ver</b>
+C:\Users\hong&gt;<b>type 근거_02_systeminfo.txt | findstr /C:"OS Name" /C:"OS Version"</b>
+OS Name:                   Microsoft Windows 11 Home
+OS Version:                10.0.26200 N/A Build 26200</div>
 
-Microsoft Windows [Version 10.0.26200.9457]</div>
-
-  <p><b>절차 3. 개발 언어 확인</b><br>
-     Java, Python, Node.js 의 설치 여부와 버전을 차례로 확인합니다.
-     버전 번호가 출력되면 설치된 상태입니다.</p>
+  <p><b>절차 3. 소프트웨어별 버전 확인</b><br>
+     설치 여부와 판(버전)을 하나씩 확인합니다. 버전 번호가 출력되면 설치된 상태입니다.</p>
 <div class="term">C:\Users\hong&gt;<b>java -version</b>
 openjdk version "21.0.2" 2024-01-16
 OpenJDK Runtime Environment (build 21.0.2+13-58)
-OpenJDK 64-Bit Server VM (build 21.0.2+13-58, mixed mode, sharing)
 
-C:\Users\hong&gt;<b>python --version</b>
-Python 3.12.10
+C:\Users\hong&gt;<b>git --version</b>
+git version 2.52.0.windows.1
 
-C:\Users\hong&gt;<b>node --version</b>
-v24.11.1</div>
-
-  <p><b>절차 4. 형상관리 도구 확인</b></p>
-<div class="term">C:\Users\hong&gt;<b>git --version</b>
-git version 2.52.0.windows.1</div>
-
-  <p><b>절차 5. DBMS 확인</b><br>
-     출력에 제품명과 버전, 그리고 라이선스 표기가 함께 나타납니다.
-     라이선스 표기는 소프트웨어 구성표를 작성할 때 사용합니다.</p>
-<div class="term">C:\Users\hong&gt;<b>mysql --version</b>
+C:\Users\hong&gt;<b>mysql --version</b>
 mysql  Ver 8.0.44 for Win64 on x86_64 (MySQL Community Server - GPL)</div>
 
-  <p><b>절차 6. 네트워크 구성 확인</b><br>
-     출력 결과 중 「IPv4 주소」 한 줄을 조사표에 기록합니다.</p>
-<div class="term">C:\Users\hong&gt;<b>ipconfig</b>
-
-Windows IP 구성
-
-이더넷 어댑터 이더넷:
-
-   연결별 DNS 접미사. . . . :
-   IPv4 주소 . . . . . . . . : 192.168.0.25
-   서브넷 마스크 . . . . . . : 255.255.255.0
-   기본 게이트웨이 . . . . . : 192.168.0.1</div>
-
-  <p><b>결과 확인</b> — 설치되지 않은 소프트웨어를 조회하면 다음과 같이 출력됩니다.
-     이 경우 조사표에는 <b>「설치되지 않음」</b>이라고 기록합니다.
-     항목을 비워 두지 않는 것이 원칙입니다.</p>
+  <p>설치되지 않은 소프트웨어를 조회하면 다음과 같이 출력됩니다.
+     이 경우 조사표에는 <b>「없음」</b>이라고 적습니다. 빈칸으로 두지 않습니다.</p>
 <div class="term">C:\Users\hong&gt;<b>oracle --version</b>
 'oracle'은(는) 내부 또는 외부 명령, 실행할 수 있는
 프로그램, 또는 배치 파일이 아닙니다.</div>
 
-  <p>마지막으로 ⊞ + Shift + S 로 명령 프롬프트 화면을 캡처하여 조사표 아래에 첨부합니다.</p>
+  <p><b>절차 4. 네트워크 환경 확인</b><br>
+     「IPv4 주소」와 「기본 게이트웨이」 두 줄을 기록합니다.</p>
+<div class="term">C:\Users\hong&gt;<b>ipconfig</b>
+
+이더넷 어댑터 이더넷:
+
+   IPv4 주소 . . . . . . . . : 192.168.0.25
+   서브넷 마스크 . . . . . . : 255.255.255.0
+   기본 게이트웨이 . . . . . : 192.168.0.1</div>
+
+  <p><b>절차 5. 한 번에 모으기 (현업 방식)</b><br>
+     항목이 일곱 개뿐이면 하나씩 쳐도 되지만, 서버가 여러 대이면 그럴 수 없습니다.
+     현업에서는 <b>수집 스크립트를 한 번 만들어 두고 서버마다 돌립니다.</b>
+     메모장을 열어 다음을 붙여 넣고 <code>as-is.ps1</code> 로 저장합니다.
+     저장할 때 <b>인코딩을 「UTF-8(BOM)」</b> 으로 지정합니다.</p>
+<div class="term"># 운행환경 조사 - 일곱 항목을 한 번에 모은다
+function Get-Ver($cmd, $opt) {
+    $out = cmd /c "$cmd $opt 2&gt;&amp;1"
+    if ($LASTEXITCODE -ne 0) { return "없음" }
+    ($out | Where-Object { $_ -match '\S' } | Select-Object -First 1).Trim()
+}
+
+$os = Get-ComputerInfo -Property OsName, OsVersion
+$ip = Get-NetIPAddress -AddressFamily IPv4 |
+      Where-Object { $_.IPAddress -notlike "127.*" } | Select-Object -First 1
+
+"운영체제`t"       + "$($os.OsName) $($os.OsVersion)"
+"데이터베이스`t"   + (Get-Ver "mysql" "--version")
+"미들웨어`t"       + "확인 필요 (Tomcat 폴더의 RELEASE-NOTES)"
+"사용 언어`t"      + (Get-Ver "java" "-version")
+"IDE`t"            + "확인 필요 (설치된 앱 목록)"
+"형상 관리 도구`t" + (Get-Ver "git" "--version")
+"네트워크 환경`t"  + "IPv4 $($ip.IPAddress)/$($ip.PrefixLength)"</div>
+
+  <p>PowerShell 을 열고(⊞ + R → <code>powershell</code>) 저장한 파일을 실행합니다.
+     실행이 막히면 <code>Set-ExecutionPolicy -Scope Process Bypass</code> 를 먼저 입력합니다.</p>
+<div class="term">PS C:\Users\hong&gt; <b>.\as-is.ps1 &gt; 근거_03_수집결과.txt</b>
+PS C:\Users\hong&gt; <b>type 근거_03_수집결과.txt</b>
+운영체제        Microsoft Windows 11 Home 10.0.26200
+데이터베이스    mysql  Ver 8.0.44 for Win64 on x86_64 (MySQL Community Server - GPL)
+미들웨어        확인 필요 (Tomcat 폴더의 RELEASE-NOTES)
+사용 언어       openjdk version "21.0.2" 2024-01-16
+IDE             확인 필요 (설치된 앱 목록)
+형상 관리 도구  git version 2.52.0.windows.1
+네트워크 환경   IPv4 192.168.0.25/24</div>
+
+  <p><b>결과 확인</b> — 다음 세 가지가 만들어졌으면 수집이 끝난 것입니다.
+     이 셋이 조사표의 근거 자료입니다.</p>
+  <div class="kv">
+    <b>근거_01</b><span>시스템요약.png — msinfo32 화면 캡처</span>
+    <b>근거_02</b><span>systeminfo.txt — 운영체제 상세</span>
+    <b>근거_03</b><span>수집결과.txt — 일곱 항목 한 벌</span>
+  </div>
+
+  <div class="warn"><b>현업에서는</b> — 조사표 <b>서식</b>은 발주기관이 지정하므로
+    프로젝트마다 다릅니다. 반면 <b>수집 방법</b>은 대체로 같습니다.
+    서버가 몇 대뿐이면 위와 같이 OS 기본 도구로 확인하고,
+    수십 대가 넘어가면 <b>Ansible</b> 같은 도구로 한 번에 모읍니다.
+    조직 차원에서는 이 정보를 <b>CMDB</b>(구성관리 데이터베이스)에 등록해 두고
+    계속 갱신합니다. 상용은 ServiceNow, 공개 도구로는 GLPI · Snipe-IT 가 있습니다.</div>
 </div>
 
 <h4>1.4 조사표 작성</h4>
 
-<p>조사 결과는 다음과 같은 형식으로 정리하여 제출합니다.
-   실제 평가에서 제공되는 도서 대여 시스템을 조사한 예입니다.
+<p>수집이 끝났으면 제출 서식으로 옮깁니다.
+   실제 평가에서 제공되는 도서 대여 시스템을 조사한 예는 다음과 같습니다.
    일곱 줄이 모두 채워져야 하며, 각 줄이 채점 항목에 대응합니다.</p>
 
 <figure class="fig">
@@ -304,28 +340,60 @@ Windows IP 구성
   <figcaption>[그림 1-1] 운행환경 조사표 작성 예시 (평가도구 작업지시서 기준)</figcaption>
 </figure>
 
+<p>수집한 값이 조사표의 어느 줄로 가는지는 다음과 같습니다.
+   이 대응을 알면 옮겨 적는 일은 기계적으로 끝납니다.</p>
+
+<table class="wide">
+  <tr><th style="width:118px">조사표 항목</th><th style="width:230px">어디서 얻나</th>
+      <th>옮겨 적을 때</th></tr>
+  <tr><td class="c">운영체제</td><td><code>msinfo32</code> 의 「OS 이름」, 또는 수집결과 1행</td>
+      <td>판(버전)까지 함께. 서버면 배포판 이름까지 (예: CentOS 7)</td></tr>
+  <tr><td class="c">데이터베이스</td><td><code>mysql --version</code> 출력</td>
+      <td>제품명과 버전만 남기고 나머지는 버림 (예: MySQL 5.7)</td></tr>
+  <tr><td class="c">미들웨어</td><td>Tomcat 설치 폴더의 <code>RELEASE-NOTES</code> 첫 줄</td>
+      <td>제품명과 버전 (예: Apache Tomcat 8.5)</td></tr>
+  <tr><td class="c">사용 언어</td><td><code>java -version</code> 출력</td>
+      <td>언어와 함께 프레임워크·기술도 적음 (예: Java 서블릿, JSP 기반)</td></tr>
+  <tr><td class="c">IDE</td><td>설정 → 앱 → 설치된 앱 목록</td>
+      <td>쓰는 것만. 여러 개면 쉼표로 (예: 이클립스, 인텔리제이)</td></tr>
+  <tr><td class="c">형상 관리 도구</td><td><code>git --version</code>, 원격 저장소 주소</td>
+      <td>도구와 보관 위치를 함께 (예: Git / GitHub)</td></tr>
+  <tr><td class="c">네트워크 환경</td><td><code>ipconfig</code>, 보안 장비 담당자 확인</td>
+      <td>망 구성과 보안 장비. 없으면 「없음」 (예: 내부망, 방화벽 없음)</td></tr>
+</table>
+
 <div class="note"><b>생각해 보기</b> — 조사표를 채우는 것으로 끝내지 말고,
   각 줄에서 <b>무엇이 가능하고 무엇이 불가능해지는지</b>를 함께 생각해 봅니다.
-  예를 들어 DBMS 가 MySQL 5.7 이면 Oracle 전용 함수를 쓸 수 없고,
+  DBMS 가 MySQL 5.7 이면 Oracle 전용 함수를 쓸 수 없고,
   네트워크가 내부망이면 외부 API 를 호출할 수 없습니다.
   이 판단이 이후 「요구사항 확인」과 「분석모델 확인」의 근거가 됩니다.</div>
 
 <div class="lab">
   <b class="t">실습 1-2</b>
   <b>운행환경 조사표 작성하기</b>
-  <p><b>목적</b> — 조사 결과를 제출 서식에 맞추어 정리합니다.</p>
+  <p><b>목적</b> — 수집한 값을 제출 서식에 맞추어 정리하고 산출물을 완성합니다.</p>
+  <p><b>준비물</b> — 실습 1-1 의 근거 자료 세 개, 스프레드시트</p>
   <p><b>절차</b></p>
   <ol>
     <li>스프레드시트를 실행하고 [그림 1-1] 과 같이
         「구분 / 조사 결과 / 적는 요령」 세 개의 열을 작성합니다.</li>
     <li>운영체제, 데이터베이스, 미들웨어, 사용 언어, IDE, 형상 관리 도구,
         네트워크 환경의 <b>일곱 행</b>을 만듭니다.</li>
-    <li>「조사 결과」 열을 채웁니다. 평가에서 제공된 현행 시스템 파일을 사용하며,
-        연습 단계에서는 실습 1-1 에서 조사한 자신의 PC 값을 사용합니다.</li>
-    <li>종류와 함께 <b>판(버전)</b>을 반드시 적습니다.
+    <li>위 대응표를 보며 <code>근거_03_수집결과.txt</code> 의 값을
+        「조사 결과」 열로 옮깁니다. 평가에서는 제공된 현행 시스템 파일의 값을 쓰고,
+        연습 단계에서는 자신의 PC 값을 그대로 씁니다.</li>
+    <li>「확인 필요」로 남은 <b>미들웨어</b>와 <b>IDE</b> 두 줄을 채웁니다.
+        미들웨어는 Tomcat 설치 폴더의 <code>RELEASE-NOTES</code> 파일을 열어 첫 줄을 보고,
+        IDE 는 설정 → 앱 → 설치된 앱 목록에서 확인합니다.</li>
+    <li>일곱 줄 모두 <b>판(버전)</b>이 적혀 있는지 확인합니다.
         해당 사항이 없으면 「없음」이라고 적고 빈칸으로 두지 않습니다.</li>
+    <li>문서 마지막에 근거 자료를 붙입니다.
+        <code>근거_01_시스템요약.png</code> 는 그림으로 넣고,
+        <code>근거_02</code> · <code>근거_03</code> 은 필요한 줄만 인용합니다.</li>
   </ol>
-  <p><b>제출물</b> — 운행환경 조사표 1부 (일곱 줄, 판(버전) 포함)</p>
+  <p><b>제출물</b> — 운행환경 조사표 1부 (일곱 줄, 판(버전) 포함) + 근거 자료</p>
+  <p><b>스스로 확인</b> — 일곱 줄이 모두 차 있고, 각 줄에 버전이 있으며,
+     조사 결과마다 어느 근거 자료에서 나온 값인지 말할 수 있으면 완성입니다.</p>
 </div>
 
 <div class="try">
