@@ -212,63 +212,7 @@
   <b>포트</b>는 하나의 컴퓨터에서 여러 프로그램을 구분하기 위한 번호이며,
   Tomcat 은 8080, MySQL 은 3306 을 기본값으로 사용합니다.</div>
 
-<h4>1.3 시스템의 계층 구조</h4>
-
-<p>여섯 개 항목은 서로 독립적이지 않습니다. 아래 계층이 위 계층을 받치는 구조이며,
-   아래 계층이 동작하지 않으면 위 계층도 동작하지 않습니다.
-   따라서 조사 역시 상위 계층에서 하위 계층으로 내려가며 수행합니다.</p>
-
-<figure class="fig">
-<svg viewBox="0 0 560 300" width="560" height="300"
-     style="max-width:100%;height:auto;display:block;margin:0 auto"
-     role="img" aria-label="현행 시스템의 계층 구조">
-  <g fill="none" stroke="#000" stroke-width="1.2">
-    <rect x="150" y="10"  width="260" height="38"/>
-    <rect x="150" y="62"  width="260" height="38"/>
-    <rect x="150" y="114" width="260" height="38"/>
-    <rect x="150" y="166" width="260" height="38"/>
-    <rect x="150" y="218" width="260" height="38"/>
-  </g>
-  <g font-size="13" font-family="inherit" text-anchor="middle" fill="#000">
-    <text x="280" y="34">사용자 · 브라우저</text>
-    <text x="280" y="86">미들웨어 (WAS) · Tomcat</text>
-    <text x="280" y="138">응용 프로그램 · Java / Spring</text>
-    <text x="280" y="190">DBMS · MySQL</text>
-    <text x="280" y="242">운영체제 · 하드웨어 · 망</text>
-  </g>
-  <g stroke="#000" stroke-width="1.2" marker-end="url(#ar)">
-    <line x1="280" y1="48"  x2="280" y2="60"/>
-    <line x1="280" y1="100" x2="280" y2="112"/>
-    <line x1="280" y1="152" x2="280" y2="164"/>
-    <line x1="280" y1="204" x2="280" y2="216"/>
-  </g>
-  <defs>
-    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6"
-            orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#000"/></marker>
-  </defs>
-  <g font-size="11.5" fill="#555" font-family="inherit">
-    <text x="16" y="34">이용 계층</text>
-    <text x="16" y="112">처리 계층</text>
-    <text x="16" y="190">저장 계층</text>
-    <text x="16" y="242">기반 계층</text>
-    <text x="428" y="86">8080</text>
-    <text x="428" y="190">3306</text>
-  </g>
-</svg>
-<figcaption>[그림 1-1] 현행 시스템의 계층 구조</figcaption>
-</figure>
-
-<p>같은 내용을 draw.io 로 작성하면 다음과 같습니다.
-   [실습 1-2] 에서 직접 작성하게 되며, 조사 결과를 상자 안에 기입하는 방식입니다.</p>
-
-<figure class="fig">
-  <div class="shot"><img src="img/drawio-layer.png"
-       alt="draw.io 에서 작성한 현행 시스템 계층 구성도 화면"></div>
-  <figcaption>[그림 1-2] draw.io 로 작성한 계층 구성도 (app.diagrams.net 실제 화면)</figcaption>
-</figure>
-
-
-<h4>1.4 실습 환경</h4>
+<h4>1.3 실습 환경</h4>
 
 <p>별도로 설치할 프로그램은 없습니다. 실습에는 다음 환경을 사용합니다.</p>
 
@@ -276,8 +220,6 @@
   <b>운영체제</b><span>Windows 10 이상</span>
   <b>명령 프롬프트</b><span>⊞ + R → <code>cmd</code> 입력 → Enter</span>
   <b>문서 작성</b><span>Excel, 한셀, Google 스프레드시트 중 하나</span>
-  <b>다이어그램</b><span><a href="https://app.diagrams.net">app.diagrams.net</a>
-    (설치 및 회원 가입 불필요)</span>
   <b>화면 캡처</b><span>⊞ + Shift + S</span>
 </div>
 
@@ -350,7 +292,7 @@ Windows IP 구성
   <p>마지막으로 ⊞ + Shift + S 로 명령 프롬프트 화면을 캡처하여 조사표 아래에 첨부합니다.</p>
 </div>
 
-<h4>1.5 조사표 작성</h4>
+<h4>1.4 조사표 작성</h4>
 
 <p>조사 결과는 다음과 같은 형식으로 정리하여 제출합니다.
    실제 평가에서 제공되는 도서 대여 시스템을 조사한 예입니다.
@@ -359,7 +301,7 @@ Windows IP 구성
 <figure class="fig">
   <div class="shot"><img src="img/rq_os.png"
        alt="운행환경 조사표 작성 예시. 일곱 줄이 채점 항목 01~05 에 대응한다"></div>
-  <figcaption>[그림 1-3] 운행환경 조사표 작성 예시 (평가도구 작업지시서 기준)</figcaption>
+  <figcaption>[그림 1-1] 운행환경 조사표 작성 예시 (평가도구 작업지시서 기준)</figcaption>
 </figure>
 
 <div class="note"><b>생각해 보기</b> — 조사표를 채우는 것으로 끝내지 말고,
@@ -370,11 +312,11 @@ Windows IP 구성
 
 <div class="lab">
   <b class="t">실습 1-2</b>
-  <b>현행 시스템 조사표 및 구성도 작성하기</b>
-  <p><b>목적</b> — 조사 결과를 문서와 다이어그램으로 산출합니다.</p>
+  <b>운행환경 조사표 작성하기</b>
+  <p><b>목적</b> — 조사 결과를 제출 서식에 맞추어 정리합니다.</p>
   <p><b>절차</b></p>
   <ol>
-    <li>스프레드시트를 실행하고 [그림 1-3] 과 같이
+    <li>스프레드시트를 실행하고 [그림 1-1] 과 같이
         「구분 / 조사 결과 / 적는 요령」 세 개의 열을 작성합니다.</li>
     <li>운영체제, 데이터베이스, 미들웨어, 사용 언어, IDE, 형상 관리 도구,
         네트워크 환경의 <b>일곱 행</b>을 만듭니다.</li>
@@ -382,26 +324,16 @@ Windows IP 구성
         연습 단계에서는 실습 1-1 에서 조사한 자신의 PC 값을 사용합니다.</li>
     <li>종류와 함께 <b>판(버전)</b>을 반드시 적습니다.
         해당 사항이 없으면 「없음」이라고 적고 빈칸으로 두지 않습니다.</li>
-    <li><a href="https://app.diagrams.net">app.diagrams.net</a> 에 접속합니다.
-        저장 위치를 묻는 창이 나타나면 <b>Device</b> 를 선택하고,
-        <b>Create New Diagram</b> → <b>Blank Diagram</b> 을 차례로 누릅니다.
-        파일 이름은 <code>as-is_architecture.drawio</code> 로 지정합니다.</li>
-    <li>왼쪽 도형 목록에서 사각형을 끌어다 다섯 개를 세로로 배치합니다.
-        도형을 더블클릭하면 글자를 입력할 수 있습니다.
-        [그림 1-2] 와 같은 형태가 되도록 조사 결과를 기입합니다.</li>
-    <li>도형 가장자리에 마우스를 올리면 나타나는 파란 화살표를 아래 도형으로 끌어
-        연결선을 만듭니다.</li>
-    <li>File → Export as → PNG 를 선택하고 Zoom 을 200% 로 지정하여 내보냅니다.</li>
   </ol>
-  <p><b>제출물</b> — 현행 시스템 조사표 1부, 계층 구성도 <code>.drawio</code> 원본 및 PNG 각 1부</p>
+  <p><b>제출물</b> — 운행환경 조사표 1부 (일곱 줄, 판(버전) 포함)</p>
 </div>
 
 <div class="try">
   <b class="t">정리</b>
   현행 시스템 분석은 운영체제 · 데이터베이스 · 미들웨어 · 사용 언어 · IDE ·
   형상 관리 도구 · 네트워크 환경의 일곱 항목을 조사하는 작업입니다.
-  조사 결과에는 종류와 판(버전)을 함께 적으며, 일곱 줄이 그대로 채점 항목
-  ① 01 ~ 05 의 25점에 대응합니다.
+  조사 결과에는 종류와 판(버전)을 함께 적습니다.
+  일곱 줄이 그대로 채점 항목 ① 01 ~ 05 의 25점에 대응합니다.
 </div>
 
 <p>네 산출물은 <b>앞의 것이 뒤의 것의 재료</b>가 됩니다.
