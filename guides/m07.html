@@ -185,6 +185,77 @@
 </table>
 <p>대부분이 <b>원격 저장소에서 직접 확인</b>됩니다.
    그래서 강사 계정 초대가 빠지면 열여섯 항목이 한꺼번에 날아갑니다.</p>
+      <div class="lab">
+  <b class="t">실습 2-1</b>
+  <b>가장 먼저 — 강사 계정 초대 계획 세우기</b>
+
+  <p><b>목적</b> — 19개 항목 가운데 <b>열여섯 개</b>가 원격 저장소에서 직접 확인됩니다.
+     강사 계정이 초대되어 있지 않으면 <b>그 열여섯이 한꺼번에 날아갑니다.</b>
+     제일 먼저 확인하고, 마지막에 다시 확인합니다.</p>
+
+  <div class="kv">
+    <b>내는 것</b><span>작업 PDF 2부 + <b>저장소 주소</b></span>
+    <b>가장 큰 위험</b><span>초대를 빠뜨리거나, 초대만 하고 <b>수락 전</b>에 내는 것</span>
+  </div>
+
+  <h5>절차 1 — 어디에서 무엇이 확인되는지 나눕니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px">확인 장소</th><th style="width:170px">항목</th><th>없으면</th></tr>
+    <tr><td class="c">로컬 · SourceTree</td><td>01 · 05 · 17</td>
+        <td><b>PDF 캡처로만</b> 볼 수 있습니다 — 안 찍으면 끝</td></tr>
+    <tr><td class="c">원격 저장소</td><td>02 · 03 · 04 · 06 ~ 16 · 19</td>
+        <td>채점자가 <b>직접 들어가 봅니다</b> — 초대가 없으면 전부 0점</td></tr>
+    <tr><td class="c">Eclipse</td><td>18</td><td>빌드 결과 캡처가 필요합니다</td></tr>
+  </table>
+
+  <h5>절차 2 — 조장이 할 일과 조원이 할 일을 나눕니다</h5>
+  <table class="wide">
+    <tr><th style="width:110px">누가</th><th style="width:190px">무엇을</th><th>PDF</th></tr>
+    <tr><td class="c">조장</td>
+        <td>저장소 생성 · 가지 · 보호 규칙 · <b>멤버 초대</b> · 이슈 · 보드</td>
+        <td>「조장 셋업 과정」</td></tr>
+    <tr><td class="c">조원</td>
+        <td>가지 전환 · 체크리스트별 커밋 · PR · 병합</td>
+        <td>「조원 작업 과정」</td></tr>
+  </table>
+
+  <h5>절차 3 — 캡처 규칙을 정합니다</h5>
+  <p>작업지시서가 「모든 작업 단계별 이미지 캡처 <b>및 설명</b> 후 PDF 로 제출」입니다.
+     <b>설명</b>이 조건에 들어 있습니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:44%">이렇게 붙이면 약합니다</th><th>이렇게 붙입니다</th></tr>
+    <tr><td>화면만 죽 늘어놓음</td>
+        <td>캡처 아래 한 줄 — <b>「무엇을 한 화면이고 무엇이 확인되는가」</b></td></tr>
+    <tr><td>「가지 생성」</td>
+        <td>「<code>git branch -a</code> — main · develop · feature/kim 세 가지가
+            원격까지 올라간 것을 확인」</td></tr>
+  </table>
+
+  <h5>절차 4 — 제출 직전 확인표를 미리 만들어 둡니다</h5>
+  <p>마지막에 허둥대지 않게 지금 만들어 둡니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th>확인할 것</th></tr>
+    <tr><td class="c">□</td><td>강사 계정이 <b>멤버 목록에 보이는가</b></td></tr>
+    <tr><td class="c">□</td><td>권한이 <b>Write</b> 인가 (Read 면 안 됩니다)</td></tr>
+    <tr><td class="c">□</td><td>저장소 주소를 <b>정확히</b> 적었는가</td></tr>
+    <tr><td class="c">□</td><td>PDF 두 부가 다 있는가</td></tr>
+  </table>
+
+  <div class="warn"><b>초대는 «수락» 되어야 보입니다</b> —
+    보낸 것만으로는 Pending 상태입니다.
+    수업 마지막 날 보내면 채점 시점에 수락되지 않았을 수 있으므로,
+    <b>작업을 시작할 때 먼저 보내십시오.</b>
+    멤버 목록에서 이름 옆에 <b>Pending invite</b> 가 사라진 것을 확인합니다.</div>
+
+  <p><b>제출물</b> — 역할 분담표, 제출 직전 확인표(빈 칸)</p>
+
+  <p><b>스스로 확인</b> —
+     ① 조장과 조원이 각각 무엇을 캡처할지 <b>정했습니까</b>
+     ② 초대를 <b>지금</b> 보낼 준비가 되었습니까</p>
+</div>
       </div>
     </div>
 
@@ -228,6 +299,71 @@ C:\> <b>git config --global user.email "kim@example.com"</b>
   채점자가 <b>누가 어느 가지에서 일했는지</b> 알 수 없게 되므로,
   자기 PC 에서 자기 이름으로 설정한 뒤 시작하십시오.
 </div>
+      <div class="lab">
+  <b class="t">실습 2-2</b>
+  <b>도구와 계정 준비하기</b>
+
+  <p><b>목적</b> — 네 가지를 갖추고, <b>커밋 작성자 이름</b>을 자기 것으로 맞춥니다.
+     이름을 안 맞추면 채점자가 <b>누가 무엇을 했는지 알 수 없습니다.</b></p>
+
+  <h5>절차 1 — Git 이 깔렸는지 봅니다</h5>
+  <p class="cmdline"><code>git --version</code></p>
+  <p><code>git version 2.44.0.windows.1</code> 처럼 나오면 됩니다.
+     안 나오면 <code>git-scm.com</code> 에서 <b>Git for Windows</b> 를 깝니다.</p>
+
+  <h5>절차 2 — 이름과 메일을 «자기 것» 으로 적습니다</h5>
+  <p class="cmdline"><code>git config --global user.name "kim"
+git config --global user.email "kim@example.com"</code></p>
+  <p class="cmdline"><code>git config --global --list</code></p>
+  <p>여기 적은 이름이 <b>커밋 작성자</b>로 남습니다.</p>
+
+  <div class="warn"><b>조원 넷이 같은 PC 로 실습하면 커밋 작성자가 모두 같아집니다.</b>
+    채점자가 「누가 어느 가지에서 일했는지」를 볼 수 없습니다.
+    <b>자기 PC 에서 자기 이름으로</b> 하십시오.
+    한 PC 를 나눠 써야 한다면 작업을 바꿀 때마다
+    <code>git config --global user.name</code> 을 다시 칩니다.</div>
+
+  <h5>절차 3 — 기본 가지 이름을 <code>main</code> 으로 맞춥니다</h5>
+  <p><b>이 한 줄이 뒤의 고생을 막습니다.</b></p>
+  <p class="cmdline"><code>git config --global init.defaultBranch main</code></p>
+
+  <div class="warn"><b>안 맞추면 이렇게 됩니다</b> —
+    설정 없이 <code>git init</code> 을 하면 첫 가지가 <b><code>master</code></b> 로 생깁니다.
+    <code>git status</code> 를 쳐 보면 <code>On branch master</code> 라고 나옵니다.
+    그런데 GitHub 은 새 저장소를 <b><code>main</code></b> 으로 만듭니다.
+    이대로 밀어 넣으면 원격에 <code>main</code> 과 <code>master</code> 가 <b>둘 다 생겨</b>
+    가지 구조가 어긋납니다 (채점 항목 02 가 10점입니다).
+    <br>이미 <code>master</code> 로 만들었다면 고칠 수 있습니다 —
+    <code>git branch -M main</code> 한 줄이면 이름이 바뀝니다.</div>
+
+  <h5>절차 4 — GitHub 계정과 인증을 준비합니다</h5>
+  <ul>
+    <li>조원 <b>각자</b> 계정이 필요합니다. 한 계정을 돌려 쓰면 절차 2 의 문제가 됩니다.</li>
+    <li>GitHub 은 <b>비밀번호로 밀어 넣을 수 없습니다.</b>
+        처음 <code>git push</code> 할 때 브라우저가 떠서 로그인합니다.</li>
+    <li>브라우저가 안 뜨면 <b>개인 접근 토큰</b>(Settings → Developer settings →
+        Personal access tokens)을 만들어 <b>비밀번호 자리에</b> 넣습니다.</li>
+  </ul>
+
+  <h5>절차 5 — SourceTree 와 Eclipse 를 깝니다</h5>
+  <table class="wide">
+    <tr><th style="width:150px">도구</th><th style="width:190px">쓰는 자리</th><th>채점</th></tr>
+    <tr><td>SourceTree</td><td>가지와 이력을 <b>눈으로</b> 보기</td>
+        <td>항목 17 — 병합 이력</td></tr>
+    <tr><td>Eclipse</td><td>병합한 소스 <b>컴파일</b></td>
+        <td>항목 18 — 빌드 결과</td></tr>
+  </table>
+  <p>둘 다 <b>채점 항목이 걸려 있으므로</b> 반드시 깝니다.
+     명령만으로 끝내면 17 · 18 이 빕니다.</p>
+
+  <p><b>제출물</b> — <code>git --version</code> 과
+     <code>git config --global --list</code> 결과 캡처</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>user.name</code> 이 <b>자기 이름</b>입니까
+     ② <code>init.defaultBranch</code> 가 <code>main</code> 입니까
+     ③ SourceTree 와 Eclipse 가 <b>둘 다</b> 깔렸습니까</p>
+</div>
       </div>
     </div>
 
@@ -265,6 +401,83 @@ C:\> <b>git config --global user.email "kim@example.com"</b>
 <p class="ex"><span class="x">감점</span> <code>git remote -v</code> 결과가 PDF 에 없음</p>
 <p class="ex"><span class="o">권함</span> 연결한 직후 <code>git remote -v</code> 를 실행해 캡처합니다.
   항목 05 가 이것만 봅니다</p>
+      <div class="lab">
+  <b class="t">실습 2-3</b>
+  <b>작업 폴더 만들고 원격에 잇기</b>
+
+  <p><b>목적</b> — 채점 항목 <b>01</b>(작업 폴더)과 <b>05</b>(origin 경로)가
+     이 단계에서 판정됩니다. 각 5점입니다.</p>
+
+  <h5>절차 1 — 폴더를 만들고 «그 안에서» 초기화합니다</h5>
+  <p class="cmdline"><code>C:\&gt; mkdir C:\work\bookrental
+C:\&gt; cd C:\work\bookrental
+C:\work\bookrental&gt; git init</code></p>
+
+  <div class="warn"><b>어느 폴더에서 쳤는지가 전부입니다.</b>
+    <code>cd</code> 를 빠뜨리고 <code>C:\work</code> 에서 <code>git init</code> 하면
+    <code>.git</code> 이 상위에 생겨 <b>엉뚱한 파일까지 따라 들어갑니다.</b>
+    프롬프트에 적힌 경로를 확인하고 치십시오.</div>
+
+  <h5>절차 2 — <code>.git</code> 이 «여기» 있는지 봅니다</h5>
+  <p class="cmdline"><code>dir /a</code></p>
+  <p><code>.git</code> 이 보이면 이 폴더가 작업 폴더입니다.
+     <code>/a</code> 를 붙여야 숨은 폴더가 보입니다.</p>
+
+  <p class="cmdline"><code>C:\work\bookrental\
+├─ .git\        ← 여기 있어야 합니다 (숨은 폴더)
+├─ .gitignore
+├─ src\
+└─ README.md</code></p>
+
+  <h5>절차 3 — <code>.gitignore</code> 를 «먼저» 만듭니다</h5>
+  <p>커밋을 시작한 뒤에 만들면 이미 들어간 파일은 빠지지 않습니다.</p>
+
+  <p class="cmdline"><code>/bin/
+/target/
+*.class
+.settings/
+.classpath
+.project</code></p>
+
+  <p>확인해 보십시오. <code>.gitignore</code> 가 없으면 빌드 결과물이 그대로 잡힙니다.</p>
+  <p class="cmdline"><code>git status --short
+?? bin/          ← .gitignore 가 없을 때</code></p>
+
+  <h5>절차 4 — 원격을 잇습니다</h5>
+  <p>GitHub 에서 저장소를 만든 뒤 그 주소를 <code>origin</code> 이라는 별명으로 붙입니다.</p>
+  <p class="cmdline"><code>git remote add origin https://github.com/team1/bookrental.git</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">말</th><th>뜻</th></tr>
+    <tr><td><code>origin</code></td><td>원격 저장소 주소에 붙인 <b>별명</b></td></tr>
+    <tr><td><code>git push origin develop</code></td>
+        <td>「origin 이라는 원격의 develop 에 올려라」</td></tr>
+  </table>
+
+  <h5>절차 5 — 확인하고 «반드시» 캡처합니다</h5>
+  <p class="cmdline"><code>git remote -v</code></p>
+  <p class="cmdline"><code>origin  https://github.com/team1/bookrental.git (fetch)
+origin  https://github.com/team1/bookrental.git (push)</code></p>
+
+  <div class="warn"><b>채점 항목 05 는 이것만 봅니다.</b>
+    연결한 직후 <code>git remote -v</code> 를 실행해 캡처하십시오.
+    나중에 하려면 잊습니다.</div>
+
+  <h5>절차 6 — 잘못 넣었으면 고칩니다</h5>
+  <p>주소를 틀리게 넣고 다시 <code>add</code> 하면 이렇게 나옵니다.</p>
+  <p class="cmdline"><code>error: remote origin already exists.</code></p>
+  <p>덧붙이는 것이 아니라 <b>바꾸는</b> 명령을 씁니다.</p>
+  <p class="cmdline"><code>git remote set-url origin https://github.com/team1/bookrental.git
+git remote -v</code></p>
+
+  <p><b>제출물</b> — <code>dir /a</code>(<code>.git</code> 보임) ·
+     <code>git remote -v</code> 결과 캡처</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>.git</code> 이 <b>작업 폴더 안</b>에 있습니까 (상위가 아니라)
+     ② <code>.gitignore</code> 를 <b>커밋 전에</b> 만들었습니까
+     ③ <code>git remote -v</code> 결과를 <b>캡처했습니까</b></p>
+</div>
       </div>
     </div>
 
@@ -313,6 +526,80 @@ git branch -a       <i>-- 원격까지 함께</i>
 git status          <i>-- 맨 윗줄에 On branch … 가 나옵니다</i></pre>
 <p>가지를 잘못 잡고 커밋하는 일이 가장 흔한 사고입니다.
    <b>커밋하기 전에 한 번 확인</b>하는 습관을 들이십시오.</p>
+      <div class="lab">
+  <b class="t">실습 2-4</b>
+  <b>GitFlow 세 가지 만들기 — 10점</b>
+
+  <p><b>목적</b> — <code>main</code> · <code>develop</code> ·
+     <code>feature/조원명</code> 셋을 만들고 <b>원격까지 올립니다.</b>
+     채점 항목 02, <b>10점</b>입니다.</p>
+
+  <h5>절차 1 — 첫 커밋으로 <code>main</code> 을 만듭니다</h5>
+  <p><b>빈 저장소에는 가지가 없습니다.</b> 확인해 보십시오.</p>
+  <p class="cmdline"><code>git branch
+(아무것도 안 나옵니다)</code></p>
+
+  <p>README 하나를 커밋하면 그때 가지가 생깁니다.</p>
+  <p class="cmdline"><code>echo # bookrental &gt; README.md
+git add README.md
+git commit -m "v0.0 최초 설정"
+git branch</code></p>
+
+  <div class="warn"><b>여기서 <code>master</code> 가 나오면</b>
+    실습 2-2 절차 3 을 빠뜨린 것입니다. 지금 고칠 수 있습니다.
+    <br><code>git branch -M main</code>
+    <br>한 줄이면 이름이 바뀝니다. <code>git branch</code> 로 <code>* main</code> 을 확인하십시오.</div>
+
+  <h5>절차 2 — <code>main</code> 에서 <code>develop</code> 을 만듭니다</h5>
+  <p class="cmdline"><code>git branch                 -- 지금 어디인지 먼저 봅니다
+git checkout -b develop
+git branch</code></p>
+  <p><code>-b</code> 는 「만들면서 옮겨 간다」는 뜻입니다.
+     <b>지금 서 있는 가지에서 갈라져 나옵니다.</b></p>
+
+  <h5>절차 3 — <code>develop</code> 에서 <code>feature</code> 를 만듭니다</h5>
+  <p class="cmdline"><code>git checkout develop        -- develop 에 서 있는지 확인
+git checkout -b feature/kim
+git branch</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">결과</th><th>뜻</th></tr>
+    <tr><td><code>&nbsp; develop</code><br>
+        <code>* feature/kim</code><br>
+        <code>&nbsp; main</code></td>
+        <td><code>*</code> 가 붙은 것이 <b>지금 가지</b>입니다</td></tr>
+  </table>
+
+  <div class="warn"><b><code>main</code> 에서 <code>feature</code> 를 만들면 안 됩니다.</b>
+    <code>develop</code> 에 쌓인 내용이 빠진 채로 갈라집니다.
+    만들기 전에 <b><code>git branch</code> 로 어디에 서 있는지</b> 반드시 봅니다.</div>
+
+  <h5>절차 4 — 세 가지를 모두 원격에 올립니다</h5>
+  <p class="cmdline"><code>git push -u origin main
+git push -u origin develop
+git push -u origin feature/kim</code></p>
+  <p><code>-u</code> 를 한 번 붙여 두면 다음부터는 <code>git push</code> 만으로 됩니다.</p>
+
+  <div class="note"><b>처음 밀어 넣을 때 브라우저가 뜹니다</b> —
+    GitHub 로그인 창입니다. 로그인하면 이어서 진행됩니다.
+    안 뜨면 실습 2-2 절차 4 의 <b>개인 접근 토큰</b>을 씁니다.</div>
+
+  <h5>절차 5 — 원격까지 올라갔는지 확인합니다</h5>
+  <p class="cmdline"><code>git branch -a</code></p>
+  <p>앞에 <code>remotes/origin/</code> 이 붙은 줄이 <b>원격에 있는 가지</b>입니다.
+     세 개가 모두 보여야 합니다.</p>
+
+  <p>GitHub 저장소 화면의 가지 목록에서도 확인하고 <b>둘 다 캡처</b>하십시오 —
+     항목 02 는 <b>원격에서</b> 확인됩니다.</p>
+
+  <p><b>제출물</b> — <code>git branch -a</code> 결과 + GitHub 가지 목록 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 가지 이름이 <code>main</code> 입니까 (<code>master</code> 가 아니라)
+     ② <code>feature</code> 가 <b><code>develop</code> 에서</b> 갈라졌습니까
+     ③ <code>git branch -a</code> 에 <b>원격 세 가지</b>가 다 보입니까
+     ④ GitHub 화면에서도 <b>셋</b>이 보입니까</p>
+</div>
       </div>
     </div>
 
@@ -351,6 +638,97 @@ git push</pre>
 
 <p class="ex"><span class="x">약함</span> <code>수정</code> · <code>ㅇㅇ</code> · <code>update</code></p>
 <p class="ex"><span class="o">권함</span> <code>feat: 지역 · 종목 필터 (#2)</code></p>
+      <div class="lab">
+  <b class="t">실습 2-5</b>
+  <b>커밋하기 — 가지마다 하나씩</b>
+
+  <p><b>목적</b> — <code>develop</code> 과 <code>feature</code> <b>양쪽에</b> 커밋을 남깁니다.
+     채점 항목 03 · 04, 각 5점입니다.</p>
+
+  <h5>절차 1 — 세 걸음을 손에 익힙니다</h5>
+  <p class="cmdline"><code>git status                      -- ① 무엇이 바뀌었는지 본다
+git add src/FacilityList.java   -- ② 담을 것을 고른다
+git commit -m "feat: 목록 화면 뼈대 (#2)"   -- ③ 묶어서 기록한다
+git push</code></p>
+
+  <table class="wide">
+    <tr><th style="width:150px">걸음</th><th>안 하면</th></tr>
+    <tr><td class="c">① <code>status</code></td>
+        <td>엉뚱한 파일이 따라 들어간 것을 모릅니다</td></tr>
+    <tr><td class="c">② <code>add</code></td>
+        <td>아무것도 담기지 않아 <code>commit</code> 이 빈 채로 막힙니다</td></tr>
+    <tr><td class="c">③ <code>commit</code></td>
+        <td>로컬에만 있고 <code>push</code> 해도 안 올라갑니다</td></tr>
+  </table>
+
+  <div class="warn"><b><code>git add .</code> 는 편하지만 위험합니다.</b>
+    빌드 결과물과 개인 설정 파일까지 따라 들어갑니다.
+    실습 2-3 에서 <code>.gitignore</code> 를 먼저 만들어 두었다면
+    그런 파일이 <code>git status</code> 에 아예 나타나지 않습니다.
+    <b><code>add</code> 전에 <code>status</code> 를 보는 습관</b>을 들이십시오.</div>
+
+  <h5>절차 2 — 메시지 앞에 «유형» 을 붙입니다</h5>
+  <p>수행준거 1.3 이 「변경사항을 <b>유형별로 분류</b>하여 변경 이력을 관리」입니다.
+     머리말이 그 분류가 됩니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:110px">머리말</th><th style="width:170px">뜻</th><th>예</th></tr>
+    <tr><td><code>feat:</code></td><td>기능을 더함</td><td>feat: 시설 목록 화면 (#2)</td></tr>
+    <tr><td><code>fix:</code></td><td>잘못된 것을 고침</td><td>fix: 빈 목록에서 오류 (#2)</td></tr>
+    <tr><td><code>docs:</code></td><td>문서만 바뀜</td><td>docs: README 작성</td></tr>
+    <tr><td><code>style:</code></td><td>동작은 그대로, 모양만</td><td>style: 들여쓰기 정리</td></tr>
+    <tr><td><code>chore:</code></td><td>그 밖의 잡일</td><td>chore: develop 시작</td></tr>
+  </table>
+
+  <table class="wide">
+    <tr><th style="width:44%">이렇게 쓰면 약합니다</th><th>이렇게 씁니다</th></tr>
+    <tr><td><code>수정</code> · <code>ㅇㅇ</code> · <code>update</code></td>
+        <td><code>feat: 지역 · 종목 필터 (#2)</code></td></tr>
+  </table>
+
+  <h5>절차 3 — 끝에 «이슈 번호» 를 답니다</h5>
+  <p class="cmdline"><code>git commit -m "feat: 시설 목록 화면 (#2)"</code></p>
+  <p><code>(#2)</code> 를 적으면 <b>2번 이슈에 이 커밋이 달립니다.</b>
+     채점 항목 13 이 이것을 봅니다. 이슈를 먼저 만들어 두고(실습 2-9) 번호를 확인해 적습니다.</p>
+
+  <h5>절차 4 — «두 가지» 에 모두 커밋합니다</h5>
+  <p>항목 03 과 04 가 나뉘어 있습니다. 한쪽만 하면 한쪽이 빕니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:74px">항목</th><th style="width:150px">어느 가지</th><th>무엇을</th></tr>
+    <tr><td class="c">03</td><td><code>develop</code></td>
+        <td><code>chore: develop 시작</code> 같은 첫 커밋</td></tr>
+    <tr><td class="c">04</td><td><code>feature/조원명</code></td>
+        <td>체크리스트 항목마다 하나씩</td></tr>
+  </table>
+
+  <h5>절차 5 — 이력을 확인합니다</h5>
+  <p class="cmdline"><code>git log --oneline --graph --all</code></p>
+  <p class="cmdline"><code>* 031ed08 feat: 목록 화면 뼈대 (#2)
+* 2ee6019 chore: develop 시작
+* 6b0961a v0.0 최초 설정</code></p>
+
+  <p>누가 했는지도 확인합니다.</p>
+  <p class="cmdline"><code>git log -1 --format="%an &lt;%ae&gt;"
+kim &lt;kim@example.com&gt;</code></p>
+
+  <div class="warn"><b>여기 남의 이름이 나오면</b> 실습 2-2 절차 2 를 빠뜨린 것입니다.
+    <b>이미 한 커밋의 작성자는 쉽게 못 바꿉니다.</b>
+    지금 <code>git config</code> 를 고치고 <b>다시 커밋</b>하십시오.</div>
+
+  <div class="note"><b>Windows 에서 나오는 줄바꿈 경고</b> —
+    <code>warning: LF will be replaced by CRLF</code> 는 <b>오류가 아닙니다.</b>
+    윈도와 리눅스의 줄바꿈이 달라 Git 이 맞춰 준다는 알림입니다. 그대로 두면 됩니다.</div>
+
+  <p><b>제출물</b> — <code>git log --oneline --graph --all</code> 결과 +
+     각 가지의 커밋 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>develop</code> 과 <code>feature</code> <b>양쪽에</b> 커밋이 있습니까
+     ② 메시지에 <b>유형 머리말</b>이 붙어 있습니까
+     ③ 끝에 <b>이슈 번호</b>가 있습니까
+     ④ 작성자가 <b>자기 이름</b>입니까</p>
+</div>
       </div>
     </div>
 
@@ -397,6 +775,70 @@ git push</pre>
   <code>git push</code> 를 해야 올라갑니다.
   채점 항목 06 · 07 · 08 은 <b>원격 저장소의 가지 목록</b>만 봅니다.
 </div>
+      <div class="lab">
+  <b class="t">실습 2-6</b>
+  <b>원격에 올리고 «원격에서» 확인하기</b>
+
+  <p><b>목적</b> — 채점 항목 06 · 07 · 08(각 5점)은
+     <b>원격 저장소의 가지 목록만</b> 봅니다.
+     로컬에 아무리 잘 만들어 두어도 올리지 않으면 없는 것입니다.</p>
+
+  <h5>절차 1 — 올리기 «전» 을 확인합니다</h5>
+  <p class="cmdline"><code>git branch -a</code></p>
+  <p><code>remotes/origin/</code> 로 시작하는 줄이 <b>하나도 없으면</b>
+     원격에는 아직 아무것도 없는 것입니다.
+     GitHub 저장소 화면에도 「가지 1개」로만 보입니다.</p>
+
+  <h5>절차 2 — 세 가지를 모두 올립니다</h5>
+  <p class="cmdline"><code>git push -u origin main
+git push -u origin develop
+git push -u origin feature/kim</code></p>
+
+  <div class="warn"><b>한 가지만 올리는 실수가 잦습니다.</b>
+    지금 서 있는 가지만 <code>git push</code> 하면 나머지 둘은 안 올라갑니다.
+    <b>세 번 치십시오.</b> 항목이 06 · 07 · 08 로 <b>세 개로 나뉘어</b> 있는 까닭입니다.</div>
+
+  <h5>절차 3 — 올린 «뒤» 를 확인합니다</h5>
+  <p class="cmdline"><code>git branch -a</code></p>
+  <p class="cmdline"><code>  develop
+* feature/kim
+  main
+  remotes/origin/develop
+  remotes/origin/feature/kim
+  remotes/origin/main</code></p>
+  <p>아래 세 줄이 <b>원격에 올라간 것</b>입니다.</p>
+
+  <h5>절차 4 — GitHub 화면에서도 봅니다</h5>
+  <p>저장소 화면 왼쪽 위의 가지 단추를 누르면 목록이 나옵니다.
+     <b>이 화면이 채점자가 보는 것</b>이므로 반드시 캡처합니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:74px">항목</th><th style="width:150px">확인할 가지</th><th>어디서</th></tr>
+    <tr><td class="c">06</td><td><code>main</code></td>
+        <td rowspan="3">GitHub 저장소의 <b>가지 목록</b></td></tr>
+    <tr><td class="c">07</td><td><code>develop</code></td></tr>
+    <tr><td class="c">08</td><td><code>feature/조원명</code></td></tr>
+  </table>
+
+  <h5>절차 5 — 「백업」이 무슨 뜻인지 적어 둡니다</h5>
+  <p>수행준거 2.1 이 「백업 작업 내용을 <b>식별</b>할 수 있다」입니다.
+     이 평가에서 백업은 <b>원격 저장소에 올려 두는 일</b>입니다.
+     PDF 에 세 줄로 적어 두면 준거가 설명됩니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:170px">묻는 것</th><th style="width:190px">답</th><th>근거 화면</th></tr>
+    <tr><td>무엇을 백업하는가</td><td>소스 · 가지 · 이력</td><td>원격 가지 목록</td></tr>
+    <tr><td>언제 백업하는가</td><td>커밋할 때마다 <code>push</code></td><td>커밋 시각과 원격 갱신 시각</td></tr>
+    <tr><td>어디에 백업하는가</td><td>GitHub 원격 저장소</td><td><code>git remote -v</code></td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>git branch -a</code>(올린 뒤) + GitHub 가지 목록 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>remotes/origin/</code> 줄이 <b>셋</b>입니까
+     ② GitHub 화면에서도 <b>셋</b>이 보입니까
+     ③ 가지 이름이 <code>main</code> 입니까 (<code>master</code> 가 섞이지 않았습니까)</p>
+</div>
       </div>
     </div>
 
@@ -437,6 +879,77 @@ git push</pre>
   규칙을 걸고 나서 <b>일부러 main 에 직접 push 해 보십시오.</b>
   거절되는 화면이 곧 「규칙이 걸려 있다」 는 증거가 됩니다.
   <code>! [remote rejected] main -&gt; main (protected branch hook declined)</code>
+</div>
+      <div class="lab">
+  <b class="t">실습 2-7</b>
+  <b>가지 보호 규칙 두 개 걸기</b>
+
+  <p><b>목적</b> — <code>main</code> 은 <b>잠그고</b>,
+     <code>develop</code> 은 <b>승인 3인</b>을 요구하게 만듭니다.
+     채점 항목 09 · 10, 각 5점입니다.</p>
+
+  <p><b>자리</b> — 저장소 <b>Settings → Branches →
+     Add branch protection rule</b></p>
+
+  <h5>절차 1 — <code>main</code> 을 잠급니다 (항목 09)</h5>
+  <ol>
+    <li><b>Branch name pattern</b> 칸에 <code>main</code> 이라고 <b>정확히</b> 칩니다.</li>
+    <li><b>Lock branch</b> 를 켭니다. 읽기 전용이 되어 아무도 밀어 넣을 수 없습니다.</li>
+    <li><b>Create</b> 를 누릅니다.</li>
+  </ol>
+
+  <div class="warn"><b>철자가 다르면 아무 가지에도 안 걸립니다.</b>
+    <code>Main</code> · <code>mian</code> · <code>master</code> 로 적으면
+    규칙은 만들어지지만 <b>어디에도 적용되지 않습니다.</b>
+    만든 뒤 규칙 목록에서 <code>main</code> 옆에
+    <b>가지 하나가 걸렸다는 표시</b>가 나오는지 보십시오.</div>
+
+  <h5>절차 2 — <code>develop</code> 에 승인 3인을 겁니다 (항목 10)</h5>
+  <ol>
+    <li>규칙을 <b>하나 더</b> 만듭니다. 패턴은 <code>develop</code>.</li>
+    <li><b>Require a pull request before merging</b> 을 켭니다.</li>
+    <li>그 아래 <b>Required approvals</b> 를 <b>3</b> 으로 둡니다.</li>
+  </ol>
+
+  <table class="wide">
+    <tr><th style="width:110px">가지</th><th style="width:210px">지시서의 요구</th><th>켤 항목</th></tr>
+    <tr><td class="c"><code>main</code></td><td>Branch 는 lock</td>
+        <td><b>Lock branch</b></td></tr>
+    <tr><td class="c"><code>develop</code></td><td>3인 이상의 Approve Review</td>
+        <td><b>Require a pull request</b> + <b>Required approvals = 3</b></td></tr>
+  </table>
+
+  <h5>절차 3 — 정말 걸렸는지 «일부러 어겨» 봅니다</h5>
+  <p>규칙이 걸렸다는 가장 확실한 증거는 <b>거절당하는 화면</b>입니다.</p>
+
+  <p class="cmdline"><code>git checkout main
+echo test &gt;&gt; README.md
+git commit -am "test: 보호 규칙 확인"
+git push</code></p>
+
+  <p class="cmdline"><code>! [remote rejected] main -&gt; main (protected branch hook declined)
+error: failed to push some refs to 'https://github.com/team1/bookrental.git'</code></p>
+
+  <p>이 화면을 캡처해 「main 이 잠겨 있음을 확인」이라고 설명을 답니다.
+     <b>규칙 설정 화면보다 이쪽이 더 분명한 근거</b>입니다.</p>
+
+  <div class="note"><b>시험한 커밋은 되돌립니다</b> —
+    올라가지 않았으니 원격은 깨끗합니다. 로컬만 정리하면 됩니다.
+    <br><code>git reset --hard HEAD~1</code>
+    <br>이 명령은 <b>마지막 커밋을 지웁니다.</b> 방금 만든 시험 커밋에만 쓰십시오.</div>
+
+  <h5>절차 4 — 두 규칙 화면을 캡처합니다</h5>
+  <p>Settings → Branches 의 <b>규칙 목록</b>과, 각 규칙을 열어
+     <b>켜 둔 항목이 보이는 화면</b>을 각각 찍습니다.</p>
+
+  <p><b>제출물</b> — 규칙 목록 · <code>main</code> 잠금 설정 ·
+     <code>develop</code> 승인 3 설정 · 거절 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 패턴 철자가 <code>main</code> · <code>develop</code> <b>그대로</b>입니까
+     ② <code>main</code> 에 <b>Lock branch</b> 가 켜져 있습니까
+     ③ <code>develop</code> 의 <b>Required approvals 가 3</b> 입니까
+     ④ <b>거절 화면</b>을 남겼습니까</p>
 </div>
       </div>
     </div>
@@ -481,6 +994,76 @@ git push</pre>
   <b class="n">4단계 · 멤버 목록 화면을 캡처합니다</b>
   누구에게 어떤 권한을 주었는지 한눈에 보이는 화면입니다.
 </div>
+      <div class="lab">
+  <b class="t">실습 2-8</b>
+  <b>멤버 초대 — 여기가 이 교과의 급소입니다</b>
+
+  <p><b>목적</b> — 강사 계정을 <b>Write</b> 로 초대하고,
+     <b>수락된 것까지</b> 확인합니다.
+     이것이 안 되면 <b>19개 중 열여섯 개</b>가 한꺼번에 비어 버립니다.</p>
+
+  <p><b>자리</b> — 저장소 <b>Settings → Collaborators</b></p>
+
+  <h5>절차 1 — 초대합니다</h5>
+  <ol>
+    <li><b>Add people</b> 을 누릅니다.</li>
+    <li>강사 계정 이름(<code>JungWooGyun</code>)이나 메일 주소를 칩니다.</li>
+    <li>권한을 <b>Write</b> 로 고릅니다. <b>기본값이 Read 인 경우가 있으니 확인하십시오.</b></li>
+    <li>조원들도 같은 방법으로 초대합니다.</li>
+  </ol>
+
+  <h5>절차 2 — 왜 Read 가 아니라 Write 인지 압니다</h5>
+  <p>채점자는 보기만 하면 되니 Read 로 충분해 보입니다. 그런데 두 가지 까닭이 있습니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:190px">까닭</th><th>내용</th></tr>
+    <tr><td>작업지시서가 못 박음</td>
+        <td>「강사 멤버 <b>WRITE 권한</b> 부여」 — 지정된 방법입니다</td></tr>
+    <tr><td><b>승인하려면 필요</b></td>
+        <td><code>develop</code> 규칙이 <b>3인 이상 승인</b>입니다.
+            조원 수가 모자라면 강사도 승인자가 되어야 하는데,
+            <b>Approve Review 는 Write 이상</b>이라야 할 수 있습니다</td></tr>
+  </table>
+
+  <h5>절차 3 — «수락» 되었는지 확인합니다</h5>
+  <p><b>보낸 것만으로는 끝이 아닙니다.</b>
+     멤버 목록에서 이름 옆을 보십시오.</p>
+
+  <table class="wide">
+    <tr><th style="width:190px">이렇게 보이면</th><th>뜻</th></tr>
+    <tr><td><code>Pending invite</code></td>
+        <td><b>아직 수락 전</b>입니다. 채점자가 저장소에 들어올 수 없습니다</td></tr>
+    <tr><td>권한만 보임 (<code>Write</code>)</td>
+        <td>수락되었습니다. <b>이 상태여야 합니다</b></td></tr>
+  </table>
+
+  <div class="warn"><b>수업 마지막 날 보내면 늦습니다.</b>
+    채점 시점에 수락되지 않았으면 <code>Pending</code> 인 채이고,
+    저장소가 비공개라면 채점자는 <b>아무것도 볼 수 없습니다.</b>
+    <b>작업을 시작하는 날 먼저 보내십시오.</b>
+    조원들끼리도 서로 수락했는지 확인해 주십시오.</div>
+
+  <h5>절차 4 — 멤버 목록을 캡처합니다</h5>
+  <p><b>누구에게 어떤 권한을 주었는지 한눈에 보이는 화면</b>입니다.
+     이름과 권한이 함께 보이게 자릅니다.</p>
+
+  <h5>절차 5 — 제출 직전에 «한 번 더» 봅니다</h5>
+  <p>실습 2-1 절차 4 에서 만들어 둔 확인표의 첫 두 줄입니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th>확인</th></tr>
+    <tr><td class="c">□</td><td>강사 계정이 멤버 목록에 <b>보이는가</b></td></tr>
+    <tr><td class="c">□</td><td>권한이 <b>Write</b> 인가</td></tr>
+    <tr><td class="c">□</td><td><code>Pending invite</code> 가 <b>사라졌는가</b></td></tr>
+  </table>
+
+  <p><b>제출물</b> — 멤버 목록 화면 (이름 + 권한이 함께 보이게)</p>
+
+  <p><b>스스로 확인</b> —
+     ① 강사 계정 <b>철자</b>가 맞습니까
+     ② 권한이 <b>Write</b> 입니까 (Read 가 아니라)
+     ③ <b>수락</b>되었습니까</p>
+</div>
       </div>
     </div>
 
@@ -514,6 +1097,82 @@ git push</pre>
    채점 항목 13 이 <b>「Issue 내의 체크리스트별 커밋이 되어 있는지」</b> 입니다.</p>
 <p class="ex"><span class="x">감점</span> 작업을 다 끝내고 <code>feat: 목록 화면 완성</code> 한 번만 커밋</p>
 <p class="ex"><span class="o">권함</span> 체크리스트를 한 줄 끝낼 때마다 커밋하고 그 줄에 체크합니다</p>
+      <div class="lab">
+  <b class="t">실습 2-9</b>
+  <b>이슈와 체크리스트 — 한 줄이 한 커밋</b>
+
+  <p><b>목적</b> — 이슈에 체크리스트를 적고, <b>한 줄을 끝낼 때마다 커밋</b>합니다.
+     채점 항목 11 · 12 · 13, 각 5점입니다.</p>
+
+  <h5>절차 1 — 조원마다 이슈를 하나씩 만듭니다</h5>
+  <p>저장소의 <b>Issues → New issue</b>.
+     제목은 맡은 일이 드러나게 적습니다 — 「시설 목록 화면 구현」.</p>
+
+  <h5>절차 2 — 본문에 체크리스트를 적습니다</h5>
+  <p class="cmdline"><code>## 체크리스트
+- [ ] 목록 화면 뼈대 만들기
+- [ ] 시설 카드 반복 출력
+- [ ] 지역 · 종목 필터
+- [ ] 빈 목록일 때 안내 문구</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">적는 법</th><th>뜻</th></tr>
+    <tr><td><code>- [ ]</code></td><td>빈 네모 상자. 눌러서 체크할 수 있습니다</td></tr>
+    <tr><td><code>- [x]</code></td><td>체크된 상태</td></tr>
+  </table>
+
+  <div class="note"><b>세 줄에서 다섯 줄이 적당합니다</b> —
+    <b>한 줄이 한 번의 커밋</b>이 되기 때문입니다.
+    한 줄이면 커밋도 하나뿐이라 항목 13 을 보이기 어렵고,
+    열 줄이면 다 끝내기 전에 시간이 갑니다.</div>
+
+  <h5>절차 3 — 이슈 «번호» 를 확인합니다</h5>
+  <p>만들면 제목 옆에 <code>#2</code> 처럼 번호가 붙습니다.
+     <b>커밋 메시지에 쓸 번호</b>이므로 적어 두십시오.</p>
+
+  <h5>절차 4 — 한 줄 끝낼 때마다 커밋합니다</h5>
+  <p class="cmdline"><code>git add src/FacilityList.java
+git commit -m "feat: 목록 화면 뼈대 (#2)"
+git push</code></p>
+
+  <p>밀어 넣으면 <b>이슈 화면 아래에 그 커밋이 나타납니다.</b>
+     이슈를 열어 직접 확인하고 캡처하십시오 — 채점 항목 13 이 이것을 봅니다.</p>
+
+  <h5>절차 5 — 그 줄에 체크합니다</h5>
+  <p>이슈 본문의 네모를 눌러 체크합니다.
+     커밋하고 체크하고, 다음 줄로 넘어갑니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:44%">이렇게 하면 감점</th><th>이렇게 합니다</th></tr>
+    <tr><td>작업을 다 끝내고<br>
+        <code>feat: 목록 화면 완성</code> <b>한 번만</b> 커밋</td>
+        <td>체크리스트 <b>한 줄 끝낼 때마다</b> 커밋하고 그 줄에 체크</td></tr>
+  </table>
+
+  <div class="warn"><b>몰아서 커밋하면 항목 13 이 빕니다.</b>
+    채점자가 보는 것은 「체크리스트 <b>별</b> 커밋이 되어 있는가」입니다.
+    커밋이 하나뿐이면 어느 줄에 대응하는지 알 수 없습니다.
+    <b>네 줄이면 커밋도 네 개</b>가 자연스럽습니다.</div>
+
+  <h5>절차 6 — 세 항목이 어디에서 확인되는지 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:74px">항목</th><th style="width:210px">확인할 것</th><th>화면</th></tr>
+    <tr><td class="c">11</td><td>이슈가 만들어져 있는가</td><td>Issues 목록</td></tr>
+    <tr><td class="c">12</td><td>이슈가 <b>보드에 연결</b>되어 있는가</td>
+        <td>이슈 오른쪽 Projects 칸 (실습 2-10)</td></tr>
+    <tr><td class="c">13</td><td>체크리스트별 <b>커밋</b>이 달렸는가</td>
+        <td>이슈 아래쪽 커밋 목록</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 이슈 본문(체크리스트) · 커밋이 달린 이슈 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 체크리스트가 <b>세 줄 이상</b>입니까
+     ② 커밋 메시지 끝에 <b><code>(#번호)</code></b> 가 있습니까
+     ③ 이슈 화면에 <b>커밋이 여러 개</b> 달려 있습니까
+     ④ 끝낸 줄에 <b>체크</b>했습니까</p>
+</div>
       </div>
     </div>
 
@@ -552,6 +1211,67 @@ git push</pre>
   채점 항목 16 이 <b>「Project Todo Board 의 리스트가 Done 으로 끝나 있는지」</b> 입니다.
   작업은 다 끝냈는데 카드를 옮기지 않아 Todo 에 남아 있는 조가 해마다 나옵니다.
   <b>PR 을 병합한 그 자리에서 카드를 옮기십시오.</b>
+</div>
+      <div class="lab">
+  <b class="t">실습 2-10</b>
+  <b>프로젝트 보드 만들고 «Done 까지» 옮기기</b>
+
+  <p><b>목적</b> — 이슈를 카드로 붙이고, 작업하면서 <b>칸을 옮깁니다.</b>
+     채점 항목 12 와 16 이 여기에 걸려 있습니다.</p>
+
+  <h5>절차 1 — 보드를 만듭니다</h5>
+  <ol>
+    <li>저장소의 <b>Projects</b> 탭 → <b>New project</b>.</li>
+    <li>서식은 <b>Board</b> 를 고릅니다.</li>
+    <li>칸은 <b>Todo · In progress · Done</b> 이 기본입니다. 그대로 씁니다.</li>
+  </ol>
+
+  <h5>절차 2 — 이슈를 보드에 붙입니다 (항목 12)</h5>
+  <p>이슈 화면 <b>오른쪽</b>의 <b>Projects</b> 에서 만든 보드를 고르면 카드가 생깁니다.</p>
+
+  <div class="warn"><b>보드에서 카드를 «새로 만들지» 마십시오.</b>
+    보드에서 직접 만든 카드는 <b>이슈와 이어져 있지 않습니다.</b>
+    채점 항목 12 가 「<b>Issue 별</b> Project board 가 연결되어 있는가」이므로,
+    <b>이슈 쪽에서</b> 보드를 고르는 방향으로 해야 합니다.
+    제대로 연결되면 카드에 <code>#2</code> 같은 이슈 번호가 함께 보입니다.</div>
+
+  <h5>절차 3 — 작업하면서 옮깁니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:170px">언제</th><th>어디로</th></tr>
+    <tr><td>이슈를 만들었을 때</td><td><b>Todo</b></td></tr>
+    <tr><td>작업을 시작할 때</td><td><b>In progress</b></td></tr>
+    <tr><td><b>PR 이 병합되면</b></td><td><b>Done</b></td></tr>
+  </table>
+
+  <h5>절차 4 — 끝나면 «모두» Done 인지 봅니다 (항목 16)</h5>
+
+  <div class="warn"><b>해마다 여기서 놓칩니다.</b>
+    작업은 다 끝냈는데 <b>카드를 옮기지 않아 Todo 에 남아 있는</b> 조가 나옵니다.
+    채점 항목 16 이 「Project Todo Board 의 리스트가 <b>Done 으로 끝나 있는지</b>」입니다.
+    일을 다 하고도 5점을 버리는 것입니다.
+    <b>PR 을 병합한 그 자리에서 바로 카드를 옮기십시오.</b>
+    「나중에 정리해야지」 하면 잊습니다.</div>
+
+  <h5>절차 5 — 보드 화면을 캡처합니다</h5>
+  <p>두 장을 찍어 두면 과정이 보입니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:190px">언제</th><th>무엇이 보이게</th></tr>
+    <tr><td>작업 중간</td><td>카드가 <b>In progress</b> 에 있는 모습</td></tr>
+    <tr><td><b>마지막</b></td><td>카드가 <b>모두 Done</b> 에 있는 모습 (항목 16)</td></tr>
+  </table>
+
+  <p>작업지시서가 「모든 작업 <b>단계별</b> 이미지 캡처」를 요구하므로,
+     옮겨 가는 과정이 보이면 그 조건에도 맞습니다.</p>
+
+  <p><b>제출물</b> — 보드 화면 2장 (작업 중 · 모두 Done) +
+     이슈에 보드가 연결된 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 카드에 <b>이슈 번호</b>가 함께 보입니까 (보드에서 새로 만든 카드가 아닙니까)
+     ② 칸이 <b>Todo · In progress · Done</b> 셋입니까
+     ③ 마지막에 카드가 <b>모두 Done</b> 입니까</p>
 </div>
       </div>
     </div>
@@ -601,6 +1321,79 @@ git push</pre>
   정리한다고 지우면 채점할 자료가 사라져 여러 항목이 함께 비게 됩니다.
   <b>닫기(Close)와 지우기(Delete)는 다릅니다.</b> 닫기만 합니다.
 </div>
+      <div class="lab">
+  <b class="t">실습 2-11</b>
+  <b>풀 리퀘스트 올리고 승인받기</b>
+
+  <p><b>목적</b> — <code>feature</code> 를 <code>develop</code> 으로 모읍니다.
+     채점 항목 14 · 15, 각 5점입니다.
+     <b>병합 뒤 가지를 지우면 안 됩니다.</b></p>
+
+  <h5>절차 1 — <code>feature</code> 를 밀어 올립니다</h5>
+  <p class="cmdline"><code>git push</code></p>
+  <p>올리고 나면 저장소 첫 화면에 <b>Compare &amp; pull request</b> 단추가 나타납니다.
+     그것을 누릅니다.</p>
+
+  <h5>절차 2 — «방향» 을 확인합니다</h5>
+  <p class="cmdline"><code>base: develop  ←  compare: feature/kim</code></p>
+
+  <div class="warn"><b>기본값이 <code>main</code> 인 경우가 많습니다.</b>
+    <code>base</code> 가 <code>main</code> 으로 되어 있으면 <b>반드시 <code>develop</code> 으로 고치십시오.</b>
+    <code>main</code> 은 잠겨 있어 병합도 안 되고(실습 2-7),
+    GitFlow 상 <code>feature</code> 는 <code>develop</code> 으로 모입니다.</div>
+
+  <h5>절차 3 — 본문에 <code>Closes #2</code> 를 적습니다</h5>
+  <p class="cmdline"><code>## 작업 내용
+- 시설 목록 화면 구현
+
+Closes #2</code></p>
+  <p>병합될 때 <b>2번 이슈가 저절로 닫힙니다.</b>
+     채점 항목 19(이슈가 Closed 인가)의 근거가 됩니다.
+     안 적으면 나중에 손으로 닫아야 하고, 그걸 잊습니다.</p>
+
+  <h5>절차 4 — 승인을 받습니다 (항목 15)</h5>
+  <p><code>develop</code> 규칙이 <b>3인 이상 승인</b>입니다(실습 2-7).</p>
+  <ol>
+    <li>승인할 사람이 PR 을 엽니다.</li>
+    <li><b>Files changed</b> 탭 → <b>Review changes</b>.</li>
+    <li><b>Approve</b> 를 고르고 <b>Submit review</b>.</li>
+  </ol>
+  <p>조원 수가 모자라면 <b>강사도 승인자</b>가 됩니다 —
+     그래서 Write 권한으로 초대한 것입니다(실습 2-8).</p>
+
+  <div class="note"><b>자기 PR 은 자기가 승인할 수 없습니다.</b>
+    승인 수가 모자라면 <b>Merge 단추가 회색으로</b> 남습니다.
+    조원끼리 서로의 PR 을 열어 승인해 주십시오.</div>
+
+  <h5>절차 5 — 병합하고 «거기서 멈춥니다»</h5>
+  <p><b>Merge pull request</b> → <b>Confirm merge</b>.</p>
+
+  <div class="warn"><b>그다음 나타나는 <span style="white-space:nowrap">Delete branch</span> 는 누르지 마십시오.</b>
+    채점 항목 14 에 「PR 완료 후 <b>BRANCH, ISSUE 삭제 금지</b>」가 그대로 적혀 있습니다.
+    정리한다고 지우면 <b>채점할 자료가 사라져 여러 항목이 함께 빕니다.</b>
+    깔끔하게 보이려고 지우는 조가 해마다 나옵니다.</div>
+
+  <h5>절차 6 — 닫기와 지우기를 구분해 둡니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px">무엇</th><th style="width:190px">하는 일</th><th>이 평가에서</th></tr>
+    <tr><td class="c"><b>닫기</b> (Close)</td>
+        <td>「일이 끝났다」는 표시. 내용은 <b>그대로 남습니다</b></td>
+        <td><b>합니다</b> — 항목 19</td></tr>
+    <tr><td class="c"><b>지우기</b> (Delete)</td>
+        <td>흔적까지 없앱니다. <b>되돌릴 수 없습니다</b></td>
+        <td><b>하지 않습니다</b> — 항목 14</td></tr>
+  </table>
+
+  <p><b>제출물</b> — PR 화면(방향과 <code>Closes #2</code> 가 보이게) ·
+     승인 3개가 보이는 화면 · 병합 완료 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>base</code> 가 <b><code>develop</code></b> 입니까
+     ② 본문에 <b><code>Closes #번호</code></b> 가 있습니까
+     ③ 승인이 <b>3개 이상</b>입니까
+     ④ 가지를 <b>지우지 않았습니까</b></p>
+</div>
       </div>
     </div>
 
@@ -642,6 +1435,63 @@ git push</pre>
   <tr><td class="nm">작성자 칸</td><td>누가 무엇을 했는지. 조원 이름이 제각각 보여야 합니다</td></tr>
 </table>
 <p>이 화면을 캡처해 PDF 에 넣습니다. 채점 항목 17 이 이것만 봅니다.</p>
+      <div class="lab">
+  <b class="t">실습 2-12</b>
+  <b>SourceTree 로 병합 이력 보이기</b>
+
+  <p><b>목적</b> — 가지가 갈라졌다가 <b>다시 합쳐진 모양</b>을 그림으로 보입니다.
+     채점 항목 17, 5점입니다. <b>이 화면만 봅니다.</b></p>
+
+  <h5>절차 1 — 최신 상태를 받아 옵니다</h5>
+  <p class="cmdline"><code>git checkout develop
+git pull origin develop</code></p>
+  <p>받지 않으면 SourceTree 에도 병합이 안 보입니다.
+     <b>병합은 원격에서 일어났습니다.</b></p>
+
+  <h5>절차 2 — SourceTree 에서 <code>develop</code> 을 고릅니다</h5>
+  <p>왼쪽 목록에서 <code>develop</code> 을 누르면 오른쪽에 이력 그래프가 나옵니다.</p>
+
+  <p>명령으로도 같은 것을 볼 수 있습니다. 둘 다 캡처해 두면 든든합니다.</p>
+  <p class="cmdline"><code>git log --oneline --graph --all</code></p>
+  <p class="cmdline"><code>*   0033dce merge: feature/park 병합
+|\
+| * 67ad0c2 feat: 한도 50
+* | 7144e50 fix: 한도 20 으로 되돌림
+|/
+* 0825ee1 feat: 기본 한도 30</code></p>
+
+  <h5>절차 3 — 그래프에서 «셋» 을 확인합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:170px">볼 것</th><th>뜻</th></tr>
+    <tr><td><b>갈라진 줄기</b></td>
+        <td><code>feature</code> 가 <code>develop</code> 에서 갈라져 나온 자리</td></tr>
+    <tr><td><b>합쳐지는 점</b></td>
+        <td>PR 이 병합된 커밋 — 메시지가 <code>Merge pull request #5</code></td></tr>
+    <tr><td><b>작성자 칸</b></td>
+        <td>누가 무엇을 했는지. <b>조원 이름이 제각각</b> 보여야 합니다</td></tr>
+  </table>
+
+  <div class="warn"><b>작성자가 모두 같은 이름이면</b>
+    실습 2-2 절차 2 를 빠뜨린 것입니다.
+    채점자가 「누가 어느 가지에서 일했는지」를 볼 수 없습니다.
+    <b>지금이라도 각자 <code>git config</code> 를 고치고 커밋을 더 쌓으십시오.</b>
+    이미 한 커밋의 작성자는 쉽게 못 바꿉니다.</div>
+
+  <h5>절차 4 — 「복원」이 무슨 뜻인지 적어 둡니다</h5>
+  <p>수행준거 3.1 이 「복원 작업 내용을 <b>식별</b>」, 3.2 가 「복원을 <b>수행</b>」입니다.
+     이 평가에서 복원은 <b>흩어진 작업을 한곳으로 되돌려 놓는 일</b>입니다.
+     조원 셋이 각자 가지에서 만든 것을 <code>develop</code> 하나로 모으면
+     개발 환경이 온전해집니다.</p>
+
+  <p><b>제출물</b> — SourceTree 이력 그래프 캡처
+     (갈라짐 · 합쳐짐 · 작성자가 함께 보이게)</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>git pull</code> 로 <b>받아 온 뒤</b> 봤습니까
+     ② 그래프에 <b>합쳐지는 점</b>이 보입니까
+     ③ 작성자 이름이 <b>제각각</b>입니까</p>
+</div>
       </div>
     </div>
 
@@ -679,6 +1529,77 @@ git pull origin develop        <i>-- 병합된 내용을 받아 옵니다</i>
   채점 항목 18 이 <b>「병합된 소스코드들이 충돌 없이 컴파일되는지」</b> 입니다.
   병합은 성공했는데 표시 줄이 남아 빌드가 깨지는 조가 있습니다.
   <b>병합 뒤 반드시 받아서 빌드해 보고</b> 그 화면을 캡처하십시오.
+</div>
+      <div class="lab">
+  <b class="t">실습 2-13</b>
+  <b>받아서 컴파일하기 — 충돌 표시가 남으면 터집니다</b>
+
+  <p><b>목적</b> — 병합한 소스를 <b>받아서 빌드</b>합니다.
+     채점 항목 18, 5점입니다. 병합만 하고 끝내면 안 됩니다.</p>
+
+  <h5>절차 1 — 받아 옵니다</h5>
+  <p class="cmdline"><code>git checkout develop
+git pull origin develop</code></p>
+
+  <h5>절차 2 — 충돌이 났다면 «표시 줄» 을 지웁니다</h5>
+  <p>두 사람이 같은 파일의 같은 줄을 고치면 이렇게 나옵니다.</p>
+
+  <p class="cmdline"><code>Auto-merging Config.java
+CONFLICT (content): Merge conflict in Config.java
+Automatic merge failed; fix conflicts and then commit the result.</code></p>
+
+  <p>어느 파일인지는 <code>git status</code> 로도 보입니다 — <code>UU</code> 가 충돌입니다.</p>
+  <p class="cmdline"><code>git status --short
+UU Config.java</code></p>
+
+  <p>파일을 열면 이렇게 들어가 있습니다.</p>
+  <p class="cmdline"><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+int limit = 20;        -- 지금 가지의 내용
+=======
+int limit = 50;        -- 가져오는 가지의 내용
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; feature/park</code></p>
+
+  <ol>
+    <li>둘 중 하나를 고르거나 합쳐서 <b>쓸 내용만</b> 남깁니다.</li>
+    <li><b><code>&lt;&lt;&lt;</code> · <code>===</code> · <code>&gt;&gt;&gt;</code>
+        세 줄을 반드시 지웁니다.</b></li>
+    <li><code>git add</code> 하고 <code>git commit</code> 합니다.</li>
+  </ol>
+
+  <div class="warn"><b>Git 은 표시 줄이 남아 있어도 말리지 않습니다.</b>
+    지우지 않은 채 <code>git add</code> 하면 <b>아무 경고 없이 그대로 커밋됩니다.</b>
+    병합은 성공한 것처럼 보이는데 <b>컴파일에서 터집니다.</b>
+    「병합은 됐는데 빌드가 깨지는」 조가 나오는 까닭이 이것입니다.
+    <b>커밋하기 전에 파일을 눈으로 한 번 보십시오.</b></div>
+
+  <h5>절차 3 — Eclipse 에서 빌드합니다</h5>
+  <ol>
+    <li><b>Project → Clean…</b> → 프로젝트를 고르고 <b>Clean</b>.</li>
+    <li><b>Project → Build Project</b>.</li>
+    <li><b>Problems</b> 창을 엽니다 (Window → Show View → Problems).</li>
+  </ol>
+
+  <h5>절차 4 — 오류 0 을 캡처합니다</h5>
+  <p><b>Problems 창에 오류가 0 인 화면</b>이 항목 18 의 근거입니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:190px">Problems 에 보이는 것</th><th>어떻게</th></tr>
+    <tr><td><b>Errors 0</b></td><td>통과입니다. 이 화면을 캡처</td></tr>
+    <tr><td>Warnings 만 몇 개</td><td>괜찮습니다. 경고는 빌드를 막지 않습니다</td></tr>
+    <tr><td><code>Syntax error on token "&lt;&lt;"</code></td>
+        <td><b>충돌 표시 줄이 남아 있습니다.</b> 절차 2 로 돌아갑니다</td></tr>
+  </table>
+
+  <div class="note"><b>프로젝트 탐색기도 함께 보이게 자르면</b>
+    어느 프로젝트를 빌드했는지가 드러나 근거가 분명해집니다.</div>
+
+  <p><b>제출물</b> — <code>git pull</code> 결과 +
+     Eclipse Problems 창(오류 0) 캡처</p>
+
+  <p><b>스스로 확인</b> —
+     ① <b>병합한 뒤</b> 받아서 빌드했습니까
+     ② 소스에 <code>&lt;&lt;&lt;</code> 같은 표시 줄이 <b>남아 있지 않습니까</b>
+     ③ Problems 의 <b>Errors 가 0</b> 입니까</p>
 </div>
       </div>
     </div>
@@ -720,6 +1641,70 @@ git pull origin develop        <i>-- 병합된 내용을 받아 옵니다</i>
   이슈 목록에서 <b>Closed</b> 를 눌러 보십시오.
   조원 수만큼의 이슈가 모두 여기 있어야 합니다.
   Open 에 남은 것이 있으면 그 조원의 작업이 끝나지 않은 것으로 보입니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 2-14</b>
+  <b>마무리 다섯 걸음</b>
+
+  <p><b>목적</b> — 병합 뒤에 해야 할 것을 <b>그 자리에서</b> 끝냅니다.
+     채점 항목 16 · 19, 각 5점입니다. 나중에 하려면 잊습니다.</p>
+
+  <h5>절차 — 이 순서로 다섯 걸음</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px">순서</th><th style="width:190px">하는 일</th><th>확인</th></tr>
+    <tr><td class="c">1</td><td>PR 병합</td>
+        <td><code>develop</code> 이력에 병합 커밋이 생깁니다</td></tr>
+    <tr><td class="c">2</td><td><b>이슈가 닫혔는지</b></td>
+        <td><code>Closes #2</code> 를 적었으면 저절로 닫힙니다.
+            아니면 손으로 <b>Close issue</b></td></tr>
+    <tr><td class="c">3</td><td><b>보드 카드를 Done 으로</b></td>
+        <td>세 칸 중 <b>Done</b> 에 모두 모입니다 (항목 16)</td></tr>
+    <tr><td class="c">4</td><td>받아서 빌드</td>
+        <td>오류 0 을 확인하고 캡처 (항목 18)</td></tr>
+    <tr><td class="c">5</td><td><b>가지와 이슈는 그대로</b></td>
+        <td><b>지우지 않습니다</b> (항목 14)</td></tr>
+  </table>
+
+  <div class="warn"><b>2번과 3번을 병합한 «그 자리에서» 하십시오.</b>
+    PR 을 병합하면 일이 끝난 기분이 들어 창을 닫게 됩니다.
+    그러면 카드는 Todo 에 남고 이슈는 Open 인 채입니다.
+    <b>일을 다 하고도 10점을 버리는 가장 흔한 길</b>입니다.</div>
+
+  <h5>절차 6 — 닫힌 것을 «목록에서» 확인합니다</h5>
+  <p>이슈 목록에서 <b>Closed</b> 를 눌러 보십시오.</p>
+
+  <table class="wide">
+    <tr><th style="width:190px">보이는 것</th><th>뜻</th></tr>
+    <tr><td><b>Closed</b> 에 조원 수만큼</td><td>제대로 된 것입니다 (항목 19)</td></tr>
+    <tr><td><b>Open</b> 에 남은 것이 있음</td>
+        <td>그 조원의 작업이 <b>끝나지 않은 것으로 보입니다</b></td></tr>
+  </table>
+
+  <p>이 화면을 캡처합니다. <b>Closed 탭이 눌린 상태</b>로 찍어야
+     채점자가 닫힌 목록임을 알 수 있습니다.</p>
+
+  <h5>절차 7 — 「지우기」를 하지 않았는지 다시 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">남아 있어야 할 것</th><th>어디서 확인</th></tr>
+    <tr><td><code>feature/조원명</code> 가지</td><td>가지 목록에 그대로 보이는가</td></tr>
+    <tr><td>이슈</td><td><b>Closed</b> 에 있는가 (사라지지 않았는가)</td></tr>
+    <tr><td>PR</td><td>Pull requests → Closed 에 있는가</td></tr>
+  </table>
+
+  <div class="note"><b>닫기와 지우기는 다릅니다</b> —
+    닫으면 목록에서 <b>Closed 로 옮겨질 뿐</b> 내용은 남습니다.
+    지우면 되돌릴 수 없습니다. <b>이 평가에서 지우기는 하지 않습니다.</b></div>
+
+  <p><b>제출물</b> — 보드(모두 Done) · 이슈 Closed 목록 ·
+     가지 목록(feature 가 그대로 있는 화면)</p>
+
+  <p><b>스스로 확인</b> —
+     ① 카드가 <b>모두 Done</b> 입니까
+     ② 이슈가 <b>모두 Closed</b> 입니까
+     ③ <code>feature</code> 가지가 <b>그대로 있습니까</b>
+     ④ 빌드 오류 0 을 캡처했습니까</p>
 </div>
       </div>
     </div>
@@ -768,6 +1753,80 @@ git pull origin develop        <i>-- 병합된 내용을 받아 옵니다</i>
   로그인하지 않은 상태에서 「404」 가 뜬다면 비공개 저장소입니다.
   그 상태에서 강사 계정을 초대하지 않았다면 채점이 아예 되지 않습니다.
 </div>
+      <div class="lab">
+  <b class="t">실습 2-15</b>
+  <b>채점자의 눈으로 저장소 열어 보기</b>
+
+  <p><b>목적</b> — 열아홉 항목 가운데 <b>열여섯 개</b>가 저장소에서 직접 확인됩니다.
+     <b>채점자가 보게 될 화면을 내가 먼저</b> 봅니다.</p>
+
+  <h5>절차 1 — 시크릿 창으로 열어 봅니다</h5>
+  <p>브라우저에서 <code>Ctrl</code>+<code>Shift</code>+<code>N</code>
+     (엣지는 <code>Ctrl</code>+<code>Shift</code>+<code>P</code>) 으로 시크릿 창을 열고
+     저장소 주소를 붙여 넣습니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:190px">보이는 것</th><th>뜻</th></tr>
+    <tr><td><b>저장소가 그대로 보임</b></td>
+        <td>공개 저장소입니다. 초대가 없어도 채점은 됩니다</td></tr>
+    <tr><td><b>404</b></td>
+        <td><b>비공개</b>입니다. 강사 계정을 초대하지 않았다면
+            <b>채점이 아예 되지 않습니다</b></td></tr>
+  </table>
+
+  <div class="warn"><b>404 가 떴다면 지금 확인하십시오.</b>
+    Settings → Collaborators 에서 강사 계정이
+    <b>Write 로, <code>Pending invite</code> 없이</b> 있어야 합니다(실습 2-8).
+    이것 하나로 열여섯 항목이 살고 죽습니다.</div>
+
+  <h5>절차 2 — 항목을 «있는 자리로» 가서 하나씩 봅니다</h5>
+  <p>표를 위에서부터 읽지 말고, <b>화면별로 묶어</b> 보면 빠릅니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:190px">열어 볼 화면</th><th style="width:150px">거기서 보는 항목</th>
+        <th>무엇을</th></tr>
+    <tr><td>가지 목록</td><td class="c">02 · 06 · 07 · 08</td>
+        <td>세 가지가 다 있는가 (02 는 <b>10점</b>)</td></tr>
+    <tr><td>Settings → Branches</td><td class="c">09 · 10</td>
+        <td>규칙 둘이 걸려 있는가</td></tr>
+    <tr><td>Issues</td><td class="c">11 · 13</td>
+        <td>이슈와 그 안의 커밋</td></tr>
+    <tr><td>Issues → <b>Closed</b></td><td class="c">19</td>
+        <td>모두 닫혔는가</td></tr>
+    <tr><td>Projects</td><td class="c">12 · 16</td>
+        <td>연결과 <b>Done</b></td></tr>
+    <tr><td>Pull requests</td><td class="c">14 · 15</td>
+        <td>PR 과 <b>가지가 안 지워졌는지</b></td></tr>
+    <tr><td>커밋 이력</td><td class="c">03 · 04</td>
+        <td>두 가지 모두에 커밋이 있는가</td></tr>
+    <tr><td><b>PDF 만</b></td><td class="c">01 · 05 · 17 · 18</td>
+        <td>저장소에 없습니다 — <b>캡처가 없으면 끝</b></td></tr>
+  </table>
+
+  <h5>절차 3 — PDF 로만 보이는 넷을 따로 봅니다</h5>
+  <p>01 · 05 · 17 · 18 은 <b>저장소에 흔적이 없습니다.</b>
+     PDF 를 넘기며 해당 캡처가 실제로 들어 있는지 확인하십시오.</p>
+
+  <table class="wide">
+    <tr><th style="width:74px">항목</th><th>있어야 할 캡처</th></tr>
+    <tr><td class="c">01</td><td><code>.git</code> 이 작업 폴더에 있는 화면</td></tr>
+    <tr><td class="c">05</td><td><code>git remote -v</code> 결과</td></tr>
+    <tr><td class="c">17</td><td>SourceTree 이력 그래프</td></tr>
+    <tr><td class="c">18</td><td>Eclipse Problems — 오류 0</td></tr>
+  </table>
+
+  <h5>절차 4 — 배점을 셉니다</h5>
+  <p>02 만 <b>10점</b>이고 나머지 열여덟 개가 각 5점입니다 (10 + 90 = 100).
+     <b>02 부터 확인하십시오</b> — 가장 무겁습니다.</p>
+
+  <p><b>제출물</b> — 열아홉 항목 점검표 (확인 여부와 근거 쪽)</p>
+
+  <p><b>스스로 확인</b> —
+     ① <b>시크릿 창</b>으로 열어 봤습니까
+     ② 404 라면 <b>초대가 수락</b>되어 있습니까
+     ③ PDF 로만 보이는 <b>넷</b>이 다 들어 있습니까
+     ④ 10점짜리 <b>02</b> 를 확인했습니까</p>
+</div>
       </div>
     </div>
 
@@ -798,6 +1857,85 @@ git pull origin develop        <i>-- 병합된 내용을 받아 옵니다</i>
   <b class="n">4단계 · 저장소 주소를 확인하고 냅니다</b>
   <code>https://github.com/조이름/저장소이름</code> 형태입니다.
   강사 계정 초대가 <b>수락된 상태</b>인지 멤버 목록에서 다시 확인합니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 2-16</b>
+  <b>PDF 로 묶고 주소와 함께 내기</b>
+
+  <p><b>목적</b> — 캡처를 <b>순서대로</b> 배치하고 <b>설명을 달아</b> PDF 로 냅니다.
+     작업지시서가 「이미지 캡처 <b>및 설명</b>」을 함께 요구합니다.</p>
+
+  <h5>절차 1 — 순서를 맞춥니다</h5>
+  <p class="cmdline"><code>조장 셋업  →  조원 작업  →  병합과 마무리</code></p>
+
+  <table class="wide">
+    <tr><th style="width:150px">묶음</th><th>들어갈 캡처</th></tr>
+    <tr><td class="c">조장 셋업</td>
+        <td>저장소 생성 · 가지 목록 · 보호 규칙 둘 · <b>멤버 목록</b> · 이슈 · 보드</td></tr>
+    <tr><td class="c">조원 작업</td>
+        <td>작업 폴더 · <code>git remote -v</code> · 가지 전환 ·
+            체크리스트별 커밋 · PR</td></tr>
+    <tr><td class="c">병합과 마무리</td>
+        <td>승인 · 병합 · SourceTree 그래프 · 빌드 오류 0 ·
+            보드 Done · 이슈 Closed</td></tr>
+  </table>
+
+  <h5>절차 2 — 캡처마다 «두 가지» 를 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:44%">이렇게 적으면 약합니다</th><th>이렇게 적습니다</th></tr>
+    <tr><td>가지 목록</td>
+        <td>「저장소 가지 목록 — main · develop · feature/kim
+            세 가지가 원격에 있음을 확인 <b>(항목 06 · 07 · 08)</b>」</td></tr>
+    <tr><td>빌드 결과</td>
+        <td>「Eclipse Problems 창 — 병합한 소스가 오류 0 으로 빌드됨
+            <b>(항목 18)</b>」</td></tr>
+  </table>
+
+  <p><b>어느 채점 항목의 근거인지</b>를 적어 두면
+     채점자가 항목을 찾아 헤매지 않습니다.</p>
+
+  <h5>절차 3 — PDF 로 내보냅니다</h5>
+  <p>PPT 로 만들었다면 <b>[다른 이름으로 저장] → 파일 형식 PDF</b> 입니다.
+     지시서가 <b>PDF</b> 를 지정했으므로 <code>.pptx</code> 로 내면 형식 위반입니다.</p>
+
+  <div class="note"><b>PDF 로 바꾼 뒤 한 번 열어 보십시오</b> —
+    캡처가 잘리거나 글자가 뭉개지는 일이 있습니다.
+    화면에서 읽히던 것이 PDF 에서 안 읽히면 그 캡처는 다시 잘라 붙입니다.</div>
+
+  <h5>절차 4 — 주소를 확인하고 냅니다</h5>
+  <p class="cmdline"><code>https://github.com/조이름/저장소이름</code></p>
+  <ul>
+    <li>브라우저 주소창에서 <b>복사</b>합니다. 손으로 치면 틀립니다.</li>
+    <li>끝에 <code>/tree/develop</code> 같은 것이 붙어 있으면 지웁니다.</li>
+    <li>멤버 목록에서 <b>강사 계정 초대가 수락된 상태</b>인지 마지막으로 봅니다.</li>
+  </ul>
+
+  <h5>절차 5 — 실습 2-1 의 확인표를 채웁니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th>확인</th></tr>
+    <tr><td class="c">□</td><td>강사 계정이 멤버 목록에 <b>보이는가</b></td></tr>
+    <tr><td class="c">□</td><td>권한이 <b>Write</b> 인가</td></tr>
+    <tr><td class="c">□</td><td>저장소 주소를 <b>정확히</b> 적었는가</td></tr>
+    <tr><td class="c">□</td><td>PDF 두 부가 다 있는가</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 작업 PDF + 저장소 주소</p>
+
+  <p><b>스스로 확인</b> —
+     ① 캡처마다 <b>설명과 항목 번호</b>가 있습니까
+     ② <b>PDF</b> 로 냈습니까
+     ③ 주소를 <b>복사</b>해서 적었습니까
+     ④ 초대가 <b>수락</b>되어 있습니까</p>
+
+  <div class="try">
+    <b class="t">끝으로</b>
+    이 교과는 <b>일을 다 해 놓고 마지막 한 동작을 빠뜨려</b> 점수를 버리기 쉽습니다.
+    가지 하나를 더 올리지 않아서, 카드를 옮기지 않아서,
+    초대가 수락되지 않아서, 가지를 지워 버려서.
+    <b>병합한 그 자리에서 마무리까지 끝내는 것</b>이 이 교과의 요령입니다.
+  </div>
 </div>
       </div>
     </div>
