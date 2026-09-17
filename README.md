@@ -24,6 +24,7 @@ GitHub Pages 로 배포되는 정적 사이트입니다.
 | `tools/t03.html` | **훈련과정 자가점검표** — 심사 신청 전 셀프 체크 |
 | `tools/hash.html` | 로그인 해시 생성기 (관리자 카드) |
 | `data/*.csv` | NCS 분류체계 · 능력단위 원본 ([NCS-CATALOG](https://github.com/NCS-MODULE-CURRICULUMS/NCS-CATALOG) 에서 복사) |
+| `lesson-plans/c1-m01~m09.html` | c1 표준 강의 교안 6시트 — ③⑤⑥은 훈련생, ①②④는 강사용 |
 | `assets/` | `site.css` · `guide.css` · `auth.js` · `sections.js` · `courses.js` · `modules.js` · `locks.js` |
 
 `t01 → t02` 는 `localStorage` 로 이어집니다. 편성표에서 고른 능력단위를
@@ -62,6 +63,18 @@ c2 는 NCS_EXAM_PAGE 에서 운영한 과정을 **자료까지 통째로** 가�
 | 준비 교안 | `guides/mNN.html` 직행 | `—` |
 | 평가 자료 | 상세의 평가 자료 카드 (`자료 N`) | `—` |
 | **표준 교안** | `modules-cN.js` 의 `lp` 경로 | 비우면 **[양식]** → 표준 강의 교안 뷰어 |
+
+### 표준 강의 교안의 공개 범위
+
+양식이 정한 '훈련생 배포' 값을 그대로 따릅니다. 강사용 절은 `.sc` 로 감춥니다.
+
+| | ① 교과개요 | ② NCS매핑 | ③ 주차별계획 | ④ 차시별지도안 | ⑤ 평가계획 | ⑥ 훈련생안내 |
+|---|:-:|:-:|:-:|:-:|:-:|:-:|
+| 훈련생 | | | ● | | ● | ● |
+| 강사 | ● | ● | ● | ● | ● | ● |
+
+교안은 마크다운(`CURRICULUM-AI-DATA`)과 HTML(여기)을 **같은 데이터에서 각각 찍습니다**
+(`gen_pilot6.py` · `gen_lp_html.py` 가 `allocate()` 를 공유). 변환이 아니라서 둘이 갈라지지 않습니다.
 
 상세 단추는 두지 않습니다 — **능력단위명 자체가 상세 링크**라 같은 곳으로 두 번 가게 됩니다.
 
