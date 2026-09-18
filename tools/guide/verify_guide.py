@@ -31,8 +31,14 @@ SCORE = {
     "m05": [f"{i:02d}" for i in range(1, 16)],
     "m06": [f"{i:02d}" for i in range(1, 21)],
     "m07": [f"{i:02d}" for i in range(1, 20)],
+    "m10": [str(i) for i in range(1, 12)],
+    "m11": [f"{g}-{i}" for g in (1, 2) for i in range(1, 11)],
+    "m12": [str(i) for i in range(1, 21)],
     "m08": [f"{i:02d}" for i in range(1, 12)],
     "m09": [f"{i:02d}" for i in range(1, 16)],
+    # m18 은 평가도구가 없는 모듈이라 «채점 항목» 대신 NCS 수행준거를 센다
+    "m18": [f"{g}-{i}" for g, n in ((1, 3), (2, 3), (3, 4), (4, 3))
+            for i in range(1, n + 1)],
 }
 
 # 산출물 고리는 교안마다 시나리오가 달라 따로 적는다
@@ -127,6 +133,19 @@ for mark, lo, hi in re.findall(r"([\u2460\u2461\u2462]?)\s*(\d{2})\s*~\s*(\d{2})
     covered |= {f"{mark} {i:02d}".strip() for i in range(int(lo), int(hi) + 1)}
 for mark, n in re.findall(r"([\u2460\u2461\u2462]?)\s*(\d{2})", s):
     covered.add(f"{mark} {n}".strip())
+# 한 자리로 적는 교안(m10) — 「채점 …」 뒤에 오는 번호만 센다.
+# 아무 데서나 한 자리를 세면 「10점」 의 1 까지 걸린다.
+for run in re.findall(r"채점(?:\s*항목)?\s*([\d\s·~∙,]+)", s):
+    for n in re.findall(r"\d+", run):
+        covered.add(str(int(n)))
+    rng = re.findall(r"(\d+)\s*~\s*(\d+)", run)
+    for lo, hi in rng:
+        covered |= {str(i) for i in range(int(lo), int(hi) + 1)}
+# 「1-1 ~ 1-10」 처럼 «묶음-번호» 로 적는 교안(m11)
+for g, lo, hi in re.findall(r"(\d)-(\d+)\s*~\s*\d-(\d+)", s):
+    covered |= {f"{g}-{i}" for i in range(int(lo), int(hi) + 1)}
+for g, n in re.findall(r"(\d)-(\d+)", s):
+    covered.add(f"{g}-{n}")
 missing = [w for w in SCORE.get(MOD, []) if w not in covered]
 if missing:
     warn.append(f"채점 항목 언급 없음: {', '.join(missing)}")

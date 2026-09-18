@@ -1,0 +1,3182 @@
+<meta charset="utf-8"><title>데이터 입출력 구현 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<style>
+  /* 이 교안에만 있는 것 — 코드와 SQL 보기 */
+  .bd pre{margin:14px 0;font-family:Consolas,"D2Coding",monospace;font-size:13px;
+          line-height:1.75;border:1px solid #ccc;border-left:3px solid #000;
+          padding:13px 16px;background:#fafafa;overflow-x:auto;white-space:pre}
+  .bd pre b{background:#e6e6e6;font-weight:700}
+  .bd pre i{font-style:normal;color:#777}
+  .bd code{font-family:Consolas,"D2Coding",monospace;font-size:14px;
+           background:#f2f2f2;padding:1px 5px}
+  aside.side code{font-family:Consolas,monospace;font-size:11px;background:#f2f2f2;padding:0 3px}
+  /* 표를 «모델» 처럼 그릴 때 */
+  table.ent th{background:#f2f2f2}
+  table.ent td.k{font-weight:700;white-space:nowrap}
+</style>
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 / <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a> / 데이터 입출력 구현 / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">논리</i>
+  <a href="#st1"><b>1</b><span>완성 산출물의 확인</span></a>
+  <a href="#st2"><b>2</b><span>데이터 유형 식별</span></a>
+  <a href="#st3"><b>3</b><span>논리 단위와 관계</span></a>
+  <a href="#st4"><b>4</b><span>제약조건과 정규화</span></a>
+  <i class="qg">물리</i>
+  <a href="#st5"><b>5</b><span>논리를 물리로</span></a>
+  <a href="#st6"><b>6</b><span>자료형과 길이</span></a>
+  <a href="#st7"><b>7</b><span>반정규화</span></a>
+  <a href="#st8"><b>8</b><span>물리적 공간 구성</span></a>
+  <i class="qg">조작</i>
+  <a href="#st9"><b>9</b><span>SQL 네 갈래</span></a>
+  <a href="#st10"><b>10</b><span>연결 프로시저</span></a>
+  <a href="#st11"><b>11</b><span>읽는 프로시저</span></a>
+  <a href="#st12"><b>12</b><span>쓰는 프로시저</span></a>
+  <a href="#st13"><b>13</b><span>테스트 케이스 명세</span></a>
+  <i class="qg">최적화</i>
+  <a href="#st14"><b>14</b><span>성능 측정</span></a>
+  <a href="#st15"><b>15</b><span>병목 찾기</span></a>
+  <a href="#st16"><b>16</b><span>개선과 산출물 정리</span></a>
+  <i class="qg">감점</i>
+  <a href="#g3"><b>!</b><span>자주 나오는 실수</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>데이터 입출력 구현 — 준비 교안</h1>
+<p class="sub">능력단위 데이터 입출력 구현 (2001020205_23v6) / 5수준 · 48시간 ·
+   능력단위요소 4개 · 수행준거 13개</p>
+
+<!-- ═══════ 0 ═══════ -->
+<h2 class="sec" id="g0">0. 이 교과가 만드는 것</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">화면도 서버도 아닙니다. <b>데이터가 앉을 자리</b>를 만듭니다.</p>
+    <b class="sh">평가</b>
+    <p class="v">평가자 체크리스트 · 구두 발표 · 문제해결 시나리오</p>
+    <b class="sh">근거</b>
+    <p class="src">NCS 학습모듈 2001020205_23v6</p>
+  </aside>
+  <div class="bd">
+
+<p>이 교과는 <b>표를 만드는 법</b>을 배우는 과목이 아닙니다.
+   <b>업무에서 받은 종이 한 장을 표 여러 개로 바꾸고, 그 표에 프로그램이 드나들게 하고,
+   느려지면 원인을 찾아 고치는 것</b>까지가 한 덩어리입니다.
+   NCS 가 능력단위요소를 넷으로 나눈 것이 그 차례 그대로입니다.</p>
+
+<table class="wide">
+  <tr><th style="width:52px">묶음</th><th style="width:210px">능력단위요소</th>
+      <th>무엇을 하는가</th><th style="width:78px">수행준거</th></tr>
+  <tr><td class="c">①</td><td class="nm">논리 데이터저장소 확인하기</td>
+      <td>받은 설계 내역에서 데이터 유형 · 논리적 단위 · 관계 · 제약조건을 식별한다</td>
+      <td class="c">1-1 ~ 1-3</td></tr>
+  <tr><td class="c">②</td><td class="nm">물리 데이터저장소 설계하기</td>
+      <td>엔티티를 테이블로 옮기고, 자료형 · 길이 · 반정규화를 정해 실제 공간을 만든다</td>
+      <td class="c">2-1 ~ 2-3</td></tr>
+  <tr><td class="c">③</td><td class="nm">데이터 조작 프로시저 작성하기</td>
+      <td>연결 · 읽기 · 쓰기 프로시저를 만들고 테스트 케이스를 명세한다</td>
+      <td class="c">3-1 ~ 3-4</td></tr>
+  <tr><td class="c">④</td><td class="nm">데이터 조작 프로시저 최적화하기</td>
+      <td>성능을 재고, 병목을 찾고, 고친 뒤 같은 방법으로 다시 잰다</td>
+      <td class="c">4-1 ~ 4-3</td></tr>
+</table>
+
+<h4>내는 것 다섯</h4>
+<table class="wide">
+  <tr><th style="width:190px">산출물</th><th style="width:250px">무엇을 적는가</th>
+      <th>덮는 수행준거</th></tr>
+  <tr><td><code>논리데이터모델_검증서</code></td>
+      <td>엔티티 · 속성 · 관계 · 제약조건 · 정규화 결과</td>
+      <td>1-1 · 1-2 · 1-3</td></tr>
+  <tr><td><code>물리데이터모델_설계서</code></td>
+      <td>테이블 정의서 · 자료형과 길이 · 반정규화 판단</td>
+      <td>2-1 · 2-2</td></tr>
+  <tr><td><code>schema.sql</code></td>
+      <td>실제로 도는 DDL — 제약조건 · 인덱스 · 뷰</td>
+      <td>2-3</td></tr>
+  <tr><td><code>DAO 소스 + 테스트케이스_명세서</code></td>
+      <td>연결 · 조회 · 저장 프로시저와 시험 조건</td>
+      <td>3-1 ~ 3-4</td></tr>
+  <tr><td><code>성능개선_보고서</code></td>
+      <td>고치기 전 숫자 · 병목 · 고친 내용 · 고친 뒤 숫자</td>
+      <td>4-1 · 4-2 · 4-3</td></tr>
+</table>
+
+<div class="note"><b>이 교안은 어느 과정에 넣어도 그대로 돕니다.</b>
+  예제로 쓰는 것은 <b>학원 수강신청</b> 하나뿐이고,
+  데이터베이스는 <b>MySQL 8</b> 한 대만 있으면 됩니다.
+  스프링도 톰캣도 쓰지 않습니다. <b>자바와 JDBC 만</b>으로 끝까지 갑니다.</div>
+
+<h4>예제 — 학원 수강신청</h4>
+<p>실습 내내 같은 예제를 씁니다.
+   <b>학원에서 종이로 받던 수강신청서 한 장</b>이 출발점입니다.
+   이 종이가 어떻게 표 넷으로 나뉘고,
+   프로그램이 어떻게 그 표를 드나들고,
+   50만 줄이 되었을 때 무엇이 느려지는지를 차례로 봅니다.</p>
+  </div>
+</div>
+
+<!-- ═══════ 1 ═══════ -->
+<h2 class="sec" id="g1">1. 먼저 알아야 할 것</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">모델링은 «그림 그리기» 가 아니라 <b>중복을 없애는 일</b>입니다.</p>
+    <b class="sh">준비물</b>
+    <p class="v">MySQL 8 · JDK 17 이상 · MySQL Connector/J</p>
+  </aside>
+  <div class="bd">
+
+<h4>세 번의 모델링</h4>
+<p>학습모듈은 데이터 모델링을 <b>개념 → 논리 → 물리</b> 셋으로 나눕니다.
+   이름이 비슷해서 헷갈리는데, <b>무엇을 정하느냐</b>가 다릅니다.</p>
+
+<table class="wide">
+  <tr><th style="width:110px">단계</th><th style="width:230px">여기서 정하는 것</th>
+      <th>아직 정하지 않는 것</th></tr>
+  <tr><td class="nm">개념 모델링</td>
+      <td>전사 수준에서 <b>무슨 덩어리가 있는지</b>와 주요 업무 규칙</td>
+      <td>속성 · 자료형 · 표 이름</td></tr>
+  <tr><td class="nm">논리 모델링</td>
+      <td>엔티티 · 속성 · 관계 · 제약조건 · <b>정규화</b></td>
+      <td><b>어떤 DBMS 를 쓸지</b> · 자료형 · 인덱스</td></tr>
+  <tr><td class="nm">물리 모델링</td>
+      <td>테이블 · 칼럼 · 자료형과 길이 · 인덱스 · <b>반정규화</b></td>
+      <td>—</td></tr>
+</table>
+
+<p>이 교과의 능력단위요소 ① 이 <b>논리</b>, ② 가 <b>물리</b>입니다.
+   순서를 바꾸면 안 되는 이유는 하나입니다.
+   <b>논리에서 중복을 없애 놓아야, 물리에서 «일부러» 되살릴 수 있기 때문</b>입니다.
+   처음부터 중복된 채로 만들면 그것은 반정규화가 아니라 <b>그냥 잘못된 설계</b>입니다.</p>
+
+<h4>이 교안의 표기</h4>
+<div class="kv">
+  <b>「수행준거 3-2」</b><span>NCS 능력단위요소 3 의 두 번째 수행준거를 가리킵니다</span>
+  <b>회색 상자</b><span>실제로 쳐 본 명령과 그때 나온 화면입니다. 각색하지 않았습니다</span>
+  <b>실습 N</b><span>손으로 따라 하는 부분. 읽고 넘어가면 남는 것이 없습니다</span>
+</div>
+
+<div class="warn"><b>이 교안의 모든 화면은 실제로 돌려서 얻은 것입니다.</b>
+  오류 메시지도 지어내지 않았습니다.
+  그러니 <b>여러분 화면에 다른 것이 나오면 무언가 다른 것</b>입니다.
+  넘어가지 말고 그 자리에서 맞추십시오.</div>
+  </div>
+</div>
+
+<!-- ═══════ 2 ═══════ -->
+<h2 class="sec" id="g2">2. 산출물 작성 실습</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">열여섯 단계 · 실습 열여섯.</p>
+    <b class="sh">한 단계</b>
+    <p class="v">읽기 → 해 보기 → 스스로 확인</p>
+  </aside>
+  <div class="bd">
+<p>아래부터는 능력단위요소 넷을 <b>레벨 1~4</b> 로 나누어 차례로 갑니다.
+   단계마다 <b>실습</b>이 하나씩 붙어 있습니다.
+   실습을 건너뛰면 다음 단계의 재료가 없어서 막힙니다 —
+   <b>앞 실습의 결과물이 뒤 실습의 입력</b>이기 때문입니다.</p>
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 1 · 논리 데이터저장소 확인하기</b><span>능력단위요소 ① · 수행준거 1-1 ~ 1-3</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st1">
+      <h3><i>1</i>완성 산출물의 확인</h3>
+      <aside class="side">
+        <p class="pt">먼저 «끝난 모습» 을 봅니다.</p>
+        <b class="sh">이 단계의 결과</b>
+        <p class="v">붙는 데이터베이스 한 대</p>
+      </aside>
+      <div class="bd">
+
+<h4>출발점 — 종이 한 장</h4>
+<p>학원에서 쓰던 수강신청서입니다. 다섯 장을 받았다고 칩시다.
+   지금은 표가 <b>하나뿐</b>이고, 한 줄이 곧 신청서 한 장입니다.</p>
+
+<p class="cmdline"><code>+----------+-----------+-----------+---------------+-----------+------------------+------------+--------+------------+
+| sheet_no | member_id | member_nm | phone         | course_cd | course_nm        | teacher_nm | fee    | apply_dt   |
++----------+-----------+-----------+---------------+-----------+------------------+------------+--------+------------+
+|        1 | hong      | 홍길동 | 010-1111-2222 | C01       | 자바 기초    | 김강사  | 180000 | 2026-03-02 |
+|        2 | hong      | 홍길동 | 010-1111-2222 | C02       | SQL 입문       | 박강사  | 150000 | 2026-03-02 |
+|        3 | kim       | 김영희 | 010-3333-4444 | C01       | 자바 기초    | 김강사  | 180000 | 2026-03-03 |
+|        4 | lee       | 이철수 | 010-5555-6666 | C01       | 자바 기초    | 김강사  | 180000 | 2026-03-04 |
+|        5 | kim       | 김영희 | 010-3333-4444 | C03       | 스프링 실무 | 김강사  | 220000 | 2026-03-05 |
++----------+-----------+-----------+---------------+-----------+------------------+------------+--------+------------+</code></p>
+
+<div class="note"><b>한글이 칸에 안 맞아 보이는 것은 정상입니다.</b>
+  MySQL 은 글자 <b>수</b>로 칸을 맞추는데
+  터미널은 한글을 <b>두 칸</b>으로 그립니다. 그래서 어긋납니다.
+  <b>데이터가 잘못된 것이 아닙니다.</b></div>
+
+<h4>도착점 — 표 넷</h4>
+<p>이 교과가 끝나면 위의 한 표가 아래 넷으로 갈라져 있고,
+   자바 프로그램이 그 넷을 이어서 읽고 씁니다.</p>
+
+<p class="cmdline"><code>mysql&gt; SHOW TABLES;
++-----------------+
+| Tables_in_eduio |
++-----------------+
+| apply           |   ← 신청 (누가 · 무엇을 · 언제)
+| apply_sheet     |   ← 출발점으로 삼은 장표 (비교용으로 남겨 둡니다)
+| course          |   ← 강좌
+| member          |   ← 회원
+| teacher         |   ← 강사
++-----------------+</code></p>
+
+<h4>왜 굳이 나누는가</h4>
+<p>답은 <b>「홍길동의 전화번호가 바뀌면 몇 군데를 고쳐야 하는가」</b> 하나로 충분합니다.
+   지금 표에서는 <b>두 줄</b>입니다. 신청을 열 번 했으면 <b>열 줄</b>입니다.
+   한 줄이라도 빠뜨리면 <b>같은 사람에게 전화번호가 두 개</b>가 됩니다.
+   이것을 <b>갱신 이상</b>이라고 하고, 실습 4 에서 직접 만들어 봅니다.</p>
+
+<h4>쓰는 도구</h4>
+<table class="wide">
+  <tr><th style="width:190px">무엇</th><th style="width:150px">판</th><th>어디에 쓰나</th></tr>
+  <tr><td class="nm">MySQL</td><td>8.0</td><td>표를 만들고 SQL 을 칩니다</td></tr>
+  <tr><td class="nm">JDK</td><td>17 이상</td><td>DAO 를 만들고 돌립니다</td></tr>
+  <tr><td class="nm">MySQL Connector/J</td><td>9.x</td><td>자바가 MySQL 에 붙는 다리입니다</td></tr>
+</table>
+
+<div class="lab">
+  <b class="t">실습 1</b>
+  <b>데이터베이스에 붙고, 장표를 그대로 한 표에 넣습니다</b>
+
+  <p><b>목적</b> — 뒤의 실습 열다섯이 전부 이 데이터베이스 위에서 돕니다.
+     <b>여기서 안 붙으면 아무것도 못 합니다.</b></p>
+
+  <h5>절차 1 — 데이터베이스를 띄웁니다</h5>
+
+  <p>이미 깔린 MySQL 이 있으면 그것을 쓰십시오. 없으면 도커 한 줄이면 됩니다.</p>
+
+  <p class="cmdline"><code>docker run -d --name eduio-db -p 3399:3306 \
+  -e MYSQL_ROOT_PASSWORD=Root11! mysql:8.0</code></p>
+
+  <table class="wide">
+    <tr><th style="width:150px">값</th><th>이 교안에서 쓰는 것</th></tr>
+    <tr><td class="nm">포트</td><td><code>3399</code> — 이미 3306 을 쓰고 있어도 안 부딪칩니다</td></tr>
+    <tr><td class="nm">계정</td><td><code>root</code> / <code>Root11!</code></td></tr>
+    <tr><td class="nm">데이터베이스</td><td><code>eduio</code></td></tr>
+  </table>
+
+  <h5>절차 2 — 붙는지 확인합니다</h5>
+
+  <p class="cmdline"><code>mysql -h 127.0.0.1 -P 3399 -u root -p</code></p>
+
+  <table class="wide">
+    <tr><th style="width:280px">이렇게 나오면</th><th>볼 곳</th></tr>
+    <tr><td><code>Can't connect to MySQL server</code></td>
+        <td>아직 <b>뜨는 중</b>입니다. 10초쯤 기다렸다 다시 하십시오</td></tr>
+    <tr><td><code>Access denied for user 'root'</code></td>
+        <td>비밀번호가 다릅니다. <b>느낌표까지</b> 넣었는지 보십시오</td></tr>
+  </table>
+
+  <h5>절차 3 — 장표를 한 표로 만듭니다</h5>
+
+  <p><code>01_base.sql</code> 이라는 이름으로 저장하십시오.</p>
+
+  <p class="cmdline"><code>DROP DATABASE IF EXISTS eduio;
+CREATE DATABASE eduio DEFAULT CHARACTER SET utf8mb4;
+USE eduio;
+
+CREATE TABLE apply_sheet (
+  sheet_no   INT PRIMARY KEY,
+  member_id  VARCHAR(20),
+  member_nm  VARCHAR(40),
+  phone      VARCHAR(20),
+  course_cd  VARCHAR(10),
+  course_nm  VARCHAR(60),
+  teacher_nm VARCHAR(40),
+  fee        INT,
+  apply_dt   DATE
+);
+
+INSERT INTO apply_sheet VALUES
+ (1,'hong','홍길동','010-1111-2222','C01','자바 기초','김강사',180000,'2026-03-02'),
+ (2,'hong','홍길동','010-1111-2222','C02','SQL 입문','박강사',150000,'2026-03-02'),
+ (3,'kim','김영희','010-3333-4444','C01','자바 기초','김강사',180000,'2026-03-03'),
+ (4,'lee','이철수','010-5555-6666','C01','자바 기초','김강사',180000,'2026-03-04'),
+ (5,'kim','김영희','010-3333-4444','C03','스프링 실무','김강사',220000,'2026-03-05');</code></p>
+
+  <h5>절차 4 — «문자셋을 지정해서» 넣습니다</h5>
+
+  <p class="cmdline"><code>mysql -h 127.0.0.1 -P 3399 -u root -p <b>--default-character-set=utf8mb4</b> &lt; 01_base.sql</code></p>
+
+  <div class="warn"><b><code>--default-character-set=utf8mb4</code> 를 빼면 지금은 멀쩡해 보입니다.</b>
+    그런데 <b>실습 10 에서 자바로 읽을 때</b> 한글이 깨집니다.
+    깨진 채로 저장되었다가 <b>프로그램에서만</b> 드러나는 것입니다.
+    왜 그런지는 <b>실습 10 에서 일부러 재현</b>해서 봅니다.
+    지금은 <b>이 옵션을 반드시 넣고</b> 넘어가십시오.</div>
+
+  <h5>절차 5 — 들어갔는지 봅니다</h5>
+
+  <p class="cmdline"><code>mysql&gt; USE eduio;
+mysql&gt; SELECT COUNT(*) FROM apply_sheet;
++----------+
+| COUNT(*) |
++----------+
+|        5 |
++----------+</code></p>
+
+  <p><b>제출물</b> — <code>01_base.sql</code> +
+     <code>SELECT COUNT(*)</code> 가 <b>5</b> 로 나온 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 데이터베이스에 <b>붙었습니까</b>
+     ② <code>--default-character-set=utf8mb4</code> 를 <b>넣었습니까</b>
+     ③ 다섯 줄이 <b>다</b> 들어갔습니까</p>
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st2">
+      <h3><i>2</i>데이터 유형 식별 — 수행준거 1-1</h3>
+      <aside class="side">
+        <p class="pt">칼럼 이름이 아니라 <b>업무에서 부르는 이름</b>부터 적습니다.</p>
+        <b class="sh">이 단계의 결과</b>
+        <p class="v">자료 항목 목록 한 장</p>
+      </aside>
+      <div class="bd">
+
+<h4>수행준거가 요구하는 세 가지</h4>
+<p>학습모듈은 수행준거 1-1 을 이렇게 씁니다 —
+   「설계 내역에서 <b>정의된 데이터의 유형</b>을 확인하고 식별할 수 있다」.
+   해 보기 절차는 셋으로 쪼개져 있습니다.</p>
+
+<table class="wide">
+  <tr><th style="width:56px"></th><th style="width:250px">절차</th><th>우리 예제에서는</th></tr>
+  <tr><td class="c">1</td><td>구축 시스템의 업무 관련 데이터 유형을 식별</td>
+      <td>신청서에 적힌 항목 아홉을 <b>종류별로</b> 나눕니다</td></tr>
+  <tr><td class="c">2</td><td>현재 운영 중인 시스템의 데이터 현황 분석</td>
+      <td>지금은 <b>종이와 엑셀</b>입니다. 그것도 «현행» 입니다</td></tr>
+  <tr><td class="c">3</td><td>사용자 요구사항이 반영되었는지 분석</td>
+      <td>요구사항에 있는데 <b>신청서에 없는 항목</b>을 찾습니다</td></tr>
+</table>
+
+<h4>데이터 «유형» 이란</h4>
+<p>여기서 말하는 유형은 <code>VARCHAR</code> 같은 것이 <b>아닙니다.</b>
+   자료형은 물리 단계(레벨 2)에서 정합니다.
+   논리 단계에서 말하는 유형은 <b>그 값이 업무에서 어떤 성격인가</b>입니다.</p>
+
+<table class="wide ent">
+  <tr><th style="width:130px">유형</th><th style="width:210px">성격</th><th>예제의 항목</th></tr>
+  <tr><td class="k">식별 항목</td><td>하나를 콕 집어 주는 값</td>
+      <td><code>member_id</code> · <code>course_cd</code> · <code>sheet_no</code></td></tr>
+  <tr><td class="k">기술 항목</td><td>대상을 설명하는 값</td>
+      <td><code>member_nm</code> · <code>course_nm</code> · <code>teacher_nm</code></td></tr>
+  <tr><td class="k">수량 항목</td><td>계산에 들어가는 값</td>
+      <td><code>fee</code></td></tr>
+  <tr><td class="k">시점 항목</td><td>언제인가를 적는 값</td>
+      <td><code>apply_dt</code></td></tr>
+  <tr><td class="k">연락 항목</td><td>개인을 찾아가는 값 — <b>보호 대상</b></td>
+      <td><code>phone</code></td></tr>
+</table>
+
+<div class="note"><b>마지막 줄을 그냥 「기술 항목」 으로 묶으면 안 됩니다.</b>
+  전화번호는 <b>개인정보</b>이고,
+  그래서 수행준거 1-3 의 <b>「데이터 접근권한 및 통제 기준을 확인한다」</b> 에 걸립니다.
+  <b>유형을 나눌 때 보호 대상을 갈라 두어야</b>
+  뒤에서 권한 표를 만들 재료가 생깁니다.</div>
+
+<h4>현행 분석 — 종이도 «시스템» 입니다</h4>
+<p>「현재 운영 중인 시스템」 이 없다고 넘어가면 절차 2 가 비어 버립니다.
+   종이로 받고 엑셀로 옮겨 적고 있다면 <b>그것이 현행</b>입니다.
+   현행에서 봐야 할 것은 셋입니다.</p>
+
+<table class="wide">
+  <tr><th style="width:190px">무엇을 보나</th><th>예제에서 나온 것</th></tr>
+  <tr><td class="nm">같은 값이 여러 곳에</td>
+      <td>홍길동의 전화번호가 <b>신청서 두 장</b>에 각각 적혀 있습니다</td></tr>
+  <tr><td class="nm">빠질 수 있는 값</td>
+      <td>전화번호를 <b>안 적고</b> 낸 신청서가 있었습니다</td></tr>
+  <tr><td class="nm">사람이 외워 쓰는 값</td>
+      <td>강좌 코드 <code>C01</code> 을 <b>손으로 적다</b> <code>CO1</code> 로 잘못 씁니다</td></tr>
+</table>
+
+<h4>요구사항과 맞춰 보기</h4>
+<p>요구사항 목록을 옆에 놓고 <b>한 줄씩 지워 가며</b> 봅니다.
+   지워지지 않는 줄이 <b>지금 데이터에 없는 것</b>입니다.</p>
+
+<p class="cmdline"><code>RQ-01 회원은 여러 강좌를 신청할 수 있다          → sheet 에 같은 회원이 두 줄  ○
+RQ-02 같은 강좌를 두 번 신청할 수 없다           → 막는 장치가 «없다»          ✗
+RQ-03 강좌마다 담당 강사가 한 명 있다             → teacher_nm 이 있다          ○
+RQ-04 강사가 바뀌면 그 강좌만 바뀐다              → 고칠 곳이 «여러 줄»         ✗
+RQ-05 신청 취소 이력을 남긴다                     → 항목이 «아예 없다»          ✗</code></p>
+
+<p><b>✗ 세 줄이 이 교과가 할 일</b>입니다.
+   RQ-02 는 제약조건(실습 8)으로, RQ-04 는 정규화(실습 4)로,
+   RQ-05 는 엔티티 추가(실습 3)로 풀립니다.</p>
+
+<div class="lab">
+  <b class="t">실습 2</b>
+  <b>자료 항목 목록을 만듭니다</b>
+
+  <p><b>목적</b> — 수행준거 1-1 의 산출물입니다.
+     <b>표를 그리기 전에</b> 무엇이 있는지부터 적습니다.</p>
+
+  <h5>절차 1 — 항목을 «있는 그대로» 옮깁니다</h5>
+
+  <p>표 구조를 확인해서 항목 이름과 개수를 그대로 받아 적습니다.</p>
+
+  <p class="cmdline"><code>mysql&gt; DESC apply_sheet;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| sheet_no   | int         | NO   | PRI | NULL    |       |
+| member_id  | varchar(20) | YES  |     | NULL    |       |
+| member_nm  | varchar(40) | YES  |     | NULL    |       |
+| phone      | varchar(20) | YES  |     | NULL    |       |
+| course_cd  | varchar(10) | YES  |     | NULL    |       |
+| course_nm  | varchar(60) | YES  |     | NULL    |       |
+| teacher_nm | varchar(40) | YES  |     | NULL    |       |
+| fee        | int         | YES  |     | NULL    |       |
+| apply_dt   | date        | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+</code></p>
+
+  <h5>절차 2 — 유형을 붙입니다</h5>
+
+  <p>아홉 줄짜리 표를 만들고 <b>유형</b> 칸과 <b>보호</b> 칸을 채웁니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:130px">항목</th><th style="width:110px">유형</th>
+        <th style="width:80px">보호</th><th>업무에서 부르는 이름</th></tr>
+    <tr><td><code>member_id</code></td><td>식별</td><td class="c">—</td><td>회원 아이디</td></tr>
+    <tr><td><code>member_nm</code></td><td>기술</td><td class="c">—</td><td>회원 이름</td></tr>
+    <tr><td><code>phone</code></td><td>연락</td><td class="c"><b>○</b></td><td>연락처</td></tr>
+    <tr><td><code>course_cd</code></td><td>식별</td><td class="c">—</td><td>강좌 코드</td></tr>
+    <tr><td><code>fee</code></td><td>수량</td><td class="c">—</td><td>수강료</td></tr>
+    <tr><td><code>apply_dt</code></td><td>시점</td><td class="c">—</td><td>신청일</td></tr>
+  </table>
+
+  <p>나머지 셋(<code>sheet_no</code> · <code>course_nm</code> · <code>teacher_nm</code>)은
+     <b>여러분이 채우십시오.</b></p>
+
+  <h5>절차 3 — 값이 실제로 어떻게 생겼는지 «세어» 봅니다</h5>
+
+  <p>이름만 보고 자료형을 정하면 반드시 틀립니다. <b>실제 값을 세어</b> 봅니다.</p>
+
+  <p class="cmdline"><code>mysql&gt; SELECT MAX(CHAR_LENGTH(member_nm)) AS 이름최대,
+    -&gt;        MAX(CHAR_LENGTH(phone))     AS 전화최대,
+    -&gt;        MIN(fee) AS 최저, MAX(fee) AS 최고
+    -&gt;   FROM apply_sheet;
++--------------+--------------+--------+--------+
+| 이름최대     | 전화최대     | 최저   | 최고   |
++--------------+--------------+--------+--------+
+|            3 |           13 | 150000 | 220000 |
++--------------+--------------+--------+--------+</code></p>
+
+  <p>이 숫자가 <b>레벨 2 에서 길이를 정할 때 쓰는 근거</b>입니다.
+     「대충 <code>VARCHAR(255)</code>」 라고 적으면 여기서 점수를 잃습니다.</p>
+
+  <h5>절차 4 — 요구사항과 맞춰 «✗ 를 찾습니다»</h5>
+
+  <p>위의 RQ 목록처럼 다섯 줄을 적고 ○ / ✗ 를 답니다.
+     <b>✗ 가 하나도 없으면 잘못 본 것</b>입니다. 장표 한 장으로 될 업무는 없습니다.</p>
+
+  <p><b>제출물</b> — 자료 항목 목록(아홉 줄, 유형·보호 칸 포함) +
+     길이 근거 숫자 + 요구사항 대조표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 아홉 항목에 <b>유형을 다</b> 붙였습니까
+     ② <b>보호 대상</b>을 갈라 놓았습니까
+     ③ 길이를 <b>세어서</b> 근거를 남겼습니까
+     ④ 요구사항 대조에서 <b>✗ 를 찾았습니까</b></p>
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st3">
+      <h3><i>3</i>논리적 단위와 관계 — 수행준거 1-2</h3>
+      <aside class="side">
+        <p class="pt">항목을 «덩어리» 로 묶는 일입니다.</p>
+        <b class="sh">이 단계의 결과</b>
+        <p class="v">엔티티 목록과 관계도</p>
+      </aside>
+      <div class="bd">
+
+<h4>엔티티를 찾는 한 가지 질문</h4>
+<p>수행준거 1-2 는 「데이터의 <b>논리적 단위</b>와 데이터 간의 <b>관계</b>를 확인한다」 입니다.
+   논리적 단위가 곧 <b>엔티티</b>입니다. 찾는 방법은 어렵지 않습니다.</p>
+
+<div class="note"><b>「이 값이 스스로 생겼다 없어졌다 하는가」</b>
+  회원은 신청과 상관없이 <b>가입하고 탈퇴</b>합니다 → 엔티티입니다.
+  강좌도 신청과 상관없이 <b>열리고 닫힙니다</b> → 엔티티입니다.
+  신청일은 <b>신청이 없으면 존재하지 않습니다</b> → 속성입니다.</div>
+
+<p>이 질문으로 아홉 항목을 훑으면 넷이 남습니다.</p>
+
+<table class="wide ent">
+  <tr><th style="width:110px">엔티티</th><th style="width:150px">식별자</th>
+      <th>속성</th></tr>
+  <tr><td class="k">회원</td><td><code>member_id</code></td>
+      <td>이름 · 연락처 · 가입일</td></tr>
+  <tr><td class="k">강사</td><td><code>teacher_no</code></td>
+      <td>강사명</td></tr>
+  <tr><td class="k">강좌</td><td><code>course_cd</code></td>
+      <td>강좌명 · 수강료 · <b>담당 강사</b></td></tr>
+  <tr><td class="k">신청</td><td><code>apply_no</code></td>
+      <td>회원 · 강좌 · 신청일</td></tr>
+</table>
+
+<p><b>강사를 따로 뽑은 까닭</b>이 중요합니다.
+   신청서에는 <code>teacher_nm</code> 밖에 없습니다.
+   그런데 요구사항 RQ-04 가 「강사가 바뀌면 그 강좌만 바뀐다」 였습니다.
+   이름만 들고 있으면 <b>동명이인</b>을 못 가릅니다.
+   <b>요구사항이 엔티티를 하나 더 만들어 낸 것</b>입니다.</p>
+
+<h4>관계 — 몇 대 몇인가</h4>
+<p>관계는 <b>양쪽에서 한 번씩</b> 물어야 정해집니다. 한쪽만 물으면 반드시 틀립니다.</p>
+
+<table class="wide">
+  <tr><th style="width:150px">관계</th><th style="width:230px">한쪽에서 보면</th>
+      <th>반대쪽에서 보면</th></tr>
+  <tr><td class="nm">강사 — 강좌</td>
+      <td>강사 한 명이 강좌를 <b>여럿</b> 맡는다</td>
+      <td>강좌 하나에 강사는 <b>한 명</b> → <b>1 : N</b></td></tr>
+  <tr><td class="nm">회원 — 강좌</td>
+      <td>회원 한 명이 강좌를 <b>여럿</b> 신청한다</td>
+      <td>강좌 하나를 회원 <b>여럿</b>이 신청한다 → <b>N : M</b></td></tr>
+</table>
+
+<div class="warn"><b>N : M 은 표로 만들 수 없습니다.</b>
+  회원 표에 강좌를 여러 개 적을 수도,
+  강좌 표에 회원을 여러 명 적을 수도 없습니다.
+  그래서 <b>가운데에 표를 하나 더</b> 둡니다.
+  그것이 <b>신청</b> 엔티티입니다.
+  <b>N : M 이 보이면 관계 엔티티를 찾으라</b> — 이 한 줄이 이 단계의 요령 전부입니다.</div>
+
+<h4>관계를 글로 그리기</h4>
+<p>도구가 없어도 됩니다. 아래처럼 적으면 검증서에 그대로 붙습니다.</p>
+
+<p class="cmdline"><code>강사(teacher_no) ──1───N── 강좌(course_cd)
+                                  │
+                                  N
+                                  │
+회원(member_id) ──1───N── 신청(apply_no)
+
+읽는 법
+  강사 1 명 : 강좌 N 개        강좌 1 개 : 강사 1 명
+  회원 1 명 : 신청 N 건        강좌 1 개 : 신청 N 건
+  ⇒ 회원 N 명 : 강좌 M 개 를 «신청» 이 풀어 준다</code></p>
+
+<h4>수행준거 1-2 가 요구하는 세 가지 점검</h4>
+<table class="wide">
+  <tr><th style="width:190px">점검</th><th>무엇을 보나</th></tr>
+  <tr><td class="nm">데이터 흐름 정의</td>
+      <td>값이 <b>어디서 들어와 어디로 나가는지</b>.
+          신청일은 신청할 때 생기고, 수강료는 강좌에서 따라옵니다</td></tr>
+  <tr><td class="nm">설계 기준 정의</td>
+      <td>이름 짓는 규칙 · 코드 체계.
+          <code>member_id</code> 처럼 <b>소문자에 밑줄</b>로 통일했는지</td></tr>
+  <tr><td class="nm">모델링 완성도</td>
+      <td><b>식별자가 없는 엔티티</b>나
+          <b>어느 엔티티에도 안 붙는 속성</b>이 남아 있지 않은지</td></tr>
+</table>
+
+<div class="lab">
+  <b class="t">실습 3</b>
+  <b>엔티티를 뽑고, 빠진 엔티티를 «요구사항에서» 찾습니다</b>
+
+  <p><b>목적</b> — 수행준거 1-2 의 산출물입니다.
+     실습 2 에서 찾은 <b>✗ 세 줄</b>이 여기서 쓰입니다.</p>
+
+  <h5>절차 1 — 후보를 «다» 적습니다</h5>
+
+  <p>아홉 항목을 놓고 위의 질문을 던집니다. <b>아닌 것도 적어 두십시오.</b>
+     왜 뺐는지가 검증서의 내용이 됩니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:130px">후보</th><th style="width:80px">엔티티?</th><th>까닭</th></tr>
+    <tr><td>회원</td><td class="c"><b>○</b></td><td>신청과 무관하게 가입·탈퇴한다</td></tr>
+    <tr><td>강좌</td><td class="c"><b>○</b></td><td>신청과 무관하게 열리고 닫힌다</td></tr>
+    <tr><td>강사</td><td class="c"><b>○</b></td><td>요구사항 RQ-04 가 «강좌만 바뀐다» 를 요구한다</td></tr>
+    <tr><td>신청</td><td class="c"><b>○</b></td><td>회원과 강좌의 N : M 을 푸는 관계 엔티티</td></tr>
+    <tr><td>수강료</td><td class="c">×</td><td>강좌가 없으면 존재하지 않는다 → 강좌의 속성</td></tr>
+    <tr><td>신청일</td><td class="c">×</td><td>신청이 없으면 존재하지 않는다 → 신청의 속성</td></tr>
+  </table>
+
+  <h5>절차 2 — 식별자를 정합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:110px">엔티티</th><th style="width:150px">식별자</th><th>고른 까닭</th></tr>
+    <tr><td class="k">회원</td><td><code>member_id</code></td>
+        <td>업무에서 <b>이미 쓰는</b> 값입니다</td></tr>
+    <tr><td class="k">강좌</td><td><code>course_cd</code></td>
+        <td>마찬가지로 업무 코드입니다</td></tr>
+    <tr><td class="k">강사</td><td><code>teacher_no</code></td>
+        <td>업무에 코드가 <b>없어서</b> 새로 만듭니다 (일련번호)</td></tr>
+    <tr><td class="k">신청</td><td><code>apply_no</code></td>
+        <td>일련번호. <b>「회원+강좌」 로도 유일</b>하지만 다루기 번거롭습니다</td></tr>
+  </table>
+
+  <div class="note"><b>업무 코드가 있으면 그것을 쓰고, 없으면 일련번호를 만듭니다.</b>
+    있는데도 일련번호를 새로 만들면
+    <b>같은 것을 가리키는 값이 둘</b>이 되어 나중에 어긋납니다.</div>
+
+  <h5>절차 3 — 빠진 엔티티를 찾습니다</h5>
+
+  <p>실습 2 의 <code>RQ-05 신청 취소 이력을 남긴다</code> 가 <b>✗</b> 였습니다.
+     지금 엔티티 넷 중 어디에도 취소를 적을 자리가 없습니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:44%">이렇게 풀면</th><th>이렇게 풀면</th></tr>
+    <tr><td><b>신청에 «상태» 속성을 더한다</b><br><br>
+            간단합니다. 그런데
+            <b>언제 취소했는지</b>는 못 남깁니다</td>
+        <td><b>«신청이력» 엔티티를 더한다</b><br><br>
+            취소 시각·사유까지 남습니다.
+            표가 하나 늘어납니다</td></tr>
+  </table>
+
+  <p><b>둘 중 어느 쪽이든 됩니다.</b> 중요한 것은
+     <b>요구사항 한 줄 때문에 모델이 바뀌었다</b>는 사실을 검증서에 적는 것입니다.
+     이 교안은 <b>왼쪽(상태 속성)</b>으로 갑니다 — 표를 늘리지 않고 끝까지 가기 위해서입니다.</p>
+
+  <h5>절차 4 — 관계도를 그려 냅니다</h5>
+
+  <p>위의 「관계를 글로 그리기」 를 <b>여러분 예제로</b> 다시 씁니다.
+     엔티티 넷, 관계 셋, <b>각 관계마다 양쪽 방향의 문장</b>이 있어야 합니다.</p>
+
+  <p><b>제출물</b> — 엔티티 후보표(뺀 것 포함) + 식별자표 +
+     관계도 + <b>요구사항 때문에 바뀐 점</b> 한 문단</p>
+
+  <p><b>스스로 확인</b> —
+     ① 엔티티마다 <b>식별자</b>가 있습니까
+     ② 어느 엔티티에도 안 붙는 <b>떠도는 속성</b>이 없습니까
+     ③ 관계를 <b>양쪽에서</b> 읽어 봤습니까
+     ④ <b>N : M</b> 을 관계 엔티티로 풀었습니까</p>
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st4">
+      <h3><i>4</i>제약조건과 정규화 — 수행준거 1-3</h3>
+      <aside class="side">
+        <p class="pt">정규화는 «외우는 규칙» 이 아니라 <b>고칠 자리를 하나로 만드는 일</b>입니다.</p>
+        <b class="sh">이 단계의 결과</b>
+        <p class="v">정규화 근거 · 권한표</p>
+      </aside>
+      <div class="bd">
+
+<h4>먼저 «이상» 을 봅니다</h4>
+<p>정규형을 외우기 전에, <b>안 하면 무슨 일이 생기는지</b>부터 봅니다.
+   학습모듈은 정규화를 「중복성을 최소화하고 정보의 일관성을 보장하기 위한 개념」 이라고 씁니다.
+   그 <b>일관성이 깨지는 모습</b>이 이상(anomaly)입니다.</p>
+
+<table class="wide">
+  <tr><th style="width:130px">이상</th><th style="width:250px">언제 생기나</th>
+      <th>예제에서</th></tr>
+  <tr><td class="nm">갱신 이상</td><td>같은 값이 여러 줄에 있는데 일부만 고칠 때</td>
+      <td>홍길동 전화번호를 <b>한 줄만</b> 고침</td></tr>
+  <tr><td class="nm">삽입 이상</td><td>다른 값이 없어서 넣지 못할 때</td>
+      <td>아직 <b>아무도 신청 안 한 강좌</b>를 등록할 수 없음</td></tr>
+  <tr><td class="nm">삭제 이상</td><td>한 줄을 지우면 다른 정보까지 사라질 때</td>
+      <td>신청을 취소하면 <b>그 강좌 정보까지</b> 사라짐</td></tr>
+</table>
+
+<h4>함수 종속 — 「무엇이 무엇을 정하는가」</h4>
+<p>정규화의 판단 기준은 <b>함수 종속</b> 하나입니다.
+   <code>A → B</code> 는 <b>「A 값이 정해지면 B 값도 저절로 정해진다」</b> 는 뜻입니다.</p>
+
+<p class="cmdline"><code>apply_sheet 의 함수 종속
+
+  sheet_no  → member_id, course_cd, apply_dt        ← 신청서 번호가 정하는 것
+  member_id → member_nm, phone                      ← 회원 아이디가 정하는 것
+  course_cd → course_nm, teacher_nm, fee            ← 강좌 코드가 정하는 것</code></p>
+
+<p>둘째·셋째 줄이 문제입니다.
+   <b>주 식별자(<code>sheet_no</code>)가 아닌 값이 다른 값을 정하고</b> 있습니다.
+   이것을 <b>이행적 종속</b>이라 하고, 없애는 것이 <b>제3정규형</b>입니다.</p>
+
+<table class="wide">
+  <tr><th style="width:90px">정규형</th><th style="width:250px">없애는 것</th>
+      <th>예제에서 한 일</th></tr>
+  <tr><td class="nm">제1정규형</td><td>한 칸에 값이 여러 개 들어간 것</td>
+      <td>이미 만족합니다 — 한 칸에 하나씩 적혀 있습니다</td></tr>
+  <tr><td class="nm">제2정규형</td><td>식별자 <b>일부</b>에만 딸린 속성</td>
+      <td>식별자가 <code>sheet_no</code> 하나뿐이라 해당 없음</td></tr>
+  <tr><td class="nm">제3정규형</td><td>식별자가 아닌 값에 딸린 속성</td>
+      <td><b>회원 · 강좌 · 강사를 갈라냈습니다</b></td></tr>
+</table>
+
+<div class="note"><b>제2정규형이 「해당 없음」 인 것도 검증 결과입니다.</b>
+  「안 했다」 가 아니라 <b>「볼 필요가 없음을 확인했다」</b> 입니다.
+  검증서에 <b>세 정규형을 다 적고</b>
+  해당 없는 것은 까닭을 한 줄 쓰십시오.</div>
+
+<h4>접근권한 및 통제 기준</h4>
+<p>수행준거 1-3 은 제약조건만 보는 것이 아닙니다.
+   <b>「데이터 접근권한 및 통제 기준을 확인한다」</b> 가 들어 있습니다.
+   실습 2 에서 <b>보호 대상</b>을 갈라 둔 것이 여기서 쓰입니다.</p>
+
+<table class="wide">
+  <tr><th style="width:110px">역할</th><th style="width:150px">회원</th>
+      <th style="width:150px">신청</th><th>연락처</th></tr>
+  <tr><td class="nm">수강생</td><td>자기 것만 조회·수정</td><td>자기 것만</td>
+      <td><b>자기 것만</b></td></tr>
+  <tr><td class="nm">강사</td><td>이름만</td><td>담당 강좌 신청자 조회</td>
+      <td><b>못 봄</b></td></tr>
+  <tr><td class="nm">관리자</td><td>전부</td><td>전부</td><td>전부</td></tr>
+</table>
+
+<p>강사 줄이 요점입니다. <b>담당 강좌의 신청자는 봐야 하지만 연락처는 볼 이유가 없습니다.</b>
+   이 판단이 나중에 <b>뷰</b>(실습 8)로 구현됩니다 —
+   연락처를 <b>뺀 채로</b> 보여 주는 뷰를 만들면 됩니다.</p>
+
+<div class="lab">
+  <b class="t">실습 4</b>
+  <b>갱신 이상을 «직접 만들어» 봅니다</b>
+
+  <p><b>목적</b> — 수행준거 1-3 의 근거를 <b>말이 아니라 숫자</b>로 남깁니다.
+     「중복되면 위험하다」 고 쓰는 것과
+     「고쳤더니 전화번호가 두 개가 되었다」 고 보이는 것은 다릅니다.</p>
+
+  <h5>절차 1 — 한 줄만 고칩니다</h5>
+
+  <p>홍길동이 전화번호를 바꿨다고 신고했습니다. 신청서 <b>1번</b>을 찾아 고칩니다.</p>
+
+  <p class="cmdline"><code>mysql&gt; UPDATE apply_sheet SET phone='010-9999-0000' WHERE sheet_no=1;
+Query OK, 1 row affected (0.01 sec)</code></p>
+
+  <h5>절차 2 — 같은 사람을 다시 봅니다</h5>
+
+  <p class="cmdline"><code>mysql&gt; SELECT sheet_no, member_id, member_nm, phone
+    -&gt;   FROM apply_sheet WHERE member_id='hong';
++----------+-----------+-----------+---------------+
+| sheet_no | member_id | member_nm | phone         |
++----------+-----------+-----------+---------------+
+|        1 | hong      | 홍길동 | 010-9999-0000 |
+|        2 | hong      | 홍길동 | 010-1111-2222 |
++----------+-----------+-----------+---------------+</code></p>
+
+  <p><b>한 사람인데 전화번호가 둘</b>이 되었습니다.
+     오류는 <b>나지 않았습니다.</b> 그래서 더 나쁩니다 —
+     <b>아무도 모르는 채로 남습니다.</b></p>
+
+  <h5>절차 3 — 숫자로 셉니다</h5>
+
+  <p>검증서에 붙일 것은 위 화면이 아니라 <b>이 숫자</b>입니다.</p>
+
+  <p class="cmdline"><code>mysql&gt; SELECT member_id, COUNT(DISTINCT phone) AS phone_kinds
+    -&gt;   FROM apply_sheet GROUP BY member_id;
++-----------+-------------+
+| member_id | phone_kinds |
++-----------+-------------+
+| hong      |           2 |      ← 1 이어야 하는데 2 입니다
+| kim       |           1 |
+| lee       |           1 |
++-----------+-------------+</code></p>
+
+  <div class="warn"><b>이 한 줄짜리 SQL 이 «검증» 입니다.</b>
+    <code>COUNT(DISTINCT …)</code> 가 <b>1 보다 크면 중복이 어긋난 것</b>입니다.
+    회원 이름·강좌명·수강료에도 똑같이 걸어 보십시오.
+    <b>모델이 잘못됐다는 주장을 숫자로 만드는 법</b>입니다.</div>
+
+  <h5>절차 4 — 나눈 모델에서는 어떻게 되는지 봅니다</h5>
+
+  <p>레벨 2 에서 만들 <code>member</code> 표에서는 같은 SQL 이 이렇게 나옵니다.</p>
+
+  <p class="cmdline"><code>mysql&gt; SELECT member_id, COUNT(DISTINCT phone) AS phone_kinds
+    -&gt;   FROM member GROUP BY member_id;
++-----------+-------------+
+| member_id | phone_kinds |
++-----------+-------------+
+| hong      |           1 |
+| kim       |           1 |
+| lee       |           1 |
++-----------+-------------+</code></p>
+
+  <p><b>2 가 나올 수가 없습니다.</b> 회원 한 명이 한 줄뿐이니
+     <b>고칠 자리가 애초에 하나</b>입니다. 이것이 정규화의 효과 전부입니다.</p>
+
+  <h5>절차 5 — 삽입·삭제 이상도 확인합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:110px">이상</th><th style="width:250px">해 보는 법</th><th>나오는 결과</th></tr>
+    <tr><td class="nm">삽입</td>
+        <td>신청자가 없는 강좌 <code>C04</code> 를 <code>apply_sheet</code> 에 넣어 보기</td>
+        <td>회원 칸을 <b>비워야</b> 합니다 — 넣을 자리가 없습니다</td></tr>
+    <tr><td class="nm">삭제</td>
+        <td><code>DELETE FROM apply_sheet WHERE sheet_no=5;</code></td>
+        <td><b>C03 강좌 정보가 통째로</b> 사라집니다 (그 줄이 유일)</td></tr>
+  </table>
+
+  <h5>절차 6 — 권한표를 채웁니다</h5>
+
+  <p>위의 3×4 표를 여러분 예제로 채웁니다.
+     <b>「못 봄」 이 한 칸이라도 없으면 다시 보십시오</b> —
+     전부 다 볼 수 있는 설계는 통제 기준을 세우지 않은 것입니다.</p>
+
+  <p><b>제출물</b> — 함수 종속 목록 + 정규형 세 줄(해당 없는 것도) +
+     <code>COUNT(DISTINCT)</code> 검증 화면 <b>둘</b>(나누기 전·후) + 권한표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 갱신 이상을 <b>직접 만들어</b> 봤습니까
+     ② <code>phone_kinds</code> 가 <b>2</b> 로 나온 화면을 남겼습니까
+     ③ 정규형을 <b>셋 다</b> 적었습니까
+     ④ 권한표에 <b>「못 봄」</b> 이 있습니까</p>
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 2 · 물리 데이터저장소 설계하기</b><span>능력단위요소 ② · 수행준거 2-1 ~ 2-3</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st5">
+      <h3><i>5</i>논리를 물리로 옮기기 — 수행준거 2-1</h3>
+      <aside class="side">
+        <p class="pt">네 줄짜리 변환 규칙이 전부입니다.</p>
+        <b class="sh">이 단계의 결과</b>
+        <p class="v">테이블 정의서</p>
+      </aside>
+      <div class="bd">
+
+<h4>변환 규칙 넷</h4>
+<p>학습모듈의 해 보기 절차가 그대로 규칙입니다. <b>외울 것이 넷뿐</b>입니다.</p>
+
+<table class="wide">
+  <tr><th style="width:56px"></th><th style="width:210px">논리</th>
+      <th style="width:150px">물리</th><th>예제</th></tr>
+  <tr><td class="c">1</td><td>단위 엔티티</td><td class="nm">테이블</td>
+      <td>회원 → <code>member</code></td></tr>
+  <tr><td class="c">2</td><td>속성</td><td class="nm">칼럼</td>
+      <td>연락처 → <code>phone</code></td></tr>
+  <tr><td class="c">3</td><td>UID(식별자)</td><td class="nm">기본키 PK</td>
+      <td><code>member_id</code> → <code>PRIMARY KEY</code></td></tr>
+  <tr><td class="c">4</td><td>관계</td><td class="nm">외래키 FK</td>
+      <td>강좌—강사 → <code>course.teacher_no</code></td></tr>
+</table>
+
+<h4>관계를 옮길 때 «어느 쪽에» 넣는가</h4>
+<p>규칙 4 만 헷갈립니다. 1 : N 에서 외래키는 <b>언제나 N 쪽</b>에 들어갑니다.</p>
+
+<p class="cmdline"><code>강사 1 ────< N 강좌
+
+  ○ 맞는 것 : course 표에 teacher_no 를 둔다          (N 쪽)
+  × 틀린 것 : teacher 표에 course_cd 를 여러 개 둔다  (1 쪽 — 칸이 모자람)</code></p>
+
+<p>까닭은 <b>칸이 하나뿐</b>이기 때문입니다.
+   강좌는 강사가 한 명이니 한 칸이면 되지만,
+   강사는 강좌가 여럿이라 한 칸에 못 담습니다.</p>
+
+<h4>이름 짓기</h4>
+<p>수행준거 1-2 의 「설계 기준」 이 여기서 실물이 됩니다.
+   <b>규칙을 먼저 적고 그대로 지키십시오.</b> 규칙 자체는 무엇이든 됩니다.</p>
+
+<div class="kv">
+  <b>표 이름</b><span>단수형 소문자 — <code>member</code>, <code>course</code> (<code>members</code> 아님)</span>
+  <b>칼럼 이름</b><span>소문자 + 밑줄 — <code>member_nm</code></span>
+  <b>기본키</b><span><code>표이름_cd</code> 또는 <code>표이름_no</code></span>
+  <b>제약조건</b><span><code>pk_</code> · <code>fk_</code> · <code>uq_</code> · <code>idx_</code> 로 시작</span>
+</div>
+
+<div class="note"><b>제약조건에 이름을 붙이는 것이 중요합니다.</b>
+  안 붙이면 MySQL 이 <code>course_ibfk_1</code> 같은 이름을 자동으로 답니다.
+  나중에 오류가 났을 때 <b>그 이름만 보고는 무엇이 걸렸는지 모릅니다.</b>
+  실습 8 에서 직접 확인합니다.</div>
+
+<h4>테이블 정의서</h4>
+<p>물리 설계서의 본문은 <b>표마다 한 장</b>씩 이런 모양입니다.</p>
+
+<table class="wide">
+  <tr><th style="width:130px">칼럼</th><th style="width:110px">자료형</th>
+      <th style="width:70px">NULL</th><th style="width:70px">키</th><th>설명</th></tr>
+  <tr><td><code>course_cd</code></td><td>VARCHAR(10)</td><td class="c">NO</td>
+      <td class="c"><b>PK</b></td><td>강좌 코드 — 업무 코드</td></tr>
+  <tr><td><code>course_nm</code></td><td>VARCHAR(60)</td><td class="c">NO</td>
+      <td class="c">—</td><td>강좌명</td></tr>
+  <tr><td><code>teacher_no</code></td><td>INT</td><td class="c">NO</td>
+      <td class="c"><b>FK</b></td><td>담당 강사 → <code>teacher</code></td></tr>
+  <tr><td><code>fee</code></td><td>INT</td><td class="c">NO</td>
+      <td class="c">—</td><td>수강료 (원)</td></tr>
+</table>
+
+<div class="lab">
+  <b class="t">실습 5</b>
+  <b>엔티티 넷을 테이블 정의서 넷으로 옮깁니다</b>
+
+  <p><b>목적</b> — 수행준거 2-1 의 산출물입니다.
+     <b>SQL 을 치기 전에 종이에서 끝내는 것</b>이 이 단계의 요점입니다.</p>
+
+  <h5>절차 1 — 변환표를 만듭니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:110px">엔티티</th><th style="width:130px">테이블</th>
+        <th style="width:150px">기본키</th><th>외래키</th></tr>
+    <tr><td class="k">회원</td><td><code>member</code></td>
+        <td><code>member_id</code></td><td>없음</td></tr>
+    <tr><td class="k">강사</td><td><code>teacher</code></td>
+        <td><code>teacher_no</code></td><td>없음</td></tr>
+    <tr><td class="k">강좌</td><td><code>course</code></td>
+        <td><code>course_cd</code></td><td><code>teacher_no</code> → <code>teacher</code></td></tr>
+    <tr><td class="k">신청</td><td><code>apply</code></td>
+        <td><code>apply_no</code></td>
+        <td><code>member_id</code> → <code>member</code><br>
+            <code>course_cd</code> → <code>course</code></td></tr>
+  </table>
+
+  <p><b>신청 표에 외래키가 둘</b>인 것을 확인하십시오.
+     관계 엔티티는 <b>양쪽을 다 가리킵니다.</b> 하나만 있으면 관계가 반쪽입니다.</p>
+
+  <h5>절차 2 — 속성을 칼럼으로 «빠짐없이» 옮깁니다</h5>
+
+  <p>실습 2 의 아홉 항목이 <b>한 칸도 남김없이</b> 어딘가로 갔는지 셉니다.</p>
+
+  <p class="cmdline"><code>apply_sheet 아홉 칸이 간 곳
+
+  sheet_no    → (버림)  장표 번호는 업무 의미가 없습니다
+  member_id   → member.member_id / apply.member_id
+  member_nm   → member.member_nm
+  phone       → member.phone
+  course_cd   → course.course_cd / apply.course_cd
+  course_nm   → course.course_nm
+  teacher_nm  → teacher.teacher_nm
+  fee         → course.fee
+  apply_dt    → apply.apply_dt
+
+  더 생긴 것 : teacher.teacher_no · apply.apply_no · member.join_dt</code></p>
+
+  <div class="warn"><b>«버림» 과 «더 생김» 을 반드시 적으십시오.</b>
+    항목 수가 아홉에서 열둘로 바뀌었는데
+    까닭을 안 적으면 <b>옮기다 흘린 것</b>과 구분이 안 됩니다.
+    설계서를 읽는 사람이 가장 먼저 세는 것이 <b>항목 수</b>입니다.</div>
+
+  <h5>절차 3 — 정의서 넷을 씁니다</h5>
+
+  <p>위의 <code>course</code> 정의서를 본보기로
+     <code>member</code> · <code>teacher</code> · <code>apply</code> 를 채웁니다.
+     <b>자료형 칸은 아직 비워 두십시오</b> — 다음 단계에서 정합니다.</p>
+
+  <h5>절차 4 — 관계 방향을 «반대로» 넣어 봅니다</h5>
+
+  <p>규칙 4 를 몸으로 익히는 방법입니다. 종이에 이렇게 그려 보십시오.</p>
+
+  <table class="wide">
+    <tr><th style="width:44%">teacher 표에 course_cd 를 두면</th>
+        <th>course 표에 teacher_no 를 두면</th></tr>
+    <tr><td>김강사는 C01 · C03 을 맡았습니다.<br>
+            칸 하나에 <b>둘을 적을 수 없습니다.</b><br>
+            칸을 <code>course_cd1</code>, <code>course_cd2</code> 로 늘리면
+            <b>셋째 강좌를 맡는 날 표를 고쳐야</b> 합니다</td>
+        <td>C01 은 김강사, C03 도 김강사.<br>
+            <b>같은 값이 두 줄에 들어갈 뿐</b>입니다.<br>
+            강좌가 몇 개로 늘어도 <b>표 구조는 그대로</b>입니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 변환표 + 아홉 칸이 간 곳 목록 + 테이블 정의서 넷(자료형 칸 제외)</p>
+
+  <p><b>스스로 확인</b> —
+     ① 엔티티 넷이 <b>테이블 넷</b>이 되었습니까
+     ② <code>apply</code> 에 외래키가 <b>둘</b>입니까
+     ③ 아홉 칸이 <b>다</b> 어딘가로 갔습니까
+     ④ 버린 것과 더 생긴 것의 <b>까닭</b>을 적었습니까</p>
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st6">
+      <h3><i>6</i>자료형과 길이 — 수행준거 2-2</h3>
+      <aside class="side">
+        <p class="pt">「대충 <code>VARCHAR(255)</code>」 가 가장 많이 나오는 감점입니다.</p>
+        <b class="sh">이 단계의 결과</b>
+        <p class="v">자료형 칸이 채워진 정의서</p>
+      </aside>
+      <div class="bd">
+
+<h4>세 갈래만 구분하면 됩니다</h4>
+<table class="wide">
+  <tr><th style="width:110px">갈래</th><th style="width:190px">MySQL 자료형</th>
+      <th>고르는 기준</th></tr>
+  <tr><td class="nm">글자</td><td><code>CHAR(n)</code> · <code>VARCHAR(n)</code></td>
+      <td><b>길이가 늘 같으면</b> CHAR, 들쭉날쭉하면 VARCHAR</td></tr>
+  <tr><td class="nm">숫자</td><td><code>INT</code> · <code>DECIMAL(p,s)</code> · <code>DOUBLE</code></td>
+      <td><b>돈과 수량은 절대 <code>DOUBLE</code> 을 쓰지 않습니다</b></td></tr>
+  <tr><td class="nm">때</td><td><code>DATE</code> · <code>DATETIME</code></td>
+      <td>시각이 필요하면 <code>DATETIME</code>, 날짜만이면 <code>DATE</code></td></tr>
+</table>
+
+<h4>돈에 <code>DOUBLE</code> 을 쓰면 안 되는 까닭</h4>
+<p>말로 하면 안 믿습니다. <b>쳐 보십시오.</b></p>
+
+<p class="cmdline"><code>mysql&gt; SELECT 0.1+0.2 = 0.3 AS dec_eq;
++--------+
+| dec_eq |
++--------+
+|      1 |        ← DECIMAL 로 셈하면 «같다»
++--------+
+
+mysql&gt; SELECT CAST(0.1 AS DOUBLE)+CAST(0.2 AS DOUBLE) = CAST(0.3 AS DOUBLE) AS dbl_eq;
++--------+
+| dbl_eq |
++--------+
+|      0 |        ← DOUBLE 로 셈하면 «다르다»
++--------+</code></p>
+
+<div class="warn"><b>0.1 + 0.2 가 0.3 이 아닙니다.</b>
+  <code>DOUBLE</code> 은 <b>2 진수로 근사</b>해서 담기 때문입니다.
+  수강료 합계가 <b>1원씩 어긋나는</b> 사고가 여기서 납니다.
+  돈은 <code>DECIMAL</code> 이나 <b>원 단위 <code>INT</code></b> 로 담으십시오.
+  이 교안은 수강료를 원 단위 <code>INT</code> 로 씁니다 — 소수점이 없는 금액입니다.</div>
+
+<h4><code>CHAR</code> 과 <code>VARCHAR</code></h4>
+<p>흔히 「CHAR 는 빈칸을 채운다」 고 배우는데, <b>읽을 때는 그렇게 보이지 않습니다.</b></p>
+
+<p class="cmdline"><code>mysql&gt; CREATE TABLE t_try (c_char CHAR(10), c_var VARCHAR(10));
+mysql&gt; INSERT INTO t_try VALUES ('abc','abc');
+mysql&gt; SELECT CONCAT('[',c_char,']') AS ch, CONCAT('[',c_var,']') AS va,
+    -&gt;        LENGTH(c_char) AS ch_bytes, LENGTH(c_var) AS va_bytes FROM t_try;
++-------+-------+----------+----------+
+| ch    | va    | ch_bytes | va_bytes |
++-------+-------+----------+----------+
+| [abc] | [abc] |        3 |        3 |
++-------+-------+----------+----------+</code></p>
+
+<p><b>둘이 똑같이 나옵니다.</b> MySQL 은 <code>CHAR</code> 를 <b>읽을 때 뒤 공백을 떼어</b> 줍니다.
+   차이는 <b>저장 공간</b>에 있습니다 — <code>CHAR(10)</code> 은 세 글자를 넣어도 열 칸을 잡습니다.
+   그러니 <b>길이가 늘 일정한 값</b>(국가코드, 우편번호, 해시값)에만 쓰십시오.</p>
+
+<h4>길이를 넘기면</h4>
+<p class="cmdline"><code>mysql&gt; INSERT INTO t_try (c_var) VALUES ('12345678901');
+ERROR 1406 (22001): Data too long for column 'c_var' at row 1</code></p>
+
+<p><b>오류가 납니다 — 잘려서 들어가지 않습니다.</b>
+   그래서 길이를 <b>너무 짧게</b> 잡으면 운영 중에 터집니다.
+   반대로 무턱대고 <code>255</code> 로 잡으면
+   <b>「왜 255 인가」 에 답할 수 없습니다.</b></p>
+
+<h4>길이를 정하는 근거</h4>
+<table class="wide">
+  <tr><th style="width:130px">칼럼</th><th style="width:130px">정한 길이</th><th>근거</th></tr>
+  <tr><td><code>member_id</code></td><td>VARCHAR(20)</td>
+      <td>영문 아이디 규칙이 <b>최대 20자</b></td></tr>
+  <tr><td><code>member_nm</code></td><td>VARCHAR(40)</td>
+      <td>현행 최대 <b>3자</b> + 외국인 이름 여유</td></tr>
+  <tr><td><code>phone</code></td><td>VARCHAR(20)</td>
+      <td>현행 최대 <b>13자</b>(<code>010-1111-2222</code>) + 국가번호 여유</td></tr>
+  <tr><td><code>fee</code></td><td>INT</td>
+      <td>현행 <b>150,000 ~ 220,000</b> — INT 범위 안, 소수점 없음</td></tr>
+  <tr><td><code>apply_dt</code></td><td>DATE</td>
+      <td>신청 <b>시각</b>은 업무에서 쓰지 않음</td></tr>
+</table>
+
+<p>「현행 최대 3자」 「현행 최대 13자」 가 <b>실습 2 에서 세어 둔 숫자</b>입니다.
+   두 단계가 이렇게 이어집니다.</p>
+
+<div class="lab">
+  <b class="t">실습 6</b>
+  <b>자료형을 정하고, 잘못 정했을 때 어떻게 되는지 봅니다</b>
+
+  <p><b>목적</b> — 수행준거 2-2 의 「칼럼 유형과 길이를 정의한다」 입니다.
+     <b>정하고 끝내지 말고 시험해</b> 봅니다.</p>
+
+  <h5>절차 1 — 정의서의 자료형 칸을 채웁니다</h5>
+
+  <p>실습 5 에서 비워 둔 칸을 채웁니다. <b>근거 칸을 함께</b> 만드십시오.
+     근거가 없는 줄은 <b>나중에 왜 그렇게 했는지 아무도 모릅니다.</b></p>
+
+  <h5>절차 2 — <code>NOT NULL</code> 을 정합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px">칼럼</th><th style="width:90px">NULL</th><th>까닭</th></tr>
+    <tr><td><code>member.member_nm</code></td><td class="c"><b>NO</b></td>
+        <td>이름 없는 회원은 없습니다</td></tr>
+    <tr><td><code>member.phone</code></td><td class="c">YES</td>
+        <td>실습 2 에서 <b>안 적고 낸 신청서</b>가 있었습니다</td></tr>
+    <tr><td><code>apply.apply_dt</code></td><td class="c"><b>NO</b></td>
+        <td>언제 신청했는지 모르는 신청은 없습니다</td></tr>
+  </table>
+
+  <div class="note"><b>NULL 을 허용할지는 «현행 데이터» 가 정합니다.</b>
+    전부 <code>NOT NULL</code> 로 막으면
+    <b>현행 자료를 옮길 때 절반이 안 들어갑니다.</b>
+    반대로 전부 열어 두면 <b>제약조건을 세우지 않은 것</b>입니다.
+    실습 2 의 현행 분석이 여기서 다시 쓰입니다.</div>
+
+  <h5>절차 3 — 셋을 직접 쳐 봅니다</h5>
+
+  <p>시험용 표를 하나 만들고 위의 세 화면을 <b>여러분 손으로</b> 재현합니다.</p>
+
+  <p class="cmdline"><code>USE eduio;
+DROP TABLE IF EXISTS t_try;
+CREATE TABLE t_try (c_char CHAR(10), c_var VARCHAR(10)) DEFAULT CHARSET=utf8mb4;
+INSERT INTO t_try VALUES ('abc','abc');
+
+SELECT 0.1+0.2 = 0.3 AS dec_eq;
+SELECT CAST(0.1 AS DOUBLE)+CAST(0.2 AS DOUBLE) = CAST(0.3 AS DOUBLE) AS dbl_eq;
+INSERT INTO t_try (c_var) VALUES ('12345678901');</code></p>
+
+  <table class="wide">
+    <tr><th style="width:250px">보여야 하는 것</th><th>뜻</th></tr>
+    <tr><td><code>dec_eq</code> 가 <b>1</b></td><td>DECIMAL 셈은 정확합니다</td></tr>
+    <tr><td><code>dbl_eq</code> 가 <b>0</b></td><td>DOUBLE 셈은 어긋납니다</td></tr>
+    <tr><td><code>ERROR 1406</code></td><td>길이를 넘기면 <b>들어가지 않습니다</b></td></tr>
+  </table>
+
+  <h5>절차 4 — «너무 짧게» 잡아 봅니다</h5>
+
+  <p>일부러 <code>phone VARCHAR(11)</code> 로 만들고 실제 번호를 넣어 보십시오.</p>
+
+  <p class="cmdline"><code>ERROR 1406 (22001): Data too long for column 'phone' at row 1</code></p>
+
+  <p><code>010-1111-2222</code> 는 <b>13자</b>입니다.
+     「전화번호는 11자리」 라고 생각하고 잡으면 <b>하이픈 둘을 빠뜨립니다.</b>
+     <b>세어 본 숫자를 쓰라</b>는 말이 이 뜻입니다.</p>
+
+  <h5>절차 5 — 정리합니다</h5>
+
+  <p class="cmdline"><code>mysql&gt; DROP TABLE t_try;</code></p>
+
+  <p><b>제출물</b> — 자료형과 근거가 채워진 정의서 넷 +
+     <code>dec_eq</code>/<code>dbl_eq</code> 화면 + <code>ERROR 1406</code> 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 모든 칼럼에 <b>근거</b>가 붙었습니까
+     ② 돈에 <code>DOUBLE</code> 을 <b>안 썼습니까</b>
+     ③ <code>NOT NULL</code> 을 <b>현행 자료를 보고</b> 정했습니까
+     ④ 길이 초과 오류를 <b>직접</b> 내 봤습니까</p>
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st7">
+      <h3><i>7</i>반정규화 — 수행준거 2-2</h3>
+      <aside class="side">
+        <p class="pt">일부러 되돌리는 일입니다. <b>공짜가 아닙니다.</b></p>
+        <b class="sh">이 단계의 결과</b>
+        <p class="v">반정규화 판단서</p>
+      </aside>
+      <div class="bd">
+
+<h4>정규화를 해 놓고 왜 되돌리는가</h4>
+<p>학습모듈은 반정규화를
+   「정규화된 데이터 모델의 성능이 저하되지 않도록 <b>의도적으로</b> 규칙을 완화하거나
+   데이터를 중복·병합하는 설계 기법」 이라고 씁니다.
+   방점은 <b>「의도적으로」</b> 에 있습니다.</p>
+
+<div class="warn"><b>정규화를 «안 한» 것과 반정규화는 다릅니다.</b>
+  정규화를 해 본 적이 없으면
+  <b>무엇을 되돌렸는지 말할 수 없습니다.</b>
+  설계서에 <b>「정규화 결과 → 반정규화 대상 → 까닭 → 감수하는 부담」</b>
+  네 줄이 다 있어야 반정규화입니다.</div>
+
+<h4>유형 셋</h4>
+<table class="wide">
+  <tr><th style="width:150px">유형</th><th style="width:230px">하는 일</th><th>예제</th></tr>
+  <tr><td class="nm">집계 테이블 추가</td>
+      <td>매번 세는 대신 <b>세어 둔 표</b>를 따로 둔다</td>
+      <td><code>course_stat</code> 에 강좌별 신청 건수</td></tr>
+  <tr><td class="nm">중복 칼럼 추가</td>
+      <td>조인해야 나오는 값을 <b>미리 복사</b>해 둔다</td>
+      <td><code>apply</code> 에 <code>course_nm</code> 을 같이</td></tr>
+  <tr><td class="nm">테이블 병합</td>
+      <td>늘 함께 읽는 두 표를 <b>하나로</b> 합친다</td>
+      <td><code>teacher</code> 를 <code>course</code> 에 흡수</td></tr>
+</table>
+
+<h4>얼마나 빨라지는가 — 재 봅니다</h4>
+<p>신청 이력 <b>50만 줄</b>을 놓고 강좌별 건수를 뽑습니다.</p>
+
+<p class="cmdline"><code>mysql&gt; SET profiling = 1;
+
+mysql&gt; SELECT course_cd, COUNT(*) AS cnt FROM apply_log GROUP BY course_cd
+    -&gt;  ORDER BY cnt DESC LIMIT 3;
++-----------+-------+
+| course_cd | cnt   |
++-----------+-------+
+| C12       | 18337 |
+| C11       | 18337 |
+| C10       | 18337 |
++-----------+-------+
+
+mysql&gt; SELECT course_cd, apply_cnt FROM course_stat ORDER BY apply_cnt DESC LIMIT 3;
++-----------+-----------+
+| course_cd | apply_cnt |
++-----------+-----------+
+| C10       |     18337 |
+| C12       |     18337 |
+| C11       |     18337 |
++-----------+-----------+
+
+mysql&gt; SHOW PROFILES;
+| 1 | <b>0.21814450</b> | SELECT course_cd, COUNT(*) … GROUP BY course_cd …   ← 매번 세기
+| 4 | <b>0.41662650</b> | INSERT INTO course_stat … SELECT … GROUP BY …       ← 집계표 만들기
+| 5 | <b>0.00040400</b> | SELECT course_cd, apply_cnt FROM course_stat …      ← 집계표 읽기</code></p>
+
+<table class="wide">
+  <tr><th style="width:230px">무엇</th><th style="width:130px">걸린 시간</th><th></th></tr>
+  <tr><td>매번 세기</td><td class="c">0.218 초</td><td>조회할 때마다 냅니다</td></tr>
+  <tr><td>집계표 읽기</td><td class="c"><b>0.0004 초</b></td><td><b>545 배</b> 빠릅니다</td></tr>
+  <tr><td>집계표 만들기</td><td class="c">0.417 초</td><td><b>이 값을 «누가 언제» 갱신하는가</b></td></tr>
+</table>
+
+<div class="note"><b>마지막 줄이 반정규화의 «부담» 입니다.</b>
+  신청이 하나 들어올 때마다 <code>course_stat</code> 도 같이 고쳐야 합니다.
+  안 고치면 <b>숫자가 틀린 채로</b> 남습니다 —
+  실습 4 에서 본 <b>갱신 이상을 일부러 들이는 것</b>입니다.
+  그래서 학습모듈도 <b>「트리거의 오버헤드에 유의해야 한다」</b> 고 적어 둡니다.</div>
+
+<h4>언제 하고 언제 안 하는가</h4>
+<table class="wide">
+  <tr><th style="width:44%">해도 되는 때</th><th>하면 안 되는 때</th></tr>
+  <tr><td>· 읽기가 <b>쓰기보다 훨씬 많다</b><br>
+          · 값이 <b>거의 안 바뀐다</b><br>
+          · 조금 틀려도 <b>업무가 안 망가진다</b> (오늘의 신청자 수)<br>
+          · 인덱스로 <b>먼저 고쳐 봤는데</b> 모자랐다</td>
+      <td>· <b>돈·재고</b>처럼 틀리면 안 되는 값<br>
+          · 갱신이 잦다<br>
+          · <b>측정해 보지 않았다</b><br>
+          · 「어차피 느릴 것 같아서」</td></tr>
+</table>
+
+<p><b>마지막 줄이 가장 흔한 잘못</b>입니다.
+   반정규화는 <b>측정 뒤에</b> 하는 일입니다.
+   레벨 4 에서 성능을 재는 법을 배우는 것이 그 때문입니다.</p>
+
+<div class="lab">
+  <b class="t">실습 7</b>
+  <b>반정규화 판단서를 쓰고, 값이 틀어지는 것을 봅니다</b>
+
+  <p><b>목적</b> — 반정규화는 <b>결정</b>이지 기술이 아닙니다.
+     이 실습의 산출물은 코드가 아니라 <b>판단 네 줄</b>입니다.</p>
+
+  <h5>절차 1 — 50만 줄을 만듭니다</h5>
+
+  <p class="cmdline"><code>USE eduio;
+SET SESSION cte_max_recursion_depth = 1000000;
+
+DROP TABLE IF EXISTS apply_log;
+CREATE TABLE apply_log (
+  log_no    INT NOT NULL AUTO_INCREMENT,
+  member_id VARCHAR(20) NOT NULL,
+  course_cd VARCHAR(10) NOT NULL,
+  apply_dt  DATE        NOT NULL,
+  memo      VARCHAR(100),
+  PRIMARY KEY (log_no)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO apply_log (member_id, course_cd, apply_dt, memo)
+WITH RECURSIVE seq(n) AS (
+  SELECT 1 UNION ALL SELECT n+1 FROM seq WHERE n &lt; 500000
+)
+SELECT CONCAT('m', LPAD(n % 50000, 6, '0')),
+       CONCAT('C', LPAD(n % 300, 2, '0')),
+       DATE_ADD('2024-01-01', INTERVAL (n % 900) DAY),
+       CONCAT('bulk row ', n)
+  FROM seq;
+
+SELECT COUNT(*) AS rows_loaded FROM apply_log;</code></p>
+
+  <p class="cmdline"><code>+-------------+
+| rows_loaded |
++-------------+
+|      500000 |
++-------------+</code></p>
+
+  <div class="warn"><b><code>SET SESSION cte_max_recursion_depth</code> 를 빼면 여기서 막힙니다.</b>
+    <code>ERROR 3636 (HY000): Recursive query aborted after 1001 iterations.</code>
+    MySQL 이 <b>무한 반복을 막으려고</b> 1,000 번에서 끊습니다.
+    <b>이 표는 뒤의 실습 14 · 15 · 16 에서 계속 씁니다.</b>
+    지우지 마십시오.</div>
+
+  <h5>절차 2 — 매번 세는 시간을 잽니다</h5>
+
+  <p class="cmdline"><code>SET profiling = 1;
+SELECT course_cd, COUNT(*) AS cnt FROM apply_log GROUP BY course_cd ORDER BY cnt DESC LIMIT 3;
+SHOW PROFILES;</code></p>
+
+  <h5>절차 3 — 집계 표를 만들고 다시 잽니다</h5>
+
+  <p class="cmdline"><code>DROP TABLE IF EXISTS course_stat;
+CREATE TABLE course_stat (
+  course_cd VARCHAR(10) PRIMARY KEY,
+  apply_cnt INT NOT NULL
+) ENGINE=InnoDB;
+
+INSERT INTO course_stat (course_cd, apply_cnt)
+  SELECT course_cd, COUNT(*) FROM apply_log GROUP BY course_cd;
+
+SELECT course_cd, apply_cnt FROM course_stat ORDER BY apply_cnt DESC LIMIT 3;
+SHOW PROFILES;</code></p>
+
+  <p><b>두 숫자를 적어 두십시오.</b> 이것이 판단서의 근거입니다.</p>
+
+  <div class="note"><b>초 단위 값은 기계마다, 돌릴 때마다 다릅니다.</b>
+    위 화면과 자릿수가 달라도 괜찮습니다.
+    중요한 것은 <b>같은 기계에서 잰 두 숫자의 «비율»</b> 입니다.
+    보고서에는 <b>여러분이 잰 숫자</b>를 쓰십시오.</div>
+
+  <h5>절차 4 — 값을 «틀어뜨려» 봅니다</h5>
+
+  <p>신청이 하나 더 들어왔는데 집계 표를 안 고친 상황을 만듭니다.</p>
+
+  <p class="cmdline"><code>INSERT INTO apply_log (member_id, course_cd, apply_dt, memo)
+  VALUES ('m000001','C10','2026-03-20','늦은 신청');
+
+SELECT (SELECT COUNT(*) FROM apply_log WHERE course_cd='C10') AS 진짜,
+       (SELECT apply_cnt  FROM course_stat WHERE course_cd='C10') AS 집계표;</code></p>
+
+  <p class="cmdline"><code>+--------+-----------+
+| 진짜   | 집계표    |
++--------+-----------+
+|  18338 |     18337 |
++--------+-----------+</code></p>
+
+  <p><b>한 건 어긋났습니다.</b> 오류는 나지 않습니다.
+     <b>이 어긋남을 누가 언제 맞출 것인가</b> — 그 답이 판단서의 마지막 줄입니다.</p>
+
+  <h5>절차 5 — 판단서 네 줄을 씁니다</h5>
+
+  <p class="cmdline"><code>반정규화 판단서 — course_stat
+
+  1. 정규화 결과 : 강좌별 신청 건수는 apply 를 세어 얻는다 (중복 없음)
+  2. 반정규화 대상 : course_stat (course_cd, apply_cnt) 집계 테이블 추가
+  3. 까닭 : 매번 세기 0.218초 → 집계표 읽기 0.0004초 (측정 근거 첨부)
+            강좌 목록 화면이 «모든 요청마다» 이 값을 읽는다
+  4. 감수하는 부담 : 신청 등록·취소 시 apply_cnt 를 함께 갱신해야 한다
+            갱신을 빠뜨리면 값이 어긋난다 (18338 vs 18337 재현 화면 첨부)
+            대안으로 하루 한 번 일괄 재계산을 두고, 화면에 «기준 시각» 을 표기한다</code></p>
+
+  <p><b>제출물</b> — 두 측정 화면 + 값이 어긋난 화면 + 판단서 네 줄</p>
+
+  <p><b>스스로 확인</b> —
+     ① 빨라진 것을 <b>숫자로</b> 보였습니까
+     ② 값이 <b>어긋나는 것</b>까지 보였습니까
+     ③ 판단서에 <b>「감수하는 부담」</b> 줄이 있습니까
+     ④ <code>apply_log</code> 를 <b>남겨</b> 두었습니까</p>
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st8">
+      <h3><i>8</i>물리적 공간 구성 — 수행준거 2-3</h3>
+      <aside class="side">
+        <p class="pt">설계서가 «도는 것» 이 되는 자리입니다.</p>
+        <b class="sh">이 단계의 결과</b>
+        <p class="v">schema.sql</p>
+      </aside>
+      <div class="bd">
+
+<h4>만드는 오브젝트 넷</h4>
+<p>수행준거 2-3 은 「실제 데이터가 저장될 <b>물리적 공간</b>을 구성한다」 이고,
+   해 보기 절차는 「<b>다양한 오브젝트를 설계한다</b>」 한 줄뿐입니다.
+   그 「다양한 오브젝트」 가 학습모듈에서 말하는 넷입니다.</p>
+
+<table class="wide">
+  <tr><th style="width:130px">오브젝트</th><th style="width:230px">하는 일</th>
+      <th>이 예제에서</th></tr>
+  <tr><td class="nm">테이블</td><td>값이 실제로 앉는 자리</td>
+      <td><code>member</code> · <code>teacher</code> · <code>course</code> · <code>apply</code></td></tr>
+  <tr><td class="nm">제약조건</td><td>들어오면 안 되는 값을 <b>문턱에서</b> 막는다</td>
+      <td>PK · FK · UNIQUE · NOT NULL</td></tr>
+  <tr><td class="nm">인덱스</td><td>찾는 길을 미리 내 둔다</td>
+      <td><code>idx_log_member</code> (실습 15)</td></tr>
+  <tr><td class="nm">뷰</td><td>보여 줄 것만 <b>골라서</b> 내보낸다</td>
+      <td><code>v_apply_for_teacher</code> — 연락처를 뺀 신청 목록</td></tr>
+</table>
+
+<h4>제약조건 둘 — 지울 때와 고칠 때</h4>
+<p>학습모듈이 「실무에서 주로 사용하는」 것으로 꼽는 둘입니다.
+   외래키가 가리키는 <b>부모 값이 사라지거나 바뀔 때</b> 무엇을 할지 미리 정해 둡니다.</p>
+
+<table class="wide">
+  <tr><th style="width:190px">지정</th><th style="width:210px">부모가 지워질 때</th><th>쓰는 곳</th></tr>
+  <tr><td><code>ON DELETE RESTRICT</code></td>
+      <td><b>못 지우게</b> 막는다</td>
+      <td>강좌 — 신청자가 있으면 강좌를 지우면 안 됩니다</td></tr>
+  <tr><td><code>ON DELETE CASCADE</code></td>
+      <td>자식까지 <b>같이</b> 지운다</td>
+      <td>회원 — 탈퇴하면 그 사람의 신청도 사라집니다</td></tr>
+  <tr><td><code>ON UPDATE CASCADE</code></td>
+      <td>부모 값이 바뀌면 자식도 <b>따라</b> 바뀐다</td>
+      <td>강좌 코드를 고치면 신청의 코드도 따라갑니다</td></tr>
+</table>
+
+<div class="warn"><b>둘을 바꿔 쓰면 데이터가 조용히 사라집니다.</b>
+  강좌에 <code>CASCADE</code> 를 걸어 두면
+  강좌 하나를 지우는 순간 <b>그 강좌의 신청 기록 전부</b>가 함께 없어집니다.
+  <b>지워도 되는 것과 지우면 안 되는 것</b>을 나눠서 지정하십시오.
+  아래 실습에서 <b>둘 다 직접 확인</b>합니다.</div>
+
+<h4>인덱스를 어디에 거는가</h4>
+<p>학습모듈은 <b>분포도</b>를 기준으로 제시합니다.</p>
+
+<p class="cmdline"><code>분포도 = ( 1 / 칼럼값의 종류 ) × 100
+        = ( 칼럼값의 평균 Row 수 / 테이블의 총 Row 수 ) × 100</code></p>
+
+<p>말이 어려운데, <b>「한 값을 찾으면 몇 퍼센트가 걸려 나오는가」</b> 입니다.
+   <b>작을수록 인덱스가 잘 듭니다.</b> 실제로 재 봅니다.</p>
+
+<p class="cmdline"><code>mysql&gt; SELECT COUNT(*) AS 전체,
+    -&gt;        COUNT(DISTINCT member_id) AS 회원종류,
+    -&gt;        ROUND(COUNT(DISTINCT member_id) / COUNT(*) * 100, 4) AS 분포도_회원,
+    -&gt;        COUNT(DISTINCT course_cd) AS 강좌종류,
+    -&gt;        ROUND(COUNT(DISTINCT course_cd) / COUNT(*) * 100, 4) AS 분포도_강좌
+    -&gt;   FROM apply_log;
++--------+--------------+------------------+--------------+------------------+
+| 전체   | 회원종류     | 분포도_회원      | 강좌종류     | 분포도_강좌      |
++--------+--------------+------------------+--------------+------------------+
+| 500000 |        50000 |          10.0000 |          100 |           0.0200 |
++--------+--------------+------------------+--------------+------------------+</code></p>
+
+<table class="wide">
+  <tr><th style="width:150px">칼럼</th><th style="width:130px">값의 종류</th>
+      <th style="width:150px">한 값을 찾으면</th><th>인덱스</th></tr>
+  <tr><td><code>member_id</code></td><td class="c">50,000</td>
+      <td class="c">약 10건</td><td><b>잘 듭니다</b></td></tr>
+  <tr><td><code>course_cd</code></td><td class="c">100</td>
+      <td class="c">약 5,000건</td><td>덜 듭니다</td></tr>
+</table>
+
+<div class="note"><b>값의 종류가 적은 칼럼에는 인덱스를 걸어도 소용이 적습니다.</b>
+  성별처럼 값이 <b>둘뿐</b>인 칼럼이 극단입니다 —
+  한 값을 찾으면 <b>절반</b>이 걸려 나오니
+  차라리 <b>표를 처음부터 끝까지 읽는 편</b>이 빠릅니다.
+  그래서 데이터베이스가 <b>인덱스를 무시하기도</b> 합니다.</div>
+
+<h4>뷰 — 실습 4 의 권한표를 구현합니다</h4>
+<p>실습 4 에서 「강사는 연락처를 못 봄」 이라고 적었습니다. 그것을 뷰로 만듭니다.</p>
+
+<p class="cmdline"><code>CREATE OR REPLACE VIEW v_apply_for_teacher AS
+SELECT a.apply_no, c.course_cd, c.course_nm, m.member_id, m.member_nm, a.apply_dt
+  FROM apply a
+  JOIN member m ON m.member_id = a.member_id
+  JOIN course c ON c.course_cd = a.course_cd;</code></p>
+
+<p class="cmdline"><code>mysql&gt; SELECT * FROM v_apply_for_teacher WHERE course_cd='C01';
++----------+-----------+---------------+-----------+-----------+------------+
+| apply_no | course_cd | course_nm     | member_id | member_nm | apply_dt   |
++----------+-----------+---------------+-----------+-----------+------------+
+|        1 | C01       | 자바 기초     | hong      | 홍길동    | 2026-03-11 |
+|        3 | C01       | 자바 기초     | kim       | 김영희    | 2026-03-03 |
+|        4 | C01       | 자바 기초     | lee       | 이철수    | 2026-03-04 |
++----------+-----------+---------------+-----------+-----------+------------+
+
+mysql&gt; SELECT phone FROM v_apply_for_teacher LIMIT 1;
+ERROR 1054 (42S22): Unknown column 'phone' in 'field list'</code></p>
+
+<p><b>뷰에 없는 칼럼은 «꺼낼 수가 없습니다».</b>
+   「보여 주지 않는다」 가 아니라 <b>「존재하지 않는다」</b> 입니다.
+   이것이 권한표를 실물로 만드는 가장 간단한 방법입니다.</p>
+
+<div class="lab">
+  <b class="t">실습 8</b>
+  <b><code>schema.sql</code> 을 돌리고, 제약조건을 «일부러 깹니다»</b>
+
+  <p><b>목적</b> — 수행준거 2-3 의 산출물입니다.
+     제약조건은 <b>깨 봐야</b> 걸려 있는지 압니다.</p>
+
+  <h5>절차 1 — <code>schema.sql</code> 을 씁니다</h5>
+
+  <p class="cmdline"><code>USE eduio;
+
+CREATE TABLE member (
+  member_id  VARCHAR(20)  NOT NULL,
+  member_nm  VARCHAR(40)  NOT NULL,
+  phone      VARCHAR(20)      NULL,
+  join_dt    DATE         NOT NULL DEFAULT (CURRENT_DATE),
+  PRIMARY KEY (member_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE teacher (
+  teacher_no INT          NOT NULL AUTO_INCREMENT,
+  teacher_nm VARCHAR(40)  NOT NULL,
+  PRIMARY KEY (teacher_no)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE course (
+  course_cd  VARCHAR(10)  NOT NULL,
+  course_nm  VARCHAR(60)  NOT NULL,
+  teacher_no INT          NOT NULL,
+  fee        INT          NOT NULL,
+  PRIMARY KEY (course_cd),
+  CONSTRAINT <b>fk_course_teacher</b> FOREIGN KEY (teacher_no)
+    REFERENCES teacher(teacher_no) ON DELETE <b>RESTRICT</b> ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE apply (
+  apply_no   INT          NOT NULL AUTO_INCREMENT,
+  member_id  VARCHAR(20)  NOT NULL,
+  course_cd  VARCHAR(10)  NOT NULL,
+  apply_dt   DATE         NOT NULL,
+  PRIMARY KEY (apply_no),
+  UNIQUE KEY <b>uq_apply</b> (member_id, course_cd),          <i>-- RQ-02</i>
+  CONSTRAINT <b>fk_apply_member</b> FOREIGN KEY (member_id)
+    REFERENCES member(member_id) ON DELETE <b>CASCADE</b> ON UPDATE CASCADE,
+  CONSTRAINT <b>fk_apply_course</b> FOREIGN KEY (course_cd)
+    REFERENCES course(course_cd) ON DELETE <b>RESTRICT</b> ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;</code></p>
+
+  <p><code>uq_apply</code> 한 줄이 <b>실습 2 의 RQ-02</b>(같은 강좌를 두 번 신청할 수 없다)입니다.
+     요구사항이 <b>제약조건 한 줄</b>이 되는 것을 보십시오.</p>
+
+  <h5>절차 2 — 자료를 넣습니다</h5>
+
+  <p class="cmdline"><code>INSERT INTO member (member_id,member_nm,phone,join_dt) VALUES
+ ('hong','홍길동','010-1111-2222','2026-03-01'),
+ ('kim','김영희','010-3333-4444','2026-03-01'),
+ ('lee','이철수','010-5555-6666','2026-03-02');
+
+INSERT INTO teacher (teacher_nm) VALUES ('김강사'),('박강사');
+
+INSERT INTO course VALUES
+ ('C01','자바 기초',1,180000),
+ ('C02','SQL 입문',2,150000),
+ ('C03','스프링 실무',1,220000);
+
+INSERT INTO apply (member_id,course_cd,apply_dt) VALUES
+ ('hong','C01','2026-03-02'),('hong','C02','2026-03-02'),
+ ('kim','C01','2026-03-03'),('lee','C01','2026-03-04'),
+ ('kim','C03','2026-03-05');</code></p>
+
+  <p><b>순서가 중요합니다.</b> <code>course</code> 보다 <code>teacher</code> 가 먼저,
+     <code>apply</code> 보다 <code>member</code> 와 <code>course</code> 가 먼저입니다.
+     <b>가리키는 것이 있어야 가리킬 수 있습니다.</b></p>
+
+  <h5>절차 3 — 넷을 «일부러» 깨 봅니다</h5>
+
+  <p>하나씩 쳐 보고 <b>오류 번호까지</b> 받아 적으십시오.</p>
+
+  <p class="cmdline"><code><i>-- ① 같은 강좌를 두 번 신청 (UNIQUE)</i>
+INSERT INTO apply (member_id,course_cd,apply_dt) VALUES ('hong','C01','2026-03-09');
+ERROR 1062 (23000): Duplicate entry 'hong-C01' for key '<b>apply.uq_apply</b>'
+
+<i>-- ② 없는 강좌를 신청 (FK)</i>
+INSERT INTO apply (member_id,course_cd,apply_dt) VALUES ('hong','C99','2026-03-09');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails
+  (`eduio`.`apply`, CONSTRAINT `<b>fk_apply_course</b>` FOREIGN KEY (`course_cd`)
+   REFERENCES `course` (`course_cd`) ON DELETE RESTRICT ON UPDATE CASCADE)
+
+<i>-- ③ 신청자가 있는 강좌를 삭제 (RESTRICT)</i>
+DELETE FROM course WHERE course_cd='C01';
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails
+  (`eduio`.`apply`, CONSTRAINT `<b>fk_apply_course</b>` …)
+
+<i>-- ④ 이름 없이 넣기 (NOT NULL)</i>
+INSERT INTO member (member_id,member_nm) VALUES ('park',NULL);
+ERROR 1048 (23000): Column 'member_nm' cannot be null</code></p>
+
+  <div class="note"><b>오류 메시지에 «내가 지은 이름» 이 나오는 것을 보십시오.</b>
+    <code>uq_apply</code> · <code>fk_apply_course</code> —
+    어디가 걸렸는지 <b>메시지만 읽고</b> 알 수 있습니다.
+    이름을 안 붙이면 이렇게 나옵니다.
+    <br><br><code>CONSTRAINT `t_noname_ibfk_1` FOREIGN KEY (`course_cd`) …</code>
+    <br><br><b><code>ibfk_1</code> 로는 아무것도 알 수 없습니다.</b></div>
+
+  <h5>절차 4 — <code>CASCADE</code> 를 확인합니다</h5>
+
+  <p class="cmdline"><code>mysql&gt; SELECT COUNT(*) AS before_cnt FROM apply;
++------------+
+| before_cnt |
++------------+
+|          5 |
++------------+
+
+mysql&gt; DELETE FROM member WHERE member_id='lee';
+Query OK, 1 row affected
+
+mysql&gt; SELECT COUNT(*) AS after_cnt FROM apply;
++-----------+
+| after_cnt |
++-----------+
+|         4 |
++-----------+</code></p>
+
+  <p><b>회원을 지웠는데 신청이 하나 줄었습니다.</b>
+     <code>ON DELETE CASCADE</code> 가 한 일입니다.
+     되돌려 놓으십시오 — 뒤에서 씁니다.</p>
+
+  <p class="cmdline"><code>INSERT INTO member VALUES ('lee','이철수','010-5555-6666','2026-03-02');
+INSERT INTO apply (member_id,course_cd,apply_dt) VALUES ('lee','C01','2026-03-04');</code></p>
+
+  <h5>절차 5 — 뷰를 만들고 «막히는지» 봅니다</h5>
+
+  <p>위의 <code>v_apply_for_teacher</code> 를 만들고
+     <code>SELECT phone FROM v_apply_for_teacher</code> 가
+     <code>ERROR 1054</code> 로 <b>막히는 것</b>까지 캡처하십시오.</p>
+
+  <p><b>제출물</b> — <code>schema.sql</code> +
+     제약조건 위반 <b>네 화면</b> + CASCADE 전후 건수 + 뷰가 막히는 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 제약조건에 <b>이름을 붙였습니까</b>
+     ② 오류 <b>네 가지</b>를 다 내 봤습니까
+     ③ RESTRICT 와 CASCADE 를 <b>구분해서</b> 지정했습니까
+     ④ 뷰가 연락처를 <b>막는 것</b>을 확인했습니까</p>
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 3 · 데이터 조작 프로시저 작성하기</b><span>능력단위요소 ③ · 수행준거 3-1 ~ 3-4</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st9">
+      <h3><i>9</i>SQL 네 갈래</h3>
+      <aside class="side">
+        <p class="pt">되돌릴 수 있는 것과 없는 것을 먼저 가릅니다.</p>
+        <b class="sh">이 단계의 결과</b>
+        <p class="v">SQL 분류표</p>
+      </aside>
+      <div class="bd">
+
+<h4>학습모듈이 나눈 네 갈래</h4>
+<table class="wide">
+  <tr><th style="width:80px">갈래</th><th style="width:170px">명령</th>
+      <th style="width:130px">되돌릴 수 있나</th><th>하는 일</th></tr>
+  <tr><td class="nm">DDL</td><td><code>CREATE</code> · <code>ALTER</code> · <code>DROP</code></td>
+      <td class="c"><b>못 합니다</b></td><td>표 같은 <b>구조</b>를 만들고 바꿉니다</td></tr>
+  <tr><td class="nm">DML</td><td><code>INSERT</code> · <code>UPDATE</code> · <code>DELETE</code></td>
+      <td class="c">할 수 있습니다</td><td><b>값</b>을 넣고 바꾸고 지웁니다</td></tr>
+  <tr><td class="nm">DCL</td><td><code>GRANT</code> · <code>REVOKE</code></td>
+      <td class="c">—</td><td>사용자에게 <b>권한</b>을 주고 거둡니다</td></tr>
+  <tr><td class="nm">TCL</td><td><code>COMMIT</code> · <code>ROLLBACK</code> · <code>SAVEPOINT</code></td>
+      <td class="c">—</td><td>DML 묶음의 <b>확정과 취소</b>를 제어합니다</td></tr>
+</table>
+
+<p><code>SELECT</code> 는 값을 <b>바꾸지 않아서</b> 따로 다룹니다.
+   학습모듈도 <b>데이터 검색어</b>로 따로 적어 두었습니다.</p>
+
+<div class="warn"><b>「되돌릴 수 있나」 칸이 이 단계의 전부입니다.</b>
+  학습모듈은 DDL 을 두고
+  <b>「명령어 수행이 되면 이전 상태로 복귀할 수 없으므로 신중히 사용하여야 한다」</b>
+  고 못 박습니다.
+  <code>DROP TABLE</code> 은 <b>물어보지 않고 지웁니다.</b>
+  <code>ROLLBACK</code> 도 소용없습니다.</div>
+
+<h4>SELECT 의 뼈대</h4>
+<p>학습모듈이 제시하는 형식 그대로입니다. <b>순서가 정해져 있습니다.</b></p>
+
+<p class="cmdline"><code>SELECT [DISTINCT] { *, column [alias], ... }
+  FROM   table_name
+ [WHERE  condition]
+ [GROUP BY column]
+ [HAVING condition]
+ [ORDER BY {column, expression} [ASC | DESC]];</code></p>
+
+<table class="wide">
+  <tr><th style="width:130px">절</th><th>언제 걸리는가</th></tr>
+  <tr><td><code>WHERE</code></td><td><b>묶기 전에</b> 줄을 고릅니다</td></tr>
+  <tr><td><code>GROUP BY</code></td><td>고른 줄을 <b>묶습니다</b></td></tr>
+  <tr><td><code>HAVING</code></td><td><b>묶은 뒤에</b> 묶음을 고릅니다</td></tr>
+</table>
+
+<p><b><code>WHERE</code> 와 <code>HAVING</code> 의 차이가 여기서 나옵니다.</b>
+   「신청이 2건 이상인 강좌」 는 세어 봐야 알 수 있으니 <code>HAVING</code> 이고,
+   「3월 신청만」 은 세기 전에 고를 수 있으니 <code>WHERE</code> 입니다.</p>
+
+<p class="cmdline"><code>mysql&gt; SELECT c.course_cd, c.course_nm,
+    -&gt;        COUNT(a.apply_no) AS apply_cnt,
+    -&gt;        COUNT(a.apply_no) * c.fee AS amount
+    -&gt;   FROM course c LEFT JOIN apply a ON a.course_cd = c.course_cd
+    -&gt;  GROUP BY c.course_cd, c.course_nm, c.fee
+    -&gt;  ORDER BY apply_cnt DESC;
++-----------+------------------+-----------+--------+
+| course_cd | course_nm        | apply_cnt | amount |
++-----------+------------------+-----------+--------+
+| C01       | 자바 기초    |         3 | 540000 |
+| C02       | SQL 입문       |         1 | 150000 |
+| C03       | 스프링 실무 |         1 | 220000 |
++-----------+------------------+-----------+--------+</code></p>
+
+<div class="note"><b><code>LEFT JOIN</code> 인 것에 뜻이 있습니다.</b>
+  그냥 <code>JOIN</code> 을 쓰면
+  <b>신청자가 없는 강좌는 목록에서 아예 빠집니다.</b>
+  「신청 0건인 강좌를 찾아라」 는 요구가 오면 그때 알게 됩니다.
+  <b>기준이 되는 쪽을 왼쪽에</b> 두십시오.</div>
+
+<div class="lab">
+  <b class="t">실습 9</b>
+  <b>DDL 은 되돌아가지 않는 것을 «직접» 봅니다</b>
+
+  <p><b>목적</b> — 이 하나를 모르면 레벨 3 내내 위험합니다.
+     실습 12 의 트랜잭션이 <b>왜 DML 에만 통하는지</b>의 근거이기도 합니다.</p>
+
+  <h5>절차 1 — DML 은 되돌아갑니다</h5>
+
+  <p class="cmdline"><code>mysql&gt; START TRANSACTION;
+mysql&gt; DELETE FROM apply WHERE apply_no = 1;
+mysql&gt; SELECT COUNT(*) AS in_tx FROM apply;
++-------+
+| in_tx |
++-------+
+|     4 |
++-------+
+mysql&gt; ROLLBACK;
+mysql&gt; SELECT COUNT(*) AS after_rollback FROM apply;
++----------------+
+| after_rollback |
++----------------+
+|              5 |
++----------------+</code></p>
+
+  <p><b>5 → 4 → 5.</b> 지웠다가 <b>돌아왔습니다.</b></p>
+
+  <h5>절차 2 — 가운데에 DDL 을 끼워 넣습니다</h5>
+
+  <p class="cmdline"><code>mysql&gt; START TRANSACTION;
+mysql&gt; DELETE FROM apply WHERE apply_no = 2;
+mysql&gt; <b>CREATE TABLE t_ddl (a INT);</b>          ← DDL 을 한 번 칩니다
+mysql&gt; ROLLBACK;
+mysql&gt; SELECT COUNT(*) AS after_rollback2 FROM apply;
++-----------------+
+| after_rollback2 |
++-----------------+
+|               <b>4</b> |
++-----------------+</code></p>
+
+  <p><b>돌아오지 않았습니다.</b> 지운 것이 그대로 남았습니다.</p>
+
+  <h5>절차 3 — 무슨 일이 일어났는지 확인합니다</h5>
+
+  <p class="cmdline"><code>mysql&gt; SHOW TABLES LIKE 't_ddl';
++-------------------------+
+| Tables_in_eduio (t_ddl) |
++-------------------------+
+| t_ddl                   |
++-------------------------+</code></p>
+
+  <div class="warn"><b>DDL 이 «몰래 커밋» 을 했습니다.</b>
+    MySQL 은 DDL 을 만나면
+    <b>열려 있던 트랜잭션을 먼저 확정하고</b> 구조를 바꿉니다.
+    그래서 <code>ROLLBACK</code> 이 되돌릴 것이 <b>남아 있지 않았습니다.</b>
+    <b>오류는 나지 않습니다.</b>
+    「분명히 롤백했는데 데이터가 남아 있다」 면
+    <b>가운데에 DDL 이 끼어 있지 않은지</b> 보십시오.</div>
+
+  <h5>절차 4 — 정리하고 되돌립니다</h5>
+
+  <p class="cmdline"><code>mysql&gt; DROP TABLE t_ddl;
+mysql&gt; INSERT INTO apply (apply_no,member_id,course_cd,apply_dt)
+    -&gt;   VALUES (2,'hong','C02','2026-03-02');</code></p>
+
+  <h5>절차 5 — 분류표를 만듭니다</h5>
+
+  <p>이 교과에서 쓸 SQL 을 전부 적고 갈래를 답니다.
+     <b>이 표가 실습 13 의 테스트 케이스 목록이 됩니다.</b></p>
+
+  <table class="wide">
+    <tr><th style="width:80px">갈래</th><th style="width:250px">이 과제에서 쓰는 것</th>
+        <th>누가 칩니까</th></tr>
+    <tr><td class="nm">DDL</td><td><code>schema.sql</code> 의 <code>CREATE TABLE</code> 넷</td>
+        <td>사람이 <b>한 번</b>만</td></tr>
+    <tr><td class="nm">DML</td>
+        <td><code>INSERT</code> · <code>UPDATE</code> · <code>DELETE</code> (DAO)</td>
+        <td>프로그램이 <b>수없이</b></td></tr>
+    <tr><td class="nm">SELECT</td><td>목록 조회 · 회원별 조회 · 집계</td>
+        <td>프로그램이 <b>가장 많이</b></td></tr>
+    <tr><td class="nm">TCL</td><td>일괄 등록의 <code>commit</code> / <code>rollback</code></td>
+        <td>프로그램이</td></tr>
+  </table>
+
+  <p><b>제출물</b> — DML 롤백 화면 + DDL 이 끼었을 때 화면 + SQL 분류표</p>
+
+  <p><b>스스로 확인</b> —
+     ① <b>5 → 4 → 5</b> 를 봤습니까
+     ② <b>5 → 4 → 4</b> 를 봤습니까
+     ③ 왜 다른지 <b>한 문장으로</b> 말할 수 있습니까
+     ④ <code>t_ddl</code> 을 <b>지웠습니까</b></p>
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st10">
+      <h3><i>10</i>연결 프로시저 — 수행준거 3-1</h3>
+      <aside class="side">
+        <p class="pt">붙는 것보다 <b>제대로 붙는 것</b>이 어렵습니다.</p>
+        <b class="sh">이 단계의 결과</b>
+        <p class="v">DBUtil.java</p>
+      </aside>
+      <div class="bd">
+
+<h4>수행준거 3-1 의 세 절차</h4>
+<table class="wide">
+  <tr><th style="width:56px"></th><th style="width:250px">절차</th><th>자바에서는</th></tr>
+  <tr><td class="c">1</td><td>데이터베이스 드라이버를 로딩한다</td>
+      <td>클래스패스에 <b>jar 를 놓기만</b> 하면 됩니다</td></tr>
+  <tr><td class="c">2</td><td>연결 정보를 설정하고 Connection 객체를 생성한다</td>
+      <td><code>DriverManager.getConnection(url, user, pass)</code></td></tr>
+  <tr><td class="c">3</td><td>SQL 실행 객체를 생성하고 결과를 처리한다</td>
+      <td><code>PreparedStatement</code> · <code>ResultSet</code> (실습 11)</td></tr>
+</table>
+
+<div class="note"><b>절차 1 에 <code>Class.forName(...)</code> 을 쓰라고 배웠다면 옛 방식입니다.</b>
+  JDBC 4.0 부터는 <b>jar 안의 목록을 보고 저절로</b> 등록합니다.
+  써도 오류는 안 나지만 <b>없어도 됩니다.</b>
+  이 교안은 쓰지 않습니다.</div>
+
+<h4>연결 정보 한 줄</h4>
+<p class="cmdline"><code>jdbc:mysql://localhost:3399/eduio
+  ?useSSL=false
+  &amp;allowPublicKeyRetrieval=true
+  &amp;serverTimezone=Asia/Seoul
+  &amp;characterEncoding=UTF-8</code></p>
+
+<table class="wide">
+  <tr><th style="width:230px">옵션</th><th>빼면 어떻게 되나</th></tr>
+  <tr><td><code>useSSL=false</code></td>
+      <td>경고가 잔뜩 찍힙니다. 강의실 안쪽 망이라 끕니다</td></tr>
+  <tr><td><code>allowPublicKeyRetrieval=true</code></td>
+      <td><b>MySQL 8 에서는 연결이 아예 안 됩니다</b> —
+          <code>Public Key Retrieval is not allowed</code></td></tr>
+  <tr><td><code>serverTimezone=Asia/Seoul</code></td>
+      <td>날짜가 <b>아홉 시간 어긋날</b> 수 있습니다</td></tr>
+</table>
+
+<h4>붙었는지 확인하는 법</h4>
+<p><code>getConnection</code> 이 예외 없이 돌아오면 붙은 것입니다.
+   <b>그래도 한 번 더 확인</b>하는 것이 좋습니다.</p>
+
+<p class="cmdline"><code>드라이버 : MySQL Connector/J mysql-connector-j-9.0.0 (Revision: e0e8e3461e5257ba4aa19e6b3614a2685b298947)
+서버    : MySQL 8.0.46
+연결    : 열림
+자동커밋 : true</code></p>
+
+<p><b>「자동커밋 : true」</b> 를 기억해 두십시오.
+   <b>지금은 한 줄을 고칠 때마다 곧바로 확정</b>됩니다.
+   실습 12 에서 이것을 끄고 묶음을 만듭니다.</p>
+
+<div class="lab">
+  <b class="t">실습 10</b>
+  <b>붙이고, 한글이 깨지는 것을 «일부러» 재현합니다</b>
+
+  <p><b>목적</b> — 수행준거 3-1 의 산출물입니다.
+     그리고 <b>이 교과에서 가장 자주 나는 사고</b>를 미리 겪어 둡니다.</p>
+
+  <h5>절차 1 — 드라이버를 놓습니다</h5>
+
+  <p class="cmdline"><code>프로젝트/
+  ├ src/DBUtil.java
+  ├ out/
+  └ lib/mysql-connector-j-9.0.0.jar</code></p>
+
+  <p class="cmdline"><code>javac -encoding UTF-8 -d out src/DBUtil.java
+java -cp "out;lib/mysql-connector-j-9.0.0.jar" DBUtil</code></p>
+
+  <table class="wide">
+    <tr><th style="width:280px">이렇게 나오면</th><th>볼 곳</th></tr>
+    <tr><td><code>No suitable driver found for jdbc:mysql://…</code></td>
+        <td>jar 가 <b>클래스패스에 없습니다.</b>
+            윈도우는 구분자가 <code>;</code>, 리눅스·맥은 <code>:</code> 입니다</td></tr>
+    <tr><td><code>Access denied for user 'root'</code></td>
+        <td>비밀번호가 틀렸습니다</td></tr>
+    <tr><td><code>Public Key Retrieval is not allowed</code></td>
+        <td><code>allowPublicKeyRetrieval=true</code> 를 <b>안 넣었습니다</b></td></tr>
+  </table>
+
+  <h5>절차 2 — <code>DBUtil</code> 을 씁니다</h5>
+
+  <p class="cmdline"><code>import java.sql.*;
+
+public class DBUtil {
+  private static final String URL =
+      "jdbc:mysql://localhost:3399/eduio"
+      + "?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Seoul"
+      + "&amp;characterEncoding=UTF-8";
+  private static final String USER = "root";
+  private static final String PASS = "Root11!";
+
+  public static Connection getConnection() throws SQLException {
+    return DriverManager.getConnection(URL, USER, PASS);
+  }
+
+  public static void main(String[] a) throws Exception {
+    try (Connection c = DBUtil.getConnection()) {
+      DatabaseMetaData md = c.getMetaData();
+      System.out.println("드라이버 : " + md.getDriverName() + " " + md.getDriverVersion());
+      System.out.println("서버    : " + md.getDatabaseProductName() + " "
+                                      + md.getDatabaseProductVersion());
+      System.out.println("연결    : " + (c.isClosed() ? "닫힘" : "열림"));
+      System.out.println("자동커밋 : " + c.getAutoCommit());
+    }
+  }
+}</code></p>
+
+  <div class="note"><b><code>try (Connection c = …)</code> 의 괄호가 중요합니다.</b>
+    이렇게 쓰면 블록을 벗어날 때 <b>저절로 닫힙니다.</b>
+    안 닫으면 연결이 쌓이다가
+    <b><code>Too many connections</code></b> 로 서버가 막힙니다.
+    <b>예외가 나도</b> 닫아 주기 때문에 <code>finally</code> 보다 안전합니다.</div>
+
+  <h5>절차 3 — 한글이 깨지게 «만들어» 봅니다</h5>
+
+  <p>실습 1 절차 4 에서 미뤄 둔 이야기입니다.
+     <code>--default-character-set=utf8mb4</code> 를 <b>빼고</b> 자료를 다시 넣어 보십시오.</p>
+
+  <p class="cmdline"><code>mysql -h 127.0.0.1 -P 3399 -u root -p &lt; 01_base.sql          <i># 옵션 없이</i></code></p>
+
+  <p>터미널에서 보면 <b>멀쩡합니다.</b></p>
+
+  <p class="cmdline"><code>mysql&gt; SELECT course_nm FROM course WHERE course_cd='C01';
++---------------+
+| course_nm     |
++---------------+
+| 자바 기초    |
++---------------+</code></p>
+
+  <p>그런데 자바로 읽으면 이렇게 됩니다.</p>
+
+  <p class="cmdline"><code>[조회] hong 의 신청 내역
+  1 | ìžë°” ê¸°ì´ˆ | ê¹€ê°•ì‚¬ | 180,000 | 2026-03-02</code></p>
+
+  <h5>절차 4 — 원인을 «바이트로» 찾습니다</h5>
+
+  <p>글자가 아니라 <b>바이트</b>를 봐야 합니다.</p>
+
+  <p class="cmdline"><code>mysql&gt; SELECT course_nm, HEX(course_nm) AS hex,
+    -&gt;        LENGTH(course_nm) AS bytes, CHAR_LENGTH(course_nm) AS chars
+    -&gt;   FROM course WHERE course_cd='C01';
+
+<i>-- 깨진 것</i>
++----------------------------+------------------------------------------------------+-------+-------+
+| course_nm                  | hex                                                  | bytes | chars |
++----------------------------+------------------------------------------------------+-------+-------+
+| ìžë°” ê¸°ì´ˆ              | C3ACC5BEC290C3ABC2B0E2809D20C3AAC2B8C2B0C3ACC2B4CB86 |    26 |    13 |
++----------------------------+------------------------------------------------------+-------+-------+
+
+<i>-- 제대로 들어간 것</i>
++---------------+----------------------------+-------+-------+
+| course_nm     | hex                        | bytes | chars |
++---------------+----------------------------+-------+-------+
+| 자바 기초     | EC9E90EBB09420EAB8B0ECB488 |    13 |     5 |
++---------------+----------------------------+-------+-------+</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">「자바 기초」</th><th style="width:110px">바이트</th>
+        <th style="width:110px">글자</th><th>뜻</th></tr>
+    <tr><td>제대로</td><td class="c">13</td><td class="c"><b>5</b></td>
+        <td>한글 4자 × 3 + 공백 1 = 13</td></tr>
+    <tr><td>깨진 것</td><td class="c"><b>26</b></td><td class="c"><b>13</b></td>
+        <td><b>두 배</b> — UTF-8 바이트를 <b>또 한 번</b> UTF-8 로 담았습니다</td></tr>
+  </table>
+
+  <div class="warn"><b>연결 옵션 문제가 아닙니다. «들어갈 때» 이미 망가졌습니다.</b>
+    클라이언트 문자셋이 <code>latin1</code> 인 채로 넣으면
+    MySQL 은 UTF-8 바이트를 <b>latin1 글자들로 알아듣고</b>
+    그것을 다시 UTF-8 로 저장합니다 — <b>이중 인코딩</b>입니다.
+    터미널에서 멀쩡해 보이는 것은
+    <b>읽을 때 똑같이 잘못 해석해서 되돌아오기</b> 때문입니다.
+    <b>JDBC 는 제대로 읽기 때문에 오히려 깨져 보입니다.</b></div>
+
+  <h5>절차 5 — 고칩니다</h5>
+
+  <p>연결 옵션을 아무리 바꿔도 <b>안 고쳐집니다.</b> 확인해 보십시오.</p>
+
+  <p class="cmdline"><code>(옵션 없음)                            client=utf8mb4  읽은값=ìžë°” ê¸°ì´ˆ
+characterEncoding=UTF-8            client=utf8mb4  읽은값=ìžë°” ê¸°ì´ˆ
+characterEncoding=utf8             client=utf8mb4  읽은값=ìžë°” ê¸°ì´ˆ
+connectionCollation=utf8mb4_general_ci client=utf8mb4  읽은값=ìžë°” ê¸°ì´ˆ</code></p>
+
+  <p><b>고치는 방법은 하나뿐 — 제대로 다시 넣는 것</b>입니다.</p>
+
+  <p class="cmdline"><code>mysql -h 127.0.0.1 -P 3399 -u root -p <b>--default-character-set=utf8mb4</b> &lt; 01_base.sql
+mysql -h 127.0.0.1 -P 3399 -u root -p <b>--default-character-set=utf8mb4</b> &lt; schema.sql</code></p>
+
+  <p>다시 돌리면 이렇게 나옵니다.</p>
+
+  <p class="cmdline"><code>[조회] hong 의 신청 내역
+  1 | 자바 기초 | 김강사 | 180,000 | 2026-03-02
+  2 | SQL 입문 | 박강사 | 150,000 | 2026-03-02</code></p>
+
+  <h5>절차 6 — 콘솔 인코딩과 구분합니다</h5>
+
+  <p>비슷하게 생겼지만 <b>다른 문제</b>가 하나 더 있습니다.</p>
+
+  <p class="cmdline"><code>java -cp "out;lib/mysql-connector-j-9.0.0.jar" DBUtil
+����̹� : MySQL Connector/J mysql-connector-j-9.0.0 (Revision: e0e8e34…)
+����    : MySQL 8.0.46</code></p>
+
+  <p>이것은 <b>데이터가 아니라 콘솔</b>이 깨진 것입니다.
+     <code>DBUtil</code> 안의 한글 <b>글자 리터럴</b>까지 깨졌으니 데이터 문제일 리가 없습니다.</p>
+
+  <p class="cmdline"><code>java <b>-Dstdout.encoding=UTF-8</b> -cp "out;lib/mysql-connector-j-9.0.0.jar" DBUtil</code></p>
+
+  <table class="wide">
+    <tr><th style="width:280px">이렇게 구분합니다</th><th>어디가 문제</th></tr>
+    <tr><td>내가 쓴 한글 <b>글자도</b> 깨진다</td><td><b>콘솔</b> — 실행 옵션으로 고칩니다</td></tr>
+    <tr><td>내가 쓴 한글은 멀쩡한데 <b>DB 값만</b> 깨진다</td>
+        <td><b>데이터</b> — 다시 넣어야 합니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>DBUtil.java</code> + 연결 확인 화면 +
+     깨진 화면과 <code>HEX</code> 비교 + 고친 뒤 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 네 줄(드라이버·서버·연결·자동커밋)이 <b>다</b> 찍혔습니까
+     ② <code>try</code> 괄호로 <b>닫히게</b> 했습니까
+     ③ 깨진 값의 <b>바이트 수</b>를 재 봤습니까
+     ④ 콘솔 문제와 데이터 문제를 <b>구분</b>할 수 있습니까</p>
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st11">
+      <h3><i>11</i>읽어 오는 프로시저 — 수행준거 3-2</h3>
+      <aside class="side">
+        <p class="pt">값은 <b>물음표로</b> 넘깁니다. 이어 붙이지 않습니다.</p>
+        <b class="sh">이 단계의 결과</b>
+        <p class="v">조회 메서드</p>
+      </aside>
+      <div class="bd">
+
+<h4>수행준거 3-2 의 세 절차</h4>
+<table class="wide">
+  <tr><th style="width:56px"></th><th style="width:250px">절차</th><th>자바에서는</th></tr>
+  <tr><td class="c">1</td><td>검색 조건을 반영한 SELECT 쿼리를 작성</td>
+      <td><code>WHERE a.member_id = ?</code></td></tr>
+  <tr><td class="c">2</td><td>SQL 함수 또는 연산을 활용하여 데이터를 가공</td>
+      <td><code>COUNT</code> · <code>JOIN</code> · 계산 칼럼</td></tr>
+  <tr><td class="c">3</td><td>조회 결과를 ResultSet 으로 받아 처리</td>
+      <td><code>while (rs.next())</code></td></tr>
+</table>
+
+<h4>물음표로 넘기는 까닭</h4>
+<p><code>Statement</code> 로 문자열을 이어 붙이는 방법과
+   <code>PreparedStatement</code> 로 물음표에 값을 넘기는 방법이 있습니다.
+   <b>둘의 차이를 실제로 봅니다.</b></p>
+
+<p class="cmdline"><code>[1] 이어 붙인 SQL
+    보낸 SQL : SELECT COUNT(*) FROM apply WHERE member_id = 'hong' OR '1'='1'
+    나온 건수 = <b>6</b>
+
+[2] 물음표로 넘긴 SQL
+    보낸 SQL : SELECT COUNT(*) FROM apply WHERE member_id = ?
+    넘긴 값  : hong' OR '1'='1
+    나온 건수 = <b>0</b>
+
+[3] 전체 건수 (비교용)
+    전체 = <b>6</b></code></p>
+
+<table class="wide">
+  <tr><th style="width:190px">넘긴 값</th><th style="width:130px">나온 건수</th><th>무슨 일이</th></tr>
+  <tr><td>이어 붙임</td><td class="c"><b>6</b></td>
+      <td><code>OR '1'='1'</code> 이 <b>조건이 되어</b> 전체가 나왔습니다</td></tr>
+  <tr><td>물음표</td><td class="c"><b>0</b></td>
+      <td>통째로 <b>아이디 한 개</b>로 읽혔습니다. 그런 회원은 없습니다</td></tr>
+</table>
+
+<div class="warn"><b>남의 자료가 통째로 나온 것입니다.</b>
+  <code>hong' OR '1'='1</code> 한 줄로
+  홍길동의 신청만 봐야 할 사람이 <b>전원의 신청</b>을 봤습니다.
+  이것이 <b>SQL 주입</b>입니다.
+  <b>«값이 코드가 되어 버린 것»</b> 이 문제의 전부이고,
+  물음표는 <b>값을 값으로만</b> 넘깁니다.
+  지우는 SQL 을 심으면 표가 날아갑니다 —
+  <b>조회 화면 하나로 데이터베이스가 지워집니다.</b></div>
+
+<h4>세 표를 이어 붙이기</h4>
+<p class="cmdline"><code>SELECT a.apply_no, c.course_nm, t.teacher_nm, c.fee, a.apply_dt
+  FROM apply a
+  JOIN course  c ON c.course_cd  = a.course_cd
+  JOIN teacher t ON t.teacher_no = c.teacher_no
+ WHERE a.member_id = ?
+ ORDER BY a.apply_no</code></p>
+
+<p>레벨 2 에서 표를 나눈 대가를 여기서 치릅니다.
+   <b>나누었으니 다시 이어 붙여야</b> 원래 신청서 모양이 됩니다.
+   그 대신 <b>고칠 자리는 하나</b>입니다 — 실습 4 에서 본 거래입니다.</p>
+
+<h4>ResultSet 읽기</h4>
+<p class="cmdline"><code>try (ResultSet rs = ps.executeQuery()) {
+  while (rs.next()) {                       <i>// 줄이 있으면 true</i>
+    rs.getInt("apply_no");
+    rs.getString("course_nm");
+    rs.getDate("apply_dt");
+  }
+}</code></p>
+
+<table class="wide">
+  <tr><th style="width:230px">자주 나는 일</th><th>까닭</th></tr>
+  <tr><td><code>Before start of result set</code></td>
+      <td><code>rs.next()</code> 를 <b>부르기 전에</b> 값을 꺼냈습니다</td></tr>
+  <tr><td><code>Column 'course_name' not found.</code></td>
+      <td>칼럼 이름 <b>철자</b>가 다릅니다 — 별칭을 줬으면 <b>별칭</b>으로 꺼냅니다</td></tr>
+  <tr><td>값이 <code>null</code> 로만 나옴</td>
+      <td><code>getString</code> 의 이름이 <b>다른 표의 같은 이름 칼럼</b>을 잡았습니다</td></tr>
+</table>
+
+<div class="lab">
+  <b class="t">실습 11</b>
+  <b>조회 메서드를 만들고, 주입을 «직접» 재현합니다</b>
+
+  <p><b>목적</b> — 수행준거 3-2 의 산출물입니다.
+     주입은 <b>말로 배우면 절대 안 잊히지 않는 것이 아니라 잊힙니다.</b> 쳐 보십시오.</p>
+
+  <h5>절차 1 — 조회 메서드를 씁니다</h5>
+
+  <p class="cmdline"><code>import java.sql.*;
+import java.util.*;
+
+public class ApplyDAO {
+
+  public List&lt;String&gt; findByMember(String memberId) throws SQLException {
+    String sql = """
+        SELECT a.apply_no, c.course_nm, t.teacher_nm, c.fee, a.apply_dt
+          FROM apply a
+          JOIN course  c ON c.course_cd  = a.course_cd
+          JOIN teacher t ON t.teacher_no = c.teacher_no
+         WHERE a.member_id = ?
+         ORDER BY a.apply_no""";
+
+    List&lt;String&gt; rows = new ArrayList&lt;&gt;();
+    try (Connection c = DBUtil.getConnection();
+         PreparedStatement ps = c.prepareStatement(sql)) {
+      ps.setString(1, memberId);                    <i>// ← 물음표에 값을 넘깁니다</i>
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          rows.add("%d | %s | %s | %,d | %s".formatted(
+              rs.getInt("apply_no"), rs.getString("course_nm"),
+              rs.getString("teacher_nm"), rs.getInt("fee"),
+              rs.getDate("apply_dt")));
+        }
+      }
+    }
+    return rows;
+  }
+}</code></p>
+
+  <p class="cmdline"><code>[조회] hong 의 신청 내역
+  1 | 자바 기초 | 김강사 | 180,000 | 2026-03-02
+  2 | SQL 입문 | 박강사 | 150,000 | 2026-03-02</code></p>
+
+  <h5>절차 2 — 두 방식을 «나란히» 돌립니다</h5>
+
+  <p class="cmdline"><code>String evil = "hong' OR '1'='1";
+
+<i>// [1] 이어 붙이기</i>
+String sql = "SELECT COUNT(*) FROM apply WHERE member_id = '" + evil + "'";
+try (Statement s = c.createStatement(); ResultSet rs = s.executeQuery(sql)) { … }
+
+<i>// [2] 물음표</i>
+try (PreparedStatement ps = c.prepareStatement(
+         "SELECT COUNT(*) FROM apply WHERE member_id = ?")) {
+  ps.setString(1, evil);
+  …
+}</code></p>
+
+  <p>위의 <b>6 / 0 / 6</b> 화면이 나와야 합니다.
+     <b>[1] 의 6 과 [3] 의 6 이 같다</b>는 것이 핵심입니다 —
+     한 사람만 봐야 할 조회가 <b>전체를 돌려주었습니다.</b></p>
+
+  <h5>절차 3 — 가공을 넣습니다 (절차 2 대응)</h5>
+
+  <p>수행준거의 「SQL 함수 또는 연산을 활용하여 데이터를 가공한다」 입니다.</p>
+
+  <p class="cmdline"><code>mysql&gt; SELECT c.course_cd, c.course_nm,
+    -&gt;        COUNT(a.apply_no) AS apply_cnt,
+    -&gt;        COUNT(a.apply_no) * c.fee AS amount
+    -&gt;   FROM course c LEFT JOIN apply a ON a.course_cd = c.course_cd
+    -&gt;  GROUP BY c.course_cd, c.course_nm, c.fee
+    -&gt;  ORDER BY apply_cnt DESC;
++-----------+------------------+-----------+--------+
+| course_cd | course_nm        | apply_cnt | amount |
++-----------+------------------+-----------+--------+
+| C01       | 자바 기초    |         3 | 540000 |
+| C02       | SQL 입문       |         1 | 150000 |
+| C03       | 스프링 실무 |         1 | 220000 |
++-----------+------------------+-----------+--------+</code></p>
+
+  <p><b>계산을 어디서 하는가</b>도 판단입니다.
+     <code>COUNT * fee</code> 를 자바에서 해도 되지만,
+     <b>줄 수가 많을 때는 데이터베이스가 세는 편이 훨씬 빠릅니다</b>
+     (실습 14 에서 숫자로 확인합니다).</p>
+
+  <h5>절차 4 — 자주 나는 컴파일 오류 하나</h5>
+
+  <p class="cmdline"><code>error: reference to Date is ambiguous
+      ps.setDate(3, Date.valueOf(applyDt));
+                    ^
+  both class java.util.Date in java.util and class java.sql.Date in java.sql match</code></p>
+
+  <p><code>import java.sql.*;</code> 와 <code>import java.util.*;</code> 를
+     <b>둘 다</b> 썼을 때 납니다. <code>Date</code> 가 양쪽에 있습니다.</p>
+
+  <p class="cmdline"><code>ps.setDate(3, <b>java.sql.Date</b>.valueOf(applyDt));      <i>// 어느 쪽인지 밝혀 줍니다</i></code></p>
+
+  <h5>절차 5 — 이어 붙인 코드가 «없는지» 셉니다</h5>
+
+  <p>제출 전에 확인하는 방법입니다. 소스에서 이것을 찾으십시오.</p>
+
+  <p class="cmdline"><code>찾을 것 :  " +
+찾은 곳이 SQL 문자열 안이면 → 고쳐야 합니다
+createStatement() 가 남아 있으면 → 왜 남겼는지 설명할 수 있어야 합니다</code></p>
+
+  <p><b>제출물</b> — <code>findByMember</code> 코드 + 조회 결과 화면 +
+     <b>주입 재현 화면(6 / 0 / 6)</b> + 집계 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 조건 값을 <b>물음표로</b> 넘겼습니까
+     ② 주입으로 <b>전체가 나오는 것</b>을 봤습니까
+     ③ <code>ResultSet</code> 을 <b>닫히게</b> 했습니까
+     ④ 소스에 <b>이어 붙인 SQL</b> 이 남아 있지 않습니까</p>
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st12">
+      <h3><i>12</i>저장하는 프로시저 — 수행준거 3-3</h3>
+      <aside class="side">
+        <p class="pt">넣고 끝이 아니라 <b>묶어서 확정</b>하는 데까지입니다.</p>
+        <b class="sh">이 단계의 결과</b>
+        <p class="v">등록·수정·삭제 + 트랜잭션</p>
+      </aside>
+      <div class="bd">
+
+<h4>수행준거 3-3 의 세 절차</h4>
+<table class="wide">
+  <tr><th style="width:56px"></th><th style="width:250px">절차</th><th>돌려주는 값</th></tr>
+  <tr><td class="c">1</td><td>INSERT 쿼리를 작성하여 신규 데이터를 삽입</td>
+      <td><code>executeUpdate()</code> → <b>바뀐 줄 수</b></td></tr>
+  <tr><td class="c">2</td><td>UPDATE 쿼리를 작성하여 기존 데이터를 수정</td>
+      <td>같음</td></tr>
+  <tr><td class="c">3</td><td>DELETE 쿼리를 작성하여 데이터를 삭제</td>
+      <td>같음</td></tr>
+</table>
+
+<h4>돌아오는 숫자를 «보십시오»</h4>
+<p><code>executeUpdate()</code> 는 <b>몇 줄이 바뀌었는지</b>를 돌려줍니다.
+   이 숫자를 안 보면 <b>아무 일도 안 일어난 것을 성공으로 착각</b>합니다.</p>
+
+<p class="cmdline"><code>[등록] lee 가 C02 를 신청
+  바뀐 줄 수 = 1
+
+[수정] 1번 신청일을 2026-03-11 로
+  바뀐 줄 수 = 1
+
+[삭제] 없는 999번을 지우면
+  바뀐 줄 수 = <b>0</b>        ← 예외가 «나지 않습니다»</code></p>
+
+<div class="warn"><b>없는 것을 지워도 오류가 안 납니다.</b>
+  <code>DELETE FROM apply WHERE apply_no = 999</code> 는
+  <b>지울 것이 없었을 뿐</b> 잘못된 SQL 이 아닙니다.
+  그래서 <b>0 을 확인하지 않으면</b>
+  화면에는 「삭제되었습니다」 가 뜨고 데이터는 그대로 남습니다.
+  <b>돌아온 숫자가 0 이면 「그런 자료가 없습니다」 로 갈라 주십시오.</b></div>
+
+<h4>자동커밋을 끄면 «묶음» 이 생깁니다</h4>
+<p>실습 10 에서 <code>자동커밋 : true</code> 를 봤습니다.
+   지금은 한 줄 고칠 때마다 곧바로 확정됩니다.
+   <b>여러 줄을 한 묶음으로</b> 다루려면 꺼야 합니다.</p>
+
+<p class="cmdline"><code>c.setAutoCommit(false);        <i>// ← 여기서 트랜잭션이 열립니다</i>
+try {
+  … 여러 번의 executeUpdate …
+  c.commit();                  <i>// 전부 확정</i>
+} catch (SQLException e) {
+  c.rollback();                <i>// 전부 취소</i>
+} finally {
+  c.setAutoCommit(true);       <i>// 원래대로 되돌립니다</i>
+}</code></p>
+
+<h4>SQLState 와 ErrorCode</h4>
+<p>무엇 때문에 터졌는지 갈라내려면 <b>메시지가 아니라 코드</b>를 봐야 합니다.
+   메시지는 판이 바뀌면 달라집니다.</p>
+
+<table class="wide">
+  <tr><th style="width:150px">값</th><th style="width:170px">예제에서 나온 것</th><th>성격</th></tr>
+  <tr><td><code>getSQLState()</code></td><td><code>23000</code></td>
+      <td><b>표준</b> — 어느 데이터베이스나 「제약조건 위반」</td></tr>
+  <tr><td><code>getErrorCode()</code></td><td><code>1062</code></td>
+      <td>MySQL <b>고유</b> — 「중복 키」 라고 더 자세히</td></tr>
+</table>
+
+<div class="lab">
+  <b class="t">실습 12</b>
+  <b>넣고 고치고 지우고, 가운데서 터뜨려 «전부 되돌립니다»</b>
+
+  <p><b>목적</b> — 수행준거 3-3 의 산출물이자
+     실습 9 에서 본 TCL 을 <b>자바에서</b> 쓰는 자리입니다.</p>
+
+  <h5>절차 1 — 셋을 만듭니다</h5>
+
+  <p class="cmdline"><code>public int insert(String memberId, String courseCd, String applyDt) throws SQLException {
+  String sql = "INSERT INTO apply (member_id, course_cd, apply_dt) VALUES (?,?,?)";
+  try (Connection c = DBUtil.getConnection();
+       PreparedStatement ps = c.prepareStatement(sql)) {
+    ps.setString(1, memberId);
+    ps.setString(2, courseCd);
+    ps.setDate(3, java.sql.Date.valueOf(applyDt));
+    return ps.executeUpdate();
+  }
+}
+
+public int updateDate(int applyNo, String applyDt) throws SQLException {
+  try (Connection c = DBUtil.getConnection();
+       PreparedStatement ps = c.prepareStatement(
+           "UPDATE apply SET apply_dt = ? WHERE apply_no = ?")) {
+    ps.setDate(1, java.sql.Date.valueOf(applyDt));
+    ps.setInt(2, applyNo);
+    return ps.executeUpdate();
+  }
+}
+
+public int delete(int applyNo) throws SQLException {
+  try (Connection c = DBUtil.getConnection();
+       PreparedStatement ps = c.prepareStatement(
+           "DELETE FROM apply WHERE apply_no = ?")) {
+    ps.setInt(1, applyNo);
+    return ps.executeUpdate();
+  }
+}</code></p>
+
+  <div class="note"><b><code>WHERE</code> 를 빠뜨리면 표 전체가 바뀝니다.</b>
+    <code>UPDATE apply SET apply_dt = ?</code> 만 쓰면
+    <b>모든 신청의 날짜가 같아집니다.</b>
+    오류는 나지 않고 <b>바뀐 줄 수만 크게</b> 나옵니다.
+    <b>1 이 나와야 할 자리에 5 가 나오면</b> 그 자리에서 멈추십시오.</div>
+
+  <h5>절차 2 — 돌려 보고 «숫자를» 봅니다</h5>
+
+  <p>위의 <b>1 / 1 / 0</b> 화면이 나와야 합니다.
+     <b>마지막 0 을 반드시 확인</b>하십시오.</p>
+
+  <h5>절차 3 — 트랜잭션으로 묶습니다</h5>
+
+  <p class="cmdline"><code>try (Connection c = DBUtil.getConnection()) {
+  System.out.println("시작 건수 = " + count(c));
+
+  c.setAutoCommit(false);
+  try (PreparedStatement ps = c.prepareStatement(
+           "INSERT INTO apply (member_id,course_cd,apply_dt) VALUES (?,?,?)")) {
+
+    ps.setString(1,"kim"); ps.setString(2,"C02");
+    ps.setDate(3, java.sql.Date.valueOf("2026-03-12"));
+    ps.executeUpdate();
+    System.out.println("첫째 넣은 뒤 (같은 연결) = " + count(c));
+
+    ps.setString(1,"hong"); ps.setString(2,"C01");   <i>// ← 이미 있는 짝</i>
+    ps.setDate(3, java.sql.Date.valueOf("2026-03-12"));
+    ps.executeUpdate();
+
+    c.commit();
+  } catch (SQLException e) {
+    c.rollback();
+    System.out.println("  SQLState = " + e.getSQLState()
+        + " / ErrorCode = " + e.getErrorCode());
+    System.out.println("  " + e.getMessage());
+  } finally {
+    c.setAutoCommit(true);
+  }
+  System.out.println("끝 건수 = " + count(c));
+}</code></p>
+
+  <h5>절차 4 — 돌려 봅니다</h5>
+
+  <p class="cmdline"><code>시작 건수 = 6
+첫째 넣은 뒤 (같은 연결) = 7
+터졌습니다 → 되돌립니다
+  SQLState = 23000 / ErrorCode = 1062
+  Duplicate entry 'hong-C01' for key 'apply.uq_apply'
+끝 건수 = <b>6</b></code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">눈여겨볼 것</th><th></th></tr>
+    <tr><td>첫째는 <b>분명히 들어갔습니다</b></td>
+        <td><code>7</code> 이 찍혔습니다 — <b>같은 연결</b>에서는 보입니다</td></tr>
+    <tr><td>그런데 끝에는 <b>6</b></td>
+        <td>둘째가 터지자 <b>첫째까지</b> 되돌아갔습니다</td></tr>
+    <tr><td>실습 8 의 <code>uq_apply</code> 가 걸렸습니다</td>
+        <td>레벨 2 의 제약조건이 <b>여기서 일합니다</b></td></tr>
+  </table>
+
+  <div class="note"><b>「같은 연결에서는 보인다」 가 중요합니다.</b>
+    확정 전의 값은 <b>그 연결 안에서만</b> 보입니다.
+    다른 프로그램이 동시에 세면 <b>6 이 나옵니다.</b>
+    그래서 <code>count(c)</code> 에 <b>같은 <code>Connection</code> 을 넘겨</b> 썼습니다.
+    새 연결로 세면 7 이 안 보입니다.</div>
+
+  <h5>절차 5 — <code>rollback</code> 을 «빼고» 돌려 봅니다</h5>
+
+  <p><code>catch</code> 에서 <code>c.rollback()</code> 을 지우고 다시 돌리십시오.</p>
+
+  <table class="wide">
+    <tr><th style="width:250px">무엇이 달라지나</th><th></th></tr>
+    <tr><td>끝 건수가 <b>7</b></td>
+        <td>연결을 닫을 때 <b>확정되어 버립니다</b></td></tr>
+    <tr><td>절반만 들어간 상태</td>
+        <td><b>이것이 가장 나쁜 결과</b>입니다 — 다시 보내면 중복됩니다</td></tr>
+  </table>
+
+  <p>확인했으면 <code>rollback()</code> 을 <b>되살려</b> 두십시오.</p>
+
+  <h5>절차 6 — 정리합니다</h5>
+
+  <p class="cmdline"><code>mysql&gt; DELETE FROM apply WHERE member_id='kim' AND course_cd='C02';
+mysql&gt; SELECT COUNT(*) FROM apply;</code></p>
+
+  <p><b>제출물</b> — 세 메서드 코드 + <b>1 / 1 / 0</b> 화면 +
+     트랜잭션 <b>6 → 7 → 6</b> 화면 + SQLState·ErrorCode 가 찍힌 줄</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>executeUpdate</code> 가 돌려준 숫자를 <b>봤습니까</b>
+     ② 없는 것을 지울 때 <b>0</b> 이 나오는 것을 봤습니까
+     ③ <code>setAutoCommit(false)</code> 뒤에 <b><code>commit</code> 과 <code>rollback</code> 둘 다</b> 있습니까
+     ④ <b>끝 건수가 시작 건수와 같습니까</b></p>
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st13">
+      <h3><i>13</i>테스트 케이스 명세 — 수행준거 3-4</h3>
+      <aside class="side">
+        <p class="pt">돌려 보는 것과 <b>돌려 볼 것을 적어 두는 것</b>은 다릅니다.</p>
+        <b class="sh">이 단계의 결과</b>
+        <p class="v">테스트케이스_명세서</p>
+      </aside>
+      <div class="bd">
+
+<h4>수행준거 3-4 가 요구하는 다섯 절차</h4>
+<table class="wide">
+  <tr><th style="width:56px"></th><th style="width:280px">절차</th><th>이 과제에서</th></tr>
+  <tr><td class="c">1</td><td>단문 SQL 테스트를 위한 테스트 조건을 명세화</td>
+      <td>SELECT · INSERT · UPDATE · DELETE 각각</td></tr>
+  <tr><td class="c">2</td><td>절차형 SQL 테스트를 위한 테스트 조건을 명세화</td>
+      <td>트랜잭션으로 묶인 <b>일괄 등록</b></td></tr>
+  <tr><td class="c">3</td><td>테스트 케이스 명세서를 작성</td>
+      <td>번호 · 대상 · 입력 · 기대 결과 표</td></tr>
+  <tr><td class="c">4</td><td>테스트 흐름을 정의</td>
+      <td>어떤 차례로 돌릴 것인가</td></tr>
+  <tr><td class="c">5</td><td>테스트 명세 내용을 검토</td>
+      <td>빠진 갈래가 없는지 훑기</td></tr>
+</table>
+
+<h4>명세서 한 줄의 모양</h4>
+<p class="cmdline"><code>번호 | 대상            | 입력                          | 기대 결과
+-----+-----------------+-------------------------------+------------------------------
+TC-01| findByMember    | 'hong'                        | 2건, apply_no 1·2 순
+TC-02| findByMember    | '없는아이디'                  | <b>0건 (예외 아님)</b>
+TC-03| insert          | lee / C02 / 2026-03-10        | 반환값 1
+TC-04| insert          | hong / C01 (이미 있음)        | <b>SQLState 23000 / 1062</b>
+TC-05| insert          | hong / C99 (없는 강좌)        | <b>SQLState 23000 / 1452</b>
+TC-06| delete          | 999 (없는 번호)               | <b>반환값 0 (예외 아님)</b>
+TC-07| 일괄등록        | 둘째가 중복인 세 건           | 예외 + <b>건수 변화 0</b></code></p>
+
+<div class="warn"><b>«되는 경우» 만 적으면 명세서가 아닙니다.</b>
+  TC-02 · TC-06 처럼 <b>「아무 일도 안 일어나는 경우」</b> 와
+  TC-04 · TC-05 처럼 <b>「막혀야 하는 경우」</b> 가 있어야 합니다.
+  실제로 사고는 <b>여기서</b> 납니다.
+  되는 것만 적힌 명세서는 <b>되는 것만 확인</b>하고 끝납니다.</div>
+
+<h4>테스트 흐름</h4>
+<p>차례를 정해 두지 않으면 <b>앞 시험이 뒤 시험을 망칩니다.</b></p>
+
+<p class="cmdline"><code>1. 초기화   schema.sql 을 다시 돌려 «늘 같은 상태» 에서 시작
+2. 조회     TC-01 · TC-02       ← 아무것도 안 바꾸는 것부터
+3. 등록     TC-03 · TC-04 · TC-05
+4. 삭제     TC-06
+5. 묶음     TC-07               ← 건수를 전후로 잰다
+6. 정리     TC-03 에서 넣은 것을 되돌린다</code></p>
+
+<div class="lab">
+  <b class="t">실습 13</b>
+  <b>명세서를 쓰고, 그대로 돌려 결과를 채웁니다</b>
+
+  <p><b>목적</b> — 수행준거 3-4 의 산출물입니다.
+     <b>쓰는 것과 돌리는 것을 한 번에</b> 합니다.</p>
+
+  <h5>절차 1 — 갈래를 빠짐없이 셉니다</h5>
+
+  <p>실습 9 의 SQL 분류표를 놓고 <b>갈래마다 최소 하나</b> 씩 있는지 봅니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:130px">갈래</th><th style="width:150px">테스트 번호</th><th>빠지기 쉬운 것</th></tr>
+    <tr><td class="nm">SELECT</td><td>TC-01 · TC-02</td>
+        <td><b>0건</b>이 나오는 경우</td></tr>
+    <tr><td class="nm">INSERT</td><td>TC-03 · TC-04 · TC-05</td>
+        <td><b>제약조건에 막히는</b> 경우</td></tr>
+    <tr><td class="nm">DELETE</td><td>TC-06</td>
+        <td><b>지울 것이 없는</b> 경우</td></tr>
+    <tr><td class="nm">트랜잭션</td><td>TC-07</td>
+        <td><b>전후 건수</b>를 안 재는 것</td></tr>
+  </table>
+
+  <h5>절차 2 — 「기대 결과」 를 «미리» 적습니다</h5>
+
+  <div class="note"><b>돌려 보고 나온 값을 기대 결과 칸에 적으면 시험이 아닙니다.</b>
+    그것은 <b>기록</b>일 뿐입니다.
+    <b>돌리기 전에</b> 무엇이 나와야 하는지 적고,
+    다르면 <b>둘 중 하나가 틀린 것</b>입니다 —
+    코드가 틀렸거나 <b>내가 업무를 잘못 이해한 것</b>입니다.
+    후자가 더 자주입니다.</div>
+
+  <h5>절차 3 — 돌리고 «실제 결과» 칸을 채웁니다</h5>
+
+  <p class="cmdline"><code>번호 | 기대 결과                 | 실제 결과                              | 판정
+-----+---------------------------+----------------------------------------+-----
+TC-01| 2건                       | 2건 (자바 기초 · SQL 입문)             | 통과
+TC-02| 0건                       | 0건                                    | 통과
+TC-03| 반환값 1                  | 1                                      | 통과
+TC-04| 23000 / 1062              | 23000 / 1062                           | 통과
+      |                           | Duplicate entry 'hong-C01' …           |
+TC-05| 23000 / 1452              | 23000 / 1452                           | 통과
+      |                           | foreign key constraint fails …         |
+TC-06| 0                         | 0                                      | 통과
+TC-07| 건수 변화 0               | 6 → 7 → 6                              | 통과</code></p>
+
+  <h5>절차 4 — «틀린 것» 을 한 번 만들어 봅니다</h5>
+
+  <p>명세서가 일하는 것을 보려면 <b>일부러 틀려</b> 봐야 합니다.
+     <code>delete</code> 에서 <code>WHERE</code> 를 지우고 TC-06 을 돌리십시오.</p>
+
+  <table class="wide">
+    <tr><th style="width:190px">기대</th><th style="width:150px">실제</th><th>판정</th></tr>
+    <tr><td>반환값 0</td><td><b>6</b></td><td><b>실패</b> — 전부 지웠습니다</td></tr>
+  </table>
+
+  <p><b>기대 결과를 적어 두지 않았다면</b> 6 을 보고도
+     「잘 지워졌네」 하고 넘어갔을 것입니다.
+     확인했으면 <code>schema.sql</code> 을 <b>다시 돌려</b> 되살리십시오.</p>
+
+  <h5>절차 5 — 검토합니다 (절차 5 대응)</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th>훑을 것</th></tr>
+    <tr><td class="c">□</td><td>갈래마다 <b>최소 하나</b> 있는가</td></tr>
+    <tr><td class="c">□</td><td><b>0건 · 0줄</b> 이 나오는 경우가 있는가</td></tr>
+    <tr><td class="c">□</td><td><b>막혀야 하는</b> 경우가 있는가</td></tr>
+    <tr><td class="c">□</td><td>기대 결과를 <b>돌리기 전에</b> 적었는가</td></tr>
+    <tr><td class="c">□</td><td>매번 <b>같은 상태</b>에서 시작하는가</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 테스트케이스 명세서(기대·실제·판정) +
+     테스트 흐름 여섯 줄 + <b>일부러 틀렸을 때</b> 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 일곱 줄을 <b>다</b> 돌렸습니까
+     ② <b>실패하는 줄</b>을 한 번 만들어 봤습니까
+     ③ 오류 케이스에 <b>코드 번호</b>를 적었습니까
+     ④ 초기화 절차가 <b>있습니까</b></p>
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="lv">
+  <div class="lvh"><b>레벨 4 · 데이터 조작 프로시저 최적화하기</b><span>능력단위요소 ④ · 수행준거 4-1 ~ 4-3</span></div>
+  <div class="lvb">
+
+    <div class="step" id="st14">
+      <h3><i>14</i>성능 측정 — 수행준거 4-1</h3>
+      <aside class="side">
+        <p class="pt">「느리다」 는 <b>측정값이 아닙니다.</b></p>
+        <b class="sh">이 단계의 결과</b>
+        <p class="v">기준값과 측정값</p>
+      </aside>
+      <div class="bd">
+
+<h4>수행준거 4-1 의 네 절차</h4>
+<table class="wide">
+  <tr><th style="width:56px"></th><th style="width:280px">절차</th><th>이 예제에서</th></tr>
+  <tr><td class="c">1</td><td>성능 측정을 위한 <b>기준 요구사항</b>을 식별한다</td>
+      <td>「회원별 신청 조회는 <b>0.05초 안에</b>」</td></tr>
+  <tr><td class="c">2</td><td>성능 측정 도구를 설정한다</td>
+      <td><code>SET profiling = 1</code> · <code>EXPLAIN</code></td></tr>
+  <tr><td class="c">3</td><td>대상 프로시저를 실행하고 측정 데이터를 수집한다</td>
+      <td><code>SHOW PROFILES</code></td></tr>
+  <tr><td class="c">4</td><td>측정 결과를 분석하여 실행 성능을 평가한다</td>
+      <td>기준과 대 보고 <b>통과 / 미달</b>을 적는다</td></tr>
+</table>
+
+<div class="warn"><b>절차 1 이 빠지면 나머지가 다 소용없습니다.</b>
+  기준이 없으면 0.1초가 빠른지 느린지 <b>말할 수 없습니다.</b>
+  「업무 분석가에 의해 정의된 요구사항을 기준으로」 —
+  수행준거의 첫 구절이 그 말입니다.
+  <b>숫자가 적힌 기준을 먼저 만드십시오.</b></div>
+
+<h4>도구 — 학습모듈의 것과 MySQL 의 것</h4>
+<p>학습모듈은 Oracle 을 예로 <b>TKPROF</b> 와 <b>EXPLAIN PLAN</b> 을 듭니다.
+   하는 일이 무엇인지 알면 MySQL 에서도 같은 것을 씁니다.</p>
+
+<table class="wide">
+  <tr><th style="width:170px">하는 일</th><th style="width:190px">Oracle</th><th>MySQL</th></tr>
+  <tr><td class="nm">얼마나 걸렸나</td><td>TKPROF</td>
+      <td><code>SET profiling = 1</code> → <code>SHOW PROFILES</code></td></tr>
+  <tr><td class="nm">어떤 길로 갔나</td><td>EXPLAIN PLAN</td>
+      <td><code>EXPLAIN</code> · <code>EXPLAIN ANALYZE</code></td></tr>
+  <tr><td class="nm">느린 것만 모으기</td><td>—</td>
+      <td><code>slow_query_log</code></td></tr>
+</table>
+
+<h4>실행 계획을 읽는 세 칸</h4>
+<p><code>EXPLAIN</code> 은 칸이 많지만 <b>셋만</b> 보면 됩니다.</p>
+
+<table class="wide">
+  <tr><th style="width:110px">칸</th><th style="width:210px">무슨 뜻</th><th>나쁜 값</th></tr>
+  <tr><td class="nm">type</td><td>어떤 방식으로 찾는가</td>
+      <td><code>ALL</code> — <b>처음부터 끝까지 다 읽습니다</b></td></tr>
+  <tr><td class="nm">key</td><td>실제로 쓴 인덱스</td>
+      <td><code>NULL</code> — 아무것도 안 썼습니다</td></tr>
+  <tr><td class="nm">rows</td><td>몇 줄을 볼 «셈» 인가</td>
+      <td>표의 전체 줄 수와 <b>비슷한 값</b></td></tr>
+</table>
+
+<p><code>type</code> 은 좋은 쪽부터 <code>const</code> → <code>eq_ref</code> →
+   <code>ref</code> → <code>range</code> → <code>index</code> → <code>ALL</code> 입니다.
+   <b><code>ref</code> 나 <code>range</code> 면 충분히 좋습니다.</b></p>
+
+<div class="note"><b><code>rows</code> 는 «어림수» 입니다.</b>
+  아래 화면에서 전체가 50만 줄인데 <code>498294</code> 로 나옵니다.
+  통계로 <b>짐작한 값</b>이라 정확하지 않습니다.
+  그래도 <b>「거의 다 읽는다」</b> 는 사실은 분명합니다.
+  숫자 자체보다 <b>자릿수</b>를 보십시오.</div>
+
+<div class="lab">
+  <b class="t">실습 14</b>
+  <b>기준을 정하고, 지금 값을 잽니다</b>
+
+  <p><b>목적</b> — 수행준거 4-1 의 산출물입니다.
+     <b>고치기 전 숫자</b>가 없으면 실습 16 에서 개선을 증명할 수 없습니다.</p>
+
+  <h5>절차 1 — 기준 요구사항을 씁니다</h5>
+
+  <p class="cmdline"><code>성능 기준 (업무 협의 결과)
+
+  PR-01  회원별 신청 조회      50만 건 기준  0.05 초 이내
+  PR-02  강좌별 신청 건수 집계  50만 건 기준  0.30 초 이내
+  PR-03  일괄 등록 3,000 건                   5 초 이내</code></p>
+
+  <p><b>숫자 셋이 있어야 합니다</b> — 무엇을 · 어떤 양에서 · 몇 초 안에.
+     하나라도 빠지면 나중에 「통과」 를 말할 수 없습니다.</p>
+
+  <h5>절차 2 — 측정 도구를 켭니다</h5>
+
+  <p class="cmdline"><code>mysql&gt; SET profiling = 1;</code></p>
+
+  <div class="note"><b>「deprecated」 경고가 나와도 됩니다.</b>
+    MySQL 은 <code>SHOW PROFILES</code> 를 <b>앞으로 없앨 예정</b>이라고 알려 줍니다.
+    아직 돕니다. 실습에는 <b>가장 손쉬운 도구</b>입니다.
+    실무에서는 <code>performance_schema</code> 나
+    <code>EXPLAIN ANALYZE</code> 를 씁니다.</div>
+
+  <h5>절차 3 — PR-01 을 잽니다</h5>
+
+  <p class="cmdline"><code>mysql&gt; SELECT COUNT(*) FROM apply_log WHERE member_id = 'm012345';
+mysql&gt; SELECT COUNT(*) FROM apply_log WHERE member_id = 'm012345';
+mysql&gt; SHOW PROFILES;
++----------+------------+------------------------------------------------------------+
+| Query_ID | Duration   | Query                                                      |
++----------+------------+------------------------------------------------------------+
+|        1 | <b>0.10808575</b> | SELECT COUNT(*) FROM apply_log WHERE member_id = 'm012345' |
+|        2 | <b>0.09195450</b> | SELECT COUNT(*) FROM apply_log WHERE member_id = 'm012345' |
++----------+------------+------------------------------------------------------------+</code></p>
+
+  <p><b>두 번 돌리는 까닭</b>이 있습니다.
+     첫 번째는 디스크에서 읽어 오느라 느릴 수 있습니다.
+     <b>두 번째 값</b>이 실제에 가깝습니다.</p>
+
+  <h5>절차 4 — 실행 계획을 봅니다</h5>
+
+  <p class="cmdline"><code>mysql&gt; EXPLAIN SELECT COUNT(*) FROM apply_log WHERE member_id = 'm012345';
++----+-------------+-----------+------+---------------+------+---------+------+--------+----------+-------------+
+| id | select_type | table     | type | possible_keys | key  | key_len | ref  | rows   | filtered | Extra       |
++----+-------------+-----------+------+---------------+------+---------+------+--------+----------+-------------+
+|  1 | SIMPLE      | apply_log | <b>ALL</b>  | NULL          | <b>NULL</b> | NULL    | NULL | <b>498294</b> |    10.00 | Using where |
++----+-------------+-----------+------+---------------+------+---------+------+--------+----------+-------------+</code></p>
+
+  <p><b>세 칸이 전부 나쁜 값</b>입니다.
+     <code>type=ALL</code> · <code>key=NULL</code> · <code>rows=498294</code> —
+     <b>열 줄을 찾으려고 50만 줄을 읽고 있습니다.</b></p>
+
+  <h5>절차 5 — 평가표를 채웁니다 (절차 4 대응)</h5>
+
+  <p class="cmdline"><code>번호  | 기준      | 측정값   | 판정    | 실행 계획
+------+-----------+----------+---------+---------------------------
+PR-01 | 0.05 초   | 0.092 초 | <b>미달</b>    | type=ALL, key=NULL, rows=498294
+PR-02 | 0.30 초   | 0.209 초 | 통과    | (실습 7 에서 잰 값)
+PR-03 | 5 초      | 13.1 초  | <b>미달</b>    | (실습 16 에서 다룸)</code></p>
+
+  <p><b>미달 둘</b>이 나왔습니다. 이것이 실습 15·16 의 일감입니다.</p>
+
+  <h5>절차 6 — PR-03 도 잽니다</h5>
+
+  <p>일괄 등록 3,000 건을 <b>한 건씩</b> 넣어 봅니다.</p>
+
+  <p class="cmdline"><code>① 한 건씩 executeUpdate  3,000건  <b>13,105 ms</b></code></p>
+
+  <p>기준 5초인데 <b>13.1초</b>입니다. 미달입니다.
+     <b>왜 느린지는 아직 모릅니다</b> — 그것이 실습 15 입니다.</p>
+
+  <p><b>제출물</b> — 성능 기준 세 줄 + 측정값 + 실행 계획 + 평가표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 기준에 <b>숫자 셋</b>이 다 있습니까
+     ② <b>두 번 이상</b> 재서 안정된 값을 썼습니까
+     ③ 실행 계획의 <b>세 칸</b>을 적었습니까
+     ④ <b>미달</b>이 하나라도 있습니까 (없으면 기준이 너무 느슨합니다)</p>
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st15">
+      <h3><i>15</i>병목 찾기 — 수행준거 4-2</h3>
+      <aside class="side">
+        <p class="pt">느린 곳이 아니라 <b>가장</b> 느린 곳을 찾습니다.</p>
+        <b class="sh">이 단계의 결과</b>
+        <p class="v">병목 목록과 원인</p>
+      </aside>
+      <div class="bd">
+
+<h4>수행준거 4-2 의 다섯 절차</h4>
+<table class="wide">
+  <tr><th style="width:56px"></th><th style="width:280px">절차</th><th>이 예제에서</th></tr>
+  <tr><td class="c">1</td><td><b>실데이터</b>를 반영한 테스트 환경을 구성</td>
+      <td>50만 줄짜리 <code>apply_log</code> (실습 7)</td></tr>
+  <tr><td class="c">2</td><td>테스트 시나리오를 설계</td>
+      <td>조회 · 집계 · 일괄 등록 셋</td></tr>
+  <tr><td class="c">3</td><td>테스트를 수행하고 성능 로그를 수집</td>
+      <td><code>SHOW PROFILES</code> · <code>EXPLAIN</code></td></tr>
+  <tr><td class="c">4</td><td><b>병목 지점</b>을 식별</td>
+      <td>전체 스캔 · 한 건씩 커밋</td></tr>
+  <tr><td class="c">5</td><td>성능 저하 원인을 문서화</td>
+      <td>원인 표</td></tr>
+</table>
+
+<div class="warn"><b>절차 1 의 «실데이터» 를 건너뛰면 아무것도 안 보입니다.</b>
+  다섯 줄짜리 <code>apply</code> 표에서는
+  인덱스가 있으나 없으나 <b>0.000초</b>입니다.
+  <b>느려지지 않는 환경에서는 병목을 찾을 수 없습니다.</b>
+  그래서 실습 7 에서 50만 줄을 만들어 둔 것입니다.</div>
+
+<h4>병목 셋</h4>
+<table class="wide">
+  <tr><th style="width:190px">병목</th><th style="width:210px">증상</th><th>보이는 곳</th></tr>
+  <tr><td class="nm">전체 스캔</td><td>조회가 데이터 양에 <b>비례해</b> 느려짐</td>
+      <td><code>EXPLAIN</code> 의 <code>type=ALL</code></td></tr>
+  <tr><td class="nm">한 건씩 왕복</td><td>건수에 비례해 <b>크게</b> 느려짐</td>
+      <td>코드 — <code>executeUpdate</code> 가 반복문 안</td></tr>
+  <tr><td class="nm">인덱스 무력화</td><td>인덱스가 있는데도 안 빨라짐</td>
+      <td><code>EXPLAIN</code> 의 <code>rows</code> 가 여전히 큼</td></tr>
+</table>
+
+<h4>셋째가 어렵습니다 — 인덱스를 «있는데도 못 쓰는» 경우</h4>
+<p>인덱스를 걸어 놓고도 안 빨라지는 일이 흔합니다. 세 가지를 보십시오.</p>
+
+<p class="cmdline"><code><i>-- (1) 칼럼에 함수를 씌우면</i>
+EXPLAIN SELECT COUNT(*) FROM apply_log WHERE <b>SUBSTRING(member_id,1,7)</b> = 'm012345';
+| type  | key            | rows   | Extra                    |
+| <b>index</b> | idx_log_member | <b>498294</b> | Using where; Using index |
+
+<i>-- (2) 앞을 % 로 열면</i>
+EXPLAIN SELECT COUNT(*) FROM apply_log WHERE member_id LIKE <b>'%012345'</b>;
+| type  | key            | rows   | Extra                    |
+| <b>index</b> | idx_log_member | <b>498294</b> | Using where; Using index |
+
+<i>-- (3) 뒤만 % 면</i>
+EXPLAIN SELECT COUNT(*) FROM apply_log WHERE member_id LIKE <b>'m0123%'</b>;
+| type  | key            | rows | Extra                    |
+| <b>range</b> | idx_log_member | <b>1000</b> | Using where; Using index |</code></p>
+
+<div class="warn"><b><code>key</code> 칸에 인덱스 이름이 «있는데도» 느립니다.</b>
+  (1)·(2) 는 <code>key</code> 에 <code>idx_log_member</code> 가 찍혀 있습니다.
+  그런데 <code>rows</code> 가 <b>498,294</b> 입니다 —
+  <b>인덱스를 처음부터 끝까지 훑고 있는 것</b>입니다 (<code>type=index</code>).
+  <b><code>key</code> 만 보고 안심하면 안 됩니다. <code>rows</code> 를 보십시오.</b>
+  인덱스는 <b>앞에서부터 차례로</b> 정렬돼 있어서
+  <b>앞을 모르면 찾아 들어갈 수가 없습니다.</b></div>
+
+<h4>왜 한 건씩 넣으면 느린가</h4>
+<table class="wide">
+  <tr><th style="width:250px">한 건씩 <code>executeUpdate</code></th><th>모아서 <code>addBatch</code></th></tr>
+  <tr><td>3,000번 왕복 + <b>3,000번 확정</b></td>
+      <td>왕복 6번 + <b>확정 1번</b></td></tr>
+  <tr><td>확정할 때마다 <b>디스크에 적습니다</b></td>
+      <td>마지막에 <b>한 번만</b> 적습니다</td></tr>
+</table>
+
+<p><b>느린 것은 SQL 이 아니라 «횟수»</b> 입니다.
+   SQL 한 줄은 빠른데 <b>3,000번을 도는 것</b>이 느립니다.
+   이런 병목은 <code>EXPLAIN</code> 에 안 보입니다 — <b>코드를 봐야</b> 합니다.</p>
+
+<div class="lab">
+  <b class="t">실습 15</b>
+  <b>병목 셋을 찾아 원인 표를 만듭니다</b>
+
+  <p><b>목적</b> — 수행준거 4-2 의 산출물입니다.
+     <b>고치지는 않습니다.</b> 찾고 적기만 합니다 — 고치는 것은 실습 16 입니다.</p>
+
+  <h5>절차 1 — 시나리오 셋을 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:110px">시나리오</th><th style="width:190px">무엇을</th><th>몇 건에서</th></tr>
+    <tr><td class="c">S-01</td><td>회원 한 명의 신청 건수 조회</td><td>50만</td></tr>
+    <tr><td class="c">S-02</td><td>강좌별 신청 건수 집계</td><td>50만</td></tr>
+    <tr><td class="c">S-03</td><td>일괄 등록</td><td>3,000</td></tr>
+  </table>
+
+  <h5>절차 2 — S-01 의 병목을 찾습니다</h5>
+
+  <p>실습 14 의 <code>EXPLAIN</code> 이 <code>type=ALL</code> · <code>key=NULL</code> 이었습니다.
+     <b>인덱스가 없어서</b> 전체를 읽습니다. 이것이 병목입니다.</p>
+
+  <h5>절차 3 — 인덱스를 «시험 삼아» 걸어 봅니다</h5>
+
+  <p class="cmdline"><code>mysql&gt; CREATE INDEX idx_log_member ON apply_log (member_id);
+mysql&gt; EXPLAIN SELECT COUNT(*) FROM apply_log WHERE member_id = 'm012345';
++----+-------------+-----------+------+----------------+----------------+---------+-------+------+----------+-------------+
+| id | select_type | table     | type | possible_keys  | key            | key_len | ref   | rows | filtered | Extra       |
++----+-------------+-----------+------+----------------+----------------+---------+-------+------+----------+-------------+
+|  1 | SIMPLE      | apply_log | <b>ref</b>  | idx_log_member | idx_log_member | 82      | const |   <b>10</b> |   100.00 | Using index |
++----+-------------+-----------+------+----------------+----------------+---------+-------+------+----------+-------------+</code></p>
+
+  <p><code>ALL</code> → <code>ref</code>, <code>498294</code> → <code>10</code>.
+     <b>병목이 맞았다는 증거</b>입니다.</p>
+
+  <h5>절차 4 — 인덱스를 «못 쓰게» 만들어 봅니다</h5>
+
+  <p>위의 (1)·(2)·(3) 세 가지를 직접 쳐 보고
+     <code>type</code> 과 <code>rows</code> 를 받아 적으십시오.</p>
+
+  <table class="wide">
+    <tr><th style="width:250px">쓴 조건</th><th style="width:110px">type</th>
+        <th style="width:110px">rows</th><th>인덱스</th></tr>
+    <tr><td><code>member_id = 'm012345'</code></td><td class="c">ref</td>
+        <td class="c">10</td><td><b>제대로 씁니다</b></td></tr>
+    <tr><td><code>SUBSTRING(member_id,1,7) = …</code></td><td class="c">index</td>
+        <td class="c">498294</td><td>이름만 찍히고 <b>다 훑습니다</b></td></tr>
+    <tr><td><code>member_id LIKE '%012345'</code></td><td class="c">index</td>
+        <td class="c">498294</td><td>같습니다</td></tr>
+    <tr><td><code>member_id LIKE 'm0123%'</code></td><td class="c">range</td>
+        <td class="c">1000</td><td><b>씁니다</b></td></tr>
+  </table>
+
+  <p>시간으로도 확인합니다.</p>
+
+  <p class="cmdline"><code>| 1 | <b>0.13313500</b> | SELECT COUNT(*) FROM apply_log WHERE SUBSTRING(member_id,1,7) = 'm012345' |
+| 2 | <b>0.00054850</b> | SELECT COUNT(*) FROM apply_log WHERE member_id = 'm012345'                |</code></p>
+
+  <p><b>인덱스가 있는 같은 표, 같은 답인데 240배 차이</b>입니다.
+     <b>SQL 을 어떻게 쓰느냐만</b> 다릅니다.</p>
+
+  <h5>절차 5 — S-03 의 병목은 코드에서 찾습니다</h5>
+
+  <p><code>EXPLAIN</code> 을 아무리 봐도 안 나옵니다. <b>반복문을 보십시오.</b></p>
+
+  <p class="cmdline"><code>for (int i = 0; i &lt; 3000; i++) {
+  …
+  ps.executeUpdate();          <i>// ← 반복문 «안» 에 있습니다</i>
+}</code></p>
+
+  <p>자동커밋이 켜져 있으면 <b>이 한 줄마다 확정</b>이 일어납니다.
+     3,000번 왕복하고 3,000번 디스크에 적습니다.</p>
+
+  <h5>절차 6 — 원인 표를 씁니다 (절차 5 대응)</h5>
+
+  <p class="cmdline"><code>병목 원인 목록
+
+  B-01  S-01 회원별 조회가 느림
+        원인 : member_id 에 인덱스가 없어 전체 스캔 (type=ALL, rows=498294)
+        근거 : EXPLAIN 화면 · 0.092 초
+        영향 : 데이터가 늘수록 «비례해» 느려진다
+
+  B-02  S-01 을 인덱스가 있어도 느리게 쓰는 코드가 있음
+        원인 : 조건 칼럼에 함수를 씌움 / LIKE 앞에 %
+        근거 : type=index, rows=498294 · 0.133 초
+        영향 : 인덱스를 만들어도 «효과가 없다» 고 오판하게 된다
+
+  B-03  S-03 일괄 등록이 느림
+        원인 : 반복문 안에서 건별 executeUpdate + 건별 자동커밋
+        근거 : 3,000건 13.1 초 (기준 5 초)
+        영향 : 건수에 비례해 악화. EXPLAIN 에는 안 나타난다</code></p>
+
+  <p><b>제출물</b> — 시나리오 셋 + 실행 계획 <b>네 가지</b> + 시간 비교 + 원인 표 셋</p>
+
+  <p><b>스스로 확인</b> —
+     ① <b>실데이터 규모</b>에서 쟀습니까
+     ② <code>key</code> 에 이름이 있는데도 느린 경우를 <b>봤습니까</b>
+     ③ <code>EXPLAIN</code> 에 <b>안 나오는</b> 병목을 하나 찾았습니까
+     ④ 원인마다 <b>근거 숫자</b>가 붙어 있습니까</p>
+</div>
+      </div>
+    </div>
+
+    <div class="step" id="st16">
+      <h3><i>16</i>개선과 산출물 정리 — 수행준거 4-3</h3>
+      <aside class="side">
+        <p class="pt">고친 뒤 <b>같은 방법으로</b> 다시 재야 끝납니다.</p>
+        <b class="sh">이 단계의 결과</b>
+        <p class="v">성능개선 보고서 · 산출물 다섯</p>
+      </aside>
+      <div class="bd">
+
+<h4>수행준거 4-3 의 여섯 절차</h4>
+<table class="wide">
+  <tr><th style="width:56px"></th><th style="width:280px">절차</th><th>이 예제에서</th></tr>
+  <tr><td class="c">1</td><td>속도를 저하시키는 SQL 구문을 재작성</td>
+      <td>함수를 벗기고 <code>LIKE '앞%'</code> 로</td></tr>
+  <tr><td class="c">2</td><td>실행 계획을 개선</td>
+      <td><code>ALL</code> → <code>ref</code> 확인</td></tr>
+  <tr><td class="c">3</td><td>인덱스를 재구성</td>
+      <td><code>idx_log_member</code> 추가</td></tr>
+  <tr><td class="c">4</td><td>시스템 리소스 병목 구간을 조정</td>
+      <td>왕복 횟수를 줄임 (<code>addBatch</code>)</td></tr>
+  <tr><td class="c">5</td><td><b>개선 후 동일한 테스트</b>로 효과를 검증</td>
+      <td>실습 14 와 <b>같은 SQL·같은 도구</b>로 다시</td></tr>
+  <tr><td class="c">6</td><td>성능 개선 결과를 문서화하고 공유</td>
+      <td>보고서</td></tr>
+</table>
+
+<div class="warn"><b>절차 5 의 «동일한» 이 핵심입니다.</b>
+  고친 뒤에 <b>다른 SQL 로, 다른 데이터로</b> 재면
+  그 숫자는 <b>아무것도 증명하지 못합니다.</b>
+  실습 14 에서 쓴 <b>바로 그 문장</b>을 그대로 다시 돌리십시오.</div>
+
+<h4>고친 셋</h4>
+<table class="wide">
+  <tr><th style="width:80px">병목</th><th style="width:250px">고친 내용</th>
+      <th style="width:110px">전</th><th style="width:110px">후</th></tr>
+  <tr><td class="c">B-01</td><td>인덱스 추가</td>
+      <td class="c">0.092 초</td><td class="c"><b>0.00019 초</b></td></tr>
+  <tr><td class="c">B-02</td><td>함수를 벗기고 조건 재작성</td>
+      <td class="c">0.133 초</td><td class="c"><b>0.00055 초</b></td></tr>
+  <tr><td class="c">B-03</td><td><code>addBatch</code> + 한 번 커밋</td>
+      <td class="c">13,105 ms</td><td class="c"><b>115 ms</b></td></tr>
+</table>
+
+<h4>B-03 은 «두 단계» 로 나뉩니다</h4>
+<p class="cmdline"><code>① 한 건씩 executeUpdate               3,000건  <b>13,105 ms</b>
+② addBatch + 한 번 커밋               3,000건   <b>3,521 ms</b>   (3.7 배)
+③ ② + rewriteBatchedStatements=true  3,000건     <b>115 ms</b>   (114 배)</code></p>
+
+<table class="wide">
+  <tr><th style="width:230px">무엇이 달라졌나</th><th></th></tr>
+  <tr><td>① → ②</td><td>확정을 <b>3,000번 → 1번</b> 으로 줄였습니다</td></tr>
+  <tr><td>② → ③</td><td>드라이버가 여러 건을 <b>한 문장으로 합쳐</b> 보냅니다</td></tr>
+</table>
+
+<div class="note"><b><code>rewriteBatchedStatements=true</code> 는 연결 옵션 한 줄입니다.</b>
+  코드를 안 고치고 <b>URL 에 붙이기만</b> 하면 됩니다.
+  <code>addBatch</code> 를 쓰지 않으면 <b>아무 효과가 없습니다</b> —
+  둘은 <b>같이</b> 써야 합니다.</div>
+
+<div class="lab">
+  <b class="t">실습 16</b>
+  <b>고치고, 같은 방법으로 다시 재고, 다섯을 모읍니다</b>
+
+  <p><b>목적</b> — 수행준거 4-3 의 산출물이자 <b>이 교과의 마무리</b>입니다.</p>
+
+  <h5>절차 1 — SQL 을 재작성합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:44%">고치기 전</th><th>고친 뒤</th></tr>
+    <tr><td><code>WHERE SUBSTRING(member_id,1,7) = 'm012345'</code></td>
+        <td><code>WHERE member_id = 'm012345'</code></td></tr>
+    <tr><td><code>WHERE member_id LIKE '%012345'</code></td>
+        <td><code>WHERE member_id LIKE 'm0123%'</code><br>
+            <span class="cc">(업무가 «뒤 일치» 를 꼭 요구하면
+            거꾸로 뒤집은 칼럼을 따로 두고 인덱스를 겁니다)</span></td></tr>
+  </table>
+
+  <h5>절차 2 — 인덱스를 겁니다</h5>
+
+  <p class="cmdline"><code>mysql&gt; CREATE INDEX idx_log_member ON apply_log (member_id);</code></p>
+
+  <h5>절차 3 — 코드를 고칩니다</h5>
+
+  <p class="cmdline"><code>c.setAutoCommit(false);
+try (PreparedStatement ps = c.prepareStatement(sql)) {
+  for (int i = 0; i &lt; N; i++) {
+    …
+    ps.<b>addBatch()</b>;
+    if (i % 500 == 499) ps.<b>executeBatch()</b>;     <i>// 500개씩 끊어 보냅니다</i>
+  }
+  ps.executeBatch();
+}
+c.commit();</code></p>
+
+  <p class="cmdline"><code>jdbc:mysql://localhost:3399/eduio?…&amp;<b>rewriteBatchedStatements=true</b></code></p>
+
+  <div class="note"><b>500개씩 끊는 까닭</b> —
+    3,000개를 한 번에 모으면 <b>메모리에 다 쌓입니다.</b>
+    건수가 수십만이면 터집니다.
+    <b>적당히 끊어 보내는 것</b>이 실무 방식입니다.</div>
+
+  <h5>절차 4 — «같은 문장» 으로 다시 잽니다</h5>
+
+  <p class="cmdline"><code>mysql&gt; SET profiling = 1;
+mysql&gt; SELECT COUNT(*) FROM apply_log WHERE member_id = 'm012345';
+mysql&gt; SELECT COUNT(*) FROM apply_log WHERE member_id = 'm012345';
+mysql&gt; SHOW PROFILES;
++----------+------------+------------------------------------------------------------+
+| Query_ID | Duration   | Query                                                      |
++----------+------------+------------------------------------------------------------+
+|        1 | 0.00039275 | SELECT COUNT(*) FROM apply_log WHERE member_id = 'm012345' |
+|        2 | <b>0.00018650</b> | SELECT COUNT(*) FROM apply_log WHERE member_id = 'm012345' |
++----------+------------+------------------------------------------------------------+</code></p>
+
+  <p><b>실습 14 절차 3 과 글자 하나 다르지 않은 문장</b>입니다.
+     그래서 <b>비교가 성립합니다.</b></p>
+
+  <h5>절차 5 — 평가표를 다시 채웁니다</h5>
+
+  <p class="cmdline"><code>번호  | 기준      | 개선 전  | 개선 후    | 판정
+------+-----------+----------+------------+-------
+PR-01 | 0.05 초   | 0.092 초 | 0.00019 초 | <b>통과</b>
+PR-02 | 0.30 초   | 0.209 초 | 0.209 초   | 통과 (손대지 않음)
+PR-03 | 5 초      | 13.1 초  | 0.115 초   | <b>통과</b></code></p>
+
+  <p><b>PR-02 줄을 지우지 마십시오.</b>
+     「손대지 않았다」 도 결과입니다.
+     기준을 통과한 것을 <b>괜히 고치지 않은 판단</b>을 적는 것입니다.</p>
+
+  <h5>절차 6 — 보고서를 씁니다 (절차 6 대응)</h5>
+
+  <p class="cmdline"><code>성능개선 보고서
+
+  1. 기준       PR-01 ~ PR-03 (업무 협의)
+  2. 측정 환경  MySQL 8.0 · apply_log 500,000건 · 같은 장비에서 전후 측정
+  3. 도구       SET profiling / SHOW PROFILES · EXPLAIN
+  4. 병목       B-01 전체 스캔 · B-02 인덱스 무력화 · B-03 건별 커밋
+  5. 조치       인덱스 추가 · SQL 재작성 · addBatch + rewriteBatchedStatements
+  6. 결과       PR-01 미달→통과 · PR-03 미달→통과 · PR-02 변동 없음
+  7. 남은 것    course_stat 갱신 주기 (실습 7 판단서) — 하루 한 번 재계산으로 운영</code></p>
+
+  <h5>절차 7 — 산출물 다섯을 모읍니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:230px">산출물</th>
+        <th style="width:150px">어느 실습에서</th><th>수행준거</th></tr>
+    <tr><td class="c">1</td><td><code>논리데이터모델_검증서</code></td>
+        <td>실습 2 · 3 · 4</td><td class="c">1-1 · 1-2 · 1-3</td></tr>
+    <tr><td class="c">2</td><td><code>물리데이터모델_설계서</code></td>
+        <td>실습 5 · 6 · 7</td><td class="c">2-1 · 2-2</td></tr>
+    <tr><td class="c">3</td><td><code>schema.sql</code></td>
+        <td>실습 8</td><td class="c">2-3</td></tr>
+    <tr><td class="c">4</td><td>DAO 소스 + <code>테스트케이스_명세서</code></td>
+        <td>실습 10 · 11 · 12 · 13</td><td class="c">3-1 ~ 3-4</td></tr>
+    <tr><td class="c">5</td><td><code>성능개선_보고서</code></td>
+        <td>실습 14 · 15 · 16</td><td class="c">4-1 · 4-2 · 4-3</td></tr>
+  </table>
+
+  <h5>절차 8 — 마지막 일곱 줄</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th>확인</th></tr>
+    <tr><td class="c">□</td><td>정규화 <b>근거</b>가 숫자로 있는가 (<code>phone_kinds</code>)</td></tr>
+    <tr><td class="c">□</td><td>자료형마다 <b>길이 근거</b>가 있는가</td></tr>
+    <tr><td class="c">□</td><td>제약조건에 <b>이름</b>이 붙었는가</td></tr>
+    <tr><td class="c">□</td><td>SQL 에 값을 <b>이어 붙인 곳</b>이 없는가</td></tr>
+    <tr><td class="c">□</td><td>트랜잭션에 <code>commit</code> 과 <code>rollback</code> 이 <b>둘 다</b> 있는가</td></tr>
+    <tr><td class="c">□</td><td>테스트에 <b>실패해야 하는</b> 줄이 있는가</td></tr>
+    <tr><td class="c">□</td><td>성능을 <b>같은 문장</b>으로 전후 측정했는가</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 산출물 다섯 + 개선 전후 측정 화면 + 보고서 일곱 줄</p>
+
+  <div class="try">
+    <b class="t">끝으로</b>
+    이 교과에서 가장 많이 빠지는 것은 <b>「근거」</b> 입니다.
+    표는 대개 잘 만듭니다.
+    그런데 <b>왜 나눴는지</b>(실습 4),
+    <b>왜 그 길이인지</b>(실습 6),
+    <b>왜 그 인덱스인지</b>(실습 15) 를 못 적습니다.
+    <b>근거는 나중에 지어낼 수 없습니다.</b>
+    각 실습에서 <b>그때그때</b> 숫자를 남겨 두는 것이
+    이 교과를 끝내는 가장 쉬운 방법입니다.
+  </div>
+</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════ 3 ═══════ -->
+<h2 class="sec" id="g3">3. 자주 나오는 실수</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">여덟 가지가 되풀이됩니다.</p>
+    <b class="sh">가장 흔한 것</b>
+    <p class="v">근거 없이 «대충» 정한 길이</p>
+    <b class="sh">가장 위험한 것</b>
+    <p class="v">이어 붙인 SQL</p>
+  </aside>
+  <div class="bd">
+
+<table class="wide">
+  <tr><th style="width:56px"></th><th style="width:250px">이렇게 합니다</th>
+      <th style="width:150px">어디서 드러나나</th><th>고치는 법</th></tr>
+  <tr><td class="c">1</td><td>정규화를 «안 하고» 반정규화라고 적음</td>
+      <td>검증서에 함수 종속이 없음</td>
+      <td>실습 4 — 세 정규형을 <b>다</b> 적습니다</td></tr>
+  <tr><td class="c">2</td><td>길이를 <code>VARCHAR(255)</code> 로 통일</td>
+      <td>「왜 255 인가」 에 답 못 함</td>
+      <td>실습 2 — <b>세어서</b> 정합니다</td></tr>
+  <tr><td class="c">3</td><td>돈을 <code>DOUBLE</code> 로 담음</td>
+      <td>합계가 1원씩 어긋남</td>
+      <td>실습 6 — <code>INT</code> 또는 <code>DECIMAL</code></td></tr>
+  <tr><td class="c">4</td><td>제약조건에 이름을 안 붙임</td>
+      <td>오류가 <code>ibfk_1</code> 로 나옴</td>
+      <td>실습 8 — <code>fk_</code> · <code>uq_</code> 를 붙입니다</td></tr>
+  <tr><td class="c">5</td><td>SQL 에 값을 이어 붙임</td>
+      <td><b>남의 자료가 통째로 나옴</b></td>
+      <td>실습 11 — <code>?</code> 와 <code>setString</code></td></tr>
+  <tr><td class="c">6</td><td><code>executeUpdate</code> 반환값을 안 봄</td>
+      <td>안 지워졌는데 «지웠습니다»</td>
+      <td>실습 12 — <b>0 을 갈라</b> 냅니다</td></tr>
+  <tr><td class="c">7</td><td><code>rollback</code> 없이 <code>commit</code> 만</td>
+      <td><b>절반만</b> 들어간 상태</td>
+      <td>실습 12 — <code>catch</code> 에 <code>rollback</code></td></tr>
+  <tr><td class="c">8</td><td>고친 뒤 <b>다른 SQL 로</b> 다시 잼</td>
+      <td>개선을 증명 못 함</td>
+      <td>실습 16 — <b>같은 문장</b>으로</td></tr>
+</table>
+
+<div class="warn">
+  여덟 중 <b>다섯(1 · 2 · 4 · 6 · 8)</b> 이
+  <b>코드 실력과 상관이 없습니다.</b>
+  숫자를 한 번 더 세고, 이름을 붙이고, 같은 문장으로 다시 재는 일입니다.
+  <b>실습마다 그때그때 해 두면 마지막에 할 일이 없습니다.</b>
+</div>
+  </div>
+</div>
+
+<footer>
+  데이터 입출력 구현 · 5수준 · 48시간 · 담당 정우균<br>
+  능력단위요소와 수행준거·해 보기 절차는 NCS 학습모듈
+  <code>2001020205_23v6</code> 에서 옮긴 것입니다 —
+  한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지).<br>
+  예제(학원 수강신청)와 모든 화면은 이 교안을 위해 MySQL 8.0 · JDK 21 ·
+  Connector/J 9.0 에서 실제로 돌려 얻은 것입니다.
+</footer>
+
+</div>
+
+<script>
+/* 빠른 이동 — 지금 보는 단원을 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"],a[href="#g3"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  function mark() {
+    var y = window.scrollY + 120, cur = 0;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  window.addEventListener('scroll', mark, { passive: true });
+  mark();
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) {
+    if (e.target.closest('a')) nav.classList.remove('open');
+  });
+})();
+</script>
