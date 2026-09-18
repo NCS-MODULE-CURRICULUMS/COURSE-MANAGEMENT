@@ -1375,6 +1375,146 @@ String url = <b>UriComponentsBuilder</b>.fromUriString(apiBase + "/posts")
    못 닿은 것과 상대가 404 를 준 것은 <b>대응이 다릅니다</b> —
    앞의 것은 다음 주기에 다시 해 보면 되고,
    뒤의 것은 <b>주소나 파라미터가 틀린 것</b>이라 다시 해도 똑같습니다.</p>
+      <div class="lab">
+  <b class="t">실습 7</b>
+  <b>외부를 부르고, 실패 두 갈래를 «갈라서» 받습니다</b>
+
+  <p><b>목적</b> — 채점 항목 06 · 12 로 <b>16점</b>입니다.
+     부르는 것은 몇 줄이면 됩니다. <b>점수는 실패를 어떻게 받느냐</b>에 있습니다.</p>
+
+  <h5>절차 1 — 주소를 «설정 파일» 에서 읽습니다</h5>
+
+  <p class="cmdline"><code># application.properties
+link.api.base=https://jsonplaceholder.typicode.com
+link.api.limit=10</code></p>
+
+  <p class="cmdline"><code>@Value("${link.api.base}") private String apiBase;
+@Value("${link.api.limit}") private int limit;</code></p>
+
+  <p>코드에 주소를 박으면 <b>API 를 바꿀 때 코드를 고쳐야</b> 합니다.
+     작업지시서가 <b>공공데이터포털로 바꿔도 된다</b>고 열어 두었으니,
+     <b>설정 파일 한 줄로 바뀌게</b> 해 두는 것이 조건을 만족하는 길입니다.</p>
+
+  <h5>절차 2 — 주소를 «이어 붙이지» 않습니다</h5>
+
+  <p class="cmdline"><code>String url = UriComponentsBuilder.fromUriString(apiBase + "/posts")
+        .queryParam("_limit", limit)
+        .queryParam("serviceKey", key)
+        .toUriString();</code></p>
+
+  <p>공공데이터포털 인증키처럼 생긴 값을 넣어 <b>무엇이 달라지는지</b> 보십시오.</p>
+
+  <p class="cmdline"><code>key = "aB3+x/Yz=="
+
+fromUriString : https://api.example.kr/posts?serviceKey=aB3+x/Yz<b>%3D%3D</b>&amp;numOfRows=10
+문자열로 이으면 : https://api.example.kr/posts?serviceKey=aB3+x/Yz<b>==</b>&amp;numOfRows=10</code></p>
+
+  <div class="warn"><b><code>fromHttpUrl</code> 이라고 쓴 글이 많은데 이 프로젝트에서는 안 됩니다.</b>
+    Spring Framework 7 에서 <b>없어진 메서드</b>입니다.
+    <br><br><code>cannot find symbol · method fromHttpUrl(String)</code><br><br>
+    <b><code>fromUriString</code></b> 으로 쓰십시오. 하는 일은 같습니다.
+    <br><br>
+    그리고 <b><code>+</code> 와 <code>/</code> 는 그대로 남습니다</b> — 위 화면을 보십시오.
+    <code>=</code> 만 바뀌었습니다. 공공데이터 인증키에 <code>+</code> 가 들어 있으면
+    <b>받는 쪽에서 공백으로 읽힐 수 있으니</b>, 포털이 주는
+    <b>「인코딩된 키」</b> 를 쓰는 편이 안전합니다.</div>
+
+  <h5>절차 3 — 네 가지를 «실제로» 던져 봅니다</h5>
+
+  <p class="cmdline"><code>정상 200      → 상태 200 OK · 본문 [ { "userId": 1, "id": 1, …
+
+404          → org.springframework.web.client.<b>HttpClientErrorException$NotFound</b>
+               404 Not Found on GET request for
+               "https://jsonplaceholder.typicode.com/posts/99999": "{}"
+
+빈 배열       → 상태 <b>200 OK</b> · 본문 <b>[]</b>
+
+못 닿음       → org.springframework.web.client.<b>ResourceAccessException</b>
+               I/O error on GET request for
+               "https://no-such-host.example/posts": no-such-host.example</code></p>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:210px">무엇</th>
+        <th style="width:230px">어떻게 알아채나</th><th>다시 해 보면</th></tr>
+    <tr><td class="c">①</td><td>못 닿음</td>
+        <td><code>ResourceAccessException</code></td>
+        <td><b>될 수도 있습니다</b> — 잠깐 끊긴 것일 수 있습니다</td></tr>
+    <tr><td class="c">②</td><td>상태 코드가 나쁨</td>
+        <td><code>HttpClientErrorException</code> 계열</td>
+        <td><b>똑같습니다</b> — 주소나 파라미터가 틀린 것입니다</td></tr>
+    <tr><td class="c">③</td><td>답이 비었음</td>
+        <td><b>아무 예외도 안 납니다</b></td>
+        <td>상대에게 <b>정말 자료가 없는</b> 것일 수 있습니다</td></tr>
+  </table>
+
+  <div class="warn"><b>③ 이 진짜 함정입니다.</b>
+    <code>200 OK</code> 에 본문이 <code>[]</code> 로 오면
+    <b>예외가 안 납니다.</b> <code>try-catch</code> 를 아무리 잘 걸어도 안 걸립니다.
+    <b>빈 목록이 그대로 저장되고 아무도 모릅니다.</b>
+    <code>getBody()</code> 가 <b>null 인지 · 비었는지</b>를 직접 보십시오.</div>
+
+  <h5>절차 4 — 셋을 «따로» 받습니다</h5>
+
+  <p class="cmdline"><code>try {
+  ResponseEntity&lt;List&lt;PostDTO&gt;&gt; res = restTemplate.exchange(url, HttpMethod.GET,
+      null, new ParameterizedTypeReference&lt;&gt;() {});
+
+  List&lt;PostDTO&gt; body = res.getBody();
+  if (body == null || body.isEmpty()) {              <i>// ③ 조용한 실패</i>
+    log.warn("[연계] 받은 자료가 없습니다 url={}", url);
+    return 0;
+  }
+  return save(body);
+
+} catch (HttpStatusCodeException e) {                <i>// ② 상태 코드가 나쁨</i>
+  throw new MyBizException("외부 연계 응답 오류: " + e.getStatusCode());
+
+} catch (ResourceAccessException e) {                <i>// ① 못 닿음</i>
+  throw new MyBizException("외부 연계 호출 실패: " + e.getMessage());
+}</code></p>
+
+  <p><b>한 <code>catch (Exception e)</code> 로 묶지 마십시오.</b>
+     묶으면 <b>다시 해 볼 값어치가 있는지</b>를 구분할 수 없습니다 (실습 8 · 9).</p>
+
+  <h5>절차 5 — 시간 제한을 겁니다</h5>
+
+  <p class="cmdline"><code>@Bean
+RestTemplate restTemplate(RestTemplateBuilder builder) {
+  return builder
+      .connectTimeout(Duration.ofSeconds(3))     <i>// 붙는 데까지</i>
+      .readTimeout(Duration.ofSeconds(5))        <i>// 답을 받는 데까지</i>
+      .build();
+}</code></p>
+
+  <p>실습 3 에서 잰 값이 근거입니다. <b>제일 느렸던 값보다 넉넉히</b> 잡되,
+     <b>무한정은 안 됩니다</b> — 걸어 두지 않으면 우리 스레드가 거기 묶입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>cannot find symbol: method fromHttpUrl(String)</code></td>
+        <td>Spring 7 에는 없습니다. <code>fromUriString</code> 으로 바꾸십시오</td></tr>
+    <tr><td><code>Could not resolve placeholder 'link.api.base'</code></td>
+        <td><code>application.properties</code> 에 <b>그 줄이 없습니다.</b>
+            철자와 점을 보십시오</td></tr>
+    <tr><td><code>ResourceAccessException</code> 이 <b>늘</b> 남</td>
+        <td>실습 1 로 돌아가 <b>망부터</b> 확인하십시오</td></tr>
+    <tr><td>목록이 <code>[]</code> 인데 <b>오류도 없음</b></td>
+        <td><b>절차 3 의 ③</b> 입니다. 주소의 파라미터를 보십시오</td></tr>
+    <tr><td><code>Cannot deserialize value of type …</code></td>
+        <td>DTO 의 자료형이 안 맞습니다. 실습 5 의 매핑표를 다시 보십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 설정 파일 + 호출 코드 + <b>네 가지 응답 화면</b> +
+     시간 제한 설정</p>
+
+  <p><b>스스로 확인</b> —
+     ① 주소를 <b>설정 파일</b>에서 읽습니까
+     ② <code>UriComponentsBuilder</code> 를 썼습니까
+     ③ <code>catch</code> 를 <b>갈라서</b> 잡았습니까
+     ④ <b>빈 본문</b>을 따로 봅니까</p>
+</div>
       </div>
     </div>
 
@@ -1440,6 +1580,136 @@ link.sync.delay=<b>10000</b></pre>
   제공물이니 <b>지우지 마십시오</b>.
   배치 로그가 한 번도 안 찍히면 이것부터 확인하십시오.
 </div>
+      <div class="lab">
+  <b class="t">실습 8</b>
+  <b>주기로 돌리고, 예외를 «어디서» 잡는지 눈으로 봅니다</b>
+
+  <p><b>목적</b> — 채점 항목 07 · <b>7점</b>입니다.
+     거는 것은 어노테이션 둘입니다. <b>보여 줄 것은 「두 번째 주기에도 돈다」</b> 입니다.</p>
+
+  <h5>절차 1 — 어노테이션 둘을 확인합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">어노테이션</th><th style="width:170px">어디에</th><th>하는 일</th></tr>
+    <tr><td><code>@EnableScheduling</code></td><td><code>DemoApplication</code></td>
+        <td><b>이미 붙어 있습니다.</b> 제공물이니 <b>지우지 마십시오</b></td></tr>
+    <tr><td><code>@Scheduled</code></td><td>돌릴 메서드</td>
+        <td>얼마마다 돌지 정합니다</td></tr>
+  </table>
+
+  <p><b>배치 로그가 한 번도 안 찍히면 첫 줄부터</b> 보십시오.</p>
+
+  <h5>절차 2 — 주기를 «설정에서» 읽게 겁니다</h5>
+
+  <p class="cmdline"><code>@Scheduled(fixedDelayString = "${link.sync.delay:60000}")
+public void syncBatch() { … }</code></p>
+
+  <p class="cmdline"><code># application.properties — 기본은 60초입니다
+link.sync.delay=60000
+
+# 시연할 때는 10초로 줄입니다
+link.sync.delay=<b>10000</b></code></p>
+
+  <p>60초를 기다리며 설명하기는 어렵습니다. 10초면 말하는 동안 <b>두세 번</b> 돕니다.
+     <code>${… : 60000}</code> 의 <b>콜론 뒤가 설정이 없을 때 쓸 값</b>이라,
+     설정 파일을 안 고쳐도 60초로 돕니다.</p>
+
+  <h5>절차 3 — 예외를 «던지는 배치» 와 «잡는 배치» 를 나란히 돌립니다</h5>
+
+  <p>「안 잡으면 배치가 멈춘다」 는 말을 많이 듣습니다. <b>직접 확인하십시오.</b>
+     둘을 같이 걸고 20초쯤 두면 이렇게 됩니다.</p>
+
+  <p class="cmdline"><code>[던지는배치 15:05:41] 1회차
+[잡는배치  15:05:41] 1회차 · 실패를 로그로만: 외부가 죽었다고 치자
+[던지는배치 15:05:43] 2회차
+[잡는배치  15:05:43] 2회차 · 실패를 로그로만: 외부가 죽었다고 치자
+[던지는배치 15:05:45] 3회차
+[잡는배치  15:05:45] 3회차 · 실패를 로그로만: 외부가 죽었다고 치자
+        ⋮
+20초 동안 — 던지는 배치 <b>11회</b> · 잡는 배치 <b>11회</b></code></p>
+
+  <div class="warn"><b>스프링에서는 «안 멈춥니다».</b>
+    예외가 나가도 스프링이 <b>받아서 로그로 남기고 삼킵니다.</b>
+    <br><br>
+    <code>ERROR ... o.s.s.s.<b>TaskUtils$LoggingErrorHandler</b>
+    : Unexpected error occurred in scheduled task</code>
+    <br><br>
+    그러면 <b>맨 자바는 어떤가</b> — 같은 것을
+    <code>ScheduledExecutorService.scheduleWithFixedDelay</code> 로 돌려 보십시오.</div>
+
+  <p class="cmdline"><code>[맨자바배치] 1회차
+[맨자바배치] 2회차
+[맨자바배치] 3회차          ← 여기서 예외가 났습니다
+8초 뒤 — 모두 <b>3</b>회 돌았습니다</code></p>
+
+  <p><b>맨 자바는 정말 멈춥니다.</b> 그리고 <b>오류 한 줄도 안 찍힙니다.</b>
+     「배치가 영영 멈춘다」 는 말은 <b>여기서 온 것</b>입니다.</p>
+
+  <h5>절차 4 — 그렇다면 왜 잡아야 하는가</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th>안 잡으면 실제로 생기는 일</th></tr>
+    <tr><td class="c">①</td><td>주기마다 <b>스택 트레이스가 통째로</b> 찍혀
+        로그에서 다른 것을 못 찾습니다</td></tr>
+    <tr><td class="c">②</td><td><b>몇 건을 하려다 어디서 멈췄는지</b>가 안 남습니다.
+        스프링이 찍는 것은 <code>Unexpected error occurred</code> 한 줄뿐입니다</td></tr>
+    <tr><td class="c">③</td><td>에러 핸들러를 바꾸거나 맨 자바로 옮기면
+        <b>그때부터 정말 멈춥니다</b></td></tr>
+  </table>
+
+  <p class="cmdline"><code>@Scheduled(fixedDelayString = "${link.sync.delay:60000}")
+public void syncBatch() {
+  try {
+    int n = linkService.syncPosts();
+    log.info("[배치] 동기화 완료 {}건", n);
+  } catch (Exception e) {
+    log.error("[배치] 동기화 실패 — 다음 주기에 다시 시도합니다: {}", e.getMessage());
+  }
+}</code></p>
+
+  <p><b>사람이 부르는 <code>/sync</code> 는 반대입니다.</b>
+     예외를 <b>그대로 올려보내야</b> 전역 핸들러가 400 을 내보내고,
+     <b>부른 사람이 실패한 줄 압니다.</b></p>
+
+  <h5>절차 5 — «두 번째 주기» 를 캡처합니다</h5>
+
+  <p class="cmdline"><code>[배치] 동기화 완료 10건
+[배치] 동기화 완료 10건      ← 이 두 줄이 증거입니다</code></p>
+
+  <div class="note"><b>한 줄만 찍힌 화면으로는 「주기로 돈다」 를 못 보입니다.</b>
+    처음 띄울 때 한 번 도는 것과 구분이 안 되기 때문입니다.
+    <b>두 번째 줄까지</b> 나오게 기다렸다 잘라 내십시오.
+    망을 끊었다 살려 <b>실패 → 성공</b>이 이어지면 더 좋습니다.</div>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>배치 로그가 <b>한 줄도</b> 안 찍힘</td>
+        <td><code>@EnableScheduling</code> 을 <b>지웠습니다.</b>
+            제공물이니 되살리십시오</td></tr>
+    <tr><td>한 번만 찍히고 끝</td>
+        <td><code>@Scheduled</code> 없이 <b>직접 부른</b> 것입니다</td></tr>
+    <tr><td>클래스에 <code>@Component</code> 가 없음</td>
+        <td>스프링이 <b>이 클래스를 모릅니다</b></td></tr>
+    <tr><td><code>Could not resolve placeholder 'link.sync.delay'</code></td>
+        <td>콜론 기본값을 안 줬는데 설정도 없습니다 —
+            <code>${link.sync.delay<b>:60000</b>}</code></td></tr>
+    <tr><td>주기가 겹쳐 <b>두 번 동시에</b> 돎</td>
+        <td><code>fixedRate</code> 를 썼습니다.
+            앞의 것이 끝나야 다음이 돌게 하려면 <code>fixedDelay</code></td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>@Scheduled</code> 코드 + <code>application.properties</code> +
+     <b>두 번 이상 찍힌 콘솔</b></p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>@EnableScheduling</code> 을 <b>안 지웠습니까</b>
+     ② 주기를 <b>설정에서</b> 읽습니까
+     ③ 배치 안에서 예외를 <b>잡습니까</b>
+     ④ <code>/sync</code> 는 반대로 <b>올려보냅니까</b>
+     ⑤ 콘솔에 <b>두 줄 이상</b> 있습니까</p>
+</div>
       </div>
     </div>
 
@@ -1495,6 +1765,123 @@ SELECT COUNT(*) FROM tbl_post;   <b>0</b></pre>
 <p>이 두 화면이 항목 08 과 09 의 증거입니다.
    다 만들고 나서 찍으려면 주소를 다시 틀려야 하니,
    실패 처리를 만든 직후에 바로 찍어 두십시오.</p>
+      <div class="lab">
+  <b class="t">실습 9</b>
+  <b>일부러 실패시켜 «증거 두 장» 을 만듭니다</b>
+
+  <p><b>목적</b> — 채점 항목 08 · 09 로 <b>13점</b>입니다.
+     둘은 <b>보는 자리가 다릅니다</b> —
+     08 은 <b>잡았는가</b>(Service 안), 09 는 <b>밖에 내보내는 말을 골랐는가</b>(핸들러).</p>
+
+  <h5>절차 1 — 주소를 없는 곳으로 바꿉니다</h5>
+
+  <p class="cmdline"><code># application.properties
+link.api.base=https://<b>no-such-host.example</b></code></p>
+
+  <p>고치고 <b>다시 띄운 뒤</b> <code>admin</code> 으로 동기화를 부릅니다.</p>
+
+  <p class="cmdline"><code>curl -X POST -u admin:1234 http://localhost:8077/api/link/sync
+
+HTTP <b>400</b>
+{"error":"외부 연계 호출 실패: I/O error on GET request for
+ \"https://no-such-host.example/posts\": no-such-host.example"}</code></p>
+
+  <h5>절차 2 — «아무것도 안 들어갔는지» 셉니다</h5>
+
+  <p class="cmdline"><code>mysql&gt; SELECT COUNT(*) FROM tbl_post;
++----------+
+| COUNT(*) |
++----------+
+|        <b>0</b> |
++----------+</code></p>
+
+  <p><b>이 두 화면이 항목 08 의 증거입니다.</b>
+     실패했다는 응답 하나, <b>그래서 자료가 안 망가졌다</b>는 건수 하나입니다.
+     <b>건수를 안 찍으면 「잡았다」 를 증명하지 못합니다.</b></p>
+
+  <div class="warn"><b>다 만들고 나서 찍으려면 주소를 다시 틀려야 합니다.</b>
+    그때는 이미 자료가 들어 있어 <b>건수가 0 이 아닙니다.</b>
+    <b>실패 처리를 만든 직후에 바로</b> 찍어 두십시오.</div>
+
+  <h5>절차 3 — 세 가지 실패를 각각 내 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:210px">어떻게 만드나</th>
+        <th>나오는 것</th></tr>
+    <tr><td class="c">①</td><td>주소를 없는 곳으로</td>
+        <td><code>ResourceAccessException</code> ·
+            <code>I/O error on GET request</code></td></tr>
+    <tr><td class="c">②</td><td>경로를 <code>/postsX</code> 로</td>
+        <td><code>HttpClientErrorException$NotFound</code> · <code>404 Not Found</code></td></tr>
+    <tr><td class="c">③</td><td><code>?userId=99999</code> 를 붙여</td>
+        <td><b>200 OK</b> 에 본문 <code>[]</code> — <b>예외가 안 납니다</b></td></tr>
+  </table>
+
+  <p>③ 은 <b>오류가 아니라 「받을 것이 없었다」</b> 입니다.
+     로그에 <b>경고로</b> 남기고 <b>0건 처리</b>로 끝내는 것이 맞습니다.
+     400 을 내보내면 <b>멀쩡한 요청을 실패로</b> 만드는 것입니다.</p>
+
+  <h5>절차 4 — 밖으로 내보내는 말을 고릅니다 (항목 09)</h5>
+
+  <p>전역 핸들러는 <b>제공물</b>입니다. 만들 것이 없고 <b>읽어 두어야</b> 합니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:250px">무엇이 나가나</th><th>어떻게 되나</th></tr>
+    <tr><td><code>MyBizException</code></td>
+        <td>내가 적은 문장이 <b>그대로</b> 나갑니다</td></tr>
+    <tr><td>그 밖의 예외</td>
+        <td><b>「서버 처리 중 오류가 발생했습니다.」</b> 한 문장으로 바뀝니다</td></tr>
+  </table>
+
+  <h5>절차 5 — 왜 한 문장으로 바꾸는지 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">그대로 내보내면</th><th>무엇이 새어 나가나</th></tr>
+    <tr><td>스택 트레이스</td><td>패키지 구조 · 파일 경로 · 라이브러리 판</td></tr>
+    <tr><td><code>SQLException</code> 메시지</td><td>테이블 이름 · 칼럼 이름</td></tr>
+    <tr><td><b>연결 실패 메시지</b></td><td><b>외부 API 주소 · 내부망 주소 · 포트</b></td></tr>
+  </table>
+
+  <div class="warn"><b>마지막 줄이 연계에서 자주 말썽입니다.</b>
+    위 절차 1 의 응답을 다시 보십시오 —
+    <b>우리가 부르는 외부 주소가 그대로 실려 나갔습니다.</b>
+    실습용으로는 괜찮지만, <b>운영에서는 그 자체가 지도</b>입니다.
+    <b>보고서에 이 점을 한 줄 적어 두면</b> 항목 09 에서 유리합니다.</div>
+
+  <h5>절차 6 — 주소를 되돌립니다</h5>
+
+  <p class="cmdline"><code>link.api.base=https://jsonplaceholder.typicode.com</code></p>
+
+  <p><b>되돌리는 것을 잊기 쉽습니다.</b> 뒤의 실습이 전부 안 됩니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>주소를 바꿨는데 <b>여전히 성공</b></td>
+        <td><b>다시 안 띄웠습니다.</b> 설정은 기동할 때 읽습니다</td></tr>
+    <tr><td><b>500</b> 이 나옴 (400 이 아니라)</td>
+        <td>업무 예외로 안 바꾸고 <b>그대로 올려보냈습니다.</b>
+            <code>MyBizException</code> 으로 감싸십시오</td></tr>
+    <tr><td>응답에 <b>스택 트레이스가 통째로</b> 나옴</td>
+        <td>전역 핸들러를 <b>안 거쳤습니다.</b>
+            컨트롤러에서 <code>try-catch</code> 로 삼키고 있지 않은지 보십시오</td></tr>
+    <tr><td>건수가 <b>0 이 아님</b></td>
+        <td><b>앞에서 이미 넣었습니다.</b>
+            <code>TRUNCATE TABLE tbl_post;</code> 로 비우고 다시 하십시오</td></tr>
+    <tr><td>없는 주소인데 <b>한참 기다림</b></td>
+        <td>시간 제한을 <b>안 걸었습니다</b> (실습 7 절차 5)</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <b>400 응답 화면</b> + <b>건수 0 화면</b> +
+     세 가지 실패를 정리한 표 + 핸들러를 읽고 적은 설명</p>
+
+  <p><b>스스로 확인</b> —
+     ① 실패 응답과 <b>건수</b>를 <b>둘 다</b> 찍었습니까
+     ② 세 가지 실패를 <b>구분</b>해 적었습니까
+     ③ 빈 본문을 <b>실패로 안 만들었습니까</b>
+     ④ 주소를 <b>되돌렸습니까</b></p>
+</div>
       </div>
     </div>
 
@@ -1554,6 +1941,130 @@ SELECT COUNT(*) FROM tbl_post;   <b>0</b></pre>
   <b>코드에 박지 마십시오.</b>
   <code>application-dev.properties</code> 에 두고 그 파일을 저장소에서 뺍니다.
   이것도 「송수신 보안」 에 들어갑니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 10</b>
+  <b>계정 둘을 만들고, 규칙 순서를 «뒤집어» 봅니다</b>
+
+  <p><b>목적</b> — 채점 항목 10 · <b>7점</b>입니다.
+     보는 것은 <b>「권한을 나눴는가」</b> 이고, 그 증거는 <b>403 한 장</b>입니다.
+     401 만 있으면 <b>「인증을 걸었다」</b> 까지입니다.</p>
+
+  <h5>절차 1 — 401 과 403 을 갈라 둡니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:90px">코드</th><th style="width:210px">뜻</th><th>언제</th></tr>
+    <tr><td class="c"><b>401</b></td><td>누구인지 <b>모르겠다</b></td>
+        <td>아이디·비밀번호를 안 보냈거나 <b>틀렸습니다</b></td></tr>
+    <tr><td class="c"><b>403</b></td><td>누구인지는 알겠는데 <b>권한이 없다</b></td>
+        <td>로그인은 됐는데 <b>ADMIN 이 아닙니다</b></td></tr>
+  </table>
+
+  <h5>절차 2 — 계정 둘을 «해시로» 만듭니다</h5>
+
+  <p class="cmdline"><code>@Bean PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
+
+@Bean UserDetailsService users(PasswordEncoder pe) {
+  UserDetails user  = User.withUsername("user")
+      .password(pe.encode("1234")).roles(<b>"USER"</b>).build();
+  UserDetails admin = User.withUsername("admin")
+      .password(pe.encode("1234")).roles(<b>"ADMIN"</b>).build();
+  return new InMemoryUserDetailsManager(user, admin);
+}</code></p>
+
+  <div class="note"><b><code>roles("ADMIN")</code> 로 넣고 <code>hasRole("ADMIN")</code> 로 봅니다.</b>
+    스프링이 안에서 <code>ROLE_</code> 를 붙여 줍니다.
+    <b>우리가 <code>ROLE_ADMIN</code> 이라고 쓰면 두 번 붙어 안 맞습니다.</b>
+    메모리에 두는 계정이라 해시가 대수롭지 않아 보여도,
+    <b>습관을 여기서 들입니다.</b></div>
+
+  <h5>절차 3 — 규칙을 «좁은 것부터» 겁니다</h5>
+
+  <p class="cmdline"><code>http.authorizeHttpRequests(a -&gt; a
+    .requestMatchers(HttpMethod.POST, "/api/link/sync").hasRole("ADMIN")   <i>// ① 좁은 것</i>
+    .requestMatchers("/api/link/**").authenticated()                       <i>// ② 넓은 것</i>
+    .anyRequest().permitAll());                                            <i>// ③ 나머지</i></code></p>
+
+  <h5>절차 4 — 여섯 가지를 «실제로» 부릅니다</h5>
+
+  <p class="cmdline"><code>인증 없음        GET  /api/link/posts → <b>401</b>
+user             GET  /api/link/posts → <b>200</b>
+
+인증 없음        POST /api/link/sync  → <b>401</b>
+user             POST /api/link/sync  → <b>403</b>      ← 항목 10 의 증거
+admin            POST /api/link/sync  → <b>200</b>
+admin(틀린 비번)  POST /api/link/sync  → <b>401</b></code></p>
+
+  <p><b>마지막 줄을 눈여겨보십시오.</b>
+     같은 <code>admin</code> 인데 비밀번호가 틀리면 <b>403 이 아니라 401</b> 입니다 —
+     <b>누구인지 확인이 안 됐으니</b> 권한을 따질 자리까지 못 갑니다.</p>
+
+  <h5>절차 5 — 순서를 «뒤집어» 봅니다</h5>
+
+  <p>「순서가 곧 규칙」 이라는 말을 확인합니다. ① 과 ② 를 바꿔 놓고 다시 띄우십시오.</p>
+
+  <p class="cmdline"><code>http.authorizeHttpRequests(a -&gt; a
+    .requestMatchers("/api/link/**").authenticated()                       <i>// 넓은 것을 먼저</i>
+    .requestMatchers(HttpMethod.POST, "/api/link/sync").hasRole("ADMIN")
+    .anyRequest().permitAll());</code></p>
+
+  <p class="cmdline"><code>user             POST /api/link/sync  → <b>200</b>      ← 막혀야 하는데 통과합니다
+admin            POST /api/link/sync  → <b>200</b></code></p>
+
+  <div class="warn"><b>오류도 경고도 없습니다. 조용히 ADMIN 규칙이 죽습니다.</b>
+    <code>requestMatchers</code> 는 <b>위에서부터 차례로</b> 걸립니다.
+    <code>/api/link/**</code> 가 <code>/api/link/sync</code> 도 <b>먼저 먹어 버려</b>
+    아래 줄까지 내려가지 않습니다.
+    <b>기동은 잘 되고 시연도 잘 됩니다</b> — <code>admin</code> 으로만 눌러 보면
+    똑같이 200 이기 때문입니다.
+    <b><code>user</code> 로 눌러 봐야</b> 드러납니다.
+    확인했으면 <b>순서를 되돌리십시오.</b></div>
+
+  <h5>절차 6 — 인증키를 저장소에서 뺍니다</h5>
+
+  <p>공공데이터포털로 바꾸면 <code>serviceKey</code> 가 생깁니다.
+     <b>코드에 박지 마십시오.</b> 이것도 「송수신 보안」 에 들어갑니다.</p>
+
+  <p class="cmdline"><code># application-dev.properties  ← 이 파일을 .gitignore 에 넣습니다
+link.api.key=실제키
+
+# .gitignore
+application-dev.properties</code></p>
+
+  <p><b>이미 한 번 커밋했다면 지워도 이력에 남습니다.</b>
+     그때는 <b>키를 새로 발급받는 것</b>이 유일한 방법입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>user</code> 로 동기화가 <b>200</b> 으로 통과</td>
+        <td><b>절차 5 의 그 상태입니다.</b> 규칙 순서를 되돌리십시오</td></tr>
+    <tr><td>맞는 비밀번호인데 <b>401</b></td>
+        <td>비밀번호를 <b>해시 안 하고</b> 넣었습니다.
+            <code>pe.encode(...)</code> 를 거쳐야 합니다</td></tr>
+    <tr><td>모든 요청이 <b>403</b></td>
+        <td><code>roles("ROLE_ADMIN")</code> 이라고 썼습니다.
+            <b><code>ROLE_</code> 를 빼십시오</b></td></tr>
+    <tr><td>POST 가 <b>403</b> 인데 권한은 맞음</td>
+        <td><b>CSRF</b> 입니다. REST API 는
+            <code>http.csrf(c -&gt; c.disable())</code> 로 끕니다</td></tr>
+    <tr><td>브라우저에 <b>로그인 창</b>이 뜸</td>
+        <td><b>정상</b>입니다. <code>WWW-Authenticate</code> 헤더를 보고
+            브라우저가 띄우는 것입니다 (실습 2)</td></tr>
+    <tr><td>기동 로그에 <b>임시 비밀번호</b>가 계속 찍힘</td>
+        <td><code>UserDetailsService</code> 빈을 <b>안 만들었습니다</b></td></tr>
+  </table>
+
+  <p><b>제출물</b> — 설정 클래스 + <b>401 · 403 · 200 세 화면</b> +
+     순서를 뒤집었을 때의 <b>200</b> 화면 + 인증키 처리 방침</p>
+
+  <p><b>스스로 확인</b> —
+     ① <b>403</b> 화면이 있습니까 (401 만으로는 부족합니다)
+     ② 비밀번호를 <b>해시</b>로 넣었습니까
+     ③ <code>ROLE_</code> 를 <b>직접 안 붙였습니까</b>
+     ④ 좁은 규칙을 <b>먼저</b> 두었습니까
+     ⑤ 순서를 <b>되돌렸습니까</b></p>
 </div>
       </div>
     </div>
