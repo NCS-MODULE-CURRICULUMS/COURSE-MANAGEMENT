@@ -25,6 +25,10 @@
   .flag{font-weight:700;border:1px solid #000;padding:0 5px;font-size:11px;margin-left:6px}
   .stg{display:block;font-size:11px;color:#555;margin-top:5px;white-space:nowrap}
   .tot{font-size:12.5px;color:#555;margin:10px 0 0}
+  /* 업무 수행 단계 구분 줄 — 능력단위를 실제로 하는 차례로 묶어 둔다 */
+  tr.grp td{background:#f2f2f2;border-top:2px solid #000;padding:9px 12px;text-align:left}
+  tr.grp b{font-size:13.5px}
+  tr.grp .gd{display:block;font-weight:400;font-size:11.5px;color:#555;margin-top:3px}
 </style>
 <div class="wrap">
 <h1>DB엔지니어링</h1>
@@ -42,6 +46,13 @@
 (골격 → 작성중 → 완성 → 검수. 괄호는 아직 못 채운 칸 수)<br>
 <b>편성</b> <b>미편성</b>이면 아직 어느 훈련과정에도 넣지 않은 능력단위</div>
 
+<div class="note"><b>차례</b><br>
+능력단위를 <b>코드순이 아니라 실제로 하는 차례</b>로 묶었습니다 —
+<b>A SQL</b> → <b>B 요구사항 분석</b> → <b>C 모델링과 설계</b> → <b>D 구현</b> → <b>E 전환</b> → <b>F 성능</b> 입니다.<br>
+묶음 안에서는 <b>수준이 낮은 것부터</b> 놓았습니다. 다만
+<b>앞뒤가 이미 정해진 묶음</b>은 수준과 상관없이 <b>일하는 순서</b>를 따릅니다.<br>
+<b>코드순으로 보려면</b> 코드 칸을 훑으십시오 — 코드는 그대로 두었습니다.</div>
+
 <div class="warn"><b>학습모듈 원문을 보려면</b> — 원문은 한국직업능력연구원 저작물이라
 이 사이트에 올려 두지 않습니다. 내 PC 에서 아래를 켜고
 <code>http://127.0.0.1:8765/</code> 로 들어오면 <b>학습모듈</b> 칸에 <b>PDF</b> 단추가
@@ -51,7 +62,25 @@
 <div class="tscroll"><table>
 <thead><tr><th>능력단위</th><th>코드</th><th>수준</th><th>시간</th>
 <th>학습모듈</th><th>교안</th><th>편성</th></tr></thead>
-<tbody><tr><td class="nm">데이터베이스 요구사항 분석</td><td>2001020401_19v4</td><td>6</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020401_19v4">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr><tr><td class="nm">개념데이터 모델링</td><td>2001020402_19v4</td><td>7</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020402_19v4">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr><tr><td class="nm">논리 데이터베이스 설계</td><td>2001020403_19v4</td><td>6</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020403_19v4">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr><tr><td class="nm">물리 데이터베이스 설계</td><td>2001020404_19v4</td><td>6</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020404_19v4">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr><tr><td class="nm">데이터베이스 구현</td><td>2001020405_19v4</td><td>4</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020405_19v4">—</span></td><td><a class="btn" href="../guides/m05.html">확인</a><span class="stg">준비 교안 · 골격</span></td><td class="nm"><a href="../courses/c2.html">(디지털 컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E</a></td></tr><tr><td class="nm">데이터베이스 성능확보</td><td>2001020408_19v4</td><td>6</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020408_19v4">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr><tr><td class="nm">데이터 전환 설계</td><td>2001020411_19v4</td><td>6</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020411_19v4">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr><tr><td class="nm">데이터 전환</td><td>2001020412_19v4</td><td>5</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020412_19v4">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr><tr><td class="nm">SQL활용</td><td>2001020413_19v4</td><td>3</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020413_19v4">—</span></td><td><a class="btn" href="../guides/m06.html">확인</a><span class="stg">준비 교안 · 골격</span></td><td class="nm"><a href="../courses/c2.html">(디지털 컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E</a></td></tr><tr><td class="nm">SQL응용</td><td>2001020414_19v4</td><td>5</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020414_19v4">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr><tr><td class="nm">SQL작성</td><td>2001020415_19v1</td><td>2</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020415_19v1">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr></tbody>
+<tbody>
+<tr class="grp"><td colspan="7"><b>A. SQL</b><span class="gd">데이터베이스에 말을 거는 법 · 수준 2·3·5</span></td></tr>
+<tr><td class="nm">SQL작성</td><td>2001020415_19v1</td><td>2</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020415_19v1">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr>
+<tr><td class="nm">SQL활용</td><td>2001020413_19v4</td><td>3</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020413_19v4">—</span></td><td><a class="btn" href="../guides/m06.html">확인</a><span class="stg">준비 교안 · 골격</span></td><td class="nm"><a href="../courses/c2.html">(디지털 컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E</a></td></tr>
+<tr><td class="nm">SQL응용</td><td>2001020414_19v4</td><td>5</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020414_19v4">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr>
+<tr class="grp"><td colspan="7"><b>B. 요구사항 분석</b><span class="gd">무엇을 담을지 알아내는 것 · 수준 6</span></td></tr>
+<tr><td class="nm">데이터베이스 요구사항 분석</td><td>2001020401_19v4</td><td>6</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020401_19v4">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr>
+<tr class="grp"><td colspan="7"><b>C. 모델링과 설계</b><span class="gd">개념 → 논리 → 물리 세 번에 나누어 · 수준 7·6·6 · 앞뒤가 정해진 묶음</span></td></tr>
+<tr><td class="nm">개념데이터 모델링</td><td>2001020402_19v4</td><td>7</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020402_19v4">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr>
+<tr><td class="nm">논리 데이터베이스 설계</td><td>2001020403_19v4</td><td>6</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020403_19v4">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr>
+<tr><td class="nm">물리 데이터베이스 설계</td><td>2001020404_19v4</td><td>6</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020404_19v4">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr>
+<tr class="grp"><td colspan="7"><b>D. 구현</b><span class="gd">설계한 대로 만드는 것 · 수준 4</span></td></tr>
+<tr><td class="nm">데이터베이스 구현</td><td>2001020405_19v4</td><td>4</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020405_19v4">—</span></td><td><a class="btn" href="../guides/m05.html">확인</a><span class="stg">준비 교안 · 골격</span></td><td class="nm"><a href="../courses/c2.html">(디지털 컨버전스) 공공데이터 융합 풀스택 개발자 양성과정E</a></td></tr>
+<tr class="grp"><td colspan="7"><b>E. 전환</b><span class="gd">쓰던 자료를 새 데이터베이스로 옮기는 것 · 수준 6·5 · 앞뒤가 정해진 묶음</span></td></tr>
+<tr><td class="nm">데이터 전환 설계</td><td>2001020411_19v4</td><td>6</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020411_19v4">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr>
+<tr><td class="nm">데이터 전환</td><td>2001020412_19v4</td><td>5</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020412_19v4">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr>
+<tr class="grp"><td colspan="7"><b>F. 성능</b><span class="gd">쓰면서 빨라지게 하는 것 · 수준 6</span></td></tr>
+<tr><td class="nm">데이터베이스 성능확보</td><td>2001020408_19v4</td><td>6</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020408_19v4">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr>
+</tbody>
 </table></div>
 <p class="tot">능력단위 11개 · 학습모듈 11건 ·
 편성 2개 · 미편성 9개<br>수준 2 1개 · 수준 3 1개 · 수준 4 1개 · 수준 5 2개 · 수준 6 5개 · 수준 7 1개</p>

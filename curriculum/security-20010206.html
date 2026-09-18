@@ -25,6 +25,10 @@
   .flag{font-weight:700;border:1px solid #000;padding:0 5px;font-size:11px;margin-left:6px}
   .stg{display:block;font-size:11px;color:#555;margin-top:5px;white-space:nowrap}
   .tot{font-size:12.5px;color:#555;margin:10px 0 0}
+  /* 업무 수행 단계 구분 줄 — 능력단위를 실제로 하는 차례로 묶어 둔다 */
+  tr.grp td{background:#f2f2f2;border-top:2px solid #000;padding:9px 12px;text-align:left}
+  tr.grp b{font-size:13.5px}
+  tr.grp .gd{display:block;font-weight:400;font-size:11.5px;color:#555;margin-top:3px}
 </style>
 <div class="wrap">
 <h1>보안엔지니어링</h1>
@@ -42,6 +46,13 @@
 (골격 → 작성중 → 완성 → 검수. 괄호는 아직 못 채운 칸 수)<br>
 <b>편성</b> <b>미편성</b>이면 아직 어느 훈련과정에도 넣지 않은 능력단위</div>
 
+<div class="note"><b>차례</b><br>
+능력단위를 <b>코드순이 아니라 실제로 하는 차례</b>로 묶었습니다 —
+<b>A 계획과 요구사항</b> → <b>B 영역별 구축</b> → <b>C 인증</b> 입니다.<br>
+묶음 안에서는 <b>수준이 낮은 것부터</b> 놓았습니다. 다만
+<b>앞뒤가 이미 정해진 묶음</b>은 수준과 상관없이 <b>일하는 순서</b>를 따릅니다.<br>
+<b>코드순으로 보려면</b> 코드 칸을 훑으십시오 — 코드는 그대로 두었습니다.</div>
+
 <div class="warn"><b>학습모듈 원문을 보려면</b> — 원문은 한국직업능력연구원 저작물이라
 이 사이트에 올려 두지 않습니다. 내 PC 에서 아래를 켜고
 <code>http://127.0.0.1:8765/</code> 로 들어오면 <b>학습모듈</b> 칸에 <b>PDF</b> 단추가
@@ -51,7 +62,20 @@
 <div class="tscroll"><table>
 <thead><tr><th>능력단위</th><th>코드</th><th>수준</th><th>시간</th>
 <th>학습모듈</th><th>교안</th><th>편성</th></tr></thead>
-<tbody><tr><td class="nm">보안 구축 계획 수립</td><td>2001020601_25v6</td><td>5</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020601_25v6">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr><tr><td class="nm">보안 구축 요구사항 분석</td><td>2001020603_25v6</td><td>5</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020603_25v6">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr><tr><td class="nm">관리적 보안 구축</td><td>2001020604_25v6</td><td>6</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020604_25v6">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr><tr><td class="nm">물리적 보안 구축</td><td>2001020605_25v5</td><td>3</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020605_25v5">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr><tr><td class="nm">보안인증 관리</td><td>2001020610_25v6</td><td>6</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020610_25v6">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr><tr><td class="nm">SW개발 보안 구축</td><td>2001020611_25v6</td><td>5</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020611_25v6">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr><tr><td class="nm">DB보안 구축</td><td>2001020612_25v6</td><td>5</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020612_25v6">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr><tr><td class="nm">시스템 보안 구축</td><td>2001020613_25v6</td><td>5</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020613_25v6">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr><tr><td class="nm">네트워크 보안 구축</td><td>2001020614_25v6</td><td>5</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020614_25v6">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr></tbody>
+<tbody>
+<tr class="grp"><td colspan="7"><b>A. 계획과 요구사항</b><span class="gd">무엇을 어디까지 지킬지 정하는 것 · 수준 5·5 · 앞뒤가 정해진 묶음</span></td></tr>
+<tr><td class="nm">보안 구축 계획 수립</td><td>2001020601_25v6</td><td>5</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020601_25v6">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr>
+<tr><td class="nm">보안 구축 요구사항 분석</td><td>2001020603_25v6</td><td>5</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020603_25v6">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr>
+<tr class="grp"><td colspan="7"><b>B. 영역별 구축</b><span class="gd">지킬 곳마다 장치를 세우는 것 · 수준 3·5·5·5·5·6</span></td></tr>
+<tr><td class="nm">물리적 보안 구축</td><td>2001020605_25v5</td><td>3</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020605_25v5">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr>
+<tr><td class="nm">SW개발 보안 구축</td><td>2001020611_25v6</td><td>5</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020611_25v6">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr>
+<tr><td class="nm">DB보안 구축</td><td>2001020612_25v6</td><td>5</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020612_25v6">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr>
+<tr><td class="nm">시스템 보안 구축</td><td>2001020613_25v6</td><td>5</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020613_25v6">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr>
+<tr><td class="nm">네트워크 보안 구축</td><td>2001020614_25v6</td><td>5</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020614_25v6">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr>
+<tr><td class="nm">관리적 보안 구축</td><td>2001020604_25v6</td><td>6</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020604_25v6">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr>
+<tr class="grp"><td colspan="7"><b>C. 인증</b><span class="gd">세운 것을 밖에서 인정받는 것 · 수준 6</span></td></tr>
+<tr><td class="nm">보안인증 관리</td><td>2001020610_25v6</td><td>6</td><td><span class="non">—</span></td><td><span class="non" data-lm="2001020610_25v6">—</span></td><td><a class="btn" href="../docs/표준강의교안-샘플.html">양식</a><span class="stg">골격</span></td><td class="nm"><span class="non">미편성</span></td></tr>
+</tbody>
 </table></div>
 <p class="tot">능력단위 9개 · 학습모듈 9건 ·
 편성 0개 · 미편성 9개<br>수준 3 1개 · 수준 5 6개 · 수준 6 2개</p>

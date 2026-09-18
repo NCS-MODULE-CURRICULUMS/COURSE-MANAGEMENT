@@ -25,6 +25,10 @@
   .flag{font-weight:700;border:1px solid #000;padding:0 5px;font-size:11px;margin-left:6px}
   .stg{display:block;font-size:11px;color:#555;margin-top:5px;white-space:nowrap}
   .tot{font-size:12.5px;color:#555;margin:10px 0 0}
+  /* 업무 수행 단계 구분 줄 — 능력단위를 실제로 하는 차례로 묶어 둔다 */
+  tr.grp td{background:#f2f2f2;border-top:2px solid #000;padding:9px 12px;text-align:left}
+  tr.grp b{font-size:13.5px}
+  tr.grp .gd{display:block;font-weight:400;font-size:11.5px;color:#555;margin-top:3px}
 </style>
 <div class="wrap">
 <h1>생성형AI엔지니어링</h1>
@@ -42,6 +46,13 @@
 (골격 → 작성중 → 완성 → 검수. 괄호는 아직 못 채운 칸 수)<br>
 <b>편성</b> <b>미편성</b>이면 아직 어느 훈련과정에도 넣지 않은 능력단위</div>
 
+<div class="note"><b>차례</b><br>
+능력단위를 <b>코드순이 아니라 실제로 하는 차례</b>로 묶었습니다 —
+<b>A 목표</b> → <b>B 준비</b> → <b>C 모델 다루기</b> → <b>D 제작과 검증</b> → <b>E 배포</b> 입니다.<br>
+묶음 안에서는 <b>수준이 낮은 것부터</b> 놓았습니다. 다만
+<b>앞뒤가 이미 정해진 묶음</b>은 수준과 상관없이 <b>일하는 순서</b>를 따릅니다.<br>
+<b>코드순으로 보려면</b> 코드 칸을 훑으십시오 — 코드는 그대로 두었습니다.</div>
+
 <div class="warn"><b>학습모듈 원문을 보려면</b> — 원문은 한국직업능력연구원 저작물이라
 이 사이트에 올려 두지 않습니다. 내 PC 에서 아래를 켜고
 <code>http://127.0.0.1:8765/</code> 로 들어오면 <b>학습모듈</b> 칸에 <b>PDF</b> 단추가
@@ -51,7 +62,22 @@
 <div class="tscroll"><table>
 <thead><tr><th>능력단위</th><th>코드</th><th>수준</th><th>시간</th>
 <th>학습모듈</th><th>교안</th><th>편성</th></tr></thead>
-<tbody><tr><td class="nm">생성형 AI 기반 프로덕트 목표 수립</td><td>2001070701_25v1</td><td>7</td><td>12h</td><td><span class="non">—</span></td><td class="wip"><a class="btn" href="../lesson-plans/c1-m01.html">확인</a><span class="stg">표준 교안 · 작성중 (12)</span></td><td class="nm"><a href="../courses/c1.html">생성형 AI 엔지니어 양성과정</a></td></tr><tr><td class="nm">생성형 AI 모델 선정</td><td>2001070702_25v1</td><td>5</td><td>12h</td><td><span class="non">—</span></td><td class="wip"><a class="btn" href="../lesson-plans/c1-m02.html">확인</a><span class="stg">표준 교안 · 작성중 (12)</span></td><td class="nm"><a href="../courses/c1.html">생성형 AI 엔지니어 양성과정</a></td></tr><tr><td class="nm">생성형 AI 데이터 준비</td><td>2001070703_25v1</td><td>5</td><td>20h</td><td><span class="non">—</span></td><td class="wip"><a class="btn" href="../lesson-plans/c1-m03.html">확인</a><span class="stg">표준 교안 · 작성중 (16)</span></td><td class="nm"><a href="../courses/c1.html">생성형 AI 엔지니어 양성과정</a></td></tr><tr><td class="nm">생성형 AI 모델 학습</td><td>2001070704_25v1</td><td>6</td><td>24h</td><td><span class="non">—</span></td><td class="wip"><a class="btn" href="../lesson-plans/c1-m04.html">확인</a><span class="stg">표준 교안 · 작성중 (18)</span></td><td class="nm"><a href="../courses/c1.html">생성형 AI 엔지니어 양성과정</a></td></tr><tr><td class="nm">프롬프트 구현</td><td>2001070705_25v1</td><td>5</td><td>20h</td><td><span class="non">—</span></td><td class="wip"><a class="btn" href="../lesson-plans/c1-m05.html">확인</a><span class="stg">표준 교안 · 작성중 (16)</span></td><td class="nm"><a href="../courses/c1.html">생성형 AI 엔지니어 양성과정</a></td></tr><tr><td class="nm">프롬프트 최적화</td><td>2001070706_25v1</td><td>5</td><td>16h</td><td><span class="non">—</span></td><td class="wip"><a class="btn" href="../lesson-plans/c1-m06.html">확인</a><span class="stg">표준 교안 · 작성중 (14)</span></td><td class="nm"><a href="../courses/c1.html">생성형 AI 엔지니어 양성과정</a></td></tr><tr><td class="nm">생성형 AI 기반 프로덕트 제작</td><td>2001070707_25v1</td><td>5</td><td>28h</td><td><span class="non">—</span></td><td class="wip"><a class="btn" href="../lesson-plans/c1-m07.html">확인</a><span class="stg">표준 교안 · 작성중 (20)</span></td><td class="nm"><a href="../courses/c1.html">생성형 AI 엔지니어 양성과정</a></td></tr><tr><td class="nm">생성형 AI 기반 프로덕트 검증</td><td>2001070708_25v1</td><td>5</td><td>16h</td><td><span class="non">—</span></td><td class="wip"><a class="btn" href="../lesson-plans/c1-m08.html">확인</a><span class="stg">표준 교안 · 작성중 (14)</span></td><td class="nm"><a href="../courses/c1.html">생성형 AI 엔지니어 양성과정</a></td></tr><tr><td class="nm">생성형 AI 기반 프로덕트 배포</td><td>2001070709_25v1</td><td>5</td><td>12h</td><td><span class="non">—</span></td><td class="wip"><a class="btn" href="../lesson-plans/c1-m09.html">확인</a><span class="stg">표준 교안 · 작성중 (12)</span></td><td class="nm"><a href="../courses/c1.html">생성형 AI 엔지니어 양성과정</a></td></tr></tbody>
+<tbody>
+<tr class="grp"><td colspan="7"><b>A. 목표</b><span class="gd">무엇을 위해 만드는지 못 박는 것 · 수준 7</span></td></tr>
+<tr><td class="nm">생성형 AI 기반 프로덕트 목표 수립</td><td>2001070701_25v1</td><td>7</td><td>12h</td><td><span class="non">—</span></td><td class="wip"><a class="btn" href="../lesson-plans/c1-m01.html">확인</a><span class="stg">표준 교안 · 작성중 (12)</span></td><td class="nm"><a href="../courses/c1.html">생성형 AI 엔지니어 양성과정</a></td></tr>
+<tr class="grp"><td colspan="7"><b>B. 준비</b><span class="gd">쓸 모델과 데이터를 고르는 것 · 수준 5·5</span></td></tr>
+<tr><td class="nm">생성형 AI 모델 선정</td><td>2001070702_25v1</td><td>5</td><td>12h</td><td><span class="non">—</span></td><td class="wip"><a class="btn" href="../lesson-plans/c1-m02.html">확인</a><span class="stg">표준 교안 · 작성중 (12)</span></td><td class="nm"><a href="../courses/c1.html">생성형 AI 엔지니어 양성과정</a></td></tr>
+<tr><td class="nm">생성형 AI 데이터 준비</td><td>2001070703_25v1</td><td>5</td><td>20h</td><td><span class="non">—</span></td><td class="wip"><a class="btn" href="../lesson-plans/c1-m03.html">확인</a><span class="stg">표준 교안 · 작성중 (16)</span></td><td class="nm"><a href="../courses/c1.html">생성형 AI 엔지니어 양성과정</a></td></tr>
+<tr class="grp"><td colspan="7"><b>C. 모델 다루기</b><span class="gd">시켜 보고 · 다듬고 · 필요하면 가르치는 것 · 수준 5·5·6 · 앞뒤가 정해진 묶음</span></td></tr>
+<tr><td class="nm">프롬프트 구현</td><td>2001070705_25v1</td><td>5</td><td>20h</td><td><span class="non">—</span></td><td class="wip"><a class="btn" href="../lesson-plans/c1-m05.html">확인</a><span class="stg">표준 교안 · 작성중 (16)</span></td><td class="nm"><a href="../courses/c1.html">생성형 AI 엔지니어 양성과정</a></td></tr>
+<tr><td class="nm">프롬프트 최적화</td><td>2001070706_25v1</td><td>5</td><td>16h</td><td><span class="non">—</span></td><td class="wip"><a class="btn" href="../lesson-plans/c1-m06.html">확인</a><span class="stg">표준 교안 · 작성중 (14)</span></td><td class="nm"><a href="../courses/c1.html">생성형 AI 엔지니어 양성과정</a></td></tr>
+<tr><td class="nm">생성형 AI 모델 학습</td><td>2001070704_25v1</td><td>6</td><td>24h</td><td><span class="non">—</span></td><td class="wip"><a class="btn" href="../lesson-plans/c1-m04.html">확인</a><span class="stg">표준 교안 · 작성중 (18)</span></td><td class="nm"><a href="../courses/c1.html">생성형 AI 엔지니어 양성과정</a></td></tr>
+<tr class="grp"><td colspan="7"><b>D. 제작과 검증</b><span class="gd">제품으로 만들고 맞는지 보는 것 · 수준 5·5 · 앞뒤가 정해진 묶음</span></td></tr>
+<tr><td class="nm">생성형 AI 기반 프로덕트 제작</td><td>2001070707_25v1</td><td>5</td><td>28h</td><td><span class="non">—</span></td><td class="wip"><a class="btn" href="../lesson-plans/c1-m07.html">확인</a><span class="stg">표준 교안 · 작성중 (20)</span></td><td class="nm"><a href="../courses/c1.html">생성형 AI 엔지니어 양성과정</a></td></tr>
+<tr><td class="nm">생성형 AI 기반 프로덕트 검증</td><td>2001070708_25v1</td><td>5</td><td>16h</td><td><span class="non">—</span></td><td class="wip"><a class="btn" href="../lesson-plans/c1-m08.html">확인</a><span class="stg">표준 교안 · 작성중 (14)</span></td><td class="nm"><a href="../courses/c1.html">생성형 AI 엔지니어 양성과정</a></td></tr>
+<tr class="grp"><td colspan="7"><b>E. 배포</b><span class="gd">쓰는 사람에게 내보내는 것 · 수준 5</span></td></tr>
+<tr><td class="nm">생성형 AI 기반 프로덕트 배포</td><td>2001070709_25v1</td><td>5</td><td>12h</td><td><span class="non">—</span></td><td class="wip"><a class="btn" href="../lesson-plans/c1-m09.html">확인</a><span class="stg">표준 교안 · 작성중 (12)</span></td><td class="nm"><a href="../courses/c1.html">생성형 AI 엔지니어 양성과정</a></td></tr>
+</tbody>
 </table></div>
 <p class="tot">능력단위 9개 · 학습모듈 0건 ·
 편성 9개 · 미편성 0개<br>수준 5 7개 · 수준 6 1개 · 수준 7 1개</p>
