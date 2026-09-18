@@ -127,18 +127,187 @@
 </div>
 
 <!-- ═══════ 1 ═══════ -->
-<h2 class="sec" id="g1">1. 먼저 알아야 할 것</h2>
+<h2 class="sec" id="g1">1. 먼저 알아야 할 것 — 데이터베이스가 처음이라면</h2>
 <div class="sect">
   <aside class="side">
-    <p class="pt">모델링은 «그림 그리기» 가 아니라 <b>중복을 없애는 일</b>입니다.</p>
+    <p class="pt">여기는 <b>아무것도 모른다</b>고 보고 씁니다. 아는 분은 마지막 두 꼭지만 보십시오.</p>
+    <b class="sh">여기서 익힐 말</b>
+    <p class="v">데이터 · 데이터베이스 · DBMS · 테이블 · 행 · 열 · 기본키 · SQL</p>
     <b class="sh">준비물</b>
     <p class="v">MySQL 8 · JDK 17 이상 · MySQL Connector/J</p>
   </aside>
   <div class="bd">
 
-<h4>세 번의 모델링</h4>
-<p>학습모듈은 데이터 모델링을 <b>개념 → 논리 → 물리</b> 셋으로 나눕니다.
+<p>이 교과는 <b>데이터베이스를 한 번도 안 다뤄 본 사람</b>도 시작할 수 있습니다.
+   다만 말이 낯설어서 어렵게 느껴집니다.
+   이 절에서 <b>말 여덟 개</b>를 확실히 해 두고 시작하겠습니다.
+   여기만 넘기면 나머지는 «해 보기» 입니다.</p>
+
+<h4>데이터 · 정보 · 데이터베이스</h4>
+
+<figure>
+  <img src="img/io_data.svg" alt="세 칸으로 나뉜 그림. 왼쪽은 홍길동, 010-1111-2222, 자바 기초, 180000 이 각각 따로 든 네 개의 상자로 «데이터 — 값 하나하나»라 적혀 있다. 가운데 화살표를 지나 오른쪽은 «홍길동이 자바 기초를 180,000원에 신청했다»라는 한 문장 상자로 «정보 — 뜻이 붙은 것»이라 적혀 있다. 아래쪽에는 회원, 강좌, 강사, 신청 네 상자가 나란히 있고 그 옆에 «= 데이터베이스»라 적혀 있다.">
+  <figcaption>값 하나하나가 데이터, 뜻이 붙으면 정보, 그것을 여럿이 함께 쓰려고 모아 둔 곳이 데이터베이스입니다.</figcaption>
+</figure>
+
+<table class="wide">
+  <tr><th style="width:150px">말</th><th style="width:250px">뜻</th><th>예</th></tr>
+  <tr><td class="nm">데이터</td><td>값 <b>하나하나</b></td>
+      <td><code>홍길동</code> · <code>180000</code> · <code>2026-03-02</code></td></tr>
+  <tr><td class="nm">정보</td><td>데이터에 <b>뜻이 붙은</b> 것</td>
+      <td>「홍길동이 자바 기초를 180,000원에 신청했다」</td></tr>
+  <tr><td class="nm">데이터베이스</td>
+      <td>그런 것을 <b>여럿이 함께 쓰려고</b> 모아 둔 곳</td>
+      <td>회원 · 강좌 · 강사 · 신청을 함께 담아 둔 <code>eduio</code></td></tr>
+</table>
+
+<p><code>180000</code> 만 놓고 보면 무엇인지 모릅니다.
+   <b>「무엇의 값인가」</b> 가 붙어야 쓸모가 생깁니다.
+   데이터베이스를 만드는 일은 결국
+   <b>어떤 값에 어떤 뜻을 붙여 어디에 놓을지 정하는 일</b>입니다.</p>
+
+<div class="note"><b>「데이터베이스」 는 프로그램 이름이 아닙니다.</b>
+  <b>모아 둔 값 자체</b>를 가리킵니다.
+  프로그램을 가리키는 말은 <b>DBMS</b> 이고, 아래 「데이터베이스와 DBMS 는 다른 것」 에서 갈라 봅니다.</div>
+
+<h4>엑셀 파일로 하면 안 되나</h4>
+
+<p>가장 먼저 드는 생각입니다. <b>엑셀로도 표를 만들 수 있는데 왜 데이터베이스인가.</b>
+   실제로 사람이 적고 사람이 보는 정도면 엑셀이 낫습니다.
+   <b>프로그램이 드나들기 시작하면</b> 세 가지에서 막힙니다.</p>
+
+<figure>
+  <img src="img/io_why.svg" alt="왼쪽은 파일, 오른쪽은 데이터베이스를 비교한 세 줄짜리 그림. 첫째 줄은 두 사람이 동시에 고치는 경우로 파일은 나중에 저장한 쪽이 덮어쓰고 데이터베이스는 둘 다 순서대로 반영된다. 둘째 줄은 중간에 전원이 꺼지는 경우로 파일은 절반만 저장되어 어디까지 저장됐는지 알 수 없고 데이터베이스는 확정 전이면 통째로 취소된다. 셋째 줄은 50만 줄에서 한 줄을 찾는 경우로 파일은 처음부터 끝까지 훑어 줄이 늘수록 느려지고 데이터베이스는 찾아보기로 바로 찾아 거의 그대로다.">
+  <figcaption>엑셀 파일이 막히는 세 곳. 이 셋이 데이터베이스를 쓰는 이유 전부입니다.</figcaption>
+</figure>
+
+<table class="wide">
+  <tr><th style="width:150px">무엇이</th><th style="width:250px">파일이면</th>
+      <th>데이터베이스면</th></tr>
+  <tr><td class="nm">동시에 고치기</td>
+      <td>나중에 저장한 쪽이 <b>덮어씁니다</b></td>
+      <td>차례를 잡아 주어 <b>둘 다 반영</b>됩니다</td></tr>
+  <tr><td class="nm">중간에 멈추기</td>
+      <td><b>절반만</b> 저장되고 어디까지인지 모릅니다</td>
+      <td><b>다 되거나 다 안 되거나</b> 둘 중 하나입니다</td></tr>
+  <tr><td class="nm">많은 줄에서 찾기</td>
+      <td>처음부터 끝까지 훑어 <b>비례해</b> 느려집니다</td>
+      <td>찾아보기(색인)로 <b>거의 그대로</b>입니다</td></tr>
+</table>
+
+<p>셋 다 이 교안에서 <b>직접 확인</b>합니다 —
+   둘째는 실습 12(되돌리기), 셋째는 실습 14·15(50만 줄에서 재기)입니다.
+   <b>지금은 「그렇다더라」 로 두고 넘어가면 됩니다.</b></p>
+
+<h4>데이터베이스와 DBMS 는 다른 것</h4>
+
+<p>가장 많이 헷갈리는 자리입니다. 둘 다 흔히 <b>「DB」</b> 라고 부르기 때문입니다.</p>
+
+<figure>
+  <img src="img/io_dbms.svg" alt="위에서 아래로 세 층으로 그린 그림. 맨 위는 사람·프로그램 상자로 무엇을 해 달라고 부탁한다고 적혀 있다. 아래로 SQL 로 말합니다 라는 화살표가 내려가고, 가운데 회색 상자가 DBMS 데이터베이스 관리 시스템이며 MySQL, Oracle, PostgreSQL, SQL Server 가 예로 적혀 있고 말을 알아듣고 순서를 지키고 권한을 보고 빠르게 찾아 준다고 적혀 있다. 다시 읽고 씁니다 화살표가 내려가 맨 아래 데이터베이스 상자에 닿으며 저장장치에 실제로 앉아 있는 값이라 적혀 있다.">
+  <figcaption>가운데 층이 DBMS 입니다. 우리가 설치하고 띄우는 것은 DBMS 이고, 그 안에 데이터베이스가 담깁니다.</figcaption>
+</figure>
+
+<div class="kv">
+  <b>데이터베이스</b><span>저장장치에 실제로 <b>앉아 있는 값</b>. 우리 예제에서는 <code>eduio</code></span>
+  <b>DBMS</b><span>그 값을 대신 다뤄 주는 <b>프로그램</b>. 우리 예제에서는 <code>MySQL 8.0</code></span>
+</div>
+
+<p>실습 1 에서 <code>docker run … mysql:8.0</code> 으로 띄우는 것이 <b>DBMS</b> 이고,
+   그 안에서 <code>CREATE DATABASE eduio</code> 로 만드는 것이 <b>데이터베이스</b>입니다.
+   <b>DBMS 하나 안에 데이터베이스가 여럿</b> 들어갑니다.</p>
+
+<table class="wide">
+  <tr><th style="width:190px">DBMS</th><th style="width:130px">만든 곳</th>
+      <th>이 교안과의 관계</th></tr>
+  <tr><td class="nm">MySQL</td><td>Oracle</td>
+      <td><b>이 교안이 쓰는 것</b>. 무료로 쓸 수 있고 자료가 많습니다</td></tr>
+  <tr><td class="nm">Oracle Database</td><td>Oracle</td>
+      <td>NCS 학습모듈의 예시가 이것입니다 (TKPROF · EXPLAIN PLAN)</td></tr>
+  <tr><td class="nm">PostgreSQL</td><td>공개 공동체</td>
+      <td>공공기관에서 많이 씁니다</td></tr>
+  <tr><td class="nm">SQL Server</td><td>Microsoft</td>
+      <td>윈도 서버 환경에서 많이 씁니다</td></tr>
+</table>
+
+<div class="note"><b>어느 것을 배워도 8할은 같습니다.</b>
+  뒤에 나오는 <code>SELECT</code> · <code>INSERT</code> 같은 말은
+  <b>어느 DBMS 에서나 거의 그대로</b> 씁니다.
+  다른 것은 자료형 이름과 오류 번호 정도입니다.
+  <b>하나를 제대로 익히면 옮겨 가기 쉽습니다.</b></div>
+
+<h4>표 한 장의 이름들</h4>
+
+<p>데이터베이스 안의 값은 <b>표</b> 모양으로 앉습니다. 부분마다 이름이 있습니다.</p>
+
+<figure>
+  <img src="img/io_table.svg" alt="member 라는 이름의 표 그림. 맨 윗줄에 member_id, member_nm, phone, join_dt 네 개의 칼럼 이름이 회색으로 있고 그 아래 hong 홍길동, kim 김영희, lee 이철수 세 줄이 들어 있다. 왼쪽에서 화살표가 첫 줄을 가리키며 칼럼 이름이라 하고, 다른 화살표가 가운데 줄을 가리키며 행 또는 레코드, 한 사람이라 한다. 아래에서 세 개의 화살표가 각각 member_id 칸을 가리켜 기본키이며 겹치지 않는 값이라 하고, phone 칸을 가리켜 칼럼이자 세로 한 줄이라 하고, join_dt 칸을 가리켜 값이며 칸 하나에 하나씩이라 한다.">
+  <figcaption>이 그림의 이름들이 교안 내내 그대로 나옵니다. 여기서 한 번만 맞춰 두면 됩니다.</figcaption>
+</figure>
+
+<table class="wide">
+  <tr><th style="width:190px">이름</th><th style="width:170px">다르게도 부릅니다</th><th>뜻</th></tr>
+  <tr><td class="nm">테이블</td><td>표 · 릴레이션</td>
+      <td>값이 앉는 <b>표 한 장</b>. 이름이 있습니다 (<code>member</code>)</td></tr>
+  <tr><td class="nm">칼럼</td><td>열 · 속성 · 필드</td>
+      <td>표의 <b>세로 한 줄</b>. 무엇을 적는 칸인지 정합니다</td></tr>
+  <tr><td class="nm">행</td><td>로우 · 레코드 · 튜플</td>
+      <td>표의 <b>가로 한 줄</b>. 대상 <b>하나</b>가 한 줄입니다</td></tr>
+  <tr><td class="nm">기본키</td><td>PK · Primary Key</td>
+      <td>그 줄을 <b>콕 집어 주는</b> 칼럼. 값이 겹치면 안 됩니다</td></tr>
+</table>
+
+<p><b>기본키가 왜 필요한가</b> — 같은 이름을 가진 사람이 둘 있으면
+   「홍길동을 지워라」 로는 <b>누구를 지울지 정해지지 않습니다.</b>
+   <code>member_id</code> 처럼 <b>겹치지 않는 값</b>이 하나 있어야
+   프로그램이 <b>한 줄을 정확히</b> 가리킬 수 있습니다.</p>
+
+<div class="warn"><b>한 칸에는 값을 «하나만» 넣습니다.</b>
+  전화번호가 둘이라고 <code>010-1111-2222, 010-9999-8888</code> 처럼
+  한 칸에 쉼표로 이어 적으면 안 됩니다.
+  그렇게 적으면 <b>「둘째 번호로 찾기」 가 안 됩니다.</b>
+  이 규칙에 이름이 붙어 있는데, 그것이 <b>제1정규형</b>입니다 (실습 4).</div>
+
+<h4>SQL — DBMS 에게 말을 거는 법</h4>
+
+<p>DBMS 에게 시키는 말이 <b>SQL</b> 입니다. 「에스큐엘」 또는 「시퀄」 이라고 읽습니다.
+   영어 문장처럼 생겼고, 실제로 <b>영어 어순 그대로</b> 읽으면 됩니다.</p>
+
+<figure>
+  <img src="img/io_sql.svg" alt="SQL 문장 한 줄을 세 마디로 나눠 보여 주는 그림. SELECT member_nm, phone 아래에 무엇을 볼지, FROM member 아래에 어디서, WHERE member_id = hong 아래에 어떤 것만 이라고 각각 화살표와 함께 적혀 있다. 그 아래에 SELECT 고른다, INSERT 새로 넣는다, UPDATE 고친다, DELETE 지운다 네 줄이 예문과 함께 있다.">
+  <figcaption>SELECT 문장은 「무엇을 · 어디서 · 어떤 것만」 세 마디입니다.</figcaption>
+</figure>
+
+<p class="cmdline"><code>SELECT member_nm, phone     FROM member     WHERE member_id = 'hong';
+   무엇을 볼지               어디서           어떤 것만</code></p>
+
+<p>우리말로 읽으면 <b>「<code>member</code> 에서 <code>member_id</code> 가 hong 인 줄의
+   이름과 전화번호를 보여 달라」</b> 입니다. 그것이 전부입니다.</p>
+
+<table class="wide">
+  <tr><th style="width:130px">말</th><th style="width:130px">하는 일</th><th>이 교안에서 처음 쓰는 곳</th></tr>
+  <tr><td class="nm">SELECT</td><td>고른다 (본다)</td><td>실습 4 — 중복을 세어 봅니다</td></tr>
+  <tr><td class="nm">INSERT</td><td>새로 넣는다</td><td>실습 1 — 신청서 다섯 장을 넣습니다</td></tr>
+  <tr><td class="nm">UPDATE</td><td>고친다</td><td>실습 4 — 전화번호를 바꿉니다</td></tr>
+  <tr><td class="nm">DELETE</td><td>지운다</td><td>실습 8 — 회원을 지워 봅니다</td></tr>
+</table>
+
+<div class="warn"><b><code>WHERE</code> 를 빠뜨리면 «표 전체» 에 걸립니다.</b>
+  <code>UPDATE member SET phone = '010-0000-0000'</code> 만 치면
+  <b>모든 회원의 전화번호가 같아집니다.</b>
+  오류는 나지 않습니다. 실습 13 에서 <b>직접 한 번</b> 내 봅니다 —
+  겪어 봐야 조심하게 됩니다.</div>
+
+<h4>설계는 세 번에 나누어 합니다</h4>
+
+<p>여기부터가 이 교과의 본론입니다.
+   표를 바로 만들지 않고 <b>세 번에 나누어</b> 정합니다.
    이름이 비슷해서 헷갈리는데, <b>무엇을 정하느냐</b>가 다릅니다.</p>
+
+<figure>
+  <img src="img/io_model.svg" alt="왼쪽에서 오른쪽으로 화살표로 이어진 세 단계 그림. 개념 모델링은 무슨 덩어리가 있나를 정하며 회원, 강좌, 신청 세 상자가 있고 속성과 자료형은 아직이라고 적혀 있다. 논리 모델링은 속성과 관계를 정하며 회원은 아이디 이름 연락처, 강좌는 코드 이름 수강료, 신청은 회원 곱하기 강좌라고 적혀 있고 어느 DBMS 인지는 아직이라 한다. 물리 모델링은 실제 표로 만든다며 member VARCHAR(20), course VARCHAR(10), apply INT AUTO_INCREMENT 가 적혀 있고 MySQL 에 맞춰 확정이라 한다.">
+  <figcaption>같은 것을 세 번 그립니다. 뒤로 갈수록 정해지는 것이 늘어납니다.</figcaption>
+</figure>
 
 <table class="wide">
   <tr><th style="width:110px">단계</th><th style="width:230px">여기서 정하는 것</th>
@@ -159,19 +328,45 @@
    <b>논리에서 중복을 없애 놓아야, 물리에서 «일부러» 되살릴 수 있기 때문</b>입니다.
    처음부터 중복된 채로 만들면 그것은 반정규화가 아니라 <b>그냥 잘못된 설계</b>입니다.</p>
 
+<div class="note"><b>낯선 말이 둘 더 나왔습니다 — «엔티티» 와 «정규화».</b>
+  지금 외우지 마십시오.
+  <b>엔티티</b>는 「표가 될 만한 덩어리」 로,
+  <b>정규화</b>는 「같은 값을 두 군데 적지 않게 나누는 일」 로
+  일단 알아 두면 됩니다.
+  <b>실습 3 과 실습 4 에서 손으로 해 보면</b> 그때 뜻이 붙습니다.</div>
+
 <h4>이 교안의 표기</h4>
 <div class="kv">
   <b>「수행준거 3-2」</b><span>NCS 능력단위요소 3 의 두 번째 수행준거를 가리킵니다</span>
   <b>회색 상자</b><span>실제로 쳐 본 명령과 그때 나온 화면입니다. 각색하지 않았습니다</span>
   <b>실습 N</b><span>손으로 따라 하는 부분. 읽고 넘어가면 남는 것이 없습니다</span>
+  <b>mysql&gt;</b><span>이 표시가 앞에 있으면 <b>데이터베이스 창</b>에 치는 것입니다</span>
+  <b>표시가 없으면</b><span>윈도 <b>명령 프롬프트</b>나 편집기에 쓰는 것입니다</span>
 </div>
 
 <div class="warn"><b>이 교안의 모든 화면은 실제로 돌려서 얻은 것입니다.</b>
   오류 메시지도 지어내지 않았습니다.
   그러니 <b>여러분 화면에 다른 것이 나오면 무언가 다른 것</b>입니다.
   넘어가지 말고 그 자리에서 맞추십시오.</div>
+
+<h4>여기까지 됐는지 확인</h4>
+
+<table class="wide">
+  <tr><th style="width:56px"></th><th>물음</th></tr>
+  <tr><td class="c">□</td><td>데이터베이스와 <b>DBMS</b> 가 어떻게 다른지 한 문장으로 말할 수 있습니까</td></tr>
+  <tr><td class="c">□</td><td>표에서 <b>행</b>과 <b>칼럼</b> 중 어느 것이 «가로» 입니까</td></tr>
+  <tr><td class="c">□</td><td><b>기본키</b>가 없으면 무엇이 곤란합니까</td></tr>
+  <tr><td class="c">□</td><td><code>SELECT</code> 문장의 <b>세 마디</b>를 댈 수 있습니까</td></tr>
+  <tr><td class="c">□</td><td><code>WHERE</code> 를 빠뜨리면 무슨 일이 납니까</td></tr>
+  <tr><td class="c">□</td><td>설계를 <b>세 번</b>에 나누어 하는 까닭이 무엇입니까</td></tr>
+</table>
+
+<p>여섯 줄에 다 답할 수 있으면 넘어가십시오.
+   막히는 줄이 있으면 <b>그 줄에 해당하는 그림만</b> 다시 보십시오 —
+   외울 것은 아니고, 뒤에서 계속 나오므로 <b>익숙해지면 됩니다.</b></p>
   </div>
 </div>
+
 
 <!-- ═══════ 2 ═══════ -->
 <h2 class="sec" id="g2">2. 산출물 작성 실습</h2>
