@@ -210,6 +210,120 @@
   <li>캡처는 각자 자기 차례에 바로 찍습니다. 나중에 몰아 찍으려면 다시 못 만듭니다.</li>
   <li>실패 시나리오는 조원 3 이 맡되, 조원 2 의 배치가 끝난 뒤에야 할 수 있습니다.</li>
 </ol>
+      <div class="lab">
+  <b class="t">실습 2-1</b>
+  <b>역할과 순서를 «칠판에» 적고 시작하기</b>
+
+  <p><b>목적</b> — 이 교과는 혼자 하는 것이 아닙니다.
+     <b>조별 산출물 전체가 채점</b>되므로, 내 몫만 끝내고 손을 놓으면
+     남의 몫에서 깎인 점수가 <b>내 점수</b>가 됩니다.</p>
+
+  <h5>절차 1 — 누가 무엇을 맡을지 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:90px">사람</th><th style="width:230px">맡는 것</th>
+        <th>주로 걸리는 항목</th></tr>
+    <tr><td class="c"><b>조장</b></td>
+        <td><code>DBManager</code> · 매핑표 · 합치기</td>
+        <td>1 · 3 · 4 — 그리고 <b>통합 전체</b></td></tr>
+    <tr><td class="c"><b>조원 1</b></td>
+        <td>보내는 쪽 — 사원 등록과 메모 남기기</td>
+        <td>5 (단일 트랜잭션)</td></tr>
+    <tr><td class="c"><b>조원 2</b></td>
+        <td>받는 쪽 — 배치와 계정 생성</td>
+        <td>6 · 7 (멱등성 · 예외처리)</td></tr>
+    <tr><td class="c"><b>조원 3</b></td>
+        <td>모니터링 화면 · 실패 시연</td>
+        <td>9 · 10 · 11</td></tr>
+  </table>
+
+  <h5>절차 2 — «순서» 를 적습니다. 동시에 못 합니다</h5>
+
+  <p class="cmdline"><code>조장 DBManager
+   ↓  (이것이 끝나야 나머지 셋이 «실행» 해 볼 수 있습니다)
+조원 1 송신           조원 3 모니터링 화면
+   ↓                     (테이블만 있으면 먼저 만들 수 있습니다)
+조원 2 수신 배치
+   ↓
+조원 3 실패 시연  →  조장 합치기</code></p>
+
+  <div class="warn"><b>조장의 <code>DBManager</code> 가 병목입니다.</b>
+    이것이 없으면 아무도 연결을 못 만들어 <b>코드를 짜도 돌려볼 수가 없습니다.</b>
+    조장은 이것을 <b>가장 먼저</b>, 매핑표와 함께 끝내고 공유하십시오.
+    삼십 분이면 됩니다.</div>
+
+  <h5>절차 3 — 저장소와 가지를 나눕니다</h5>
+  <p class="cmdline"><code>main
+ └ develop
+    ├ feature/leader    조장
+    ├ feature/send      조원 1
+    ├ feature/recv      조원 2
+    └ feature/monitor   조원 3</code></p>
+
+  <p>넷이 <code>main</code> 에 동시에 올리면 충돌합니다.
+     <b>각자 가지를 쓰고</b> 조장이 <code>develop</code> 으로 합칩니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:230px">저장소에 «안» 올리는 것</th><th>왜</th></tr>
+    <tr><td><code>config/db.properties</code></td>
+        <td>비밀번호가 들어 있습니다. <b>채점 항목 8 (보안) 에서 깎입니다</b></td></tr>
+    <tr><td><code>build/</code> · <code>*.class</code></td>
+        <td>만들어지는 것이라 올릴 까닭이 없습니다</td></tr>
+  </table>
+
+  <p><code>db.properties.sample</code> <b>만</b> 올립니다.
+     <code>.gitignore</code> 를 <b>첫 커밋 전에</b> 만드십시오.</p>
+
+  <h5>절차 4 — 점수가 «두 벌» 이라는 것을 알아 둡니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">어디에 적힌 것</th><th style="width:150px">모양</th>
+        <th>쓰임</th></tr>
+    <tr><td>작업지시서</td><td>역할별 20점 × 4 = 80</td>
+        <td>누가 무엇을 하는지 나누는 데</td></tr>
+    <tr><td><code>docs/채점기준_체크리스트.md</code></td><td>13항목 80점</td>
+        <td>빠뜨린 것이 없는지 훑는 데</td></tr>
+    <tr><td><b>평가도구 채점표</b></td><td><b>11항목 100점</b></td>
+        <td><b>실제 점수는 이것으로</b> 매겨집니다</td></tr>
+  </table>
+
+  <p>자릿수가 다릅니다. 헷갈리지 마십시오 —
+     <b>점수는 11항목 100점</b>, 체크리스트는 <b>확인용</b>입니다.</p>
+
+  <h5>절차 5 — 제출물 넷을 적어 둡니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:210px">내는 것</th><th>누가</th></tr>
+    <tr><td class="c">□</td><td>완성한 GitHub 저장소 주소</td><td>조장</td></tr>
+    <tr><td class="c">□</td><td>작업과정 PPT</td><td>각자 찍고 조장이 모음</td></tr>
+    <tr><td class="c">□</td><td>역할별 체크리스트</td><td>각자</td></tr>
+    <tr><td class="c">□</td><td>통합 검증 보고서</td><td>조장</td></tr>
+  </table>
+
+  <p>PPT 에는 <b>시작 화면 넷 · 완성 화면 넷</b>,
+     그리고 <b>실패했다가 되살린 화면 한두 컷</b>이 들어갑니다.</p>
+
+  <div class="warn"><b>「시작 화면 넷」 은 지금밖에 못 찍습니다.</b>
+    코드를 채우고 나면 <b>다시 만들 수 없습니다.</b>
+    실습 2-2 에서 프로젝트를 받자마자 <b>제일 먼저</b> 찍으십시오.</div>
+
+  <h5>절차 6 — 합치는 시간을 미리 뗍니다</h5>
+  <p>조장이 넷을 합치고, 돌려 보고, 캡처하고, 보고서를 쓰는 데
+     <b>마지막 한 시간으로는 모자랍니다.</b>
+     각자의 마감을 <b>전체 마감보다 앞에</b> 두십시오.</p>
+
+  <p class="cmdline"><code>전체 마감    │████████████████████████████│
+각자 마감    │██████████████████│
+합치기       │                  │██████████│  ← 이만큼 떼어 둡니다</code></p>
+
+  <p><b>제출물</b> — 역할 · 순서 · 가지 이름 · 각자 마감을 적은 한 장</p>
+
+  <p><b>스스로 확인</b> —
+     ① 넷이 <b>각자 무엇을</b> 맡는지 적었습니까
+     ② <b>조장의 <code>DBManager</code> 가 먼저</b>라는 것을 압니까
+     ③ 가지를 <b>넷으로</b> 나눴습니까
+     ④ <b>합치는 시간</b>을 따로 떼었습니까</p>
+</div>
       </div>
     </div>
 
@@ -252,6 +366,143 @@
   <b>입사 등록을 누르면 500 오류</b>가 납니다.
   <code>UnsupportedOperationException</code> 이라고 적혀 있으면 정상입니다.
   이 네 장면이 제출물의 <b>before 4컷</b> 입니다. 지금 찍어 두십시오.
+</div>
+      <div class="lab">
+  <b class="t">실습 2-2</b>
+  <b>프로젝트를 받자마자 «깨진 화면» 을 찍어 두기</b>
+
+  <p><b>목적</b> — 코드를 채우기 <b>전에</b> 해야 할 일이 둘입니다.
+     <b>깨진 화면 넷을 찍는 것</b>과 <b>데이터베이스 둘을 만드는 것</b>.
+     앞의 것은 지금 아니면 <b>다시 만들 수 없습니다.</b></p>
+
+  <h5>절차 1 — 프로젝트를 가져옵니다</h5>
+  <ol>
+    <li><b>File → Import → General → Existing Projects into Workspace</b>.</li>
+    <li>받은 <code>EX</code> 폴더를 고릅니다.</li>
+    <li>왼쪽 탐색기에서 <code>src</code> 아래를 펴 봅니다.</li>
+  </ol>
+
+  <p class="cmdline"><code>EX
+ ├ src
+ │  ├ common     DBManager · JsonUtil …          ← 조장
+ │  ├ send       EmpRegistServlet · EmpDAO …     ← 조원 1
+ │  ├ recv       AccountBatchServlet · …         ← 조원 2
+ │  └ monitor    MonitorServlet · …              ← 조원 3
+ ├ WebContent    JSP 다섯 장                      ← 고치지 않습니다
+ ├ config
+ │  └ db.properties.sample
+ └ db
+    └ schema.sql</code></p>
+
+  <div class="warn"><b><code>WebContent/</code> 의 JSP 는 고치지 마십시오.</b>
+    화면은 이미 돌아갑니다. 마음에 안 든다고 손대면
+    <b>채점자가 보려는 화면이 사라집니다.</b>
+    고칠 곳은 <code>src/</code> 아래 <b>자바 열두 파일뿐</b>입니다.</div>
+
+  <h5>절차 2 — 데이터베이스 둘을 만듭니다</h5>
+  <p class="cmdline"><code>mysql -u root -p &lt; db/schema.sql</code></p>
+
+  <p>이 파일 하나가 <b>데이터베이스 두 개</b>를 만듭니다.</p>
+
+  <p class="cmdline"><code>--- HrmDB ---
+employee
+if_outbox
+--- GroupwareDB ---
+account
+account_history
+dept
+if_inbox
+--- 초기 부서 ---
+D001  경영지원본부
+D002  개발본부
+D003  영업본부
+D004  마케팅본부
+D005  품질관리본부</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">만들어진 것</th><th>누구의 것</th></tr>
+    <tr><td><code>HrmDB</code> — <code>employee</code> ·
+            <code>if_outbox</code></td>
+        <td><b>보내는 쪽</b> (인사 시스템)</td></tr>
+    <tr><td><code>GroupwareDB</code> — <code>account</code> ·
+            <code>if_inbox</code> · <code>dept</code> ·
+            <code>account_history</code></td>
+        <td><b>받는 쪽</b> (그룹웨어)</td></tr>
+  </table>
+
+  <p><b>부서 다섯 건이 미리 들어갑니다.</b> 이것이 <code>account</code> 의
+     외래키가 가리키는 곳입니다 (실습 2-11 에서 씁니다).</p>
+
+  <h5>절차 3 — 설정 파일을 «복사해» 만듭니다</h5>
+  <p class="cmdline"><code>cd config
+copy db.properties.sample db.properties</code></p>
+
+  <p><b><code>.sample</code> 을 그냥 고쳐 쓰지 마십시오.</b>
+     원본은 저장소에 올라가는 파일이라, 고치면 내 비밀번호가 따라 올라갑니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:230px">파일</th><th>저장소에</th></tr>
+    <tr><td><code>db.properties.sample</code></td>
+        <td><b>올립니다.</b> 받은 사람이 무엇을 채울지 압니다</td></tr>
+    <tr><td><code>db.properties</code></td>
+        <td><b>안 올립니다.</b> <code>.gitignore</code> 에 넣습니다</td></tr>
+  </table>
+
+  <h5>절차 4 — 연결이 되는지 «먼저» 확인합니다</h5>
+  <p>서블릿을 돌리기 전에 연결만 따로 시험하십시오.</p>
+
+  <p class="cmdline"><code>try (Connection c = DriverManager.getConnection(url, user, pass)) {
+  System.out.println("연결 성공 " + c.getCatalog());
+}</code></p>
+
+  <div class="warn"><b>MySQL 8 에서 이 말이 나오면</b>
+    <span class="cc">Public Key Retrieval is not allowed</span>
+    <br>주소에 <code>useSSL=false</code> 만 적고
+    <code><b>allowPublicKeyRetrieval=true</b></code> 를 빠뜨린 것입니다.
+    MySQL 8 은 비밀번호를 암호화해 주고받는데, SSL 을 끄면
+    그 열쇠를 받아 올 길을 따로 열어 줘야 합니다.
+    <b>둘 다 적으십시오.</b> 두 주소(<code>hrm.url</code> · <code>gw.url</code>)
+    모두입니다.</div>
+
+  <h5>절차 5 — Tomcat 에 올리고 «깨진 화면» 을 찍습니다</h5>
+  <p>아직 자바가 비어 있으므로 <b>화면은 뜨지만 눌러도 안 됩니다.</b>
+     그것이 정상이고, 그 장면이 제출물입니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:210px">찍을 화면</th>
+        <th>보여야 할 것</th></tr>
+    <tr><td class="c">1</td><td>입사 등록</td>
+        <td>등록을 누르면 <b>500 오류</b></td></tr>
+    <tr><td class="c">2</td><td>전송 대기 목록</td><td>비어 있거나 오류</td></tr>
+    <tr><td class="c">3</td><td>배치 실행</td><td>눌러도 아무 일 없음</td></tr>
+    <tr><td class="c">4</td><td>모니터링</td><td>숫자가 안 나옴</td></tr>
+  </table>
+
+  <p>500 오류 화면에 이렇게 적혀 있으면 <b>제대로 받은 것</b>입니다.</p>
+  <p class="cmdline"><code>java.lang.UnsupportedOperationException</code></p>
+
+  <div class="note"><b>「아직 안 만들었다」 는 뜻의 예외입니다.</b>
+    빈 메서드에 일부러 넣어 둔 것입니다.
+    이것이 안 나오고 다른 오류가 난다면
+    <b>가져오기나 설정에서 이미 어긋난 것</b>이니 먼저 잡으십시오.</div>
+
+  <h5>절차 6 — 네 컷을 «한 폴더에» 모아 둡니다</h5>
+  <p class="cmdline"><code>캡처/before/
+  01_입사등록_500.png
+  02_전송대기.png
+  03_배치실행.png
+  04_모니터링.png</code></p>
+
+  <p>이름에 <b>번호와 무엇인지</b>를 적어 두십시오.
+     나중에 완성 화면 넷과 <b>나란히 놓을 때</b> 짝이 맞아야 합니다.</p>
+
+  <p><b>제출물</b> — <code>schema.sql</code> 실행 결과 + <b>깨진 화면 네 컷</b></p>
+
+  <p><b>스스로 확인</b> —
+     ① 데이터베이스가 <b>둘</b> 생겼습니까
+     ② 부서가 <b>다섯 건</b> 들어 있습니까
+     ③ <code>db.properties</code> 를 <b>복사해서</b> 만들었습니까
+     ④ <b>깨진 화면 넷</b>을 찍어 두었습니까</p>
 </div>
       </div>
     </div>
@@ -299,6 +550,158 @@
 <p>채점 항목 2 가 <b>「데이터 흐름을 파악하여 연계가 필요한 기능을 식별할 수 있는가」</b> 입니다.
    그림을 한 장 그려 두면 이 항목은 끝납니다.
    PPT 첫 장에 이 흐름도를 넣으십시오.</p>
+      <div class="lab">
+  <b class="t">실습 2-3</b>
+  <b>한 건이 «어디까지 갔는지» 눈으로 따라가기</b>
+
+  <p><b>목적</b> — 항목 2 는 <b>10점</b> 이고 코드를 한 줄도 안 씁니다.
+     흐름도 한 장이면 끝납니다. 다만 <b>그림을 그리기 전에</b>
+     한 건이 네 테이블을 지나가는 것을 직접 보고 가는 편이 훨씬 빠릅니다.</p>
+
+  <div class="note"><b>아직 코드가 없어도 됩니다.</b>
+    조원 1 · 2 의 코드가 완성되기 전이라면
+    <b>SQL 로 손수 넣어 가며</b> 따라가 보십시오.
+    흐름을 이해하는 것이 목적이지 자동으로 돌리는 것이 목적이 아닙니다.</div>
+
+  <h5>절차 1 — 네 테이블의 건수를 «한 화면에» 띄웁니다</h5>
+  <p>MySQL 콘솔을 열고 이 네 줄을 메모장에 붙여 두십시오.
+     단계마다 통째로 복사해 치면 됩니다.</p>
+
+  <p class="cmdline"><code>SELECT 'employee' AS t, COUNT(*) FROM HrmDB.employee
+UNION ALL SELECT 'if_outbox', COUNT(*) FROM HrmDB.if_outbox
+UNION ALL SELECT 'if_inbox',  COUNT(*) FROM GroupwareDB.if_inbox
+UNION ALL SELECT 'account',   COUNT(*) FROM GroupwareDB.account;</code></p>
+
+  <h5>절차 2 — 아무것도 안 한 상태</h5>
+  <p class="cmdline"><code>employee   0
+if_outbox  0
+if_inbox   0
+account    0</code></p>
+
+  <h5>절차 3 — 입사 등록을 «누른 직후»</h5>
+  <p>화면에서 사원 한 명을 등록하고 <b>바로</b> 같은 SQL 을 칩니다.</p>
+
+  <p class="cmdline"><code>  employee
+   emp_id        emp_name
+   E20260401001  이수진
+
+  if_outbox
+   tx_no         status  snd_dt
+   E20260401001  N       NULL
+
+  if_inbox    0건
+  account     0건</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">보이는 것</th><th>뜻</th></tr>
+    <tr><td><code>employee</code> 에 한 줄</td><td>사원이 등록됐습니다</td></tr>
+    <tr><td><code>if_outbox</code> 에 <code>status='N'</code></td>
+        <td><b>「이것을 보내야 한다」 는 메모</b>입니다. 아직 안 보냈습니다</td></tr>
+    <tr><td><code>snd_dt</code> 가 <code>NULL</code></td>
+        <td>보낸 시각이 아직 없습니다</td></tr>
+    <tr><td><b>받는 쪽은 0건</b></td>
+        <td><b>그룹웨어는 아직 아무것도 모릅니다</b></td></tr>
+  </table>
+
+  <p><b>여기가 이 교과의 핵심입니다.</b>
+     등록은 <b>이미 끝났습니다.</b> 그룹웨어가 멈춰 있든 점검 중이든
+     인사 시스템은 상관하지 않습니다.</p>
+
+  <h5>절차 4 — 배치를 돌린 뒤</h5>
+  <p class="cmdline"><code>  if_outbox
+   tx_no         status  snd_dt
+   E20260401001  S       2026-09-18 00:13:40
+
+  if_inbox
+   tx_no         status  proc_ms
+   E20260401001  S       7
+
+  account
+   account_id    user_name  acct_status
+   E20260401001  이수진      A
+
+  account_history
+   account_id    action
+   E20260401001  CREATE</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">바뀐 것</th><th>누가 바꿨는가</th></tr>
+    <tr><td><code>if_outbox.status</code> N → <b>S</b></td>
+        <td>배치가 「잘 보냈다」 고 표시</td></tr>
+    <tr><td><code>if_inbox</code> 에 한 줄</td>
+        <td>받는 쪽이 「받았다」 고 적음</td></tr>
+    <tr><td><code>account</code> 에 계정</td><td>받는 쪽이 실제로 만듦</td></tr>
+    <tr><td><code>proc_ms</code> = 7</td>
+        <td>받아서 일하는 데 걸린 시간 (밀리초)</td></tr>
+  </table>
+
+  <h5>절차 5 — 왜 «직접 부르지» 않는지 적어 둡니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:44%">직접 부른다면</th><th>테이블에 쌓아 둔다면</th></tr>
+    <tr><td>그룹웨어가 멈추면 <b>입사 등록도 멈춥니다</b></td>
+        <td>입사 등록은 그냥 됩니다</td></tr>
+    <tr><td>상대가 언제 점검하는지 <b>알아야 합니다</b></td>
+        <td>알 필요가 없습니다</td></tr>
+    <tr><td>실패하면 <b>사라집니다</b></td>
+        <td>메모가 <code>N</code> 으로 남아 <b>다시 보낼 수 있습니다</b></td></tr>
+    <tr><td>부서가 다르면 <b>권한을 서로 줘야 합니다</b></td>
+        <td>각자 자기 테이블만 봅니다</td></tr>
+  </table>
+
+  <p>이 방식을 <b>Transactional Outbox</b> 라 부릅니다.
+     이름이 어려워 보이지만 <b>메모를 남겨 두는 것</b>이 전부입니다.</p>
+
+  <h5>절차 6 — 설계서에서 다섯 줄을 뽑습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:130px">읽을 것</th><th style="width:210px">이 과제의 값</th>
+        <th>어디에 쓰이는가</th></tr>
+    <tr><td class="nm">IF ID</td><td><code>IF_HR_001</code></td>
+        <td>양쪽 테이블의 <code>if_id</code> 칸에 <b>그대로</b></td></tr>
+    <tr><td class="nm">송신 · 수신</td><td>HRM → Groupware</td>
+        <td>어느 쪽이 쓰고 어느 쪽이 읽는지</td></tr>
+    <tr><td class="nm">주기</td><td>5분 또는 수동</td><td>배치를 얼마나 자주</td></tr>
+    <tr><td class="nm">방식</td><td>Async / Batch · DB 테이블</td>
+        <td>HTTP 가 아니라 <b>테이블</b>을 쓴다는 것</td></tr>
+    <tr><td class="nm">멱등키</td><td><code>tx_no = emp_id</code></td>
+        <td>중복을 <b>무엇으로</b> 가려내는지</td></tr>
+  </table>
+
+  <h5>절차 7 — 흐름도를 한 장 그립니다</h5>
+  <p>손으로 그려도 됩니다. <b>네 칸과 화살표 셋</b>이면 충분합니다.</p>
+
+  <p class="cmdline"><code>┌─ HRM ─────────────────┐        ┌─ Groupware ──────────┐
+│                       │        │                      │
+│  employee ─┐          │        │      ┌─ if_inbox     │
+│            ├ 한 트랜잭션│  배치  │      │               │
+│  if_outbox ┘  (N)     │ ──────→│      └─ account      │
+│      ↑                │        │         (한 트랜잭션) │
+│      └ 배치가 S 로 고침 │←───────│                      │
+└───────────────────────┘        └──────────────────────┘</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">그림에 꼭 넣을 것</th><th>왜</th></tr>
+    <tr><td><b>점선 상자 둘</b></td>
+        <td>한 트랜잭션으로 묶이는 곳.
+            <b>항목 5 의 근거</b>가 됩니다</td></tr>
+    <tr><td>화살표 <b>방향</b></td>
+        <td>배치가 <b>가져가는</b> 것이지 HRM 이 보내는 것이 아닙니다</td></tr>
+    <tr><td><code>N</code> → <code>S</code></td>
+        <td>상태가 어디서 바뀌는지</td></tr>
+  </table>
+
+  <p><b>이 그림을 PPT 첫 장에 넣으십시오.</b>
+     항목 2 는 이것으로 끝납니다.</p>
+
+  <p><b>제출물</b> — 절차 2 · 3 · 4 의 조회 결과 세 장 + 흐름도 한 장</p>
+
+  <p><b>스스로 확인</b> —
+     ① 등록 <b>직후</b> 받는 쪽이 <b>0건</b>인 것을 봤습니까
+     ② 배치 뒤 <code>status</code> 가 <b>N → S</b> 로 바뀌는 것을 봤습니까
+     ③ 흐름도에 <b>점선 상자 둘</b>이 있습니까
+     ④ 멱등키가 <b>무엇인지</b> 적었습니까</p>
+</div>
       </div>
     </div>
 
@@ -339,6 +742,135 @@
   매핑표는 <b>조장이 가장 먼저 만들어 공유해야</b> 합니다.
   조원들이 코드를 쓰기 시작한 뒤에 만들면 이미 이름이 어긋나 있습니다.
   종이 한 장이면 되고, 십 분이면 됩니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 2-4</b>
+  <b>매핑표 — 같은 값인데 이름이 셋입니다</b>
+
+  <p><b>목적</b> — 항목 1 은 <b>10점</b>, 종이 한 장이면 됩니다.
+     그런데 <b>이 표를 안 만들고 코드부터 쓰면</b>
+     조원 1 과 조원 2 의 이름이 어긋나고, <b>오류 없이 빈 값</b>이 들어갑니다.
+     찾는 데 한 시간씩 걸립니다.</p>
+
+  <div class="warn"><b>조장이 «가장 먼저» 만들어 공유하십시오.</b>
+    조원들이 코드를 쓰기 시작한 뒤에 만들면 이미 늦습니다.
+    <b>십 분이면 됩니다.</b></div>
+
+  <h5>절차 1 — 세 칸짜리 표를 그립니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px">항목</th><th style="width:170px">HRM (보내는 쪽)</th>
+        <th style="width:150px">payload 키</th><th>Groupware (받는 쪽)</th></tr>
+    <tr><td class="nm">사원번호</td><td><code>employee.emp_id</code></td>
+        <td><code>empId</code></td><td><code>account.account_id</code></td></tr>
+    <tr><td class="nm">사원명</td><td><code>employee.emp_name</code></td>
+        <td><code>empName</code></td><td><code>account.user_name</code></td></tr>
+    <tr><td class="nm">부서코드</td><td><code>employee.dept_code</code></td>
+        <td><code>deptCode</code></td><td><code>account.dept_code</code></td></tr>
+    <tr><td class="nm">직급</td><td><code>employee.position</code></td>
+        <td><code>position</code></td><td><code>account.position</code></td></tr>
+    <tr><td class="nm">입사일</td><td><code>employee.hire_date</code></td>
+        <td><code>hireDate</code></td><td><code>account.join_date</code></td></tr>
+    <tr><td class="nm">이메일</td><td><code>employee.email</code></td>
+        <td><code>email</code></td><td><code>account.email</code></td></tr>
+  </table>
+
+  <p><b>여섯 항목 가운데 이름이 «세 번 다 같은» 것은 둘뿐</b>입니다
+     (<code>position</code> · <code>email</code>).
+     나머지 넷은 칸마다 다릅니다.</p>
+
+  <h5>절차 2 — 왜 이름이 셋인지 알아 둡니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">어디</th><th style="width:170px">표기</th><th>관례</th></tr>
+    <tr><td>데이터베이스 칸</td><td><code>emp_name</code></td>
+        <td>밑줄로 끊습니다 (snake_case)</td></tr>
+    <tr><td>자바 · JSON</td><td><code>empName</code></td>
+        <td>대문자로 끊습니다 (camelCase)</td></tr>
+    <tr><td>받는 쪽 칸</td><td><code>user_name</code></td>
+        <td><b>아예 다른 낱말</b>입니다.
+            받는 쪽은 「사원」이 아니라 「사용자」로 봅니다</td></tr>
+  </table>
+
+  <p>셋 다 같은 값인데 <b>적는 법만 다릅니다.</b>
+     시스템이 다르면 부르는 이름도 다른 것이 자연스럽습니다.
+     그래서 <b>번역표</b>가 필요합니다.</p>
+
+  <h5>절차 3 — 이름이 어긋나면 «무슨 일이 나는지» 봅니다</h5>
+  <p>조원 1 이 <code>payload</code> 에 <code>empName</code> 으로 넣었는데
+     조원 2 가 <code>emp_name</code> 으로 꺼냈다고 해 봅시다.</p>
+
+  <p class="cmdline"><code>empName  → [김서연]
+emp_name → []   ← 오류 없이 빈 값</code></p>
+
+  <div class="warn"><b>예외가 나지 않습니다.</b>
+    JSON 에 없는 키를 꺼내면 <code>null</code> 이나 빈 문자열이 나올 뿐입니다.
+    그래서 <b>계정은 멀쩡히 생기는데 이름만 비어 있습니다.</b>
+    배치도 <code>S</code> 로 찍히고, 오류 기록에도 안 남습니다.
+    <b>자료를 눈으로 봐야만</b> 알 수 있습니다.</div>
+
+  <p>실제로 이렇게 보입니다.</p>
+  <p class="cmdline"><code>  배치는 «성공» 으로 끝났습니다
+
+  account
+   account_id    user_name  dept_code  acct_status
+   E20260401002  []         D001       A
+                 ↑ 비어 있습니다 (대괄호는 보이라고 씌운 것)</code></p>
+
+  <h5>절차 4 — 전달하지 «않는» 항목도 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:170px">항목</th><th style="width:190px">받는 쪽 칸</th>
+        <th>누가 만드는가</th></tr>
+    <tr><td class="nm">비밀번호 해시</td><td><code>account.passwd_hash</code></td>
+        <td><b>받는 쪽이 스스로</b> 만듭니다 (실습 2-12)</td></tr>
+    <tr><td class="nm">계정 상태</td><td><code>account.acct_status</code></td>
+        <td><b>받는 쪽이</b> <code>'A'</code> 로 정합니다</td></tr>
+  </table>
+
+  <p>보내는 쪽은 비밀번호를 <b>알지도 못하고 알 필요도 없습니다.</b>
+     이 두 줄을 적어 두면 <b>설계서를 끝까지 읽었다</b>는 것이 드러나고,
+     나중에 「비밀번호는 누가 정하나」 하는 질문이 안 나옵니다.</p>
+
+  <h5>절차 5 — payload 한 건의 «실제 모습» 을 붙여 둡니다</h5>
+  <p class="cmdline"><code>{"empId":"E20260401001","empName":"이수진","deptCode":"D001",
+ "position":"사원","hireDate":"20260401","email":"sujin@company.co.kr"}</code></p>
+
+  <p>표만 있으면 헷갈립니다. <b>진짜 한 건</b>을 옆에 붙여 두면
+     조원들이 그것을 보고 맞춥니다.</p>
+
+  <h5>절차 6 — 조원들에게 «어떻게» 공유할지 정합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">방법</th><th>좋은 점 · 나쁜 점</th></tr>
+    <tr><td>저장소에 <code>docs/매핑표.md</code></td>
+        <td><b>가장 좋습니다.</b> 고치면 모두에게 반영됩니다</td></tr>
+    <tr><td>단체 대화방에 사진</td>
+        <td>당장 빠르지만 <b>고치면 옛 사진이 돌아다닙니다</b></td></tr>
+    <tr><td>각자 받아 적기</td>
+        <td><b>하지 마십시오.</b> 받아 적다가 틀립니다</td></tr>
+  </table>
+
+  <h5>절차 7 — 실제로 맞는지 조회해 봅니다</h5>
+  <p>계정이 생긴 뒤 이 SQL 로 <b>빈 칸이 있는지</b> 봅니다.</p>
+
+  <p class="cmdline"><code>SELECT account_id, user_name, dept_code, join_date, email
+  FROM GroupwareDB.account
+ WHERE user_name = '' OR user_name IS NULL
+    OR join_date = '' OR join_date IS NULL;</code></p>
+
+  <p><b>한 줄이라도 나오면 매핑이 어긋난 것</b>입니다.
+     0건이어야 합니다. 이 조회 결과를 보고서에 넣으면
+     항목 1 의 근거가 하나 더 생깁니다.</p>
+
+  <p><b>제출물</b> — 매핑표(여섯 + 전달 안 하는 둘) +
+     payload 한 건 + 절차 7 의 조회 결과</p>
+
+  <p><b>스스로 확인</b> —
+     ① 항목 <b>여섯</b>과 전달 안 하는 <b>둘</b>이 다 있습니까
+     ② <code>payload</code> 키를 <b>실제 코드와 대조</b>했습니까
+     ③ 조원 <b>모두에게 공유</b>했습니까
+     ④ 빈 칸 조회가 <b>0건</b>입니까</p>
 </div>
       </div>
     </div>
@@ -384,6 +916,163 @@ SELECT tx_no FROM if_outbox
  WHERE tx_no NOT REGEXP <b>'^E[0-9]{8}[0-9]{3}$'</b>;
 
 SELECT COUNT(*) FROM if_outbox WHERE retry_cnt &gt; <b>3</b>;</pre>
+      <div class="lab">
+  <b class="t">실습 2-5</b>
+  <b>데이터 표준 — 어긴 줄을 «찾아내는 SQL» 을 손에 쥐기</b>
+
+  <p><b>목적</b> — 항목 3 은 <b>10점</b> 입니다.
+     표준을 「정했다」 고 말하는 것으로는 부족합니다.
+     <b>어긴 줄이 없다는 것을 보여야</b> 합니다. 검사 SQL 셋을 만들어 둡니다.</p>
+
+  <h5>절차 1 — 표준 여섯 가지를 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:130px">항목</th><th style="width:190px">규칙</th>
+        <th>보기</th></tr>
+    <tr><td class="nm"><code>if_id</code></td><td>인터페이스 이름 고정</td>
+        <td><code>IF_HR_001</code></td></tr>
+    <tr><td class="nm"><code>tx_no</code></td>
+        <td><code>E</code> + 날짜 8자리 + 일련 3자리 = <b>12글자</b></td>
+        <td><code>E20260401001</code></td></tr>
+    <tr><td class="nm"><code>status</code></td>
+        <td><b><code>N</code> · <code>S</code> · <code>F</code> 셋뿐</b></td>
+        <td>기다림 · 성공 · 실패</td></tr>
+    <tr><td class="nm"><code>payload</code></td><td>JSON 문자열</td>
+        <td><code>{"empId":"…","empName":"…"}</code></td></tr>
+    <tr><td class="nm"><code>retry_cnt</code></td><td><b>최대 3</b></td>
+        <td>0 → 1 → 2 → 3 에서 멈춤</td></tr>
+    <tr><td class="nm"><code>hire_date</code></td>
+        <td>날짜형이 아니라 <b><code>CHAR(8)</code></b></td>
+        <td><code>20260401</code></td></tr>
+  </table>
+
+  <h5>절차 2 — 「처리 중」 을 넣고 싶어지는 자리</h5>
+  <p>상태가 셋뿐이면 <b>배치가 도는 중</b>인 건은 무엇으로 표시하나 싶습니다.
+     그래서 <code>P</code> 를 넣고 싶어집니다. <b>넣으면 감점입니다.</b></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">왜 안 되는가</th><th>무슨 일이 나는가</th></tr>
+    <tr><td>설계서에 없는 값입니다</td>
+        <td>받는 쪽이 <code>P</code> 를 <b>모릅니다</b>.
+            <code>N</code> 도 <code>S</code> 도 아니라 그냥 <b>버려집니다</b></td></tr>
+    <tr><td>검사 SQL 에 걸립니다</td>
+        <td>채점자가 절차 3 의 SQL 을 치면 <b>그 자리에서 드러납니다</b></td></tr>
+  </table>
+
+  <p>배치가 도는 중인 건은 표시할 필요가 없습니다.
+     <b>돌다 죽으면 <code>N</code> 인 채로 남아</b> 다음 배치가 다시 집습니다.
+     그것이 이 설계의 장점입니다.</p>
+
+  <h5>절차 3 — 검사 SQL 셋을 만듭니다</h5>
+  <p>메모장에 붙여 두고 <b>제출 전에 한 번 돌리십시오.</b>
+     세 개 모두 <b>0건이어야</b> 합니다.</p>
+
+  <p class="cmdline"><code>-- ① 상태 코드가 세 값뿐인가
+SELECT status, COUNT(*) AS cnt FROM if_outbox
+ WHERE status NOT IN ('N','S','F') GROUP BY status;
+
+-- ② 사번 형식이 맞는가
+SELECT tx_no FROM if_outbox
+ WHERE tx_no NOT REGEXP '^E[0-9]{8}[0-9]{3}$';
+
+-- ③ 재시도가 한도를 넘지 않았는가
+SELECT tx_no, retry_cnt FROM if_outbox WHERE retry_cnt &gt; 3;</code></p>
+
+  <h5>절차 4 — «어긴 줄을 일부러 넣어» 검사가 도는지 봅니다</h5>
+  <p>검사 SQL 이 0건이라고 안심하면 안 됩니다.
+     <b>어긴 줄이 없어서인지, 검사가 틀려서인지</b> 알 수 없습니다.
+     셋을 일부러 넣어 보십시오.</p>
+
+  <p class="cmdline"><code>INSERT INTO if_outbox (if_id, tx_no, status, payload, retry_cnt)
+ VALUES ('IF_HR_001','E20260401009','P','{}',0),      -- 없는 상태
+        ('IF_HR_001','EMP001','N','{}',0),            -- 형식 틀린 사번
+        ('IF_HR_001','E20260401010','F','{}',5);      -- 재시도 초과</code></p>
+
+  <p>세 검사가 각각 한 줄씩 잡아내야 합니다.</p>
+
+  <p class="cmdline"><code>--- 상태 코드 위반 ---
++--------+-----+
+| status | cnt |
++--------+-----+
+| P      |   1 |
++--------+-----+
+
+--- 사번 형식 위반 ---
++--------+
+| tx_no  |
++--------+
+| EMP001 |
++--------+
+
+--- 재시도 초과 ---
++--------------+-----------+
+| tx_no        | retry_cnt |
++--------------+-----------+
+| E20260401010 |         5 |
++--------------+-----------+</code></p>
+
+  <div class="warn"><b>확인했으면 세 줄을 «지우십시오».</b>
+    <span class="cc">DELETE FROM if_outbox WHERE tx_no IN
+    ('E20260401009','EMP001','E20260401010');</span>
+    남겨 두면 제출할 때 검사에 걸립니다.
+    <b>일부러 넣은 것과 진짜 잘못을 구별할 길이 없습니다.</b></div>
+
+  <h5>절차 5 — 날짜를 왜 «문자열» 로 주고받는지 알아 둡니다</h5>
+  <p>같은 날짜 하나가 시스템마다 이렇게 보입니다.</p>
+
+  <p class="cmdline"><code>+------------+------------+------------+
+| ISO        | 미국식     | 유럽식     |
++------------+------------+------------+
+| 2026-04-01 | 04/01/2026 | 01.04.2026 |
++------------+------------+------------+</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">보내는 값</th><th>받는 쪽이 읽으면</th></tr>
+    <tr><td><code>01.04.2026</code> (유럽식)</td>
+        <td>미국식으로 읽는 쪽은 <b>2026년 1월 4일</b>로 읽습니다</td></tr>
+    <tr><td><code>"20260401"</code> (문자열)</td>
+        <td><b>읽을 여지가 없습니다.</b> 여덟 글자 그대로입니다</td></tr>
+  </table>
+
+  <p>그래서 시스템 사이에 오가는 날짜는 <b>문자열로 고정</b>하는 것이 관례입니다.
+     받는 쪽이 자기 형편에 맞게 바꿔 쓰면 됩니다.</p>
+
+  <h5>절차 6 — 배치가 «집는 조건» 을 표준과 맞춥니다</h5>
+  <p class="cmdline"><code>WHERE status = 'N' AND retry_cnt &lt; 3</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">이 조건이 뜻하는 것</th><th></th></tr>
+    <tr><td><code>status='N'</code></td>
+        <td>아직 안 보낸 것만. <code>S</code> 는 다시 안 보냅니다</td></tr>
+    <tr><td><code>retry_cnt &lt; 3</code></td>
+        <td>세 번 실패한 것은 <b>더 안 집습니다.</b>
+            사람이 봐야 할 건입니다</td></tr>
+  </table>
+
+  <p><b>표준의 숫자 3 이 코드의 조건과 같아야</b> 합니다.
+     코드에 <code>3</code> 을 박지 말고
+     <code>db.properties</code> 의 <code>batch.max.retry</code> 에서 읽으십시오
+     (실습 2-7).</p>
+
+  <h5>절차 7 — 표준 문서를 저장소에 둡니다</h5>
+  <p class="cmdline"><code>docs/
+  매핑표.md          ← 실습 2-4
+  데이터표준.md       ← 이 실습
+  검사SQL.sql        ← 절차 3 의 셋</code></p>
+
+  <p><b>검사 SQL 을 파일로 남기는 것</b>이 요령입니다.
+     통합 검증 보고서에 「이 SQL 로 확인했고 모두 0건」 이라고
+     결과와 함께 붙이면 항목 3 의 근거가 분명해집니다.</p>
+
+  <p><b>제출물</b> — 데이터 표준 표 + 검사 SQL 셋 +
+     <b>0건</b>으로 나온 실행 결과</p>
+
+  <p><b>스스로 확인</b> —
+     ① 상태가 <b><code>N</code> · <code>S</code> · <code>F</code> 셋뿐</b>입니까
+     ② 검사 SQL 이 <b>어긴 줄을 실제로 잡는지</b> 봤습니까
+     ③ 일부러 넣은 줄을 <b>지웠습니까</b>
+     ④ 코드의 재시도 한도가 <b>표준과 같은 숫자</b>입니까</p>
+</div>
       </div>
     </div>
 
@@ -436,6 +1125,146 @@ SELECT COUNT(*) FROM if_outbox WHERE retry_cnt &gt; <b>3</b>;</pre>
    건수가 쌓이면 이 조회가 느려지므로 두 컬럼에 색인을 겁니다.
    조건에 쓰는 순서대로 묶어야 쓸모가 있습니다.
    <code>schema.sql</code> 에 이미 들어 있으니 지우지만 마십시오.</p>
+      <div class="lab">
+  <b class="t">실습 2-6</b>
+  <b>인터페이스 테이블 — <code>UNIQUE</code> 를 «어느 쪽에» 거는가</b>
+
+  <p><b>목적</b> — 항목 4 는 5점입니다. <code>schema.sql</code> 이 이미 만들어 주므로
+     <b>만들 일은 없습니다.</b> 대신 <b>왜 이렇게 생겼는지</b> 설명할 수 있어야 합니다.
+     체크리스트와 설계서가 엇갈리는 자리가 하나 있습니다.</p>
+
+  <h5>절차 1 — 두 테이블을 나란히 놓고 «다른 칸» 을 찾습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:170px">칸</th><th style="width:130px">if_outbox</th>
+        <th style="width:130px">if_inbox</th><th>왜 한쪽에만</th></tr>
+    <tr><td><code>if_id</code> · <code>tx_no</code> ·
+            <code>status</code> · <code>payload</code></td>
+        <td class="c">있음</td><td class="c">있음</td><td>양쪽 공통</td></tr>
+    <tr><td><code>retry_cnt</code></td><td class="c"><b>있음</b></td>
+        <td class="c">없음</td>
+        <td>재시도는 <b>보낸 것을 다시 보내는</b> 일. 보내는 쪽이 셉니다</td></tr>
+    <tr><td><code>snd_dt</code></td><td class="c"><b>있음</b></td>
+        <td class="c">없음</td><td>보낸 시각</td></tr>
+    <tr><td><code>proc_ms</code></td><td class="c">없음</td>
+        <td class="c"><b>있음</b></td>
+        <td>받아서 <b>일하는 데 걸린 시간</b>. 받는 쪽이 잽니다</td></tr>
+    <tr><td><code>rcv_dt</code></td><td class="c">없음</td>
+        <td class="c"><b>있음</b></td><td>받은 시각</td></tr>
+  </table>
+
+  <p><b>칸 이름만 봐도 누구의 사정을 적는 칸인지</b> 알 수 있습니다.
+     이 설명을 할 수 있으면 항목 4 는 끝입니다.</p>
+
+  <h5>절차 2 — 색인 둘을 실제로 봅니다</h5>
+  <p class="cmdline"><code>SHOW INDEX FROM HrmDB.if_outbox;
+SHOW INDEX FROM GroupwareDB.if_inbox;</code></p>
+
+  <table class="wide">
+    <tr><th style="width:170px">테이블</th><th style="width:190px">색인</th>
+        <th>무엇을 위한 것</th></tr>
+    <tr><td><code>if_outbox</code></td>
+        <td><code>idx_outbox_pick</code>
+            <br>(<code>status</code>, <code>retry_cnt</code>)</td>
+        <td><b>빠르게 찾기</b> 위한 것. 중복은 안 막습니다</td></tr>
+    <tr><td><code>if_inbox</code></td>
+        <td><code>uk_inbox_tx</code> (<code>tx_no</code>) — <b>UNIQUE</b></td>
+        <td><b>중복을 막기</b> 위한 것</td></tr>
+  </table>
+
+  <h5>절차 3 — 색인이 «실제로 쓰이는지» 확인합니다</h5>
+  <p>색인은 걸어 두기만 해서는 소용없습니다. <b>조건과 순서가 맞아야</b> 씁니다.</p>
+
+  <p class="cmdline"><code>EXPLAIN SELECT seq, tx_no FROM if_outbox WHERE status='N' AND retry_cnt &lt; 3;</code></p>
+
+  <p class="cmdline"><code>+-------+-----------------+-----------------+-----------------------+
+| type  | possible_keys   | key             | Extra                 |
++-------+-----------------+-----------------+-----------------------+
+| range | idx_outbox_pick | idx_outbox_pick | Using index condition |
++-------+-----------------+-----------------+-----------------------+</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">보는 칸</th><th>이래야 합니다</th></tr>
+    <tr><td><code>key</code></td>
+        <td><code>idx_outbox_pick</code> — <b>색인을 씁니다</b>.
+            <code>NULL</code> 이면 안 쓰는 것입니다</td></tr>
+    <tr><td><code>type</code></td>
+        <td><code>range</code> · <code>ref</code> 면 좋습니다.
+            <b><code>ALL</code> 이면 전부 뒤지는 것</b>입니다</td></tr>
+  </table>
+
+  <div class="note"><b>색인 순서가 조건 순서와 같아야 합니다.</b>
+    <code>(status, retry_cnt)</code> 로 묶었으니
+    <code>WHERE status=… AND retry_cnt…</code> 에 맞습니다.
+    <code>retry_cnt</code> 만으로 찾으면 <b>이 색인은 못 씁니다.</b>
+    <code>schema.sql</code> 에 이미 들어 있으니 <b>지우지만 마십시오.</b></div>
+
+  <h5>절차 4 — <code>UNIQUE</code> 를 «보내는 쪽» 에 걸어 봅니다</h5>
+  <p>연습용 표를 하나 만들어 시험해 보십시오.</p>
+
+  <p class="cmdline"><code>CREATE TABLE ob_unique LIKE if_outbox;
+ALTER TABLE ob_unique ADD UNIQUE KEY uk_ob_tx (tx_no);
+
+INSERT INTO ob_unique (if_id, tx_no, payload) VALUES ('IF_HR_001','E20260401001','{}');
+INSERT INTO ob_unique (if_id, tx_no, payload) VALUES ('IF_HR_001','E20260401001','{}');</code></p>
+
+  <p class="cmdline"><code>ERROR 1062 (23000): Duplicate entry 'E20260401001' for key 'ob_unique.uk_ob_tx'</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">막힌 것</th><th>이게 맞는가</th></tr>
+    <tr><td>같은 사번을 <b>두 번 등록</b>하는 것</td>
+        <td><b>아닙니다.</b> 퇴사했다 재입사하면
+            같은 사번이 다시 올 수 있습니다</td></tr>
+  </table>
+
+  <p><b>막으려는 것은 「등록」이 아니라 「중복 처리」</b> 입니다.
+     그래서 받는 쪽에 겁니다.</p>
+
+  <h5>절차 5 — 받는 쪽에 걸면 무엇이 막히는지 봅니다</h5>
+  <p>실습 2-10 에서 다시 하지만 미리 봐 둡니다.
+     같은 건을 두 번 배치에 태우면 이렇게 됩니다.</p>
+
+  <p class="cmdline"><code>E20260401001 → F : Duplicate entry 'E20260401001' for key 'if_inbox.uk_inbox_tx'
+
+  account 줄 수 : 1        ← 두 번 돌렸는데 계정은 «하나»</code></p>
+
+  <p><b>계정이 두 개 생기는 것만</b> 막혔습니다. 이것이 노린 것입니다.
+     이 성질을 <b>멱등성</b> 이라 부릅니다 — 몇 번 해도 결과가 같다는 뜻입니다.</p>
+
+  <h5>절차 6 — 문서가 «엇갈리는» 자리를 확인합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:280px">어디</th><th>뭐라고 적혀 있나</th></tr>
+    <tr><td><code>docs/채점기준_체크리스트.md</code></td>
+        <td><code>if_<b>outbox</b>.tx_no UNIQUE</code></td></tr>
+    <tr><td>설계서 · <code>db/schema.sql</code></td>
+        <td><code>if_<b>inbox</b>.tx_no UNIQUE</code></td></tr>
+  </table>
+
+  <div class="warn"><b>둘이 다릅니다. 실제로 도는 것은 <code>schema.sql</code> 입니다.</b>
+    <b>설계서를 따르십시오.</b>
+    그리고 <b>보고서에 이 차이를 한 줄 적어 두십시오</b> —
+    「체크리스트는 outbox 로 적혀 있으나 설계서와 schema.sql 은 inbox 이며,
+    재입사를 고려하면 inbox 가 맞다고 판단함」.
+    <b>문서를 끝까지 읽었다는 것</b>이 드러납니다.</div>
+
+  <h5>절차 7 — 표를 지우지 않았는지 확인합니다</h5>
+  <p class="cmdline"><code>DROP TABLE ob_unique;      -- 연습용 표는 지웁니다</code></p>
+
+  <p><code>schema.sql</code> 이 만든 여섯 표는 <b>그대로 두십시오.</b>
+     색인을 지우거나 칸을 더하면 <b>다른 조원의 코드가 깨집니다.</b></p>
+
+  <p><b>제출물</b> — <code>SHOW INDEX</code> 두 개 +
+     <code>EXPLAIN</code> 결과 + 절차 6 의 판단 한 줄</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>retry_cnt</code> 와 <code>proc_ms</code> 가
+        <b>왜 한쪽에만</b> 있는지 설명할 수 있습니까
+     ② <code>EXPLAIN</code> 의 <code>key</code> 가
+        <code>idx_outbox_pick</code> 입니까
+     ③ <code>UNIQUE</code> 가 <b><code>if_inbox</code></b> 에 있습니까
+     ④ 연습용 표를 <b>지웠습니까</b></p>
+</div>
       </div>
     </div>
 
@@ -459,12 +1288,12 @@ SELECT COUNT(*) FROM if_outbox WHERE retry_cnt &gt; <b>3</b>;</pre>
 db.driver=com.mysql.cj.jdbc.Driver
 
 <i># 보내는 쪽</i>
-<b>hrm.url</b>=jdbc:mysql://localhost:3306/<b>HrmDB</b>?useSSL=false&amp;serverTimezone=Asia/Seoul&amp;characterEncoding=UTF-8
+<b>hrm.url</b>=jdbc:mysql://localhost:3306/<b>HrmDB</b>?useSSL=false&amp;<b>allowPublicKeyRetrieval=true</b>&amp;serverTimezone=Asia/Seoul&amp;characterEncoding=UTF-8
 hrm.user=ifuserx
 hrm.password=ifx1234!
 
 <i># 받는 쪽</i>
-<b>gw.url</b>=jdbc:mysql://localhost:3306/<b>GroupwareDB</b>?useSSL=false&amp;serverTimezone=Asia/Seoul&amp;characterEncoding=UTF-8
+<b>gw.url</b>=jdbc:mysql://localhost:3306/<b>GroupwareDB</b>?useSSL=false&amp;<b>allowPublicKeyRetrieval=true</b>&amp;serverTimezone=Asia/Seoul&amp;characterEncoding=UTF-8
 gw.user=ifuserx
 gw.password=ifx1234!
 
@@ -518,6 +1347,165 @@ account.init.password.suffix=1234</pre>
   <code>.gitignore</code> 에 넣고 <code>db.properties.sample</code> 만 올립니다.
   비밀번호가 들어 있는 파일이 저장소에 있으면
   채점 항목 8 의 보안에서 깎입니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 2-7</b>
+  <b>DBManager — 연결이 «둘» 입니다. 섞으면 안 됩니다</b>
+
+  <p><b>목적</b> — <b>조장이 가장 먼저</b> 끝내야 하는 것입니다.
+     이것이 없으면 나머지 셋은 코드를 짜도 <b>돌려볼 수가 없습니다.</b>
+     삼십 분이면 됩니다.</p>
+
+  <h5>절차 1 — 설정 파일을 채웁니다</h5>
+  <p><code>config/db.properties</code> — <code>.sample</code> 을 <b>복사해</b> 만든 것입니다.</p>
+
+  <p class="cmdline"><code>db.driver=com.mysql.cj.jdbc.Driver
+
+# 보내는 쪽
+hrm.url=jdbc:mysql://localhost:3306/HrmDB?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Seoul&amp;characterEncoding=UTF-8
+hrm.user=ifuserx
+hrm.password=ifx1234!
+
+# 받는 쪽
+gw.url=jdbc:mysql://localhost:3306/GroupwareDB?useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Seoul&amp;characterEncoding=UTF-8
+gw.user=ifuserx
+gw.password=ifx1234!
+
+# 배치 옵션 — 코드에 숫자를 박지 않습니다
+batch.fetch.size=100
+batch.max.retry=3
+account.init.password.suffix=1234</code></p>
+
+  <table class="wide">
+    <tr><th style="width:250px">주소의 조각</th><th>없으면</th></tr>
+    <tr><td><code>useSSL=false</code></td>
+        <td>암호화 연결을 씁니다. 실습에서는 꺼도 됩니다</td></tr>
+    <tr><td><b><code>allowPublicKeyRetrieval=true</code></b></td>
+        <td><b>MySQL 8 에서 반드시 실패합니다</b> — 절차 2</td></tr>
+    <tr><td><code>serverTimezone=Asia/Seoul</code></td>
+        <td>시각이 아홉 시간 어긋납니다</td></tr>
+    <tr><td><code>characterEncoding=UTF-8</code></td>
+        <td>한글 이름이 깨집니다</td></tr>
+  </table>
+
+  <h5>절차 2 — <code>allowPublicKeyRetrieval</code> 을 빼고 돌려 봅니다</h5>
+  <p class="cmdline"><code>실패 useSSL=false 만                             : Public Key Retrieval is not allowed
+OK   useSSL=false + allowPublicKeyRetrieval=true
+OK   옵션을 아예 안 줌 (SSL 기본값)</code></p>
+
+  <div class="warn"><b>MySQL 8 은 비밀번호를 암호화해 주고받습니다.</b>
+    SSL 을 끄면(<code>useSSL=false</code>) 그 열쇠를 받아 올 길이 막히는데,
+    <code>allowPublicKeyRetrieval=true</code> 가 그 길을 열어 줍니다.
+    <b>둘 다 적거나, 아예 둘 다 빼거나</b> 입니다.
+    <b>두 주소 모두</b>에 적어야 합니다 — 하나만 고치고 나머지에서 또 막힙니다.</div>
+
+  <h5>절차 3 — 연결 메서드를 «둘» 만듭니다</h5>
+  <p class="cmdline"><code>public static Connection getHrmConnection() throws SQLException {
+  return DriverManager.getConnection(P.getProperty("hrm.url"),
+           P.getProperty("hrm.user"), P.getProperty("hrm.password"));
+}
+
+public static Connection getGroupwareConnection() throws SQLException {
+  return DriverManager.getConnection(P.getProperty("gw.url"),
+           P.getProperty("gw.user"), P.getProperty("gw.password"));
+}</code></p>
+
+  <p>앞 교과에서는 <code>getConnection()</code> 하나였습니다.
+     여기서는 <b>둘</b>이고, <b>이름으로 구별</b>해야 합니다.</p>
+
+  <h5>절차 4 — 섞어 쓰면 «무슨 말» 이 나오는지 봅니다</h5>
+
+  <p class="cmdline"><code>[1] HRM 연결로 account 를 찾으면
+  Table 'HrmDB.account' doesn't exist
+
+[2] Groupware 연결로 employee 를 찾으면
+  Table 'GroupwareDB.employee' doesn't exist</code></p>
+
+  <table class="wide">
+    <tr><th style="width:280px">이 말이 나오면</th><th>고칠 곳</th></tr>
+    <tr><td><code>Table 'HrmDB.account' doesn't exist</code></td>
+        <td><code>getGroupwareConnection()</code> 을 써야 할 자리에
+            <code>getHrmConnection()</code> 을 썼습니다</td></tr>
+    <tr><td><code>Table 'GroupwareDB.employee' doesn't exist</code></td>
+        <td>그 반대입니다</td></tr>
+  </table>
+
+  <div class="note"><b>「없는 표」 라는 말이 나오면 표를 의심하지 마십시오.</b>
+    <code>schema.sql</code> 이 여섯 표를 다 만들었으니 표는 있습니다.
+    <b>연결을 잘못 고른 것</b>입니다.
+    메시지 앞의 <b>데이터베이스 이름</b>을 보면 어느 연결을 썼는지 바로 압니다.</div>
+
+  <p>지금 어느 데이터베이스를 보고 있는지는 이렇게 확인합니다.</p>
+  <p class="cmdline"><code>hrm() → HrmDB
+gw()  → GroupwareDB</code></p>
+
+  <h5>절차 5 — 숫자를 «코드에 박지» 않습니다</h5>
+  <p class="cmdline"><code>public static int getMaxRetry() {
+  return Integer.parseInt(P.getProperty("batch.max.retry", <b>"3"</b>));
+}</code></p>
+
+  <p>뒤의 <code>"3"</code> 이 <b>설정이 없을 때 쓸 값</b>입니다. 빼면 이렇게 됩니다.</p>
+
+  <p class="cmdline"><code>P.getProperty("batch.max.retry")        = null
+P.getProperty("batch.max.retry", "3")  = 3
+
+Integer.parseInt(null) → NumberFormatException: Cannot parse null string</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">기본값을 주면</th><th>안 주면</th></tr>
+    <tr><td>설정이 빠져도 <b>돌아갑니다</b></td>
+        <td><code>NumberFormatException</code> 으로 <b>그 자리에서 죽습니다</b></td></tr>
+  </table>
+
+  <h5>절차 6 — <code>static</code> 블록으로 «한 번만» 읽습니다</h5>
+  <p class="cmdline"><code>static {
+  try (InputStream in = DBManager.class.getClassLoader()
+           .getResourceAsStream("db.properties")) {
+    P.load(new InputStreamReader(in, StandardCharsets.UTF_8));
+    Class.forName(P.getProperty("db.driver"));
+  } catch (Exception e) { throw new ExceptionInInitializerError(e); }
+}</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">겪는 일</th><th>까닭</th></tr>
+    <tr><td><code>NullPointerException</code> 이
+            <code>P.load</code> 줄에서</td>
+        <td><code>in</code> 이 <code>null</code> 입니다 —
+            <code>db.properties</code> 가 <b>클래스패스에 안 갔습니다</b></td></tr>
+    <tr><td>한글이 깨짐</td>
+        <td><code>InputStreamReader</code> 에
+            <b><code>UTF_8</code> 을 안 줬습니다</b></td></tr>
+  </table>
+
+  <div class="note"><b><code>config/</code> 가 빌드 경로에 들어 있어야</b>
+    <code>getResourceAsStream("db.properties")</code> 가 찾습니다.
+    Eclipse 에서 <b>Properties → Java Build Path → Source</b> 에
+    <code>config</code> 가 있는지 보십시오. 없으면 <b>Add Folder</b> 로 넣습니다.</div>
+
+  <h5>절차 7 — 조원들에게 «무엇을» 넘기는지 확인합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">메서드</th><th>쓰는 사람</th></tr>
+    <tr><td><code>getHrmConnection()</code></td><td>조원 1 (송신)</td></tr>
+    <tr><td><code>getGroupwareConnection()</code></td><td>조원 2 (수신)</td></tr>
+    <tr><td><code>getMaxRetry()</code> ·
+            <code>getFetchSize()</code></td><td>조원 2 (배치)</td></tr>
+    <tr><td><code>getInitPasswordSuffix()</code></td><td>조원 2 (계정 생성)</td></tr>
+    <tr><td>양쪽 연결 모두</td><td>조원 3 (모니터링)</td></tr>
+  </table>
+
+  <p><b>다 만들었으면 바로 커밋하고 알리십시오.</b>
+     조원 셋이 이것을 기다리고 있습니다.</p>
+
+  <p><b>제출물</b> — <code>DBManager.java</code> +
+     두 연결이 각각 <code>HrmDB</code> · <code>GroupwareDB</code> 를
+     본다는 것을 찍은 콘솔</p>
+
+  <p><b>스스로 확인</b> —
+     ① 두 주소 <b>모두</b>에 <code>allowPublicKeyRetrieval</code> 이 있습니까
+     ② 연결 메서드가 <b>둘</b>이고 이름이 다릅니까
+     ③ 재시도 한도를 <b>설정에서</b> 읽습니까 (코드에 박지 않음)
+     ④ <code>db.properties</code> 를 <b>저장소에 안 올렸습니까</b></p>
 </div>
       </div>
     </div>
@@ -584,6 +1572,154 @@ String empId = "E"
   드물지만 시연 중에 한 번 일어나면 당황합니다.
   등록 결과 화면에서 사번을 확인하는 습관을 들이십시오.
 </div>
+      <div class="lab">
+  <b class="t">실습 2-8</b>
+  <b>단일 트랜잭션 — «함께 들어가거나 함께 없거나»</b>
+
+  <p><b>목적</b> — 항목 5 는 <b>10점</b>, 조원 1 의 몫입니다.
+     코드는 세 줄(<code>setAutoCommit</code> · <code>commit</code> ·
+     <code>rollback</code>)이 전부인데,
+     <b>없어도 평소에는 멀쩡히 돌아갑니다.</b> 그래서 빠뜨립니다.</p>
+
+  <h5>절차 1 — 먼저 «없는 판» 으로 만들어 봅니다</h5>
+  <p>트랜잭션을 안 쓰고 두 줄을 넣습니다. 기본값 그대로입니다.</p>
+
+  <p class="cmdline"><code>try (Connection con = DBManager.getHrmConnection()) {
+  // ① 사원을 넣고
+  ps1.executeUpdate();
+  // ② 메모를 남긴다
+  ps2.executeUpdate();
+}</code></p>
+
+  <p><b>평소에는 잘 됩니다.</b> 둘 다 들어갑니다.
+     문제는 ①과 ② 사이에서 뭔가 터졌을 때입니다.</p>
+
+  <h5>절차 2 — 사이에서 «일부러» 터뜨립니다</h5>
+  <p>두 줄 사이에 이것을 넣고 돌려 보십시오.</p>
+  <p class="cmdline"><code>if (true) throw new SQLException("메모를 남기다가 터졌다고 치자");</code></p>
+
+  <p class="cmdline"><code>[A] 트랜잭션 «없이» — 메모 남기다 터짐
+  등록 실패 : 메모를 남기다가 터졌다고 치자
+
+  employee
+   emp_id        emp_name
+   E20260501001  무트랜잭션      ← 남아 있습니다
+
+  if_outbox
+   cnt
+   0                            ← 메모는 없습니다</code></p>
+
+  <div class="warn"><b>사원은 등록됐는데 메모가 없습니다.</b>
+    화면에는 「등록 실패」 라고 떴는데 <b>사원은 들어가 있습니다.</b>
+    그리고 메모가 없으니 <b>배치가 영영 집지 않습니다.</b>
+    이 사원은 <b>그룹웨어 계정이 평생 안 생깁니다.</b>
+    오류도 안 나고 통계에도 안 잡힙니다 —
+    <b>사람이 「왜 계정이 없죠」 하고 물어봐야</b> 압니다.</div>
+
+  <h5>절차 3 — 트랜잭션으로 묶습니다</h5>
+
+  <p class="cmdline"><code>Connection con = null;
+try {
+  con = DBManager.getHrmConnection();
+  <b>con.setAutoCommit(false);</b>          // ① 여기서부터 묶습니다
+
+  ps1.executeUpdate();                     // 사원
+  ps2.executeUpdate();                     // 메모
+
+  <b>con.commit();</b>                       // ② 둘 다 됐으면 확정
+} catch (SQLException e) {
+  try { if (con != null) <b>con.rollback();</b> }   // ③ 하나라도 안 됐으면 되돌림
+  catch (SQLException ignore) { }
+} finally {
+  try { if (con != null) { con.setAutoCommit(true); con.close(); } }
+  catch (SQLException ignore) { }
+}</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">세 줄</th><th>하는 일</th></tr>
+    <tr><td><code>setAutoCommit(false)</code></td>
+        <td>「지금부터 <b>내가 확정할 때까지</b> 기다려라」</td></tr>
+    <tr><td><code>commit()</code></td>
+        <td>「둘 다 됐다. <b>확정해라</b>」</td></tr>
+    <tr><td><code>rollback()</code></td>
+        <td>「하나라도 안 됐다. <b>없던 일로 해라</b>」</td></tr>
+  </table>
+
+  <h5>절차 4 — 같은 자리에서 다시 터뜨립니다</h5>
+  <p class="cmdline"><code>[B] 트랜잭션 «있이» — 같은 상황
+  등록 실패 → rollback : 메모를 남기다가 터졌다고 치자
+
+  employee    0건
+  if_outbox   0건</code></p>
+
+  <p><b>둘 다 없습니다.</b> 화면의 「등록 실패」 와 자료가 <b>맞아떨어집니다.</b>
+     사용자는 다시 등록하면 됩니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:44%">트랜잭션 없이</th><th>트랜잭션 있이</th></tr>
+    <tr><td>사원 있음 · 메모 없음
+            <br><b>영영 안 보내집니다</b></td>
+        <td>사원 없음 · 메모 없음
+            <br><b>다시 등록하면 됩니다</b></td></tr>
+  </table>
+
+  <h5>절차 5 — <code>finally</code> 의 두 줄을 빠뜨리지 않습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">빠뜨리면</th><th>무슨 일</th></tr>
+    <tr><td><code>setAutoCommit(true)</code></td>
+        <td>연결을 <b>풀에서 빌려 쓴 경우</b> 다음 사람이
+            묶인 상태를 물려받습니다</td></tr>
+    <tr><td><code>con.close()</code></td>
+        <td>연결이 안 돌아가 <b>쌓입니다</b> (항목 8 자원 관리)</td></tr>
+    <tr><td><code>rollback</code> 을 <code>try</code> 로 안 감쌈</td>
+        <td>되돌리다 또 터지면 <code>finally</code> 를 <b>못 지나갑니다</b></td></tr>
+  </table>
+
+  <div class="note"><b><code>try-with-resources</code> 는 여기서 안 씁니다.</b>
+    괄호 안에 선언하면 <b>닫히기만</b> 하고
+    <code>rollback</code> 을 부를 자리가 없습니다.
+    트랜잭션이 있는 곳은 <b><code>try-catch-finally</code></b> 입니다.</div>
+
+  <h5>절차 6 — 받는 쪽도 «한 트랜잭션» 입니다</h5>
+  <p>조원 2 의 배치도 같습니다. 세 가지를 한 묶음으로 넣습니다.</p>
+
+  <p class="cmdline"><code>gw.setAutoCommit(false);
+  if_inbox 에 넣고
+  account 에 넣고
+  account_history 에 넣고
+  if_inbox 를 S 로 고치고
+gw.commit();</code></p>
+
+  <p>가운데서 터지면 <b>셋 다 없어야</b> 합니다.
+     계정만 생기고 이력이 없거나, 받은 기록만 있고 계정이 없으면 안 됩니다.</p>
+
+  <h5>절차 7 — 흘러간 자료를 «찾는 SQL» 을 만들어 둡니다</h5>
+  <p>이미 흘러간 것이 있는지 확인하는 조회입니다. 보고서에 넣습니다.</p>
+
+  <p class="cmdline"><code>-- 메모 없는 사원 (송신 쪽이 깨진 것)
+SELECT e.emp_id, e.emp_name
+  FROM HrmDB.employee e
+  LEFT JOIN HrmDB.if_outbox o ON o.tx_no = e.emp_id
+ WHERE o.seq IS NULL;</code></p>
+
+  <p class="cmdline"><code>  emp_id        emp_name
+  E20260501001  무트랜잭션      ← 절차 2 에서 만든 것이 그대로 남아 있습니다</code></p>
+
+  <p><b>0건이어야 합니다.</b> 절차 2 에서 만든 줄이 잡히면
+     <b>지우고</b> 다시 확인하십시오.</p>
+
+  <p class="cmdline"><code>DELETE FROM HrmDB.employee WHERE emp_id='E20260501001';</code></p>
+
+  <p><b>제출물</b> — 트랜잭션 <b>없이</b> / <b>있이</b> 같은 자리에서 터뜨린
+     결과 두 장 + 절차 7 의 조회(0건)</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>setAutoCommit(false)</code> 가 <b>첫 SQL 전에</b> 있습니까
+     ② <code>catch</code> 에 <code>rollback()</code> 이 있습니까
+     ③ <code>finally</code> 에서 <b>되돌리고 닫습니까</b>
+     ④ 메모 없는 사원 조회가 <b>0건</b>입니까</p>
+</div>
       </div>
     </div>
 
@@ -638,6 +1774,153 @@ String empId = "E"
 <p>이 넷이 모니터링 화면의 통계가 되고, 검증 보고서의 숫자가 됩니다.
    <b>스킵을 실패로 세는 실수</b>가 가장 흔합니다.
    그러면 배치를 돌릴 때마다 실패 건수가 늘어나 보고서가 이상해집니다.</p>
+      <div class="lab">
+  <b class="t">실습 2-9</b>
+  <b>수신 배치 — 넷을 세고, 한 건마다 «따로» 처리하기</b>
+
+  <p><b>목적</b> — 항목 6 은 <b>10점</b>, 조원 2 의 몫입니다.
+     배치라는 말이 거창하지만 하는 일은 <b>목록을 읽어 하나씩 처리하는 것</b>입니다.
+     어려운 것은 <b>세는 법</b>과 <b>묶는 단위</b> 둘입니다.</p>
+
+  <h5>절차 1 — 읽을 조건 «둘» 을 적습니다</h5>
+  <p class="cmdline"><code>SELECT seq, if_id, tx_no, payload
+  FROM if_outbox
+ WHERE status = 'N'
+   AND retry_cnt &lt; ?          -- DBManager.getMaxRetry()
+ ORDER BY seq
+ LIMIT ?                       -- DBManager.getFetchSize()</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">조건</th><th>없으면</th></tr>
+    <tr><td><code>status = 'N'</code></td>
+        <td>이미 보낸 것을 <b>또 보냅니다</b></td></tr>
+    <tr><td><code>retry_cnt &lt; 3</code></td>
+        <td>고칠 수 없는 건이 <b>영원히 다시 잡혀</b>
+            기록을 채웁니다</td></tr>
+    <tr><td><code>LIMIT 100</code></td>
+        <td>수천 건이 밀려 있으면 요청이 안 끝나
+            <b>시간 초과</b>가 납니다</td></tr>
+    <tr><td><code>ORDER BY seq</code></td>
+        <td>들어온 순서가 뒤바뀝니다</td></tr>
+  </table>
+
+  <p><b>숫자 둘을 코드에 박지 마십시오.</b> 설정에서 읽습니다(실습 2-7).
+     표준에 적은 3 과 코드의 3 이 <b>다른 곳에 있으면</b> 언젠가 어긋납니다.</p>
+
+  <h5>절차 2 — 한 건마다 «연결을 새로» 엽니다</h5>
+
+  <p class="cmdline"><code>for (Outbox o : fetchPending()) {      // ① 목록은 한 번에 읽고
+  String result = processOne(o);      // ② 처리는 «한 건씩»
+}</code></p>
+
+  <table class="wide">
+    <tr><th style="width:44%">한 연결로 백 건을 묶으면</th><th>한 건마다 열고 닫으면</th></tr>
+    <tr><td>한 건이 실패하면
+            <b>아흔아홉 건이 되돌려집니다</b></td>
+        <td>실패한 한 건만 <code>F</code>,
+            나머지는 그대로 <code>S</code></td></tr>
+    <tr><td>연결을 한 번만 여니 빠릅니다</td>
+        <td>백 번 여닫으니 느립니다</td></tr>
+  </table>
+
+  <p><b>느린 쪽을 고릅니다.</b> 인터페이스에서는 <b>한 건의 실패가 다른 건에
+     번지지 않는 것</b>이 속도보다 중요합니다.</p>
+
+  <h5>절차 3 — 네 가지를 셉니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:110px">세는 것</th><th style="width:190px">언제</th>
+        <th>쓰이는 곳</th></tr>
+    <tr><td class="nm">읽음</td><td>목록의 크기</td>
+        <td>몇 건이 밀려 있었는지</td></tr>
+    <tr><td class="nm">성공</td><td>결과가 <code>"OK"</code> 로 시작</td>
+        <td>계정이 실제로 생긴 건수</td></tr>
+    <tr><td class="nm"><b>스킵</b></td><td>결과가 <code>"SKIP"</code> 으로 시작</td>
+        <td>이미 처리한 것 — <b>실패가 아닙니다</b></td></tr>
+    <tr><td class="nm">실패</td><td>나머지</td><td>사람이 봐야 하는 건수</td></tr>
+  </table>
+
+  <div class="warn"><b>스킵을 실패로 세는 것이 가장 흔한 실수입니다.</b>
+    같은 배치를 두 번 돌리면 두 번째는 전부 스킵입니다.
+    이것을 실패로 세면 <b>돌릴 때마다 실패 건수가 늘어나</b>
+    보고서의 성공률이 계속 떨어집니다.
+    채점자가 보고서를 보고 <b>「구현이 불안정하다」</b> 고 판단합니다.</div>
+
+  <h5>절차 4 — 결과 문자열로 갈래를 나눕니다</h5>
+
+  <p class="cmdline"><code>String r = processOne(o);
+
+if (r.startsWith("OK"))        ok++;
+else if (r.startsWith("SKIP")) skip++;
+else                           fail++;</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">돌려줄 문자열</th><th>언제</th></tr>
+    <tr><td><code>"OK: 계정 발급"</code></td><td>계정이 새로 생겼을 때</td></tr>
+    <tr><td><code>"SKIP: 멱등 중복 (이미 발급된 계정)"</code></td>
+        <td>같은 건이 두 번 온 것 (실습 2-10)</td></tr>
+    <tr><td><code>"FAIL: 없는 부서 코드 D999"</code></td>
+        <td>진짜 실패 — <code>err_msg</code> 에 남깁니다</td></tr>
+  </table>
+
+  <p><b>앞머리를 정해 두는 것</b>이 요령입니다.
+     문자열을 통째로 비교하면 메시지를 조금만 고쳐도 세는 것이 틀립니다.</p>
+
+  <h5>절차 5 — 돌려 보고 넷을 확인합니다</h5>
+
+  <p class="cmdline"><code>E20260301001 → S (31ms)
+E20260301002 → S (23ms)
+
+읽음 2 · 성공 2 · 스킵 0 · 실패 0</code></p>
+
+  <p><b>같은 배치를 한 번 더</b> 돌려 보십시오.</p>
+
+  <p class="cmdline"><code>읽음 0 · 성공 0 · 스킵 0 · 실패 0</code></p>
+
+  <p><code>status</code> 가 <code>S</code> 로 바뀌었으니 <b>읽을 것이 없습니다.</b>
+     이것이 정상입니다.</p>
+
+  <h5>절차 6 — 상태를 «어디서» 고치는지 정리합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:130px">결과</th><th style="width:190px">outbox</th>
+        <th>inbox</th></tr>
+    <tr><td class="nm">성공</td>
+        <td><code>status='S'</code> · <code>snd_dt=NOW()</code></td>
+        <td><code>status='S'</code> · <code>proc_ms</code></td></tr>
+    <tr><td class="nm">스킵</td>
+        <td><code>status='S'</code> — <b>다시 안 잡히게</b></td>
+        <td>이미 있습니다. 손대지 않습니다</td></tr>
+    <tr><td class="nm">실패</td>
+        <td><code>status='F'</code> ·
+            <code>retry_cnt+1</code> · <code>err_msg</code></td>
+        <td>되돌려져 <b>아무것도 안 남습니다</b></td></tr>
+  </table>
+
+  <div class="note"><b>스킵도 <code>S</code> 로 마감합니다.</b>
+    「이미 처리했으니 더 볼 것 없다」 는 뜻입니다.
+    <code>N</code> 으로 두면 <b>배치를 돌릴 때마다 계속 잡혀</b>
+    스킵 건수만 쌓입니다.</div>
+
+  <h5>절차 7 — 실패한 건만 따로 봅니다</h5>
+  <p class="cmdline"><code>SELECT tx_no, retry_cnt, LEFT(err_msg, 60) AS err
+  FROM if_outbox WHERE status='F' ORDER BY seq;</code></p>
+
+  <p class="cmdline"><code>  tx_no         retry_cnt  err
+  E20260301003  1          Cannot add or update a child row: a foreign key con</code></p>
+
+  <p>이 조회가 <b>모니터링 화면의 「실패 목록」</b> 이 되고
+     <b>검증 보고서의 오류 정리</b>가 됩니다 (실습 2-13 · 2-16).</p>
+
+  <p><b>제출물</b> — 배치 코드 + 두 번 돌린 결과
+     (첫 번째 읽음 N건, 두 번째 읽음 0건)</p>
+
+  <p><b>스스로 확인</b> —
+     ① 읽을 조건이 <b>둘</b> 다 있습니까
+     ② <b>한 건마다</b> 연결을 따로 엽니까
+     ③ <b>스킵을 실패로 안 셉니까</b>
+     ④ 숫자를 <b>설정에서</b> 읽습니까</p>
+</div>
       </div>
     </div>
 
@@ -695,6 +1978,163 @@ try {
   미리 보는 방법도 되지만, 확인하고 넣는 사이에 다른 배치가 끼어들면 막지 못합니다.
   <b>제약 조건으로 막는 편</b>이 확실합니다. 둘 다 해도 됩니다.
 </div>
+      <div class="lab">
+  <b class="t">실습 2-10</b>
+  <b>멱등성 — 두 번 도착해도 계정은 «하나»</b>
+
+  <p><b>목적</b> — 항목 10 은 <b>10점</b> 입니다.
+     「두 번 도착하는 일이 있겠나」 싶지만 <b>언젠가는 일어납니다.</b>
+     그리고 막는 것은 코드가 아니라 <b>데이터베이스</b> 입니다.</p>
+
+  <h5>절차 1 — 왜 두 번 도착하는지 그려 봅니다</h5>
+
+  <p class="cmdline"><code>배치가 계정을 만들고 →  if_outbox 를 'S' 로 고치기 «직전» 에 서버가 죽음
+                          ↑
+                      여기서 끊기면
+
+다음 배치가 볼 때  → status 가 아직 'N' → «아직 안 한 것» 으로 보고 다시 집어감</code></p>
+
+  <p>드문 일이 아닙니다. 서버 재시작 · 배포 · 순간적인 연결 끊김 —
+     <b>언젠가는 걸립니다.</b> 그래서 대비해 둡니다.</p>
+
+  <div class="note"><b>낱말 먼저</b> —
+    <b>멱등</b>은 「여러 번 해도 한 번 한 것과 같다」 는 뜻입니다.
+    승강기 단추를 두 번 눌러도 승강기는 한 번만 옵니다.
+    여기서는 <b>같은 자료가 두 번 와도 계정은 하나만</b> 생겨야 한다는 뜻입니다.</div>
+
+  <h5>절차 2 — 코드로 막으려 하면 왜 새는지 봅니다</h5>
+
+  <p class="cmdline"><code>// 이렇게 막고 싶어집니다
+if (accountDAO.exists(txNo)) {
+  return "SKIP: 이미 있음";
+}
+accountDAO.insert(...);</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">문제</th><th>왜</th></tr>
+    <tr><td>확인과 넣기 <b>사이</b>에 틈이 있습니다</td>
+        <td>배치 둘이 동시에 돌면 <b>둘 다 「없다」 고 보고</b>
+            둘 다 넣습니다</td></tr>
+    <tr><td>조회가 한 번 더 늡니다</td><td>건마다 두 번 왕복합니다</td></tr>
+  </table>
+
+  <p><b>데이터베이스에 맡기면 틈이 없습니다.</b>
+     <code>UNIQUE</code> 는 넣는 순간 원자적으로 검사합니다.</p>
+
+  <h5>절차 3 — <code>inbox</code> 를 «먼저» 넣습니다</h5>
+
+  <p class="cmdline"><code>conn.setAutoCommit(false);
+try {
+  inboxDAO.insertInTx(conn, ifId, txNo, payload, "S", 0, null);   // ← 먼저
+} catch (SQLException ex) {
+  if ("23000".equals(ex.getSQLState())) {      // 중복키 위반
+    conn.rollback();
+    outboxDAO.markSuccess(outboxId);           // 다시 안 잡히게 마감
+    return "SKIP: 멱등 중복 (이미 발급된 계정)";
+  }
+  throw ex;                                     // 다른 오류는 그대로 올림
+}
+accountDAO.insertInTx(conn, ...);               // ← 나중
+conn.commit();</code></p>
+
+  <h5>절차 4 — 같은 건을 두 번 보내 «메시지» 를 봅니다</h5>
+
+  <p class="cmdline"><code>[1] 첫 번째 — 정상
+  계정 생성
+
+[2] 두 번째 — inbox 를 «먼저» 넣는 순서
+  SQLState  = 23000
+  ErrorCode = 1062
+  message   = Duplicate entry 'E20260601001' for key 'if_inbox.uk_inbox_tx'</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">보는 값</th><th>뜻</th></tr>
+    <tr><td><code>SQLState = 23000</code></td>
+        <td><b>제약 조건을 어겼다</b> — 표준 코드입니다</td></tr>
+    <tr><td><code>ErrorCode = 1062</code></td>
+        <td>MySQL 의 번호. <b>판이 바뀌면 달라질 수 있습니다</b></td></tr>
+    <tr><td><code>if_inbox.uk_inbox_tx</code></td>
+        <td><b>어느 표의 어느 제약</b>인지 —
+            순서가 맞는지 확인하는 단서</td></tr>
+  </table>
+
+  <div class="warn"><b><code>SQLState</code> 로 보십시오.</b>
+    <code>ErrorCode</code>(1062) 는 데이터베이스마다 다르고 판이 바뀌면 달라집니다.
+    <code>SQLState</code>(23000) 는 <b>표준</b>이라 잘 안 바뀝니다.
+    <code>e.getMessage().contains("Duplicate")</code> 처럼
+    <b>메시지 글자로 보는 것은 더 나쁩니다</b> —
+    언어 설정만 바뀌어도 안 잡힙니다.</div>
+
+  <h5>절차 5 — 순서를 바꾸면 «무엇이» 달라지는지 봅니다</h5>
+  <p>계정을 먼저 만드는 순서로 같은 건을 두 번 보내면 이렇게 됩니다.</p>
+
+  <p class="cmdline"><code>  SQLState  = 23000
+  message   = Duplicate entry 'E20260601001' for key '<b>account.PRIMARY</b>'</code></p>
+
+  <table class="wide">
+    <tr><th style="width:44%">inbox 를 먼저 (맞음)</th><th>account 를 먼저 (권하지 않음)</th></tr>
+    <tr><td><code>if_inbox.uk_inbox_tx</code> 위반
+            <br><b>「받은 기록이 이미 있다」</b>
+            <br>→ 뜻이 분명해 <b>스킵</b>으로 적기 쉽습니다</td>
+        <td><code>account.PRIMARY</code> 위반
+            <br><b>「계정이 이미 있다」</b>
+            <br>→ 막히기는 하나
+            <b>기본키 충돌</b>이라 오류로 기록되기 쉽습니다</td></tr>
+  </table>
+
+  <p><b>둘 다 계정이 두 개 생기는 것은 막습니다.</b>
+     다만 <b>「받은 적 있음」 을 먼저 확인하는 쪽</b>이
+     스킵과 실패를 가르기 쉽습니다.</p>
+
+  <h5>절차 6 — 계정이 «하나» 인지 셉니다</h5>
+
+  <p class="cmdline"><code>SELECT COUNT(*) FROM account          WHERE account_id='E20260601001';   → 1
+SELECT COUNT(*) FROM account_history  WHERE account_id='E20260601001';   → 1</code></p>
+
+  <p><b>이력도 하나</b>여야 합니다.
+     계정은 하나인데 이력이 둘이면 <b>트랜잭션이 안 묶인 것</b>입니다
+     (실습 2-8).</p>
+
+  <h5>절차 7 — 중복이 없다는 것을 «SQL 로» 보입니다</h5>
+
+  <p class="cmdline"><code>-- 같은 사번으로 계정이 둘 이상 생긴 것이 있는가
+SELECT account_id, COUNT(*) AS cnt
+  FROM GroupwareDB.account
+ GROUP BY account_id HAVING COUNT(*) &gt; 1;
+
+-- 받은 기록과 계정 수가 맞는가
+SELECT (SELECT COUNT(*) FROM GroupwareDB.if_inbox WHERE status='S') AS 받음,
+       (SELECT COUNT(*) FROM GroupwareDB.account)                   AS 계정;</code></p>
+
+  <p>첫 번째는 <b>0건</b>, 두 번째는 <b>두 숫자가 같아야</b> 합니다.
+     이 조회 둘을 <b>보고서에 넣으면</b> 항목 10 의 근거가 됩니다.</p>
+
+  <h5>절차 8 — 시연 순서를 정합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:230px">하는 일</th><th>찍을 것</th></tr>
+    <tr><td class="c">1</td><td>정상 한 건 처리</td><td>계정 1건 생김</td></tr>
+    <tr><td class="c">2</td><td>그 건의 <code>outbox</code> 를
+        손으로 <code>'N'</code> 으로 되돌림</td>
+        <td><code>UPDATE</code> 한 줄</td></tr>
+    <tr><td class="c">3</td><td>배치 다시 실행</td>
+        <td><b>스킵</b> 1건 · 실패 0건</td></tr>
+    <tr><td class="c">4</td><td>계정 수 조회</td><td><b>여전히 1건</b></td></tr>
+  </table>
+
+  <p class="cmdline"><code>UPDATE HrmDB.if_outbox SET status='N' WHERE tx_no='E20260601001';</code></p>
+
+  <p><b>이 네 컷이 항목 10 의 증거</b>입니다.
+     PPT 에 나란히 붙이고 「두 번 처리해도 계정은 하나」 라고 적으십시오.</p>
+
+  <p><b>제출물</b> — 시연 네 컷 + 절차 7 의 조회 둘</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>UNIQUE</code> 로 막습니까 (코드의 <code>exists</code> 검사 아님)
+     ② <code>SQLState</code> <b>23000</b> 으로 봅니까
+     ③ 스킵일 때 <code>outbox</code> 를 <b><code>S</code> 로 마감</b>합니까
+     ④ 두 번 돌려도 계정이 <b>하나</b>입니까</p>
+</div>
       </div>
     </div>
 
@@ -748,6 +2188,171 @@ try {
    오른쪽은 코드로 분류할 수 있고 문장으로 읽을 수 있습니다.
    채점 항목 11 이 <b>「err_msg 가 사람이 읽을 수 있는 형태로 기록되는가」</b> 입니다.
    보고서에 이 칸을 그대로 옮겨 붙일 수 있어야 합니다.</p>
+      <div class="lab">
+  <b class="t">실습 2-11</b>
+  <b>응답코드 — «사람이 읽을 수 있게» 남기기</b>
+
+  <p><b>목적</b> — 항목 7 은 <b>10점</b> 입니다.
+     실패를 막는 것이 아니라 <b>실패를 잘 남기는 것</b>이 과제입니다.
+     남긴 것이 <b>모니터링 화면과 보고서의 내용</b>이 됩니다.</p>
+
+  <h5>절차 1 — 아홉 코드를 «세 부류» 로 묶습니다</h5>
+  <p>아홉 개를 외우지 말고 <b>「다시 해서 될 것인가」</b> 로 나누십시오.</p>
+
+  <table class="wide">
+    <tr><th style="width:130px">부류</th><th style="width:170px">코드</th>
+        <th>누가 손을 대야 하는가</th></tr>
+    <tr><td class="nm">다시 해도 소용없음</td>
+        <td><code>E10</code> · <code>E11</code> ·
+            <code>E31</code> · <code>E32</code></td>
+        <td><b>값이 잘못</b>됐습니다. 보내는 쪽이 고쳐야 합니다</td></tr>
+    <tr><td class="nm">고친 뒤에야 됨</td><td><code>E30</code></td>
+        <td><b>없는 부서</b>입니다. 받는 쪽에 부서를 넣어야 합니다</td></tr>
+    <tr><td class="nm">다시 하면 될 수도</td>
+        <td><code>E90</code> · <code>E99</code></td>
+        <td><b>아무도</b>. 잠깐 끊긴 것이니 다음 배치가 다시 합니다</td></tr>
+  </table>
+
+  <table class="wide">
+    <tr><th style="width:110px">따로</th><th>왜</th></tr>
+    <tr><td><code>00</code></td><td>성공입니다</td></tr>
+    <tr><td><b><code>E20</code></b></td>
+        <td><b>중복 — 실패가 «아닙니다».</b>
+            이미 계정이 있으니 하려던 일은 이루어졌습니다.
+            <code>'S'</code> 로 마감하고 <b>스킵</b>으로 셉니다 (실습 2-9 · 2-10)</td></tr>
+  </table>
+
+  <h5>절차 2 — <code>err_msg</code> 를 «두 조각» 으로 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:44%">이렇게 적으면</th><th>이렇게 적습니다</th></tr>
+    <tr><td><code>NullPointerException</code></td>
+        <td><code>E10: 필수값 누락 (deptCode)</code></td></tr>
+    <tr><td><code>SQLException</code></td>
+        <td><code>E30: DEPT_NOT_FOUND:D999</code></td></tr>
+    <tr><td><code>error</code></td>
+        <td><code>E32: empId 형식 오류 (E2026009)</code></td></tr>
+  </table>
+
+  <p><b>앞은 코드, 뒤는 문장</b>입니다.
+     코드로는 <b>세고</b>, 문장으로는 <b>읽습니다.</b>
+     왼쪽처럼 적으면 화면을 봐도 <b>무엇을 고쳐야 할지 모릅니다.</b></p>
+
+  <div class="note"><b>어느 값이 잘못됐는지 괄호에 적으십시오.</b>
+    <code>E10: 필수값 누락</code> 만으로는 여섯 항목 중 무엇인지 모릅니다.
+    <code>(deptCode)</code> 한 마디가 있으면 <b>그 자리로 바로 갑니다.</b></div>
+
+  <h5>절차 3 — 실패를 «되돌린 뒤» 기록합니다</h5>
+
+  <p class="cmdline"><code>try {
+  conn.setAutoCommit(false);
+  … inbox · account · history …
+  conn.commit();
+  return "OK: 계정 발급";
+
+} catch (SQLException e) {
+  <b>conn.rollback();</b>                      // ① 계정 만들기는 되돌리고
+
+  String code = classify(e);                // ② 코드를 정하고
+  String msg  = code + ": " + detail(e);
+
+  <b>inboxDAO.insertFail(txNo, msg);</b>         // ③ «별도 연결» 로 실패를 남기고
+  <b>outboxDAO.markFail(outboxId, msg);</b>      // ④ 보내는 쪽도 F 로
+
+  return "FAIL: " + msg;
+}</code></p>
+
+  <div class="warn"><b>③ 을 «같은 연결» 로 하면 사라집니다.</b>
+    되돌리기에 함께 휩쓸립니다.
+    계정 만들기는 되돌리되 <b>「실패했다」 는 사실은 남아야</b> 하므로
+    <b>연결을 새로 열어</b> 넣습니다.
+    이것을 빠뜨리면 <b>실패가 아무 데도 안 남아</b>
+    모니터링 화면에 아무것도 안 뜹니다.</div>
+
+  <h5>절차 4 — <code>retry_cnt</code> 가 «멈추는» 것을 확인합니다</h5>
+  <p><code>markFail</code> 이 이 SQL 을 돌립니다.</p>
+
+  <p class="cmdline"><code>UPDATE if_outbox
+   SET status = 'F', retry_cnt = retry_cnt + 1, err_msg = ?
+ WHERE seq = ?</code></p>
+
+  <p>없는 부서 코드로 한 건을 만들어 배치를 <b>네 번</b> 돌려 보십시오.</p>
+
+  <p class="cmdline"><code>1회  E20260301003 → F : Cannot add or update a child row: a foreign key constraint fails …
+2회  E20260301003 → F : …
+3회  E20260301003 → F : …
+4회  (읽지 않습니다)
+
+  tx_no         status  retry_cnt
+  E20260301003  N       3          ← 더 이상 안 잡힙니다</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">그 다음</th><th></th></tr>
+    <tr><td>배치는 손을 뗍니다</td>
+        <td><code>retry_cnt &lt; 3</code> 조건에 걸려 안 읽습니다</td></tr>
+    <tr><td><b>사람이 봐야 합니다</b></td>
+        <td>모니터링 화면의 <b>실패 목록</b>에 남습니다 (실습 2-13)</td></tr>
+    <tr><td>고친 뒤에는</td>
+        <td>부서를 넣고 <code>retry_cnt=0, status='N'</code> 으로
+            되돌려 다시 태웁니다</td></tr>
+  </table>
+
+  <h5>절차 5 — 각 코드를 «일부러» 내 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:110px">코드</th><th style="width:230px">어떻게 내는가</th>
+        <th>나오는 것</th></tr>
+    <tr><td class="c"><code>E30</code></td>
+        <td>부서를 <code>D999</code> 로 등록</td>
+        <td><code>foreign key constraint fails</code></td></tr>
+    <tr><td class="c"><code>E20</code></td>
+        <td>처리한 건의 <code>outbox</code> 를
+            <code>'N'</code> 으로 되돌림</td>
+        <td><code>Duplicate entry … uk_inbox_tx</code></td></tr>
+    <tr><td class="c"><code>E10</code></td>
+        <td><code>payload</code> 에서 <code>deptCode</code> 를 빼고 넣음</td>
+        <td>값이 비어 <b>부서 검증에 걸립니다</b></td></tr>
+    <tr><td class="c"><code>E99</code></td>
+        <td>MySQL 을 잠깐 내림</td>
+        <td><code>Communications link failure</code></td></tr>
+  </table>
+
+  <p><b>넷을 다 내 보고 <code>err_msg</code> 를 조회한 화면</b>이
+     항목 7 의 가장 좋은 근거입니다.</p>
+
+  <h5>절차 6 — 조회해서 보고서에 붙입니다</h5>
+
+  <p class="cmdline"><code>SELECT tx_no, retry_cnt, LEFT(err_msg, 60) AS err
+  FROM HrmDB.if_outbox WHERE status='F' ORDER BY seq;</code></p>
+
+  <p class="cmdline"><code>  tx_no         retry_cnt  err
+  E20260301003  1          Cannot add or update a child row: a foreign key con</code></p>
+
+  <div class="warn"><b>위 화면은 «고치기 전» 모습입니다.</b>
+    데이터베이스가 뱉은 말이 그대로 들어가 있습니다.
+    이것을 <code>E30: DEPT_NOT_FOUND:D999</code> 로 바꾸는 것이
+    이 실습에서 할 일입니다.
+    <b>고친 뒤의 화면을 나란히 붙이면</b> 항목 7 이 분명해집니다.</div>
+
+  <h5>절차 7 — <code>err_msg</code> 길이를 넘기지 않습니다</h5>
+  <p><code>err_msg</code> 는 <code>VARCHAR(500)</code> 입니다.
+     예외 메시지를 통째로 넣으면 넘칠 수 있습니다.</p>
+
+  <p class="cmdline"><code>String msg = e.getMessage();
+if (msg != null &amp;&amp; msg.length() &gt; 200) msg = msg.substring(0, 200);</code></p>
+
+  <p>잘라 넣되 <b>앞머리의 코드는 반드시 남기십시오.</b>
+     뒤가 잘려도 <code>E30</code> 만 보이면 분류는 됩니다.</p>
+
+  <p><b>제출물</b> — 응답코드 아홉 표 + 코드 넷을 일부러 낸
+     <code>err_msg</code> 조회 + <code>retry_cnt</code> 가 3 에서 멈춘 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>err_msg</code> 가 <b>코드 + 문장</b> 꼴입니까
+     ② 실패 기록을 <b>별도 연결</b>로 남깁니까
+     ③ <code>E20</code> 을 <b>실패로 안 셉니까</b>
+     ④ <code>retry_cnt</code> 가 <b>3 에서 멈춥니까</b></p>
+</div>
       </div>
     </div>
 
@@ -787,7 +2392,9 @@ try {
 <p><code>account</code> 테이블에는 원문을 담을 칸 자체가 없습니다.
    <code>pwd_hash CHAR(64)</code> 뿐입니다. 이것이 설계로 막는 방식입니다.
    길이가 <code>CHAR(64)</code> 로 못 박혀 있으니
-   변환을 잘못하면 길이가 안 맞아 바로 드러납니다.</p>
+   다만 <b>짧은 값을 넣어도 오류가 나지는 않습니다.</b>
+   <code>CHAR</code> 는 모자란 만큼 채워 넣을 뿐이라, 길이를 <b>직접 세어 봐야</b>
+   드러납니다 (실습 2-12 절차 4).</p>
 
 <pre><i>// 자주 틀리는 곳 — 앞자리 0 이 사라집니다</i>
 sb.append(String.format(<b>"%x"</b>, b));     <i>// 0x0a → "a"   (한 자리)</i>
@@ -803,6 +2410,162 @@ System.out.println(HashUtil.sha256("E202605270011234").length());   <i>// 64</i>
 <p>이 검증이 실패 시나리오를 만드는 데도 쓰입니다.
    <code>D999</code> 는 마스터에 없는 코드라 <b>반드시 실패합니다</b>.
    다음 단원에서 이것으로 실패와 재시도를 시연합니다.</p>
+      <div class="lab">
+  <b class="t">실습 2-12</b>
+  <b>보안 셋 — 하나라도 빠지면 항목 전체를 잃습니다</b>
+
+  <p><b>목적</b> — 항목 8 은 5점인데 <b>셋을 다 해야</b> 받습니다.
+     바인딩 · 해시 · 부서 검증입니다.
+     셋 다 <b>안 해도 화면은 멀쩡히 돌아갑니다.</b> 그래서 빠뜨립니다.</p>
+
+  <h5>절차 1 — 이어 붙인 곳이 «한 군데도» 없는지 찾습니다</h5>
+  <p>Eclipse 에서 <code>Ctrl</code>+<code>H</code> → <b>File Search</b>,
+     <b>Containing text</b> 에 이것을 넣습니다.</p>
+
+  <p class="cmdline"><code>"SELECT
+"INSERT
+"UPDATE
+"DELETE</code></p>
+
+  <p>찾은 줄마다 <b>그 뒤에 <code>+</code> 가 있는지</b> 봅니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:44%">괜찮은 <code>+</code></th><th>문제인 <code>+</code></th></tr>
+    <tr><td><code>"SELECT a, b FROM t"<br>
+            &nbsp;&nbsp;+ " WHERE x = ?"</code>
+            <br><br><b>상수끼리</b> 이은 것입니다</td>
+        <td><code>"SELECT * FROM t"<br>
+            &nbsp;&nbsp;+ " WHERE x = '" + val + "'"</code>
+            <br><br><b>변수가 붙었습니다</b></td></tr>
+  </table>
+
+  <p>구별법은 하나입니다. <b><code>+</code> 뒤에 따옴표가 있으면 상수</b>,
+     <b>변수 이름이 있으면 문제</b>입니다.</p>
+
+  <div class="note"><b>열두 파일 전부에 걸립니다.</b>
+    조원 넷이 각자 썼으니 <b>합친 뒤에 한 번 더</b> 찾아보십시오.
+    내 파일만 깨끗해도 소용없습니다 — <b>조별 산출물 전체가 채점</b>됩니다.</div>
+
+  <h5>절차 2 — 부서를 «물음표로» 검증합니다</h5>
+
+  <p class="cmdline"><code>private boolean deptExists(Connection conn, String deptCode) throws SQLException {
+  String sql = "SELECT COUNT(*) FROM dept WHERE dept_code = ?";
+  try (PreparedStatement ps = conn.prepareStatement(sql)) {
+    ps.setString(1, deptCode);
+    try (ResultSet rs = ps.executeQuery()) {
+      rs.next();
+      return rs.getInt(1) &gt; 0;
+    }
+  }
+}</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">검증을 안 하면</th><th>검증을 하면</th></tr>
+    <tr><td>계정을 만들려다
+            <b>외래키 위반</b>으로 터집니다.
+            <code>err_msg</code> 에
+            <code>foreign key constraint fails …</code>
+            라는 긴 말이 들어갑니다</td>
+        <td>미리 걸러
+            <code>E30: DEPT_NOT_FOUND:D999</code>
+            라고 <b>짧고 분명하게</b> 남깁니다</td></tr>
+  </table>
+
+  <p>막히기는 둘 다 막힙니다. <b>남는 말이 다릅니다.</b>
+     항목 11(<code>err_msg</code> 가 읽을 만한가)과도 이어집니다.</p>
+
+  <h5>절차 3 — 해시를 «한 글자도 틀리지 않게» 만듭니다</h5>
+
+  <p class="cmdline"><code>public static String sha256(String s) throws Exception {
+  MessageDigest md = MessageDigest.getInstance("SHA-256");
+  byte[] d = md.digest(s.getBytes(StandardCharsets.UTF_8));
+  StringBuilder sb = new StringBuilder();
+  for (byte b : d) sb.append(String.format(<b>"%02x"</b>, b));
+  return sb.toString();
+}</code></p>
+
+  <table class="wide">
+    <tr><th style="width:150px">적은 것</th><th style="width:170px">0x0a 를 바꾸면</th>
+        <th>결과 길이</th></tr>
+    <tr><td><code>"%x"</code></td><td><code>"a"</code> — 한 자리</td>
+        <td><b>61 ~ 64자로 들쭉날쭉</b></td></tr>
+    <tr><td><code>"%02x"</code></td><td><code>"0a"</code> — 두 자리</td>
+        <td><b>언제나 64자</b></td></tr>
+  </table>
+
+  <h5>절차 4 — <code>%x</code> 가 «가끔 맞는» 것을 확인합니다</h5>
+  <p>여기가 함정입니다. 하나만 시험해 보고 넘어가면 안 됩니다.</p>
+
+  <p class="cmdline"><code>E202603010011234   %x=62자  %02x=64자
+E202604010011234   %x=62자  %02x=64자
+abc                %x=61자  %02x=64자
+
+200번 중 %x 가 64자를 낸 횟수 : 29</code></p>
+
+  <div class="warn"><b>일곱 번에 한 번꼴로 «맞습니다».</b>
+    앞자리가 0 인 바이트가 하나도 없으면 우연히 64자가 나옵니다.
+    <b>시험해 본 비밀번호가 하필 그 경우면</b>
+    「되네」 하고 넘어가게 됩니다.
+    그리고 다른 사원에서 조용히 틀립니다.
+    <b>여러 값으로 시험하십시오.</b></div>
+
+  <h5>절차 5 — 짧은 해시가 «오류 없이» 들어가는 것을 봅니다</h5>
+  <p><code>passwd_hash</code> 가 <code>CHAR(64)</code> 이니
+     짧으면 막힐 것 같지만 그렇지 않습니다.</p>
+
+  <p class="cmdline"><code>들어갔습니다 — 오류가 «안» 납니다
+
+  account_id    len
+  E20260701001  61</code></p>
+
+  <p><code>CHAR</code> 는 <b>모자란 만큼 채워 넣을 뿐</b>입니다.
+     <b>길이를 직접 세어 봐야</b> 드러납니다.</p>
+
+  <p class="cmdline"><code>SELECT account_id, CHAR_LENGTH(passwd_hash) AS len
+  FROM GroupwareDB.account
+ WHERE CHAR_LENGTH(passwd_hash) &lt;&gt; 64;</code></p>
+
+  <p><b>0건이어야 합니다.</b> 이 조회를 보고서에 넣으십시오.</p>
+
+  <h5>절차 6 — 원문을 «어디에도» 안 남깁니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:230px">남기면 안 되는 곳</th><th>확인법</th></tr>
+    <tr><td><code>account</code> 테이블</td>
+        <td>원문 칸이 <b>아예 없습니다</b>. 설계로 막혀 있습니다</td></tr>
+    <tr><td>콘솔 출력</td>
+        <td><code>System.out.println("비번: " + pw)</code>
+            같은 줄이 없는지 찾으십시오</td></tr>
+    <tr><td><code>err_msg</code></td>
+        <td>예외 메시지에 값이 딸려 갈 수 있습니다</td></tr>
+  </table>
+
+  <p><b>해시는 되돌릴 수 없습니다.</b> 같은 값을 넣으면 늘 같은 결과가 나오지만,
+     결과에서 원래 값을 알아낼 수는 없습니다.
+     로그인할 때는 들어온 값을 <b>똑같이 해시해 비교</b>합니다.</p>
+
+  <h5>절차 7 — 셋을 한 번에 훑습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:210px">확인</th><th>어떻게</th></tr>
+    <tr><td class="c">□</td><td>바인딩</td>
+        <td><code>"SELECT</code> 등을 찾아 <b>변수 <code>+</code></b> 가 0건</td></tr>
+    <tr><td class="c">□</td><td>해시</td>
+        <td><code>CHAR_LENGTH &lt;&gt; 64</code> 조회가 <b>0건</b></td></tr>
+    <tr><td class="c">□</td><td>부서 검증</td>
+        <td><code>D999</code> 로 넣어 보고
+            <code>E30</code> 이 남는지</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 검색 결과(변수 <code>+</code> 0건) +
+     길이 조회(0건) + <code>E30</code> 이 남은 <code>err_msg</code></p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>%02x</code> 입니까 (<code>%x</code> 아님)
+     ② <b>여러 값으로</b> 길이를 확인했습니까
+     ③ 부서 검증을 <b>물음표로</b> 합니까
+     ④ 비밀번호 원문이 <b>어디에도</b> 안 남습니까</p>
+</div>
       </div>
     </div>
 
@@ -857,6 +2620,160 @@ SELECT account_id, dept_cd, status, create_dt
   FROM account ORDER BY account_id DESC LIMIT 100;</pre>
 <p>화면에서 별표로 가려도 브라우저 개발자 도구로 보면 그대로 보입니다.
    꺼내지 않으면 볼 수 없습니다. 이것이 「외부 노출 방지」의 뜻입니다.</p>
+      <div class="lab">
+  <b class="t">실습 2-13</b>
+  <b>모니터링 화면 — 조회 SQL 넷을 먼저 만들고 붙이기</b>
+
+  <p><b>목적</b> — 항목 9 는 <b>10점</b>, 조원 3 의 몫입니다.
+     화면을 먼저 그리려 하면 막힙니다.
+     <b>조회 SQL 을 먼저 만들어 콘솔에서 확인</b>하고, 그 다음 화면에 붙입니다.
+     테이블만 있으면 <b>다른 조원을 안 기다려도</b> 시작할 수 있습니다.</p>
+
+  <h5>절차 1 — 연결이 «둘» 필요하다는 것부터</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">보여야 할 것</th><th>어느 데이터베이스</th></tr>
+    <tr><td><code>if_outbox</code> 목록 · 상태별 통계</td>
+        <td><b><code>HrmDB</code></b></td></tr>
+    <tr><td><code>account</code> 목록 · 처리시간</td>
+        <td><b><code>GroupwareDB</code></b></td></tr>
+  </table>
+
+  <p>한 화면을 그리는 데 <code>getHrmConnection()</code> 과
+     <code>getGroupwareConnection()</code> 을 <b>둘 다</b> 씁니다.
+     섞으면 「없는 표」 오류가 납니다 (실습 2-7).</p>
+
+  <h5>절차 2 — 조회 넷을 만들어 «콘솔에서» 돌려 봅니다</h5>
+
+  <p class="cmdline"><code>-- ① 상태별 건수
+SELECT status, COUNT(*) AS cnt FROM HrmDB.if_outbox
+ GROUP BY status ORDER BY status;
+
+-- ② 처리시간 통계
+SELECT COUNT(*) AS 건수, MIN(proc_ms) AS 최소,
+       ROUND(AVG(proc_ms),1) AS 평균, MAX(proc_ms) AS 최대
+  FROM GroupwareDB.if_inbox WHERE status='S';
+
+-- ③ 전송 목록 (상태 · 재시도 · 오류)
+SELECT seq, tx_no, status, retry_cnt, LEFT(err_msg,60) AS err, reg_dt
+  FROM HrmDB.if_outbox ORDER BY seq DESC LIMIT 100;
+
+-- ④ 계정 목록 — 해시는 «꺼내지 않습니다»
+SELECT account_id, dept_code, acct_status, reg_dt
+  FROM GroupwareDB.account ORDER BY account_id DESC LIMIT 100;</code></p>
+
+  <p>돌려 보면 이렇게 나옵니다.</p>
+
+  <p class="cmdline"><code>  상태별
+   status  cnt
+   S       2
+
+  처리시간
+   건수  최소  평균   최대
+   4     7     13.3   19
+
+  계정 목록
+   account_id    dept_code  acct_status  reg_dt
+   E20260801001  D999       A            2026-09-18 00:37:36
+   E20260601001  D002       A            2026-09-18 00:28:03</code></p>
+
+  <h5>절차 3 — 해시를 «조회에서부터» 뺍니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:44%">반쪽짜리</th><th>맞는 것</th></tr>
+    <tr><td><code>SELECT account_id, <b>passwd_hash</b>,
+            dept_code FROM account;</code>
+            <br><br>화면에서 별표로 가림</td>
+        <td><code>SELECT account_id, dept_code,
+            acct_status, reg_dt FROM account;</code>
+            <br><br><b>아예 안 꺼냄</b></td></tr>
+  </table>
+
+  <div class="warn"><b>화면에서 가리는 것으로는 부족합니다.</b>
+    브라우저에서 <code>F12</code> → <b>Network</b> 나
+    <b>페이지 소스 보기</b> 로 <b>그대로 보입니다.</b>
+    꺼내지 않으면 볼 수 없습니다.
+    이것이 「외부 노출 방지」의 뜻입니다 (항목 8 과도 이어집니다).</div>
+
+  <h5>절차 4 — 상태를 «색» 으로 구분합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:110px">상태</th><th style="width:130px">색</th><th>뜻</th></tr>
+    <tr><td class="c"><code>S</code></td><td>녹색</td><td>잘 보냈습니다</td></tr>
+    <tr><td class="c"><code>F</code></td><td><b>빨강</b></td><td>사람이 봐야 합니다</td></tr>
+    <tr><td class="c"><code>N</code></td><td>주황</td><td>아직 기다리는 중</td></tr>
+  </table>
+
+  <p><b>작업지시서가 못 박아 둔 색</b>입니다. 바꾸지 마십시오.
+     글자로만 적어 두면 목록이 길어졌을 때 <b>실패가 눈에 안 띕니다.</b></p>
+
+  <p class="cmdline"><code>&lt;td class="st-${row.status}"&gt;${row.status}&lt;/td&gt;
+
+/* CSS */
+.st-S { color:#1a7f37; font-weight:700; }
+.st-F { color:#c9252d; font-weight:700; }
+.st-N { color:#bf6a02; font-weight:700; }</code></p>
+
+  <h5>절차 5 — 재시도 단추를 «실패한 줄에만» 답니다</h5>
+
+  <p class="cmdline"><code>&lt;c:if test="${row.status eq 'F'}"&gt;
+  &lt;button ...&gt;재시도&lt;/button&gt;
+&lt;/c:if&gt;</code></p>
+
+  <p>되살리는 SQL 에도 조건이 들어 있습니다.</p>
+  <p class="cmdline"><code>UPDATE if_outbox SET status='N', err_msg=NULL
+ WHERE tx_no = ? AND <b>status = 'F'</b></code></p>
+
+  <p>성공한 줄에 눌러 보면 이렇게 됩니다.</p>
+  <p class="cmdline"><code>0줄 바뀜</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">SQL 조건만 있으면</th><th>화면에서도 막으면</th></tr>
+    <tr><td>눌러도 아무 일이 안 일어나
+            <b>화면이 고장 난 것처럼</b> 보입니다</td>
+        <td>단추가 없으니 <b>누를 일이 없습니다</b></td></tr>
+  </table>
+
+  <p><b>둘 다 하십시오.</b> 화면은 실수를 막고, SQL 은 우회를 막습니다.</p>
+
+  <h5>절차 6 — 네 숫자를 «위쪽에» 놓습니다</h5>
+
+  <p class="cmdline"><code>┌──────────────────────────────────────────────┐
+│  읽음 4   성공 3   스킵 1   실패 0           │
+│  평균 처리시간 13.3ms  (최소 7 / 최대 19)     │
+└──────────────────────────────────────────────┘</code></p>
+
+  <p>목록보다 <b>위</b>에 놓아야 합니다.
+     채점자가 화면을 열었을 때 <b>가장 먼저 보이는 것</b>이
+     「돌아가고 있다」 는 증거입니다.</p>
+
+  <div class="note"><b>스킵을 실패 칸에 넣지 마십시오</b> (실습 2-9).
+    같은 배치를 두 번 돌리면 두 번째는 전부 스킵입니다.
+    실패로 세면 <b>화면을 열 때마다 실패 숫자가 커집니다.</b></div>
+
+  <h5>절차 7 — 항목 «둘» 을 한 화면에 담습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:110px">항목</th><th style="width:190px">요구</th>
+        <th>화면의 어디</th></tr>
+    <tr><td class="c">9</td><td>상태 · 재시도 · 통계 · 처리시간</td>
+        <td>위쪽 통계 + 전송 목록</td></tr>
+    <tr><td class="c">10</td><td>받는 쪽 계정이 실제로 생겼는가</td>
+        <td>아래쪽 계정 목록</td></tr>
+  </table>
+
+  <p><b>한 화면에 놓으면 캡처 한 장으로 두 항목</b>을 보일 수 있습니다.
+     따로 그리면 캡처도 둘, 설명도 둘이 됩니다.</p>
+
+  <p><b>제출물</b> — 조회 넷의 콘솔 결과 + 모니터링 화면 캡처
+     (통계 · 상태 색 · 재시도 단추 · 계정 목록이 다 보이게)</p>
+
+  <p><b>스스로 확인</b> —
+     ① 연결 <b>둘</b>을 다 씁니까
+     ② <code>passwd_hash</code> 를 <b>조회에서 뺐습니까</b>
+     ③ 재시도 단추가 <b><code>F</code> 줄에만</b> 있습니까
+     ④ 통계에 <b>스킵 칸</b>이 따로 있습니까</p>
+</div>
       </div>
     </div>
 
@@ -905,6 +2822,150 @@ SELECT account_id, dept_cd, status, create_dt
 <p>네 줄 중 하나라도 다르면 트랜잭션 경계가 잘못 잡힌 것입니다.
    <code>account</code> 가 생겨 있으면 되돌리기가 안 된 것이고,
    <code>if_inbox</code> 가 비어 있으면 실패 기록을 같은 연결로 넣은 것입니다.</p>
+      <div class="lab">
+  <b class="t">실습 2-14</b>
+  <b>실패에서 되살리기 — 여섯 걸음을 «순서대로»</b>
+
+  <p><b>목적</b> — 제출물에 <b>「실패했다가 되살린 화면 한두 컷」</b> 이 들어갑니다.
+     이건 <b>일부러 만들어야</b> 나오는 그림입니다.
+     순서를 지키지 않으면 찍을 장면이 안 생깁니다.</p>
+
+  <div class="warn"><b>조원 2 의 배치가 끝난 «뒤에야» 할 수 있습니다.</b>
+    조원 3 은 그 전에 모니터링 화면(실습 2-13)을 만들어 두십시오.
+    순서를 바꾸면 기다리는 시간이 생깁니다.</div>
+
+  <h5>절차 1 — 부서코드 <code>D999</code> 로 등록합니다</h5>
+  <p>입사 등록 폼에서 부서코드만 <code>D999</code> 로 넣습니다.</p>
+
+  <p class="cmdline"><code>[1] 부서코드 D999 로 입사 등록
+  등록 성공 E20260801001</code></p>
+
+  <div class="note"><b>등록 «자체는» 성공합니다.</b>
+    보내는 쪽(HRM)은 받는 쪽의 부서 마스터를 <b>모릅니다.</b>
+    두 시스템이 떨어져 있다는 것이 여기서 드러납니다.
+    실패는 <b>배치가 가져가서 넣을 때</b> 납니다.</div>
+
+  <h5>절차 2 — 배치를 돌립니다. 실패가 납니다 <b>(첫 컷)</b></h5>
+
+  <p class="cmdline"><code>[2] 배치 실행 — 실패합니다
+  E20260801001 → F : Cannot add or update a child row: a foreign key constraint fails
+                     (`GroupwareDB`.`account`, CONSTRAINT `fk_account_dept`
+                      FOREIGN KEY (`dept_code`) REFERENCES `dept` (`dept_code`))
+
+  if_outbox
+   tx_no         status  retry_cnt  err
+   E20260801001  F       1          Cannot add or update a child row: a foreign key co</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">첫 컷에 보여야 할 것</th><th></th></tr>
+    <tr><td>모니터링 화면</td>
+        <td><b>빨간 <code>F</code></b> · <code>retry_cnt 1</code> ·
+            <code>err_msg</code> · <b>재시도 단추</b></td></tr>
+    <tr><td>실패 통계</td><td>실패 <b>1</b></td></tr>
+  </table>
+
+  <h5>절차 3 — 부서를 등록합니다</h5>
+  <p class="cmdline"><code>INSERT INTO GroupwareDB.dept (dept_code, dept_name) VALUES ('D999','신규본부');</code></p>
+  <p class="cmdline"><code>1줄 바뀜</code></p>
+
+  <p><b>고쳐야 되는 종류의 실패</b>입니다 (실습 2-11 의 <code>E30</code>).
+     그냥 다시 돌리면 또 실패합니다.</p>
+
+  <h5>절차 4 — 재시도 단추를 누릅니다</h5>
+  <p class="cmdline"><code>UPDATE if_outbox SET status='N', err_msg=NULL
+ WHERE tx_no='E20260801001' AND status='F';</code></p>
+  <p class="cmdline"><code>1줄 바뀜</code></p>
+
+  <p><b><code>retry_cnt</code> 는 그대로 둡니다.</b>
+     「몇 번 실패했었다」 는 기록이라 지우면 안 됩니다.
+     <code>status</code> 만 <code>N</code> 으로 돌려 배치가 다시 집게 합니다.</p>
+
+  <h5>절차 5 — 배치를 다시 돌립니다. 성공합니다 <b>(둘째 컷)</b></h5>
+
+  <p class="cmdline"><code>[5] 배치 다시 실행 — 성공합니다
+  E20260801001 → S (33ms)
+
+  account
+   account_id    user_name   dept_code
+   E20260801001  신규본부원   D999</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">둘째 컷에 보여야 할 것</th><th></th></tr>
+    <tr><td>모니터링 화면</td>
+        <td>녹색 <code>S</code> · <b>재시도 단추가 사라짐</b> ·
+            <b>계정 목록에 한 줄 늘어남</b></td></tr>
+    <tr><td>통계</td><td>성공 <b>+1</b>, 실패 <b>0</b></td></tr>
+  </table>
+
+  <h5>절차 6 — 한 번 더 돌립니다 <b>(빠뜨리기 쉬운 곳)</b></h5>
+
+  <p class="cmdline"><code>[6] 한 번 더 — 아무것도 안 잡혀야 합니다
+  읽을 것이 남았는가
+   cnt
+   0</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">여기서 나오는 것</th><th>뜻</th></tr>
+    <tr><td><b>읽음 0</b></td><td><b>맞습니다.</b> 상태 관리가 제대로 됐습니다</td></tr>
+    <tr><td>읽음 1</td>
+        <td><code>markSuccess</code> 가 <b>안 불렸습니다.</b>
+            <code>status</code> 가 아직 <code>N</code> 입니다</td></tr>
+  </table>
+
+  <div class="warn"><b>이 여섯 번째를 빠뜨리는 사람이 많습니다.</b>
+    성공했으니 끝났다고 생각하는데,
+    <b>「한 번 더 돌려도 아무것도 안 잡힌다」 는 것</b>이
+    상태 관리가 됐다는 증거입니다.
+    이것을 안 보이면 채점자는 <b>같은 건이 계속 처리되는지</b> 알 수 없습니다.</div>
+
+  <h5>절차 7 — 성공한 줄에 재시도를 눌러 봅니다</h5>
+  <p class="cmdline"><code>[7] 성공한 줄에 재시도를 눌러도 안 바뀝니다
+  0줄 바뀜</code></p>
+
+  <p>SQL 에 <code>AND status='F'</code> 가 있어 <b>아무 일도 안 일어납니다.</b>
+     화면에서도 단추를 안 보여 주는 편이 맞지만,
+     <b>SQL 로도 막혀 있다는 것</b>을 보이면 든든합니다.</p>
+
+  <h5>절차 8 — 찍은 것을 표로 정리합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px">컷</th><th style="width:190px">언제</th>
+        <th>한 줄 설명에 적을 것</th></tr>
+    <tr><td class="c">1</td><td>절차 2 직후</td>
+        <td>「D999 로 등록 후 배치 — 외래키 위반으로 F,
+            retry_cnt 1 <b>(항목 7 · 9)</b>」</td></tr>
+    <tr><td class="c">2</td><td>절차 5 직후</td>
+        <td>「부서 등록 후 재시도 — S 로 바뀌고 계정 발급
+            <b>(항목 9 · 10)</b>」</td></tr>
+    <tr><td class="c">3</td><td>절차 6 직후 <span class="cc">(선택)</span></td>
+        <td>「한 번 더 실행 — 읽음 0, 중복 처리 없음
+            <b>(항목 10)</b>」</td></tr>
+  </table>
+
+  <p><b>세 컷을 나란히</b> 놓으면 실패 · 복구 · 안정이 한눈에 보입니다.
+     두 컷이 필수지만 <b>셋이 훨씬 낫습니다.</b></p>
+
+  <h5>절차 9 — 뒷정리</h5>
+
+  <table class="wide">
+    <tr><th style="width:230px">치울 것</th><th>왜</th></tr>
+    <tr><td><code>D999</code> 부서와 그 계정</td>
+        <td>남겨 둬도 되지만, <b>보고서의 통계 숫자</b>와
+            맞춰 두는 편이 깔끔합니다</td></tr>
+    <tr><td>표준을 어긴 연습용 줄</td>
+        <td>실습 2-5 에서 넣은 것이 남아 있으면
+            <b>검사 SQL 에 걸립니다</b></td></tr>
+  </table>
+
+  <p><b>제출물</b> — 실패 컷 · 성공 컷 (선택: 읽음 0 컷) +
+     여섯 걸음의 콘솔 기록</p>
+
+  <p><b>스스로 확인</b> —
+     ① 등록 <b>자체는</b> 성공하는 것을 봤습니까
+     ② 실패 컷에 <code>err_msg</code> 와 <code>retry_cnt</code> 가 보입니까
+     ③ <b>한 번 더 돌려</b> 읽음 0 을 확인했습니까
+     ④ 컷마다 <b>항목 번호</b>를 적었습니까</p>
+</div>
       </div>
     </div>
 
@@ -952,6 +3013,155 @@ SELECT COUNT(*) AS 발급계정 FROM account;</pre>
 <p>세 줄이면 검증 보고서의 숫자가 다 나옵니다.
    <b>화면 캡처와 이 숫자가 맞아야</b> 합니다.
    캡처는 성공 열 건인데 표에는 여덟 건이면 채점자가 먼저 알아봅니다.</p>
+      <div class="lab">
+  <b class="t">실습 2-15</b>
+  <b>검증 시나리오 — 넷만 해도 항목 셋을 덮습니다</b>
+
+  <p><b>목적</b> — 무엇을 시험할지 고민할 필요가 없습니다.
+     <b>설계서 §7 에 여덟 개가 기대 결과까지 적혀</b> 있습니다.
+     시간이 모자라면 <b>넷</b>만 먼저 하십시오.</p>
+
+  <h5>절차 1 — 먼저 할 넷을 고릅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:74px">번호</th><th style="width:170px">무엇을 보는가</th>
+        <th style="width:150px">넣는 값</th><th>덮는 항목</th></tr>
+    <tr><td class="c"><b>TC01</b></td><td>정상 처리</td>
+        <td>제대로 된 부서코드</td><td class="c">5 · 6</td></tr>
+    <tr><td class="c"><b>TC02</b></td><td>멱등 중복</td>
+        <td>같은 건을 두 번</td><td class="c"><b>10</b></td></tr>
+    <tr><td class="c"><b>TC03</b></td><td>실패 기록</td>
+        <td><code>deptCode=D999</code></td><td class="c"><b>7</b> · 11</td></tr>
+    <tr><td class="c"><b>TC08</b></td><td>재시도 복구</td>
+        <td>부서 등록 후 재시도</td><td class="c">9 · <b>11</b></td></tr>
+  </table>
+
+  <p><b>정상 · 멱등 · 실패 · 재시도</b> 넷입니다.
+     이미 실습 2-10 과 2-14 에서 돌려 본 것들이라
+     <b>결과를 표에 옮겨 적기만</b> 하면 됩니다.</p>
+
+  <h5>절차 2 — TC06 을 꼭 해 보십시오</h5>
+  <p>배치를 <b>아예 안 돌린 채</b> 다섯 건을 등록해 둡니다.</p>
+
+  <p class="cmdline"><code>  등록 성공 E20260901001
+  등록 성공 E20260901002
+  등록 성공 E20260901003
+  등록 성공 E20260901004
+  등록 성공 E20260901005
+
+  쌓인 것        status N : 5건
+  받는 쪽 계정    0건
+  → 받는 쪽은 여태 아무것도 모릅니다</code></p>
+
+  <p>한참 뒤 배치를 <b>한 번</b> 돌립니다.</p>
+
+  <p class="cmdline"><code>  E20260901001 → S (24ms)
+  E20260901002 → S (20ms)
+  E20260901003 → S (17ms)
+  E20260901004 → S (17ms)
+  E20260901005 → S (20ms)
+
+  받는 쪽 계정    5건</code></p>
+
+  <div class="note"><b>이 시나리오가 «왜 이렇게 만들었는지» 를 보여 줍니다.</b>
+    받는 쪽이 멈춰 있는 동안에도 보내는 쪽은 <b>아무 지장이 없었습니다.</b>
+    직접 부르는 방식이었다면 <b>다섯 번 모두 오류</b>였을 것입니다.
+    시연할 때 한 문장으로 말하십시오 —
+    <b>「그룹웨어를 껐다 켜도 입사 등록은 계속 됩니다」</b>.
+    채점 항목 2 가 물은 <b>연계의 값</b>이 여기서 드러납니다.</div>
+
+  <h5>절차 3 — 결과표를 채웁니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:74px">TC</th><th style="width:190px">기대 결과</th>
+        <th style="width:190px">실제 결과</th><th>통과</th></tr>
+    <tr><td class="c">01</td><td>S · 계정 1건</td>
+        <td>S (24ms) · 계정 1건</td><td class="c">○</td></tr>
+    <tr><td class="c">02</td><td>스킵 · 계정 여전히 1건</td>
+        <td>SKIP · 1건</td><td class="c">○</td></tr>
+    <tr><td class="c">03</td><td>F · err_msg 기록</td>
+        <td>F · retry_cnt 1</td><td class="c">○</td></tr>
+    <tr><td class="c">08</td><td>재시도 후 S</td>
+        <td>S (33ms)</td><td class="c">○</td></tr>
+  </table>
+
+  <p><b>「실제 결과」 칸을 비워 두지 마십시오.</b>
+     기대 결과만 옮겨 적은 표는 <b>돌려 봤다는 증거가 못 됩니다.</b>
+     처리시간 같은 <b>실제 숫자</b>가 들어가야 합니다.</p>
+
+  <h5>절차 4 — 보고서용 숫자 «세 줄» 을 뽑습니다</h5>
+
+  <p class="cmdline"><code>-- ① 송신 상태별
+SELECT status, COUNT(*) AS 건수, ROUND(AVG(retry_cnt),2) AS 평균재시도
+  FROM HrmDB.if_outbox GROUP BY status ORDER BY status;
+
+-- ② 수신 상태별
+SELECT status, COUNT(*) AS 건수, ROUND(AVG(proc_ms),1) AS 평균처리시간
+  FROM GroupwareDB.if_inbox GROUP BY status ORDER BY status;
+
+-- ③ 발급 계정
+SELECT COUNT(*) AS 발급계정 FROM GroupwareDB.account;</code></p>
+
+  <p class="cmdline"><code>  ① status  건수  평균재시도
+     F       1     1.00
+     S       5     0.00
+
+  ② status  건수  평균처리시간
+     S       5     5.8
+
+  ③ 발급계정
+     5</code></p>
+
+  <h5>절차 5 — 숫자가 «맞는지» 대조합니다</h5>
+
+  <p class="cmdline"><code>SELECT (SELECT COUNT(*) FROM HrmDB.if_outbox      WHERE status='S') AS 송신성공,
+       (SELECT COUNT(*) FROM GroupwareDB.if_inbox WHERE status='S') AS 수신성공,
+       (SELECT COUNT(*) FROM GroupwareDB.account)                   AS 발급계정;</code></p>
+
+  <p class="cmdline"><code>  송신성공  수신성공  발급계정
+  5         5         5</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">어긋나면</th><th>어디를 봐야 하는가</th></tr>
+    <tr><td>송신성공 &lt; 수신성공</td>
+        <td>계정은 생겼는데 <code>outbox</code> 를 <code>S</code> 로
+            <b>안 고쳤습니다</b>. 다음 배치가 또 집습니다</td></tr>
+    <tr><td>수신성공 &lt; 발급계정</td>
+        <td><code>if_inbox</code> 를 안 거치고 계정을 만든 자리가 있습니다.
+            <b>트랜잭션이 안 묶였을</b> 수도 있습니다</td></tr>
+    <tr><td>발급계정 &lt; 수신성공</td>
+        <td>받은 기록은 있는데 계정이 없습니다.
+            <b>가운데서 되돌려진</b> 것입니다</td></tr>
+  </table>
+
+  <div class="warn"><b>세 숫자가 같아야 합니다.</b>
+    그리고 <b>캡처와도 같아야</b> 합니다.
+    화면 캡처는 성공 열 건인데 보고서 표에는 여덟 건이면
+    <b>채점자가 먼저 알아봅니다.</b>
+    숫자를 뽑은 뒤에는 <b>더 돌리지 마십시오</b> —
+    한 번 더 돌리면 숫자가 또 바뀝니다.</div>
+
+  <h5>절차 6 — 나머지 넷도 표에 적습니다</h5>
+  <p>시간이 남으면 TC04 · 05 · 06 · 07 도 돌립니다.
+     <b>못 한 것은 「미수행」 이라고 적으십시오.</b>
+     빈칸으로 두면 빠뜨린 것인지 안 한 것인지 알 수 없습니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:190px">적는 법</th><th>어떻게 읽히는가</th></tr>
+    <tr><td>빈칸</td><td><b>빠뜨렸다</b>고 읽힙니다</td></tr>
+    <tr><td>「미수행 — 시간 부족」</td>
+        <td><b>알고 안 했다</b>고 읽힙니다. 훨씬 낫습니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — TC 결과표(실제 결과 칸이 채워진 것) +
+     보고서용 숫자 세 줄 + 절차 5 의 대조</p>
+
+  <p><b>스스로 확인</b> —
+     ① <b>넷</b>(TC01 · 02 · 03 · 08)을 다 돌렸습니까
+     ② 「실제 결과」 칸에 <b>진짜 숫자</b>가 있습니까
+     ③ 세 숫자가 <b>서로 맞습니까</b>
+     ④ 숫자와 <b>캡처가</b> 맞습니까</p>
+</div>
       </div>
     </div>
 
@@ -1005,6 +3215,160 @@ SELECT COUNT(*) AS 발급계정 FROM account;</pre>
 <p>네 번째에서 걸리는 경우가 많습니다.
    내 컴퓨터에서만 도는 프로젝트는 채점자가 확인할 수 없습니다.
    <code>README</code> 에 준비 순서 세 줄만 적어 두어도 다릅니다.</p>
+      <div class="lab">
+  <b class="t">실습 2-16</b>
+  <b>합치기 — 한 사람씩 넣고 그때마다 돌려 보기</b>
+
+  <p><b>목적</b> — 항목 11 은 <b>10점</b>, 조장의 몫입니다.
+     네 사람 코드를 한꺼번에 합치면 <b>무엇이 깨졌는지 못 찾습니다.</b>
+     한 사람씩 얹고 <b>그때마다</b> 돌려 봅니다.</p>
+
+  <h5>절차 1 — 순서대로 하나씩 얹습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:74px">차례</th><th style="width:150px">넣는 것</th>
+        <th>여기서 확인하는 것</th></tr>
+    <tr><td class="c">1</td><td>조장 (이미 들어 있음)</td>
+        <td>두 연결이 각각 <code>HrmDB</code> · <code>GroupwareDB</code> 를 봅니다</td></tr>
+    <tr><td class="c">2</td><td>조원 1</td>
+        <td>입사 등록이 되고 <code>if_outbox</code> 에
+            <code>'N'</code> <b>한 줄</b>이 쌓입니다</td></tr>
+    <tr><td class="c">3</td><td>조원 2</td>
+        <td>배치를 돌리면 그 줄이 <code>'S'</code> 가 되고
+            <b>계정이 생깁니다</b></td></tr>
+    <tr><td class="c">4</td><td>조원 3</td>
+        <td>모니터링에 세 테이블이 다 나오고 <b>재시도가 돕니다</b></td></tr>
+    <tr><td class="c">5</td><td>전체</td>
+        <td>TC01 부터 차례로 — 설계서의 기대 결과와 같은가</td></tr>
+  </table>
+
+  <div class="warn"><b>2번에서 안 되면 3번을 얹지 마십시오.</b>
+    쌓인 줄이 없으면 배치는 <b>읽음 0</b> 으로 끝납니다.
+    그러면 조원 2 의 코드가 맞는지 틀린지 <b>알 수가 없습니다.</b>
+    앞 단계가 될 때까지 붙들고 있으십시오.</div>
+
+  <h5>절차 2 — 합치면서 부딪히는 것들</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">나오는 것</th><th>왜</th></tr>
+    <tr><td><code>cannot find symbol: method insertInTx</code></td>
+        <td>조원끼리 <b>메서드 이름이 다릅니다.</b>
+            부르는 쪽에 맞춥니다</td></tr>
+    <tr><td>계정은 생기는데 <b>이름이 빈칸</b></td>
+        <td><code>payload</code> 키가 어긋났습니다 (실습 2-4)</td></tr>
+    <tr><td><code>Table 'HrmDB.account' doesn't exist</code></td>
+        <td>연결을 섞어 썼습니다 (실습 2-7)</td></tr>
+    <tr><td>충돌 표시 줄이 소스에 남음</td>
+        <td><code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> 를 안 지우고 커밋했습니다.
+            <b>경고 없이 커밋됩니다</b></td></tr>
+  </table>
+
+  <h5>절차 3 — 저장소를 «다른 폴더에» 받아 봅니다</h5>
+  <p class="cmdline"><code>cd C:\temp
+git clone https://github.com/조이름/저장소.git check
+cd check</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">여기 «없어야» 할 것</th><th></th></tr>
+    <tr><td><code>config/db.properties</code></td>
+        <td>있으면 <b>비밀번호가 올라간 것</b>입니다 (항목 8)</td></tr>
+    <tr><td><code>build/</code> · <code>*.class</code></td><td>만들어지는 것입니다</td></tr>
+  </table>
+
+  <table class="wide">
+    <tr><th style="width:230px">여기 «있어야» 할 것</th><th></th></tr>
+    <tr><td><code>config/db.properties.sample</code></td>
+        <td>받은 사람이 무엇을 채울지 압니다</td></tr>
+    <tr><td><code>db/schema.sql</code></td><td>표를 만들 수 있습니다</td></tr>
+    <tr><td><code>docs/매핑표.md</code> ·
+            <code>docs/데이터표준.md</code></td>
+        <td>항목 1 · 3 의 근거입니다</td></tr>
+  </table>
+
+  <h5>절차 4 — 보고서 «넷» 을 채웁니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:190px">들어갈 것</th>
+        <th>어디서 가져오는가</th></tr>
+    <tr><td class="c">□</td><td>통계</td>
+        <td>실습 2-15 절차 4 의 <b>세 줄</b></td></tr>
+    <tr><td class="c">□</td><td>재시도 결과</td>
+        <td>실습 2-14 의 <b>여섯 걸음 기록</b></td></tr>
+    <tr><td class="c">□</td><td>역할별 분담표</td>
+        <td>실습 2-1 에서 정한 것 <b>그대로</b></td></tr>
+    <tr><td class="c">□</td><td>개인별 산출물 정리</td>
+        <td>각자의 체크리스트</td></tr>
+  </table>
+
+  <h5>절차 5 — «어긋난 곳» 을 한 줄 적습니다</h5>
+  <p>항목 11 은 <b>보고서의 분량이 아니라 이런 것</b>을 봅니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:230px">적을 만한 것</th><th>어느 실습에서 만났는가</th></tr>
+    <tr><td>체크리스트는 <code>if_outbox.tx_no UNIQUE</code>,
+            설계서와 <code>schema.sql</code> 은 <code>if_inbox</code>.
+            <b>재입사를 고려하면 <code>if_inbox</code> 가 맞다고 판단</b></td>
+        <td>실습 2-6</td></tr>
+    <tr><td>체크리스트의 <code>existsByTxNo</code> 대신
+            <b>제약 조건(<code>UNIQUE</code>)으로 막음.</b>
+            확인과 넣기 사이의 틈을 없애기 위함</td>
+        <td>실습 2-10</td></tr>
+    <tr><td><code>useSSL=false</code> 만으로는 MySQL 8 에서
+            <code>Public Key Retrieval is not allowed</code> 가 나
+            <code>allowPublicKeyRetrieval=true</code> 를 더함</td>
+        <td>실습 2-7</td></tr>
+  </table>
+
+  <div class="note"><b>한 줄이면 됩니다.</b>
+    「무엇이 어긋났고, 무엇을 따랐고, 왜 그렇게 정했는가」.
+    이 세 마디가 <b>문서를 읽고 판단했다</b>는 것을 보입니다.
+    보고서를 길게 쓰는 것보다 <b>이 한 줄이 낫습니다.</b></div>
+
+  <h5>절차 6 — PPT 의 «여덟 컷 + 두 컷» 을 맞춥니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px">묶음</th><th style="width:110px">컷 수</th>
+        <th>짝이 맞아야 합니다</th></tr>
+    <tr><td>시작 화면</td><td class="c">4</td>
+        <td>실습 2-2 에서 찍은 <b>깨진 화면</b></td></tr>
+    <tr><td>완성 화면</td><td class="c">4</td>
+        <td><b>같은 화면 넷</b>이 도는 모습</td></tr>
+    <tr><td>실패 → 복구</td><td class="c">1 ~ 2</td>
+        <td>실습 2-14 의 컷</td></tr>
+  </table>
+
+  <p><b>시작과 완성을 «같은 화면» 으로</b> 맞춰야 합니다.
+     시작은 입사 등록인데 완성은 모니터링이면 대조가 안 됩니다.
+     실습 2-2 에서 파일 이름에 번호를 붙여 둔 까닭입니다.</p>
+
+  <h5>절차 7 — 마지막으로 넷을 냅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:210px">내는 것</th><th>마지막 확인</th></tr>
+    <tr><td class="c">□</td><td>저장소 주소</td>
+        <td>주소창에서 <b>복사</b>. 비공개면 <b>강사 초대 수락</b></td></tr>
+    <tr><td class="c">□</td><td>작업과정 PPT</td>
+        <td>여덟 컷 + 실패 복구 컷</td></tr>
+    <tr><td class="c">□</td><td>역할별 체크리스트</td><td>넷 다 있는가</td></tr>
+    <tr><td class="c">□</td><td>통합 검증 보고서</td>
+        <td>숫자와 캡처가 <b>맞는가</b></td></tr>
+  </table>
+
+  <p><b>제출물</b> — 위 넷</p>
+
+  <div class="try">
+    <b class="t">끝으로</b>
+    이 교과에서 잃는 점수는 <b>어려워서가 아닙니다.</b>
+    매핑표를 안 만들어서 이름이 어긋나고,
+    트랜잭션을 안 묶어서 메모 없는 사원이 생기고,
+    스킵을 실패로 세서 보고서가 이상해지고,
+    <code>db.properties</code> 를 올려서 보안에서 깎입니다.
+    <b>넷 다 오류가 안 납니다.</b>
+    그래서 <b>조회 SQL 로 확인하는 습관</b>이 이 교과의 요령입니다.
+    실습마다 넣어 둔 <b>「0건이어야 합니다」</b> 조회들을
+    제출 전에 한 번씩 돌려 보십시오.
+  </div>
+</div>
       </div>
     </div>
 
