@@ -685,7 +685,22 @@ java.lang.UnsupportedOperationException: 아직 구현하지 않았습니다
      이 장이 <b>실습 4 · 6 의 첫 페이지</b>가 되고,
      발표할 때 <b>맨 처음 보여 줄 그림</b>이 됩니다.</p>
 
-  <p><b>제출물</b> — 연계 구성도(화살표) + 연계 목록표(둘) +
+    <h5>절차 6 — 안 되면 여기를 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td>시간이 <b>매번 1초 넘게</b> 나옴</td>
+        <td>회사·학교 <b>프록시</b>를 지나고 있을 수 있습니다.
+            실습 1 의 <code>curl</code> 응답이 <b>JSON 이 맞는지</b> 다시 보십시오</td></tr>
+    <tr><td><code>curl: (28) Operation timed out</code></td>
+        <td><code>-m</code> 로 준 시간 안에 못 받았습니다.
+            <b>그 값이 곧 시간 제한의 하한</b>입니다</td></tr>
+    <tr><td>다섯 번이 <b>모두 똑같음</b></td>
+        <td>가운데서 <b>캐시</b>가 받아 주고 있습니다.
+            주소 뒤에 <code>?t=1</code> · <code>?t=2</code> 를 달아 다시 재십시오</td></tr>
+  </table>
+
+<p><b>제출물</b> — 연계 구성도(화살표) + 연계 목록표(둘) +
      「남의 것」 대응 셋 + 응답 시간 다섯 번 측정</p>
 
   <p><b>스스로 확인</b> —
@@ -1069,7 +1084,28 @@ public class PostDTO {
      양식에 옮기고 <b>맨 위에 연계 ID(IF-001)</b> 를 적으십시오.
      <b>필드 하나에 줄 하나</b>입니다 (실습 6 의 정의서와 다른 점).</p>
 
-  <p><b>제출물</b> — 필드 측정 화면 + 매핑표(근거 칸 포함) +
+    <h5>절차 7 — 안 되면 여기를 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>FileNotFoundError: 'posts.json'</code></td>
+        <td><code>curl … -o posts.json</code> 를 <b>먼저</b> 돌려야 합니다.
+            <b>그 폴더에서</b> 파이썬을 돌리십시오</td></tr>
+    <tr><td><code>json.decoder.JSONDecodeError</code></td>
+        <td>받은 것이 JSON 이 아닙니다 —
+            <b>프록시 로그인 화면(HTML)</b>이 담겼을 수 있습니다.
+            <code>posts.json</code> 을 열어 보십시오</td></tr>
+    <tr><td><code>UnicodeDecodeError</code></td>
+        <td><code>open(...)</code> 에 <code>encoding='utf-8'</code> 을
+            <b>안 넣었습니다</b></td></tr>
+    <tr><td>Jackson 확인에서 <code>package tools.jackson
+            does not exist</code></td>
+        <td>Jackson <b>3</b> 은 <code>tools.jackson</code>,
+            <b>2</b> 는 <code>com.fasterxml.jackson</code> 입니다.
+            <b>클래스패스에 올린 판</b>에 맞춰 <code>import</code> 하십시오</td></tr>
+  </table>
+
+<p><b>제출물</b> — 필드 측정 화면 + 매핑표(근거 칸 포함) +
      <b>Jackson 두 판 확인 화면</b> + <code>PostDTO</code> 코드</p>
 
   <p><b>스스로 확인</b> —

@@ -681,7 +681,21 @@ RQ-05 신청 취소 이력을 남긴다                     → 항목이 «아�
   <p>위의 RQ 목록처럼 다섯 줄을 적고 ○ / ✗ 를 답니다.
      <b>✗ 가 하나도 없으면 잘못 본 것</b>입니다. 장표 한 장으로 될 업무는 없습니다.</p>
 
-  <p><b>제출물</b> — 자료 항목 목록(아홉 줄, 유형·보호 칸 포함) +
+    <h5>절차 5 — 안 되면 여기를 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>ERROR 1046 (3D000): No database selected</code></td>
+        <td><code>USE eduio;</code> 를 <b>안 쳤습니다</b></td></tr>
+    <tr><td><code>ERROR 1146 (42S02): Table 'eduio.apply_sheet'
+            doesn't exist</code></td>
+        <td>실습 1 의 <code>01_base.sql</code> 을 <b>안 돌렸습니다</b></td></tr>
+    <tr><td>한글이 <code>?</code> 나 네모로 보임</td>
+        <td>터미널 글꼴 문제입니다. <b>값은 멀쩡합니다</b> —
+            <code>SELECT HEX(member_nm)</code> 로 확인하십시오</td></tr>
+  </table>
+
+<p><b>제출물</b> — 자료 항목 목록(아홉 줄, 유형·보호 칸 포함) +
      길이 근거 숫자 + 요구사항 대조표</p>
 
   <p><b>스스로 확인</b> —
@@ -2929,7 +2943,25 @@ PR-03 | 5 초      | 13.1 초  | <b>미달</b>    | (실습 16 에서 다룸)</c
   <p>기준 5초인데 <b>13.1초</b>입니다. 미달입니다.
      <b>왜 느린지는 아직 모릅니다</b> — 그것이 실습 15 입니다.</p>
 
-  <p><b>제출물</b> — 성능 기준 세 줄 + 측정값 + 실행 계획 + 평가표</p>
+    <h5>절차 7 — 안 되면 여기를 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>SHOW PROFILES</code> 가 <b>비어 있음</b></td>
+        <td><b>가장 자주 나는 것입니다.</b> 아래 경고를 보십시오</td></tr>
+    <tr><td><code>ERROR 1146: Table 'eduio.apply_log' doesn't exist</code></td>
+        <td>실습 7 절차 1 의 50만 줄을 <b>안 만들었습니다</b></td></tr>
+    <tr><td><code>EXPLAIN</code> 의 <code>rows</code> 가 <b>0</b> 이나 <b>1</b></td>
+        <td>표가 비었습니다. <code>SELECT COUNT(*)</code> 로 세어 보십시오</td></tr>
+  </table>
+
+  <div class="warn"><b><code>SHOW PROFILES</code> 는 «그 연결» 에서 친 것만 보여 줍니다.</b>
+    <code>SET profiling = 1</code> 을 치고 <b>창을 닫았다 다시 열면</b>
+    기록이 <b>통째로 사라집니다.</b> 오류도 안 납니다 — 그냥 빈 표가 나옵니다.
+    <b>켜기 · 재기 · 보기를 한 창에서 이어서</b> 하십시오.
+    파일로 돌릴 때도 <b>한 파일 안에</b> 세 줄을 다 넣어야 합니다.</div>
+
+<p><b>제출물</b> — 성능 기준 세 줄 + 측정값 + 실행 계획 + 평가표</p>
 
   <p><b>스스로 확인</b> —
      ① 기준에 <b>숫자 셋</b>이 다 있습니까
@@ -3111,7 +3143,23 @@ mysql&gt; EXPLAIN SELECT COUNT(*) FROM apply_log WHERE member_id = 'm012345';
         근거 : 3,000건 13.1 초 (기준 5 초)
         영향 : 건수에 비례해 악화. EXPLAIN 에는 안 나타난다</code></p>
 
-  <p><b>제출물</b> — 시나리오 셋 + 실행 계획 <b>네 가지</b> + 시간 비교 + 원인 표 셋</p>
+    <h5>절차 7 — 안 되면 여기를 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>ERROR 1061 (42000): Duplicate key name
+            'idx_log_member'</code></td>
+        <td>이미 만들었습니다. <b>정상</b>입니다 —
+            지우고 다시 하려면 <code>DROP INDEX idx_log_member ON apply_log;</code></td></tr>
+    <tr><td>인덱스를 걸었는데 <code>type</code> 이 여전히 <code>ALL</code></td>
+        <td><b>다른 칼럼</b>에 걸었거나, 조건 칼럼에
+            <b>함수를 씌웠습니다</b> (절차 4)</td></tr>
+    <tr><td><code>rows</code> 가 <b>498294</b> 그대로인데
+            <code>key</code> 에는 이름이 있음</td>
+        <td><b>이것이 절차 4 에서 보려는 것</b>입니다. 오류가 아닙니다</td></tr>
+  </table>
+
+<p><b>제출물</b> — 시나리오 셋 + 실행 계획 <b>네 가지</b> + 시간 비교 + 원인 표 셋</p>
 
   <p><b>스스로 확인</b> —
      ① <b>실데이터 규모</b>에서 쟀습니까
@@ -3293,7 +3341,24 @@ PR-03 | 5 초      | 13.1 초  | 0.115 초   | <b>통과</b></code></p>
     <tr><td class="c">□</td><td>성능을 <b>같은 문장</b>으로 전후 측정했는가</td></tr>
   </table>
 
-  <p><b>제출물</b> — 산출물 다섯 + 개선 전후 측정 화면 + 보고서 일곱 줄</p>
+    <h5>절차 9 — 안 되면 여기를 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>고친 뒤에도 <b>시간이 그대로</b></td>
+        <td>실습 14 와 <b>다른 연결</b>에서 쟀습니다.
+            <code>SHOW PROFILES</code> 는 연결마다 따로입니다</td></tr>
+    <tr><td>첫 번째 값만 크고 두 번째부터 작음</td>
+        <td><b>정상</b>입니다. <b>두 번째 값</b>을 쓰십시오 (실습 14 절차 3)</td></tr>
+    <tr><td><code>rewriteBatchedStatements</code> 를 켰는데
+            <b>안 빨라짐</b></td>
+        <td><code>addBatch()</code> 를 <b>안 썼습니다.</b>
+            둘은 <b>같이</b> 써야 효과가 납니다</td></tr>
+    <tr><td>일괄 등록이 <b>중간에 멈춤</b></td>
+        <td>모아 둔 것이 너무 많습니다. <b>500개씩 끊어</b> 보내십시오 (절차 3)</td></tr>
+  </table>
+
+<p><b>제출물</b> — 산출물 다섯 + 개선 전후 측정 화면 + 보고서 일곱 줄</p>
 
   <div class="try">
     <b class="t">끝으로</b>

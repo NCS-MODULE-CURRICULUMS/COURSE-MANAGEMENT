@@ -22,6 +22,11 @@ GUIDES = Path(__file__).resolve().parent.parent.parent / "guides"
 SUPPLIED = ("EX01", "EX02", "작업지시서", "제공물", "제공되는", "제공된", "받는 프로젝트")
 # 전제물을 밝혀 두었다고 볼 만한 말
 DECLARED = ("시작 전에 받아야", "받아서 시작", "미리 받아", "준비물", "받아 두어야")
+# «실제로 쳐야 하는 것» 인지 가리는 말 — .cmdline 은 단순 목록에도 쓰이므로
+# 이 말이 든 덩이만 명령으로 센다
+CMD = ("mysql>", "mysql -", "$ ", "&gt; ", "python ", "java ", "javac ", "curl ",
+       "docker ", "git ", "gradlew", "SELECT ", "INSERT ", "CREATE ", "UPDATE ",
+       "DELETE ", "DROP ", "EXPLAIN", "ALTER ", "npm ", "ssh ", "ping ")
 # 막혔을 때를 다루는 말
 STUCK = ("안 되면", "안 나오면", "이렇게 나오면", "볼 곳", "막히면", "안 뜨면",
          "나오는 것", "오류", "ERROR", "실패하면", "틀리면", "안 먹")
@@ -76,9 +81,13 @@ def audit(mod):
                                   f"아직 안 한 실습입니다"))
 
         # ── 3. 막힘 ──────────────────────────────────────
-        if not any(k in bp for k in STUCK):
+        # 명령이나 코드를 «시키는» 실습만 본다. 문서만 쓰는 실습은 해당 없다.
+        shows = sum(1 for blk in re.findall(
+            r'<p class="cmdline">(.*?)</p>|<pre>(.*?)</pre>', body, re.S)
+            if any(k in (blk[0] or blk[1]) for k in CMD))
+        if shows and not any(k in bp for k in STUCK):
             found.append(("막힘", "주의",
-                          f"{tag} 에 «안 될 때 볼 곳» 이 없습니다"))
+                          f"{tag} 는 명령을 시키는데 «안 될 때 볼 곳» 이 없습니다"))
 
         # ── 4. 마감 ──────────────────────────────────────
         if "제출물" not in bp:
@@ -87,7 +96,7 @@ def audit(mod):
             found.append(("마감", "주의", f"{tag} 에 «스스로 확인» 이 없습니다"))
 
         # ── 5. 맨손 — 명령을 시키고 결과를 안 보여 준 실습
-        cmds = len(re.findall(r'<p class="cmdline">', body))
+        cmds = shows
         if cmds == 1 and len(bp) > 1500:
             found.append(("맨손", "주의",
                           f"{tag} 에 화면이 한 덩이뿐입니다 — "
