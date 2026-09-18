@@ -295,7 +295,8 @@
 <div class="warn"><b><code>WHERE</code> 를 빠뜨리면 «표 전체» 에 걸립니다.</b>
   <code>UPDATE member SET phone = '010-0000-0000'</code> 만 치면
   <b>모든 회원의 전화번호가 같아집니다.</b>
-  오류는 나지 않습니다. 실습 13 에서 <b>직접 한 번</b> 내 봅니다 —
+  오류는 나지 않습니다.
+  실습 13 에서 <b><code>DELETE</code> 쪽으로 직접 한 번</b> 내 봅니다 —
   겪어 봐야 조심하게 됩니다.</div>
 
 <h4>설계는 세 번에 나누어 합니다</h4>
@@ -2614,8 +2615,25 @@ public int delete(int applyNo) throws SQLException {
 
   <h5>절차 6 — 정리합니다</h5>
 
-  <p class="cmdline"><code>mysql&gt; DELETE FROM apply WHERE member_id='kim' AND course_cd='C02';
-mysql&gt; SELECT COUNT(*) FROM apply;</code></p>
+  <p><b>무엇을 지워야 하는지 먼저 생각해 보십시오.</b>
+     절차 2 에서 <code>lee</code> 가 <code>C02</code> 를 신청했고,
+     절차 3 의 <code>kim</code> / <code>C02</code> 는 <b>되돌아갔습니다.</b>
+     그러니 남아 있는 것은 <b><code>lee</code> 쪽 하나</b>입니다.</p>
+
+  <p class="cmdline"><code>mysql&gt; DELETE FROM apply WHERE member_id='<b>lee</b>' AND course_cd='C02';
+Query OK, <b>1</b> row affected
+
+mysql&gt; SELECT COUNT(*) FROM apply;
++----------+
+| COUNT(*) |
++----------+
+|        <b>5</b> |
++----------+</code></p>
+
+  <div class="note"><b><code>kim</code> 을 지우려 하면 «0 rows affected» 가 나옵니다.</b>
+    되돌아간 것은 <b>처음부터 없던 것</b>이기 때문입니다.
+    그리고 <b>오류는 나지 않습니다</b> — 절차 2 에서 본 그대로입니다.
+    <b>돌아온 숫자를 안 보면 정리가 안 된 줄도 모릅니다.</b></div>
 
   <p><b>제출물</b> — 세 메서드 코드 + <b>1 / 1 / 0</b> 화면 +
      트랜잭션 <b>6 → 7 → 6</b> 화면 + SQLState·ErrorCode 가 찍힌 줄</p>
@@ -2897,7 +2915,7 @@ mysql&gt; SHOW PROFILES;
   <p class="cmdline"><code>번호  | 기준      | 측정값   | 판정    | 실행 계획
 ------+-----------+----------+---------+---------------------------
 PR-01 | 0.05 초   | 0.092 초 | <b>미달</b>    | type=ALL, key=NULL, rows=498294
-PR-02 | 0.30 초   | 0.209 초 | 통과    | (실습 7 에서 잰 값)
+PR-02 | 0.30 초   | 0.218 초 | 통과    | (실습 7 에서 잰 값)
 PR-03 | 5 초      | 13.1 초  | <b>미달</b>    | (실습 16 에서 다룸)</code></p>
 
   <p><b>미달 둘</b>이 나왔습니다. 이것이 실습 15·16 의 일감입니다.</p>
@@ -3226,7 +3244,7 @@ mysql&gt; SHOW PROFILES;
   <p class="cmdline"><code>번호  | 기준      | 개선 전  | 개선 후    | 판정
 ------+-----------+----------+------------+-------
 PR-01 | 0.05 초   | 0.092 초 | 0.00019 초 | <b>통과</b>
-PR-02 | 0.30 초   | 0.209 초 | 0.209 초   | 통과 (손대지 않음)
+PR-02 | 0.30 초   | 0.218 초 | 0.218 초   | 통과 (손대지 않음)
 PR-03 | 5 초      | 13.1 초  | 0.115 초   | <b>통과</b></code></p>
 
   <p><b>PR-02 줄을 지우지 마십시오.</b>
