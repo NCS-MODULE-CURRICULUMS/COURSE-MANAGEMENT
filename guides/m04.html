@@ -2025,7 +2025,33 @@ C:\lab&gt;<b>ipconfig</b>
      문제점 1 이 「누구나 삭제할 수 있음」이었다면
      기대 효과는 「권한 있는 사람만 도서를 관리하게 되어 자료가 지켜짐」입니다.</p>
 
-  <p><b>제출물</b> — 개발 방향성과 목표 시스템 표 1부
+    <h5>판이 다르면 여기서 갈립니다</h5>
+
+  <p>같은 SQL 을 두 판에 던져 보면 <b>목표 시스템을 정할 근거</b>가 바로 나옵니다.</p>
+
+  <p class="cmdline"><code>mysql&gt; SELECT VERSION();
+5.7.44
+
+mysql&gt; SELECT RANK() OVER (ORDER BY id) FROM books;
+<b>ERROR 1064 (42000)</b>: You have an error in your SQL syntax; check the manual
+that corresponds to your MySQL server version for the right syntax to use
+near '(ORDER BY id) FROM books' at line 1</code></p>
+
+  <p>같은 문장을 <b>8.0</b> 에 던지면 이렇게 됩니다.</p>
+
+  <p class="cmdline"><code>+------+-----+
+| id   | rnk |
++------+-----+
+|    1 |   1 |
+|    2 |   2 |
++------+-----+</code></p>
+
+  <div class="warn"><b>「문법 오류」 라고 나오지만 문법이 틀린 것이 아닙니다.</b>
+    5.7 이 <b>윈도 함수를 아예 모르기 때문</b>에 그 자리를 못 읽는 것입니다.
+    <b>판을 올려야 하는 요구사항</b>은 이렇게 «돌려 보고» 적습니다 —
+    「5.7 에서 <code>ERROR 1064</code>」 가 곧 근거입니다.</div>
+
+<p><b>제출물</b> — 개발 방향성과 목표 시스템 표 1부
      (목표 아키텍처 · 프레임워크 · 데이터베이스 · 보안 요구사항 · 전환 이유 · 기대 효과).
      <b>평가에서는 경우 ㄱ 로 적습니다.</b> 경우 ㄴ 은 연습입니다.</p>
 

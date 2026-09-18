@@ -1234,7 +1234,16 @@ MySQL server version for the right syntax to use near '브라이언','x@e.com','
         <td><b>변수가 붙은 것 0건</b></td></tr>
   </table>
 
-  <p><b>제출물</b> — <code>MemberDAO.java</code> 전체 +
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>You have an error in your SQL syntax … near '브라이언''</code></td><td><b>이것이 이 실습에서 보려는 화면입니다.</b> 이름 안의 따옴표가 <b>SQL 을 끊었습니다</b></td></tr>
+    <tr><td><code>?</code> 로 바꿨는데 <code>java.sql.SQLException: No value specified for parameter 1</code></td><td><code>setString(1, …)</code> 을 <b>안 불렀습니다.</b> 물음표 개수와 set 개수가 같아야 합니다</td></tr>
+    <tr><td>한글 이름이 <b>깨져 들어감</b></td><td>접속 주소에 <code>characterEncoding=UTF-8</code> 을 넣고, <b>넣을 때의 클라이언트 문자셋</b>도 보십시오</td></tr>
+  </table>
+
+<p><b>제출물</b> — <code>MemberDAO.java</code> 전체 +
      따옴표가 든 이름을 <b>이어 붙였을 때 / 바인딩했을 때</b> 결과 두 장</p>
 
   <p><b>스스로 확인</b> —
@@ -1797,7 +1806,16 @@ public class MemberController {
   <p>두 줄이면 됩니다. <code>docs/</code> 에 넣거나 보고서에 적으십시오.
      <b>항목 1-9 · 1-10 의 근거</b>가 됩니다.</p>
 
-  <p><b>제출물</b> — 경로 넷 표 + 404 · 405 확인 화면 +
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>HTTP 404</code> 가 남</td><td><code>@RequestMapping</code> 의 앞부분과 메서드 경로가 <b>겹쳐서</b> <code>/member/member/list</code> 가 됐을 수 있습니다</td></tr>
+    <tr><td><code>HTTP 405 Method Not Allowed</code></td><td>화면은 <code>POST</code> 로 보내는데 메서드가 <code>@GetMapping</code> 입니다</td></tr>
+    <tr><td>제공된 화면의 링크가 <b>안 걸림</b></td><td><b>경로를 바꾸지 마십시오.</b> 화면이 이미 규칙대로 걸어 두었습니다</td></tr>
+  </table>
+
+<p><b>제출물</b> — 경로 넷 표 + 404 · 405 확인 화면 +
      규칙 두 줄</p>
 
   <p><b>스스로 확인</b> —
@@ -2306,7 +2324,16 @@ gradlew.bat --version             → Gradle 판</code></p>
   - 개발 운영 환경 (JDK · 프레임워크 · DB · 포트 · 빌드)
   - 기동 로그 캡처</code></p>
 
-  <p><b>제출물</b> — 미들웨어 표 + 환경 표 + 기동 로그 캡처</p>
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>java -version</code> 이 <b>다른 판</b>을 가리킴</td><td><code>JAVA_HOME</code> 과 <code>PATH</code> 가 서로 다른 JDK 를 보고 있습니다. <b>보고서에는 실제로 빌드에 쓰인 판</b>을 적으십시오</td></tr>
+    <tr><td><code>gradlew.bat --version</code> 이 <b>안 돎</b></td><td>프로젝트 폴더 <b>맨 위</b>에서 쳐야 합니다</td></tr>
+    <tr><td>판을 <b>기억으로</b> 적음</td><td><b>세 명령을 실제로 쳐서</b> 나온 줄을 그대로 옮기십시오. 표의 값이 곧 채점 근거입니다</td></tr>
+  </table>
+
+<p><b>제출물</b> — 미들웨어 표 + 환경 표 + 기동 로그 캡처</p>
 
   <p><b>스스로 확인</b> —
      ① 미들웨어를 <b>넷</b> 적었습니까 (Tomcat 을 빠뜨리기 쉽습니다)

@@ -787,7 +787,16 @@ SELECT DATABASE();</code></p>
     <tr><td colspan="3">합계 + 로그 · 색인 여유 (2배)</td><td><b>약 30 MB</b></td></tr>
   </table>
 
-  <p><b>제출물</b> — 7쪽에 붙일 캡처
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>ERROR 1007 (HY000): Can't create database 'bookdb'; database exists</code></td><td>이미 만들었습니다. 지우고 다시 하려면 <code>DROP DATABASE bookdb;</code> — <b>안의 표가 다 지워집니다</b></td></tr>
+    <tr><td><code>SELECT DATABASE();</code> 가 <code>NULL</code></td><td><code>USE bookdb;</code> 를 <b>안 쳤습니다</b></td></tr>
+    <tr><td>콜레이션이 <code>utf8mb4_0900_ai_ci</code> 로 나옴</td><td><b>MySQL 8 의 기본값</b>입니다. 지시서가 <code>utf8mb4_general_ci</code> 를 요구하면 <b>만들 때 적어야</b> 합니다 — 나중에 바꾸려면 <code>ALTER DATABASE</code></td></tr>
+  </table>
+
+<p><b>제출물</b> — 7쪽에 붙일 캡처
      (<code>CREATE DATABASE</code> 부터 <code>SHOW CREATE DATABASE</code> 까지) + 용량 산정표</p>
 
   <p><b>스스로 확인</b> —
@@ -1046,7 +1055,17 @@ FLUSH PRIVILEGES;</code></p>
   <p><b><code>host</code> 칸이 <code>%</code> 인 것이 항목 08 의 근거</b>입니다.
      이 화면을 반드시 캡처하십시오.</p>
 
-  <p><b>제출물</b> — 9쪽에 붙일 캡처
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>ERROR 1396 (HY000): Operation CREATE USER failed for 'dbconn'@'%'</code></td><td>이미 있습니다. <code>DROP USER 'dbconn'@'%';</code> 뒤에 다시 만드십시오</td></tr>
+    <tr><td><code>ERROR 1410 (42000): You are not allowed to create a user with GRANT</code></td><td><b>계정을 먼저 만들어야</b> 합니다. <code>GRANT</code> 는 계정을 만들어 주지 않습니다</td></tr>
+    <tr><td>없는 데이터베이스에 <code>GRANT</code> 했는데 <b>오류가 안 남</b></td><td><b>정상입니다.</b> MySQL 은 아직 없는 데이터베이스에도 권한을 줍니다 — <b>이름을 잘못 써도 안 알려 줍니다</b>. 철자를 직접 보십시오</td></tr>
+    <tr><td>만들었는데 원격에서 접속이 안 됨</td><td><code>@'%'</code> 가 아니라 <code>@'localhost'</code> 로 만들었을 수 있습니다. <code>SELECT user, host FROM mysql.user</code> 로 <b>host 칸</b>을 보십시오</td></tr>
+  </table>
+
+<p><b>제출물</b> — 9쪽에 붙일 캡처
      (<code>CREATE USER</code> → <code>GRANT</code> → <code>SHOW GRANTS</code> →
      <code>SELECT user, host</code> 네 단계)</p>
 
@@ -2056,7 +2075,39 @@ SHOW TABLES;</code></p>
   <p>세 파일을 함께 올립니다. <b>올린 뒤 내려받아 열어 보십시오.</b>
      특히 <code>.sql</code> 은 메모장으로 열어 <b>한글이 안 깨졌는지</b> 봅니다.</p>
 
-  <p><b>제출물</b> — PPT 1개 + <code>.sql</code> 1개 + <code>.drawio</code> 1개</p>
+    <h5>내기 전에 «빈 데이터베이스에» 한 번 부어 봅니다</h5>
+
+  <p>받는 사람 자리에서 돌려 보는 것입니다. <b>내 PC 에 남아 있는 것 덕분에</b>
+     돌아가는 경우가 많아, 지우고 다시 부어야 진짜를 압니다.</p>
+
+  <p class="cmdline"><code>mysql&gt; DROP DATABASE bookdb;
+mysql&gt; CREATE DATABASE bookdb DEFAULT CHARACTER SET utf8mb4;
+mysql&gt; USE bookdb;
+mysql&gt; SOURCE C:/work/bookdb.sql;
+mysql&gt; SHOW FULL TABLES;
++------------------+------------+
+| Tables_in_bookdb | Table_type |
++------------------+------------+
+| ShowRental_view  | <b>VIEW</b>       |
+| tbl_book         | BASE TABLE |
+| tbl_member       | BASE TABLE |
+| tbl_rental       | BASE TABLE |
++------------------+------------+</code></p>
+
+  <p><code>SHOW TABLES</code> 가 아니라 <b><code>SHOW FULL TABLES</code></b> 를 쓰십시오.
+     <b>뷰가 표와 섞여</b> 나오는데, 뒤 칸이 있어야 <b>뷰까지 들어갔는지</b> 보입니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:300px">여기서 나오는 것</th><th>뜻</th></tr>
+    <tr><td>표가 <b>세 개뿐</b>이고 뷰가 없음</td>
+        <td>덤프를 뜰 때 <b>뷰가 빠졌습니다</b></td></tr>
+    <tr><td><code>ERROR 1146 … doesn't exist</code></td>
+        <td>파일 안의 <b>순서가 틀렸습니다</b> — 참조되는 표가 먼저 와야 합니다</td></tr>
+    <tr><td>한글이 깨져 들어감</td>
+        <td>덤프를 뜰 때 문자셋을 <b>안 맞췄습니다</b></td></tr>
+  </table>
+
+<p><b>제출물</b> — PPT 1개 + <code>.sql</code> 1개 + <code>.drawio</code> 1개</p>
 
   <p><b>스스로 확인</b> —
      ① 파일이 <b>셋</b> 입니까

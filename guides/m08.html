@@ -1432,7 +1432,16 @@ System.out.println("생성 성공");</code></p>
         <td><code>Seller.receive</code> 메서드 바로 위</td></tr>
   </table>
 
-  <p><b>제출물</b> — 세 메서드를 채운 <code>Buyer.java</code> · <code>Seller.java</code></p>
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td>돈이 <b>음수</b>가 됨</td><td>가진 돈을 <b>확인하기 전에 빼고</b> 있습니다. 빼기 전에 <code>if</code> 로 막으십시오</td></tr>
+    <tr><td>사과 개수가 <b>안 맞음</b></td><td>나누기가 <b>정수 나눗셈</b>이라 남는 돈이 버려집니다. 지시서가 나머지를 돌려주라고 했는지 보십시오</td></tr>
+    <tr><td>파는 쪽 돈이 <b>안 늘어남</b></td><td>받는 쪽 메서드에 <b>객체를 안 넘겼습니다</b>. 값만 넘기면 상대의 상태가 안 바뀝니다</td></tr>
+  </table>
+
+<p><b>제출물</b> — 세 메서드를 채운 <code>Buyer.java</code> · <code>Seller.java</code></p>
 
   <p><b>스스로 확인</b> —
      ① <code>payment</code> 에서 <b>돈을 빼는 줄</b>이

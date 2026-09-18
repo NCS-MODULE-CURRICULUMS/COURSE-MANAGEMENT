@@ -879,7 +879,16 @@ git ls-files</code></p>
             <b><code>db.properties</code> 는 없는</b> 모습</td></tr>
   </table>
 
-  <p><b>제출물</b> — 위 네 화면</p>
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td>커밋이 <b>한 덩이</b>로 뭉침</td><td><code>git add .</code> 를 한 번만 썼습니다. <b>파일별로 add 하고 그때마다 commit</b> 하십시오</td></tr>
+    <tr><td>비밀번호를 지웠는데 <code>git show 첫커밋:db.properties</code> 로 <b>그대로 나옴</b></td><td><b>이것이 이 실습의 요점입니다.</b> <code>git rm --cached</code> 는 <b>이력을 안 지웁니다</b>. 새 저장소로 옮기거나 비밀번호를 <b>바꾸는</b> 수밖에 없습니다</td></tr>
+    <tr><td><code>nothing to commit</code></td><td><code>.gitignore</code> 가 그 파일을 이미 빼고 있습니다. <b>의도한 것인지</b> 보십시오</td></tr>
+  </table>
+
+<p><b>제출물</b> — 위 네 화면</p>
 
   <p><b>스스로 확인</b> —
      ① <code>.gitignore</code> 를 <b>첫 커밋 전에</b> 만들었습니까
@@ -1014,7 +1023,16 @@ git commit -m "chore: 패키지와 빈 클래스 구성"</code></p>
   <p>아직 아무 기능도 없지만 <b>커밋 이력을 쌓기 시작</b>하는 것이 항목 04 입니다.
      마지막에 한 번에 올리면 흐름이 남지 않습니다.</p>
 
-  <p><b>제출물</b> — 패키지 구조가 보이는 탐색기 캡처</p>
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>class ChatServer is public, should be declared in a file named ChatServer.java</code></td><td><b>파일 이름과 클래스 이름이 다릅니다.</b> 대소문자까지 같아야 합니다</td></tr>
+    <tr><td><code>package chat does not exist</code></td><td>폴더 구조가 <code>src/chat/</code> 인지 보십시오. <b>패키지 이름과 폴더가 같아야</b> 합니다</td></tr>
+    <tr><td>제공된 UI 가 <code>cannot find symbol</code> 을 냄</td><td>UI 는 <code>chat.ChatServer</code> 를 찾습니다. <b>대문자 Chat 으로 만들면 안 맞습니다</b></td></tr>
+  </table>
+
+<p><b>제출물</b> — 패키지 구조가 보이는 탐색기 캡처</p>
 
   <p><b>스스로 확인</b> —
      ① 패키지 이름이 <b>소문자</b> <code>chat</code> · <code>book</code> 입니까
@@ -2871,7 +2889,38 @@ dir</code></p>
     그 상태라면 Settings → Collaborators 에서
     강사 계정이 <code>Pending invite</code> 없이 들어가 있어야 합니다.</div>
 
-  <p><b>제출물</b> — 작업 과정 PPT · 저장소 주소 · <code>db/schema.sql</code></p>
+    <h5>받아 본 뒤 «무엇이 왔는지» 확인합니다</h5>
+
+  <p class="cmdline"><code>C:\temp&gt; git clone https://github.com/조이름/BookLibrary.git check
+Cloning into 'check'...
+done.
+
+C:\temp&gt; cd check
+C:\temp\check&gt; git log --oneline
+0528c8e first
+
+C:\temp\check&gt; git ls-files
+README.md
+src/A.java</code></p>
+
+  <p><b><code>git ls-files</code> 가 핵심입니다.</b>
+     폴더를 눈으로 보면 내 PC 에 남은 것과 섞여 헷갈립니다.
+     <b>저장소에 실제로 담긴 것만</b> 이 명령이 보여 줍니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:300px">여기서 나오는 것</th><th>뜻</th></tr>
+    <tr><td><code>warning: You appear to have cloned an empty repository</code></td>
+        <td><b>아무것도 안 올라갔습니다.</b> <code>git push</code> 를 확인하십시오</td></tr>
+    <tr><td><code>warning: remote HEAD refers to nonexistent ref</code></td>
+        <td>기본 가지 이름이 안 맞습니다 —
+            <code>main</code> 에 올려 놓고 저장소 기본이 <code>master</code> 입니다</td></tr>
+    <tr><td><code>bin/</code> 이나 <code>build/</code> 가 <b>딸려 옴</b></td>
+        <td><code>.gitignore</code> 가 <b>늦었습니다</b></td></tr>
+    <tr><td><code>cannot find symbol</code> 로 컴파일 실패</td>
+        <td>파일 하나를 <b>커밋 안 했습니다</b></td></tr>
+  </table>
+
+<p><b>제출물</b> — 작업 과정 PPT · 저장소 주소 · <code>db/schema.sql</code></p>
 
   <div class="try">
     <b class="t">끝으로</b>

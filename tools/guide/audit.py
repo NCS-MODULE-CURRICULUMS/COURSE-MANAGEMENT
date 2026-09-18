@@ -95,9 +95,10 @@ def audit(mod):
         if "스스로 확인" not in bp and "끝으로" not in bp:
             found.append(("마감", "주의", f"{tag} 에 «스스로 확인» 이 없습니다"))
 
-        # ── 5. 맨손 — 명령을 시키고 결과를 안 보여 준 실습
-        cmds = shows
-        if cmds == 1 and len(bp) > 1500:
+        # ── 5. 맨손 — 화면을 한 덩이밖에 안 보여 준 실습
+        #    명령 덩이만 세면 안 된다. «나온 화면» 덩이가 따로 있으면 맨손이 아니다.
+        screens = len(re.findall(r'<p class="cmdline">|<pre>', body))
+        if shows and screens <= 1 and len(bp) > 1500:
             found.append(("맨손", "주의",
                           f"{tag} 에 화면이 한 덩이뿐입니다 — "
                           f"«쳐 보라» 만 있고 «이렇게 나온다» 가 모자랄 수 있습니다"))

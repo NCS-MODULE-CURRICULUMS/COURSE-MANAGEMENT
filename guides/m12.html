@@ -907,7 +907,17 @@ git merge --no-ff feature/product -m "merge: feature/product"</code></p>
   2. git log --oneline --graph 캡처
   3. git ls-files 캡처 (build/ 가 없다는 증거)</code></p>
 
-  <p><b>제출물</b> — <code>docs/형상관리_방침.md</code> +
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>git ls-files</code> 에 <code>build/</code> 나 <code>.gradle/</code> 이 보임</td><td><b>.gitignore 가 늦었습니다.</b> 이미 담긴 것은 <code>git rm -r --cached build</code> 로 빼야 합니다</td></tr>
+    <tr><td><code>git log --graph</code> 가 <b>한 줄</b></td><td><code>--no-ff</code> 없이 병합했습니다. <b>갈라진 자국이 남지 않습니다</b></td></tr>
+    <tr><td><code>nothing to commit, working tree clean</code></td><td><code>git add</code> 를 <b>안 했습니다</b></td></tr>
+    <tr><td>커밋이 <b>한 덩이</b></td><td><b>기능 단위로 나누는 것</b>이 채점 대상입니다. 앞으로라도 나눠 쌓으십시오</td></tr>
+  </table>
+
+<p><b>제출물</b> — <code>docs/형상관리_방침.md</code> +
      로그 캡처 둘</p>
 
   <p><b>스스로 확인</b> —
@@ -1116,7 +1126,16 @@ MySQL  testdb
      ┌ GlobalExceptionHandler  (어디서 터지든 받음)
      └ ProductBatch            (스스로 도는 쪽 — Service 와 같은 층)</code></p>
 
-  <p><b>제출물</b> — 계층별 「아는 것 / 모르는 것」 표 +
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td>컨트롤러에서 <code>Repository</code> 가 <b>0건이 아님</b></td><td><b>계층이 어긋난 것입니다.</b> Service 를 거치게 고치십시오 — 항목 10 이 이것을 봅니다</td></tr>
+    <tr><td>Service 에서 <code>ResponseEntity</code> 가 나옴</td><td>Service 는 <b>HTTP 를 몰라야</b> 합니다. 상태 코드는 컨트롤러 몫입니다</td></tr>
+    <tr><td>찾기에서 <b>주석까지</b> 걸림</td><td><b>세는 데 넣지 마십시오.</b> 실제로 부르는 줄만 셉니다</td></tr>
+  </table>
+
+<p><b>제출물</b> — 계층별 「아는 것 / 모르는 것」 표 +
      찾기 세 번 결과 + 흐름도</p>
 
   <p><b>스스로 확인</b> —
@@ -2220,7 +2239,16 @@ public Page&lt;ProductDTO&gt; list(Pageable pageable) { … }</code></p>
         <td><b>여섯 메서드 모두</b></td></tr>
   </table>
 
-  <p><b>제출물</b> — <code>ProductServiceImpl</code> 여섯 메서드 +
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td>수정했는데 <b>안 바뀜</b></td><td><b>조회해 온 것이 아니라 새 객체</b>를 고쳤습니다. <code>findById</code> 로 가져온 그 객체를 고쳐야 합니다</td></tr>
+    <tr><td><code>save</code> 를 <b>안 불렀는데</b> 바뀌어 불안함</td><td><b>정상입니다.</b> <code>@Transactional</code> 안에서 조회한 객체는 메서드가 끝날 때 <b>바뀐 것이 저절로 반영</b>됩니다</td></tr>
+    <tr><td>바뀌긴 하는데 <b>SQL 이 안 보임</b></td><td><code>spring.jpa.show-sql=true</code> 를 켜십시오. <b>안 바뀐 필드만 있으면 UPDATE 가 아예 안 나갑니다</b></td></tr>
+  </table>
+
+<p><b>제출물</b> — <code>ProductServiceImpl</code> 여섯 메서드 +
      수정할 때 <code>update</code> 가 나가는 콘솔</p>
 
   <p><b>스스로 확인</b> —
@@ -2401,7 +2429,17 @@ public ApiResponse&lt;ProductDTO&gt; register(@Valid @RequestBody ProductDTO dto
      <b>어떤 API 는 <code>data</code> 가 없고 어떤 것은 있는</b> 식이면
      화면을 만들기 어렵습니다.</p>
 
-  <p><b>제출물</b> — 컨트롤러 코드 +
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>HTTP 404</code> 가 남</td><td><code>@RequestMapping("/api/products")</code> 와 메서드 경로가 <b>겹쳤는지</b> 보십시오</td></tr>
+    <tr><td><code>HTTP 415 Unsupported Media Type</code></td><td>Postman 에서 <b>Body → raw → JSON</b> 으로 보내야 합니다</td></tr>
+    <tr><td><code>HTTP 400</code> 인데 <b>어느 칸이 틀렸는지</b> 안 나옴</td><td><code>@Valid</code> 는 붙였는데 <b>전역 핸들러가 칸별 메시지를 안 모으고</b> 있습니다</td></tr>
+    <tr><td>무엇이 잘못돼도 <b>200</b> 이 나옴</td><td><b>가장 나쁜 경우입니다.</b> 화면이 없어 사람이 못 알아챕니다 — 상태 코드를 <b>갈라서</b> 내보내십시오</td></tr>
+  </table>
+
+<p><b>제출물</b> — 컨트롤러 코드 +
      <b>다섯 종의 Postman 응답</b>(상태 코드가 보이게)</p>
 
   <p><b>스스로 확인</b> —

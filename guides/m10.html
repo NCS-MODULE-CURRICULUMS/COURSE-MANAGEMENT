@@ -1077,7 +1077,16 @@ SELECT tx_no, retry_cnt FROM if_outbox WHERE retry_cnt &gt; 3;</code></p>
      통합 검증 보고서에 「이 SQL 로 확인했고 모두 0건」 이라고
      결과와 함께 붙이면 항목 3 의 근거가 분명해집니다.</p>
 
-  <p><b>제출물</b> — 데이터 표준 표 + 검사 SQL 셋 +
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td>검사 SQL 이 <b>한 줄도 안 뱉음</b></td><td><b>그것이 통과입니다.</b> 어긴 줄을 찾는 SQL 이라 <b>0건이 정상</b>입니다</td></tr>
+    <tr><td>일부러 넣은 나쁜 줄이 <b>안 잡힘</b></td><td><code>NOT IN</code> 에 넣은 값의 <b>따옴표와 대소문자</b>를 보십시오</td></tr>
+    <tr><td><code>ERROR 1062: Duplicate entry</code> 로 <b>못 넣음</b></td><td><code>tx_no</code> 에 <code>UNIQUE</code> 가 걸려 있습니다. <b>다른 번호</b>로 넣으십시오</td></tr>
+  </table>
+
+<p><b>제출물</b> — 데이터 표준 표 + 검사 SQL 셋 +
      <b>0건</b>으로 나온 실행 결과</p>
 
   <p><b>스스로 확인</b> —
@@ -3367,7 +3376,36 @@ cd check</code></p>
         <td>숫자와 캡처가 <b>맞는가</b></td></tr>
   </table>
 
-  <p><b>제출물</b> — 위 넷</p>
+    <h5>받아 본 뒤 «무엇이 왔는지» 확인합니다</h5>
+
+  <p class="cmdline"><code>C:\temp&gt; git clone https://github.com/조이름/저장소.git check
+Cloning into 'check'...
+done.
+
+C:\temp&gt; cd check
+C:\temp\check&gt; git log --oneline
+0528c8e first
+
+C:\temp\check&gt; git ls-files
+README.md
+src/A.java</code></p>
+
+  <p><b>합치는 사람이 «자기 PC» 에서 돌려 보면 늘 됩니다.</b>
+     남아 있는 설정과 빌드 결과 덕분입니다.
+     <b>빈 폴더에 받아서</b> 돌려야 조원이 받을 때와 같아집니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:300px">여기서 나오는 것</th><th>뜻</th></tr>
+    <tr><td><code>warning: You appear to have cloned an empty repository</code></td>
+        <td>아무도 안 올렸습니다</td></tr>
+    <tr><td><code>warning: remote HEAD refers to nonexistent ref</code></td>
+        <td>가지 이름이 안 맞습니다 (<code>main</code> 대 <code>master</code>)</td></tr>
+    <tr><td>설정 파일이 <b>안 옴</b></td>
+        <td><code>.gitignore</code> 가 <b>너무 많이</b> 빼고 있습니다 —
+            비밀번호는 빼되 <b>양식 파일</b>은 넣으십시오</td></tr>
+  </table>
+
+<p><b>제출물</b> — 위 넷</p>
 
   <div class="try">
     <b class="t">끝으로</b>

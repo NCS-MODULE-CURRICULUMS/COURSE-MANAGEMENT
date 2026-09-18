@@ -355,7 +355,16 @@ DESC tbl_rental;</code></p>
      아직 제약조건을 안 걸었기 때문입니다.
      다음 실습에서 <code>PRI</code> 와 <code>MUL</code> 로 바뀌는 것을 보게 됩니다.</p>
 
-  <p><b>제출물</b> — <code>CREATE TABLE</code> 세 개(답변란) +
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>ERROR 1050 (42S01): Table 'tbl_member' already exists</code></td><td>이미 만들었습니다. <code>DROP TABLE tbl_member;</code> 뒤에 다시 하십시오</td></tr>
+    <tr><td><code>ERROR 1046 (3D000): No database selected</code></td><td><code>USE bookdb;</code> 를 <b>안 쳤습니다</b></td></tr>
+    <tr><td>한글 칼럼값이 <code>?</code> 로 들어감</td><td>접속할 때 <code>--default-character-set=utf8mb4</code> 를 <b>안 붙였습니다</b></td></tr>
+  </table>
+
+<p><b>제출물</b> — <code>CREATE TABLE</code> 세 개(답변란) +
      <code>SHOW TABLES</code>·<code>DESC</code> 결과 화면(PPT)</p>
 
   <p><b>스스로 확인</b> —
@@ -830,7 +839,16 @@ SELECT COUNT(*) FROM tbl_rental;</code></p>
     지금 어느 데이터베이스에 있는지는 <code>SELECT DATABASE();</code> 로 확인하고
     그 이름을 그대로 넣으십시오.</div>
 
-  <p><b>제출물</b> — 사전 조회 SQL 두 개(답변란) + 결과 화면(PPT)</p>
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td>결과가 <b>한 줄도 안 나옴</b></td><td><code>TABLE_SCHEMA = 'bookdb'</code> 의 <b>철자와 대소문자</b>를 보십시오. 틀리면 오류 없이 <b>빈 결과</b>가 나옵니다</td></tr>
+    <tr><td>FK 가 하나도 안 보임</td><td>실습 2-2 는 <b>일부러 제약조건 없이</b> 만들었습니다. <b>안 나오는 것이 맞습니다</b> — 그것이 이 실습에서 보려는 것입니다</td></tr>
+    <tr><td><code>ERROR 1044: Access denied for user</code> 가 남</td><td><code>information_schema</code> 는 <b>자기 권한이 있는 것만</b> 보여 줍니다. 관리자 계정으로 치십시오</td></tr>
+  </table>
+
+<p><b>제출물</b> — 사전 조회 SQL 두 개(답변란) + 결과 화면(PPT)</p>
 
   <p><b>스스로 확인</b> —
      ① <code>information_schema</code> 를 조회한 SQL 입니까 (<code>DESC</code> 가 아니라)
@@ -945,7 +963,16 @@ CREATE INDEX idx_rental_member ON tbl_rental (Member_id);</code></p>
     <tr><td><b>부모를 지울 때</b> — 자식이 있는지 검사</td></tr>
   </table>
 
-  <p><b>제출물</b> — <code>CREATE INDEX</code> 두 개(답변란) +
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>ERROR 1061 (42000): Duplicate key name 'idx_rental_book'</code></td><td>이미 만들었습니다. <b>오류가 아닙니다</b> — 다시 만들려면 <code>DROP INDEX idx_rental_book ON tbl_rental;</code></td></tr>
+    <tr><td><code>ERROR 1072: Key column 'Book_code' doesn't exist in table</code></td><td><b>칼럼 이름의 대소문자</b>를 보십시오. 만들 때 쓴 것과 같아야 합니다</td></tr>
+    <tr><td><code>STATISTICS</code> 에 <code>PRIMARY</code> 가 섞여 나옴</td><td><b>정상입니다.</b> 기본키도 인덱스라 함께 나옵니다</td></tr>
+  </table>
+
+<p><b>제출물</b> — <code>CREATE INDEX</code> 두 개(답변란) +
      <b>만들기 전 · 만든 뒤</b> <code>SHOW INDEX</code> 결과와 사전 조회 결과(PPT)</p>
 
   <p><b>스스로 확인</b> —
@@ -1175,7 +1202,16 @@ SELECT TABLE_NAME FROM information_schema.VIEWS
   <p><code>CREATE OR REPLACE VIEW</code> 로 덮어써도 됩니다.
      <b>뷰를 지워도 원래 테이블과 자료는 그대로</b>입니다 — 저장된 질의만 없어집니다.</p>
 
-  <p><b>제출물</b> — <code>CREATE VIEW</code> 문(답변란) +
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>ERROR 1050 (42S01): Table 'ShowRental_view' already exists</code></td><td>뷰도 표와 같은 이름 자리를 씁니다. <code>DROP VIEW ShowRental_view;</code> 뒤에 다시 하십시오. 또는 <code>CREATE OR REPLACE VIEW</code> 를 쓰십시오</td></tr>
+    <tr><td>칸 이름이 지시서와 <b>다르게</b> 나옴</td><td><code>AS</code> 로 준 <b>별칭이 곧 뷰의 칸 이름</b>입니다. 지시서의 철자·대소문자 그대로 적으십시오</td></tr>
+    <tr><td><code>\G</code> 가 안 먹음</td><td>명령 끝에 <b>세미콜론을 같이 붙이면</b> 안 됩니다. <code>\G</code> <b>하나로</b> 끝냅니다</td></tr>
+  </table>
+
+<p><b>제출물</b> — <code>CREATE VIEW</code> 문(답변란) +
      조회 결과 · <code>SHOW CREATE VIEW</code> · 사전 조회 화면(PPT)</p>
 
   <p><b>스스로 확인</b> —
@@ -1301,7 +1337,16 @@ SELECT * FROM tbl_member WHERE Member_grade = '관리자';   -- 0줄</code></p>
     적어 놓고 실행해 보지 않으면 외래키 자료형이 어긋난 채로 냅니다.
     <code>Member_id</code> 는 <code>tbl_member</code> 와 <b>같은 <code>INT</code></b> 여야 합니다.</div>
 
-  <p><b>제출물</b> — 시나리오 세 문장 + 논리 설계 표 + <code>CREATE TABLE</code> 문(답변란),
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td>고친 뒤 값이 <code>사서,관리자</code> 로 <b>잘 들어감</b></td><td><b>그것이 문제입니다.</b> 오류가 안 나는 것이 이 실습에서 보려는 것입니다 — 한 칸에 둘을 넣어도 데이터베이스는 <b>말리지 않습니다</b></td></tr>
+    <tr><td><code>Rows matched: 0  Changed: 0</code></td><td><code>WHERE Member_id = 1</code> 에 <b>해당하는 줄이 없습니다</b>. 먼저 <code>SELECT</code> 로 확인하십시오</td></tr>
+    <tr><td>「사서」 만 찾는 검색이 <b>되기도 함</b></td><td><code>LIKE '%사서%'</code> 는 걸립니다. 그런데 <b>「관리자,사서」 순서로 든 줄</b>이나 <b>「부사서」</b> 까지 걸립니다 — 그래서 못 쓰는 것입니다</td></tr>
+  </table>
+
+<p><b>제출물</b> — 시나리오 세 문장 + 논리 설계 표 + <code>CREATE TABLE</code> 문(답변란),
      실행 결과(PPT)</p>
 
   <p><b>스스로 확인</b> —
@@ -1426,7 +1471,16 @@ SELECT m.Member_name, r.role
      테이블로 빼니 <b>찾아집니다.</b>
      <b>이 두 화면을 나란히</b> 내면 시나리오·설계·모델링이 한 줄기로 이어집니다.</p>
 
-  <p><b>제출물</b> — 관계 설명 네 줄 + 모델링 표 + <code>CREATE TABLE</code>(답변란),
+    <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>ERROR 1452: Cannot add or update a child row: a foreign key constraint fails</code></td><td>가리키는 <code>member_id</code> 가 <code>tbl_member</code> 에 <b>없습니다</b>. 먼저 회원을 넣으십시오</td></tr>
+    <tr><td><code>ERROR 1062: Duplicate entry</code> 가 남</td><td>같은 사람에게 <b>같은 역할</b>을 두 번 넣었습니다. <code>UNIQUE</code> 를 건 것이 일한 것입니다</td></tr>
+    <tr><td>조인 결과가 <b>비어 있음</b></td><td><code>tbl_role</code> 에 넣기만 하고 <code>tbl_member</code> 와 <b>id 가 안 맞습니다</b>. 양쪽을 각각 <code>SELECT</code> 해 보십시오</td></tr>
+  </table>
+
+<p><b>제출물</b> — 관계 설명 네 줄 + 모델링 표 + <code>CREATE TABLE</code>(답변란),
      실행과 조회 결과(PPT)</p>
 
   <p><b>스스로 확인</b> —
@@ -1653,7 +1707,39 @@ USE bookdb;</code></p>
     <b>조인이나 뷰(10점)를 하나 채우는 편이 다섯 배</b>입니다.
     빈칸을 배점 큰 것부터 메우십시오.</div>
 
-  <p><b>제출물</b> — 근거 쪽이 적힌 자가 점검표, 다시 실행해 통과한 화면</p>
+    <h5>부은 뒤 «무엇이 들어갔는지» 셉니다</h5>
+
+  <p class="cmdline"><code>mysql&gt; SHOW FULL TABLES;
++------------------+------------+
+| Tables_in_bookdb | Table_type |
++------------------+------------+
+| ShowRental_view  | <b>VIEW</b>       |
+| tbl_book         | BASE TABLE |
+| tbl_member       | BASE TABLE |
+| tbl_rental       | BASE TABLE |
++------------------+------------+
+
+mysql&gt; SELECT COUNT(*) AS 회원 FROM tbl_member;
++--------+
+| 회원   |
++--------+
+|      2 |
++--------+</code></p>
+
+  <p><b>표 이름만 보고 넘어가지 마십시오.</b>
+     구조는 들어갔는데 <b>자료가 안 들어간</b> 경우가 흔합니다 —
+     <code>COUNT(*)</code> 로 <b>한 표씩</b> 세어 보십시오.</p>
+
+  <table class="wide">
+    <tr><th style="width:300px">여기서 나오는 것</th><th>뜻</th></tr>
+    <tr><td>표는 있는데 <b>건수가 0</b></td>
+        <td>덤프에 <code>INSERT</code> 가 <b>안 담겼습니다</b>
+            (구조만 뜬 덤프)</td></tr>
+    <tr><td><code>Table_type</code> 에 <b>VIEW 가 없음</b></td>
+        <td>뷰가 빠졌습니다. 실습 2-9 를 다시 확인하십시오</td></tr>
+  </table>
+
+<p><b>제출물</b> — 근거 쪽이 적힌 자가 점검표, 다시 실행해 통과한 화면</p>
 
   <p><b>스스로 확인</b> —
      ① <code>DROP</code> 뒤 답변란만으로 <b>끝까지 돌았습니까</b>
