@@ -1,0 +1,81 @@
+# 「시작 전에 받아야 하는 것」 을 교안 0절 맨 앞에 넣는다.
+# 검수(tools/guide/audit.py)가 «전제물» 로 잡은 일곱 교안이 대상이다.
+import re, sys
+from pathlib import Path
+
+G = Path(r"C:\Users\jwg13\Downloads\TMP_NCS_20260916\COURSE-MANAGEMENT\guides")
+
+# mod: (받아야 하는 것 [ (무엇, 어디에 쓰나) ], 없으면 할 수 있는 것)
+NEEDS = {
+"m07": ([("작업지시서", "캡처 규칙과 제출 형식이 여기 적혀 있습니다"),
+         ("강사 계정 이름", "저장소에 <b>Write 권한</b>으로 초대해야 합니다"),
+         ("GitHub 계정", "본인 것. 조별 저장소를 만듭니다")],
+        "프로젝트 파일은 없습니다. <b>계정만 있으면 실습 1 부터 바로</b> 됩니다"),
+
+"m08": ([("작업지시서", "<b>문제 셋</b>이 여기 있습니다. 수치와 조건이 해마다 바뀝니다"),
+         ("JDK 17 이상 · 편집기", "본인 PC 에 깔아 둡니다")],
+        "문제를 못 받았어도 <b>이 교안의 예제 문제로 연습</b>할 수 있습니다"),
+
+"m09": ([("작업지시서", "도서관 운영 시스템 과제가 여기 있습니다"),
+         ("제공된 UI 소스", "<code>src/provided/</code> 에 넣을 화면 클래스입니다. "
+                          "<b>이름을 바꾸면 안 맞습니다</b>"),
+         ("JDK · Eclipse · MySQL", "본인 PC 에 깔아 둡니다")],
+        "UI 를 못 받았으면 <b>서버 쪽(소켓·DAO)만</b> 먼저 해 둘 수 있습니다"),
+
+"m10": ([("작업지시서", "역할별 배점과 제출물이 여기 적혀 있습니다"),
+         ("받는 프로젝트", "화면은 돌고 <b>서버만 비어</b> 있습니다"),
+         ("MySQL", "두 데이터베이스를 만듭니다 (실습 2-5)")],
+        "프로젝트가 없어도 <b>설계서와 매핑표(실습 2-3 · 2-4)</b> 는 먼저 쓸 수 있습니다"),
+
+"m11": ([("작업지시서", "채점 항목과 제출 형식이 여기 있습니다"),
+         ("EX01 B-Member 프로젝트", "<b>미완성</b> 상태로 받습니다. 빈 메서드를 채웁니다"),
+         ("MySQL · JDK 17 이상", "본인 PC 에 깔아 둡니다")],
+        "프로젝트가 없어도 <b>설계 문서(실습 2-3 · 2-4)</b> 는 먼저 쓸 수 있습니다"),
+
+"m12": ([("작업지시서", "「Spring 기본, 라이브러리 추가 없음」 같은 조건이 여기 있습니다"),
+         ("EX01 S-Product 프로젝트", "골격은 다 서 있고 <b>속만 비어</b> 있습니다"),
+         ("MySQL · JDK 17 이상 · Postman", "화면이 없어 Postman 이 있어야 응답을 봅니다")],
+        "프로젝트가 없어도 <b>문서 넷(19점)</b> 은 먼저 쓸 수 있습니다"),
+
+"m13": ([("작업지시서", "외부 API 를 바꿔도 되는지 같은 조건이 여기 있습니다"),
+         ("EX01 S-Link 프로젝트", "빈 메서드 여섯과 <b>문서 양식 세 장</b>이 들어 있습니다"),
+         ("MySQL · JDK 17 이상 · Postman", "본인 PC 에 깔아 둡니다"),
+         ("바깥으로 나가는 망", "<b>실습 1 에서 먼저 확인</b>합니다. 막히면 아무것도 안 됩니다")],
+        "프로젝트가 없어도 <b>문서 셋(18점)</b> 은 먼저 쓸 수 있습니다 — 레벨 1 전체입니다"),
+}
+
+BLOCK = """<div class="note"><b>시작 전에 받아야 하는 것</b><br>
+이 교안은 <b>아래를 손에 쥐고</b> 시작합니다. 없으면 실습이 진행되지 않습니다.
+<table class="wide">
+{rows}</table>
+<b>앞의 둘은 평가도구라 이 사이트에 올려 두지 않습니다.</b>
+평가문항 원본은 공개 저장소에 두지 않는 것이 이 과정의 원칙입니다 —
+<b>수업 시간에 받으십시오.</b><br>
+{fallback}.
+</div>
+
+"""
+
+
+def row(what, why):
+    return f'  <tr><td class="nm">{what}</td><td>{why}</td></tr>\n'
+
+
+def main():
+    for mod, (items, fallback) in NEEDS.items():
+        p = G / f"{mod}.html"
+        s = p.read_text(encoding="utf-8")
+        if "시작 전에 받아야" in s:
+            print(f"  · {mod} 이미 있음 — 건너뜀")
+            continue
+        m = re.search(r'<h2 class="sec" id="g0">.*?<div class="bd">\s*\n', s, re.S)
+        if not m:
+            print(f"  ✗ {mod} 넣을 자리를 못 찾음")
+            continue
+        block = BLOCK.format(rows="".join(row(*i) for i in items), fallback=fallback)
+        s = s[:m.end()] + block + s[m.end():]
+        p.write_bytes(s.encode("utf-8"))
+        print(f"  ✓ {mod} 넣음 (+{len(block):,}자 · 항목 {len(items)})")
+
+
+main()
