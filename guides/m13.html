@@ -227,6 +227,118 @@
 </table>
 <p>문서 셋이 <b>18점</b>입니다. 양식이 이미 있으니 표만 채우면 됩니다.
    코드를 아무리 잘 만들어도 문서가 없으면 82점이 상한입니다.</p>
+      <div class="lab">
+  <b class="t">실습 1</b>
+  <b>무엇을 내야 하는지 정하고, 바깥에 닿는지 확인합니다</b>
+
+  <p><b>목적</b> — 시작 전에 둘을 못 박습니다.
+     <b>끝났을 때 무엇이 찍혀 있어야 하는가</b>와
+     <b>이 과제가 애초에 가능한가</b>입니다.
+     둘째가 중요합니다 — 이 과제는 <b>남의 서버</b>가 있어야 시작되고,
+     강의실 방화벽이 막고 있으면 <b>코드를 아무리 잘 써도 아무것도 안 됩니다.</b></p>
+
+  <h5>절차 1 — 캡처 네 컷에 «무엇이 보여야 하는지» 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:170px">찍을 것</th>
+        <th style="width:110px">상태 코드</th><th>보여야 할 것</th></tr>
+    <tr><td class="c">1</td><td>인증 없이 호출</td><td class="c"><b>401</b></td>
+        <td>응답 헤더의 <code>WWW-Authenticate</code></td></tr>
+    <tr><td class="c">2</td><td><code>user</code> 로 동기화 시도</td>
+        <td class="c"><b>403</b></td>
+        <td>권한이 모자라 막혔다는 것 — <b>401 과 다릅니다</b></td></tr>
+    <tr><td class="c">3</td><td><code>admin</code> 으로 동기화</td>
+        <td class="c"><b>200</b></td><td>받아 온 <b>건수</b></td></tr>
+    <tr><td class="c">4</td><td>재제공 API 조회</td><td class="c"><b>200</b></td>
+        <td>저장된 목록 — <b>우리 형식</b>으로</td></tr>
+    <tr><td class="c">+</td><td>콘솔 배치 로그</td><td class="c">—</td>
+        <td><b>숫자가 바뀌는 두 줄</b> (실습 8)</td></tr>
+  </table>
+
+  <p><b>2번을 빠뜨리기 쉽습니다.</b>
+     <code>admin</code> 으로만 찍으면 <b>「권한을 나눴다」 를 증명하지 못합니다.</b>
+     <b>막히는 화면이 있어야</b> 채점 항목 10 이 들어옵니다.</p>
+
+  <p>네 컷은 <b>지금 찍는 것이 아닙니다.</b> 실습 10 · 12 · 13 에서 하나씩 나옵니다.
+     지금은 <b>무엇을 찍어야 하는지 적어 두는 것</b>이 전부입니다.</p>
+
+  <h5>절차 2 — 바깥을 한 줄로 두드려 봅니다</h5>
+
+  <p class="cmdline"><code>curl -s "https://jsonplaceholder.typicode.com/posts?_limit=1"</code></p>
+
+  <p>이렇게 나오면 됩니다.</p>
+
+  <p class="cmdline"><code>[
+  {
+    "userId": 1,
+    "id": 1,
+    "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+    "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"
+  }
+]</code></p>
+
+  <div class="note"><b><code>body</code> 안의 <code>\n</code> 을 눈여겨보십시오.</b>
+    <b>줄바꿈이 글자 그대로</b> 들어 있습니다.
+    실습 5 에서 <b>이것이 자료형을 정하는 근거</b>가 됩니다.
+    지금은 「있구나」 만 기억하면 됩니다.</div>
+
+  <h5>절차 3 — 상태 코드와 걸린 시간도 같이 봅니다</h5>
+
+  <p class="cmdline"><code>curl -s -m 12 -w "\nHTTP %{http_code} · %{time_total}s\n" \
+  "https://jsonplaceholder.typicode.com/posts?_limit=2"</code></p>
+
+  <p class="cmdline"><code>HTTP 200 · 1.028057s</code></p>
+
+  <p><b>1초</b> 걸렸습니다. 우리 데이터베이스는 0.001초면 답합니다.
+     <b>훨씬 느린 상대</b>와 맞춰야 한다는 뜻이고,
+     그래서 뒤에서 <b>시간 제한</b>과 <b>주기</b>를 따로 정합니다 (실습 8 이후).</p>
+
+  <div class="note"><b>이 «1초» 는 첫 호출이라 느린 것입니다.</b>
+    이름을 찾고(DNS) 암호 통신을 여는(TLS) 일이 <b>처음 한 번만</b> 일어납니다.
+    두 번째부터는 <b>0.2초쯤</b>으로 내려갑니다 — 실습 3 에서 재 봅니다.
+    <b>그래도 우리 데이터베이스보다 200배 느립니다.</b>
+    시간 제한은 <b>느린 쪽 값</b>을 기준으로 잡아야 합니다.</div>
+
+  <h5>절차 4 — 안 되면 어디가 막힌 것인지 가릅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:280px">나오는 것</th><th>뜻과 할 일</th></tr>
+    <tr><td><code>Could not resolve host</code></td>
+        <td>이름을 못 찾습니다 — <b>DNS</b> 또는 아예 인터넷이 안 됩니다</td></tr>
+    <tr><td><code>Connection timed out</code></td>
+        <td>이름은 찾았는데 <b>막혀 있습니다</b> — 방화벽·프록시</td></tr>
+    <tr><td><code>SSL certificate problem</code></td>
+        <td>가운데서 <b>가로채는 장비</b>가 있습니다 — 기관 프록시</td></tr>
+    <tr><td>HTML 로그인 화면이 나옴</td>
+        <td><b>인증 프록시</b>입니다. 브라우저로 한 번 로그인해야 합니다</td></tr>
+  </table>
+
+  <div class="warn"><b>여기서 막히면 «다른 API 로 바꿀지» 를 오늘 정하십시오.</b>
+    작업지시서가 <b>공공데이터포털로 교체</b>를 허용해 두었습니다.
+    그런데 API 를 바꾸면 <b>필드 이름이 전부 달라집니다</b> —
+    실습 5 의 매핑표와 DTO 를 통째로 다시 써야 합니다.
+    <b>마지막 날에 발견하면 손쓸 수가 없습니다.</b></div>
+
+  <h5>절차 5 — 몇 건이 오는지 세어 둡니다</h5>
+
+  <p class="cmdline"><code>curl -s "https://jsonplaceholder.typicode.com/posts" -o posts.json
+python -c "import json;d=json.load(open('posts.json'));print(len(d),'건 ·',list(d[0].keys()))"</code></p>
+
+  <p class="cmdline"><code>100 건 · ['userId', 'id', 'title', 'body']</code></p>
+
+  <p><b>100건 · 필드 넷</b>입니다. 이 두 숫자가
+     실습 4 의 요구사항 분석서와 실습 5 의 매핑표에 그대로 들어갑니다.</p>
+
+  <p><b>제출물</b> — 캡처 네 컷 계획표 + <code>curl</code> 결과 화면 +
+     상태 코드와 시간이 찍힌 화면 + 건수·필드 수</p>
+
+  <p><b>스스로 확인</b> —
+     ⓪ 네 컷에 <b>403 이 들어</b> 있습니까
+     ① <b>200</b> 을 받았습니까
+     ② 응답이 <b>JSON</b> 입니까 (HTML 이면 프록시입니다)
+     ③ 몇 <b>건</b>, 몇 <b>필드</b>인지 세었습니까
+     ④ 막혔다면 <b>오늘 안에</b> 교사와 대안을 정했습니까</p>
+</div>
       </div>
     </div>
 
@@ -274,6 +386,141 @@ curl -s "https://jsonplaceholder.typicode.com/posts?_limit=1"
   기동 로그에 임시 비밀번호가 한 줄 찍히고 로그인 창이 뜹니다.
   고장이 아니니 놀라지 말고 <code>SecurityConfig</code> 를 만들면 됩니다.
 </div>
+      <div class="lab">
+  <b class="t">실습 2</b>
+  <b>프로젝트를 띄워 «막힌 것과 고장난 것» 을 가릅니다</b>
+
+  <p><b>목적</b> — EX01 을 처음 띄우면 <b>거의 다 안 됩니다.</b>
+     그런데 <b>안 되는 것이 다 고장은 아닙니다.</b>
+     무엇이 정상이고 무엇이 내가 채울 자리인지 여기서 가려 둡니다.</p>
+
+  <h5>절차 1 — 데이터베이스부터 만듭니다</h5>
+
+  <p class="cmdline"><code>mysql -u root -p &lt; db/schema.sql
+mysql&gt; USE testdb;
+mysql&gt; SHOW TABLES;</code></p>
+
+  <p>표가 안 보이면 <code>schema.sql</code> 이 <b>다른 데이터베이스에</b> 만들어진 것입니다.
+     파일 첫 줄의 <code>USE</code> 를 확인하십시오.</p>
+
+  <h5>절차 2 — 띄웁니다</h5>
+
+  <p class="cmdline"><code>gradlew.bat bootRun</code></p>
+
+  <p>기동 로그에 <b>이런 줄</b>이 하나 지나갑니다. 놓치지 마십시오.</p>
+
+  <p class="cmdline"><code>WARN 58288 --- [  main] .s.a.UserDetailsServiceAutoConfiguration :
+
+Using generated security password: <b>7e410ca5-b39f-45ab-b04b-c1bcc908abd4</b>
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.</code></p>
+
+  <p class="cmdline"><code>INFO 58288 --- [  main] o.s.boot.tomcat.TomcatWebServer : Tomcat started on port 8077 (http) with context path '/'
+INFO 58288 --- [  main] kr.link.LinkApp                : Started LinkApp in 7.429 seconds</code></p>
+
+  <p><b><code>Started</code> 가 찍혔으면 기동은 된 것</b>입니다.
+     이제 안 되는 것들이 <b>고장인지 아닌지</b>를 가릅니다.</p>
+
+  <h5>절차 3 — 세 가지를 «구분» 합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:250px">일어나는 일</th>
+        <th>고장인가</th></tr>
+    <tr><td class="c">①</td><td>아무 주소나 부르면 <b>401</b>,
+        브라우저로 열면 <b>로그인 창</b>이 뜬다</td>
+        <td><b>정상</b> — <code>security</code> 의존성이 들어 있는데
+            아직 설정을 안 해서 <b>전부 막힌</b> 상태입니다</td></tr>
+    <tr><td class="c">②</td><td>인증을 통과해도 <b>500</b> 이 온다</td>
+        <td><b>정상</b> — <b>내가 채울 빈 메서드</b>입니다</td></tr>
+    <tr><td class="c">③</td><td>기동 자체가 안 됨</td>
+        <td><b>고장</b> — 절차 5 를 보십시오</td></tr>
+  </table>
+
+  <h5>절차 4 — ① 과 ② 를 직접 받아 봅니다</h5>
+
+  <p class="cmdline"><code>curl -s -i http://localhost:8077/api/link/posts
+
+HTTP/1.1 <b>401</b>
+Set-Cookie: JSESSIONID=C62480477BE5B37A17AA8797BC658247; Path=/; HttpOnly
+<b>WWW-Authenticate: Basic realm="Realm", charset="UTF-8"</b>
+X-Content-Type-Options: nosniff</code></p>
+
+  <p><b><code>WWW-Authenticate</code> 줄이 «로그인 창» 의 정체</b>입니다.
+     브라우저는 이 줄을 보고 아이디·비밀번호 상자를 띄웁니다.
+     <code>curl</code> 이나 Postman 은 상자를 안 띄우고 <b>401 을 그대로</b> 보여 줍니다.
+     <b>같은 응답을 도구가 다르게 보여 주는 것</b>일 뿐입니다.</p>
+
+  <p>이제 <b>기동 로그의 임시 비밀번호</b>로 다시 부릅니다.</p>
+
+  <p class="cmdline"><code>curl -s -u user:7e410ca5-b39f-45ab-b04b-c1bcc908abd4 \
+     http://localhost:8077/api/link/posts
+
+{"timestamp":"2026-09-18T04:53:05.007Z","status":<b>500</b>,
+ "error":"Internal Server Error","path":"/api/link/posts"}</code></p>
+
+  <div class="warn"><b>401 이 500 으로 바뀐 것이 «진도» 입니다.</b>
+    401 은 <b>문 앞에서 막힌 것</b>이고,
+    500 은 <b>들어와서 안이 비어 있는 것</b>입니다.
+    <b>두 번째가 내가 채울 자리</b>입니다.
+    이 둘을 구분 못 하면 <b>보안 설정을 고쳐야 할 때 코드를 뒤지게</b> 됩니다.</div>
+
+  <h5>절차 5 — 응답에 «예외 이름이 없는 것» 을 확인합니다</h5>
+
+  <p>위 응답 어디에도 <code>UnsupportedOperationException</code> 이 <b>없습니다.</b>
+     그것은 <b>서버 콘솔에만</b> 찍힙니다.</p>
+
+  <p class="cmdline"><code>ERROR 58288 --- [nio-8077-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet] :
+  Servlet.service() ... threw exception
+  [Request processing failed: java.lang.UnsupportedOperationException: 아직 구현하지 않았습니다]
+
+java.lang.UnsupportedOperationException: 아직 구현하지 않았습니다
+	at kr.link.LinkApp.posts(LinkApp.java:16)</code></p>
+
+  <p><b>고치는 사람은 콘솔을 보고, 부르는 쪽은 500 한 줄만 봅니다.</b>
+     <b>어느 줄에서 났는지는 콘솔에만</b> 있으니,
+     막혔을 때 <b>브라우저 화면이 아니라 콘솔을 보십시오.</b></p>
+
+  <h5>절차 6 — ③ 이면 어디가 문제인지 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:300px">기동 로그에 나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>Communications link failure</code></td>
+        <td>MySQL 이 <b>안 떠 있습니다</b></td></tr>
+    <tr><td><code>Access denied for user</code></td>
+        <td><code>application.properties</code> 의 <b>계정·비밀번호</b></td></tr>
+    <tr><td><code>Unknown database 'testdb'</code></td>
+        <td><code>schema.sql</code> 을 <b>안 돌렸습니다</b> (절차 1)</td></tr>
+    <tr><td><code>Port 8080 was already in use</code></td>
+        <td>다른 프로그램이 쓰고 있습니다 —
+            <code>server.port</code> 를 바꾸십시오</td></tr>
+  </table>
+
+  <div class="note"><b>임시 비밀번호는 띄울 때마다 바뀝니다.</b>
+    다시 띄우면 아까 것으로는 <b>401 이 돌아옵니다.</b>
+    그래서 과제에는 쓸 수 없고,
+    실습 10 에서 <b>계정 둘(<code>user</code> · <code>admin</code>)을 직접</b> 만듭니다.
+    <b>여기서 <code>security</code> 의존성을 빼 버리면 안 됩니다</b> —
+    채점 항목 10 이 그것으로 받는 점수입니다.</div>
+
+  <h5>절차 7 — 채울 자리를 «세어» 둡니다</h5>
+
+  <p class="cmdline"><code>찾을 것 :  UnsupportedOperationException
+나오는 곳 :  코드 여섯 자리
+문서 양식 :  docs/산출물_양식/  아래 세 장</code></p>
+
+  <p><b>여섯 + 셋</b>이 이 과제의 전부입니다.
+     <b>문서 셋이 18점</b>이고 양식이 이미 있으니
+     <b>코드를 시작하기 전에 먼저 끝낼 수 있습니다</b> (실습 3 · 4 · 6).</p>
+
+  <p><b>제출물</b> — 기동 로그(임시 비밀번호 줄이 보이게) +
+     <b>401 헤더</b> 화면 + <b>500 응답</b> 화면 + 콘솔의 예외 줄 + 채울 자리 목록</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>SHOW TABLES</code> 로 표를 <b>봤습니까</b>
+     ② <b>401 과 500</b> 이 어떻게 다른지 말할 수 있습니까
+     ③ 응답에 <b>예외 이름이 없는 것</b>을 확인했습니까
+     ④ <code>security</code> 를 <b>빼지 않았습니까</b></p>
+</div>
       </div>
     </div>
 
@@ -316,6 +563,123 @@ curl -s "https://jsonplaceholder.typicode.com/posts?_limit=1"
 <p>「통합 구현」 이라는 이름이 여기서 옵니다.
    <b>받는 쪽과 주는 쪽을 하나로 잇는 것</b>이 이 교과입니다.
    받아 오기만 만들고 내주기를 빠뜨리면 절반입니다.</p>
+      <div class="lab">
+  <b class="t">실습 3</b>
+  <b>연계 둘을 «표 한 장» 으로 세웁니다</b>
+
+  <p><b>목적</b> — 이 교과에서 가장 많이 빠뜨리는 것이 <b>IF-002</b> 입니다.
+     「연계」 라 하면 <b>받아 오는 것만</b> 떠올리기 때문입니다.
+     여기서 <b>둘</b>이라는 것을 못 박아 두면 뒤의 문서 셋이 저절로 둘씩 나옵니다.</p>
+
+  <h5>절차 1 — 방향을 화살표로 그려 봅니다</h5>
+
+  <p class="cmdline"><code>          IF-001  게시글 수신                     IF-002  게시글 재제공
+          ─────────────────────                    ─────────────────────
+
+  외부 API  ──────────&gt;  우리 서버  ──────────&gt;  다른 시스템 · 화면
+ (남의 것)   우리가 «부른다»          남이 «부른다»
+             RestTemplate                     REST API
+             수동 + 배치 60초                  실시간</code></p>
+
+  <table class="wide">
+    <tr><th style="width:90px">연계 ID</th><th style="width:130px">무엇</th>
+        <th style="width:130px">방향</th><th style="width:150px">누가 부르는가</th>
+        <th>주기</th></tr>
+    <tr><td class="nm">IF-001</td><td>게시글 수신</td><td>외부 → 우리</td>
+        <td><b>우리가</b> 부릅니다</td><td>수동 + 배치 60초</td></tr>
+    <tr><td class="nm">IF-002</td><td>게시글 재제공</td><td>우리 → 클라이언트</td>
+        <td><b>남이</b> 부릅니다</td><td>실시간</td></tr>
+  </table>
+
+  <div class="note"><b>「누가 부르는가」 칸이 이 표의 핵심입니다.</b>
+    지금까지 만든 프로그램은 <b>전부 남이 우리를 부르는 쪽</b>이었습니다.
+    IF-001 은 <b>반대</b>입니다 — 우리가 먼저 말을 겁니다.
+    <b>부르는 쪽이 되면 새로 생각할 것이 셋</b>이고,
+    그것이 절차 2 입니다.</div>
+
+  <h5>절차 2 — 「남의 것」 이라서 생기는 셋을 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:230px">상대가 이럴 수 있다</th>
+        <th style="width:130px">우리 대응</th><th>어디서</th></tr>
+    <tr><td class="c">①</td><td><b>느리다</b> — 기다리는 동안 우리도 멈춘다</td>
+        <td>시간 제한 · 주기</td><td>실습 8</td></tr>
+    <tr><td class="c">②</td><td><b>멈춘다</b> — 우리가 고칠 방법이 없다</td>
+        <td>실패 처리 · 재시도</td><td>실습 9</td></tr>
+    <tr><td class="c">③</td><td><b>형식을 바꾼다</b> — 알려 주지 않고 바꾼다</td>
+        <td>표준화 (DTO)</td><td>실습 5</td></tr>
+  </table>
+
+  <p>① 의 근거는 <b>실습 1 에서 잰 시간</b>입니다.
+     <b>얼마인지는 절차 3 에서 다시 재서</b> 정합니다 —
+     첫 호출과 그 뒤가 다르기 때문입니다.
+     <b>정한 숫자를 요구사항 분석서에 그대로 적으십시오</b> (실습 4).</p>
+
+  <h5>절차 3 — ① 을 «직접» 겪어 봅니다</h5>
+
+  <p>상대가 느린 것이 왜 우리 문제가 되는지는, 여러 번 불러 보면 압니다.</p>
+
+  <p class="cmdline"><code>curl -s -o /dev/null -w "%{time_total}s\n" \
+  "https://jsonplaceholder.typicode.com/posts/1"</code></p>
+
+  <p>이것을 <b>다섯 번</b> 돌리면 이렇게 나옵니다.</p>
+
+  <p class="cmdline"><code>0.254289s
+0.173217s
+0.243282s
+0.240880s
+0.178736s</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">눈여겨볼 것</th><th></th></tr>
+    <tr><td>실습 1 에서는 <b>1.028초</b>였다</td>
+        <td><b>첫 호출</b>이라 DNS 조회와 TLS 악수가 함께 들었습니다</td></tr>
+    <tr><td>지금은 <b>0.17 ~ 0.25초</b></td>
+        <td>같은 값도 <b>1.5배까지</b> 흔들립니다</td></tr>
+    <tr><td>우리 데이터베이스는 <b>0.001초</b></td>
+        <td>가장 빠를 때도 <b>200배 느립니다</b></td></tr>
+  </table>
+
+  <p><b>제일 느린 값</b>을 적어 두는 것이 시간 제한을 정하는 근거가 됩니다.
+     <b>평균으로 잡으면 절반이 걸립니다.</b></p>
+
+  <div class="warn"><b>시간 제한을 안 걸면 «영원히» 기다립니다.</b>
+    상대가 답을 안 주고 연결만 붙들고 있으면
+    우리 스레드 하나가 <b>거기 묶입니다.</b>
+    그런 요청이 쌓이면 <b>우리 서버가 남 때문에 멈춥니다.</b>
+    <b>남의 장애가 우리 장애가 되는 것</b> — 이것이 연계에서 가장 흔한 사고입니다.
+    실습 8 에서 시간 제한을 겁니다.</div>
+
+  <h5>절차 4 — IF-002 를 빠뜨리지 않았는지 확인합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th>물음</th></tr>
+    <tr><td class="c">□</td><td>연계 정의서에 표가 <b>둘</b>입니까 (실습 6)</td></tr>
+    <tr><td class="c">□</td><td>IF-002 의 주기를 <b>「실시간」</b> 이라 적었습니까</td></tr>
+    <tr><td class="c">□</td><td>IF-001 의 주기를 <b>「수동 + 배치 60초」</b> 라 적었습니까</td></tr>
+    <tr><td class="c">□</td><td>둘의 <b>주기가 다른 까닭</b>을 말할 수 있습니까</td></tr>
+  </table>
+
+  <p><b>IF-001 을 「실시간」 이라 적으면 틀립니다.</b>
+     사람이 <code>/sync</code> 를 눌러야 받아 오고,
+     그것과 <b>별개로</b> 배치가 60초마다 돕니다.
+     IF-002 만 진짜 실시간입니다 — 누가 부르면 <b>그 자리에서</b> 답합니다.</p>
+
+  <h5>절차 5 — 한 장으로 옮깁니다</h5>
+
+  <p>위의 화살표 그림과 표 둘을 <b>한 장</b>에 담습니다.
+     이 장이 <b>실습 4 · 6 의 첫 페이지</b>가 되고,
+     발표할 때 <b>맨 처음 보여 줄 그림</b>이 됩니다.</p>
+
+  <p><b>제출물</b> — 연계 구성도(화살표) + 연계 목록표(둘) +
+     「남의 것」 대응 셋 + 응답 시간 다섯 번 측정</p>
+
+  <p><b>스스로 확인</b> —
+     ① 연계가 <b>둘</b>인 것을 표로 적었습니까
+     ② <b>누가 부르는가</b> 칸이 둘 다 채워졌습니까
+     ③ 느림 · 멈춤 · 형식 변경 <b>셋</b>에 대응을 적었습니까
+     ④ 응답 시간을 <b>여러 번</b> 재 봤습니까</p>
+</div>
       </div>
     </div>
 
@@ -357,6 +721,110 @@ curl -s "https://jsonplaceholder.typicode.com/posts?_limit=1"
 </table>
 <p>두 칸이 뒤의 채점 항목 08 · 10 과 이어집니다.
    여기서 적은 대로 만들면 문서와 코드가 저절로 맞습니다.</p>
+      <div class="lab">
+  <b class="t">실습 4</b>
+  <b>요구사항 분석서 일곱 칸을 «근거와 함께» 메웁니다</b>
+
+  <p><b>목적</b> — 채점 항목 01 · <b>6점</b>입니다.
+     양식이 이미 있으니 <b>빈 칸을 메우는 일</b>이고,
+     <b>코드를 한 줄도 안 쓴 지금 끝낼 수 있습니다.</b></p>
+
+  <h5>절차 1 — 일곱 칸을 채웁니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:150px">칸</th>
+        <th style="width:230px">우리 예제에서는</th><th>근거가 어디서 나왔나</th></tr>
+    <tr><td class="c">1</td><td class="nm">연계 대상</td>
+        <td>JSONPlaceholder <code>/posts</code></td>
+        <td>실습 1 — 실제로 <b>200</b> 을 받아 봤습니다</td></tr>
+    <tr><td class="c">2</td><td class="nm">연계 목적</td>
+        <td>외부 게시글을 받아 우리 형식으로 보관하고 재제공</td>
+        <td>실습 3 — 연계가 <b>둘</b>입니다</td></tr>
+    <tr><td class="c">3</td><td class="nm">연계 데이터</td>
+        <td>필드 <b>넷</b> · 1회 <b>100건</b></td>
+        <td>실습 1 절차 5 에서 <b>세었습니다</b></td></tr>
+    <tr><td class="c">4</td><td class="nm">연계 방식</td>
+        <td>HTTPS · REST · JSON · <code>RestTemplate</code></td>
+        <td>실습 1 — 응답이 JSON 이었습니다</td></tr>
+    <tr><td class="c">5</td><td class="nm">연계 주기</td>
+        <td><b>수동 + 배치 60초</b></td>
+        <td>실습 3 절차 4</td></tr>
+    <tr><td class="c">6</td><td class="nm">오류 · 장애 대응</td>
+        <td><b>셋</b> — 아래 절차 2</td>
+        <td>실습 3 절차 2 의 「남의 것」 셋</td></tr>
+    <tr><td class="c">7</td><td class="nm">보안</td>
+        <td><b>우리 API</b> 의 인증·권한</td>
+        <td>실습 1 절차 1 의 캡처 네 컷</td></tr>
+  </table>
+
+  <div class="warn"><b>6번과 7번을 비워 두기 쉽습니다.</b>
+    6번은 <b>「아직 안 만들어 봐서 무슨 오류가 날지 모른다」</b> 고 비우고,
+    7번은 <b>「외부 API 에 인증이 없어서 쓸 게 없다」</b> 고 비웁니다.
+    <b>둘 다 채점 항목 08 · 10 과 이어져 있습니다.</b>
+    여기서 적은 대로 만들면 <b>문서와 코드가 저절로 맞습니다.</b></div>
+
+  <h5>절차 2 — 6번(오류 · 장애)에 «셋» 을 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">어떤 일</th><th style="width:170px">어떻게 안다</th>
+        <th>어떻게 한다</th></tr>
+    <tr><td class="nm">못 닿음</td><td>연결 예외 · 시간 초과</td>
+        <td>기록을 남기고 <b>다음 주기에 다시</b></td></tr>
+    <tr><td class="nm">상태 코드 이상</td><td>200 이 아님 (404 · 500 …)</td>
+        <td>같음. <b>우리 자료는 건드리지 않습니다</b></td></tr>
+    <tr><td class="nm">본문 없음 · 형식 다름</td><td>빈 배열 · 변환 실패</td>
+        <td>건너뛰고 <b>몇 건을 건너뛰었는지</b> 남깁니다</td></tr>
+  </table>
+
+  <p>셋 다 <b>「우리가 안 죽는다」</b> 가 공통입니다.
+     남이 잘못되었다고 <b>우리 서버가 멈추면 안 됩니다.</b>
+     실습 9 에서 이 셋을 <b>실제로 일으켜</b> 봅니다.</p>
+
+  <h5>절차 3 — 7번(보안)에 «우리 쪽» 을 적습니다</h5>
+
+  <p class="cmdline"><code>보안
+
+  인증 : HTTP Basic (Spring Security)
+  권한 : USER  = 조회만            → GET  /api/link/posts
+         ADMIN = 조회 + 동기화     → POST /api/link/sync
+  근거 : 동기화는 «외부를 부르고 우리 자료를 바꾸는» 일이므로 관리자만
+  확인 : user 로 동기화를 시도해 403 이 나오는 화면을 캡처</code></p>
+
+  <p><b>마지막 줄이 중요합니다.</b>
+     「관리자만」 이라고 적어 놓고 <b>막히는 화면을 안 찍으면</b>
+     지켰다는 증거가 없습니다 (실습 1 절차 1 의 2번 컷).</p>
+
+  <h5>절차 4 — 5번(주기)을 적어 두면 뒤가 쉬워집니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">여기 적은 것</th><th>뒤에서 저절로 정해지는 것</th></tr>
+    <tr><td>「수동 + 배치 60초」</td>
+        <td>실습 8 에서 <code>@Scheduled</code> 를 <b>어떻게 걸지</b> 고민할 것이 없습니다</td></tr>
+    <tr><td>「동기화는 관리자만」</td>
+        <td>실습 10 에서 <b>규칙을 어떻게 쓸지</b> 이미 정해져 있습니다</td></tr>
+  </table>
+
+  <p><b>분석서를 먼저 쓰는 까닭이 이것입니다.</b>
+     「분석서」 라는 말이 거창하지만 하는 일은 <b>정하는 것</b>입니다.
+     코드를 쓰다가 정하면 <b>정할 때마다 코드를 고치게</b> 됩니다.</p>
+
+  <h5>절차 5 — 스스로 채점해 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th>물음</th></tr>
+    <tr><td class="c">□</td><td>일곱 칸이 <b>하나도 안 비었습니까</b></td></tr>
+    <tr><td class="c">□</td><td>칸마다 <b>숫자나 근거</b>가 붙어 있습니까 (100건 · 필드 넷 · 60초)</td></tr>
+    <tr><td class="c">□</td><td>6번에 <b>셋</b>이 있습니까</td></tr>
+    <tr><td class="c">□</td><td>7번이 <b>우리 API</b> 이야기입니까 (외부 API 가 아니라)</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>연계_요구사항_분석서.md</code> (일곱 칸 · 근거 포함)</p>
+
+  <p><b>스스로 확인</b> —
+     ① 코드를 <b>한 줄도 안 쓰고</b> 여기까지 왔습니까
+     ② 6번 · 7번을 <b>비우지 않았습니까</b>
+     ③ 적은 주기와 권한이 <b>실습 8 · 10 에서 쓸 수 있는 모양</b>입니까</p>
+</div>
       </div>
     </div>
 
@@ -401,16 +869,201 @@ public class PostDTO {
     public static PostDTO from(Post p) { ⋯ }  <i>// Entity → DTO</i>
 }</pre>
 
-<p><code>@JsonIgnoreProperties(ignoreUnknown = true)</code> 가 없으면
-   외부가 필드를 <b>하나만 늘려도 우리가 터집니다</b>.
-   「모르는 필드가 왔다」 며 변환에서 예외가 납니다.
-   남이 언제 무엇을 바꿀지 모르니 모르는 것은 무시하게 둡니다.</p>
+<p><code>@JsonIgnoreProperties(ignoreUnknown = true)</code> 는
+   <b>외부가 필드를 늘려도 우리가 안 터지게</b> 못 박는 한 줄입니다.
+   다만 <b>「없으면 반드시 터진다」 고 알고 있으면 틀립니다.</b>
+   터지느냐 마느냐는 <b>Jackson 판과 설정</b>에 달려 있습니다.</p>
+
+<table>
+  <tr><th style="width:230px"><code>FAIL_ON_UNKNOWN_PROPERTIES</code></th>
+      <th style="width:110px">기본값</th><th>모르는 필드가 오면</th></tr>
+  <tr><td class="g">Jackson 2</td><td class="c"><b>true</b></td>
+      <td><code>UnrecognizedPropertyException</code> 으로 <b>터집니다</b></td></tr>
+  <tr><td class="g">Jackson 3</td><td class="c"><b>false</b></td>
+      <td><b>그냥 통과합니다</b> — 모르는 필드를 버립니다</td></tr>
+</table>
+
+<p>이 프로젝트는 <b>Jackson 3</b> 이라 <b>안 터집니다.</b>
+   스프링 부트도 이 설정을 켜지 않습니다.
+   그런데도 이 한 줄을 쓰는 까닭은 둘입니다 —
+   <b>① 설정은 누가 바꿀 수 있고</b>,
+   <b>② 이 클래스가 무엇을 기대하는지 코드에 남습니다.</b>
+   실습 5 에서 <b>두 판의 동작을 직접</b> 확인합니다.</p>
 
 <h4>createAt 은 왜 있는가</h4>
 <p>외부 응답에 없는 필드입니다. 우리가 붙입니다.
    언제 받아 왔는지를 남겨 두면
    「이 자료가 얼마나 오래된 것인가」 를 알 수 있습니다.
    연계에서는 자료의 나이가 중요할 때가 많습니다.</p>
+      <div class="lab">
+  <b class="t">실습 5</b>
+  <b>매핑표를 «세어서» 만들고, 모르는 필드를 넣어 봅니다</b>
+
+  <p><b>목적</b> — 채점 항목 02 · 03 · 05 가 <b>모두 이 표 한 장</b>을 봅니다.
+     합쳐 <b>18점</b>입니다. 표 한 장이 이렇게 무거운 경우는 드뭅니다.</p>
+
+  <h5>절차 1 — 외부가 «실제로» 무엇을 주는지 셉니다</h5>
+
+  <p>필드 이름만 보고 자료형을 정하면 반드시 틀립니다. 100건을 받아 세어 봅니다.</p>
+
+  <p class="cmdline"><code>curl -s "https://jsonplaceholder.typicode.com/posts" -o posts.json</code></p>
+
+  <p><code>count_fields.py</code> 라는 이름으로 저장하고 돌립니다.</p>
+
+  <p class="cmdline"><code>import json
+
+d = json.load(open('posts.json', encoding='utf-8'))
+print('건수', len(d))
+
+for k in ('userId', 'id', 'title', 'body'):
+    v = [x[k] for x in d]
+    if isinstance(v[0], int):
+        print(f'{k:7} 정수  {min(v)} ~ {max(v)}')
+    else:
+        L  = [len(x) for x in v]
+        nl = sum(1 for x in v if '\n' in x)
+        print(f'{k:7} 글자  {min(L)} ~ {max(L)}자 · 줄바꿈 든 건수 {nl}/{len(v)}')</code></p>
+
+  <p class="cmdline"><code>python count_fields.py</code></p>
+
+  <p class="cmdline"><code>건수 100
+userId  정수  1 ~ 10
+id      정수  1 ~ 100
+title   글자  12 ~ 79자 · 줄바꿈 든 건수 <b>0</b>/100
+body    글자  102 ~ 225자 · 줄바꿈 든 건수 <b>100</b>/100</code></p>
+
+  <div class="warn"><b>마지막 줄을 보십시오 — <code>body</code> 는 «전부» 줄바꿈이 들어 있습니다.</b>
+    100건 중 100건입니다. 우연이 아니라 <b>그렇게 생긴 자료</b>입니다.
+    이것을 모르고 <code>VARCHAR(100)</code> 으로 잡으면
+    <b>102자짜리부터 안 들어갑니다</b> (실습 2 에서 본 <code>Data too long</code>).
+    화면에 그대로 뿌리면 <b>줄이 안 바뀐 채로</b> 한 줄이 됩니다.</div>
+
+  <h5>절차 2 — 매핑표를 씁니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:110px">외부 필드</th><th style="width:110px">우리 필드</th>
+        <th style="width:130px">우리 자료형</th><th>정한 근거</th></tr>
+    <tr><td><code>id</code></td><td><code>id</code></td><td>BIGINT</td>
+        <td>1~100 이지만 <b>늘어날 수 있어</b> 넉넉히</td></tr>
+    <tr><td><code>userId</code></td><td><code>userId</code></td><td>BIGINT</td>
+        <td>같음</td></tr>
+    <tr><td><code>title</code></td><td><code>title</code></td><td>VARCHAR(255)</td>
+        <td>최대 <b>79자</b> — 세 배 여유</td></tr>
+    <tr><td><code>body</code></td><td><code>body</code></td><td><b>TEXT</b></td>
+        <td>최대 <b>225자</b> + <b>줄바꿈이 전부 들어 있음</b></td></tr>
+    <tr><td><span class="cc">없음</span></td><td><code>createAt</code></td>
+        <td>DATETIME</td>
+        <td><b>우리가 붙입니다</b> — 언제 받아 왔는지</td></tr>
+  </table>
+
+  <p><b>「정한 근거」 칸이 점수입니다.</b>
+     <code>VARCHAR(255)</code> 라고만 적으면 「왜 255 인가」 에 답할 수 없습니다.
+     <b>79자를 세어 봤다</b>는 것이 근거입니다.</p>
+
+  <h5>절차 3 — <code>createAt</code> 이 왜 있는지 적습니다</h5>
+
+  <p>외부 응답에 <b>없는</b> 필드입니다. 우리가 붙입니다.
+     언제 받아 왔는지를 남겨 두면 <b>「이 자료가 얼마나 오래된 것인가」</b> 를 알 수 있습니다.
+     연계에서는 <b>자료의 나이</b>가 중요할 때가 많습니다 —
+     「어제 받은 값을 오늘 것처럼 보여 주고 있지 않은가」 를 이 칸으로 봅니다.</p>
+
+  <h5>절차 4 — 상대가 필드를 늘렸다고 «가정해» 봅니다</h5>
+
+  <p>연계에서 가장 흔한 사고입니다. 상대가 <b>알려 주지 않고</b> 필드를 늘립니다.</p>
+
+  <p class="cmdline"><code>오늘 오는 것   {"userId":1,"id":1,"title":"제목","body":"본문"}
+
+내일 오는 것   {"userId":1,"id":1,"title":"제목","body":"본문",
+                <b>"tags":["공지"],"viewCount":42</b>}</code></p>
+
+  <p>이때 우리가 터지느냐 마느냐는 <b>Jackson 판과 설정</b>에 달려 있습니다.
+     <b>직접 확인해 보십시오.</b></p>
+
+  <p class="cmdline"><code>Jackson 판 : <b>3.1.4</b>
+기본값 FAIL_ON_UNKNOWN_PROPERTIES = <b>false</b>
+
+[A] 기본 설정
+    통과
+
+[B] 일부러 켰을 때
+    tools.jackson.databind.exc.UnrecognizedPropertyException
+    Unrecognized property "viewCount" (class StrictProbe$P),
+    not marked as ignorable (2 known properties: "id", "title")
+
+[C] 켠 채로 @JsonIgnoreProperties 를 붙이면
+    통과</code></p>
+
+  <p>Jackson <b>2</b> 였다면 <b>[A] 에서 이미 터집니다.</b></p>
+
+  <p class="cmdline"><code>Jackson 판 : <b>2.21.4</b>
+기본값 FAIL_ON_UNKNOWN_PROPERTIES = <b>true</b>
+
+[A] 기본 설정 · 보호 장치 없는 그릇
+    UnrecognizedPropertyException
+    Unrecognized field "viewCount" (class J2Probe$P),
+    not marked as ignorable (2 known properties: "title", "id")
+
+[B] @JsonIgnoreProperties 를 붙이면
+    통과</code></p>
+
+  <table class="wide">
+    <tr><th style="width:150px">판</th><th style="width:130px">기본값</th>
+        <th>모르는 필드가 오면</th></tr>
+    <tr><td class="nm">Jackson 2</td><td class="c"><b>true</b></td>
+        <td><b>터집니다</b></td></tr>
+    <tr><td class="nm">Jackson 3 <span class="cc">(이 프로젝트)</span></td>
+        <td class="c"><b>false</b></td><td><b>그냥 통과</b>합니다</td></tr>
+  </table>
+
+  <div class="note"><b>그래도 <code>@JsonIgnoreProperties(ignoreUnknown = true)</code> 를 씁니다.</b>
+    지금 안 터진다고 안 써도 되는 것이 아닙니다 —
+    <b>① 설정은 누가 바꿀 수 있고</b>,
+    <b>② 이 클래스가 무엇을 기대하는지 코드에 남습니다.</b>
+    「기본값이 그러니까」 에 기대는 코드는
+    <b>판이 올라가면 조용히 깨집니다.</b>
+    교재나 인터넷 글이 「없으면 터진다」 고 하는 것은
+    <b>Jackson 2 를 기준으로 쓴 것</b>입니다.</div>
+
+  <h5>절차 5 — 왜 그대로 안 쓰고 DTO 를 두는지 적습니다</h5>
+
+  <p class="cmdline"><code>@JsonIgnoreProperties(ignoreUnknown = true)
+@Data @NoArgsConstructor @AllArgsConstructor @Builder
+public class PostDTO {
+    private Long id;
+    private Long userId;
+    private String title;
+    private String body;
+    private LocalDateTime createAt;          <i>// 외부에 없음 — 우리가 붙임</i>
+
+    public Post toEntity() { ⋯ }             <i>// DTO → Entity</i>
+    public static PostDTO from(Post p) { ⋯ } <i>// Entity → DTO</i>
+}</code></p>
+
+  <table class="wide">
+    <tr><th style="width:44%">외부 JSON 을 그대로 쓰면</th><th>가운데 DTO 를 두면</th></tr>
+    <tr><td>상대가 <code>title</code> 을 <code>subject</code> 로 바꾸는 순간
+            <b>우리 코드 곳곳을 고칩니다</b></td>
+        <td><b>변환 메서드 안만</b> 바꾸면 나머지는 그대로입니다</td></tr>
+  </table>
+
+  <p>이것이 <b>「표준을 설계한다」</b> 는 말의 뜻입니다.
+     <b>고칠 곳을 한 군데로 모으는 일</b>이지 거창한 것이 아닙니다.</p>
+
+  <h5>절차 6 — 표를 그대로 명세서로 옮깁니다</h5>
+
+  <p>절차 2 의 표가 <b>연계 명세서의 본문</b>입니다.
+     양식에 옮기고 <b>맨 위에 연계 ID(IF-001)</b> 를 적으십시오.
+     <b>필드 하나에 줄 하나</b>입니다 (실습 6 의 정의서와 다른 점).</p>
+
+  <p><b>제출물</b> — 필드 측정 화면 + 매핑표(근거 칸 포함) +
+     <b>Jackson 두 판 확인 화면</b> + <code>PostDTO</code> 코드</p>
+
+  <p><b>스스로 확인</b> —
+     ① 길이를 <b>세어서</b> 정했습니까
+     ② <code>body</code> 를 <b>TEXT</b> 로 했습니까, 그 까닭을 댈 수 있습니까
+     ③ <code>createAt</code> 이 <b>외부에 없는 필드</b>인 것을 적었습니까
+     ④ 모르는 필드를 <b>직접 넣어</b> 봤습니까</p>
+</div>
       </div>
     </div>
 
@@ -457,6 +1110,137 @@ public class PostDTO {
   「연계」 라 하면 받아 오는 것만 떠올리기 때문입니다.
   우리가 내주는 것도 다른 시스템이 쓰는 인터페이스이므로
   정의서에 들어가야 합니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 6</b>
+  <b>정의서를 «둘» 쓰고, 명세서와 헷갈리지 않게 합니다</b>
+
+  <p><b>목적</b> — 채점 항목 04 · <b>6점</b>입니다.
+     이름이 비슷한 문서가 둘이라 <b>같은 내용을 두 번 쓰거나</b>
+     <b>한 장만 쓰고 끝내는</b> 일이 많습니다.
+     이 실습은 <b>둘의 자리를 갈라 두는 것</b>이 전부입니다.</p>
+
+  <h5>절차 1 — 두 문서의 자리를 갈라 둡니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px">문서</th><th style="width:150px">단위</th>
+        <th style="width:190px">답하는 물음</th><th>몇 장인가</th></tr>
+    <tr><td class="nm">연계 정의서</td><td><b>인터페이스</b> 단위</td>
+        <td>「어디와 어떻게 얼마마다 잇는가」</td>
+        <td>연계 <b>하나에 표 하나</b> → 둘</td></tr>
+    <tr><td class="nm">연계 명세서</td><td><b>필드</b> 단위</td>
+        <td>「어느 값이 어느 값으로 가는가」</td>
+        <td>필드 <b>하나에 줄 하나</b> → 다섯 줄 (실습 5)</td></tr>
+  </table>
+
+  <p><b>정의서가 지도라면 명세서는 세부 도면</b>입니다.
+     지도에 못이 몇 개인지 적지 않고,
+     도면에 「이 건물은 강남에 있다」 고 적지 않습니다.</p>
+
+  <h5>절차 2 — 목록 한 장을 씁니다</h5>
+
+  <p class="cmdline"><code>연계 목록
+
+  ID      명칭            방향              방식          주기
+  ------  --------------  ----------------  ------------  ----------------
+  IF-001  게시글 수신     외부 → 우리       RestTemplate  수동 + 배치 60초
+  IF-002  게시글 재제공   우리 → 클라이언트 REST API      실시간</code></p>
+
+  <h5>절차 3 — 상세 두 장을 씁니다</h5>
+
+  <p class="cmdline"><code>IF-001  게시글 수신
+  ─────────────────────────────────────────────────────────
+  송신 시스템   JSONPlaceholder (외부)
+  수신 시스템   우리 서버
+  방식          HTTPS · GET · JSON
+  주소          https://jsonplaceholder.typicode.com/posts
+  주기          <b>수동(/sync) + 배치 60초</b>
+  건수          1회 100건
+  실패 처리     기록 후 다음 주기 재시도 (실습 9)
+  보안          내부 호출 — 우리 API 쪽에서 통제 (실습 10)
+
+IF-002  게시글 재제공
+  ─────────────────────────────────────────────────────────
+  송신 시스템   우리 서버
+  수신 시스템   다른 시스템 · 화면
+  방식          HTTP · GET · JSON
+  주소          /api/link/posts
+  주기          <b>실시간</b>
+  건수          요청 시점의 전체
+  실패 처리     500 을 그대로 내지 않고 정해진 형식으로 (실습 9)
+  보안          <b>Basic 인증 · USER 이상</b> (실습 10)</code></p>
+
+  <div class="warn"><b>IF-001 의 주기를 「실시간」 이라 적으면 틀립니다.</b>
+    바깥에서 값이 바뀌는 즉시 우리에게 오는 것이 아닙니다.
+    <b>사람이 <code>/sync</code> 를 눌러야</b> 받아 오고,
+    그것과 <b>별개로</b> 배치가 60초마다 돕니다.
+    <b>「수동 + 배치 60초」</b> 라고 적는 것이 맞습니다.
+    IF-002 만 진짜 실시간입니다 — 누가 부르면 <b>그 자리에서</b> 답합니다.</div>
+
+  <h5>절차 4 — IF-002 를 빠뜨리지 않았는지 봅니다</h5>
+
+  <p>가장 흔한 감점입니다. 「연계」 라 하면 <b>받아 오는 것만</b> 떠올리기 때문입니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:280px">이렇게 생각하기 쉽습니다</th><th>그런데</th></tr>
+    <tr><td>「내주는 건 그냥 우리 API 인데요」</td>
+        <td><b>다른 시스템이 그것을 씁니다.</b>
+            남이 쓰는 순간 <b>인터페이스</b>입니다</td></tr>
+    <tr><td>「받아 오는 게 연계 아닌가요」</td>
+        <td>교과 이름이 <b>「통합 구현」</b> 입니다 —
+            <b>받는 쪽과 주는 쪽을 하나로 잇는 것</b>입니다</td></tr>
+  </table>
+
+  <p><b>받아 오기만 만들고 내주기를 빠뜨리면 절반</b>입니다.</p>
+
+  <h5>절차 5 — 세 문서가 서로 맞는지 대 봅니다</h5>
+
+  <p>레벨 1 의 문서가 이제 셋입니다. <b>같은 값이 셋에서 같아야</b> 합니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:150px">값</th><th style="width:190px">분석서 (실습 4)</th>
+        <th style="width:170px">정의서 (여기)</th><th>명세서 (실습 5)</th></tr>
+    <tr><td class="nm">건수</td><td>100건</td><td>1회 100건</td><td>—</td></tr>
+    <tr><td class="nm">주기</td><td>수동 + 배치 60초</td><td>수동 + 배치 60초</td><td>—</td></tr>
+    <tr><td class="nm">필드 수</td><td>넷</td><td>—</td><td>다섯 줄
+        <span class="cc">(<code>createAt</code> 포함)</span></td></tr>
+    <tr><td class="nm">보안</td><td>동기화는 ADMIN</td><td>IF-002 는 USER 이상</td><td>—</td></tr>
+  </table>
+
+  <div class="note"><b>세 번째 줄을 보십시오 — 넷과 다섯입니다.</b>
+    <b>틀린 것이 아닙니다.</b>
+    외부가 주는 것은 넷이고, 우리가 <b><code>createAt</code> 을 붙여</b> 다섯이 됩니다.
+    <b>이 차이를 문서에 한 줄로 적어 두십시오.</b>
+    안 적으면 <b>세다가 틀린 것</b>으로 읽힙니다.</div>
+
+  <h5>절차 6 — 레벨 1 을 마감합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:250px">문서</th>
+        <th style="width:90px">채점</th><th>배점</th></tr>
+    <tr><td class="c">□</td><td><code>연계_요구사항_분석서.md</code></td>
+        <td class="c">01</td><td class="c">6</td></tr>
+    <tr><td class="c">□</td><td>매핑표 — 데이터 식별</td><td class="c">02</td>
+        <td class="c">6</td></tr>
+    <tr><td class="c">□</td><td>매핑표 — 표준 설계</td><td class="c">03</td>
+        <td class="c">6</td></tr>
+    <tr><td class="c">□</td><td><code>연계(인터페이스)_정의서.md</code></td>
+        <td class="c">04</td><td class="c">6</td></tr>
+    <tr><td class="c">□</td><td><code>연계_명세서.md</code></td><td class="c">05</td>
+        <td class="c">6</td></tr>
+  </table>
+
+  <p><b>여기까지 30점</b>이고, <b>코드는 한 줄도 안 썼습니다.</b>
+     이 교과의 요령이 이것입니다 —
+     <b>문서를 앞에서 끝내 두면 뒤에서는 만들기만</b> 하면 됩니다.</p>
+
+  <p><b>제출물</b> — 연계 목록 한 장 + 상세 <b>두 장</b> + 세 문서 대조표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 상세가 <b>둘</b>입니까
+     ② IF-001 의 주기를 <b>「실시간」 이라 안 적었습니까</b>
+     ③ 정의서에 <b>필드 목록을 적지 않았습니까</b> (그건 명세서 몫입니다)
+     ④ 세 문서의 <b>같은 값이 같습니까</b></p>
 </div>
       </div>
     </div>
