@@ -2121,6 +2121,113 @@ This generated password is for development use only.</pre>
 <p>채점 항목 11 이 <b>「application.properties 연계 설정」</b> 을 콕 집었습니다.
    연계 주소와 주기를 설정으로 뺀 것이 곧 논리 환경 준비입니다.
    명세서나 분석서에 이 두 키를 적어 두면 문서와 코드가 이어집니다.</p>
+      <div class="lab">
+  <b class="t">실습 11</b>
+  <b>논리 환경과 물리 환경을 «따로» 적습니다</b>
+
+  <p><b>목적</b> — 채점 항목 11 · <b>6점</b>입니다.
+     수행준거가 <b>「논리적, 물리적 환경」</b> 이라고 나눠 적었으니
+     <b>표도 나눠서</b> 내야 합니다.</p>
+
+  <h5>절차 1 — 둘을 갈라 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:110px">구분</th><th style="width:210px">무엇</th><th>이 과제에서</th></tr>
+    <tr><td class="nm">논리 환경</td><td>무엇을 쓸지 고르고 <b>값을 어디에 둘지</b></td>
+        <td>의존성 아홉 · 설정 키 <code>link.api.base</code> ·
+            <code>link.sync.delay</code></td></tr>
+    <tr><td class="nm">물리 환경</td><td>실제로 깔고 띄워 <b>닿게 하기</b></td>
+        <td>JDK 21 · MySQL · 포트 8090 · <b>외부망</b></td></tr>
+  </table>
+
+  <p><b>물리 환경에 「외부망」 이 들어가는 것이 앞 교과와 다릅니다.</b>
+     내 컴퓨터 안에서만 도는 것이 아니라 <b>바깥에 닿아야</b> 합니다.
+     방화벽이나 프록시가 있으면 <b>그것도 환경의 일부</b>입니다 (실습 1).</p>
+
+  <h5>절차 2 — 판을 «쳐서» 받아 적습니다</h5>
+
+  <p class="cmdline"><code>java -version
+mysql --version
+gradlew.bat --version</code></p>
+
+  <p><b>기억으로 적지 마십시오.</b> 세 명령을 실제로 쳐서 나온 줄을 옮깁니다.
+     <code>JAVA_HOME</code> 과 <code>PATH</code> 가 다른 JDK 를 볼 수 있어,
+     <b>실제로 빌드에 쓰인 판</b>이 무엇인지는 쳐 봐야 압니다.</p>
+
+  <h5>절차 3 — <code>security</code> 를 넣으면 생기는 일을 확인합니다</h5>
+
+  <p class="cmdline"><code>implementation 'org.springframework.boot:spring-boot-starter-<b>security</b>'</code></p>
+
+  <p>이 한 줄을 넣는 순간 <b>모든 주소가 막힙니다.</b>
+     설정을 하나도 안 했는데도 그렇습니다.</p>
+
+  <p class="cmdline"><code>WARN --- [main] .s.a.UserDetailsServiceAutoConfiguration :
+
+Using generated security password: <b>3ffcada2-bee1-41d5-b71d-ece27a7f76d8</b>
+
+This generated password is for development use only. Your security configuration
+must be updated before running your application in production.</code></p>
+
+  <div class="note"><b>고장이 아닙니다.</b>
+    실습 10 에서 <code>SecurityConfig</code> 를 만들면
+    <b>그 임시 계정은 사라지고 우리가 정한 계정만</b> 남습니다.
+    <b>임시 비밀번호가 계속 찍히면</b> 설정이 안 먹은 것입니다 —
+    <code>UserDetailsService</code> 빈을 만들었는지 보십시오.</div>
+
+  <h5>절차 4 — 설정 키를 문서에 적어 둡니다</h5>
+
+  <p>채점 항목 11 이 <b>「application.properties 연계 설정」</b> 을 콕 집었습니다.</p>
+
+  <p class="cmdline"><code>link.api.base=https://jsonplaceholder.typicode.com
+link.api.limit=10
+link.sync.delay=60000</code></p>
+
+  <p>연계 주소와 주기를 <b>설정으로 뺀 것</b>이 곧 논리 환경 준비입니다.
+     <b>이 키들을 분석서(실습 4)와 명세서(실습 5)에도 적어 두면</b>
+     문서와 코드가 이어집니다 — 채점자가 가장 보고 싶어 하는 것입니다.</p>
+
+  <h5>절차 5 — 의존성을 «왜 넣었는지» 함께 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">의존성</th><th>이 과제에서 하는 일</th></tr>
+    <tr><td><code>spring-boot-starter-web</code></td>
+        <td>재제공 API 와 <code>RestTemplate</code></td></tr>
+    <tr><td><code>spring-boot-starter-data-jpa</code></td>
+        <td>받은 것을 표에 넣습니다</td></tr>
+    <tr><td><code>spring-boot-starter-security</code></td>
+        <td><b>동기화를 ADMIN 만</b> 하게 막습니다 (항목 10)</td></tr>
+    <tr><td><code>mysql-connector-j</code></td><td>MySQL 에 붙습니다</td></tr>
+  </table>
+
+  <p><b>「왜」 칸이 점수입니다.</b> 이름만 나열하면 <b>복사해 온 것</b>과 구분이 안 됩니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td>임시 비밀번호가 <b>계속</b> 찍힘</td>
+        <td><code>UserDetailsService</code> 빈이 <b>없습니다</b></td></tr>
+    <tr><td><code>Could not resolve placeholder 'link.api.base'</code></td>
+        <td><code>application.properties</code> 의 <b>철자</b>를 보십시오</td></tr>
+    <tr><td><code>Port 8090 was already in use</code></td>
+        <td>앞서 띄운 것이 안 죽었습니다.
+            <code>server.port</code> 를 바꾸거나 그 프로세스를 끄십시오</td></tr>
+    <tr><td><code>java -version</code> 이 <b>다른 판</b></td>
+        <td><code>JAVA_HOME</code> 과 <code>PATH</code> 가 어긋났습니다.
+            <b>보고서에는 빌드에 쓰인 판</b>을 적으십시오</td></tr>
+    <tr><td>바깥에 <b>안 닿음</b></td>
+        <td>물리 환경 문제입니다. 실습 1 로 돌아가십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 논리·물리 환경 표 <b>둘</b> + 판을 친 화면 셋 +
+     의존성 표(왜 칸 포함) + 설정 키 세 줄</p>
+
+  <p><b>스스로 확인</b> —
+     ① 논리와 물리를 <b>나눠</b> 적었습니까
+     ② 물리에 <b>외부망</b>이 들어 있습니까
+     ③ 판을 <b>쳐서</b> 받아 적었습니까
+     ④ 의존성마다 <b>왜</b> 가 붙었습니까</p>
+</div>
       </div>
     </div>
 
@@ -2189,6 +2296,130 @@ public PostDTO getPost(Long id) {
             .map(PostDTO::from)
             .<b>orElseThrow</b>(() -&gt; new MyBizException("연계 데이터를 찾을 수 없습니다. id=" + id));
 }</pre>
+      <div class="lab">
+  <b class="t">실습 12</b>
+  <b><code>syncPosts</code> 네 걸음을 만들고 «나간 SQL» 을 봅니다</b>
+
+  <p><b>목적</b> — 채점 항목 12 · <b>8점</b>으로 <b>이 교과에서 가장 큰 항목</b>입니다.
+     실습 7 에서 부르는 법을, 여기서는 <b>받아서 넣는 데까지</b> 잇습니다.</p>
+
+  <h5>절차 1 — 네 걸음을 순서대로 놓습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:170px">걸음</th><th>빠뜨리면</th></tr>
+    <tr><td class="c">①</td><td>주소 조립</td>
+        <td>특수문자가 든 파라미터에서 <b>주소가 깨집니다</b></td></tr>
+    <tr><td class="c">②</td><td>부르고 <b>실패 확인</b></td>
+        <td>404 를 받고도 <b>정상으로 넘어갑니다</b></td></tr>
+    <tr><td class="c">③</td><td>표준으로 변환</td>
+        <td><b>외부 형식에 우리가 매입니다</b></td></tr>
+    <tr><td class="c">④</td><td>저장하고 <b>건수 반환</b></td>
+        <td>몇 건 받았는지 <b>알 수 없습니다</b></td></tr>
+  </table>
+
+  <h5>절차 2 — 한 메서드로 씁니다</h5>
+
+  <p class="cmdline"><code>@Transactional
+public int syncPosts() {
+  String url = UriComponentsBuilder.fromUriString(apiBase + "/posts")   <i>// ①</i>
+      .queryParam("_limit", limit).toUriString();
+
+  ResponseEntity&lt;List&lt;PostDTO&gt;&gt; res = restTemplate.exchange(              <i>// ②</i>
+      url, HttpMethod.GET, null, new ParameterizedTypeReference&lt;&gt;() {});
+
+  List&lt;PostDTO&gt; body = res.getBody();
+  if (body == null || body.isEmpty()) {
+    log.warn("[연계] 받은 자료가 없습니다 url={}", url);
+    return 0;
+  }
+
+  for (PostDTO d : body) repository.save(d.toEntity());                  <i>// ③④</i>
+  return body.size();
+}</code></p>
+
+  <h5>절차 3 — 왜 건수를 돌려주는지 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:230px">건수를 돌려주면</th><th>어디서 쓰이나</th></tr>
+    <tr><td>컨트롤러가 응답에 싣습니다</td>
+        <td><code>{"count":10}</code> — 부른 사람이 <b>몇 건인지</b> 압니다</td></tr>
+    <tr><td>배치가 로그에 찍습니다</td>
+        <td><code>[배치] 동기화 완료 10건</code> — 실습 8 의 <b>두 줄</b>이 이것입니다</td></tr>
+    <tr><td>시험에서 비교합니다</td>
+        <td>실습 15 의 <b>기대 결과</b>가 이 숫자입니다</td></tr>
+  </table>
+
+  <h5>절차 4 — 돌리고 «나간 SQL» 을 봅니다</h5>
+
+  <p class="cmdline"><code># application.properties
+spring.jpa.show-sql=true</code></p>
+
+  <p class="cmdline"><code>curl -X POST -u admin:1234 http://localhost:8090/api/link/sync
+
+{"message":"연계 동기화 성공!","count":<b>10</b>}</code></p>
+
+  <p>콘솔에는 이렇게 찍힙니다. <b>맨 처음 한 번은 표를 만드는 줄</b>입니다.</p>
+
+  <p class="cmdline"><code>Hibernate: create table tbl_post (id bigint not null, body TEXT,
+           create_at datetime(6), title varchar(255), user_id bigint, primary key (id)) engine=InnoDB
+Hibernate: <b>select</b> p1_0.id,p1_0.body,p1_0.create_at,p1_0.title,p1_0.user_id
+           from tbl_post p1_0 where p1_0.id=?
+Hibernate: <b>select</b> p1_0.id,… where p1_0.id=?
+           ⋮  (열 번)
+Hibernate: <b>insert</b> into tbl_post (body,create_at,title,user_id,id) values (?,?,?,?,?)
+           ⋮  (열 번)</code></p>
+
+  <div class="note"><b><code>select</code> 이 먼저 나가는 것이 이상해 보입니다.</b>
+    <code>save</code> 는 <b>넣으라는 명령이 아니라 「맞춰 두라」</b> 는 명령입니다.
+    그래서 먼저 <b>그 id 가 있는지 찾아보고</b>
+    없으면 <code>insert</code>, 있으면 <code>update</code> 를 보냅니다.
+    <b>실습 14 의 무결성이 바로 이것 덕분</b>입니다.</div>
+
+  <h5>절차 5 — 표에 들어갔는지 셉니다</h5>
+
+  <p class="cmdline"><code>mysql&gt; SELECT COUNT(*) FROM tbl_post;
++----------+
+| COUNT(*) |
++----------+
+|       10 |
++----------+
+
+mysql&gt; SELECT id, LEFT(title, 30) AS title, create_at FROM tbl_post LIMIT 2;</code></p>
+
+  <p><b><code>create_at</code> 이 채워졌는지</b> 보십시오.
+     외부에 없는 필드라 <b>우리가 넣어 주지 않으면 <code>NULL</code></b> 입니다 (실습 5).</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>count</code> 는 10 인데 <b>표가 비었음</b></td>
+        <td><code>save</code> 를 <b>안 불렀거나</b> 트랜잭션이 <b>롤백</b>됐습니다.
+            콘솔에 <code>insert</code> 가 찍혔는지 보십시오</td></tr>
+    <tr><td><code>Table 'testdb.tbl_post' doesn't exist</code></td>
+        <td><code>spring.jpa.hibernate.ddl-auto</code> 를 켜거나
+            <code>schema.sql</code> 을 돌리십시오</td></tr>
+    <tr><td><code>create_at</code> 이 <b>전부 NULL</b></td>
+        <td>변환 메서드에서 <b>안 넣었습니다</b> —
+            <code>setCreateAt(LocalDateTime.now())</code></td></tr>
+    <tr><td><code>Data truncation: Data too long for column 'body'</code></td>
+        <td><code>body</code> 가 <code>VARCHAR</code> 입니다.
+            <b><code>TEXT</code></b> 로 바꾸십시오 (실습 5)</td></tr>
+    <tr><td>한글이나 줄바꿈이 <b>깨져</b> 들어감</td>
+        <td>접속 주소에 <code>characterEncoding=UTF-8</code> 을 넣으십시오</td></tr>
+    <tr><td><code>count</code> 가 <b>0</b></td>
+        <td>빈 본문입니다 — 실습 7 절차 3 의 ③ 입니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>syncPosts</code> 코드 + <code>{"count":10}</code> 응답 +
+     <b>나간 SQL 화면</b> + <code>SELECT COUNT(*)</code> 결과</p>
+
+  <p><b>스스로 확인</b> —
+     ① 네 걸음이 <b>순서대로</b> 있습니까
+     ② 빈 본문을 <b>따로</b> 봅니까
+     ③ <b>건수를 돌려줍니까</b>
+     ④ <code>create_at</code> 이 <b>채워졌습니까</b></p>
+</div>
       </div>
     </div>
 
@@ -2254,6 +2485,124 @@ public class LinkController {
 <p><code>/sync</code> 가 ADMIN 전용이라는 것을 컨트롤러에는 적지 않습니다.
    <code>SecurityConfig</code> 한 곳에 모아 둡니다.
    권한 규칙이 코드 곳곳에 흩어지면 <b>무엇이 열려 있는지 알 수 없게</b> 됩니다.</p>
+      <div class="lab">
+  <b class="t">실습 13</b>
+  <b>받아 온 것을 «다시 내주는» 매핑 셋을 겁니다</b>
+
+  <p><b>목적</b> — 채점 항목 13 · <b>7점</b>입니다.
+     이것이 있어야 <b>IF-002 가 성립</b>하고 「통합」 이라는 이름값을 합니다.
+     <b>받아만 오면 절반</b>입니다.</p>
+
+  <h5>절차 1 — 셋을 겁니다</h5>
+
+  <p class="cmdline"><code>@RestController
+@RequestMapping("/api/link")
+public class LinkController {
+
+  @PostMapping("/sync")            <i>// 수동 동기화 — ADMIN 만 (SecurityConfig 가 막습니다)</i>
+  public ResponseEntity&lt;Map&lt;String,Object&gt;&gt; sync() { … }
+
+  @GetMapping("/posts")            <i>// 목록 재제공</i>
+  public ResponseEntity&lt;List&lt;PostDTO&gt;&gt; posts() {
+    return ResponseEntity.status(HttpStatus.OK).body(linkService.getPosts());
+  }
+
+  @GetMapping("/posts/{id}")       <i>// 단건 재제공</i>
+  public ResponseEntity&lt;PostDTO&gt; post(@PathVariable("id") Long id) {
+    return ResponseEntity.status(HttpStatus.OK).body(linkService.getPost(id));
+  }
+}</code></p>
+
+  <h5>절차 2 — 세 메서드가 «짧은지» 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">컨트롤러에 «없는» 것</th><th>어디에 있는가</th></tr>
+    <tr><td>외부 호출</td><td>Service (실습 12)</td></tr>
+    <tr><td>변환</td><td>DTO 의 변환 메서드 (실습 5)</td></tr>
+    <tr><td><code>try</code> · <code>catch</code></td><td>전역 핸들러 (실습 9)</td></tr>
+    <tr><td>권한 규칙</td><td><code>SecurityConfig</code> 한 곳 (실습 10)</td></tr>
+  </table>
+
+  <p><b>세 메서드 모두 Service 를 부르고 감싸서 돌려주는 것이 전부</b>입니다.
+     길어지면 무언가 잘못 들어온 것입니다.</p>
+
+  <h5>절차 3 — 실제로 불러 봅니다</h5>
+
+  <p class="cmdline"><code>curl -u user:1234 http://localhost:8090/api/link/posts/1</code></p>
+
+  <p class="cmdline"><code>{
+  "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit
+           molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+  "createAt": "2026-09-18T16:59:35.477787",
+  "id": 1,
+  "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+  "userId": 1
+}</code></p>
+
+  <div class="note"><b>외부가 준 것과 다른 점 둘을 보십시오.</b>
+    <code>createAt</code> 이 <b>붙어 있고</b>, 필드 이름이 <b>우리 표준</b>입니다.
+    이것이 실습 5 에서 DTO 를 가운데 둔 이유입니다 —
+    <b>외부가 이름을 바꿔도 내주는 모양은 그대로</b>입니다.</div>
+
+  <h5>절차 4 — 목록도 확인합니다</h5>
+
+  <p class="cmdline"><code>curl -u user:1234 http://localhost:8090/api/link/posts
+
+건수 10</code></p>
+
+  <p>동기화로 넣은 <b>10건이 그대로</b> 나와야 합니다.
+     <b>다르면</b> 저장이 덜 됐거나 조회 조건이 걸려 있습니다.</p>
+
+  <h5>절차 5 — 없는 id 를 불러 봅니다</h5>
+
+  <p class="cmdline"><code>curl -o /dev/null -w "%{http_code}\n" -u user:1234 \
+     http://localhost:8090/api/link/posts/9999</code></p>
+
+  <table class="wide">
+    <tr><th style="width:150px">나오는 코드</th><th>뜻</th></tr>
+    <tr><td class="c"><b>400</b></td>
+        <td><b>맞습니다.</b> Service 가 <code>MyBizException</code> 을 던졌고
+            전역 핸들러가 받았습니다</td></tr>
+    <tr><td class="c"><b>500</b></td>
+        <td>그냥 <code>RuntimeException</code> 을 던졌습니다.
+            <b>업무 예외로 감싸야</b> 400 이 됩니다</td></tr>
+  </table>
+
+  <p><b>500 이 나오면 고치십시오.</b> 부르는 쪽에서 보면
+     <b>「내가 잘못 물어본 것」 과 「서버가 고장난 것」 이 구분이 안 됩니다.</b></p>
+
+  <h5>절차 6 — 컨트롤러에 <code>try-catch</code> 를 «넣지 않습니다»</h5>
+
+  <p>넣으면 오히려 나빠집니다. 전역 핸들러가 있는데 각자 잡으면
+     <b>응답 모양이 매핑마다 달라집니다.</b>
+     받는 쪽은 <b>어느 모양을 기준으로 코드를 쓸지</b> 알 수 없게 됩니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>404</code> 가 남</td>
+        <td><code>@RequestMapping("/api/link")</code> 와 메서드 경로가
+            <b>겹쳤는지</b> 보십시오</td></tr>
+    <tr><td>목록이 <code>[]</code></td>
+        <td>동기화를 <b>안 했습니다.</b> 먼저 <code>POST /sync</code></td></tr>
+    <tr><td>없는 id 에 <b>500</b></td>
+        <td>절차 5 입니다 — <code>MyBizException</code> 으로 바꾸십시오</td></tr>
+    <tr><td><code>body</code> 의 줄바꿈이 <code>\n</code> 으로 <b>그대로 보임</b></td>
+        <td><b>정상입니다.</b> JSON 안에서는 그렇게 적습니다 —
+            화면에 뿌릴 때 바뀝니다</td></tr>
+    <tr><td><code>401</code> 이 남</td>
+        <td>재제공도 <b>인증이 필요</b>합니다 (실습 10 의 ② 규칙)</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 컨트롤러 코드 + <b>단건 · 목록 · 없는 id</b> 세 응답</p>
+
+  <p><b>스스로 확인</b> —
+     ① 매핑이 <b>셋</b> 입니까
+     ② 컨트롤러에 <code>try-catch</code> 가 <b>없습니까</b>
+     ③ 없는 id 가 <b>400</b> 입니까
+     ④ 내주는 모양이 <b>우리 표준</b>입니까</p>
+</div>
       </div>
     </div>
 
@@ -2303,6 +2652,129 @@ Hibernate: <b>update</b> tbl_post set body=?, create_at=?, title=?, user_id=? wh
 <p>네 줄이면 채점 항목 14 의 증거가 됩니다.
    <code>create_at</code> 만 바뀌는 것을 함께 보이면 더 좋습니다.
    덮어쓰기가 실제로 일어났다는 뜻이기 때문입니다.</p>
+      <div class="lab">
+  <b class="t">실습 14</b>
+  <b>세 번 받아 보고, «쌓이는 쪽» 도 만들어 봅니다</b>
+
+  <p><b>목적</b> — 채점 항목 14 · <b>7점</b>입니다.
+     연계에서 <b>가장 흔한 사고</b>가 이것입니다.
+     배치가 60초마다 도는데 그때마다 새로 쌓이면 <b>한 시간 뒤에 600건</b>이 됩니다.</p>
+
+  <h5>절차 1 — 엔티티의 «없는 한 줄» 을 봅니다</h5>
+
+  <p class="cmdline"><code>@Entity @Table(name = "tbl_post")
+public class Post {
+  <b>@Id</b>                    <i>// @GeneratedValue 가 «없습니다»</i>
+  private Long id;       <i>// 외부 시스템의 식별자를 «그대로» 씁니다</i>
+  ⋯
+}</code></p>
+
+  <h5>절차 2 — 세 번 부르고 건수를 봅니다</h5>
+
+  <p class="cmdline"><code>1차 sync → {"message":"연계 동기화 성공!","count":10}   건수 → {"rows":<b>10</b>}
+2차 sync → {"message":"연계 동기화 성공!","count":10}   건수 → {"rows":<b>10</b>}
+3차 sync → {"message":"연계 동기화 성공!","count":10}   건수 → {"rows":<b>10</b>}</code></p>
+
+  <p><b><code>count</code> 는 10 인데 <code>rows</code> 는 안 늘어납니다.</b>
+     열 건을 <b>받기는 했고</b>, 이미 있는 것이라 <b>덮어썼을 뿐</b>입니다.</p>
+
+  <h5>절차 3 — 나간 SQL 로 «왜» 를 봅니다</h5>
+
+  <p class="cmdline"><code>1차 :  select … where id=?      (열 번)
+       <b>insert</b> into tbl_post …   (열 번)
+
+2차 :  select … where id=?      (열 번)
+       <b>update</b> tbl_post set body=?, create_at=?, title=?, user_id=? where id=?</code></p>
+
+  <p>세 번 돌린 뒤 세어 보면 이렇습니다.</p>
+
+  <p class="cmdline"><code>select  33      ← 30 (찾아보기) + 3 (건수 세기)
+insert  10      ← 1차에만
+update  20      ← 2차 · 3차</code></p>
+
+  <div class="note"><b><code>save</code> 는 「넣어라」 가 아니라 「맞춰 둬라」 입니다.</b>
+    먼저 <b>그 id 가 있는지 찾아보고</b>
+    없으면 <code>insert</code>, 있으면 <code>update</code> 를 보냅니다.
+    <b>콘솔에 <code>select</code> 이 먼저 찍히는 까닭</b>입니다.</div>
+
+  <h5>절차 4 — «쌓이는 쪽» 을 일부러 만들어 봅니다</h5>
+
+  <p>왜 그 한 줄이 중요한지는 <b>없앴을 때</b> 압니다.
+     <code>@GeneratedValue</code> 를 붙이고 <b>id 를 안 넣은 채</b> 돌려 보십시오.</p>
+
+  <p class="cmdline"><code>@Id <b>@GeneratedValue(strategy = GenerationType.IDENTITY)</b>
+private Long id;
+
+<i>// 변환 메서드에서도 setId 를 뺍니다</i>
+p.setUserId(userId); p.setTitle(title); …</code></p>
+
+  <p class="cmdline"><code>1차 sync → {"rows":<b>10</b>}
+2차 sync → {"rows":<b>20</b>}
+3차 sync → {"rows":<b>30</b>}
+4차 sync → {"rows":<b>40</b>}
+5차 sync → {"rows":<b>50</b>}
+6차 sync → {"rows":<b>60</b>}</code></p>
+
+  <div class="warn"><b>여섯 번에 60건입니다. 오류는 한 번도 안 났습니다.</b>
+    배치가 60초마다 돌면 <b>한 시간에 600건</b>,
+    하루면 <b>만 사천 건</b>이 됩니다. 같은 글이 계속 불어납니다.
+    <b>아무도 안 알려 줍니다</b> — 표를 세어 봐야 압니다.
+    <b>이 화면을 캡처해 두십시오.</b> 「왜 그렇게 했는가」 의 근거가 됩니다.</div>
+
+  <h5>절차 5 — 어중간한 경우도 봅니다</h5>
+
+  <p><code>@GeneratedValue</code> 를 붙이고 <b>id 는 그대로 넣으면</b> 어떻게 될까요.</p>
+
+  <p class="cmdline"><code>HTTP <b>500</b>
+
+ObjectOptimisticLockingFailureException: Row was already updated or deleted
+by another transaction for entity [Post with id '1']</code></p>
+
+  <p>JPA 가 <b>「누가 만들어 준 id 가 이미 박혀 있다」</b> 고 보고
+     <code>update</code> 를 시도하는데 <b>그런 줄이 없어</b> 터집니다.
+     <b>둘을 섞으면 안 된다</b>는 뜻입니다.</p>
+
+  <h5>절차 6 — 되돌리고 셋을 표로 정리합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">엔티티를 이렇게 하면</th><th style="width:150px">세 번 부른 뒤</th>
+        <th>무슨 일</th></tr>
+    <tr><td><code>@Id</code> 만 · 외부 id 를 <b>넣음</b></td>
+        <td class="c"><b>10건</b></td><td>찾아보고 <b>덮어씁니다</b> — 맞는 것</td></tr>
+    <tr><td><code>@GeneratedValue</code> · id 를 <b>안 넣음</b></td>
+        <td class="c"><b>30건</b></td><td>매번 <b>새로 쌓입니다</b></td></tr>
+    <tr><td><code>@GeneratedValue</code> · id 를 <b>넣음</b></td>
+        <td class="c"><b>0건</b></td><td><b>500</b> 으로 터집니다</td></tr>
+  </table>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>건수가 <b>계속 늘어남</b></td>
+        <td><code>@GeneratedValue</code> 가 붙어 있거나
+            변환에서 <code>setId</code> 를 <b>빠뜨렸습니다</b></td></tr>
+    <tr><td><code>ObjectOptimisticLockingFailureException</code></td>
+        <td>절차 5 입니다 — 둘을 <b>섞었습니다</b></td></tr>
+    <tr><td><code>update</code> 가 <b>안 나감</b></td>
+        <td>값이 <b>하나도 안 바뀌었습니다.</b>
+            <code>create_at</code> 을 매번 새로 넣으면 늘 나갑니다</td></tr>
+    <tr><td>건수는 그대로인데 <b>내용이 안 바뀜</b></td>
+        <td>변환 메서드가 <b>일부 필드만</b> 채우고 있습니다</td></tr>
+    <tr><td>앞 실험의 자료가 <b>남아 있음</b></td>
+        <td><code>TRUNCATE TABLE tbl_post;</code> 로 비우고 다시 하십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <b>세 번 부르고 건수가 같은 화면</b> +
+     나간 SQL(<code>select</code> → <code>update</code>) +
+     <b>쌓이는 쪽 화면</b> + 세 경우 표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 건수가 <b>안 늘어납니까</b>
+     ② <code>select</code> 이 <b>먼저</b> 나가는 것을 봤습니까
+     ③ <b>쌓이는 쪽</b>을 만들어 봤습니까
+     ④ 엔티티를 <b>되돌렸습니까</b></p>
+</div>
       </div>
     </div>
 
@@ -2355,6 +2827,139 @@ void <b>syncPosts_두_번_해도_건수가_같다</b>() {
   앞 교과와 달리 테스트 클래스에 <code>@Transactional</code> 을 붙이지 <b>않았습니다</b>.
   연계 결과가 정말로 데이터베이스에 남았는지 보려는 시험이기 때문입니다.
   대신 돌리고 나면 <code>tbl_post</code> 에 자료가 채워집니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 15</b>
+  <b>테스트 케이스를 «표와 코드» 둘 다로 냅니다</b>
+
+  <p><b>목적</b> — 채점 항목 15 · <b>7점</b>입니다.
+     수행준거 3-4 가 <b>「테스트 케이스를 작성하고 테스트 조건을 명세화」</b> 라
+     <b>돌린 것만으로는 부족합니다</b> — 적어 둔 것도 봅니다.</p>
+
+  <h5>절차 1 — 갈래를 빠짐없이 셉니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:130px">무엇을</th><th style="width:150px">번호</th><th>빠지기 쉬운 것</th></tr>
+    <tr><td class="nm">수신</td><td>TC-01 · TC-02</td><td><b>빈 응답</b>이 왔을 때</td></tr>
+    <tr><td class="nm">무결성</td><td>TC-03</td><td><b>두 번 부르는</b> 경우</td></tr>
+    <tr><td class="nm">재제공</td><td>TC-04 · TC-05</td><td><b>없는 id</b></td></tr>
+    <tr><td class="nm">실패</td><td>TC-06 · TC-07</td><td>못 닿음과 <b>404 를 따로</b></td></tr>
+    <tr><td class="nm">보안</td><td>TC-08 · TC-09</td><td><b>403</b> — 401 만 적기 쉽습니다</td></tr>
+  </table>
+
+  <h5>절차 2 — 명세서를 «돌리기 전에» 씁니다</h5>
+
+  <p class="cmdline"><code>번호  | 대상            | 입력                        | 기대 결과
+------+-----------------+-----------------------------+---------------------------
+TC-01 | syncPosts       | 정상 주소                    | 반환 10 · tbl_post 10건
+TC-02 | syncPosts       | ?userId=99999 (빈 배열)      | 반환 <b>0</b> · 예외 없음 · 경고 로그
+TC-03 | syncPosts       | 연달아 <b>세 번</b> 호출          | 건수 <b>10 그대로</b>
+TC-04 | GET /posts      | —                           | 200 · 10건
+TC-05 | GET /posts/9999 | 없는 id                     | <b>400</b> (500 아님)
+TC-06 | syncPosts       | 주소를 없는 곳으로            | 400 · 건수 <b>변화 없음</b>
+TC-07 | syncPosts       | 경로를 /postsX 로            | 400 · <b>404 를 받았다는 메시지</b>
+TC-08 | POST /sync      | user 계정                    | <b>403</b>
+TC-09 | POST /sync      | 인증 없음                    | <b>401</b></code></p>
+
+  <div class="warn"><b>돌려 보고 나온 값을 기대 결과 칸에 적으면 시험이 아닙니다.</b>
+    그것은 <b>기록</b>일 뿐입니다.
+    <b>돌리기 전에</b> 무엇이 나와야 하는지 적고, 다르면
+    <b>둘 중 하나가 틀린 것</b>입니다 —
+    코드가 틀렸거나 <b>내가 업무를 잘못 이해한 것</b>입니다.</div>
+
+  <h5>절차 3 — JUnit 으로 «되풀이되는 것» 만 옮깁니다</h5>
+
+  <p class="cmdline"><code>@SpringBootTest
+class LinkServiceTest {
+
+  @Autowired LinkService linkService;
+  @Autowired PostRepository repository;
+
+  @Test
+  @DisplayName("TC-01 동기화하면 열 건이 들어온다")
+  void sync() {
+    int n = linkService.syncPosts();
+    assertEquals(10, n);
+    assertEquals(10, repository.count());
+  }
+
+  @Test
+  @DisplayName("TC-03 두 번 동기화해도 건수가 안 늘어난다")
+  void syncTwice() {
+    linkService.syncPosts();
+    long first = repository.count();
+    linkService.syncPosts();
+    assertEquals(first, repository.count());      <i>// ← 항목 14 의 자동 증거</i>
+  }
+
+  @Test
+  @DisplayName("TC-05 없는 id 는 업무 예외를 던진다")
+  void notFound() {
+    assertThrows(MyBizException.class, () -&gt; linkService.getPost(9999L));
+  }
+}</code></p>
+
+  <p><b>TC-03 이 가장 값어치 있습니다.</b>
+     실습 14 에서 손으로 세 번 눌러 본 것을 <b>코드가 대신</b> 해 줍니다.
+     나중에 누가 <code>@GeneratedValue</code> 를 붙이면 <b>이 시험이 바로 깨집니다.</b></p>
+
+  <h5>절차 4 — 돌리고 «실제 결과» 칸을 채웁니다</h5>
+
+  <p class="cmdline"><code>gradlew.bat test
+
+BUILD SUCCESSFUL
+3 tests completed, 0 failed</code></p>
+
+  <p class="cmdline"><code>번호  | 기대 결과            | 실제 결과              | 판정
+------+----------------------+------------------------+------
+TC-01 | 반환 10 · 표 10건     | 10 · 10                | 통과
+TC-02 | 반환 0 · 예외 없음    | 0 · 경고 로그 1줄       | 통과
+TC-03 | 10 그대로            | 10 → 10                | 통과
+TC-05 | 400                  | 400                    | 통과
+TC-08 | 403                  | 403                    | 통과
+TC-09 | 401                  | 401                    | 통과</code></p>
+
+  <h5>절차 5 — 바깥을 부르는 시험의 «약점» 을 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">약점</th><th>어떻게 적나</th></tr>
+    <tr><td>외부가 죽으면 <b>시험도 실패</b></td>
+        <td>「TC-01 은 외부 API 가 살아 있어야 한다」 고 <b>전제를 적습니다</b></td></tr>
+    <tr><td>돌릴 때마다 <b>표가 더러워짐</b></td>
+        <td><code>@Transactional</code> 을 붙여 <b>시험 뒤 되돌리거나</b>,
+            시작할 때 <code>deleteAll()</code></td></tr>
+    <tr><td>외부가 <b>느리면</b> 시험이 오래 걸림</td>
+        <td>시간 제한을 걸어 둡니다 (실습 7 절차 5)</td></tr>
+  </table>
+
+  <p><b>약점을 적는 것도 명세화</b>입니다. 「완벽하다」 고 적는 것보다 점수가 높습니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td>TC-01 이 <b>두 번째 돌릴 때만</b> 실패</td>
+        <td>앞 시험이 남긴 자료 때문입니다.
+            <b>시험마다 같은 상태에서</b> 시작하게 하십시오</td></tr>
+    <tr><td><code>No qualifying bean of type 'LinkService'</code></td>
+        <td><code>@SpringBootTest</code> 를 <b>안 붙였습니다</b></td></tr>
+    <tr><td>TC-03 이 <b>실패</b></td>
+        <td><b>실습 14 의 그 문제입니다.</b> 엔티티의 <code>@Id</code> 를 보십시오</td></tr>
+    <tr><td><code>ResourceAccessException</code> 으로 전부 실패</td>
+        <td>외부망이 끊겼습니다 — <b>코드 문제가 아닙니다</b></td></tr>
+    <tr><td>시험은 통과하는데 <b>손으로는 안 됨</b></td>
+        <td>시험은 <b>보안을 안 거칩니다.</b>
+            401 · 403 은 <b>Postman 으로</b> 확인하십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 테스트케이스 명세서(기대·실제·판정) +
+     JUnit 코드 + <b>통과 화면</b> + 약점 세 줄</p>
+
+  <p><b>스스로 확인</b> —
+     ① 갈래 <b>다섯</b>이 다 들어 있습니까
+     ② 기대 결과를 <b>돌리기 전에</b> 적었습니까
+     ③ <b>TC-03</b> 을 코드로 옮겼습니까
+     ④ <b>403</b> 이 명세서에 있습니까</p>
 </div>
       </div>
     </div>
@@ -2410,6 +3015,134 @@ void <b>syncPosts_두_번_해도_건수가_같다</b>() {
 </ol>
 <p>일곱 가지를 훑는 데 십 분이면 됩니다.
    그 십 분이 <b>합쳐 삼십 점 넘게</b> 지킵니다.</p>
+      <div class="lab">
+  <b class="t">실습 16</b>
+  <b>산출물을 모으고, «빈 폴더에 받아» 돌려 봅니다</b>
+
+  <p><b>목적</b> — 다 만든 뒤에 하는 일입니다.
+     <b>문서 셋과 캡처</b>를 맞춰 내고,
+     <b>받는 사람 자리에서</b> 한 번 돌려 봅니다.</p>
+
+  <h5>절차 1 — 문서 셋이 «다 있는지» 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:230px">문서</th><th style="width:210px">무엇을 적는가</th>
+        <th>채점</th></tr>
+    <tr><td><code>연계_요구사항_분석서</code></td>
+        <td>대상 · 목적 · 데이터 · 방식 · 주기 · 오류 · 보안 <b>일곱 칸</b></td>
+        <td class="c">01</td></tr>
+    <tr><td><code>연계(인터페이스)_정의서</code></td>
+        <td>목록 한 장 + 상세 <b>둘</b> (IF-001 · IF-002)</td>
+        <td class="c">04</td></tr>
+    <tr><td><code>연계_명세서</code></td>
+        <td>매핑표 <b>다섯 줄</b> (<code>createAt</code> 포함)</td>
+        <td class="c">02 · 03 · 05</td></tr>
+  </table>
+
+  <p><b>합쳐 30점</b>입니다. 각 실습에서 미리 써 두었다면 여기서는 <b>모으기만</b> 하면 됩니다.</p>
+
+  <h5>절차 2 — 캡처를 맞춥니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:210px">찍을 것</th><th>보여야 할 것</th></tr>
+    <tr><td class="c">1</td><td>인증 없이 호출</td>
+        <td><b>401</b> 과 <code>WWW-Authenticate</code> 헤더</td></tr>
+    <tr><td class="c">2</td><td><code>user</code> 로 동기화</td>
+        <td><b>403</b> — <b>빠뜨리기 쉽습니다</b></td></tr>
+    <tr><td class="c">3</td><td><code>admin</code> 으로 동기화</td>
+        <td><b>200</b> 과 <code>{"count":10}</code></td></tr>
+    <tr><td class="c">4</td><td>재제공 조회</td><td><b>200</b> 과 우리 형식의 목록</td></tr>
+    <tr><td class="c">5</td><td>동기화 <b>두 번</b> + 건수</td>
+        <td><b>10 → 10</b> (항목 14)</td></tr>
+    <tr><td class="c">6</td><td>주소를 틀리고 동기화</td>
+        <td><b>400</b> 과 <b>건수 변화 없음</b> (항목 08 · 09)</td></tr>
+    <tr><td class="c">7</td><td>콘솔 배치 로그</td><td><b>두 줄 이상</b> (항목 07)</td></tr>
+  </table>
+
+  <div class="warn"><b>2번과 6번을 빠뜨리기 쉽습니다.</b>
+    둘 다 <b>「막혔다」 를 보이는 화면</b>이라 성공 화면만 모으다 보면 빠집니다.
+    <b>막히는 것을 보여야</b> 권한을 나눴다는 것과
+    실패를 잡았다는 것이 증명됩니다.</div>
+
+  <h5>절차 3 — 찾기로 계층을 확인합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:280px">어디서 무엇을 찾나</th>
+        <th>몇 건이어야</th></tr>
+    <tr><td class="c">1</td><td>컨트롤러 안의 <code>RestTemplate</code></td>
+        <td><b>0건</b> — 외부 호출은 Service 몫</td></tr>
+    <tr><td class="c">2</td><td>컨트롤러 안의 <code>try</code> · <code>catch</code></td>
+        <td><b>0건</b> — 전역 핸들러가 받습니다</td></tr>
+    <tr><td class="c">3</td><td>컨트롤러 안의 <code>hasRole</code></td>
+        <td><b>0건</b> — <code>SecurityConfig</code> 한 곳에</td></tr>
+    <tr><td class="c">4</td><td>소스 전체의 <code>https://</code></td>
+        <td><b>0건</b> — 주소는 설정 파일에</td></tr>
+  </table>
+
+  <h5>절차 4 — 빈 폴더에 «받아서» 돌려 봅니다</h5>
+
+  <p class="cmdline"><code>C:\temp&gt; git clone https://github.com/내이름/저장소.git check
+Cloning into 'check'...
+done.
+
+C:\temp&gt; cd check</code></p>
+
+  <p>받은 것이 <b>저장소에 실제로 담긴 것 전부</b>입니다. 눈으로 보지 말고 세십시오.</p>
+
+  <p class="cmdline"><code>C:\temp\check&gt; git ls-files
+.gitignore
+README.md
+<b>application.properties.example</b>
+src/main/java/kr/link/LinkController.java
+           ⋮</code></p>
+
+  <p><b>여기 보여야 하는 것과 «안» 보여야 하는 것이 정해져 있습니다.</b>
+     <code>application.properties.<b>example</b></code> 처럼
+     <b>값을 비운 양식</b>은 있어야 하고,
+     실제 키가 든 <code>application-dev.properties</code> 는 <b>없어야</b> 합니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:330px">여기서 나오는 것</th><th>뜻</th></tr>
+    <tr><td><code>application-dev.properties</code> 가 <b>보임</b></td>
+        <td><b>인증키가 올라갔습니다.</b> 지금 키를 <b>새로 발급</b>받으십시오</td></tr>
+    <tr><td><code>build/</code> · <code>.gradle/</code> 이 <b>보임</b></td>
+        <td><code>.gitignore</code> 가 <b>늦었습니다</b></td></tr>
+    <tr><td><code>Table 'testdb.tbl_post' doesn't exist</code></td>
+        <td><b>정상</b> — <code>schema.sql</code> 을 아직 안 돌렸습니다</td></tr>
+    <tr><td><code>cannot find symbol: class PostDTO</code></td>
+        <td>파일 하나를 <b>커밋 안 했습니다</b></td></tr>
+    <tr><td><code>Could not resolve placeholder 'link.api.base'</code></td>
+        <td>설정 파일을 <b>통째로</b> 빼 버렸습니다 —
+            <b>키는 빼되 양식은 넣으십시오</b></td></tr>
+  </table>
+
+  <h5>절차 5 — 마지막 일곱 줄</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th>확인</th></tr>
+    <tr><td class="c">□</td><td>문서 <b>셋</b>이 다 있는가 (30점)</td></tr>
+    <tr><td class="c">□</td><td>정의서에 상세가 <b>둘</b>인가 (IF-002 를 빠뜨리지 않았는가)</td></tr>
+    <tr><td class="c">□</td><td>캡처에 <b>403</b> 이 있는가</td></tr>
+    <tr><td class="c">□</td><td>캡처에 <b>실패와 건수 변화 없음</b>이 있는가</td></tr>
+    <tr><td class="c">□</td><td>동기화 <b>두 번</b> 화면이 있는가</td></tr>
+    <tr><td class="c">□</td><td>소스에 <code>https://</code> 가 <b>없는가</b></td></tr>
+    <tr><td class="c">□</td><td>빈 폴더에 받아 <b>돌려 봤는가</b></td></tr>
+  </table>
+
+  <p><b>제출물</b> — 저장소 주소 · 캡처 일곱 · 문서 셋</p>
+
+  <div class="try">
+    <b class="t">끝으로</b>
+    이 교과에서 잃는 점수는 <b>못 만들어서가 아닙니다.</b>
+    문서 셋을 안 써서 <b>30점</b>,
+    IF-002 를 빠뜨려서 <b>7점</b>,
+    403 을 안 찍어서 <b>7점</b> — 합치면 <b>절반에 가깝습니다.</b>
+    <b>셋 다 코드 실력과 상관이 없습니다.</b>
+    문서 셋은 <b>코드를 한 줄도 안 쓴 채로</b> 끝낼 수 있고(레벨 1),
+    나머지 둘은 <b>화면 두 장</b>입니다.
+    <b>각 단원에서 그때그때</b> 해 두는 것이 이 교과의 요령입니다.
+  </div>
+</div>
       </div>
     </div>
 
