@@ -1178,6 +1178,136 @@ when(bookRepository.findById(1L)).thenReturn(Optional.of(book));</pre>
   <code>when(bookRepository.findById(99L)).thenReturn(Optional.empty())</code> 한 줄이면
   데이터베이스를 건드리지 않고 그 상황을 만들 수 있습니다.
 </div>
+      <div class="lab">
+  <b class="t">실습 7</b>
+  <b>가짜를 끼워 «만들기 어려운 상황» 을 한 줄로 만듭니다</b>
+
+  <p><b>목적</b> — 채점 항목 01 · 02 로 <b>25점</b>입니다.
+     이 교과에서 가장 큰 묶음이고, <b>결함 둘이 여기서 잡힙니다.</b></p>
+
+  <h5>절차 1 — 왜 가짜를 쓰는지 적습니다</h5>
+
+  <p>「재고가 0 인 도서로 대출해 보기」 를 <b>진짜 데이터베이스</b>로 하려면
+     그런 데이터를 넣고, 시험하고, 지우는 일이 따라붙습니다.
+     가짜를 쓰면 <b>한 줄로 그 상황을 만듭니다.</b></p>
+
+  <p class="cmdline"><code><i>// 이 두 줄이 「재고 0 인 책이 있다」 는 상황입니다</i>
+Book book = new Book("품절된 책", 1, <b>0</b>);
+when(bookRepo.findById(2L)).thenReturn(Optional.of(book));</code></p>
+
+  <h5>절차 2 — 쓰는 것 다섯을 익힙니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:230px">쓰는 것</th><th>뜻</th></tr>
+    <tr><td><code>@Mock</code></td>
+        <td>가짜를 만듭니다. <b>정해 주지 않은 호출</b>은
+            <b>빈 값</b>을 돌려줍니다 — 절차 3 의 표를 보십시오</td></tr>
+    <tr><td><code>@InjectMocks</code></td>
+        <td>시험할 <b>진짜 객체</b>를 만들고 그 안에 가짜를 끼워 넣습니다</td></tr>
+    <tr><td><code>when().thenReturn()</code></td><td>가짜가 돌려줄 값을 정합니다</td></tr>
+    <tr><td><code>when().thenThrow()</code></td><td>가짜가 예외를 던지게 합니다</td></tr>
+    <tr><td><code>assertThatThrownBy()</code></td><td>예외가 나야 통과하는 확인입니다</td></tr>
+  </table>
+
+  <h5>절차 3 — 세 가지 상황을 각각 한 줄로 만듭니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">만들 상황</th><th>한 줄</th></tr>
+    <tr><td>재고 있는 책</td>
+        <td><code>thenReturn(Optional.of(new Book("자바의 정석", 3, <b>3</b>)))</code></td></tr>
+    <tr><td>재고 0 인 책</td>
+        <td><code>thenReturn(Optional.of(new Book("품절된 책", 1, <b>0</b>)))</code></td></tr>
+    <tr><td><b>없는 책</b></td>
+        <td><code>thenReturn(<b>Optional.empty()</b>)</code></td></tr>
+  </table>
+
+  <p><b>셋째 줄이 값을 합니다.</b>
+     <code>Optional.empty()</code> 한 줄이면
+     <b>데이터베이스를 건드리지 않고</b> 「없는 도서」 상황을 만듭니다.</p>
+
+  <p><b>정해 주지 않으면 무엇이 나오는지</b>도 알아 두십시오. 직접 찍어 본 값입니다.</p>
+
+  <p class="cmdline"><code>findById(안 정함)  = <b>Optional.empty</b>
+findAll(안 정함)   = <b>[]</b>
+count(안 정함)     = <b>0</b></code></p>
+
+  <p><b>null 이 아니라 «빈 값» 입니다.</b>
+     그래서 <code>findById</code> 를 안 정해 두면
+     <b>「없는 책」 을 시험하는 셈</b>이 되어 엉뚱한 예외가 납니다.</p>
+
+  <h5>절차 4 — 예외를 시험합니다</h5>
+
+  <p class="cmdline"><code>assertThatThrownBy(() -&gt; service.lend(2L, "hong"))
+    .isInstanceOf(<b>OutOfStockException</b>.class)
+    .hasMessageContaining("재고가 없습니다");
+
+verify(lendRepo, <b>never()</b>).save(any());      <i>// 저장까지 가면 안 된다</i></code></p>
+
+  <p><code>() -&gt; …</code> 안이 <b>돌려 볼 코드 덩이</b>입니다.
+     이것을 돌려서 <code>OutOfStockException</code> 이 나오면 통과,
+     <b>안 나오거나 다른 예외가 나오면 실패</b>입니다.</p>
+
+  <p>결함이 있을 때 이렇게 나옵니다.</p>
+
+  <p class="cmdline"><code>=&gt; java.lang.AssertionError:
+   <b>Expecting code to raise a throwable.</b></code></p>
+
+  <div class="note"><b>「막아야 하는데 안 막았다」 는 뜻입니다.</b>
+    예외가 아예 <b>안 났다</b>는 말입니다.
+    <code>&lt;= 0</code> 이어야 할 조건이 <code>&lt; 0</code> 으로 되어 있으면
+    <b>재고 0 이 그냥 통과</b>합니다 — 실습 11 의 결함 하나가 이것입니다.</div>
+
+  <h5>절차 5 — 세 시험을 돌립니다</h5>
+
+  <p class="cmdline"><code>Test run finished after 4078 ms
+[         3 tests found           ]
+[         <b>3 tests successful</b>   ]
+[         0 tests failed          ]</code></p>
+
+  <h5>절차 6 — «가짜라서 못 보는 것» 을 적어 둡니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">단위 테스트가 보는 것</th><th>못 보는 것</th></tr>
+    <tr><td>계산이 맞는가 (14일 · 재고 −1)</td>
+        <td><b>진짜로 저장되는가</b></td></tr>
+    <tr><td>막아야 할 때 막는가</td><td>쿼리 이름이 맞는가</td></tr>
+    <tr><td>저장을 <b>불렀는가</b></td>
+        <td><code>@Transactional</code> 이 걸렸는가</td></tr>
+  </table>
+
+  <p><b>오른쪽 칸이 실습 8 · 9 의 몫</b>입니다.
+     이 표를 보고서에 적어 두면 <b>「왜 세 층을 다 썼는가」</b> 의 답이 됩니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>UnnecessaryStubbingException</code></td>
+        <td><code>when(...)</code> 을 걸어 놓고 <b>안 썼습니다.</b>
+            지우거나 <code>lenient()</code> 를 쓰십시오</td></tr>
+    <tr><td><code>IllegalArgumentException: 그런 책이 없습니다</code></td>
+        <td><code>findById</code> 의 답을 <b>안 정했습니다.</b>
+            정해 주지 않으면 가짜는 <code>Optional.<b>empty</b></code> 를 돌려주고,
+            우리 코드는 그것을 <b>「없는 책」 으로</b> 읽습니다</td></tr>
+    <tr><td><code>Wanted but not invoked: lendRepo.save()</code></td>
+        <td><code>verify</code> 가 <b>안 불린 것</b>을 잡았습니다 —
+            앞에서 예외로 끊겼는지 보십시오</td></tr>
+    <tr><td><code>@InjectMocks</code> 가 <b>null</b></td>
+        <td>생성자 인자와 <code>@Mock</code> 의 <b>타입이 안 맞습니다</b></td></tr>
+    <tr><td>Mockito 자기 부착 <b>경고</b>가 뜸</td>
+        <td><code>Mockito is currently self-attaching …</code> 는
+            <b>경고일 뿐</b>입니다. 시험은 정상으로 돕니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 단위 테스트 코드 + <b>통과 화면</b> +
+     세 상황을 한 줄로 만든 표 + 「못 보는 것」 표</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>@Mock</code> 과 <code>@InjectMocks</code> 를 <b>둘 다</b> 썼습니까
+     ② <code>Optional.empty()</code> 로 <b>없는 도서</b>를 만들어 봤습니까
+     ③ 예외 시험에 <code>never()</code> 가 붙어 있습니까
+     ④ <b>못 보는 것</b>을 적어 두었습니까</p>
+</div>
       </div>
     </div>
 
@@ -1226,6 +1356,177 @@ when(bookRepository.findById(1L)).thenReturn(Optional.of(book));</pre>
   앞의 것은 그냥 가짜 객체이고, 뒤의 것은 <b>스프링 컨테이너에 등록되는</b> 가짜입니다.
   <code>@WebMvcTest</code> 는 스프링이 띄우므로 <b>@MockitoBean 을 써야</b> 합니다.
   여기를 잘못 쓰면 「의존성을 못 찾겠다」 는 오류로 시작조차 못 합니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 8</b>
+  <b>보려는 겹만 띄워 «저장»과 «응답» 을 각각 봅니다</b>
+
+  <p><b>목적</b> — 채점 항목 01 · 02 · 04 에 걸칩니다.
+     실습 7 에서 <b>못 본 것</b>을 여기서 봅니다 —
+     <b>진짜로 저장되는가</b>와 <b>응답 모양이 맞는가</b>입니다.</p>
+
+  <h5>절차 1 — <code>@DataJpaTest</code> 로 데이터입출력을 봅니다</h5>
+
+  <p>Repository 는 <b>메서드 이름만 적어 두면</b> 스프링이 쿼리를 만들어 줍니다.
+     그래서 <b>진짜로 도는지</b> 한 번은 확인해 두어야 합니다.</p>
+
+  <p class="cmdline"><code>@DataJpaTest
+class BookRepositoryTest {
+
+  @Autowired BookRepository repo;
+
+  @Test
+  @DisplayName("TC-06 제목 일부로 찾으면 그 책만 나온다")
+  void findByTitleContaining() {
+    repo.save(new Book("자바의 정석", 3, 3));
+    repo.save(new Book("이펙티브 자바", 2, 2));
+    repo.save(new Book("파이썬 입문", 1, 1));
+
+    List&lt;Book&gt; found = repo.findByTitleContaining("자바");
+
+    assertThat(found).hasSize(<b>2</b>);
+  }
+
+  @Test
+  @DisplayName("없는 제목으로 찾으면 «빈 목록» 이다 — 예외가 아니다")
+  void findNothing() {
+    assertThat(repo.findByTitleContaining("코볼")).isEmpty();
+  }
+}</code></p>
+
+  <table class="wide">
+    <tr><th style="width:250px"><code>@DataJpaTest</code> 가 해 주는 것</th><th></th></tr>
+    <tr><td>JPA 와 H2 <b>만</b> 띄웁니다</td><td>몇 백 밀리초면 끝납니다</td></tr>
+    <tr><td>넣은 데이터가 <b>알아서 되돌아갑니다</b></td>
+        <td>돌릴 때마다 <b>쌓일 걱정을 안 해도</b> 됩니다</td></tr>
+  </table>
+
+  <p><b>둘째 시험을 눈여겨보십시오.</b>
+     없는 것을 찾으면 <b>예외가 아니라 빈 목록</b>입니다.
+     이것을 모르고 <code>assertThrows</code> 를 걸면 <b>시험이 틀립니다.</b></p>
+
+  <h5>절차 2 — <code>@WebMvcTest</code> 로 인터페이스를 봅니다</h5>
+
+  <p>Controller 는 요청을 받아 Service 에 넘기고 응답을 만듭니다.
+     여기서 볼 것은 <b>요청과 응답의 모양</b>이지 업무 규칙이 아닙니다.
+     그래서 <b>Service 는 가짜로</b> 두고 Controller 만 진짜로 띄웁니다.</p>
+
+  <p class="cmdline"><code>@WebMvcTest(BookController.class)
+class BookControllerTest {
+
+  @Autowired MockMvc mvc;
+  <b>@MockitoBean</b> LibraryService service;
+
+  @Test
+  @DisplayName("TC-07 대출 요청이 200 과 반납기한을 돌려준다")
+  void lend_200() throws Exception {
+    LocalDateTime due = LocalDateTime.of(2026, 10, 3, 12, 0);
+    when(service.lend(eq(1L), anyString()))
+        .thenReturn(new Lend(1L, "hong", due.minusDays(14), due));
+
+    mvc.perform(post("/api/books/1/lend").param("memberId", "hong"))
+       .andExpect(<b>status().isOk()</b>)
+       .andExpect(<b>jsonPath("$.bookId").value(1)</b>)
+       .andExpect(jsonPath("$.dueAt").value("2026-10-03T12:00"));
+  }
+}</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">쓰는 것</th><th>뜻</th></tr>
+    <tr><td><code>perform()</code></td>
+        <td>요청을 보냅니다. <b>서버를 띄우지 않고</b> 흉내만 냅니다</td></tr>
+    <tr><td><code>andExpect()</code></td><td>응답을 확인합니다. 여러 개를 이어 붙입니다</td></tr>
+    <tr><td><code>status().isOk()</code></td><td>상태 코드 200 인지 봅니다</td></tr>
+    <tr><td><code>jsonPath("$.bookId")</code></td><td>응답 본문에서 <b>경로로</b> 값을 집어냅니다</td></tr>
+  </table>
+
+  <div class="warn"><b>기한의 «초» 에 걸립니다.</b>
+    <code>2026-10-03T12:00:<b>00</b></code> 이라고 적으면 <b>실패</b>합니다.
+    <br><br>
+    <code>JSON path "$.dueAt" expected:&lt;2026-10-03T12:00:00&gt;
+    but was:&lt;2026-10-03T12:00&gt;</code>
+    <br><br>
+    <code>LocalDateTime.toString()</code> 은 <b>초가 0 이면 생략</b>합니다.
+    <b>기대 결과를 짐작으로 쓰지 말고</b> 한 번 찍어 보고 적으십시오.</div>
+
+  <h5>절차 3 — <code>@Mock</code> 과 <code>@MockitoBean</code> 을 구분합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px"></th><th style="width:210px">무엇</th><th>어디에 쓰나</th></tr>
+    <tr><td><code>@Mock</code></td><td>그냥 <b>가짜 객체</b></td>
+        <td>단위 — 스프링이 없습니다</td></tr>
+    <tr><td><code>@MockitoBean</code></td>
+        <td><b>스프링 통에 등록되는</b> 가짜</td>
+        <td>슬라이스 · 통합 — 진짜를 <b>바꿔 끼웁니다</b></td></tr>
+  </table>
+
+  <p>예전 이름인 <code>@MockBean</code> 으로 배웠다면
+     <b>프로젝트의 Boot 판을 확인</b>하십시오. 이름이 바뀌었습니다.</p>
+
+  <h5>절차 4 — 둘을 각각 돌립니다</h5>
+
+  <p>인터페이스 슬라이스(<code>@WebMvcTest</code>) 쪽입니다.</p>
+
+  <p class="cmdline"><code>[ 2 tests found      ]
+[ <b>2 tests successful</b> ]
+[ 0 tests failed     ]</code></p>
+
+  <p>데이터입출력 쪽은 <b>찾은 건수를 찍어</b> 확인하는 편이 빠릅니다.</p>
+
+  <p class="cmdline"><code>«자바» 로 찾은 건수 = <b>2</b>
+«코볼» 로 찾은 결과 = <b>[]</b>
+
+[ 2 tests found      ]
+[ <b>2 tests successful</b> ]
+[ 0 tests failed     ]</code></p>
+
+  <div class="note"><b>숫자를 한 번 찍어 보고 <code>assertThat</code> 을 쓰십시오.</b>
+    「2건이 나오겠지」 하고 적었다가
+    <b>3건이 나와서</b> 시험이 빨개지는 일이 흔합니다.
+    <code>이펙티브 자바</code> 와 <code>자바의 정석</code> 둘인데
+    <code>자바스크립트 입문</code> 을 섞어 두면 <b>셋</b>이 됩니다.</div>
+
+  <h5>절차 5 — 핸들러가 없으면 무엇이 나오는지 봅니다</h5>
+
+  <p>재고 0 인 책으로 요청하면 <b>상태 코드가 안 나옵니다.</b></p>
+
+  <p class="cmdline"><code>assertThatThrownBy(() -&gt;
+    mvc.perform(post("/api/books/2/lend").param("memberId", "hong")))
+  .hasRootCauseInstanceOf(<b>OutOfStockException</b>.class);</code></p>
+
+  <p><b>전역 핸들러가 없으면 MockMvc 는 예외를 감싸서 다시 던집니다.</b>
+     <code>status().is5xxServerError()</code> 로는 <b>못 잡습니다</b> —
+     응답 자체가 안 만들어지기 때문입니다.
+     <b>핸들러를 붙이면 그때부터 상태 코드로 잡을 수 있습니다.</b></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>package … .test.autoconfigure.orm.jpa does not exist</code></td>
+        <td><b>Boot 판이 다릅니다.</b> 4 부터 슬라이스 어노테이션이
+            <b>모듈별로 쪼개졌습니다</b> (실습 3)</td></tr>
+    <tr><td><code>Name for argument of type [java.lang.Long] not specified</code></td>
+        <td><code>-parameters</code> 가 없습니다.
+            <code>@PathVariable("id")</code> 처럼 <b>이름을 적으면</b> 됩니다</td></tr>
+    <tr><td><code>No qualifying bean of type 'LibraryService'</code></td>
+        <td><code>@MockitoBean</code> 을 <b>안 붙였습니다.</b>
+            <code>@WebMvcTest</code> 는 Service 를 안 띄웁니다</td></tr>
+    <tr><td><code>Status expected:&lt;200&gt; but was:&lt;404&gt;</code></td>
+        <td>경로가 틀렸습니다. <code>@RequestMapping</code> 앞부분까지 세어 보십시오</td></tr>
+    <tr><td><code>@DataJpaTest</code> 에서 데이터가 <b>쌓임</b></td>
+        <td>되돌리기가 꺼져 있습니다.
+            <code>@Transactional</code> 을 덮어쓰지 않았는지 보십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 슬라이스 테스트 <b>둘</b> + 각각의 통과 화면 +
+     <code>@Mock</code> · <code>@MockitoBean</code> 구분 표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 슬라이스가 <b>둘</b> 있습니까 (데이터입출력 · 인터페이스)
+     ② <code>@MockitoBean</code> 을 썼습니까
+     ③ 「없는 것을 찾으면 <b>빈 목록</b>」 을 시험했습니까
+     ④ 기대 결과를 <b>찍어 보고</b> 적었습니까</p>
 </div>
       </div>
     </div>
