@@ -64,6 +64,20 @@
     <p class="src">작업지시서 · EX01 프로젝트</p>
   </aside>
   <div class="bd">
+<div class="note"><b>시작 전에 받아야 하는 것</b><br>
+이 교안은 <b>아래를 손에 쥐고</b> 시작합니다. 없으면 실습이 진행되지 않습니다.
+<table class="wide">
+  <tr><td class="nm">작업지시서</td><td>배포 시나리오와 제출 형식이 여기 있습니다</td></tr>
+  <tr><td class="nm">EX01 프로젝트</td><td>소스 · 테스트 · <b>스크립트 골격</b>이 들어 있고 채울 자리가 <b>일곱</b> 입니다</td></tr>
+  <tr><td class="nm">JDK 17 이상 · Gradle</td><td>Gradle 은 프로젝트의 <b>래퍼</b>를 쓰므로 따로 깔지 않아도 됩니다</td></tr>
+  <tr><td class="nm">운영 흉내를 낼 폴더</td><td><code>releases/</code> 와 <code>deploy/</code> 를 만들 수 있는 자리면 됩니다</td></tr>
+</table>
+<b>앞의 둘은 평가도구라 이 사이트에 올려 두지 않습니다.</b>
+평가문항 원본은 공개 저장소에 두지 않는 것이 이 과정의 원칙입니다 —
+<b>수업 시간에 받으십시오.</b><br>
+프로젝트가 없어도 <b>배포 시나리오와 소프트웨어 목록(실습 4)</b> 은 먼저 쓸 수 있습니다.
+</div>
+
 <p>과제는 하나입니다. S-Deploy 프로젝트를 <b>환경 구성 → 소스 검증 → 빌드 →
    운영 배포 → 헬스체크 → 롤백</b> 차례로 밟고, 단계마다 무엇을 쳤고 무엇이 나왔는지를
    보고서에 남기는 일입니다.</p>
@@ -236,6 +250,108 @@
 </table>
 <p>주소창이 함께 보이게 찍으면 <b>포트까지 한 장에</b> 증명됩니다.
    <code>curl</code> 로 받아도 되지만 브라우저 쪽이 주소가 같이 나와 유리합니다.</p>
+      <div class="lab">
+  <b class="t">실습 1</b>
+  <b>끝났을 때 나와야 하는 응답을 «값 다섯» 으로 못 박습니다</b>
+
+  <p><b>목적</b> — 이 프로그램에는 <b>웹 페이지가 없습니다.</b>
+     주소로 물어보면 JSON 으로 답할 뿐입니다.
+     그래도 <b>배포가 제대로 되었는지는 이 응답만으로 다 알 수 있습니다.</b></p>
+
+  <h5>절차 1 — 다 됐을 때의 응답을 봅니다</h5>
+
+  <p class="cmdline"><code>curl http://localhost:9090/health
+{"status":"UP","profile":"prod","env":"production","port":"9090"}
+
+curl http://localhost:9090/version
+{"version":"1.0.0"}</code></p>
+
+  <h5>절차 2 — 값마다 «무엇을 증명하는지» 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">응답의 값</th><th style="width:210px">무엇을 증명하나</th>
+        <th>틀리면</th></tr>
+    <tr><td><code>status: UP</code></td><td>프로그램이 <b>살아 있다</b></td>
+        <td>아직 안 떴습니다</td></tr>
+    <tr><td><code>profile: prod</code></td><td><b>운영 설정</b>으로 떴다</td>
+        <td><code>default</code> 면 프로파일을 <b>안 걸었습니다</b></td></tr>
+    <tr><td><code>env: production</code></td><td><b>prod 파일</b>을 읽었다</td>
+        <td><code>dev</code> 면 파일이 비었거나 <b>이름이 틀립니다</b></td></tr>
+    <tr><td><code>port: 9090</code></td><td><b>운영 포트</b>로 떴다</td>
+        <td><code>8080</code> 이면 <b>기본 설정</b>으로 떴습니다</td></tr>
+    <tr><td><code>version: 1.0.0</code></td><td>어느 판이 올라갔나</td>
+        <td><b>롤백 확인의 기준값</b>입니다 (실습 15)</td></tr>
+  </table>
+
+  <h5>절차 3 — 「틀린 쪽」 을 «먼저» 봐 둡니다</h5>
+
+  <p>프로파일을 <b>안 걸고</b> 띄우면 이렇게 됩니다.</p>
+
+  <p class="cmdline"><code>curl http://localhost:8080/health
+{"status":"UP","profile":"<b>default</b>","env":"<b>dev</b>","port":"<b>8080</b>"}</code></p>
+
+  <p class="cmdline"><code>curl http://localhost:9090/health
+(응답 없음 — 그 포트에 아무것도 없습니다)</code></p>
+
+  <p>기동 로그에도 한 줄이 찍힙니다.</p>
+
+  <p class="cmdline"><code>INFO --- [main] kr.dep.DeployApp :
+  <b>No active profile set, falling back to 1 default profile: "default"</b></code></p>
+
+  <div class="warn"><b>이 화면이 «성공처럼» 보이는 것이 함정입니다.</b>
+    <code>status</code> 가 <b><code>UP</code></b> 이라 <b>떴다고 착각</b>합니다.
+    그런데 <b>포트도 설정도 전부 기본값</b>입니다 —
+    운영 데이터베이스가 아니라 <b>개발용을 보고</b> 있습니다.
+    <b><code>status</code> 만 보지 말고 네 값을 다 보십시오.</b></div>
+
+  <h5>절차 4 — 찍는 법을 정합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">무엇으로</th><th>장단</th></tr>
+    <tr><td>브라우저</td>
+        <td><b>주소가 같이 나와</b> 포트까지 한 장에 증명됩니다 — <b>이쪽을 권합니다</b></td></tr>
+    <tr><td><code>curl</code></td>
+        <td>값은 같지만 <b>주소가 안 보입니다.</b> 명령 줄까지 함께 찍으십시오</td></tr>
+  </table>
+
+  <h5>절차 5 — 찍을 것 세 컷을 적어 둡니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:210px">언제</th><th>보여야 할 것</th></tr>
+    <tr><td class="c">1</td><td>운영에 올린 직후</td>
+        <td><code>/health</code> — <b>prod · production · 9090</b></td></tr>
+    <tr><td class="c">2</td><td>같은 때</td><td><code>/version</code> — <b>올린 판</b></td></tr>
+    <tr><td class="c">3</td><td><b>롤백한 뒤</b></td>
+        <td><code>/version</code> — <b>판이 되돌아간 것</b> (실습 15)</td></tr>
+  </table>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td>응답이 <b>아예 없음</b></td>
+        <td>포트가 다릅니다. 기동 로그의
+            <code>Tomcat started on port …</code> 를 보십시오</td></tr>
+    <tr><td><code>profile</code> 이 <code>default</code></td>
+        <td><code>-Dspring.profiles.active=prod</code> 를 <b>안 줬습니다</b></td></tr>
+    <tr><td><code>env</code> 가 <code>dev</code> 인데 포트는 9090</td>
+        <td>포트만 맞추고 <b>prod 파일을 안 읽었습니다.</b>
+            파일 이름이 <code>application-<b>prod</b>.properties</code> 인지 보십시오</td></tr>
+    <tr><td><code>401</code> 이 남</td>
+        <td>의존성에 <code>security</code> 가 들어 있습니다.
+            이 과제 범위가 아니면 <b>빼십시오</b></td></tr>
+    <tr><td><code>version</code> 이 <code>0.0.0</code></td>
+        <td>판을 <b>설정에서 안 읽고</b> 있습니다 (실습 11)</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 값 다섯의 뜻을 적은 표 + <b>틀린 쪽 화면</b>(default) +
+     찍을 것 세 컷 계획</p>
+
+  <p><b>스스로 확인</b> —
+     ① 값 <b>다섯</b>이 무엇을 증명하는지 말할 수 있습니까
+     ② <code>status: UP</code> 만으로 <b>안심하면 안 되는</b> 까닭을 압니까
+     ③ 찍을 것이 <b>세 컷</b>인 것을 적어 두었습니까</p>
+</div>
       </div>
     </div>
 

@@ -38,6 +38,7 @@ SCORE = {
     "m09": [f"{i:02d}" for i in range(1, 16)],
     "m13": [f"{i:02d}" for i in range(1, 16)],
     "m14": [f"{i:02d}" for i in range(1, 11)],
+    "m15": [f"{i:02d}" for i in range(1, 17)],
     # m18 은 평가도구가 없는 모듈이라 «채점 항목» 대신 NCS 수행준거를 센다
     "m18": [f"{g}-{i}" for g, n in ((1, 3), (2, 3), (3, 4), (4, 3))
             for i in range(1, n + 1)],
