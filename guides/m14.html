@@ -2092,7 +2092,10 @@ D-04 | 경계값      | Expecting value to be false but true  |  4   | TC-03</co
 </table>
 <p>심각한데 <b>거의 안 일어나는</b> 결함은 심각도가 높고 우선순위는 낮을 수 있습니다.
    반대로 사소한데 <b>모든 화면에 보이는</b> 결함은 심각도가 낮고 우선순위가 높습니다.
-   이 과제에서는 D-01 · D-02 가 우선순위 1, D-03 · D-04 가 2 입니다.</p>
+   이 과제에서는 <b>자료가 망가지는 쪽</b>을 앞에 둡니다 —
+   <b>D-02 · D-03 이 우선순위 1</b>, <b>D-01 · D-04 가 2</b> 입니다.
+   D-01 은 500 오류가 나가 <b>제일 시끄럽지만 자료는 멀쩡</b>하고,
+   D-03 은 <b>아무 소리도 안 나는데</b> 없던 책이 계속 늘어납니다 (11단원).</p>
 
 <h4>재현 절차를 적는 법</h4>
 <p>남이 그대로 따라 해서 같은 증상을 볼 수 있어야 합니다.</p>
@@ -2108,6 +2111,105 @@ D-04 | 경계값      | Expecting value to be false but true  |  4   | TC-03</co
   발견 테스트 칸에 <b>메서드 이름을 그대로</b> 적으십시오.
   <code>lend_재고0_예외</code> 라고 적어 두면 나중에 회귀를 돌렸을 때
   그 줄만 찾아보면 됩니다. 「대출 테스트」 처럼 적으면 다시 뒤져야 합니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 12</b>
+  <b>관리대장 네 줄을 «따라 할 수 있게» 씁니다</b>
+
+  <p><b>목적</b> — 채점 항목 05 · 06 으로 <b>15점</b>입니다.
+     테스트가 알려 준 것을 <b>옮겨 적는 일</b>이지 새로 알아내는 일이 아닙니다.</p>
+
+  <h5>절차 1 — 심각도와 우선순위를 «갈라» 적습니다</h5>
+
+  <p>둘을 같은 것으로 적어 내는 일이 잦습니다. <b>묻는 것이 다릅니다.</b></p>
+
+  <table class="wide">
+    <tr><th style="width:130px">칸</th><th style="width:230px">묻는 것</th><th>보기</th></tr>
+    <tr><td class="nm">심각도</td><td>터지면 <b>얼마나 큰일인가</b></td>
+        <td>재고가 음수가 됨 → 높음</td></tr>
+    <tr><td class="nm">우선순위</td><td><b>먼저 고쳐야 하는가</b></td>
+        <td>자주 일어남 · 자료가 망가짐 → 1</td></tr>
+  </table>
+
+  <p>심각한데 <b>거의 안 일어나는</b> 결함은 <b>심각도 높음 · 우선순위 낮음</b> 일 수 있습니다.
+     반대로 사소한데 <b>모든 화면에 보이는</b> 결함은 <b>심각도 낮음 · 우선순위 높음</b> 입니다.</p>
+
+  <h5>절차 2 — 재현 절차를 «따라 할 수 있게» 씁니다</h5>
+
+  <p class="cmdline"><code><i>-- 이렇게 적으면 따라 할 수 있습니다</i>
+1. H2 콘솔에서 재고가 0 인 도서의 id 를 확인한다 (seed: '품절된 책')
+2. POST /api/books/2/lend 에 memberId=hong 을 보낸다
+3. <b>200 이 돌아오고</b> book.available_copies 가 <b>-1</b> 이 된다
+
+<i>-- 이렇게 적으면 못 따라 합니다</i>
+재고가 없을 때 대출이 됨</code></p>
+
+  <div class="note"><b>세 줄의 차이는 «숫자와 자리» 입니다.</b>
+    어느 화면에서 · 무엇을 보내고 · <b>무엇이 얼마가 되는지</b>가 있어야
+    남이 그대로 해 보고 <b>같은 증상</b>을 봅니다.
+    아래 한 줄로는 <b>어느 책으로 해 볼지</b>부터 막힙니다.</div>
+
+  <h5>절차 3 — 발견 테스트에 «메서드 이름을 그대로» 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:44%">이렇게 적으면</th><th>이렇게 적으면</th></tr>
+    <tr><td><code>lend_재고0_예외</code>
+            <br><br>회귀를 돌렸을 때 <b>그 줄만 찾아보면</b> 됩니다</td>
+        <td>「대출 테스트」
+            <br><br><b>다시 뒤져야</b> 합니다</td></tr>
+  </table>
+
+  <h5>절차 4 — 네 줄을 채웁니다</h5>
+
+  <p class="cmdline"><code>결함 | 유형      | 증상(메시지)                          | 심각도 | 우선 | 발견 테스트
+-----+-----------+---------------------------------------+--------+------+------------------
+D-02 | 경계값    | Expecting code to raise a throwable   | 높음   |  1   | lend_재고0_예외
+D-03 | 상태 검증 | expected: 2 but was: 3                | 높음   |  1   | lend_정상
+D-01 | 예외 처리 | but was: NullPointerException         | 중간   |  2   | lend_없는책_예외
+D-04 | 경계값    | Expecting value to be false but true  | 낮음   |  2   | 연체_경계</code></p>
+
+  <p><b>우선순위는 실습 11 에서 정한 그대로</b>입니다 —
+     <b>자료가 망가지는 쪽</b>(D-02 · D-03)이 1,
+     <b>시끄럽지만 자료는 멀쩡한 쪽</b>(D-01)과
+     <b>되돌릴 수 있는 쪽</b>(D-04)이 2 입니다.</p>
+
+  <h5>절차 5 — 심각도와 우선순위가 «다른 줄» 이 있는지 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:90px">결함</th><th style="width:110px">심각도</th>
+        <th style="width:90px">우선</th><th>왜 다른가</th></tr>
+    <tr><td class="c">D-01</td><td class="c">중간</td><td class="c">2</td>
+        <td>500 이 나가 <b>크게 보이지만</b> 자료는 안 망가집니다</td></tr>
+    <tr><td class="c">D-04</td><td class="c">낮음</td><td class="c">2</td>
+        <td>연체료가 <b>하루치</b> 어긋나고 되돌릴 수 있습니다</td></tr>
+  </table>
+
+  <p><b>두 칸이 늘 같으면 갈라 적은 뜻이 없습니다.</b>
+     한 줄이라도 다르면 <b>「기준을 갖고 정했다」</b> 가 보입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 상태면</th><th>볼 곳</th></tr>
+    <tr><td>심각도와 우선순위가 <b>네 줄 다 같음</b></td>
+        <td>한쪽만 정하고 <b>베껴 넣었습니다.</b> 절차 1 을 다시 보십시오</td></tr>
+    <tr><td>재현 절차에 <b>숫자가 없음</b></td>
+        <td>「안 됨」 · 「이상함」 으로는 <b>남이 못 따라 합니다</b></td></tr>
+    <tr><td>발견 테스트가 <b>한글 설명</b></td>
+        <td><b>메서드 이름 그대로</b> 적으십시오 (실습 15 에서 찾습니다)</td></tr>
+    <tr><td>증상 칸에 <b>원인</b>을 적음</td>
+        <td>증상은 <b>콘솔에 나온 것</b>입니다.
+            원인은 다음 단원(실습 13)에서 적습니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>결함관리대장.md</code> 네 줄 +
+     재현 절차(결함마다 세 줄 이상) + 심각도·우선순위가 다른 줄</p>
+
+  <p><b>스스로 확인</b> —
+     ① 심각도와 우선순위를 <b>갈라</b> 적었습니까
+     ② 재현 절차에 <b>숫자와 자리</b>가 있습니까
+     ③ 발견 테스트가 <b>메서드 이름</b>입니까
+     ④ 두 칸이 <b>다른 줄</b>이 있습니까</p>
 </div>
       </div>
     </div>
@@ -2159,6 +2261,119 @@ D-04 | 경계값      | Expecting value to be false but true  |  4   | TC-03</co
   「<code>isOverdue</code> 는 <code>LibraryServiceImpl</code> 안에서만 쓰이고
   반납된 건은 앞 조건에서 걸러지므로 영향 없음」 처럼 적으면 항목 07 이 채워집니다.
 </div>
+      <div class="lab">
+  <b class="t">실습 13</b>
+  <b>원인을 «왜» 로 적고, 고치면 어디가 흔들리는지 봅니다</b>
+
+  <p><b>목적</b> — 채점 항목 07 · <b>10점</b>입니다.
+     <b>「어느 줄」 은 위치이지 원인이 아닙니다.</b></p>
+
+  <h5>절차 1 — 원인을 «왜» 로 바꿔 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:44%">이렇게 적으면 부족</th><th>이렇게 적으면 원인</th></tr>
+    <tr><td>부등호가 틀렸음</td>
+        <td>재고 0 을 <b>대출 가능한 상태로 읽어</b> 경계를 한 칸 밀어 두었음</td></tr>
+    <tr><td>null 체크 누락</td>
+        <td>조회 실패를 <b>업무 예외가 아니라 빈 값</b>으로 넘겨 다음 줄에서 터짐</td></tr>
+    <tr><td>재고 감소 빠짐</td>
+        <td>대출을 <b>「기록을 남기는 일」 로만</b> 보고
+            <b>재고가 바뀌는 것</b>을 일로 세지 않았음</td></tr>
+    <tr><td>연체 조건 틀림</td>
+        <td><b>「지나야」 를 「이거나 같으면」 으로</b> 읽어 하루를 당겨 놓았음</td></tr>
+  </table>
+
+  <p><b>「무엇을 잘못 읽었기에 그렇게 썼는가」</b> 를 적어야 원인이 됩니다.
+     그래야 <b>같은 실수를 다시 안 합니다.</b></p>
+
+  <h5>절차 2 — 고칠 이름이 «어디서 또 쓰이는지» 찾습니다</h5>
+
+  <p>IDE 의 <b>사용처 찾기</b>(Find Usages)로 한 번 훑으면 됩니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:190px">무엇을 고치나</th><th>무엇을 보나</th></tr>
+    <tr><td>메서드를 고칠 때</td>
+        <td>그 메서드를 <b>부르는 곳이 몇 군데</b>인지 셉니다</td></tr>
+    <tr><td>조건을 바꿀 때</td>
+        <td><b>같은 값을 보는 다른 조건</b>이 있는지 봅니다 —
+            재고는 대출 · 반납 · 조회 셋이 함께 씁니다</td></tr>
+    <tr><td>예외를 새로 던질 때</td>
+        <td>그 예외를 <b>받아 주는 곳</b>이 있는지 봅니다</td></tr>
+  </table>
+
+  <h5>절차 3 — 네 결함의 부작용을 각각 적습니다</h5>
+
+  <p class="cmdline"><code>D-02  재고 조건을 &lt;= 로 바꿈
+      부작용 : 재고를 보는 조건이 대출에만 있으므로 번지지 않음.
+               반납은 재고를 «늘리는» 쪽이라 이 조건을 안 씀
+
+D-03  재고를 줄이는 줄을 «넣음»
+      부작용 : 대출 성공 경로에만 생기는 변화.
+               다만 실패 경로에서 «안 줄어드는지» 를 함께 확인해야 함 (TC-02)
+
+D-01  orElse(null) → orElseThrow
+      부작용 : 던지는 예외가 바뀜. 받아 주는 곳이 있는지 봐야 함.
+               @RestControllerAdvice 가 이미 받고 있어 400 으로 나감
+
+D-04  !isBefore → isAfter
+      부작용 : isOverdue 는 LibraryServiceImpl 안에서만 쓰이고
+               반납된 건은 앞 조건에서 걸러지므로 영향 없음</code></p>
+
+  <div class="warn"><b>「영향 없음」 이라고만 적으면 검토한 것이 되지 않습니다.</b>
+    <b>왜 없는지</b>를 함께 적으십시오.
+    D-04 처럼 <b>「어디서만 쓰이고, 어떤 경우는 앞에서 걸러지므로」</b> 까지 적어야
+    항목 07 이 채워집니다.
+    <b>찾아봤다는 흔적</b>이 점수입니다.</div>
+
+  <h5>절차 4 — D-01 이 «예외를 바꾸는» 것을 눈여겨봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">고치기 전</th><th>고친 뒤</th></tr>
+    <tr><td><code>orElse(null)</code> →
+            다음 줄에서 <b><code>NullPointerException</code></b></td>
+        <td><code>orElseThrow(...)</code> →
+            <b><code>IllegalArgumentException</code></b></td></tr>
+    <tr><td>500 으로 나갑니다</td>
+        <td>핸들러가 받아 <b>400</b> 으로 나갑니다</td></tr>
+  </table>
+
+  <p><b>던지는 예외가 바뀌면 응답 코드가 바뀝니다.</b>
+     그래서 <b>받아 주는 곳이 있는지</b>를 반드시 봐야 합니다 —
+     없으면 500 이 그대로 나갑니다.</p>
+
+  <h5>절차 5 — 검토표를 냅니다</h5>
+
+  <p class="cmdline"><code>결함 | 원인(왜)                                   | 부작용 검토
+-----+--------------------------------------------+----------------------------
+D-02 | 재고 0 을 대출 가능으로 읽어 경계를 밀어 둠  | 대출에만 쓰이는 조건 — 없음
+D-03 | 대출을 «기록 남기기» 로만 보고 재고를 셈 안 함| 성공 경로만 — 실패 경로 확인
+D-01 | 조회 실패를 빈 값으로 넘겨 다음 줄에서 터짐  | 예외가 바뀜 — 핸들러 확인
+D-04 | «지나야» 를 «이거나 같으면» 으로 읽음        | Service 안에서만 쓰임 — 없음</code></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 상태면</th><th>볼 곳</th></tr>
+    <tr><td>원인 칸에 <b>줄 번호</b>가 적힘</td>
+        <td>그건 <b>위치</b>입니다. 「무엇을 잘못 읽었나」 로 바꾸십시오</td></tr>
+    <tr><td>부작용이 <b>네 줄 다 「없음」</b></td>
+        <td>D-01 은 <b>예외가 바뀝니다.</b> 정말 없는지 다시 보십시오</td></tr>
+    <tr><td>사용처 찾기에서 <b>너무 많이</b> 나옴</td>
+        <td>이름이 흔한 것입니다 — <code>getId</code> 같은 것은
+            <b>클래스를 좁혀서</b> 찾으십시오</td></tr>
+    <tr><td>고쳤더니 <b>다른 시험이 깨짐</b></td>
+        <td><b>그것이 부작용입니다.</b> 검토표에 적고 함께 고치십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 원인·부작용 검토표 네 줄 +
+     사용처를 찾아본 화면 + 「영향 없음」 의 <b>까닭</b></p>
+
+  <p><b>스스로 확인</b> —
+     ① 원인이 <b>「왜」</b> 로 적혔습니까
+     ② 부작용을 <b>찾아보고</b> 적었습니까
+     ③ 「영향 없음」 에 <b>까닭</b>이 붙었습니까
+     ④ D-01 이 <b>예외를 바꾼다</b>는 것을 적었습니까</p>
+</div>
       </div>
     </div>
 
@@ -2201,6 +2416,117 @@ git commit -m "<b>D-01</b> 없는 도서 대출 시 BizException 으로 처리"<
   작업지시서가 <b>커밋 · 머지 · 푸시</b>를 함께 봅니다.
   로컬에만 커밋해 두고 올리지 않으면 채점자가 볼 수 없습니다.
   마지막에 <code>git push</code> 까지 하고 저장소 주소를 제출물에 적으십시오.
+</div>
+      <div class="lab">
+  <b class="t">실습 14</b>
+  <b>하나 고치고 한 번 돌립니다 — 실패가 «하나씩» 줄어야 합니다</b>
+
+  <p><b>목적</b> — 결함 하나에 커밋 하나입니다.
+     넷을 한꺼번에 고치고 한 번 커밋하면
+     <b>어느 고침이 어느 결함을 잡았는지</b> 아무도 모릅니다.</p>
+
+  <h5>절차 1 — 실습 11 에서 정한 차례대로 고칩니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:90px">차례</th><th style="width:130px">결함</th><th>고치는 내용</th></tr>
+    <tr><td class="c">1</td><td class="c">D-02</td>
+        <td><code>&lt; 0</code> → <code><b>&lt;= 0</b></code></td></tr>
+    <tr><td class="c">2</td><td class="c">D-03</td>
+        <td><code>book.decrease();</code> <b>줄을 넣습니다</b></td></tr>
+    <tr><td class="c">3</td><td class="c">D-01</td>
+        <td><code>orElse(null)</code> → <code><b>orElseThrow(...)</b></code></td></tr>
+    <tr><td class="c">4</td><td class="c">D-04</td>
+        <td><code>!now.isBefore(...)</code> → <code><b>now.isAfter(...)</b></code></td></tr>
+  </table>
+
+  <h5>절차 2 — 고칠 때마다 돌리고 «숫자를 적습니다»</h5>
+
+  <p class="cmdline"><code>출발  : 성공 0 · 실패 <b>4</b>
+D-02 : 성공 1 · 실패 <b>3</b>
+D-03 : 성공 2 · 실패 <b>2</b>
+D-01 : 성공 3 · 실패 <b>1</b>
+D-04 : 성공 4 · 실패 <b>0</b></code></p>
+
+  <div class="warn"><b>하나씩 줄어야 합니다.</b>
+    한 번에 <b>둘이 줄면</b> 한 고침이 두 시험을 잡은 것이고,
+    <b>안 줄면</b> 엉뚱한 데를 고친 것입니다.
+    <b>늘면</b> 고치다 다른 것을 깨뜨렸습니다 — <b>부작용</b>입니다 (실습 13).
+    <b>이 숫자 다섯 줄이 실행결과서의 뼈대</b>가 됩니다 (실습 15).</div>
+
+  <h5>절차 3 — 커밋 메시지에 결함 번호를 답니다</h5>
+
+  <p class="cmdline"><code>git commit -am "fix(<b>D-02</b>): 재고 경계를 0 포함으로 — 재고 0 이면 대출 차단"
+git commit -am "fix(<b>D-03</b>): 대출 시 재고를 1 감소시키는 줄 추가"
+git commit -am "fix(<b>D-01</b>): 조회 실패를 업무 예외로 — orElse(null) 제거"
+git commit -am "fix(<b>D-04</b>): 연체 판정을 «지나야» 로 — 같은 시각은 연체 아님"</code></p>
+
+  <h5>절차 4 — 이력을 확인합니다</h5>
+
+  <p class="cmdline"><code>git log --oneline
+
+a508c49 fix(D-04): 연체 판정을 «지나야» 로 — 같은 시각은 연체 아님
+7d8235e fix(D-01): 조회 실패를 업무 예외로 — orElse(null) 제거
+156b2b6 fix(D-03): 대출 시 재고를 1 감소시키는 줄 추가
+980899b fix(D-02): 재고 경계를 0 포함으로 — 재고 0 이면 대출 차단
+5dad847 chore: 결함이 있는 상태</code></p>
+
+  <p><b>아래에서 위로 읽으면 고친 차례</b>가 그대로 보입니다.
+     맨 아래 <code>chore</code> 가 <b>빨간 화면을 찍은 시점</b>입니다 (실습 10).</p>
+
+  <h5>절차 5 — 한꺼번에 고치면 무엇이 안 되는지 압니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">넷을 한 커밋에 넣으면</th><th></th></tr>
+    <tr><td>어느 고침이 어느 결함을 잡았는지</td><td><b>못 보입니다</b></td></tr>
+    <tr><td>하나만 되돌리고 싶을 때</td><td><b>손으로 골라내야</b> 합니다</td></tr>
+    <tr><td>실패가 줄어드는 과정</td><td><b>남지 않습니다</b> — 항목 09 의 근거가 사라집니다</td></tr>
+  </table>
+
+  <h5>절차 6 — <code>.gitignore</code> 를 한 번 확인합니다</h5>
+
+  <p>커밋했는데 <b>소스가 안 올라가는</b> 일이 있습니다. 직접 겪은 것입니다.</p>
+
+  <p class="cmdline"><code>git ls-files
+.gitignore
+RunTests.java
+          ← src/ 가 <b>없습니다</b></code></p>
+
+  <p class="cmdline"><code>git check-ignore -v src/kr/lib/LibraryService.java
+
+.gitignore:2:<b>lib/</b>	src/kr/<b>lib</b>/LibraryService.java</code></p>
+
+  <div class="warn"><b>앞에 빗금이 없는 <code>lib/</code> 는 «어느 깊이의» lib 폴더든 다 먹습니다.</b>
+    패키지가 <code>kr.<b>lib</b></code> 이면 <code>src/kr/lib/</code> 까지 걸립니다.
+    <b>소스가 통째로 안 올라갑니다.</b>
+    <code><b>/lib/</b></code> 처럼 <b>앞에 빗금</b>을 붙이면 맨 위 것만 걸립니다.
+    <b>커밋한 뒤 <code>git ls-files</code> 로 한 번 세어</b> 보십시오.</div>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>nothing to commit, working tree clean</code></td>
+        <td>고친 파일이 <b>무시되고</b> 있습니다 — 절차 6</td></tr>
+    <tr><td>실패가 <b>한 번에 둘</b> 줄어듦</td>
+        <td>한 고침이 두 시험을 잡았습니다.
+            <b>관리대장에 그렇게 적으십시오</b></td></tr>
+    <tr><td>고쳤는데 <b>안 줄어듦</b></td>
+        <td>엉뚱한 데를 고쳤거나 <b>다시 컴파일이 안 됐습니다</b></td></tr>
+    <tr><td>실패가 <b>늘어남</b></td>
+        <td><b>부작용입니다.</b> 실습 13 의 검토표로 돌아가십시오</td></tr>
+    <tr><td>커밋 메시지에 <b>번호가 없음</b></td>
+        <td>관리대장과 <b>맞물리지 않습니다.</b>
+            <code>--amend</code> 로 고치거나 다음부터 붙이십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 커밋 <b>넷</b>(번호 포함) + <code>git log --oneline</code> +
+     <b>실패 건수가 줄어드는 다섯 줄</b></p>
+
+  <p><b>스스로 확인</b> —
+     ① 커밋이 <b>결함 수만큼</b> 있습니까
+     ② 메시지에 <b>결함 번호</b>가 있습니까
+     ③ 실패가 <b>하나씩</b> 줄었습니까
+     ④ <code>git ls-files</code> 로 <b>소스가 올라갔는지</b> 봤습니까</p>
 </div>
       </div>
     </div>
