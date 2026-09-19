@@ -528,6 +528,134 @@ server.port=8090</code></p>
 </table>
 <p>15점짜리 항목이고 <b>네 가지가 코드에 다 보여야</b> 온전히 받습니다.
    여기에 <code>@Test</code> 와 <code>@DisplayName</code> 이 함께 붙어 있어야 합니다.</p>
+      <div class="lab">
+  <b class="t">실습 3</b>
+  <b>세 층을 «각각 한 번씩» 돌려 무엇이 다른지 봅니다</b>
+
+  <p><b>목적</b> — 채점 항목 01 · <b>15점</b>이고, <b>네 가지 어노테이션이 코드에 다 보여야</b>
+     온전히 받습니다. 왜 셋을 다 쓰는지는 <b>돌려 보면</b> 압니다.</p>
+
+  <h5>절차 1 — 네 가지를 표로 정리합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:290px">어노테이션</th><th style="width:90px">층</th>
+        <th>띄우는 것</th></tr>
+    <tr><td><code>@ExtendWith(MockitoExtension.class)</code></td><td>단위</td>
+        <td><b>아무것도 안 띄웁니다</b></td></tr>
+    <tr><td><code>@DataJpaTest</code></td><td>슬라이스</td>
+        <td>JPA · H2 · Repository</td></tr>
+    <tr><td><code>@WebMvcTest</code></td><td>슬라이스</td>
+        <td>Controller · MockMvc</td></tr>
+    <tr><td><code>@SpringBootTest</code></td><td>통합</td>
+        <td><b>전부</b></td></tr>
+  </table>
+
+  <h5>절차 2 — 단위를 돌립니다 (아무것도 안 띄움)</h5>
+
+  <p class="cmdline"><code>@ExtendWith(MockitoExtension.class)
+class LendServiceTest {
+  @Mock BookRepository bookRepo;
+  @Mock LendRepository lendRepo;
+  <b>@InjectMocks</b> LibraryService service;
+  ⋯
+}</code></p>
+
+  <p class="cmdline"><code>Test run finished after <b>4078 ms</b>
+[ 3 tests successful ]
+[ 0 tests failed     ]</code></p>
+
+  <h5>절차 3 — 슬라이스를 돌립니다 (컨트롤러만)</h5>
+
+  <p class="cmdline"><code>@WebMvcTest(BookController.class)
+class BookControllerTest {
+  @Autowired MockMvc mvc;
+  <b>@MockitoBean</b> LibraryService service;      <i>// 진짜 Service 대신 가짜를 끼웁니다</i>
+  ⋯
+}</code></p>
+
+  <p class="cmdline"><code>[ 2 tests successful ]
+[ 0 tests failed     ]</code></p>
+
+  <div class="note"><b><code>@MockitoBean</code> 은 <code>@Mock</code> 과 다릅니다.</b>
+    <code>@Mock</code> 은 <b>그냥 가짜 객체</b>를 만들고,
+    <code>@MockitoBean</code> 은 <b>스프링 통에 든 진짜를 가짜로 바꿔 끼웁니다.</b>
+    슬라이스는 스프링을 띄우므로 <b>후자</b>를 씁니다.
+    예전 이름인 <code>@MockBean</code> 으로 배웠다면
+    <b>지금 프로젝트의 판을 확인</b>하십시오.</div>
+
+  <h5>절차 4 — 통합을 돌립니다 (전부)</h5>
+
+  <p class="cmdline"><code>@SpringBootTest
+class LibraryIntegrationTest {
+  @Autowired LibraryService service;      <i>// 가짜가 하나도 없습니다</i>
+  @Autowired BookRepository bookRepo;
+  ⋯
+}</code></p>
+
+  <p class="cmdline"><code>[ 2 tests successful ]
+[ 0 tests failed     ]</code></p>
+
+  <h5>절차 5 — «단위만 쓰면 못 잡는 것» 을 확인합니다</h5>
+
+  <p>두 시험이 <b>같은 것을 보는 것 같지만</b> 다릅니다. 나란히 놓고 보십시오.</p>
+
+  <table class="wide">
+    <tr><th style="width:44%">단위 (가짜 저장소)</th><th>통합 (진짜 저장소)</th></tr>
+    <tr><td><code>assertThat(book.getAvailableCopies())<br>&nbsp;&nbsp;.isEqualTo(2);</code>
+            <br><br><b>메모리 안의 객체</b>만 봅니다</td>
+        <td><code>Book after = bookRepo.findById(id)…;<br>
+            assertThat(after.getAvailableCopies())<br>&nbsp;&nbsp;.isEqualTo(2);</code>
+            <br><br><b>다시 꺼내서</b> 봅니다</td></tr>
+  </table>
+
+  <div class="warn"><b>단위만 쓰면 «쿼리가 틀려도 초록» 입니다.</b>
+    가짜 저장소는 <b>시키는 대로 답</b>할 뿐 진짜로 저장하지 않습니다.
+    <code>@Transactional</code> 을 빠뜨렸거나 쿼리 이름을 잘못 지어도
+    <b>단위 테스트는 통과합니다.</b>
+    반대로 <b>통합만 쓰면</b> 다 돌기는 하는데
+    <b>어디가 틀렸는지 짚기 어렵고</b> 느려서 자주 못 돌립니다.</div>
+
+  <h5>절차 6 — 걸린 시간을 견줍니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px">층</th><th style="width:150px">띄우는 것</th><th>언제 돌리나</th></tr>
+    <tr><td class="nm">단위</td><td>없음</td><td><b>코드를 고칠 때마다</b></td></tr>
+    <tr><td class="nm">슬라이스</td><td>일부</td><td>그 층을 손볼 때</td></tr>
+    <tr><td class="nm">통합</td><td>전부</td><td><b>커밋하기 전에 한 번</b></td></tr>
+  </table>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>package org.springframework.boot.test.autoconfigure.orm.jpa
+            does not exist</code></td>
+        <td><b>판이 다릅니다.</b> Boot 4 는 슬라이스 어노테이션을
+            <b>모듈별로 쪼갰습니다</b> —
+            <code>@WebMvcTest</code> 가
+            <code>org.springframework.boot.<b>webmvc.test</b>.autoconfigure</code>
+            로 옮겼습니다. <b>프로젝트의 Boot 판에 맞춰</b> import 하십시오</td></tr>
+    <tr><td><code>Name for argument of type [java.lang.Long] not specified …
+            Ensure that the compiler uses the '-parameters' flag</code></td>
+        <td><code>@PathVariable</code> 이 이름을 못 찾습니다.
+            빌드에 <code>-parameters</code> 를 넣거나
+            <code>@PathVariable("id")</code> 처럼 <b>이름을 적으십시오</b></td></tr>
+    <tr><td><code>UnnecessaryStubbingException</code></td>
+        <td><code>when(...)</code> 을 걸어 놓고 <b>안 썼습니다.</b>
+            지우거나 <code>lenient()</code> 를 쓰십시오</td></tr>
+    <tr><td>단위 테스트가 <b>느림</b></td>
+        <td><code>@SpringBootTest</code> 가 섞여 있습니다.
+            단위에는 <b>스프링이 없어야</b> 합니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 네 어노테이션이 보이는 코드 + <b>세 층의 통과 화면</b> +
+     단위와 통합을 견준 표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 네 가지가 <b>코드에 다</b> 있습니까
+     ② <code>@MockitoBean</code> 과 <code>@Mock</code> 의 차이를 말할 수 있습니까
+     ③ <b>단위만 쓰면 못 잡는 것</b>을 한 문장으로 말할 수 있습니까</p>
+</div>
       </div>
     </div>
 
