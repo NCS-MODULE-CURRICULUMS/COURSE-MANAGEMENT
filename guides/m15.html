@@ -1380,6 +1380,108 @@ openjdk version "<b>21</b>.0.2" 2024-01-16
 <p>준거 2.3 이 <b>「환경 설정 · 운영 환경 정보 · 대상 시스템 정보」</b> 셋을 나눠 듭니다.
    표의 첫 칸을 그 셋으로 두면 읽는 사람이 대응을 바로 봅니다.
    5점짜리 항목인데 <b>표 한 장으로 끝납니다</b>.</p>
+      <div class="lab">
+  <b class="t">실습 8</b>
+  <b>옮겨 적지 말고 «견줍니다» — 표 한 장으로 5점</b>
+
+  <p><b>목적</b> — 채점 항목 07 · <b>5점</b>이고 <b>표 한 장으로 끝납니다.</b>
+     다만 <b>값을 표에 옮겨 적는 것만으로는 점검이 되지 않습니다.</b>
+     <b>두 곳에 적힌 같은 값이 서로 맞는지 보는 것</b>이 점검입니다.</p>
+
+  <h5>절차 1 — 견줄 짝 넷을 잡습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:290px">견줄 짝</th><th>어긋나면</th></tr>
+    <tr><td><code>build.gradle</code> 의 <code>version</code>
+            ↔ <code>app.version</code></td>
+        <td>롤백했는데 <b>버전이 안 바뀐 것처럼</b> 보입니다</td></tr>
+    <tr><td><code>prod</code> 의 <code>server.port</code>
+            ↔ 시나리오의 포트</td>
+        <td>보고서와 실제 화면의 <b>포트가 다릅니다</b></td></tr>
+    <tr><td><code>jar</code> 산출물 이름 ↔ 스크립트가 찾는 이름</td>
+        <td>실행 단계에서 <b>파일을 못 찾습니다</b></td></tr>
+    <tr><td>JDK 21 ↔ 실행 장비의 자바</td>
+        <td><b>jar 가 안 뜹니다</b></td></tr>
+  </table>
+
+  <h5>절차 2 — 자바 판을 «양쪽에서» 봅니다</h5>
+
+  <p class="cmdline"><code># 실행 장비의 자바
+java -version
+openjdk version "<b>21</b>.0.2" 2024-01-16
+
+# build.gradle 의 toolchain
+grep -A2 toolchain build.gradle
+  toolchain {
+    languageVersion = JavaLanguageVersion.of(<b>21</b>)
+  }</code></p>
+
+  <p><b>두 숫자가 같아야</b> 합니다.
+     빌드는 21 로 했는데 운영 장비가 17 이면
+     <code>UnsupportedClassVersionError</code> 로 <b>안 뜹니다.</b></p>
+
+  <h5>절차 3 — 준거가 든 «셋» 으로 칸을 나눕니다</h5>
+
+  <p>준거 2.3 이 <b>「환경 설정 · 운영 환경 정보 · 대상 시스템 정보」</b> 셋을 나눠 듭니다.
+     표의 <b>첫 칸을 그 셋으로</b> 두면 읽는 사람이 대응을 바로 봅니다.</p>
+
+  <p class="cmdline"><code>구분          | 항목            | 어디에 적혀 있나        | 값        | 맞나
+--------------+-----------------+-------------------------+-----------+------
+환경 설정      | 프로파일         | 실행 인자                | prod      |  ○
+환경 설정      | 포트            | application-prod.properties | 9090   |  ○
+환경 설정      | 로그 수준        | application-prod.properties | INFO   |  ○
+운영 환경 정보  | 자바            | 운영 장비 java -version   | 21.0.2    |  ○
+운영 환경 정보  | 빌드 자바        | build.gradle toolchain    | 21        |  ○
+대상 시스템    | 산출물 이름      | build.gradle archiveFileName | app.jar |  ○
+대상 시스템    | 스크립트가 찾는 이름 | run.sh                 | app.jar   |  ○
+대상 시스템    | 판              | build.gradle version      | 1.0.0     |  ○</code></p>
+
+  <div class="note"><b>「맞나」 칸이 있어야 점검표입니다.</b>
+    값만 여덟 줄 적어 놓으면 <b>목록</b>이지 점검이 아닙니다.
+    <b>짝을 이루는 두 줄을 나란히</b> 놓고 ○ 를 치는 것이
+    「견줬다」 는 증거입니다.</div>
+
+  <h5>절차 4 — 일부러 «어긋나게» 해 봅니다</h5>
+
+  <p><code>run.sh</code> 가 찾는 이름만 <code>application.jar</code> 로 바꿔 보십시오.</p>
+
+  <p class="cmdline"><code>ls: cannot access 'build/libs/application.jar': No such file or directory</code></p>
+
+  <p><b>빌드는 멀쩡히 성공했는데 실행 단계에서 막힙니다.</b>
+     짝이 어긋나면 <b>어긋난 자리가 아니라 그 다음 걸음에서</b> 터진다는 것을
+     여기서 한 번 겪어 두십시오.</p>
+
+  <h5>절차 5 — 표를 보고서에 넣습니다</h5>
+
+  <p>여덟 줄이면 충분합니다. <b>5점짜리 항목인데 십 분이면 끝납니다.</b>
+     실습 4 에서 만든 설정 표와 <b>숫자가 같아야</b> 합니다 —
+     다르면 어느 쪽이 맞는지부터 따지게 됩니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>UnsupportedClassVersionError</code></td>
+        <td>빌드 자바가 <b>실행 자바보다 높습니다</b> — 절차 2</td></tr>
+    <tr><td><code>No such file or directory</code> (jar)</td>
+        <td>이름 짝이 어긋났습니다 — 절차 4</td></tr>
+    <tr><td><code>grep</code> 에 <code>toolchain</code> 이 <b>안 나옴</b></td>
+        <td>안 쓰고 있습니다. <b>그러면 빌드한 PC 의 자바</b>로 컴파일됩니다 —
+            그 판을 적으십시오</td></tr>
+    <tr><td>포트가 보고서와 <b>다름</b></td>
+        <td>실습 4 의 설정 표를 고치거나 설정 파일을 고치십시오.
+            <b>둘 중 하나는 틀린 것</b>입니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 점검표 여덟 줄(구분 · 맞나 칸 포함) +
+     자바 판을 양쪽에서 본 화면 + <b>어긋나게 했을 때</b> 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 첫 칸이 <b>준거의 셋</b>으로 나뉘어 있습니까
+     ② <b>「맞나」 칸</b>이 있습니까
+     ③ 자바 판을 <b>양쪽에서</b> 봤습니까
+     ④ 실습 4 의 표와 <b>숫자가 같습니까</b></p>
+</div>
       </div>
     </div>
 
@@ -1426,6 +1528,125 @@ openjdk version "<b>21</b>.0.2" 2024-01-16
    <code>build.gradle</code> 에서 <code>version = '1.0.0'</code> 줄을 찾아
    따옴표 안의 1.0.0 만 꺼냅니다.
    이렇게 해 두면 버전을 올렸을 때 <b>스크립트를 고치지 않아도</b> 사본 이름이 따라옵니다.</p>
+      <div class="lab">
+  <b class="t">실습 9</b>
+  <b>검증과 빌드를 «한 줄에» 묶고, <code>set -e</code> 로 잠급니다</b>
+
+  <p><b>목적</b> — 채점 항목 08 · 09 로 <b>15점</b>입니다.
+     이 과제에는 빌드 서버가 따로 없으므로
+     <b>검증과 빌드를 한 흐름에 잇는 것</b>이 「이관」 입니다.</p>
+
+  <h5>절차 1 — 세 과제를 한 줄에 답니다</h5>
+
+  <p class="cmdline"><code>./gradlew <b>clean test jar</b>
+<i>#          ↑     ↑    ↑</i>
+<i>#       찌꺼기  검문소  묶기</i></code></p>
+
+  <p>가운데에 <code>test</code> 가 있으므로 <b>검증에 실패하면 묶이지 않습니다.</b>
+     사람이 순서를 지킬 필요 없이 <b>도구가 지켜 줍니다.</b></p>
+
+  <h5>절차 2 — 스크립트로 굳힙니다</h5>
+
+  <p class="cmdline"><code>#!/bin/bash
+<b>set -e</b>                                   <i># 한 줄이라도 실패하면 즉시 멈춘다</i>
+
+VERSION=$(grep "^version" build.gradle | cut -d"'" -f2)
+
+./gradlew clean test jar
+
+mkdir -p releases
+cp build/libs/app.jar "releases/app-${VERSION}.jar"
+echo "보관 완료: releases/app-${VERSION}.jar"</code></p>
+
+  <h5>절차 3 — <code>set -e</code> 를 «빼고» 돌려 봅니다</h5>
+
+  <p>시험을 일부러 깨뜨려 두고, <code>set -e</code> 없이 스크립트를 돌립니다.</p>
+
+  <p class="cmdline"><code>AppTest &gt; 판 확인 FAILED
+1 test completed, 1 failed
+
+<b>BUILD FAILED</b> in 3m 17s
+<b>보관 완료: releases/app-1.1.0.jar</b>      ← 실패했는데 «찍힙니다»</code></p>
+
+  <p class="cmdline"><code>ls -1 releases/
+app-1.0.0.jar
+<b>app-1.1.0.jar</b>                          ← 쌓였습니다</code></p>
+
+  <div class="warn"><b>빌드가 실패했는데 릴리스가 보관되었습니다.</b>
+    <code>gradlew</code> 가 <b>실패해도 다음 줄이 계속 돌기</b> 때문입니다.
+    그런데 <code>build/libs/app.jar</code> 는 <b>지난번 것이 그대로</b> 남아 있어
+    <b>낡은 jar 가 새 판 이름으로</b> 보관됩니다.
+    <b>이름은 1.1.0 인데 알맹이는 1.0.0</b> 입니다 —
+    나중에 아무도 못 알아챕니다.</div>
+
+  <h5>절차 4 — <code>set -e</code> 를 «넣고» 같은 것을 돌립니다</h5>
+
+  <p class="cmdline"><code>AppTest &gt; 판 확인 FAILED
+1 test completed, 1 failed
+
+<b>BUILD FAILED</b> in 16s
+<i>(여기서 멈춥니다 — 「보관 완료」 가 «안» 찍힙니다)</i></code></p>
+
+  <p class="cmdline"><code>ls -1 releases/
+app-1.0.0.jar                             ← 1.1.0 이 <b>안 쌓였습니다</b></code></p>
+
+  <p><b>한 줄 차이로 사고가 갈립니다.</b>
+     셸 스크립트를 쓸 때는 <b>거의 언제나 맨 위에</b> 둡니다.</p>
+
+  <h5>절차 5 — 판을 «코드에서» 읽습니다</h5>
+
+  <p class="cmdline"><code>VERSION=$(grep "^version" build.gradle | cut -d"'" -f2)</code></p>
+
+  <table class="wide">
+    <tr><th style="width:44%">판을 스크립트에 박으면</th><th>읽어 오면</th></tr>
+    <tr><td><code>VERSION=1.0.0</code>
+            <br><br>판을 올릴 때 <b>두 군데</b>를 고쳐야 합니다.
+            한쪽만 고치면 <b>이름과 알맹이가 어긋납니다</b></td>
+        <td><code>build.gradle</code> <b>한 군데</b>만 고치면 됩니다.
+            <br><br>실습 8 의 <b>첫 번째 견줄 짝</b>이 저절로 맞습니다</td></tr>
+  </table>
+
+  <h5>절차 6 — 돌려 보고 결과를 봅니다</h5>
+
+  <p class="cmdline"><code>bash scripts/build.sh
+
+&gt; Task :clean
+&gt; Task :compileJava
+&gt; Task :test
+&gt; Task :jar
+
+BUILD SUCCESSFUL
+보관 완료: releases/app-1.0.0.jar</code></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td>실패했는데 <b>「보관 완료」 가 찍힘</b></td>
+        <td><code>set -e</code> 가 <b>없습니다</b> — 절차 3</td></tr>
+    <tr><td><code>VERSION</code> 이 <b>비어 있음</b></td>
+        <td><code>build.gradle</code> 의 <code>version</code> 줄이
+            <b>맨 앞에서 시작</b>하는지 보십시오.
+            들여쓰기가 있으면 <code>^version</code> 이 못 잡습니다</td></tr>
+    <tr><td><code>Permission denied</code></td>
+        <td><code>chmod +x scripts/*.sh</code> (실습 3)</td></tr>
+    <tr><td><code>$'\r': command not found</code></td>
+        <td>줄 끝이 <b>윈도 방식</b>입니다</td></tr>
+    <tr><td><code>cp: cannot stat 'build/libs/app.jar'</code></td>
+        <td>이름이 <b>고정 안 됐습니다</b> (실습 5) —
+            <b>이때는 오히려 다행</b>입니다. 조용히 넘어가는 것보다 낫습니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>build.sh</code> 전체 +
+     <b><code>set -e</code> 없을 때와 있을 때</b> 두 화면 +
+     각각의 <code>ls -1 releases/</code></p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>clean test jar</code> 를 <b>한 줄</b>로 묶었습니까
+     ② <code>set -e</code> 가 <b>맨 위</b>에 있습니까
+     ③ 없을 때 <b>낡은 jar 가 보관되는 것</b>을 봤습니까
+     ④ 판을 <b>읽어서</b> 씁니까</p>
+</div>
       </div>
     </div>
 
