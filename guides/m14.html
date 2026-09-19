@@ -2574,6 +2574,118 @@ BUILD SUCCESSFUL in 18s
   다섯 건이 적혀 있으면 결함이 아닌 것을 결함으로 올린 셈입니다.
   세 문서의 숫자를 맞춰 두면 읽는 사람이 바로 납득합니다.
 </div>
+      <div class="lab">
+  <b class="t">실습 15</b>
+  <b>전부 다시 돌리고, 실행결과서를 «두 번» 적습니다</b>
+
+  <p><b>목적</b> — 채점 항목 09 · <b>10점</b>입니다.
+     <b>고친 테스트만 돌려서는 모릅니다.</b>
+     고치다가 멀쩡하던 데를 깨뜨렸는지 보려면 <b>전부</b> 돌려야 합니다.</p>
+
+  <h5>절차 1 — <code>--tests</code> 를 «떼고» 돌립니다</h5>
+
+  <p class="cmdline"><code>gradlew.bat test
+<i># --tests 를 붙이지 않습니다</i></code></p>
+
+  <p class="cmdline"><code>Test run finished after 4078 ms
+[         4 tests found           ]
+[         <b>4 tests successful</b>   ]
+[         <b>0 tests failed</b>       ]</code></p>
+
+  <div class="note"><b>왜 전부 돌려야 하는가</b> —
+    D-02 를 고치려고 <b>재고 조건</b>을 바꿨는데
+    반납 쪽에서 <b>같은 값을 쓰고</b> 있었다면 <b>반납이 깨집니다.</b>
+    그것은 <b>대출 테스트로는 안 보입니다.</b>
+    실습 13 에서 「같은 값을 보는 다른 조건이 있는지」 를 찾아본 것이
+    <b>여기서 확인</b>됩니다.</div>
+
+  <h5>절차 2 — 고치는 동안의 숫자를 옮겨 적습니다</h5>
+
+  <p>실습 14 에서 한 줄씩 적어 둔 것이 그대로 표가 됩니다.</p>
+
+  <p class="cmdline"><code>단계        | 통과 | 실패 | 남은 결함
+------------+------+------+-----------
+출발        |  0   |  <b>4</b>   | D-02 D-03 D-01 D-04
+D-02 고침   |  1   |  3   | D-03 D-01 D-04
+D-03 고침   |  2   |  2   | D-01 D-04
+D-01 고침   |  3   |  1   | D-04
+D-04 고침   |  4   |  <b>0</b>   | 없음</code></p>
+
+  <h5>절차 3 — 실행결과서를 «두 번» 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:130px">언제</th><th style="width:230px">무엇을 적나</th><th>숫자</th></tr>
+    <tr><td class="nm">수정 전</td><td>실패한 TC 와 <b>메시지</b></td>
+        <td>통과 0 · 실패 <b>4</b></td></tr>
+    <tr><td class="nm">수정 후</td><td>전부 통과</td>
+        <td>통과 <b>4</b> · 실패 0</td></tr>
+  </table>
+
+  <div class="warn"><b>두 표의 «돌린 시각» 이 달라야 앞뒤가 맞습니다.</b>
+    같은 시각으로 적혀 있으면
+    <b>한 번만 돌리고 표를 둘로 나눈 것</b>으로 읽힙니다.
+    수정 전 화면은 실습 10 에서 이미 찍어 두었고,
+    <b>그때의 시각</b>을 그대로 옮겨 적으십시오.</div>
+
+  <h5>절차 4 — 세 문서의 숫자를 맞춥니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">무엇</th><th style="width:110px">몇 건</th><th>안 맞으면</th></tr>
+    <tr><td>실패한 테스트</td><td class="c"><b>4</b></td><td>—</td></tr>
+    <tr><td>관리대장의 결함</td><td class="c"><b>4</b></td>
+        <td><b>셋</b>이면 하나를 빠뜨렸고,
+            <b>다섯</b>이면 결함이 아닌 것을 올렸습니다</td></tr>
+    <tr><td>수정 커밋</td><td class="c"><b>4</b></td>
+        <td>한 커밋에 둘을 넣었습니다 (실습 14)</td></tr>
+  </table>
+
+  <p><b>세 숫자가 같으면 읽는 사람이 바로 납득합니다.</b>
+     다르면 <b>어느 쪽이 맞는지부터</b> 따지게 됩니다.</p>
+
+  <h5>절차 5 — 부작용이 없었다는 것을 «말로» 적습니다</h5>
+
+  <p class="cmdline"><code>회귀 결과
+
+  돌린 범위 : 전체 4건 (--tests 없이)
+  결과      : 통과 4 · 실패 0
+  확인한 것 : D-02 로 바꾼 재고 조건이 다른 곳에서 쓰이지 않아
+              대출 외의 시험이 깨지지 않음
+  남은 것   : 반납 기능은 이번 과제 범위 밖이라 시험이 없음.
+              재고를 함께 쓰므로 «추가되면 회귀 대상» 임을 적어 둠</code></p>
+
+  <p><b>「남은 것」 줄이 값을 합니다.</b>
+     <b>시험이 없는 자리</b>를 알고 있다는 것이
+     「전부 돌렸다」 보다 <b>정직하고 점수도 높습니다.</b></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>회귀에서 <b>다른 시험이 깨짐</b></td>
+        <td><b>부작용입니다.</b> 실습 13 의 검토표로 돌아가
+            「영향 없음」 이라고 적은 줄을 다시 보십시오</td></tr>
+    <tr><td>두 표의 시각이 <b>같음</b></td>
+        <td>수정 전 화면을 <b>다시 만들 수 없습니다.</b>
+            실습 10 에서 찍어 둔 것을 쓰십시오</td></tr>
+    <tr><td>실패 건수와 결함 건수가 <b>다름</b></td>
+        <td>관리대장을 <b>다시 세십시오.</b> 한 결함이 두 시험을
+            깨뜨렸다면 <b>그렇게 적으면</b> 됩니다</td></tr>
+    <tr><td><code>BUILD SUCCESSFUL</code> 인데 <b>0 tests</b></td>
+        <td>테스트를 <b>못 찾았습니다.</b> 폴더 자리를 보십시오</td></tr>
+    <tr><td>통합 테스트만 <b>가끔 실패</b></td>
+        <td>앞 시험이 남긴 자료 때문입니다.
+            <code>@Transactional</code> 을 보십시오 (실습 9)</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <b>수정 후 콘솔 캡처</b> + 실행결과서 <b>두 표</b>(시각 포함) +
+     단계별 숫자 표 + 회귀 결과 네 줄</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>--tests</code> 를 <b>떼고</b> 돌렸습니까
+     ② 두 표의 <b>시각이 다릅니까</b>
+     ③ 실패 · 결함 · 커밋이 <b>다 4</b> 입니까
+     ④ <b>시험이 없는 자리</b>를 적었습니까</p>
+</div>
       </div>
     </div>
 
@@ -2622,6 +2734,132 @@ BUILD SUCCESSFUL in 18s
   문서는 <code>docs/산출물_양식/</code> 의 마크다운을 그대로 쓰면 됩니다.
   새로 만들지 말고 <b>빈 칸을 메우는 쪽</b>이 빠르고 빠뜨릴 일도 적습니다.
   양식의 칸 이름이 곧 채점자가 찾는 이름입니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 16</b>
+  <b>네 장을 «번호로» 이어 붙입니다</b>
+
+  <p><b>목적</b> — 따로 쓴 문서 넷이 아니라 <b>하나의 이야기</b>가 되어야 합니다.
+     이어 주는 것이 <b>번호</b>입니다.</p>
+
+  <h5>절차 1 — 무엇이 무엇을 잇는지 확인합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px">잇는 것</th><th style="width:250px">어디와 어디</th><th>보기</th></tr>
+    <tr><td class="nm">TC 번호</td><td>명세서 ↔ 실행결과서</td>
+        <td><code>TC-02</code> 가 <b>양쪽에</b></td></tr>
+    <tr><td class="nm">발견 테스트</td><td>실행결과서 ↔ 관리대장</td>
+        <td><code>lend_재고0_예외</code></td></tr>
+    <tr><td class="nm">결함 ID</td><td>관리대장 ↔ 조치 결과</td>
+        <td><code>D-02</code> 가 <b>양쪽에</b></td></tr>
+    <tr><td class="nm">커밋 해시</td><td>조치 결과 ↔ 저장소</td>
+        <td><code>980899b</code></td></tr>
+  </table>
+
+  <h5>절차 2 — 한 줄이 «끝까지 이어지는지» 따라가 봅니다</h5>
+
+  <p class="cmdline"><code>명세서      TC-02  경계값  lend()  재고 0 인 도서  예외 발생 · 재고 그대로
+   ↓
+실행결과서  TC-02  실패  "Expecting code to raise a throwable."  16:12
+   ↓
+관리대장    D-02  경계값  높음  우선 1  발견: <b>lend_재고0_예외</b>
+   ↓
+조치 결과   D-02  &lt; 0 → &lt;= 0  커밋 <b>980899b</b>
+   ↓
+저장소      980899b fix(D-02): 재고 경계를 0 포함으로 …</code></p>
+
+  <p><b>다섯 줄이 번호로 손을 잡고 있습니다.</b>
+     한 군데라도 끊기면 <b>읽는 사람이 거기서 멈춥니다.</b></p>
+
+  <h5>절차 3 — 네 결함을 모두 따라가 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:90px">결함</th><th style="width:110px">TC</th>
+        <th style="width:190px">발견 테스트</th><th>커밋</th></tr>
+    <tr><td class="c">D-02</td><td class="c">TC-02</td>
+        <td><code>lend_재고0_예외</code></td><td><code>980899b</code></td></tr>
+    <tr><td class="c">D-03</td><td class="c">TC-01</td>
+        <td><code>lend_정상</code></td><td><code>156b2b6</code></td></tr>
+    <tr><td class="c">D-01</td><td class="c">TC-04</td>
+        <td><code>lend_없는책_예외</code></td><td><code>7d8235e</code></td></tr>
+    <tr><td class="c">D-04</td><td class="c">TC-03</td>
+        <td><code>연체_경계</code></td><td><code>a508c49</code></td></tr>
+  </table>
+
+  <p><b>네 줄이 다 채워지면 끝</b>입니다. 빈 칸이 있으면 그 자리가 끊긴 곳입니다.</p>
+
+  <h5>절차 4 — 내는 것을 모읍니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:250px">제출물</th><th>채점</th></tr>
+    <tr><td class="c">□</td><td>테스트 코드 <b>네 벌</b></td><td class="c">01 · 02 · 03</td></tr>
+    <tr><td class="c">□</td><td><code>테스트케이스_명세서</code></td><td class="c">04 · 05</td></tr>
+    <tr><td class="c">□</td><td><b>수정 전</b> 콘솔 캡처</td><td class="c">05 · 06</td></tr>
+    <tr><td class="c">□</td><td><code>결함관리대장</code></td><td class="c">06 · 07 · 08</td></tr>
+    <tr><td class="c">□</td><td><code>테스트실행결과서</code> (두 표)</td><td class="c">09</td></tr>
+    <tr><td class="c">□</td><td><b>수정 후</b> 콘솔 캡처 + 저장소</td><td class="c">09 · 10</td></tr>
+  </table>
+
+  <h5>절차 5 — 숫자 셋을 마지막으로 셉니다</h5>
+
+  <p class="cmdline"><code>실패한 테스트     4
+관리대장의 결함   4
+수정 커밋         4</code></p>
+
+  <p><b>셋이 같지 않으면 내기 전에 맞추십시오.</b>
+     다른 것 하나가 <b>나머지 전부를 의심하게</b> 만듭니다.</p>
+
+  <h5>절차 6 — 빈 폴더에 받아 돌려 봅니다</h5>
+
+  <p class="cmdline"><code>cd C:\temp
+git clone &lt;저장소 주소&gt; check
+cd check</code></p>
+
+  <p class="cmdline"><code>git ls-files
+.gitignore
+build.gradle
+src/main/java/kr/lib/LibraryService.java
+src/test/java/kr/lib/LendServiceTest.java
+           ⋮</code></p>
+
+  <table class="wide">
+    <tr><th style="width:330px">여기서 나오는 것</th><th>뜻</th></tr>
+    <tr><td><code>src/</code> 가 <b>안 보임</b></td>
+        <td><code>.gitignore</code> 의 <code>lib/</code> 가 패키지 폴더까지
+            먹었습니다 (실습 14 절차 6)</td></tr>
+    <tr><td><code>build/</code> 가 <b>딸려 옴</b></td>
+        <td><code>.gitignore</code> 가 <b>늦었습니다</b></td></tr>
+    <tr><td>테스트 파일이 <b>없음</b></td>
+        <td><b>제출물의 절반이 없습니다.</b> 커밋을 확인하십시오</td></tr>
+    <tr><td><code>gradlew test</code> 가 <b>통과</b></td>
+        <td><b>끝났습니다.</b> 받는 사람 자리에서도 돕니다</td></tr>
+  </table>
+
+  <h5>절차 7 — 마지막 일곱 줄</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th>확인</th></tr>
+    <tr><td class="c">□</td><td>네 어노테이션이 <b>코드에 다</b> 있는가 (항목 01)</td></tr>
+    <tr><td class="c">□</td><td>Given–When–Then 주석이 <b>모든 테스트에</b> 있는가</td></tr>
+    <tr><td class="c">□</td><td>Then 에 <b>부작용</b> 줄이 있는가</td></tr>
+    <tr><td class="c">□</td><td><b>수정 전</b> 화면이 있는가</td></tr>
+    <tr><td class="c">□</td><td>커밋이 <b>결함 수만큼</b>이고 번호가 붙었는가</td></tr>
+    <tr><td class="c">□</td><td>두 표의 <b>시각이 다른가</b></td></tr>
+    <tr><td class="c">□</td><td>숫자 <b>셋이 같은가</b></td></tr>
+  </table>
+
+  <p><b>제출물</b> — 문서 넷 + 캡처 둘 + 저장소 주소 + 이어짐 표</p>
+
+  <div class="try">
+    <b class="t">끝으로</b>
+    이 교과에서 잃는 점수는 <b>테스트를 못 써서가 아닙니다.</b>
+    <b>수정 전 화면을 안 찍어서</b> 레벨 2 의 절반이 날아가고,
+    <b>넷을 한 커밋에 넣어서</b> 조치 이력이 사라지고,
+    <b>번호가 안 맞아서</b> 네 장이 따로 놉니다.
+    <b>셋 다 코드 실력과 상관이 없습니다.</b>
+    <b>돌리기 전에 한 번, 고칠 때마다 한 번</b> 찍어 두는 것이
+    이 교과의 요령 전부입니다.
+  </div>
 </div>
       </div>
     </div>
