@@ -410,6 +410,116 @@ public Map&lt;String, Object&gt; health() {
   그래서 프로파일을 안 걸고 띄우면 응답에 <code>"profile":"default"</code> 가 찍힙니다.
   캡처에 이 글자가 보이면 <b>운영 배포가 아닙니다</b>.
 </div>
+      <div class="lab">
+  <b class="t">실습 2</b>
+  <b>채울 일곱 자리를 «찾아서» 세어 둡니다</b>
+
+  <p><b>목적</b> — 받은 프로젝트는 <b>소스와 테스트는 다 있고</b>
+     <b>스크립트가 골격만</b> 있습니다.
+     무엇을 채워야 하는지 <b>먼저 세어</b> 두면 뒤가 편합니다.</p>
+
+  <h5>절차 1 — 일곱 자리를 찾습니다</h5>
+
+  <p class="cmdline"><code>찾을 것 :  TODO
+나오는 곳 :  일곱 자리</code></p>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:250px">파일</th><th>채울 것</th></tr>
+    <tr><td class="c">1</td><td><code>build.gradle</code></td>
+        <td><code>archiveFileName</code> <b>한 줄</b> (실습 5)</td></tr>
+    <tr><td class="c">2</td><td><code>application-prod.properties</code></td>
+        <td>포트 · 환경 이름 · 로그 수준 <b>세 줄</b> (실습 5)</td></tr>
+    <tr><td class="c">3</td><td><code>HealthController.health()</code></td>
+        <td>응답 Map <b>네 칸</b></td></tr>
+    <tr><td class="c">4</td><td><code>HealthController.version()</code></td>
+        <td>응답 Map <b>한 칸</b></td></tr>
+    <tr><td class="c">5</td><td><code>scripts/build.sh</code></td>
+        <td>빌드 명령 <b>한 줄</b> (실습 9)</td></tr>
+    <tr><td class="c">6</td><td><code>scripts/build.sh</code></td>
+        <td>릴리스 사본 보관 <b>네 줄</b> (실습 11)</td></tr>
+    <tr><td class="c">7</td><td><code>scripts/run.sh</code> · <code>rollback.sh</code></td>
+        <td>실행 한 줄 · 복사 한 줄 (실습 14 · 15)</td></tr>
+  </table>
+
+  <h5>절차 2 — 컨트롤러부터 채웁니다</h5>
+
+  <p>가장 먼저 채울 것은 <b>3 · 4 번</b>입니다.
+     이것이 있어야 <b>배포가 됐는지 확인할 방법</b>이 생깁니다 (실습 1).</p>
+
+  <p class="cmdline"><code>@GetMapping("/health")
+public Map&lt;String, Object&gt; health() {
+  Map&lt;String, Object&gt; body = new LinkedHashMap&lt;&gt;();
+  body.put("status",  "UP");
+  body.put("profile", 활성 프로파일);
+  body.put("env",     설정에서 읽은 환경 이름);
+  body.put("port",    설정에서 읽은 포트);
+  return body;
+}
+
+@GetMapping("/version")
+public Map&lt;String, Object&gt; version() {
+  return Map.of("version", 설정에서 읽은 판);
+}</code></p>
+
+  <div class="note"><b><code>LinkedHashMap</code> 을 쓰는 까닭</b> —
+    <code>HashMap</code> 을 쓰면 <b>칸 순서가 뒤죽박죽</b>으로 나옵니다.
+    캡처를 냈을 때 <b>매번 순서가 달라 보이면</b> 읽는 사람이 헷갈립니다.
+    <b>넣은 차례대로</b> 나오게 <code>LinkedHashMap</code> 을 쓰십시오.</div>
+
+  <h5>절차 3 — 한 번 띄워 봅니다</h5>
+
+  <p class="cmdline"><code>gradlew.bat bootRun</code></p>
+
+  <p class="cmdline"><code>curl http://localhost:8080/health
+{"status":"UP","profile":"default","env":"dev","port":"8080"}</code></p>
+
+  <p><b>이것이 «아직 배포 전» 의 모습</b>입니다.
+     프로파일도 포트도 <b>기본값</b>입니다 — 실습 1 절차 3 에서 본 그 화면입니다.
+     여기서 출발해 <b>prod · 9090</b> 으로 바꿔 가는 것이 이 교과입니다.</p>
+
+  <h5>절차 4 — 스크립트 셋의 «자리» 를 확인합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">스크립트</th><th style="width:170px">언제 부르나</th><th>채울 곳</th></tr>
+    <tr><td><code>scripts/build.sh</code></td><td>빌드할 때</td>
+        <td>빌드 명령 + 보관 (5 · 6번)</td></tr>
+    <tr><td><code>scripts/run.sh</code></td><td>올릴 때</td><td>실행 한 줄 (7번)</td></tr>
+    <tr><td><code>scripts/rollback.sh</code></td><td>되돌릴 때</td><td>복사 한 줄 (7번)</td></tr>
+  </table>
+
+  <p><b>셋이 서로 약속을 공유합니다</b> —
+     <code>build.sh</code> 가 만든 <b>이름과 자리</b>를
+     <code>run.sh</code> 와 <code>rollback.sh</code> 가 그대로 찾습니다.
+     <b>한 군데만 이름을 바꾸면 나머지 둘이 못 찾습니다</b> (실습 5).</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>Port 8080 was already in use</code></td>
+        <td>앞서 띄운 것이 안 죽었습니다</td></tr>
+    <tr><td><code>/health</code> 가 <b>404</b></td>
+        <td>컨트롤러를 아직 안 채웠거나
+            <code>@RestController</code> 가 없습니다</td></tr>
+    <tr><td>응답 칸 순서가 <b>매번 다름</b></td>
+        <td><code>HashMap</code> 을 썼습니다 — 절차 2</td></tr>
+    <tr><td><code>401</code> 이 남</td>
+        <td>의존성에 <code>security</code> 가 들어 있습니다.
+            이 과제 범위가 아니면 <b>빼십시오</b></td></tr>
+    <tr><td><code>TODO</code> 가 <b>일곱보다 많음</b></td>
+        <td>테스트 쪽 <code>TODO</code> 까지 셌습니다.
+            <b>스크립트와 설정</b>만 세십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 일곱 자리 목록 + 컨트롤러 코드 +
+     <b>배포 전 <code>/health</code> 응답</b>(default · 8080)</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>TODO</code> 가 <b>일곱</b>입니까
+     ② <code>/health</code> 와 <code>/version</code> 이 <b>답합니까</b>
+     ③ 칸 순서가 <b>늘 같습니까</b>
+     ④ 스크립트 셋이 <b>같은 이름</b>을 보는 것을 확인했습니까</p>
+</div>
       </div>
     </div>
 
@@ -449,6 +559,114 @@ public Map&lt;String, Object&gt; health() {
 <p>이 과제에서 스크립트 셋을 쓰는 까닭도 거기에 있습니다.
    빌드도 실행도 롤백도 명령 한 줄로 끝나게 해 두면
    다음 사람이 와서 그대로 칠 수 있습니다.</p>
+      <div class="lab">
+  <b class="t">실습 3</b>
+  <b>다섯 걸음마다 «남길 것» 을 미리 적어 둡니다</b>
+
+  <p><b>목적</b> — 이 교과는 <b>걸음마다 점수가 붙어</b> 있습니다.
+     찍을 것을 <b>미리 정해 두지 않으면</b> 하다가 지나가 버립니다 —
+     그리고 <b>지나간 걸음은 다시 못 찍습니다.</b></p>
+
+  <h5>절차 1 — 다섯 걸음을 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:130px">걸음</th><th style="width:210px">치는 명령</th>
+        <th>남길 것</th></tr>
+    <tr><td class="nm">① 환경 구성</td><td>파일을 고치는 일</td>
+        <td>설정 표 · 소프트웨어 목록</td></tr>
+    <tr><td class="nm">② 소스 검증</td>
+        <td><code>git clone</code> · <code>gradlew test</code></td>
+        <td>체크아웃 화면 · 테스트 결과</td></tr>
+    <tr><td class="nm">③ 빌드</td><td><code>./scripts/build.sh</code></td>
+        <td>빌드 로그 · 산출물 목록</td></tr>
+    <tr><td class="nm">④ 배포</td><td><code>./scripts/run.sh prod</code></td>
+        <td>기동 로그 · <b>응답 세 컷</b></td></tr>
+    <tr><td class="nm">⑤ 롤백</td><td><code>./scripts/rollback.sh 1.0.0</code></td>
+        <td>복원 화면 · <b>버전 확인</b></td></tr>
+  </table>
+
+  <h5>절차 2 — 앞이 끝나야 뒤가 «성립» 하는 것을 확인합니다</h5>
+
+  <p class="cmdline"><code>① 환경이 없으면  → ③ 빌드가 어느 설정으로 도는지 모릅니다
+② 검증을 건너뛰면 → ③ 빌드는 되는데 «틀린 것» 이 올라갑니다
+③ 산출물이 없으면 → ④ 올릴 것이 없습니다
+④ 올린 적이 없으면 → ⑤ 되돌릴 것이 없습니다</code></p>
+
+  <div class="warn"><b>⑤ 를 「나중에 해 보면 되지」 하고 미루면 못 합니다.</b>
+    롤백은 <b>판이 둘 이상</b> 있어야 할 수 있습니다.
+    1.0.0 을 만들고 <b>보관해 둔 뒤에</b> 1.1.0 을 만들어야
+    되돌릴 자리가 생깁니다 (실습 11).
+    <b>1.0.0 을 안 보관하고 덮어썼으면 되돌릴 데가 없습니다.</b></div>
+
+  <h5>절차 3 — 배포와 개발이 어떻게 다른지 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:44%">개발</th><th>배포</th></tr>
+    <tr><td><b>내 자리에서</b> 잘 도는 것이 목표</td>
+        <td><b>남의 자리에서도 같게</b> 도는 것이 목표</td></tr>
+    <tr><td>손으로 쳐도 됩니다</td>
+        <td><b>절차를 굳혀 둡니다</b> — 손으로 치면 사람마다 달라집니다</td></tr>
+  </table>
+
+  <p>스크립트 셋을 쓰는 까닭이 여기 있습니다.
+     빌드도 실행도 롤백도 <b>명령 한 줄로</b> 끝나게 해 두면
+     <b>다음 사람이 와서 그대로 칠 수 있습니다.</b></p>
+
+  <h5>절차 4 — 찍을 것을 한 장에 모읍니다</h5>
+
+  <p class="cmdline"><code>캡처 계획
+
+  ② 체크아웃   git log --oneline -1 이 «받은 판» 을 보이게
+  ② 테스트     BUILD SUCCESSFUL 과 건수가 한 화면에
+  ③ 빌드       build/libs/ 의 «파일 이름과 크기»
+  ③ 보관       releases/ 에 «둘 이상» 쌓인 모습        ← 롤백의 전제
+  ④ 기동       Tomcat started on port 9090
+  ④ 응답       /health 가 prod · production · 9090
+  ④ 판         /version 이 올린 판
+  ⑤ 복원       rollback 을 친 화면
+  ⑤ 판         /version 이 «되돌아간» 판              ← ④ 와 달라야 합니다</code></p>
+
+  <p><b>마지막 두 줄이 짝입니다.</b>
+     <code>/version</code> 을 <b>④ 에서 한 번, ⑤ 에서 한 번</b> 찍어
+     <b>숫자가 달라야</b> 롤백이 증명됩니다.</p>
+
+  <h5>절차 5 — 스크립트 셋을 «실행 권한» 까지 확인합니다</h5>
+
+  <p class="cmdline"><code>ls -l scripts/
+-rw-r--r--  build.sh        ← 권한이 없으면 못 돕니다
+
+chmod +x scripts/*.sh
+ls -l scripts/
+-rwxr-xr-x  build.sh</code></p>
+
+  <p>윈도에서는 권한이 없어도 <code>bash scripts/build.sh</code> 로 돕니다.
+     <b>제출할 때는 <code>chmod</code> 해 두는 편</b>이 낫습니다 —
+     받는 쪽이 리눅스일 수 있습니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>Permission denied</code></td>
+        <td><code>chmod +x</code> 를 안 했습니다 — 절차 5</td></tr>
+    <tr><td><code>bash: ./scripts/build.sh: No such file</code></td>
+        <td>프로젝트 <b>맨 위</b>에서 쳐야 합니다</td></tr>
+    <tr><td><code>$'\r': command not found</code></td>
+        <td>줄 끝이 <b>윈도 방식</b>입니다.
+            <code>.gitattributes</code> 로 <code>*.sh text eol=lf</code> 를 거십시오</td></tr>
+    <tr><td>롤백할 판이 <b>없음</b></td>
+        <td>절차 2 의 경고입니다. <b>1.0.0 을 먼저 보관</b>하십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 다섯 걸음 표 + <b>캡처 계획 아홉 줄</b> +
+     스크립트 권한 확인 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 걸음마다 <b>남길 것</b>을 적었습니까
+     ② <b>⑤ 를 하려면 무엇이 먼저</b> 있어야 하는지 압니까
+     ③ <code>/version</code> 을 <b>두 번</b> 찍기로 했습니까
+     ④ 스크립트에 <b>실행 권한</b>이 있습니까</p>
+</div>
       </div>
     </div>
 
@@ -490,6 +708,120 @@ public Map&lt;String, Object&gt; health() {
   두 항목 모두 <b>코드 한 줄 없이 받는 10점</b>입니다.
   보고서 1절의 표 두 개이고 십 분이면 끝납니다.
   실습에 몰두하다 문서를 마지막에 몰아 쓰면 이 자리가 가장 먼저 허술해집니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 4</b>
+  <b>시나리오 다섯 줄과 소프트웨어 표를 «명령 그대로» 씁니다</b>
+
+  <p><b>목적</b> — 채점 항목 01 · 02 로 <b>10점</b>이고
+     <b>코드를 한 줄도 안 쓰고</b> 받습니다.
+     보고서 1절의 <b>표 두 개</b>이고 십 분이면 끝납니다.</p>
+
+  <h5>절차 1 — 다섯 가지 물음에 한 줄씩 답합니다</h5>
+
+  <p>「배포 시나리오」 라는 말이 커 보이지만 묻는 것은 <b>다섯</b>입니다.</p>
+
+  <p class="cmdline"><code>배포 시나리오
+
+  무엇을      libdeploy 1.0.0 (jar 하나)
+  어디에      운영 서버 /opt/app — 포트 9090
+  어떻게 올리고 ./scripts/build.sh 로 만들고 ./scripts/run.sh prod 로 띄운다
+  어떻게 확인  http://서버:9090/health 가 profile=prod · env=production 을 답한다
+  되돌리려면  ./scripts/rollback.sh 1.0.0 뒤 /version 이 1.0.0 인지 본다</code></p>
+
+  <div class="warn"><b>「스크립트로 실행한다」 라고 적으면 안 됩니다.</b>
+    <b>명령 그대로</b> 쓰십시오 — <code>./scripts/run.sh prod</code>.
+    읽는 사람이 <b>따라 칠 수 있어야</b> 시나리오 노릇을 합니다.
+    「확인한다」 도 마찬가지입니다 —
+    <b>어느 주소로 물어 어떤 값이 나오면 된 것인지</b>까지 적으십시오.</div>
+
+  <h5>절차 2 — 소프트웨어를 «쓰는 때» 로 갈라 적습니다</h5>
+
+  <p>채점 항목 02 의 말이 <b>「배포 이후 사용할 소프트웨어」</b> 입니다.
+     <b>올린 뒤에도 계속 필요한 것</b>을 적으라는 뜻입니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:150px">쓰는 때</th><th style="width:170px">무엇</th><th>왜</th></tr>
+    <tr><td class="nm">올릴 때만</td><td>Gradle</td>
+        <td>빌드할 때 씁니다. <b>운영 장비에는 없어도</b> 됩니다</td></tr>
+    <tr><td class="nm">올릴 때만</td><td>Git</td>
+        <td>받아 올 때 씁니다</td></tr>
+    <tr><td class="nm"><b>올린 뒤에도</b></td><td><b>JDK 21</b></td>
+        <td><code>jar</code> 를 <b>계속 돌립니다</b></td></tr>
+    <tr><td class="nm"><b>올린 뒤에도</b></td><td><b>Actuator</b> (또는 <code>/health</code>)</td>
+        <td>살아 있는지 <b>계속 물어봅니다</b></td></tr>
+  </table>
+
+  <p><b>둘을 갈라 적으면 표가 깊어집니다.</b>
+     <b>운영 장비에 무엇이 남아 있어야 하는지</b>가 한눈에 보이기 때문입니다.
+     한 덩이로 적으면 <b>Gradle 을 운영 서버에 깔아야 하는 줄</b> 압니다.</p>
+
+  <h5>절차 3 — 판을 «쳐서» 받아 적습니다</h5>
+
+  <p class="cmdline"><code>java -version
+gradle --version
+git --version</code></p>
+
+  <p class="cmdline"><code>Gradle 8.14.5
+Launcher JVM:  21.0.2 (Oracle Corporation 21.0.2+13-58)</code></p>
+
+  <p><b>기억으로 적지 마십시오.</b>
+     <code>JAVA_HOME</code> 과 <code>PATH</code> 가 다른 JDK 를 볼 수 있어,
+     <b>실제로 빌드에 쓰인 판</b>은 쳐 봐야 압니다.</p>
+
+  <h5>절차 4 — 설정 표를 만듭니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">항목</th><th style="width:150px">개발</th><th>운영</th></tr>
+    <tr><td><code>server.port</code></td><td>8080</td><td><b>9090</b></td></tr>
+    <tr><td><code>app.env</code></td><td>dev</td><td><b>production</b></td></tr>
+    <tr><td><code>logging.level.root</code></td><td>DEBUG</td><td><b>INFO</b></td></tr>
+    <tr><td>프로파일</td><td>(없음)</td><td><b>prod</b></td></tr>
+  </table>
+
+  <p><b>포트를 가르는 까닭</b>이 있습니다.
+     같은 장비에서 <b>개발용과 운영용을 같이 띄워 둘</b> 수 있어야
+     올리는 동안에도 <b>앞엣것이 계속 돕니다.</b></p>
+
+  <h5>절차 5 — 보고서 1절에 그대로 붙입니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:250px">무엇</th><th>채점</th></tr>
+    <tr><td class="c">1</td><td>배포 시나리오 <b>다섯 줄</b></td><td class="c">01</td></tr>
+    <tr><td class="c">2</td><td>소프트웨어 표 (<b>쓰는 때로 갈라서</b>)</td><td class="c">02</td></tr>
+    <tr><td class="c">3</td><td>판을 친 화면 셋</td><td class="c">02</td></tr>
+    <tr><td class="c">4</td><td>설정 표 (개발 ↔ 운영)</td><td class="c">03 · 04</td></tr>
+  </table>
+
+  <div class="note"><b>실습에 몰두하다 문서를 마지막에 몰아 쓰면
+    이 자리가 가장 먼저 허술해집니다.</b>
+    코드가 하나도 없어 <b>지금 당장 쓸 수 있고</b>,
+    뒤의 실습에서 <b>그대로 쓰일 값</b>들입니다 —
+    포트 9090 · 프로파일 prod · 판 1.0.0.</div>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 상태면</th><th>볼 곳</th></tr>
+    <tr><td>시나리오에 <b>명령이 없음</b></td>
+        <td>「스크립트로 한다」 로는 <b>따라 못 칩니다</b> — 절차 1</td></tr>
+    <tr><td>소프트웨어를 <b>한 덩이로</b> 적음</td>
+        <td>「올린 뒤에도」 가 항목 02 가 묻는 것입니다 — 절차 2</td></tr>
+    <tr><td><code>gradle --version</code> 이 <b>안 됨</b></td>
+        <td>프로젝트의 <b>래퍼</b>를 쓰십시오 —
+            <code>gradlew.bat --version</code></td></tr>
+    <tr><td>설정 표에 <b>개발 칸이 빔</b></td>
+        <td><b>무엇이 달라지는지</b>가 안 보입니다. 양쪽을 다 적으십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 시나리오 다섯 줄 + 소프트웨어 표 +
+     판을 친 화면 셋 + 설정 표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 다섯 줄에 <b>명령이 그대로</b> 들어 있습니까
+     ② 소프트웨어를 <b>쓰는 때로</b> 갈랐습니까
+     ③ 판을 <b>쳐서</b> 받아 적었습니까
+     ④ 설정 표에 <b>개발과 운영</b>이 다 있습니까</p>
 </div>
       </div>
     </div>
