@@ -62,6 +62,19 @@
     <p class="src">작업지시서 · EX01 프로젝트</p>
   </aside>
   <div class="bd">
+<div class="note"><b>시작 전에 받아야 하는 것</b><br>
+이 교안은 <b>아래를 손에 쥐고</b> 시작합니다. 없으면 실습이 진행되지 않습니다.
+<table class="wide">
+  <tr><td class="nm">작업지시서</td><td>테스트 요구사항 네 줄과 제출 형식이 여기 있습니다</td></tr>
+  <tr><td class="nm">EX01 프로젝트</td><td>본문은 <b>다 있고</b> 테스트 네 파일이 비어 있습니다. 결함도 <b>이미 심어져</b> 있습니다</td></tr>
+  <tr><td class="nm">JDK 17 이상 · 편집기</td><td>데이터베이스는 <b>H2 가 메모리에서</b> 돌아 MySQL 을 안 깔아도 됩니다</td></tr>
+</table>
+<b>앞의 둘은 평가도구라 이 사이트에 올려 두지 않습니다.</b>
+평가문항 원본은 공개 저장소에 두지 않는 것이 이 과정의 원칙입니다 —
+<b>수업 시간에 받으십시오.</b><br>
+프로젝트가 없어도 <b>테스트케이스 명세서(실습 5)</b> 는 먼저 쓸 수 있습니다.
+</div>
+
 <p>과제는 하나입니다. 도서 대출 프로그램 EX01 에 테스트를 써서
    숨어 있는 결함을 드러내고, 그것을 고친 뒤 다른 데가 깨지지 않았는지 확인하는 일입니다.
    앞의 여러 교과와 방향이 반대입니다.
@@ -204,6 +217,112 @@
 </table>
 <p>IDE 의 초록 세모 단추로 돌려도 되는데,
    <b>제출 캡처는 콘솔 쪽이 낫습니다</b>. 통과 · 실패 건수가 한 줄로 찍혀 나옵니다.</p>
+      <div class="lab">
+  <b class="t">실습 1</b>
+  <b>끝났을 때 나와야 하는 «두 장» 을 먼저 정합니다</b>
+
+  <p><b>목적</b> — 이 교과에는 <b>화면이 없습니다.</b>
+     결과가 <b>콘솔과 문서</b>로만 나옵니다.
+     그래서 <b>무엇을 찍을지</b>가 곧 제출물의 모양입니다.</p>
+
+  <h5>절차 1 — 두 장이 «다른 숫자» 여야 한다는 것을 압니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:190px">언제 찍나</th>
+        <th>무엇을 보이나</th></tr>
+    <tr><td class="c">1</td><td>테스트를 <b>다 쓰고 처음</b> 돌렸을 때</td>
+        <td><b>실패</b> 화면 — 「결함이 있었다」</td></tr>
+    <tr><td class="c">2</td><td>결함을 <b>다 고친 뒤</b></td>
+        <td><b>통과</b> 화면 — 「고쳤다」</td></tr>
+  </table>
+
+  <div class="warn"><b>통과 화면만 내면 절반입니다.</b>
+    테스트를 잘 썼다는 것은 보이지만
+    <b>결함을 찾아 고쳤다는 것은 안 보입니다.</b>
+    레벨 2 전체(50점)가 <b>「고쳤다」</b> 를 보는 구간입니다.
+    <b>실패 화면을 먼저 찍어 두십시오</b> —
+    다 고친 뒤에는 다시 만들 수 없습니다.</div>
+
+  <h5>절차 2 — 돌리는 법 셋을 익힙니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">명령</th><th>쓰임</th></tr>
+    <tr><td><code>gradlew.bat test</code></td>
+        <td>전부 돌리기 — <b>회귀 확인 · 제출용 캡처</b></td></tr>
+    <tr><td><code>gradlew.bat test --tests *LendServiceTest</code></td>
+        <td>한 클래스만 — 쓰는 중에 빨리 보기</td></tr>
+    <tr><td><code>build/reports/tests/test/index.html</code></td>
+        <td>자세한 보고서 — 실패 이유를 <b>줄 단위</b>로</td></tr>
+  </table>
+
+  <p>IDE 의 초록 세모 단추로 돌려도 되는데,
+     <b>제출 캡처는 콘솔 쪽이 낫습니다.</b> 통과·실패 건수가 <b>한 줄로</b> 찍힙니다.</p>
+
+  <h5>절차 3 — 실패 화면이 어떻게 생겼는지 봅니다</h5>
+
+  <p>결함이 셋 있을 때의 모습입니다. <b>실패마다 이유가 다릅니다.</b></p>
+
+  <p class="cmdline"><code>Failures (3):
+  대출 정상: 재고가 1 줄고 반납기한이 14일 뒤로 잡힌다
+    =&gt; org.opentest4j.AssertionFailedError:
+       expected: 2026-10-03 (java.time.LocalDate)
+        but was: 2026-09-26 (java.time.LocalDate)
+
+  연체 경계: 기한과 «같은 시각» 은 연체가 아니다
+    =&gt; org.opentest4j.AssertionFailedError:
+       Expecting value to be false but was true
+
+  대출 경계: 재고 0 이면 대출할 수 없다
+    =&gt; java.lang.AssertionError:
+       Expecting code to raise a throwable.
+
+[ 0 tests successful ]
+[ <b>3 tests failed</b>    ]</code></p>
+
+  <h5>절차 4 — 통과 화면도 봅니다</h5>
+
+  <p class="cmdline"><code>Test run finished after 4078 ms
+[         3 tests found           ]
+[         <b>3 tests successful</b>   ]
+[         <b>0 tests failed</b>       ]</code></p>
+
+  <div class="note"><b>세 실패 메시지가 서로 다른 것을 보십시오.</b>
+    <code>expected … but was …</code> 는 <b>값이 틀린 것</b>,
+    <code>Expecting value to be false</code> 는 <b>참·거짓이 뒤집힌 것</b>,
+    <code>Expecting code to raise a throwable</code> 는
+    <b>막아야 하는데 안 막은 것</b>입니다.
+    <b>메시지만 읽고도 어디를 볼지</b> 정해집니다 — 실습 11 에서 다시 씁니다.</div>
+
+  <h5>절차 5 — 제출물 목록을 적어 둡니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:230px">제출물</th><th>덮는 채점 항목</th></tr>
+    <tr><td>테스트 코드 네 벌</td><td>01 · 02 · 03</td></tr>
+    <tr><td>테스트케이스 명세서</td><td>04 · 05</td></tr>
+    <tr><td><b>실패 화면</b> · <b>통과 화면</b></td><td>06 · 10</td></tr>
+    <tr><td>결함 관리대장</td><td>07 · 08</td></tr>
+    <tr><td>테스트 실행결과서</td><td>09 · 10</td></tr>
+  </table>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>gradlew</code> 를 못 찾음</td>
+        <td>프로젝트 <b>맨 위 폴더</b>에서 쳐야 합니다</td></tr>
+    <tr><td><code>0 tests found</code></td>
+        <td>테스트 파일이 <code>src/<b>test</b>/java</code> 밑에 있는지 보십시오</td></tr>
+    <tr><td>한글 <code>@DisplayName</code> 이 깨짐</td>
+        <td>콘솔 문제입니다. 보고서 HTML 로 보십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 제출물 목록표 + 돌리는 명령 셋을 적은 메모</p>
+
+  <p><b>스스로 확인</b> —
+     ① 찍을 것이 <b>두 장</b>인 것을 압니까
+     ② <b>실패 화면을 먼저</b> 찍어야 하는 까닭을 말할 수 있습니까
+     ③ 콘솔로 돌려 봤습니까</p>
+</div>
       </div>
     </div>
 
@@ -258,6 +377,115 @@ server.port=<b>8090</b></pre>
    <code>http://localhost:8090/h2-console</code> 로 들어가면 seed 세 건이 보입니다.
    JDBC URL 칸에 위의 <code>jdbc:h2:mem:libdb</code> 를 그대로 넣어야 합니다.
    여기서 <b>재고가 0 인 책</b>을 눈으로 확인해 두면 뒤가 편합니다.</p>
+      <div class="lab">
+  <b class="t">실습 2</b>
+  <b>빈 테스트 파일을 열어 «무엇을 시험하라는지» 읽어 냅니다</b>
+
+  <p><b>목적</b> — 받은 프로젝트는 <b>본문은 있고 테스트가 비어</b> 있습니다.
+     비어 있다고 아무거나 쓰면 안 됩니다.
+     <b>껍데기가 이미 시험할 내용을 알려 주고</b> 있습니다.</p>
+
+  <h5>절차 1 — 띄워서 도는지부터 봅니다</h5>
+
+  <p class="cmdline"><code>gradlew.bat bootRun</code></p>
+
+  <p class="cmdline"><code># application.properties — 이미 들어 있습니다
+spring.datasource.url=jdbc:h2:mem:libdb;DB_CLOSE_DELAY=-1;MODE=MySQL
+spring.jpa.hibernate.ddl-auto=create-drop
+spring.h2.console.enabled=true
+server.port=8090</code></p>
+
+  <div class="note"><b>MySQL 을 안 깔아도 됩니다.</b>
+    <code>jdbc:h2:<b>mem</b>:</code> 는 <b>메모리 안에서만</b> 도는 데이터베이스입니다.
+    띄우면 생기고 끄면 사라집니다 — 시험용으로 딱 맞습니다.
+    <code>MODE=MySQL</code> 은 <b>MySQL 처럼 굴라</b>는 뜻이라
+    SQL 문법이 거의 같습니다.</div>
+
+  <h5>절차 2 — 빈 테스트 파일을 «읽습니다»</h5>
+
+  <p class="cmdline"><code>class LendServiceTest {
+
+    @Test
+    @DisplayName("대출 정상: 재고가 1 줄고 반납기한이 설정된다")
+    void lend_정상() {
+        <b>fail("TODO: 테스트를 작성하세요");</b>
+    }
+
+    @Test
+    @DisplayName("대출 경계: 재고 0 이면 대출할 수 없다")
+    void lend_재고0_예외() {
+        <b>fail("TODO: 테스트를 작성하세요");</b>
+    }
+    <i>// … 세 개 더</i>
+}</code></p>
+
+  <h5>절차 3 — <code>@DisplayName</code> 을 «기대 결과» 로 옮겨 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:290px"><code>@DisplayName</code> 에 적힌 말</th>
+        <th>여기서 읽어 낼 것</th></tr>
+    <tr><td>재고가 <b>1 줄고</b></td><td>대출 뒤 <code>availableCopies</code> 가 <b>하나 준다</b></td></tr>
+    <tr><td>반납기한이 <b>설정된다</b></td><td>요구사항의 <b>14일 뒤</b>여야 한다 (실습 4)</td></tr>
+    <tr><td>재고 <b>0 이면</b></td><td><b>0 이 경계</b>다 — 음수가 아니다</td></tr>
+    <tr><td>대출할 <b>수 없다</b></td><td><b>예외가 나야</b> 한다 — 조용히 넘어가면 안 된다</td></tr>
+  </table>
+
+  <div class="warn"><b>메서드 이름을 바꾸지 마십시오.</b>
+    <code>lend_재고0_예외</code> 같은 이름은
+    <b>채점할 때 이름으로 찾습니다.</b>
+    보기 좋게 고쳤다가 <b>채점자가 못 찾으면 없는 것</b>이 됩니다.
+    <code>@DisplayName</code> 도 마찬가지입니다.</div>
+
+  <h5>절차 4 — <code>fail()</code> 을 그대로 두고 한 번 돌려 봅니다</h5>
+
+  <p class="cmdline"><code>gradlew.bat test</code></p>
+
+  <p>전부 실패합니다. <b>이것이 출발선</b>입니다.
+     <code>fail("TODO: …")</code> 은 <b>「아직 안 썼다」</b> 를 소리 내어 알리는 장치입니다.
+     빈 메서드로 두면 <b>통과해 버려서</b> 안 쓴 것을 모릅니다.</p>
+
+  <h5>절차 5 — 채울 자리를 셉니다</h5>
+
+  <p class="cmdline"><code>찾을 것 :  fail("TODO
+나오는 곳 :  테스트 네 파일</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">파일</th><th>어느 층인가</th></tr>
+    <tr><td><code>LendServiceTest</code></td><td>단위 — Mockito (실습 7)</td></tr>
+    <tr><td><code>BookRepositoryTest</code></td><td>슬라이스 — <code>@DataJpaTest</code> (실습 8)</td></tr>
+    <tr><td><code>BookControllerTest</code></td><td>슬라이스 — <code>@WebMvcTest</code> (실습 8)</td></tr>
+    <tr><td><code>LibraryIntegrationTest</code></td><td>통합 — <code>@SpringBootTest</code> (실습 9)</td></tr>
+  </table>
+
+  <p><b>넷을 고루 채우는 것</b>이 항목 01(15점)과 04(10점)입니다.
+     <b>단위만 다섯 개 쓰고 나머지를 비우면 반쯤만</b> 받습니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>Port 8090 was already in use</code></td>
+        <td>앞서 띄운 것이 안 죽었습니다</td></tr>
+    <tr><td><code>Database "mem:libdb" not found</code></td>
+        <td><code>DB_CLOSE_DELAY=-1</code> 이 빠졌습니다 —
+            마지막 연결이 끊기면 <b>통째로 사라집니다</b></td></tr>
+    <tr><td>H2 콘솔이 <b>안 열림</b></td>
+        <td><code>spring.h2.console.enabled=true</code> 를 보십시오.
+            주소는 <code>/h2-console</code> 입니다</td></tr>
+    <tr><td>테스트가 <b>전부 통과</b>로 나옴</td>
+        <td><code>fail()</code> 을 <b>지웠습니다.</b>
+            아직 아무것도 안 썼는데 통과하면 안 됩니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 기동 화면 + <b>전부 실패하는 첫 화면</b> +
+     <code>@DisplayName</code> 을 기대 결과로 옮긴 표</p>
+
+  <p><b>스스로 확인</b> —
+     ① H2 로 <b>떴습니까</b>
+     ② 메서드 이름을 <b>안 바꿨습니까</b>
+     ③ 채울 파일이 <b>넷</b>인 것을 셌습니까
+     ④ <code>fail()</code> 을 <b>안 지웠습니까</b></p>
+</div>
       </div>
     </div>
 
