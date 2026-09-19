@@ -1572,6 +1572,138 @@ class BookControllerTest {
   한 줄이라도 남아 있으면 그 줄 때문에 실패가 늘어나
   <b>결함 때문에 실패한 건수와 어긋납니다</b>.
 </div>
+      <div class="lab">
+  <b class="t">실습 9</b>
+  <b>줄기 하나를 «가짜 없이» 훑고, 레벨 1 을 닫습니다</b>
+
+  <p><b>목적</b> — 채점 항목 01 · 04 에 걸칩니다.
+     통합은 <b>한 건이면 넉넉합니다.</b>
+     많이 만들면 돌릴 때마다 기다리게 되어 <b>아예 안 돌리게</b> 됩니다.</p>
+
+  <h5>절차 1 — 줄기를 하나 고릅니다</h5>
+
+  <p>고른 줄기는 <b>대출 → 저장 → 다시 꺼내 보기</b> 입니다.
+     가짜가 하나도 없으므로 <b>Service 가 진짜로 저장하고, Repository 가 진짜 쿼리를 날리고,
+     H2 가 진짜로 값을 바꿉니다.</b></p>
+
+  <p class="cmdline"><code>@SpringBootTest
+class LibraryIntegrationTest {
+
+  @Autowired LibraryService service;
+  @Autowired BookRepository bookRepo;
+  @Autowired LendRepository lendRepo;
+
+  @Test
+  @DisplayName("TC-08 대출하면 재고가 «진짜로» 줄어 데이터베이스에 남는다")
+  void lend_저장까지() {
+    Book saved = bookRepo.save(new Book("자바의 정석", 3, 3));
+    long before = lendRepo.count();
+
+    service.lend(saved.getId(), "hong");
+
+    Book after = bookRepo.findById(saved.getId()).orElseThrow();   <i>// 다시 꺼냅니다</i>
+    assertThat(after.getAvailableCopies()).isEqualTo(<b>2</b>);
+    assertThat(lendRepo.count()).isEqualTo(before + 1);
+  }
+
+  @Test
+  @DisplayName("재고 0 이면 대출 기록이 «남지 않는다»")
+  void lend_실패하면_기록없음() {
+    Book saved = bookRepo.save(new Book("품절된 책", 1, 0));
+    long before = lendRepo.count();
+
+    assertThatThrownBy(() -&gt; service.lend(saved.getId(), "hong"))
+        .isInstanceOf(OutOfStockException.class);
+
+    assertThat(lendRepo.count()).isEqualTo(before);      <i>// 그대로여야 합니다</i>
+  }
+}</code></p>
+
+  <p class="cmdline"><code>[ 2 tests found      ]
+[ <b>2 tests successful</b> ]
+[ 0 tests failed     ]</code></p>
+
+  <h5>절차 2 — 단위와 «무엇이 다른지» 한 줄로 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:44%">단위 (실습 7)</th><th>통합 (여기)</th></tr>
+    <tr><td><code>assertThat(book.getAvailableCopies())</code>
+            <br><br>손에 쥐고 있던 <b>그 객체</b>를 봅니다</td>
+        <td><code>Book after = bookRepo.findById(id)…;<br>
+            assertThat(after.getAvailableCopies())</code>
+            <br><br><b>다시 꺼내서</b> 봅니다</td></tr>
+  </table>
+
+  <p><b>「다시 꺼낸다」 가 통합의 전부</b>입니다.
+     쿼리가 틀렸거나 <code>@Transactional</code> 이 빠졌으면 <b>여기서 드러납니다.</b></p>
+
+  <h5>절차 3 — 붙이는 것 둘을 확인합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">붙이는 것</th><th>쓰임</th></tr>
+    <tr><td><code>@SpringBootTest</code></td><td>애플리케이션을 <b>통째로</b> 띄웁니다</td></tr>
+    <tr><td><code>@Transactional</code></td>
+        <td>테스트가 끝나면 넣은 데이터를 <b>되돌립니다.</b>
+            안 붙이면 <b>돌릴 때마다 쌓입니다</b></td></tr>
+  </table>
+
+  <h5>절차 4 — 레벨 1 을 닫기 전에 훑습니다</h5>
+
+  <p>테스트 네 파일이 채워졌고 명세서 한 장이 나왔습니다.
+     <b>아직 돌려 보지 않았습니다.</b>
+     다음 단원에서 처음 돌리는데 <b>그 화면이 제출물</b>이 되므로
+     <b>다 쓰고 나서 한 번에</b> 돌리는 편이 낫습니다.</p>
+
+  <p class="cmdline"><code>찾을 것 :  fail("TODO
+나와야 하는 건수 :  <b>0</b></code></p>
+
+  <div class="warn"><b>한 줄이라도 남아 있으면 건수가 어긋납니다.</b>
+    <code>fail("TODO…")</code> 때문에 실패가 늘어나
+    <b>결함 때문에 실패한 건수</b>와 안 맞습니다.
+    다음 단원에서 <b>실패가 넷이어야</b> 앞뒤가 맞는데,
+    남은 <code>fail</code> 이 둘이면 여섯이 나옵니다.
+    <b>고치러 가기 전에 테스트부터</b> 훑으십시오.</div>
+
+  <h5>절차 5 — 레벨 1 산출물을 셉니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:250px">산출물</th><th>채점</th></tr>
+    <tr><td class="c">□</td><td>단위 테스트 (Mockito)</td><td class="c">01 · 02</td></tr>
+    <tr><td class="c">□</td><td>슬라이스 <b>둘</b> (<code>@DataJpaTest</code> · <code>@WebMvcTest</code>)</td>
+        <td class="c">01 · 02 · 04</td></tr>
+    <tr><td class="c">□</td><td>통합 <b>하나</b></td><td class="c">01 · 04</td></tr>
+    <tr><td class="c">□</td><td>Given–When–Then 주석</td><td class="c">03</td></tr>
+    <tr><td class="c">□</td><td>테스트케이스 명세서</td><td class="c">05</td></tr>
+  </table>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td>돌릴 때마다 <b>건수가 늘어남</b></td>
+        <td><code>@Transactional</code> 을 <b>안 붙였습니다</b></td></tr>
+    <tr><td>통합만 <b>몇 초씩</b> 걸림</td>
+        <td><b>정상입니다.</b> 통째로 띄우기 때문입니다 —
+            그래서 <b>한 건만</b> 만듭니다</td></tr>
+    <tr><td><code>No qualifying bean</code></td>
+        <td><code>@SpringBootTest</code> 가 <b>메인 클래스를 못 찾습니다.</b>
+            테스트 패키지가 메인과 <b>같은 뿌리</b>인지 보십시오</td></tr>
+    <tr><td>단위는 통과하는데 <b>통합만 실패</b></td>
+        <td><b>바로 그것을 찾으려고</b> 통합을 씁니다.
+            쿼리나 트랜잭션을 보십시오</td></tr>
+    <tr><td><code>fail("TODO…")</code> 가 남음</td>
+        <td>절차 4 입니다. <b>지우고</b> 다음으로 가십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 통합 테스트 코드 + 통과 화면 +
+     단위와 견준 한 줄 + 레벨 1 산출물 체크표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 통합이 <b>한 건</b>입니까 (많이 만들지 않았습니까)
+     ② <b>다시 꺼내서</b> 확인합니까
+     ③ <code>@Transactional</code> 을 붙였습니까
+     ④ <code>fail("TODO…")</code> 가 <b>0건</b>입니까</p>
+</div>
       </div>
     </div>
 
@@ -1631,6 +1763,129 @@ class BookControllerTest {
   더 많으면 테스트에 잘못 쓴 곳이 있고, 적으면 못 잡은 결함이 있습니다.
   건수가 안 맞을 때는 고치러 가기 전에 <b>테스트부터 다시 봅니다</b>.
 </div>
+      <div class="lab">
+  <b class="t">실습 10</b>
+  <b>처음 돌려 «빨간 화면» 을 찍습니다 — 다시 못 만듭니다</b>
+
+  <p><b>목적</b> — 채점 항목 05 · 06 에 걸립니다.
+     레벨 2 전체(50점)가 <b>「결함이 있었고 고쳤다」</b> 를 봅니다.
+     그 앞쪽 절반이 <b>이 화면 한 장</b>입니다.</p>
+
+  <h5>절차 1 — 돌립니다</h5>
+
+  <p class="cmdline"><code>gradlew.bat test</code></p>
+
+  <p class="cmdline"><code>[         4 tests found           ]
+[         0 tests successful      ]
+[         <b>4 tests failed</b>       ]</code></p>
+
+  <div class="warn"><b>실패가 «넷» 이어야 앞뒤가 맞습니다.</b>
+    <b>더 많으면</b> 테스트에 잘못 쓴 곳이 있고,
+    <b>적으면</b> 못 잡은 결함이 있습니다.
+    건수가 안 맞을 때는 <b>고치러 가기 전에 테스트부터 다시</b> 보십시오.
+    <code>fail("TODO…")</code> 가 남아 있으면 그만큼 늘어납니다 (실습 9).</div>
+
+  <h5>절차 2 — 실패 상세를 봅니다</h5>
+
+  <p class="cmdline"><code>Failures (4):
+
+  TC-04 없는 도서 id 로 대출하면 업무 예외가 난다
+    =&gt; java.lang.AssertionError:
+       Expecting actual throwable to be an instance of:
+         java.lang.IllegalArgumentException
+       but was:
+         <b>java.lang.NullPointerException</b>: Cannot invoke
+         "kr.lib.Book.getAvailableCopies()" because "&lt;local3&gt;" is <b>null</b>
+
+  대출 정상: 재고가 1 줄고 반납기한이 14일 뒤로 잡힌다
+    =&gt; org.opentest4j.AssertionFailedError:
+       expected: <b>2</b>
+        but was: <b>3</b>
+
+  연체 경계: 기한과 «같은 시각» 은 연체가 아니다
+    =&gt; org.opentest4j.AssertionFailedError:
+       <b>Expecting value to be false but was true</b>
+
+  대출 경계: 재고 0 이면 대출할 수 없다
+    =&gt; java.lang.AssertionError:
+       <b>Expecting code to raise a throwable.</b></code></p>
+
+  <h5>절차 3 — 메시지 읽는 법을 익힙니다</h5>
+
+  <p>JUnit 의 실패 메시지는 <b>「무엇을 기대했는데 무엇이 나왔다」</b> 라는 꼴입니다.
+     <b>이 형식이 그대로 결함의 증상</b>이 됩니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:290px">메시지</th><th>읽는 법</th></tr>
+    <tr><td><code>expected: 2 but was: 3</code></td>
+        <td>숫자가 하나 더 있습니다. <b>덜 빼거나 더 더한</b> 곳이 있습니다</td></tr>
+    <tr><td><code>Expecting value to be false but was true</code></td>
+        <td>참거짓이 뒤집혔습니다. <b>부등호나 부정</b>을 봅니다</td></tr>
+    <tr><td><code>Expecting code to raise a throwable.</code></td>
+        <td>막았어야 할 것을 안 막았습니다. <b>조건이 좁습니다</b></td></tr>
+    <tr><td><code>but was: NullPointerException … is null</code></td>
+        <td>없는 경우를 안 걸렀습니다. <b>null 이 그대로 흘러갔습니다</b></td></tr>
+  </table>
+
+  <p><b>네 줄이 서로 다른 것</b>을 보십시오.
+     <b>메시지만 읽고도 어느 줄을 볼지</b> 정해집니다 — 실습 11 에서 이어집니다.</p>
+
+  <h5>절차 4 — 찍는 차례를 지킵니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:230px">무엇을</th><th>빠지기 쉬운 것</th></tr>
+    <tr><td class="c">①</td><td>콘솔 <b>전체</b></td>
+        <td>통과·실패 건수가 나오는 <b>마지막 줄까지</b> 들어가야 합니다</td></tr>
+    <tr><td class="c">②</td><td>실패 <b>상세</b></td>
+        <td><code>build/reports/tests/test/index.html</code> —
+            <b>메시지와 줄 번호</b>가 나옵니다</td></tr>
+    <tr><td class="c">③</td><td>실행결과서의 <b>「수정 전」</b> 표</td>
+        <td>TC 번호 · 결과 · 메시지 + <b>돌린 시각</b></td></tr>
+  </table>
+
+  <div class="note"><b>돌린 시각을 함께 적으십시오.</b>
+    수정 전과 수정 후 두 표에 <b>시각이 있어야</b>
+    「먼저 실패했고 그 뒤에 고쳤다」 는 차례가 증명됩니다.
+    시각이 없으면 <b>두 표의 앞뒤를 알 수 없습니다.</b></div>
+
+  <h5>절차 5 — 지금 찍지 않으면 어떻게 되는지 압니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">다 고치고 나서</th><th></th></tr>
+    <tr><td>빨간 화면을 만들려면</td>
+        <td><b>결함을 도로 넣어야</b> 합니다</td></tr>
+    <tr><td>도로 넣으면</td>
+        <td>커밋 이력이 <b>거꾸로</b> 남습니다 (실습 14)</td></tr>
+    <tr><td>안 찍으면</td>
+        <td>레벨 2 의 <b>절반을 증명하지 못합니다</b></td></tr>
+  </table>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>실패가 <b>넷보다 많음</b></td>
+        <td><code>fail("TODO…")</code> 가 남았거나 테스트를 <b>잘못 썼습니다</b></td></tr>
+    <tr><td>실패가 <b>넷보다 적음</b></td>
+        <td><b>못 잡은 결함</b>이 있습니다. 명세서의 유형을 다시 보십시오
+            (실습 5) — 경계가 모자랄 때가 많습니다</td></tr>
+    <tr><td><code>0 tests found</code></td>
+        <td>테스트가 <code>src/<b>test</b>/java</code> 밑에 있는지 보십시오</td></tr>
+    <tr><td>콘솔에 <b>상세가 안 나옴</b></td>
+        <td>보고서 HTML 을 여십시오. 콘솔은 요약만 찍힐 수 있습니다</td></tr>
+    <tr><td>한글 <code>@DisplayName</code> 이 깨짐</td>
+        <td><b>콘솔 문제</b>입니다. 보고서 HTML 로 찍으십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <b>콘솔 전체 캡처</b> + 실패 상세 캡처 +
+     실행결과서 「수정 전」 표(시각 포함)</p>
+
+  <p><b>스스로 확인</b> —
+     ① 실패가 <b>넷</b>입니까
+     ② 콘솔 <b>마지막 줄</b>까지 들어갔습니까
+     ③ <b>돌린 시각</b>을 적었습니까
+     ④ 네 메시지가 <b>서로 다른</b> 것을 확인했습니까</p>
+</div>
       </div>
     </div>
 
@@ -1681,6 +1936,132 @@ class BookControllerTest {
 </dl>
 <p>이 판단을 <b>결함 관리대장의 우선순위 칸</b>에 숫자로 적습니다.
    적어 두지 않으면 고친 차례가 우연처럼 보입니다.</p>
+      <div class="lab">
+  <b class="t">실습 11</b>
+  <b>메시지에서 결함 넷을 짚고, «고칠 차례» 를 정합니다</b>
+
+  <p><b>목적</b> — 채점 항목 06 ~ 08 로 <b>35점</b>입니다.
+     넷 모두 <code>LibraryServiceImpl.java</code> 안에 있는데
+     <b>눈으로는 안 찾아집니다</b> — <b>넷 다 문법으로는 멀쩡한 코드</b>이기 때문입니다.</p>
+
+  <h5>절차 1 — 메시지에서 자리를 짚습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:250px">실패 메시지</th>
+        <th>보러 갈 곳</th></tr>
+    <tr><td class="c">D-01</td>
+        <td><code>but was: NullPointerException … is null</code></td>
+        <td>책을 <b>꺼내는 줄</b> — 없는 경우를 안 걸렀습니다</td></tr>
+    <tr><td class="c">D-02</td>
+        <td><code>Expecting code to raise a throwable.</code></td>
+        <td>재고를 <b>보는 조건</b> — 부등호가 좁습니다</td></tr>
+    <tr><td class="c">D-03</td>
+        <td><code>expected: 2 but was: 3</code></td>
+        <td>재고를 <b>줄이는 줄</b> — 없습니다</td></tr>
+    <tr><td class="c">D-04</td>
+        <td><code>Expecting value to be false but was true</code></td>
+        <td>연체를 <b>판정하는 줄</b> — 부정이 붙어 있습니다</td></tr>
+  </table>
+
+  <h5>절차 2 — 지금 코드를 봅니다</h5>
+
+  <p class="cmdline"><code>Book book = bookRepo.findById(bookId).<b>orElse(null)</b>;        <i>// D-01</i>
+
+if (book.getAvailableCopies() <b>&lt;</b> 0) {                          <i>// D-02</i>
+  throw new OutOfStockException(…);
+}
+<b>// book.decrease();</b>                                        <i>// D-03 — 줄이 없습니다</i>
+
+return <b>!</b>now.<b>isBefore</b>(lend.getDueAt());                       <i>// D-04</i></code></p>
+
+  <h5>절차 3 — 왜 눈에 안 띄는지 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:90px">결함</th><th style="width:130px">유형</th><th>왜 안 띄는가</th></tr>
+    <tr><td class="c">D-01</td><td>예외 처리</td>
+        <td><code>orElse(null)</code> 은 <b>흔히 쓰는 꼴</b>입니다.
+            뒤에서 터진다는 것만 안 보입니다</td></tr>
+    <tr><td class="c">D-02</td><td>경계값</td>
+        <td><code>&lt;</code> 와 <code>&lt;=</code> 는 <b>글자 하나</b> 차이입니다</td></tr>
+    <tr><td class="c">D-03</td><td>상태 검증 누락</td>
+        <td><b>없는 줄</b>은 읽어서 찾을 수 없습니다</td></tr>
+    <tr><td class="c">D-04</td><td>경계값</td>
+        <td><code>!isBefore</code> 는 <b>「이후이거나 같음」</b> 인데
+            <b>「이후」 로 읽힙니다</b></td></tr>
+  </table>
+
+  <div class="note"><b>D-03 이 가장 무섭습니다.</b>
+    있는 줄이 틀린 것은 <b>읽으면 보입니다.</b>
+    그런데 <b>없는 줄</b>은 아무리 읽어도 안 보입니다.
+    <b>테스트가 아니면 못 잡는 종류</b>이고,
+    실습 6 에서 <b>Then 에 부작용을 안 적으면</b> 테스트도 못 잡습니다.</div>
+
+  <h5>절차 4 — «그냥 두면 무엇이 더 망가지는가» 로 차례를 정합니다</h5>
+
+  <p>어느 것부터 고칠지를 정하는 것이 <b>항목 06</b> 입니다.
+     기준은 <b>급한 순서</b>가 아니라 <b>「자료가 망가지는 쪽」</b> 입니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:90px">차례</th><th style="width:90px">결함</th><th>그냥 두면</th></tr>
+    <tr><td class="c"><b>1</b></td><td class="c">D-02</td>
+        <td><b>재고가 음수</b>가 됩니다. 그 뒤의 모든 계산이 틀리고
+            화면에 <b>「−1권 남음」</b> 이 찍힙니다. 되돌릴 방법도 마땅치 않습니다</td></tr>
+    <tr><td class="c"><b>2</b></td><td class="c">D-03</td>
+        <td><b>없던 책이 생깁니다.</b> 자료가 <b>늘어나는</b> 쪽이라
+            티가 덜 나서 <b>더 오래 갑니다</b></td></tr>
+    <tr><td class="c"><b>3</b></td><td class="c">D-01</td>
+        <td>500 오류가 나가 <b>사용자가 바로 압니다.</b>
+            <b>자료는 안 망가집니다</b></td></tr>
+    <tr><td class="c"><b>4</b></td><td class="c">D-04</td>
+        <td><b>하루치 판정만</b> 어긋납니다. 연체료가 하루 더 붙는 정도이고
+            <b>되돌릴 수 있습니다</b></td></tr>
+  </table>
+
+  <div class="warn"><b>「눈에 잘 띄는 것」 이 기준이 아닙니다.</b>
+    D-01 은 500 이 나가 <b>제일 시끄럽지만 자료는 멀쩡</b>합니다.
+    D-03 은 <b>아무 소리도 안 나는데 자료가 계속 틀어집니다.</b>
+    <b>조용한 쪽이 더 위험합니다.</b>
+    이 판단을 <b>결함 관리대장의 우선순위 칸에 숫자로</b> 적으십시오 (실습 12) —
+    적어 두지 않으면 <b>고친 차례가 우연처럼</b> 보입니다.</div>
+
+  <h5>절차 5 — 넷을 표로 옮깁니다</h5>
+
+  <p class="cmdline"><code>결함 | 유형        | 증상(메시지)                          | 우선 | 연결 TC
+-----+-------------+---------------------------------------+------+--------
+D-02 | 경계값      | Expecting code to raise a throwable   |  1   | TC-02
+D-03 | 상태 검증   | expected: 2 but was: 3                |  2   | TC-01
+D-01 | 예외 처리   | but was: NullPointerException         |  3   | TC-04
+D-04 | 경계값      | Expecting value to be false but true  |  4   | TC-03</code></p>
+
+  <p><b>「연결 TC」 칸이 있어야</b> 고친 뒤에 <b>무엇을 다시 돌려 확인할지</b> 정해집니다
+     (실습 15).</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>결함이 <b>넷보다 적게</b> 보임</td>
+        <td>실패한 시험이 넷인지 먼저 세십시오 (실습 10).
+            <b>한 결함이 두 시험을 깨뜨릴</b> 수도 있습니다</td></tr>
+    <tr><td>메시지를 봐도 <b>어디인지 모르겠음</b></td>
+        <td>보고서 HTML 에 <b>줄 번호</b>가 있습니다.
+            <code>LendServiceTest.java:37</code> 처럼 나옵니다</td></tr>
+    <tr><td><code>orElse(null)</code> 이 <b>왜 결함인지</b> 모르겠음</td>
+        <td>없는 책이면 <code>book</code> 이 <b>null 이 되고</b>,
+            바로 다음 줄에서 <code>getAvailableCopies()</code> 를 부릅니다</td></tr>
+    <tr><td>우선순위를 <b>못 정하겠음</b></td>
+        <td>「그냥 두고 한 달 지나면 무엇이 남는가」 로 바꿔 물어 보십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 결함 넷 표(유형 · 증상 · 우선순위 · 연결 TC) +
+     지금 코드에서 짚은 자리 + <b>우선순위 근거</b> 네 줄</p>
+
+  <p><b>스스로 확인</b> —
+     ① 넷을 <b>메시지에서</b> 짚었습니까
+     ② 유형이 <b>서로 다릅니까</b>
+     ③ 우선순위 기준이 <b>「자료가 망가지는 쪽」</b> 입니까
+     ④ 연결 TC 를 적었습니까</p>
+</div>
       </div>
     </div>
 
