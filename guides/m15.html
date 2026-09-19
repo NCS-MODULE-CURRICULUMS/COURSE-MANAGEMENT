@@ -863,6 +863,124 @@ The following 1 profile is active: "<b>prod</b>"
 Tomcat started on port <b>9090</b>      <i># 운영 설정이 걸렸는지</i></pre>
 <p>두 가지를 이 자리에서 확인해 두면 뒤가 막히지 않습니다.
    이름이 틀리면 스크립트가 못 찾고, 프로파일이 안 걸리면 배포 단계가 통째로 어긋납니다.</p>
+      <div class="lab">
+  <b class="t">실습 5</b>
+  <b>이름을 고정하고, 운영 설정으로 «갈라» 띄웁니다</b>
+
+  <p><b>목적</b> — 채점 항목 03 · 04 로 <b>10점</b>입니다.
+     <b>네 줄</b>로 환경이 갈립니다.</p>
+
+  <h5>절차 1 — 산출물 이름을 고정합니다</h5>
+
+  <p class="cmdline"><code>jar {
+  <b>archiveFileName = "app.jar"</b>          <i>// 이름을 «고정» 합니다</i>
+  manifest {
+    attributes 'Main-Class': 'kr.dep.App',
+               'Implementation-Version': project.version
+  }
+}</code></p>
+
+  <p class="cmdline"><code>gradlew.bat clean jar
+ls -1 build/libs
+<b>app.jar</b></code></p>
+
+  <div class="note"><b>왜 이름을 고정하는가</b> —
+    그냥 두면 <code>libdeploy-<b>1.0.0</b>.jar</code> 처럼
+    <b>판이 이름에 붙습니다.</b>
+    그러면 판을 올릴 때마다
+    <code>run.sh</code> 와 <code>rollback.sh</code> 를 <b>같이 고쳐야</b> 합니다.
+    <b>스크립트 셋이 모두 이 이름을 봅니다</b> —
+    한 군데만 바꾸면 나머지 둘이 못 찾습니다.</div>
+
+  <h5>절차 2 — 운영 설정 세 줄을 씁니다</h5>
+
+  <p class="cmdline"><code># application-prod.properties
+server.port=<b>9090</b>
+app.env=<b>production</b>
+logging.level.root=<b>INFO</b></code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">줄</th><th>까닭</th></tr>
+    <tr><td><code>server.port=9090</code></td>
+        <td>개발용(8080)과 <b>같이 띄워 둘</b> 수 있습니다</td></tr>
+    <tr><td><code>app.env=production</code></td>
+        <td><code>/health</code> 가 <b>이 값을 되돌려</b> 확인해 줍니다</td></tr>
+    <tr><td><code>logging.level.root=INFO</code></td>
+        <td>개발용 <code>DEBUG</code> 를 그대로 두면
+            <b>로그가 쏟아져</b> 정작 볼 것을 못 찾습니다</td></tr>
+  </table>
+
+  <h5>절차 3 — 프로파일을 걸어 띄웁니다</h5>
+
+  <p class="cmdline"><code>java -jar build/libs/app.jar <b>--spring.profiles.active=prod</b></code></p>
+
+  <p class="cmdline"><code>INFO --- [main] kr.dep.DeployApp :
+  The following 1 profile is active: "<b>prod</b>"
+INFO --- [main] o.s.boot.tomcat.TomcatWebServer :
+  Tomcat started on port <b>9090</b> (http) with context path '/'</code></p>
+
+  <p class="cmdline"><code>curl http://localhost:9090/health
+{"status":"UP","profile":"<b>prod</b>","env":"<b>production</b>","port":"<b>9090</b>"}</code></p>
+
+  <p><b>두 줄이 이 자리의 확인표</b>입니다 —
+     <b>프로파일 이름</b>과 <b>포트</b>가 로그에 찍혀야 합니다.
+     이름이 틀리면 스크립트가 못 찾고,
+     <b>프로파일이 안 걸리면 배포 단계가 통째로 어긋납니다.</b></p>
+
+  <h5>절차 4 — 설정이 <b>jar 안에 박힌다</b>는 것을 확인합니다</h5>
+
+  <p class="cmdline"><code>unzip -l build/libs/app.jar
+
+  META-INF/MANIFEST.MF
+  kr/dep/App.class
+  <b>application.properties</b>          ← 설정이 «안에» 들어갑니다
+  application-prod.properties</code></p>
+
+  <div class="warn"><b>jar 를 만든 뒤에는 안의 설정을 못 고칩니다.</b>
+    운영에서 포트를 바꿔야 하면 <b>다시 빌드해야</b> 합니다.
+    그래서 <b>바깥 설정으로 덮을 길</b>을 열어 둡니다 —
+    <code>--spring.profiles.active</code> 나
+    바깥의 <code>application.properties</code> 입니다.
+    <b>같은 jar 로 개발과 운영을 다 도는 것</b>이 목표입니다.</div>
+
+  <h5>절차 5 — <code>releases</code> 폴더는 «미리 안 만들어도» 됩니다</h5>
+
+  <p class="cmdline"><code># build.sh 안에서 없으면 만들어 줍니다
+<b>mkdir -p</b> releases
+cp "$JAR" "releases/app-${VERSION}.jar"</code></p>
+
+  <p><code>-p</code> 는 <b>「이미 있으면 그냥 넘어가라」</b> 는 뜻입니다.
+     없을 때만 만들고 있을 때는 아무 일도 하지 않습니다 —
+     그래서 <b>몇 번을 돌려도 안전</b>합니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>build/libs</code> 에 <b>판이 붙은 이름</b></td>
+        <td><code>archiveFileName</code> 을 <b>안 넣었습니다</b></td></tr>
+    <tr><td><code>no main manifest attribute</code></td>
+        <td><code>Main-Class</code> 가 MANIFEST 에 <b>없습니다</b></td></tr>
+    <tr><td>로그에 <code>profile is active</code> 가 <b>안 보임</b></td>
+        <td>대신 <code>No active profile set</code> 이 있습니다 —
+            인자를 <b>안 줬습니다</b></td></tr>
+    <tr><td>포트가 여전히 <b>8080</b></td>
+        <td>파일 이름이 <code>application-<b>prod</b>.properties</code> 인지 보십시오.
+            <code>prod</code> 철자가 틀리면 <b>조용히 무시</b>됩니다</td></tr>
+    <tr><td><code>Port 9090 was already in use</code></td>
+        <td>앞서 띄운 것이 살아 있습니다.
+            <b>바로 그래서 포트를 가른 것</b>이기도 합니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>build.gradle</code> 한 줄 + 운영 설정 세 줄 +
+     <code>ls -1 build/libs</code> + <b>프로파일·포트가 찍힌 기동 로그</b></p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>build/libs</code> 에 <b><code>app.jar</code></b> 하나만 있습니까
+     ② 로그에 <b>프로파일 이름</b>이 찍혔습니까
+     ③ 포트가 <b>9090</b> 입니까
+     ④ 설정이 <b>jar 안에</b> 들어간 것을 봤습니까</p>
+</div>
       </div>
     </div>
 
@@ -914,6 +1032,117 @@ Tomcat started on port <b>9090</b>      <i># 운영 설정이 걸렸는지</i></
   커밋 해시가 가리키는 소스와 <b>실제로 빌드한 소스가 다릅니다</b>.
   이 한 줄까지 캡처에 넣으면 대조가 끝납니다.
 </div>
+      <div class="lab">
+  <b class="t">실습 6</b>
+  <b>받아 와서 «어느 시점인지» 를 세 값으로 남깁니다</b>
+
+  <p><b>목적</b> — 채점 항목 05 · <b>10점</b>이고
+     <b>가장 자주 빠뜨리는 10점</b>입니다.
+     실습에서는 이미 폴더에 프로젝트가 있으니 <b>건너뛰기가 쉽습니다.</b></p>
+
+  <h5>절차 1 — 왜 이 단계가 있는지 적습니다</h5>
+
+  <p>배포는 <b>「저장소의 어느 시점」 을 내보내는 일</b>입니다.
+     내 PC 폴더에 있는 소스로 빌드하면
+     <b>그것이 저장소의 어느 시점인지 아무도 모릅니다.</b>
+     <b>커밋하지 않은 수정이 섞였을 수도</b> 있습니다.</p>
+
+  <h5>절차 2 — 빈 폴더에 받아 옵니다</h5>
+
+  <p class="cmdline"><code>cd C:\temp
+git clone -b release/1.0.0 https://github.com/…/s-deploy.git checkout
+cd checkout</code></p>
+
+  <p><b>빈 폴더에 받는 것</b>이 요점입니다.
+     쓰던 폴더에서 <code>git pull</code> 만 하면
+     <b>내가 고쳐 둔 것이 그대로 남아</b> 있습니다.</p>
+
+  <h5>절차 3 — 세 값을 받아 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">값</th><th style="width:210px">얻는 명령</th><th>보기</th></tr>
+    <tr><td class="nm">저장소 주소</td><td><code>git remote -v</code></td>
+        <td><code>…/s-deploy.git (fetch)</code></td></tr>
+    <tr><td class="nm">브랜치</td><td><code>git branch --show-current</code></td>
+        <td><code>release/1.0.0</code></td></tr>
+    <tr><td class="nm">커밋 해시</td><td><code>git log -1 --oneline</code></td>
+        <td><code>8230f0c</code></td></tr>
+  </table>
+
+  <p class="cmdline"><code>git remote -v
+origin  …/s-deploy.git (fetch)
+
+git branch --show-current
+<b>release/1.0.0</b>
+
+git log -1 --oneline
+<b>8230f0c</b> feat: 배포 대상</code></p>
+
+  <p>이 셋이 있으면 남이 <b>같은 것을 다시 빌드</b>할 수 있습니다.
+     그것이 형상관리가 하는 일이고, 그래서 <b>배점이 10점</b>입니다.</p>
+
+  <h5>절차 4 — 네 번째 줄을 «꼭» 넣습니다</h5>
+
+  <p class="cmdline"><code>git status
+On branch release/1.0.0
+<b>nothing to commit, working tree clean</b></code></p>
+
+  <div class="warn"><b>이 한 줄까지 캡처에 넣으면 대조가 끝납니다.</b>
+    고쳐 놓고 <b>커밋하지 않은 것</b>이 있으면
+    커밋 해시가 가리키는 소스와 <b>실제로 빌드한 소스가 다릅니다.</b>
+    해시는 <code>8230f0c</code> 라고 적어 냈는데
+    <b>거기에 없는 코드가 운영에 올라간</b> 것입니다.
+    나중에 되돌려도 <b>그 코드는 어디에도 없습니다.</b></div>
+
+  <h5>절차 5 — 브랜치를 «태그나 릴리스 가지» 로 받습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:230px">무엇으로 받나</th><th>뒤에 어떻게 되나</th></tr>
+    <tr><td><code>main</code></td>
+        <td>누가 커밋하면 <b>내용이 바뀝니다.</b>
+            같은 이름으로 받아도 <b>다른 것</b>이 옵니다</td></tr>
+    <tr><td><b><code>release/1.0.0</code></b> 또는 태그</td>
+        <td><b>안 바뀝니다.</b> 언제 받아도 같은 것이 옵니다</td></tr>
+  </table>
+
+  <p><b>배포는 「같은 것을 다시 만들 수 있어야」</b> 합니다.
+     움직이는 가지에서 빌드하면 <b>다시 만들 수가 없습니다.</b></p>
+
+  <h5>절차 6 — 받은 것이 맞는지 셉니다</h5>
+
+  <p class="cmdline"><code>git ls-files | wc -l</code></p>
+
+  <p>받아 온 파일 수를 세어 두면 <b>빠진 것이 있는지</b> 바로 압니다.
+     <code>.gitignore</code> 가 너무 많이 빼고 있으면 <b>여기서 드러납니다</b>.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>warning: You appear to have cloned an empty repository</code></td>
+        <td><b>아무것도 안 올라갔습니다</b></td></tr>
+    <tr><td><code>Remote branch release/1.0.0 not found</code></td>
+        <td>그 가지를 <b>안 올렸습니다.</b>
+            <code>git push origin release/1.0.0</code></td></tr>
+    <tr><td><code>git status</code> 에 <b>고친 파일이 보임</b></td>
+        <td>절차 4 입니다. <b>커밋하고 다시</b> 받으십시오</td></tr>
+    <tr><td>사용자 이름·비밀번호를 묻고 <b>거절</b></td>
+        <td>GitHub 은 비밀번호를 안 받습니다. <b>토큰</b>을 쓰십시오</td></tr>
+    <tr><td>받은 파일이 <b>너무 적음</b></td>
+        <td><code>.gitignore</code> 를 보십시오 —
+            앞에 빗금 없는 <code>lib/</code> 같은 것이
+            <b>패키지 폴더까지</b> 먹습니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 체크아웃 화면 + <b>세 값</b> +
+     <code>nothing to commit, working tree clean</code> 줄</p>
+
+  <p><b>스스로 확인</b> —
+     ① <b>빈 폴더</b>에 받았습니까
+     ② 세 값을 <b>다</b> 적었습니까
+     ③ <b>네 번째 줄</b>을 넣었습니까
+     ④ <b>안 바뀌는 가지</b>에서 받았습니까</p>
+</div>
       </div>
     </div>
 
@@ -958,6 +1187,153 @@ Tomcat started on port <b>9090</b>      <i># 운영 설정이 걸렸는지</i></
   <code>null</code> 을 돌려주므로 <code>status</code> 도 <code>version</code> 도 없기 때문입니다.
   이 교과에서는 실패한 채로 다음으로 넘어갈 수 없습니다.
   <b>통과를 확인해야 빌드 이관</b>이 성립합니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 7</b>
+  <b>한 명령이 «세 갈래» 를 차례로 거르는 것을 봅니다</b>
+
+  <p><b>목적</b> — 채점 항목 06 · <b>10점</b>입니다.
+     수행준거가 <b>「라이브러리 · 소스 · 로직 등의 오류」</b> 를 듭니다.
+     셋을 따로 볼 도구를 찾을 것 없이 <b><code>gradlew test</code> 한 명령</b>이 차례로 거릅니다.</p>
+
+  <h5>절차 1 — 통과할 때의 모습을 봅니다</h5>
+
+  <p class="cmdline"><code>gradlew.bat test
+
+&gt; Task :compileJava
+&gt; Task :processResources
+&gt; Task :classes
+&gt; Task :compileTestJava
+&gt; Task :testClasses
+&gt; Task :test
+
+<b>BUILD SUCCESSFUL</b> in 6s</code></p>
+
+  <p><b>과제가 차례로 지나가는 것</b>을 보십시오.
+     <b>어디서 멈추느냐</b>가 곧 어느 갈래의 오류인지를 알려 줍니다.</p>
+
+  <h5>절차 2 — ① 라이브러리 오류를 내 봅니다</h5>
+
+  <p>없는 판을 적어 두고 돌리면 <b>컴파일 전에</b> 멈춥니다.</p>
+
+  <p class="cmdline"><code>&gt; Task :compileJava UP-TO-DATE
+&gt; Task :<b>compileTestJava FAILED</b>
+
+FAILURE: Build failed with an exception.
+&gt; Could not resolve all files for configuration ':testCompileClasspath'.
+   &gt; <b>Could not resolve org.junit.jupiter:junit-jupiter:5.13.4.</b></code></p>
+
+  <table class="wide">
+    <tr><th style="width:250px">이 오류가 뜻하는 것</th><th></th></tr>
+    <tr><td>내 코드는 <b>아직 안 봤습니다</b></td>
+        <td>가져올 것을 <b>못 가져와</b> 시작도 못 했습니다</td></tr>
+    <tr><td>흔한 까닭</td>
+        <td>판 번호 오타 · 저장소 주소 없음 · <b>망이 끊김</b></td></tr>
+  </table>
+
+  <h5>절차 3 — ② 소스 오류를 내 봅니다</h5>
+
+  <p class="cmdline"><code>&gt; Task :<b>compileJava FAILED</b>
+
+App.java:27: error: <b>';' expected</b>
+    System.out.println("  기동 완료")
+                                 ^
+1 error</code></p>
+
+  <p>다른 모양도 하나 봐 둡니다.</p>
+
+  <p class="cmdline"><code>App.java:27: error: <b>cannot find symbol</b>
+    Helper.start();
+    ^
+  symbol:   variable Helper
+  location: class App
+1 error</code></p>
+
+  <div class="note"><b>줄 번호가 «가리키는 자리» 를 조심하십시오.</b>
+    <code>';' expected</code> 는 <b>빠뜨린 줄</b>을 가리키지만,
+    괄호를 안 닫았을 때는 <b>파일 맨 끝</b>을 가리킵니다.
+    <b>「그 줄이 멀쩡해 보이면 그 위를」</b> 보십시오.</div>
+
+  <h5>절차 4 — ③ 로직 오류를 내 봅니다</h5>
+
+  <p>컴파일은 되는데 <b>동작이 요구사항과 다른</b> 경우입니다.</p>
+
+  <p class="cmdline"><code>&gt; Task :compileTestJava
+&gt; Task :testClasses
+&gt; Task :test
+
+AppTest &gt; 판이 1.0.0 이어야 한다 <b>FAILED</b>
+    org.opentest4j.AssertionFailedError at AppTest.java:11
+
+1 test completed, <b>1 failed</b></code></p>
+
+  <p><b>콘솔에는 «어느 줄» 까지만</b> 나옵니다.
+     <b>무엇을 기대했는데 무엇이 나왔는지</b>는 보고서에 있습니다 (절차 6).</p>
+
+  <p class="cmdline"><code>expected: &lt;1.0.0&gt; but was: &lt;0.0.0&gt;</code></p>
+
+  <h5>절차 5 — 셋을 «멈춘 자리» 로 가릅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:190px">갈래</th>
+        <th style="width:210px">멈추는 과제</th><th>고칠 곳</th></tr>
+    <tr><td class="c">①</td><td>라이브러리</td>
+        <td><code>compileJava</code> <b>전</b> · 의존성 해결</td>
+        <td><code>build.gradle</code></td></tr>
+    <tr><td class="c">②</td><td>소스</td><td><code>compileJava FAILED</code></td>
+        <td><b>그 파일 그 줄</b></td></tr>
+    <tr><td class="c">③</td><td>로직</td><td><code>test FAILED</code></td>
+        <td><b>기대와 실제 중 하나</b></td></tr>
+  </table>
+
+  <p><b>③ 은 코드가 틀렸을 수도, 시험이 틀렸을 수도</b> 있습니다.
+     <b>요구사항을 먼저</b> 보고 어느 쪽이 맞는지 정하십시오.</p>
+
+  <h5>절차 6 — 자세한 보고서를 봅니다</h5>
+
+  <p class="cmdline"><code>build/reports/tests/test/index.html</code></p>
+
+  <p>콘솔은 <b>요약만</b> 찍힐 수 있습니다.
+     <b>어느 시험이 왜 실패했는지</b>는 이 파일에 줄 번호까지 나옵니다.</p>
+
+  <h5>절차 7 — 검증 결과를 보고서에 적습니다</h5>
+
+  <p class="cmdline"><code>소스 검증 결과
+
+  명령      : ./gradlew test
+  라이브러리 : 의존성 해결 성공 (compileTestJava 통과)
+  소스      : 컴파일 오류 0건
+  로직      : 시험 N건 전부 통과
+  결과      : BUILD SUCCESSFUL — 내보내도 되는 상태</code></p>
+
+  <p><b>「내보내도 되는 상태」 라는 판단을 적는 것</b>이 이 단계의 몫입니다.
+     검증은 <b>검문소</b>입니다 — 통과 도장을 찍어 줘야 다음 걸음으로 갑니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>Could not resolve …</code></td>
+        <td>①입니다. 판 번호와 <b>망</b>을 보십시오</td></tr>
+    <tr><td><code>Could not find or load main class</code></td>
+        <td>빌드는 됐는데 <b>실행</b>이 안 됩니다 — MANIFEST 를 보십시오</td></tr>
+    <tr><td><code>0 tests</code> 인데 <code>BUILD SUCCESSFUL</code></td>
+        <td><b>시험을 못 찾았습니다.</b>
+            <code>test { useJUnitPlatform() }</code> 이 있는지 보십시오</td></tr>
+    <tr><td><code>test FAILED</code> 인데 <b>까닭이 안 보임</b></td>
+        <td>보고서 HTML 을 여십시오 — 절차 6</td></tr>
+    <tr><td>내 PC 에서만 <b>통과</b></td>
+        <td>실습 6 처럼 <b>빈 폴더에 받아서</b> 돌려 보십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>gradlew test</code> 통과 화면 +
+     <b>세 갈래 오류 화면</b>(가능한 것만) + 검증 결과 다섯 줄</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>BUILD SUCCESSFUL</code> 을 받았습니까
+     ② 셋이 <b>멈추는 자리가 다르다</b>는 것을 압니까
+     ③ 보고서 HTML 을 <b>열어</b> 봤습니까
+     ④ <b>「내보내도 된다」</b> 는 판단을 적었습니까</p>
 </div>
       </div>
     </div>
