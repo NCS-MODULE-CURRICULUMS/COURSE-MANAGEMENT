@@ -1687,6 +1687,172 @@ else
 fi</pre>
 <p><code>exit 1</code> 은 「실패로 끝냈다」 는 신호입니다.
    나중에 이 스크립트를 다른 도구가 부를 때 <b>성공인지 실패인지 알아볼 수 있습니다</b>.</p>
+      <div class="lab">
+  <b class="t">실습 10</b>
+  <b><code>BUILD SUCCESSFUL</code> «다음» 을 봅니다 — 파일이 정말 있는지</b>
+
+  <p><b>목적</b> — 채점 항목 10 · 11 로 <b>10점</b>이고
+     <b>한 화면이 세 항목을 받칩니다.</b>
+     로그에 <code>BUILD SUCCESSFUL</code> 이 찍혔다고 끝이 아닙니다.</p>
+
+  <h5>절차 1 — 돌립니다</h5>
+
+  <p class="cmdline"><code>bash scripts/build.sh
+
+&gt; Task :clean
+&gt; Task :compileJava
+&gt; Task :processResources
+&gt; Task :classes
+&gt; Task :compileTestJava
+&gt; Task :testClasses
+&gt; Task :test
+&gt; Task :jar
+
+<b>BUILD SUCCESSFUL</b> in 6s
+보관 완료: releases/app-1.0.0.jar</code></p>
+
+  <h5>절차 2 — 결과물을 «눈으로» 봅니다</h5>
+
+  <p class="cmdline"><code>ls -lh build/libs/app.jar
+-rw-r--r-- 1 user 197609 <b>2.3K</b> 9월 20 16:52 build/libs/app.jar</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">보는 것</th><th>판단</th></tr>
+    <tr><td>파일이 <b>있는가</b></td><td>없으면 빌드가 <b>도중에 멈췄습니다</b></td></tr>
+    <tr><td><b>크기</b>가 그럴듯한가</td>
+        <td>라이브러리를 함께 묶는 빌드인데 <b>수백 KB</b> 면
+            <b>안 들어간 것</b>입니다</td></tr>
+    <tr><td><b>시각</b>이 방금인가</td>
+        <td>옛날 것이면 <code>clean</code> 이 <b>안 돌았습니다</b></td></tr>
+  </table>
+
+  <div class="note"><b>크기는 «빌드 방식» 에 따라 다릅니다.</b>
+    라이브러리를 함께 묶으면 <b>수십 MB</b>,
+    내 클래스만 묶으면 <b>수 KB</b> 입니다.
+    <b>「얼마여야 한다」 가 아니라 「지난번과 비슷한가」</b> 로 보십시오.
+    갑자기 <b>10분의 1</b> 이 되었으면 무언가 빠진 것입니다.</div>
+
+  <h5>절차 3 — 스크립트가 대신 확인하게 합니다</h5>
+
+  <p class="cmdline"><code>JAR="build/libs/app.jar"
+
+if [ -f "$JAR" ]; then
+  echo "==&gt; 빌드 성공: $JAR"
+  ls -lh "$JAR"
+else
+  echo "!! 빌드 실패: $JAR 가 생성되지 않았습니다." &gt;&amp;2
+  <b>exit 1</b>
+fi</code></p>
+
+  <p><code>exit 1</code> 은 <b>「실패로 끝냈다」 는 신호</b>입니다.
+     나중에 이 스크립트를 <b>다른 도구가 부를 때</b>
+     성공인지 실패인지 알아볼 수 있습니다.</p>
+
+  <h5>절차 4 — 신호가 전해지는지 확인합니다</h5>
+
+  <p class="cmdline"><code>bash scripts/build.sh
+echo "종료 코드: $?"
+
+종료 코드: <b>0</b>          ← 성공</code></p>
+
+  <p><code>$?</code> 는 <b>바로 앞 명령이 남긴 신호</b>입니다.
+     <b>0 이면 성공, 0 이 아니면 실패</b>입니다.
+     실패한 스크립트가 <code>0</code> 을 남기면
+     <b>부르는 쪽은 성공한 줄 압니다.</b></p>
+
+  <h5>절차 5 — 안에 무엇이 들었는지 봅니다</h5>
+
+  <p class="cmdline"><code>unzip -l build/libs/app.jar
+
+  Length      Date    Time    Name
+---------  ---------- -----   ----
+        0  2026-09-20 16:52   META-INF/
+       80  2026-09-20 16:52   META-INF/MANIFEST.MF
+        0  2026-09-20 16:52   kr/
+        0  2026-09-20 16:52   kr/dep/
+     2797  2026-09-20 16:52   kr/dep/App.class
+       47  2026-09-20 16:52   application.properties
+---------                     -------
+     2924                     <b>6 files</b></code></p>
+
+  <div class="warn"><b>운영 설정이 «안» 들어갔습니다.</b>
+    빌드는 <code>BUILD SUCCESSFUL</code> 이었고 파일도 생겼습니다.
+    그런데 <code>application-prod.properties</code> 가 <b>목록에 없습니다.</b>
+    <code>src/main/resources</code> 가 <b>아닌 곳</b>에 두면
+    <b>아무 말 없이 빠집니다.</b>
+    <b>이대로 운영에 올리면</b> 프로파일을 걸어도
+    <b>포트가 9090 으로 안 바뀝니다</b> (실습 5).</div>
+
+  <p><code>src/main/resources</code> 로 옮기고 다시 빌드하면 이렇게 됩니다.</p>
+
+  <p class="cmdline"><code>        0  2026-09-20 16:54   META-INF/
+       80  2026-09-20 16:54   META-INF/MANIFEST.MF
+        0  2026-09-20 16:54   kr/
+        0  2026-09-20 16:54   kr/dep/
+     2797  2026-09-20 16:54   kr/dep/App.class
+       <b>64  2026-09-20 16:54   application-prod.properties</b>   ← 들어왔습니다
+       47  2026-09-20 16:54   application.properties
+---------                     -------
+     2988                     <b>7 files</b></code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">달라진 것</th><th>뜻</th></tr>
+    <tr><td><code>6 files</code> → <b><code>7 files</code></b></td>
+        <td>파일이 <b>하나 늘었습니다</b></td></tr>
+    <tr><td><code>2924</code> → <b><code>2988</code></b></td>
+        <td>설정 파일 <b>64 바이트</b>만큼 늘었습니다</td></tr>
+    <tr><td><code>ls -lh</code> 가 <b>2.3K → 2.5K</b></td>
+        <td><b>바깥에서도</b> 보입니다</td></tr>
+  </table>
+
+  <div class="note"><b>맨 아래 «파일 개수» 줄만 봐도 됩니다.</b>
+    목록을 다 읽을 것 없이 <b>몇 개인지</b>만 세십시오.
+    <b>디렉터리도 한 줄씩 차지</b>하므로
+    <code>META-INF/</code> · <code>kr/</code> · <code>kr/dep/</code> 셋은
+    <b>내용 없는 0 바이트 줄</b>입니다 — 놀라지 마십시오.</div>
+
+  <h5>절차 6 — 한 장으로 남깁니다</h5>
+
+  <p>이 한 화면에 <b>세 가지가 다</b> 들어갑니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:250px">보이는 것</th><th>덮는 채점</th></tr>
+    <tr><td class="c">1</td><td>명령과 과제 목록</td><td class="c">08 · 09</td></tr>
+    <tr><td class="c">2</td><td><code>BUILD SUCCESSFUL</code></td><td class="c">10</td></tr>
+    <tr><td class="c">3</td><td><code>ls -lh</code> 와 보관 줄</td><td class="c">10 · 11</td></tr>
+  </table>
+
+  <p><b>잘라 낼 때 위아래를 넉넉히</b> 잡으십시오.
+     <code>BUILD SUCCESSFUL</code> 만 잘라 내면 <b>어느 명령의 결과인지</b> 안 보입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>BUILD SUCCESSFUL</code> 인데 <b>파일이 없음</b></td>
+        <td>다른 자리에 생겼습니다.
+            <code>find . -name "*.jar"</code> 로 찾아보십시오</td></tr>
+    <tr><td>크기가 <b>지난번의 10분의 1</b></td>
+        <td>의존성을 함께 묶는 설정이 <b>빠졌습니다</b></td></tr>
+    <tr><td>시각이 <b>옛날</b></td>
+        <td><code>clean</code> 이 안 돌았습니다.
+            <code>build/</code> 를 지우고 다시 하십시오</td></tr>
+    <tr><td><code>unzip</code> 에 설정 파일이 <b>없음</b></td>
+        <td><code>src/main/resources</code> 에 있는지 보십시오</td></tr>
+    <tr><td>종료 코드가 <b>0 인데 실패</b></td>
+        <td><code>exit 1</code> 을 안 넣었거나
+            <code>set -e</code> 가 없습니다 (실습 9)</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 빌드 화면(명령부터 보관 줄까지 <b>한 장</b>) +
+     <code>ls -lh</code> + <code>unzip -l</code> + 종료 코드</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>BUILD SUCCESSFUL</code> <b>다음</b>을 봤습니까
+     ② 파일 <b>크기와 시각</b>을 봤습니까
+     ③ 스크립트가 <b>대신 확인</b>하게 했습니까
+     ④ <code>exit 1</code> 을 넣었습니까</p>
+</div>
       </div>
     </div>
 
@@ -1734,6 +1900,127 @@ app-1.1.0.jar
   <code>application.properties</code> 의 <code>app.version</code> 은 <b>응답</b>에 쓰입니다.
   하나만 올리면 파일 이름은 1.1.0 인데 응답은 1.0.0 이라
   <b>롤백해도 숫자가 안 바뀌어</b> 확인이 되지 않습니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 11</b>
+  <b>판을 «둘» 만들어 둡니다 — 되돌릴 자리를 지금 만듭니다</b>
+
+  <p><b>목적</b> — 롤백은 마지막 단계이지만 <b>준비는 이 자리에서</b> 끝납니다.
+     빌드할 때마다 사본을 남겨 두지 않으면 <b>나중에 갈 곳이 없습니다.</b></p>
+
+  <h5>절차 1 — 보관 네 줄을 넣습니다</h5>
+
+  <p class="cmdline"><code>VERSION=$(grep "^version" build.gradle | cut -d"'" -f2)
+
+mkdir -p releases
+cp "$JAR" "releases/app-${VERSION}.jar"
+echo "보관 완료: releases/app-${VERSION}.jar"</code></p>
+
+  <h5>절차 2 — 판을 한 번 올려 둘을 만듭니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:290px">하는 일</th><th>결과</th></tr>
+    <tr><td class="c">1</td><td><code>bash scripts/build.sh</code></td>
+        <td><code>releases/app-<b>1.0.0</b>.jar</code></td></tr>
+    <tr><td class="c">2</td><td><code>build.gradle</code> 의 <code>version</code> 을
+        <b>1.1.0</b> 으로</td><td>한 글자만 고칩니다</td></tr>
+    <tr><td class="c">3</td><td><code>bash scripts/build.sh</code> 다시</td>
+        <td><code>releases/app-<b>1.1.0</b>.jar</code></td></tr>
+    <tr><td class="c">4</td><td><code>ls -1 releases/</code></td>
+        <td><b>두 개</b>가 보입니다</td></tr>
+  </table>
+
+  <p class="cmdline"><code>ls -1 releases/
+<b>app-1.0.0.jar</b>
+<b>app-1.1.0.jar</b></code></p>
+
+  <div class="warn"><b>사본이 하나뿐이면 롤백을 «흉내만» 내게 됩니다.</b>
+    되돌릴 자리가 없는데 되돌린 척만 하는 화면은
+    <b>판 숫자가 안 바뀌어</b> 바로 드러납니다.
+    <b>실습에서 반드시 둘을 만들어 두십시오</b> —
+    실습 15 에서 <code>/version</code> 이 <b>1.1.0 → 1.0.0</b> 으로
+    바뀌는 것을 보여야 합니다.</div>
+
+  <h5>절차 3 — 올라간 판을 확인합니다</h5>
+
+  <p class="cmdline"><code>bash scripts/run.sh prod
+curl -s http://localhost:9090/version
+{"version":"<b>1.1.0</b>"}          <i># 지금 올라간 것은 새 판</i>
+
+curl -s http://localhost:9090/health
+{"status":"UP","profile":"prod","env":"production","port":"9090"}</code></p>
+
+  <p><b>둘을 «같이» 찍어 두십시오.</b>
+     <code>/version</code> 만 있으면 <b>어느 환경의 1.1.0 인지</b> 안 보입니다.
+     <code>/health</code> 의 <code>"profile":"prod"</code> 가
+     <b>운영에 올렸다는 증거</b>입니다.</p>
+
+  <h5>절차 4 — 두 곳의 판을 «같이» 올립니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:290px">어디</th><th>무엇에 쓰이나</th></tr>
+    <tr><td><code>build.gradle</code> 의 <code>version</code></td>
+        <td><b>파일 이름</b>이 됩니다 — <code>app-1.1.0.jar</code></td></tr>
+    <tr><td><code>app.version</code> (설정)</td>
+        <td><b><code>/version</code> 응답</b>이 됩니다</td></tr>
+  </table>
+
+  <p><b>한쪽만 올리면 어긋납니다.</b>
+     파일은 <code>app-1.1.0.jar</code> 인데 응답은 <code>1.0.0</code> 이면
+     <b>롤백했는지 안 했는지 알 수 없습니다.</b>
+     실습 8 의 <b>첫 번째 견줄 짝</b>이 바로 이것입니다.</p>
+
+  <h5>절차 5 — 판 번호를 «무엇 기준으로» 올릴지 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px">무엇이 바뀌었나</th><th style="width:150px">어디를 올리나</th><th>보기</th></tr>
+    <tr><td>기능이 늘었다</td><td>가운데</td><td>1.0.0 → <b>1.1</b>.0</td></tr>
+    <tr><td>고치기만 했다</td><td>끝</td><td>1.1.0 → 1.1.<b>1</b></td></tr>
+    <tr><td>쓰는 법이 바뀌었다</td><td>맨 앞</td><td>1.1.1 → <b>2</b>.0.0</td></tr>
+  </table>
+
+  <p><b>규칙은 무엇이든 됩니다.</b> 중요한 것은 <b>적어 두고 지키는 것</b>입니다 —
+     보고서에 한 줄 적으면 「버전 관리를 했다」 가 됩니다.</p>
+
+  <h5>절차 6 — 보관함이 쌓이는 것을 확인합니다</h5>
+
+  <p class="cmdline"><code>ls -lh releases/
+total 8.0K
+-rw-r--r-- 1 user 197609 <b>2.5K</b>  9월 20 <b>16:54</b> app-1.0.0.jar
+-rw-r--r-- 1 user 197609 <b>2.5K</b>  9월 20 <b>16:55</b> app-1.1.0.jar</code></p>
+
+  <p><b>시각이 다른 것</b>을 보십시오. 두 번 빌드했다는 증거입니다.
+     같은 시각이면 <b>복사만 한 것</b>으로 읽힙니다.</p>
+
+  <div class="note"><b>크기가 «똑같은» 것은 정상입니다.</b>
+    위 실측에서도 둘 다 <b>2.5K</b> 입니다.
+    고친 것이 <b>설정 한 줄</b>이면 크기는 거의 안 움직입니다.
+    <b>크기가 아니라 «이름과 시각»</b> 으로 가르십시오.</div>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>releases</code> 에 <b>하나뿐</b></td>
+        <td>판을 안 올리고 두 번 빌드했습니다 —
+            <b>같은 이름으로 덮어썼습니다</b></td></tr>
+    <tr><td>파일 이름은 1.1.0 인데 <code>/version</code> 이 <b>1.0.0</b></td>
+        <td><code>app.version</code> 을 <b>안 올렸습니다</b> — 절차 4</td></tr>
+    <tr><td><code>VERSION</code> 이 비어 이름이 <code>app-.jar</code></td>
+        <td><code>grep "^version"</code> 이 못 잡았습니다 (실습 9)</td></tr>
+    <tr><td>두 파일 <b>크기가 똑같음</b></td>
+        <td><b>정상일 수 있습니다.</b> 고친 것이 한 줄이면 크기가 같습니다 —
+            시각으로 가르십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 보관 네 줄 + <b><code>ls -1 releases/</code> 에 둘</b> +
+     <code>/version</code> 응답 + 판 올리는 규칙 한 줄</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>releases</code> 에 <b>둘</b>이 있습니까
+     ② 두 곳의 판을 <b>같이</b> 올렸습니까
+     ③ <code>/version</code> 이 <b>새 판</b>을 답합니까
+     ④ 판 올리는 <b>규칙</b>을 적었습니까</p>
 </div>
       </div>
     </div>
