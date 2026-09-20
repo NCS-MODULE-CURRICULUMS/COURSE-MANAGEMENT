@@ -2845,6 +2845,176 @@ bash scripts/rollback.sh
   네 장이 들어 있습니다. 보고서의 각 절과 <b>칸이 그대로 맞물립니다</b>.
   양식을 먼저 채우고 보고서로 옮기면 빠뜨리는 칸이 없습니다.
 </div>
+      <div class="lab">
+  <b class="t">실습 16</b>
+  <b>앞 열다섯 개가 낸 «화면» 을 한 부로 묶습니다 — 빈 절 찾기</b>
+
+  <p><b>목적</b> — 보고서는 <b>새로 만드는 것이 아닙니다.</b>
+     실습 1~15 에서 <b>이미 찍어 둔 화면을 자리에 놓는 일</b>입니다.
+     새로 쓸 것이 있다면 <b>그 실습을 안 한 것</b>입니다.</p>
+
+  <h5>절차 1 — 아홉 컷이 «다 있는지» 셉니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:44px">번</th><th style="width:230px">무엇</th>
+        <th style="width:80px">항목</th><th>어느 실습에서 나왔나</th></tr>
+    <tr><td class="c">1</td><td>체크아웃 화면</td><td class="c">05</td>
+        <td>실습 6</td></tr>
+    <tr><td class="c">2</td><td><code>gradlew test</code> 통과</td><td class="c">06</td>
+        <td>실습 7</td></tr>
+    <tr><td class="c">3</td><td>빌드 로그와 보관 줄</td><td class="c">08·10·11</td>
+        <td>실습 10 · 11</td></tr>
+    <tr><td class="c">4</td><td><b>빌드 실패</b> 콘솔</td><td class="c">12</td>
+        <td>실습 12</td></tr>
+    <tr><td class="c">5</td><td><code>prod</code> 기동 로그</td><td class="c">14</td>
+        <td>실습 14</td></tr>
+    <tr><td class="c">6~8</td><td>응답 <b>세 컷</b></td><td class="c">15</td>
+        <td>실습 14</td></tr>
+    <tr><td class="c">9</td><td>롤백 후 <b>버전 확인</b></td><td class="c">16</td>
+        <td>실습 15</td></tr>
+  </table>
+
+  <p><b>표를 훑으며 「이건 어느 실습에서 찍었지」</b> 를 물어보십시오.
+     답이 안 나오는 줄이 <b>지금 비어 있는 칸</b>입니다.</p>
+
+  <h5>절차 2 — 다섯 가지를 «세어서» 확인합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:300px">확인</th><th>안 되어 있으면</th></tr>
+    <tr><td><b>여섯 절이 다 차 있는가</b></td>
+        <td>빈 절 = <b>그 요소의 배점이 통째로</b> 빕니다</td></tr>
+    <tr><td>명령을 <b>그대로</b> 적었는가</td>
+        <td>「빌드함」 이 아니라 <code>bash scripts/build.sh</code> 로</td></tr>
+    <tr><td><b>9090</b> 인 화면이 있는가</td>
+        <td>8080 만 있으면 <b>운영 배포를 안 한 것</b>으로 읽힙니다</td></tr>
+    <tr><td><b>실패</b> 화면이 있는가</td>
+        <td>성공만 있으면 <b>항목 12</b> 가 빕니다</td></tr>
+    <tr><td><b>숫자가 바뀌는</b> 화면이 있는가</td>
+        <td>롤백의 <b>유일한</b> 증거입니다</td></tr>
+  </table>
+
+  <h5>절차 3 — 양식 네 장을 «먼저» 채웁니다</h5>
+
+  <p><code>docs/산출물_양식/</code> 의 네 장은
+     보고서의 절과 <b>칸이 그대로 맞물립니다.</b></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">양식</th><th>여기서 가져옵니다</th></tr>
+    <tr><td>배포환경 명세서</td><td>실습 4 설정 표 · 실습 8 점검표</td></tr>
+    <tr><td>빌드 결과서</td><td>실습 10 <code>ls -lh</code> · <code>unzip -l</code></td></tr>
+    <tr><td>배포 절차서</td><td>실습 14 기동 명령과 로그 두 줄</td></tr>
+    <tr><td>롤백 절차서</td><td>실습 15 네 걸음</td></tr>
+  </table>
+
+  <p><b>양식을 먼저 채우고 보고서로 옮기면</b> 빠뜨리는 칸이 없습니다.
+     보고서부터 쓰면 <b>양식과 숫자가 어긋나기</b> 쉽습니다.</p>
+
+  <h5>절차 4 — 숫자가 «서로 맞는지» 훑습니다</h5>
+
+  <p>같은 숫자가 여러 곳에 나옵니다. <b>한 곳만 고치고 넘어가기</b> 쉽습니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:160px">숫자</th><th>나오는 곳</th></tr>
+    <tr><td><b>9090</b></td>
+        <td>설정 파일 · 점검표 · 기동 로그 · <code>curl</code> 주소 · 응답</td></tr>
+    <tr><td><b>1.0.0 / 1.1.0</b></td>
+        <td><code>build.gradle</code> · 파일 이름 · <code>/api/version</code> ·
+            롤백 사유 네 칸</td></tr>
+    <tr><td><b>21</b></td>
+        <td><code>java -version</code> · <code>toolchain</code> · 명세서</td></tr>
+  </table>
+
+  <p><b>셋만 훑어도</b> 어긋난 곳이 대개 드러납니다.
+     <b>화면과 표의 숫자가 다르면</b> 읽는 사람은
+     <b>둘 다 못 믿습니다.</b></p>
+
+  <h5>절차 5 — 푸시까지 하고 화면을 남깁니다</h5>
+
+  <p class="cmdline"><code>git add .
+git commit -m "배포 산출물 정리"
+git push origin main
+
+git log --oneline -3
+git status
+<b>nothing to commit, working tree clean</b></code></p>
+
+  <p><b>작업지시서가 커밋 · 머지 · 푸시를 «함께» 봅니다.</b>
+     <code>working tree clean</code> 한 줄이
+     <b>「낼 것을 다 올렸다」</b> 는 뜻입니다.
+     빠뜨린 파일이 있으면 이 줄 대신 <b>목록이 뜹니다.</b></p>
+
+  <div class="note"><b>마지막에 <code>git status</code> 를 한 번 치십시오.</b>
+    보고서만 로컬에 남겨 두고 <b>안 올린 채</b> 끝내는 일이
+    생각보다 자주 있습니다. <b>십 초짜리 확인</b>입니다.</div>
+
+  <h5>절차 6 — 빠뜨렸을 때는 이렇게 나옵니다</h5>
+
+  <p class="cmdline"><code>git status
+On branch master
+<b>Changes not staged for commit:</b>
+  (use "git add &lt;file&gt;..." to update what will be committed)
+	modified:   "docs/ë³´ê³ ì.md"
+
+<b>Untracked files:</b>
+  (use "git add &lt;file&gt;..." to include in what will be committed)
+	docs/img/09_rollback.png
+
+no changes added to commit (use "git add" and/or "git commit -a")</code></p>
+
+  <table class="wide">
+    <tr><th style="width:250px">이 줄</th><th>뜻</th></tr>
+    <tr><td><code>Changes not staged</code></td>
+        <td><b>고쳤는데 안 올렸습니다</b></td></tr>
+    <tr><td><code>Untracked files</code></td>
+        <td><b>새로 만든 파일</b>을 git 이 아직 모릅니다 —
+            <b>캡처가 통째로 빠지는 자리</b>입니다</td></tr>
+  </table>
+
+  <div class="note"><b><code>ë³´…</code> 는 «깨진 것이 아닙니다».</b>
+    git 이 <b>한글 파일 이름</b>을 숫자로 바꿔 보여 주는 것뿐입니다.
+    파일은 멀쩡합니다. 보기 싫으면
+    <b><code>git config --global core.quotepath false</code></b>
+    를 한 번만 쳐 주면 됩니다.</div>
+
+  <p>고치고 다시 확인합니다.</p>
+
+  <p class="cmdline"><code>git add .
+git commit -m "배포 산출물 정리"
+git push origin main
+
+git log --oneline -1
+3e80ab7 배포 산출물 정리
+
+git status
+On branch master
+<b>nothing to commit, working tree clean</b>     ← 이 줄이 나와야 끝입니다</code></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>어느 실습에서 나왔는지 <b>모르는 컷</b>이 있음</td>
+        <td><b>그 실습을 안 했습니다</b> — 절차 1 표에서 찾아 돌아가십시오</td></tr>
+    <tr><td>화면은 있는데 <b>어느 명령인지</b> 안 보임</td>
+        <td>잘라 낼 때 <b>명령 줄부터</b> 넣으십시오 (실습 10 절차 6)</td></tr>
+    <tr><td>표와 화면의 <b>숫자가 다름</b></td>
+        <td>절차 4 — <b>둘 중 하나는 틀린 것</b>입니다</td></tr>
+    <tr><td><code>git status</code> 에 <b>목록이 뜸</b></td>
+        <td>안 올린 파일이 있습니다. <code>git add</code> 부터 다시</td></tr>
+    <tr><td>빈 절이 <b>하나 남음</b></td>
+        <td><b>비워 두지 말고</b> 「actuator 미사용」 처럼
+            <b>까닭을 한 줄</b> 적으십시오 (실습 14 절차 5)</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 보고서 <b>한 부</b>(여섯 절) + 캡처 <b>아홉</b> +
+     양식 <b>네 장</b> + <code>git status</code> 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 아홉 컷이 <b>다 있습니까</b>
+     ② <b>빈 절</b>이 없습니까
+     ③ <b>9090 · 판 번호 · 21</b> 이 서로 맞습니까
+     ④ <code>working tree clean</code> 을 봤습니까</p>
+</div>
       </div>
     </div>
 
