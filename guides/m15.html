@@ -2659,6 +2659,142 @@ curl -s http://localhost:9090/api/version
 </table>
 <p>「가정」 이라고 적어 두면 <b>꾸며 낸 것이 아니라 연습</b>이라는 점이 분명해집니다.
    사유 없이 롤백만 적으면 왜 되돌렸는지 읽는 사람이 알 수 없습니다.</p>
+      <div class="lab">
+  <b class="t">실습 15</b>
+  <b>덮는 것만으로는 «안 바뀝니다» — 껐다 켜야 숫자가 돌아옵니다</b>
+
+  <p><b>목적</b> — 채점 항목 16 · <b>5점</b>입니다.
+     <b>숫자 하나가 바뀌는 장면</b>이 롤백의 유일한 증거입니다.
+     그런데 <b>절반은 「덮었는데 안 바뀐다」 에서 막힙니다.</b></p>
+
+  <h5>절차 1 — 되돌리기 «전» 을 찍습니다</h5>
+
+  <p class="cmdline"><code>curl -s http://localhost:9090/api/version
+{"version":"<b>1.1.0</b>"}
+
+ls -1 releases/
+app-1.0.0.jar          ← <b>되돌아갈 자리</b>
+app-1.1.0.jar</code></p>
+
+  <div class="warn"><b>이 두 화면이 «없으면» 롤백을 증명할 수 없습니다.</b>
+    되돌린 뒤에는 <b>1.1.0 을 다시 찍을 수 없습니다.</b>
+    실습 14 절차 6 에서 세 번째 컷을 남기라고 한 것이 이 때문입니다.
+    <b>사본이 하나뿐이면</b> 실습 11 로 돌아가십시오.</div>
+
+  <h5>절차 2 — 덮습니다</h5>
+
+  <p class="cmdline"><code>bash scripts/rollback.sh 1.0.0
+==&gt; releases/app-1.0.0.jar 를 배포 자리(app.jar)에 덮었습니다</code></p>
+
+  <h5>절차 3 — 여기서 «아무 일도 안 일어납니다»</h5>
+
+  <p class="cmdline"><code>curl -s http://localhost:9090/api/version
+{"version":"<b>1.1.0</b>"}          ← 덮었는데 «그대로» 입니다</code></p>
+
+  <div class="warn"><b>이것이 이 실습의 «함정» 입니다.</b>
+    <code>cp</code> 는 <b>성공했습니다.</b> 오류도 없습니다.
+    그런데 응답은 <b>옛 판 그대로</b>입니다.
+    자바는 <b>프로그램을 «켤 때» jar 를 읽어 들입니다.</b>
+    그 뒤에 파일이 바뀌어도 <b>이미 떠 있는 앱은 모릅니다.</b>
+    <b>「명령이 성공했다」 와 「반영됐다」 는 다른 말</b>입니다.</div>
+
+  <h5>절차 4 — 껐다 켭니다</h5>
+
+  <p class="cmdline"><code><i># 앱을 띄운 창에서 Ctrl+C</i>
+<i># 창을 닫아 버렸으면 실습 13 절차 3 처럼 taskkill</i>
+
+bash scripts/run.sh prod
+&gt; The following 1 profile is active: "prod"
+&gt; Tomcat started on port 9090 (http)
+
+curl -s http://localhost:9090/api/version
+{"version":"<b>1.0.0</b>"}          ← <b>되돌아왔습니다</b>
+
+curl -s http://localhost:9090/api/health
+{"status":"UP","version":"<b>1.0.0</b>","env":"production","profile":"prod","port":"9090"}</code></p>
+
+  <p><b><code>/health</code> 도 같이 찍으십시오.</b>
+     <code>"profile":"prod"</code> 가 남아 있어야
+     <b>「운영에서 되돌렸다」</b> 가 됩니다.
+     되돌리면서 <b>프로파일까지 빠뜨리면</b> 항목 14 가 같이 무너집니다.</p>
+
+  <h5>절차 5 — 네 걸음을 한 줄로 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:56px"></th><th style="width:230px">명령</th><th>보는 것</th></tr>
+    <tr><td class="c">1</td><td><code>curl …/api/version</code></td>
+        <td><b>1.1.0</b> — 지금 올라간 것</td></tr>
+    <tr><td class="c">2</td><td><code>ls -1 releases/</code></td>
+        <td>되돌아갈 <b>사본이 있는가</b></td></tr>
+    <tr><td class="c">3</td><td><code>rollback.sh 1.0.0</code></td>
+        <td>덮었다는 말 — <b>아직 안 바뀝니다</b></td></tr>
+    <tr><td class="c">4</td><td><b>껐다 켜고</b> <code>curl</code> 다시</td>
+        <td><b>1.0.0</b> — <b>이것이 증거입니다</b></td></tr>
+  </table>
+
+  <h5>절차 6 — 스크립트가 «막아 주는지» 봅니다</h5>
+
+  <p class="cmdline"><code>bash scripts/rollback.sh 9.9.9
+!! releases/app-9.9.9.jar 가 없습니다. ls -1 releases/ 로 확인하십시오.
+종료 코드: <b>1</b>
+
+bash scripts/rollback.sh
+!! 되돌릴 판을 적어 주십시오. 보기: rollback.sh 1.0.0
+종료 코드: <b>1</b></code></p>
+
+  <p>없는 판을 달라고 했을 때 <b>조용히 넘어가면</b>
+     <code>cp</code> 가 <b>빈 파일을 만들거나</b> 엉뚱한 것을 덮습니다.
+     <b>먼저 있는지 보고 없으면 멈추는 것</b>이 두 줄이면 됩니다.</p>
+
+  <h5>절차 7 — 사유를 «가정» 이라고 적습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px">칸</th><th>적는 보기</th></tr>
+    <tr><td><b>롤백 사유</b></td>
+        <td>1.1.0 배포 후 <code>/api/health</code> 응답 지연이 확인되어
+            이전 판으로 복원 <b>(가정)</b></td></tr>
+    <tr><td><b>현재 판</b></td><td>1.1.0</td></tr>
+    <tr><td><b>복원 대상</b></td><td>1.0.0</td></tr>
+    <tr><td><b>복원 확인</b></td>
+        <td><code>/api/version</code> 이
+            <code>{"version":"1.0.0"}</code> 으로 돌아옴</td></tr>
+  </table>
+
+  <p><b>「가정」 이라고 적어 두면</b> 꾸며 낸 것이 아니라
+     <b>연습</b>이라는 점이 분명해집니다.
+     사유 없이 롤백만 적으면 <b>왜 되돌렸는지</b> 읽는 사람이 알 수 없습니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>덮었는데 <b>숫자가 그대로</b></td>
+        <td><b>안 껐습니다</b> — 절차 3 · 4.
+            <b>가장 많이 막히는 자리</b>입니다</td></tr>
+    <tr><td>껐다 켰는데도 <b>그대로</b></td>
+        <td>판이 <b>설정 파일</b>에서 오는지 보십시오.
+            jar 만 덮고 <b>바깥 설정이 이기고</b> 있으면 안 바뀝니다 (실습 13 절차 5)</td></tr>
+    <tr><td><code>releases</code> 에 <b>하나뿐</b></td>
+        <td>실습 11 로 돌아가 <b>판을 둘</b> 만드십시오</td></tr>
+    <tr><td><code>cp</code> 가 <b>거부됨</b></td>
+        <td>앱이 <b>파일을 물고 있습니다.</b> 먼저 끄고 덮으십시오</td></tr>
+    <tr><td>되돌린 뒤 <code>"profile":"default"</code></td>
+        <td>다시 띄울 때 <b>프로파일을 빠뜨렸습니다</b> — 실습 14</td></tr>
+    <tr><td><b>전 화면을 안 찍었음</b></td>
+        <td>1.1.0 으로 <b>다시 배포하고</b> 처음부터 하십시오.
+            십 분이면 됩니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <b>되돌리기 전</b> <code>/api/version</code> +
+     <code>ls -1 releases/</code> + <code>rollback.sh</code> 실행 화면 +
+     <b>껐다 켠 뒤</b> <code>/api/version</code> + 사유 네 칸</p>
+
+  <p><b>스스로 확인</b> —
+     ① <b>전 · 후</b> 두 화면이 짝으로 있습니까
+     ② <b>껐다 켰</b>습니까
+     ③ <code>"profile":"prod"</code> 가 <b>남아 있습니까</b>
+     ④ 사유에 <b>「가정」</b> 이라고 적었습니까</p>
+</div>
       </div>
     </div>
 
