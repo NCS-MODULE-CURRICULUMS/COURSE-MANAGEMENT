@@ -2274,6 +2274,150 @@ bash scripts/build.sh
 <p>그래서 급할 때는 <code>--server.port=9091</code> 처럼
    <b>명령줄에서 바로 바꿀 수도</b> 있습니다.
    다만 보고서에는 어디에서 온 값인지 적어 두어야 읽는 사람이 헷갈리지 않습니다.</p>
+      <div class="lab">
+  <b class="t">실습 13</b>
+  <b>올리기 «전에» 다섯 줄로 확인합니다 — 포트부터 봅니다</b>
+
+  <p><b>목적</b> — 채점 항목 13 · <b>5점</b>입니다.
+     <b>다섯 줄 표 하나</b>면 끝나는데,
+     이 다섯 중 <b>마지막 한 줄(포트)</b> 을 안 봐서
+     실습 시간을 통째로 날리는 일이 가장 잦습니다.</p>
+
+  <h5>절차 1 — 다섯을 «명령으로» 확인합니다</h5>
+
+  <p>표에 값만 적지 말고 <b>확인한 명령을 함께</b> 남기십시오.</p>
+
+  <p class="cmdline"><code>ls -lh build/libs/app.jar
+-rw-r--r-- 1 user 197609 2.5K  9월 20 16:54 build/libs/app.jar
+
+java -version
+openjdk version "<b>21</b>.0.2" 2024-01-16
+
+grep server.port src/main/resources/application-prod.properties
+server.port=<b>9090</b>
+
+netstat -ano | grep ":9090" | grep LISTENING
+<i>(아무것도 안 나오면 «비어 있습니다»)</i></code></p>
+
+  <h5>절차 2 — 포트가 물려 있으면 이렇게 됩니다</h5>
+
+  <p>앞서 띄운 것을 안 끄고 또 띄우면 <b>기동하다 말고</b> 죽습니다.</p>
+
+  <p class="cmdline"><code>o.s.boot.tomcat.TomcatWebServer : Tomcat initialized with port 9090 (http)
+o.apache.catalina.core.StandardService : Starting service [Tomcat]
+<i>… 여기까지는 «멀쩡히» 올라갑니다 …</i>
+
+***************************
+<b>APPLICATION FAILED TO START</b>
+***************************
+
+Description:
+
+<b>Web server failed to start. Port 9090 was already in use.</b>
+
+Action:
+
+Identify and stop the process that's listening on port 9090 or
+configure this application to listen on another port.</code></p>
+
+  <div class="note"><b>스프링은 «고치는 법까지» 알려 줍니다.</b>
+    <code>Description:</code> 아래가 <b>무엇이 잘못됐는지</b>,
+    <code>Action:</code> 아래가 <b>어떻게 하라는 것인지</b>입니다.
+    이 두 칸이 있는 오류는 <b>더 찾아볼 것 없이 그대로 하면 됩니다.</b></div>
+
+  <h5>절차 3 — 물고 있는 것을 찾아 끕니다</h5>
+
+  <p class="cmdline"><code>netstat -ano | findstr :9090
+  TCP    0.0.0.0:9090     0.0.0.0:0     LISTENING       <b>54488</b>
+<i>#                                                     ↑ 이 번호가 «누가» 물고 있는지</i>
+
+taskkill /PID <b>54488</b> /F
+성공: 프로세스(PID 54488)가 종료되었습니다.
+<i># 영문 환경이면  SUCCESS: The process with PID 54488 has been terminated.</i></code></p>
+
+  <table class="wide">
+    <tr><th style="width:250px">방법</th><th>언제</th></tr>
+    <tr><td>앞 창에서 <b><code>Ctrl+C</code></b></td>
+        <td><b>창이 아직 있으면</b> 이것이 가장 깔끔합니다</td></tr>
+    <tr><td><code>netstat</code> → <code>taskkill</code></td>
+        <td><b>창을 닫아 버려</b> 끌 방법이 없을 때</td></tr>
+    <tr><td><code>--server.port=9091</code></td>
+        <td><b>급할 때만.</b> 보고서 포트와 달라지므로
+            <b>반드시 적어 두십시오</b></td></tr>
+  </table>
+
+  <h5>절차 4 — 같은 jar 로 «두 얼굴» 이 나오는 것을 봅니다</h5>
+
+  <p>프로파일을 안 걸면 <code>dev</code>, 걸면 <code>prod</code> 입니다.
+     <b>jar 는 하나 그대로</b>입니다.</p>
+
+  <p class="cmdline"><code><i># ① 그냥 띄우면</i>
+java -jar build/libs/app.jar
+&gt; <b>No active profile set</b>, falling back to 1 default profile: "default"
+&gt; Tomcat started on port <b>8080</b> (http)
+
+curl -s http://localhost:8080/api/health
+{"status":"UP","version":"1.0.0","env":"<b>dev</b>","profile":"<b>default</b>","port":"<b>8080</b>"}</code></p>
+
+  <p class="cmdline"><code><i># ② 프로파일을 걸면</i>
+java -jar build/libs/app.jar --spring.profiles.active=prod
+&gt; <b>The following 1 profile is active: "prod"</b>
+&gt; Tomcat started on port <b>9090</b> (http)
+
+curl -s http://localhost:9090/api/health
+{"status":"UP","version":"1.1.0","env":"<b>production</b>","profile":"<b>prod</b>","port":"<b>9090</b>"}</code></p>
+
+  <div class="warn"><b>응답에 <code>"profile":"default"</code> 가 보이면 운영 배포가 «아닙니다».</b>
+    같은 jar 이므로 <b>화면만 봐서는 구별이 안 됩니다.</b>
+    <b>이 한 글자</b>가 항목 14 · 15 를 가릅니다 (실습 14).</div>
+
+  <h5>절차 5 — 덮어쓰기 차례를 «직접» 겪습니다</h5>
+
+  <p>같은 설정이 여러 곳에 있으면 <b>나중 것이 이깁니다.</b></p>
+
+  <p class="cmdline"><code>java -jar build/libs/app.jar --spring.profiles.active=prod <b>--server.port=9091</b>
+&gt; Tomcat started on port <b>9091</b> (http)     ← 설정 파일의 9090 을 «이겼습니다»</code></p>
+
+  <table class="wide">
+    <tr><th style="width:56px">차례</th><th style="width:300px">어디</th><th>이 과제에서</th></tr>
+    <tr><td class="c">1</td><td><code>application.properties</code></td><td>8080</td></tr>
+    <tr><td class="c">2</td><td><code>application-prod.properties</code></td>
+        <td>9090 — <b>1 을 이깁니다</b></td></tr>
+    <tr><td class="c">3</td><td>실행할 때 준 인자</td>
+        <td><b>둘 다 이깁니다</b></td></tr>
+  </table>
+
+  <p><b>보고서에는 «어디에서 온 값인지» 적으십시오.</b>
+     9091 로 띄워 놓고 「설정 파일에 9090 이라고 했습니다」 만 적으면
+     <b>읽는 사람이 화면과 표가 다른 것을 봅니다.</b></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>Port 9090 was already in use</code></td>
+        <td>절차 3 — <b>가장 자주 만나는 오류</b>입니다</td></tr>
+    <tr><td><code>taskkill</code> 이 <b>거부됨</b></td>
+        <td>다른 사용자의 프로그램입니다.
+            <b>포트를 바꿔</b> 띄우고 보고서에 적으십시오</td></tr>
+    <tr><td>껐는데도 <b>계속 물려 있음</b></td>
+        <td><code>netstat</code> 를 <b>다시</b> 쳐 보십시오.
+            끊기는 데 몇 초 걸립니다</td></tr>
+    <tr><td><code>Unable to access jarfile</code></td>
+        <td>jar 자리가 틀렸습니다 — <b>절차 1 의 <code>ls</code></b> 부터</td></tr>
+    <tr><td><code>UnsupportedClassVersionError</code></td>
+        <td>자바 판이 낮습니다 — 절차 1 · 실습 8</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 다섯 줄 확인표(<b>명령 포함</b>) +
+     <b>포트 물림 화면</b>과 해결 화면 + <b>dev · prod 두 응답</b></p>
+
+  <p><b>스스로 확인</b> —
+     ① 다섯을 <b>명령으로</b> 확인했습니까
+     ② 포트가 <b>비었는지</b> 먼저 봤습니까
+     ③ <code>Description:</code> 과 <code>Action:</code> 을 읽었습니까
+     ④ <b>같은 jar 로 두 얼굴</b>이 나오는 것을 봤습니까</p>
+</div>
       </div>
     </div>
 
