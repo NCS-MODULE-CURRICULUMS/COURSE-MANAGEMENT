@@ -1683,6 +1683,142 @@ USERNAME=jwg13</code></p>
   <b><code>tasklist</code> 로 그것이 무엇인지 확인한 뒤</b> 끄십시오.
   <b>내가 띄운 것인지 확인하는 한 걸음</b>이 이 순서의 이유입니다.
 </div>
+      <div class="lab">
+  <b class="t">실습 9</b>
+  <b>포트를 «누가» 물고 있는지 찾아 끕니다 — 세 명령이 한 벌</b>
+
+  <p><b>목적</b> — <b>「포트가 이미 사용 중입니다」</b> 는
+     이 과정 내내 <b>가장 자주 만나는 막힘</b>입니다.
+     푸는 법은 늘 <b>같은 세 걸음</b>입니다 —
+     <b>여기서 한 번 익혀 두면 뒤 교과에서 안 막힙니다.</b></p>
+
+  <h5>절차 1 — 무언가를 띄워 둡니다</h5>
+
+  <p>연습할 것이 있어야 하므로 <b>포트를 하나 잡고 기다리는</b> 작은 프로그램을 씁니다.</p>
+
+  <p class="cmdline"><code>import java.net.*;
+public class Serve {
+  public static void main(String[] a) throws Exception {
+    ServerSocket s = new ServerSocket(<b>8123</b>);
+    System.out.println("8123 포트로 기다립니다. 멈추려면 Ctrl+C");
+    while (true) { s.accept().close(); }
+  }
+}</code></p>
+
+  <p class="cmdline"><code><i># 첫째 창</i>
+&gt; javac -encoding UTF-8 Serve.java
+&gt; java Serve
+8123 포트로 기다립니다. 멈추려면 Ctrl+C
+<i>(여기서 멈춰 있습니다 — 이 창에는 더 못 칩니다)</i></code></p>
+
+  <p><b>이 창은 이제 못 씁니다.</b> <b>둘째 창</b>을 여십시오 (실습 3).</p>
+
+  <h5>절차 2 — ① 누가 물고 있나</h5>
+
+  <p class="cmdline"><code><i># 둘째 창</i>
+&gt; netstat -ano | findstr :8123
+
+  TCP    0.0.0.0:8123           0.0.0.0:0              LISTENING       <b>24988</b>
+  TCP    [::]:8123              [::]:0                 LISTENING       <b>24988</b>
+<i>#                                                                     ↑ PID</i></code></p>
+
+  <table class="wide">
+    <tr><th style="width:110px">붙이는 것</th><th></th></tr>
+    <tr><td><code>-a</code></td><td>기다리는 것까지 <b>다</b> 보기</td></tr>
+    <tr><td><code>-n</code></td><td>이름 대신 <b>숫자</b>로 — 훨씬 빠릅니다</td></tr>
+    <tr><td><code>-o</code></td><td><b>PID</b> 를 같이 — <b>이게 없으면 못 끕니다</b></td></tr>
+  </table>
+
+  <div class="note"><b>줄이 «둘» 나오는 것은 정상입니다.</b>
+    <code>0.0.0.0</code> 은 IPv4, <code>[::]</code> 는 IPv6 입니다.
+    <b>같은 프로그램</b>이 두 방식으로 함께 기다리는 것이라
+    <b>PID 가 같습니다.</b>
+    <b>둘을 다 꺼야 하나</b> 걱정할 것 없습니다 —
+    <b>PID 하나만 끄면 둘 다 사라집니다.</b>
+  </div>
+
+  <h5>절차 3 — ② 그 PID 가 무엇인가</h5>
+
+  <p class="cmdline"><code>&gt; tasklist /fi "pid eq 32632"
+
+이미지 이름                    PID 세션 이름              세션#  메모리 사용
+========================= ======== ================ =========== ============
+<b>java.exe</b>                     32632 Console                    2     42,132 K</code></p>
+
+  <p><b>이 한 걸음을 «건너뛰지» 마십시오.</b>
+     <b>내가 띄운 것이 맞는지</b> 확인하는 자리입니다.</p>
+
+  <h5>절차 4 — ③ 끕니다</h5>
+
+  <p class="cmdline"><code>&gt; taskkill /PID 24988 /F
+<b>성공: 프로세스(PID 24988)가 종료되었습니다.</b>
+
+&gt; netstat -ano | findstr :8123
+<i>(아무것도 안 나옵니다 — 비었습니다)</i></code></p>
+
+  <p><code>/F</code> 는 <b>강제로</b> 입니다.
+     안 붙이면 <b>프로그램에게 「꺼 줘」 하고 부탁</b>만 하고,
+     안 꺼지는 경우가 있습니다.</p>
+
+  <div class="warn"><b>아무거나 끄지 마십시오.</b>
+    <code>tasklist</code> 에는 <b>운영체제가 돌리는 것</b>도 섞여 있습니다.
+    <b>순서를 지키십시오</b> —
+    <b><code>netstat</code> 으로 PID 를 찾고 → <code>tasklist</code> 로 무엇인지 보고 → 끕니다.</b>
+    바로 <code>tasklist</code> 에서 눈에 띄는 것을 끄면
+    <b>엉뚱한 것을 끕니다.</b>
+  </div>
+
+  <h5>절차 5 — 창이 살아 있으면 <code>Ctrl</code>+<code>C</code> 가 낫습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">이럴 때</th><th>이렇게</th></tr>
+    <tr><td>띄운 <b>창이 아직 있다</b></td>
+        <td>그 창에서 <code>Ctrl</code>+<code>C</code> — <b>가장 깔끔합니다</b></td></tr>
+    <tr><td>창을 <b>닫아 버렸다</b></td>
+        <td><code>netstat</code> → <code>taskkill</code> — 절차 2~4</td></tr>
+    <tr><td>남의 프로그램이다</td>
+        <td><b>끄지 말고</b> 내 쪽 포트를 바꾸십시오</td></tr>
+  </table>
+
+  <h5>절차 6 — 끝내면 «끕니다»</h5>
+
+  <p class="cmdline"><code>&gt; netstat -ano | findstr LISTENING
+<i># 내가 띄운 것이 남아 있으면 끕니다</i></code></p>
+
+  <p><b>안 끄고 다음 교과로 가면</b>
+     <b>「포트가 이미 사용 중입니다」</b> 로 막히고,
+     <b>원인이 «지난 시간에 띄운 것»</b> 이라 찾기가 어렵습니다.
+     <b>끝내면서 끄는 습관</b>을 여기서 들이십시오.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>netstat</code> 에 <b>아무것도 안 나옴</b></td>
+        <td>그 포트는 <b>비어 있습니다.</b> 다른 것이 원인입니다</td></tr>
+    <tr><td><code>-o</code> 를 빼먹어 <b>PID 가 없음</b></td>
+        <td>못 끕니다 — 절차 2</td></tr>
+    <tr><td><code>taskkill</code> 이 <b>거부됨</b></td>
+        <td>다른 사용자의 것입니다. <b>관리자로</b> 열거나
+            <b>포트를 바꾸십시오</b></td></tr>
+    <tr><td>껐는데 <b>아직 물려 있음</b></td>
+        <td><code>netstat</code> 을 <b>다시</b> 쳐 보십시오.
+            끊기는 데 <b>몇 초</b> 걸립니다</td></tr>
+    <tr><td><code>tasklist /fi</code> 가 <b>오류</b></td>
+        <td>따옴표를 <b>통째로</b> — <code>/fi "pid eq 1234"</code></td></tr>
+    <tr><td>리눅스라면</td>
+        <td><code>ss -tlnp</code> · <code>ps -ef</code> · <code>kill -9</code></td></tr>
+  </table>
+
+  <p><b>제출물</b> — <b>세 걸음</b>(<code>netstat</code> → <code>tasklist</code> →
+     <code>taskkill</code>) 화면 + <b>끈 뒤 비어 있는</b> 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>-o</code> 를 붙였습니까
+     ② <b>무엇인지 확인</b>하고 껐습니까
+     ③ 줄이 <b>둘 나오는 까닭</b>을 압니까
+     ④ <b>끈 뒤에</b> 다시 봤습니까</p>
+</div>
       </div>
 </div>
 
@@ -1733,6 +1869,123 @@ hello.txt</code></p>
 
 <p>확인한 것을 <b>한 파일에 모아 두면</b>
    구축 확인서를 쓸 때 <b>다시 치지 않아도</b> 됩니다 (실습 15).</p>
+      <div class="lab">
+  <b class="t">실습 10</b>
+  <b><code>&gt;</code> 만 쓰면 «오류가 안 들어갑니다» — 재 봤습니다</b>
+
+  <p><b>목적</b> — 확인한 것을 <b>글자로 남겨 두면</b>
+     실습 15 에서 확인서를 쓸 때 <b>다시 치지 않아도</b> 됩니다.
+     그런데 <b>잘못 남기면 «문제가 없었던 것처럼»</b> 남습니다.</p>
+
+  <h5>절차 1 — 화살표 하나와 둘</h5>
+
+  <p class="cmdline"><code>dir /b src <b>&gt;</b>  list.txt      <b>덮어씁니다</b> — 있던 내용은 사라집니다
+dir /b src <b>&gt;&gt;</b> list.txt      <b>뒤에 붙입니다</b></code></p>
+
+  <p class="cmdline"><code>&gt; dir /b src &gt; list.txt
+&gt; type list.txt
+hello.txt</code></p>
+
+  <div class="warn"><b>기록을 «쌓으려고» <code>&gt;</code> 를 쓰면 매번 지워집니다.</b>
+    돌릴 때마다 <b>앞의 것이 없어지고 마지막 한 번만</b> 남습니다.
+    <b>제출 직전에 알아채면 늦습니다</b> — 다시 다 해야 합니다.
+    <b>쌓을 것은 <code>&gt;&gt;</code>, 새로 만들 것은 <code>&gt;</code></b> 입니다.
+  </div>
+
+  <h5>절차 2 — 오류는 «다른 길» 로 나갑니다</h5>
+
+  <p>실습 6 에서 본 <code>rd</code> 실패를 파일로 남겨 봅니다.</p>
+
+  <p class="cmdline"><code>&gt; rd zz &gt; out1.txt
+&gt; type out1.txt
+<i>(아무것도 안 나옵니다 — 파일이 «비었습니다»)</i>
+
+&gt; rd zz &gt; out2.txt <b>2&gt;&amp;1</b>
+&gt; type out2.txt
+<b>디렉터리가 비어 있지 않습니다.</b></code></p>
+
+  <div class="warn"><b>같은 명령인데 «한쪽 파일만» 비었습니다.</b>
+    프로그램이 글자를 내보내는 길이 <b>둘</b>입니다 —
+    <b>결과(1번)</b> 와 <b>오류(2번)</b>.
+    <code>&gt;</code> 는 <b>1번만</b> 파일로 보냅니다.
+    <b>오류는 화면에 그대로 남고 파일에는 안 들어갑니다.</b><br>
+    <b>이대로 제출하면</b> 파일만 본 사람은
+    <b>「아무 문제 없었구나」</b> 하고 읽습니다.
+  </div>
+
+  <table class="wide">
+    <tr><th style="width:150px">쓰는 것</th><th></th></tr>
+    <tr><td><code>&gt; 파일</code></td><td><b>결과만</b></td></tr>
+    <tr><td><code>2&gt; 파일</code></td><td><b>오류만</b></td></tr>
+    <tr><td><b><code>&gt; 파일 2&gt;&amp;1</code></b></td>
+        <td><b>둘 다</b> — <b>「오류를 결과 쪽으로 합쳐라」</b></td></tr>
+  </table>
+
+  <p><code>2&gt;&amp;1</code> 은 <b>맨 뒤에</b> 붙입니다.
+     앞에 쓰면 <b>합칠 대상이 아직 안 정해져</b> 뜻이 달라집니다.</p>
+
+  <h5>절차 3 — 확인한 것을 한 파일에 모읍니다</h5>
+
+  <p class="cmdline"><code>&gt; (ver &amp; java -version &amp; where java) &gt; 환경.txt 2&gt;&amp;1
+&gt; type 환경.txt
+
+Microsoft Windows [Version 10.0.26200.9457]
+openjdk version "21.0.2" 2024-01-16
+OpenJDK Runtime Environment (build 21.0.2+13-58)
+OpenJDK 64-Bit Server VM (build 21.0.2+13-58, mixed mode, sharing)
+C:\jdk-21.0.2\bin\java.exe</code></p>
+
+  <table class="wide">
+    <tr><th style="width:130px">조각</th><th></th></tr>
+    <tr><td><code>( … )</code></td><td>여러 명령을 <b>한 덩이</b>로 묶습니다</td></tr>
+    <tr><td><code>&amp;</code></td><td><b>이어서</b> 실행 — 앞이 실패해도 뒤가 돕니다</td></tr>
+    <tr><td><code>&amp;&amp;</code></td><td>앞이 <b>성공했을 때만</b> 뒤를 실행</td></tr>
+  </table>
+
+  <p><b>괄호로 안 묶으면</b> <code>&gt;</code> 가 <b>맨 마지막 명령에만</b> 걸립니다.
+     <b>앞의 것들은 화면에 그대로</b> 나오고 파일에는 안 들어갑니다.</p>
+
+  <h5>절차 4 — 왜 캡처보다 «파일» 이 나은가</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px"></th><th>그림 캡처</th><th>파일로 남기기</th></tr>
+    <tr><td>확인서에 옮길 때</td><td>보고 <b>손으로 칩니다</b></td>
+        <td><b>복사해 붙입니다</b> — 오타가 없습니다</td></tr>
+    <tr><td>나중에 찾을 때</td><td>그림을 <b>하나씩 열어</b> 봅니다</td>
+        <td><code>findstr</code> 로 <b>찾습니다</b></td></tr>
+    <tr><td>제출물</td><td><b>필요합니다</b> — 채점자가 봅니다</td>
+        <td>보조 — 확인서를 쓸 때 씁니다</td></tr>
+  </table>
+
+  <p><b>둘 다 하십시오.</b>
+     <b>캡처는 제출용</b>, <b>파일은 내가 쓰려고</b> 남기는 것입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>파일이 <b>비어 있음</b></td>
+        <td>결과가 <b>오류 길</b>로 나갔습니다. <code>2&gt;&amp;1</code> — 절차 2</td></tr>
+    <tr><td>앞의 기록이 <b>사라짐</b></td>
+        <td><code>&gt;</code> 를 썼습니다. <code>&gt;&gt;</code> 로 — 절차 1</td></tr>
+    <tr><td>묶었는데 <b>앞의 것만 화면에</b></td>
+        <td><b>괄호</b>로 안 묶었습니다 — 절차 3</td></tr>
+    <tr><td>파일의 한글이 <b>깨짐</b></td>
+        <td>만들 때와 <b>볼 때의 코드페이지</b>가 다릅니다 (실습 5)</td></tr>
+    <tr><td>리눅스라면</td>
+        <td><b>똑같습니다.</b> <code>&gt;</code> · <code>&gt;&gt;</code> ·
+            <code>2&gt;&amp;1</code> 이 그대로 통합니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>&gt;</code> 와 <code>2&gt;&amp;1</code> 의 <b>두 파일 비교</b> +
+     <code>환경.txt</code> 내용</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>&gt;</code> 와 <code>&gt;&gt;</code> 의 차이를 압니까
+     ② <b>오류가 안 들어가는 것</b>을 봤습니까
+     ③ <code>2&gt;&amp;1</code> 을 <b>맨 뒤에</b> 붙였습니까
+     ④ 확인한 것을 <b>파일로</b> 모아 뒀습니까</p>
+</div>
       </div>
 </div>
 
@@ -1802,6 +2055,133 @@ C:\jdk-21.0.2\bin\java.exe</code></p>
 <p><b>여러 줄이 나오면 맨 위의 것이 실제로 돕니다</b> (실습 8).
    <code>java -version</code> 이 <b>내가 깐 판과 다르게</b> 나오면 이 경우입니다 —
    <code>PATH</code> 에서 <b>내 JDK 를 앞으로</b> 옮기십시오.</p>
+      <div class="lab">
+  <b class="t">실습 11</b>
+  <b>세 줄을 «다» 찍습니다 — 하나만으로는 JDK 인지 모릅니다</b>
+
+  <p><b>목적</b> — 확인서의 <b>개발도구 세 줄</b>을 채웁니다.
+     설치는 <b>다음 버튼을 누르면</b> 끝납니다.
+     <b>제대로 깔렸는지 «증명» 하는 것</b>이 이 실습입니다.</p>
+
+  <h5>절차 1 — 받기 전에 «두 가지» 를 정합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px">정할 것</th><th></th></tr>
+    <tr><td><b>비트 수</b></td>
+        <td>실습 2 에서 본 <b>시스템 종류</b>대로.
+            <code>x64-based PC</code> 면 <b>x64</b>, ARM 이면 <b>ARM64</b></td></tr>
+    <tr><td><b>판</b></td>
+        <td><b>21</b> 을 권합니다. 오래 지원되는 판(LTS)이고
+            이 과정의 뒤 교과들이 21 을 씁니다</td></tr>
+  </table>
+
+  <div class="note"><b>JDK 와 JRE 를 헷갈리는 일이 아주 흔합니다.</b>
+    <b>JRE 만 있으면 «돌릴» 수는 있어도 «만들» 수 없습니다.</b>
+    받을 때 이름에 <b>JDK</b> 가 들어 있는지 보십시오.
+    <b>깔고 나서 확인하는 법</b>은 절차 3 입니다.
+  </div>
+
+  <h5>절차 2 — 설치 자리를 «기억할 수 있게» 정합니다</h5>
+
+  <p class="cmdline"><code>권함   C:\jdk-21.0.2
+피함   C:\Program Files\Java\jdk-21.0.2</code></p>
+
+  <p><b>「Program Files」 에는 빈칸이 있습니다.</b>
+     명령에서 경로를 쓸 때마다 <b>따옴표로 감싸야</b> 하고,
+     <b>따옴표를 빼먹으면 「Program」 까지만 읽힙니다.</b>
+     <b>빈칸 없는 짧은 자리</b>에 두면 이 문제가 사라집니다.</p>
+
+  <h5>절차 3 — 세 줄로 «증명» 합니다</h5>
+
+  <p class="cmdline"><code>&gt; java -version
+openjdk version "<b>21.0.2</b>" 2024-01-16
+OpenJDK Runtime Environment (build 21.0.2+13-58)
+OpenJDK 64-Bit Server VM (build 21.0.2+13-58, mixed mode, sharing)
+
+&gt; javac -version
+<b>javac 21.0.2</b>
+
+&gt; where java
+<b>C:\jdk-21.0.2\bin\java.exe</b></code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px">이 줄이 증명하는 것</th><th></th></tr>
+    <tr><td><code>java -version</code></td><td><b>돌릴</b> 수 있다</td></tr>
+    <tr><td><code>javac -version</code></td>
+        <td><b>만들</b> 수 있다 — <b>JDK 가 맞다는 증거</b></td></tr>
+    <tr><td><code>where java</code></td><td><b>어디에</b> 깔렸는지 — 확인서에 적을 값</td></tr>
+  </table>
+
+  <div class="warn"><b><code>java -version</code> «하나만» 찍으면 안 됩니다.</b>
+    그것만으로는 <b>JRE 인지 JDK 인지 구별이 안 됩니다.</b>
+    <b>셋을 «한 화면에»</b> 찍으십시오 — 세 번 찍을 것 없이
+    <b>연달아 치고 한 번에</b> 찍으면 됩니다.
+  </div>
+
+  <h5>절차 4 — <code>javac</code> 가 «없다» 고 하면</h5>
+
+  <p class="cmdline"><code>&gt; javac -version
+'javac'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+배치 파일이 아닙니다.</code></p>
+
+  <table class="wide">
+    <tr><th style="width:250px">까닭</th><th>확인</th></tr>
+    <tr><td><b>JRE 만</b> 깔았다</td>
+        <td>설치 폴더의 <code>bin</code> 에 <code>javac.exe</code> 가 <b>있습니까</b></td></tr>
+    <tr><td><code>PATH</code> 에 <b>안 들어갔다</b></td>
+        <td><code>where javac</code> 가 <b>비었습니까</b> (실습 8)</td></tr>
+    <tr><td>설치 뒤 <b>창을 안 다시 열었다</b></td>
+        <td><b>창을 닫고 새로</b> 여십시오 (실습 7)</td></tr>
+  </table>
+
+  <p><b>세 번째가 가장 흔합니다.</b>
+     설치 프로그램이 <code>PATH</code> 를 고쳐도
+     <b>이미 열려 있는 창은 모릅니다.</b></p>
+
+  <h5>절차 5 — 판이 «다르게» 나오면</h5>
+
+  <p class="cmdline"><code>&gt; where java
+C:\Program Files\Common Files\Oracle\Java\javapath\java.exe
+C:\jdk-21.0.2\bin\java.exe</code></p>
+
+  <p><b>여러 줄이 나오면 맨 위의 것이 돕니다</b> (실습 8).
+     <b>내가 깐 판과 다르게</b> 나오는 것은 거의 늘 이 경우입니다 —
+     <code>PATH</code> 에서 <b>내 JDK 를 앞으로</b> 옮기십시오 (실습 12).</p>
+
+  <h5>절차 6 — 확인서 세 줄을 채웁니다</h5>
+
+  <p class="cmdline"><code>개발도구    JDK           openjdk 21.0.2    java -version
+개발도구    컴파일러      javac 21.0.2      javac -version
+개발도구    설치 자리     C:\jdk-21.0.2     where java</code></p>
+
+  <p><b>「설치 자리」 는 <code>where</code> 의 결과에서 <code>\bin\java.exe</code> 를 뗀 것</b>입니다.
+     이 값이 <b>실습 12 의 <code>JAVA_HOME</code></b> 이 됩니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>javac</code> 가 <b>없다</b>고 함</td><td>절차 4</td></tr>
+    <tr><td><b>옛 판</b>이 나옴</td><td>절차 5</td></tr>
+    <tr><td>설치했는데 <code>java</code> 도 <b>없다</b>고 함</td>
+        <td><b>창을 다시</b> 여십시오 — 절차 4 의 세 번째</td></tr>
+    <tr><td>경로에 <b>빈칸</b>이 있어 오류</td>
+        <td>따옴표로 감싸거나 <b>빈칸 없는 자리</b>에 다시 깔기 — 절차 2</td></tr>
+    <tr><td><code>UnsupportedClassVersionError</code></td>
+        <td>만든 판이 <b>돌리는 판보다 높습니다.</b>
+            <code>javac</code> 와 <code>java</code> 의 판을 <b>대 보십시오</b></td></tr>
+    <tr><td>리눅스라면</td>
+        <td>같은 세 줄입니다. <code>where</code> 대신 <code>which</code></td></tr>
+  </table>
+
+  <p><b>제출물</b> — <b>세 줄이 한 화면</b>에 든 캡처 + 확인서 <b>개발도구 세 줄</b></p>
+
+  <p><b>스스로 확인</b> —
+     ① <b>비트 수</b>에 맞는 것을 받았습니까
+     ② <code>javac -version</code> 까지 <b>찍었습니까</b>
+     ③ <code>where java</code> 가 <b>한 줄</b>입니까
+     ④ 설치 자리를 <b>확인서에 적었</b>습니까</p>
+</div>
       </div>
 </div>
 
@@ -1897,6 +2277,166 @@ C:\jdk-21.0.2
 C:\jdk-21.0.2\bin\java.exe</code></p>
 
 <p><b>이 두 줄이 확인서의 환경변수 칸</b>이 됩니다.</p>
+      <div class="lab">
+  <b class="t">실습 12</b>
+  <b><code>setx</code> 는 «지금 창» 에 안 들어옵니다 — 세 번 잡게 되는 자리</b>
+
+  <p><b>목적</b> — 학습모듈이 <b>「JDK 를 설치한 후 JAVA_HOME 환경변수와 PATH 를 설정한다」</b>
+     고 적어 둔 자리입니다.
+     어렵지 않은데 <b>「안 먹었네」 하고 세 번 잡는</b> 일이 흔합니다.</p>
+
+  <h5>절차 1 — 둘이 무엇을 하는지 가릅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px"></th><th style="width:230px">누구를 위한 것</th><th>없으면</th></tr>
+    <tr><td><b><code>PATH</code></b></td>
+        <td><b>내가</b> <code>java</code> 라고만 쳐도 찾게</td>
+        <td><code>java</code> 가 <b>없다</b>고 나옵니다</td></tr>
+    <tr><td><b><code>JAVA_HOME</code></b></td>
+        <td><b>다른 도구가</b> JDK 자리를 물어볼 때 답하게</td>
+        <td>그 도구에 따라 다릅니다 — 절차 2</td></tr>
+  </table>
+
+  <h5>절차 2 — <code>JAVA_HOME</code> «없이» 무엇이 되는지 재 봤습니다</h5>
+
+  <p class="cmdline"><code>&gt; echo %JAVA_HOME%
+<b>%JAVA_HOME%</b>                          ← 안 잡혀 있습니다
+
+&gt; java -version
+openjdk version "21.0.2" 2024-01-16       ← <b>됩니다</b>
+
+&gt; javac -version
+javac 21.0.2                              ← <b>됩니다</b>
+
+&gt; gradle --version
+Gradle 8.14.5                             ← <b>이것도 됩니다</b></code></p>
+
+  <div class="warn"><b>그래서 «다 된 줄» 알고 넘어갑니다.</b>
+    <code>java</code> · <code>javac</code> · <code>gradle</code> 은
+    <b><code>PATH</code> 만으로</b> 돌아갑니다 —
+    <code>JAVA_HOME</code> 을 <b>안 봅니다.</b><br>
+    그런데 <b>도구에 따라 <code>JAVA_HOME</code> 을 «직접» 찾는 것</b>이 있습니다.
+    그때는 <b>「JAVA_HOME 이 설정되지 않았습니다」</b> 로 멈춥니다.
+    <b>지금 잡아 두면 그 자리에서 안 막힙니다</b> —
+    <b>학습모듈이 설치 «직후» 에 잡으라고 한 까닭</b>입니다.
+  </div>
+
+  <h5>절차 3 — 잡는 두 가지 방법</h5>
+
+  <p class="cmdline"><code><i># ① 이 창에서만 — 창이 꺼지면 사라집니다</i>
+&gt; set JAVA_HOME=C:\jdk-21.0.2
+
+<i># ② 계속 남게 — 다음부터 열리는 창에 적용</i>
+&gt; setx JAVA_HOME "C:\jdk-21.0.2"
+<b>성공: 지정한 값을 저장했습니다.</b></code></p>
+
+  <table class="wide">
+    <tr><th style="width:130px"></th><th style="width:170px">언제까지</th><th>어디에</th></tr>
+    <tr><td><code>set</code></td><td><b>이 창이 꺼질 때까지</b></td><td>메모리</td></tr>
+    <tr><td><code>setx</code></td><td><b>계속</b></td>
+        <td>레지스트리 — <b>다음 창부터</b></td></tr>
+  </table>
+
+  <h5>절차 4 — 「안 먹었네」 를 «겪습니다»</h5>
+
+  <p class="cmdline"><code>&gt; setx JAVA_HOME "C:\jdk-21.0.2"
+성공: 지정한 값을 저장했습니다.
+
+&gt; echo %JAVA_HOME%
+<b>%JAVA_HOME%</b>                          ← <b>여전히 없습니다</b></code></p>
+
+  <p class="cmdline"><code><i># 저장은 «됐습니다». 레지스트리에서 확인하면</i>
+&gt; reg query "HKCU\Environment" /v JAVA_HOME
+
+HKEY_CURRENT_USER\Environment
+    JAVA_HOME    REG_SZ    <b>C:\jdk-21.0.2</b></code></p>
+
+  <div class="warn"><b>저장은 됐는데 «이 창» 이 모를 뿐입니다.</b>
+    창은 <b>열릴 때</b> 환경변수를 <b>한 번 받아</b> 갖고 있습니다 (실습 7).
+    <b>그 뒤에 바뀐 것은 모릅니다.</b><br>
+    여기서 <b>「안 먹었네」 하고 또 <code>setx</code> 를 칩니다.</b>
+    <b>세 번까지 치는 사람도 봤습니다.</b>
+    <b>창을 닫고 새로 열면</b> 그때 나옵니다.
+  </div>
+
+  <h5>절차 5 — 새 창에서 확인합니다</h5>
+
+  <p class="cmdline"><code><i># 창을 «닫고» 새로 연 뒤</i>
+&gt; echo %JAVA_HOME%
+<b>C:\jdk-21.0.2</b>
+
+&gt; where java
+C:\jdk-21.0.2\bin\java.exe</code></p>
+
+  <p><b>이 두 줄이 확인서의 환경변수 칸</b>입니다.
+     <b>새 창에서 찍은 것</b>이라야 합니다.</p>
+
+  <h5>절차 6 — 한 줄에 이어 치면 «안 보이는» 까닭</h5>
+
+  <p class="cmdline"><code>&gt; set JAVA_HOME=C:\jdk-21.0.2 <b>&amp;</b> echo %JAVA_HOME%
+<b>%JAVA_HOME%</b>                ← 방금 잡았는데 «안» 나옵니다
+
+&gt; set JAVA_HOME=C:\jdk-21.0.2 &amp; <b>call</b> echo %%JAVA_HOME%%
+<b>C:\jdk-21.0.2</b>              ← 이렇게 하면 나옵니다</code></p>
+
+  <div class="note"><b><code>%변수%</code> 는 «줄을 읽을 때» 값이 정해집니다.</b>
+    <code>&amp;</code> 로 이은 한 줄은 <b>통째로 먼저 읽힙니다.</b>
+    읽는 시점에는 아직 <code>JAVA_HOME</code> 이 없으므로
+    <b>글자 그대로</b> 남습니다.<br>
+    <b>실습 6 의 <code>%errorlevel%</code> 과 «똑같은» 일</b>입니다.
+    <b>줄을 나눠 치면</b> 이런 일이 안 생깁니다 —
+    <b>한 줄에 몰아 치지 마십시오.</b>
+  </div>
+
+  <h5>절차 7 — <code>PATH</code> 에 넣을 때 «조심할 것»</h5>
+
+  <p class="cmdline"><code><i># 위험 — 원래 PATH 를 «날립니다»</i>
+setx PATH "C:\jdk-21.0.2\bin"
+
+<i># 안전 — GUI 에서 «한 줄 추가»</i>
+시스템 속성 → 환경 변수 → Path → 편집 → 새로 만들기
+   C:\jdk-21.0.2\bin</code></p>
+
+  <div class="warn"><b><code>setx PATH</code> 는 «덮어씁니다».</b>
+    원래 들어 있던 수십 개 폴더가 <b>한 번에 사라집니다.</b>
+    그러면 <code>git</code> 도 <code>python</code> 도 <b>다 안 됩니다.</b>
+    <b>되돌리기가 매우 번거롭습니다.</b><br>
+    <code>PATH</code> 는 <b>GUI 에서 「새로 만들기」 로 한 줄 추가</b>하십시오.
+    <b>JDK 설치 프로그램이 대개 알아서 넣어 줍니다</b> — 대개 안 건드려도 됩니다.
+  </div>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>setx</code> 했는데 <b>안 나옴</b></td>
+        <td><b>창을 다시</b> 여십시오 — 절차 4 · 5</td></tr>
+    <tr><td>새 창에서도 <b>안 나옴</b></td>
+        <td><code>reg query "HKCU\Environment"</code> 로
+            <b>저장됐는지부터</b> — 절차 4</td></tr>
+    <tr><td>한 줄에 쳤는데 <b>안 보임</b></td>
+        <td>절차 6 — <b>줄을 나누십시오</b></td></tr>
+    <tr><td><code>PATH</code> 가 <b>망가짐</b></td>
+        <td><code>setx PATH</code> 로 덮었습니다 — 절차 7.
+            GUI 에서 <b>되살려야</b> 합니다</td></tr>
+    <tr><td><code>액세스가 거부되었습니다</code></td>
+        <td><b>모든 사용자</b>에게 잡으려면 관리자 권한 (실습 3).
+            <b>나에게만</b>이면 그냥 됩니다</td></tr>
+    <tr><td>리눅스라면</td>
+        <td><code>export JAVA_HOME=/usr/lib/jvm/...</code> 를
+            <code>~/.bashrc</code> 에 적습니다. <b>같은 「새 창」 문제</b>가 있습니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>setx</code> 화면 +
+     <b>같은 창에서 안 나오는</b> 화면 + <b>새 창에서 나오는</b> 화면 +
+     확인서 <b>환경변수 두 줄</b></p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>PATH</code> 와 <code>JAVA_HOME</code> 의 <b>역할 차이</b>를 압니까
+     ② <b>새 창에서</b> 확인했습니까
+     ③ 한 줄에 몰아 치면 <b>왜 안 보이는지</b> 압니까
+     ④ <code>setx PATH</code> 를 <b>안 썼</b>습니까</p>
+</div>
       </div>
 </div>
 
