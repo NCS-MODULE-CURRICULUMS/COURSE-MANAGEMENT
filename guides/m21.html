@@ -74,8 +74,7 @@
   <tr><td class="nm">인터넷</td>
       <td>실습 5 · 6 · 7 에서 <b>바깥으로 나가 봅니다</b></td></tr>
   <tr><td class="nm">데이터베이스</td>
-      <td><b>H2</b> 하나면 됩니다 — <code>.jar</code> 파일 하나이고
-          <b>설치가 없습니다</b> (실습 13)</td></tr>
+      <td><b>MySQL</b>. 도커로 띄웁니다 (실습 13)</td></tr>
   <tr><td class="nm">작업지시서</td><td>제출 형식이 여기 적혀 있습니다</td></tr>
 </table>
 <b>작업지시서는 평가도구라 이 사이트에 올려 두지 않습니다.</b>
@@ -182,15 +181,13 @@
 
 <p class="cmdline"><code>네트워크      윈도우 기본 명령 — ipconfig · ping · nslookup · curl
 미들웨어      앞 교과에서 만든 스프링 부트 프로그램 (WAS 가 들어 있습니다)
-데이터베이스   <b>H2</b> — jar 파일 하나. 설치가 «없습니다»
+데이터베이스   MySQL 8.0 — 도커 컨테이너로 띄웁니다
 예제         공공 체육시설 예약 — 앞 교과들과 같은 예제</code></p>
 
-<div class="note"><b>H2 를 쓰는 까닭</b><br>
-  MySQL 이나 오라클은 <b>설치와 계정 설정</b>에 시간이 많이 듭니다.
-  <b>H2 는 <code>.jar</code> 파일 하나</b>이고,
-  <b>SQL 은 거의 같습니다.</b>
-  <b>여기서 익힌 SQL 이 MySQL 에서도 그대로</b> 돕니다 —
-  <b>데이터베이스 구현</b> 교과에서 MySQL 을 씁니다.
+<div class="note">데이터베이스를 도커로 띄우는 까닭은 설치에 시간을 덜 쓰기 위해서입니다.
+  MySQL 을 컴퓨터에 직접 설치하면 계정과 서비스 설정에 한참이 걸리고,
+  지울 때도 깨끗이 안 지워집니다. 도커는 명령 한 줄로 띄우고 한 줄로 내립니다.
+  수업이 끝나면 컨테이너를 내리고, 다음 시간에 같은 명령으로 다시 띄우면 됩니다.
 </div>
   </div>
 </div>
@@ -698,72 +695,74 @@ Ping 127.0.0.1 32바이트 데이터 사용:
 <div class="step" id="st8">
       <h3><i>8</i>미들웨어란</h3>
       <aside class="side">
-        <p class="pt">이름 그대로 「가운데(middle) 것」 입니다.</p>
+        <p class="pt">이름 그대로 가운데(middle) 있는 것입니다.</p>
         <b class="sh">근거</b>
         <p class="v">학습모듈 2-1</p>
       </aside>
       <div class="bd">
 
-<h4>무엇과 무엇 «사이» 인가</h4>
+<h4>무엇과 무엇 사이인가</h4>
+
+<p>내가 만든 프로그램은 혼자 돌지 못합니다. 요청을 받으려면 포트를 열어야 하고,
+   자료를 저장하려면 데이터베이스에 연결해야 합니다. 그 일을 대신 맡아 주는 것이
+   미들웨어입니다.</p>
 
 <p class="cmdline"><code>응용 프로그램  (내가 만든 것)
       ▲
-      │   ← <b>미들웨어</b>가 여기 있습니다
+      │   ← 미들웨어가 여기 있습니다
       ▼
 운영체제 · 네트워크 · 데이터베이스</code></p>
 
-<p><b>「내가 만든 것」 과 「바닥」 사이를 이어 주는 것</b>입니다.
-   <b>없으면 내가 다 해야 합니다</b> —
-   요청을 받고, 줄 세우고, 여러 사람을 동시에 처리하고, 연결을 관리하고.</p>
+<p>미들웨어가 없으면 이 일을 전부 직접 해야 합니다. 요청을 받고, 줄을 세우고,
+   여러 사람이 동시에 들어와도 처리하고, 연결을 관리하는 일까지 말입니다.
+   그래서 실무에서는 미들웨어를 안 쓰는 경우가 거의 없습니다.</p>
 
 <h4>이 교과에서 만나는 미들웨어</h4>
 
 <table class="wide">
   <tr><th style="width:150px">종류</th><th style="width:230px">하는 일</th><th>보기</th></tr>
-  <tr><td><b>WAS</b><br>(웹 애플리케이션 서버)</td>
-      <td>HTTP 요청을 받아 <b>내 코드를 불러</b> 주고
-          결과를 돌려줍니다</td>
-      <td><b>Tomcat</b> · Jetty</td></tr>
+  <tr><td>WAS<br>(웹 애플리케이션 서버)</td>
+      <td>HTTP 요청을 받아 내 코드를 불러 주고 결과를 돌려줍니다</td>
+      <td>Tomcat · Jetty</td></tr>
   <tr><td>웹 서버</td>
-      <td>그림·CSS 같은 <b>고정된 파일</b>을 돌려줍니다</td>
+      <td>그림이나 CSS 처럼 고정된 파일을 돌려줍니다</td>
       <td>Apache · Nginx</td></tr>
   <tr><td>DB 연결 관리</td>
-      <td>DB 연결을 <b>미리 만들어 두고 빌려줍니다</b></td>
+      <td>데이터베이스 연결을 미리 만들어 두고 빌려줍니다</td>
       <td>HikariCP</td></tr>
   <tr><td>메시지</td>
-      <td>보낼 것을 <b>줄 세워</b> 둡니다</td>
+      <td>보낼 것을 줄 세워 둡니다</td>
       <td>Kafka · RabbitMQ</td></tr>
 </table>
 
-<div class="note"><b>WAS 하나만 제대로 알면 됩니다.</b>
-  <b>「기초」</b> 이므로 나머지는 <b>이름과 하는 일</b>만 알면 충분합니다.
-  <b>WAS 는 실습 9 에서 직접 띄웁니다.</b>
-</div>
+<p>이 가운데 실제로 다뤄 볼 것은 WAS 하나입니다. 이 교과는 기초 과정이므로
+   나머지는 이름과 하는 일만 알아 두면 됩니다. WAS 는 다음 실습에서 직접 띄워 봅니다.</p>
 
-<h4>WAS 가 «대신» 해 주는 것</h4>
+<h4>WAS 가 대신해 주는 일</h4>
 
-<p class="cmdline"><code>WAS 가 없으면 내가 해야 하는 일
+<p>웹 요청 하나를 처리하려면 아래 여섯 단계가 필요합니다.</p>
 
-  ① 포트를 열고 기다립니다              ServerSocket
-  ② 요청 글자를 «HTTP 규칙대로» 읽습니다   GET / HTTP/1.1 ...
-  ③ 주소를 보고 어느 코드를 부를지 정합니다
-  ④ 여러 사람이 «동시에» 와도 처리합니다   스레드
-  ⑤ 결과를 «HTTP 규칙대로» 씁니다        HTTP/1.1 200 OK ...
-  ⑥ 연결을 닫습니다</code></p>
+<p class="cmdline"><code>① 포트를 열고 기다린다              ServerSocket
+② 요청 글자를 HTTP 규칙대로 읽는다    GET / HTTP/1.1 ...
+③ 주소를 보고 어느 코드를 부를지 정한다
+④ 여러 사람이 동시에 와도 처리한다     스레드
+⑤ 결과를 HTTP 규칙대로 쓴다          HTTP/1.1 200 OK ...
+⑥ 연결을 닫는다</code></p>
 
-<p><b>①만 앞 교과에서 해 봤습니다</b> (개발자 환경 구축 실습 9 의 8123 포트).
-   <b>②~⑥을 WAS 가 대신</b> 합니다 —
-   <b>내가 쓰는 코드는 ③의 «그 코드» 뿐</b>입니다.</p>
+<p>이 중 ①은 앞 교과에서 직접 해 봤습니다. 개발자 환경 구축 실습 9 에서
+   8123 포트를 열고 기다리는 프로그램을 만들었지요. 나머지 다섯을 WAS 가 맡습니다.
+   개발자가 쓰는 코드는 ③이 불러 주는 그 코드뿐입니다.</p>
 
-<h4>라이브러리와 프레임워크의 «그» 이야기</h4>
+<h4>부르는 쪽이 바뀐다</h4>
 
-<p>앞 교과 <b>프로그래밍 언어 응용 실습 15</b> 에서
-   <b>「프레임워크는 «내 코드를 불러 준다»」</b> 고 했습니다.
-   <b>WAS 가 바로 그 «부르는 쪽»</b> 입니다.</p>
+<p>앞 교과 프로그래밍 언어 응용에서 라이브러리와 프레임워크를 견주면서,
+   프레임워크는 내 코드를 불러 주는 쪽이라고 했습니다. WAS 가 바로 그 부르는 쪽입니다.</p>
 
-<p class="cmdline"><code>요청이 옴  →  WAS 가 «내 코드를» 부릅니다  →  결과를 돌려줌
-               ↑
-               내가 부르는 것이 «아닙니다»</code></p>
+<p class="cmdline"><code>요청이 옴  →  WAS 가 내 코드를 부른다  →  결과를 돌려준다</code></p>
+
+<p>내가 <code>main</code> 에서 순서대로 부르는 코드가 아닙니다. 규칙에 맞게 만들어 두면
+   요청이 왔을 때 WAS 가 알아서 찾아 부릅니다. 이 차이가 다음 실습의 로그와
+   실습 10 의 MVC 로 이어집니다.</p>
       </div>
 </div>
 
@@ -1066,85 +1065,121 @@ public class 예약컨트롤러 {
         <b class="sh">근거</b>
         <p class="v">학습모듈 3-2</p>
         <b class="sh">도구</b>
-        <p class="v">H2</p>
+        <p class="v">MySQL 8.0</p>
       </aside>
       <div class="bd">
 
-<h4>ERD 를 <code>CREATE</code> 로 옮깁니다</h4>
+<h4>ERD 를 CREATE 로 옮긴다</h4>
 
-<p class="cmdline"><code>CREATE TABLE facility (
-  facility_id INT <b>PRIMARY KEY</b>,
-  name        VARCHAR(50) <b>NOT NULL</b>,
-  region      VARCHAR(20) NOT NULL,
-  fee         INT         NOT NULL,
-  indoor      BOOLEAN     NOT NULL
+<p>앞 실습에서 그린 표 셋을 그대로 옮겨 적습니다. 상자 하나가 테이블 하나,
+   상자 안의 줄 하나가 열 하나입니다. PK 와 FK 로 적어 둔 것이
+   <code>PRIMARY KEY</code> 와 <code>FOREIGN KEY</code> 가 됩니다.</p>
+
+<p class="cmdline"><code>CREATE DATABASE sportdb DEFAULT CHARACTER SET utf8mb4;
+USE sportdb;
+
+CREATE TABLE facility (
+  facility_id INT          PRIMARY KEY,
+  name        VARCHAR(50)  NOT NULL,
+  region      VARCHAR(20)  NOT NULL,
+  fee         INT          NOT NULL,
+  indoor      BOOLEAN      NOT NULL
 );
 
 CREATE TABLE member (
-  member_id INT PRIMARY KEY,
-  login_id  VARCHAR(20) NOT NULL <b>UNIQUE</b>,
+  member_id INT         PRIMARY KEY,
+  login_id  VARCHAR(20) NOT NULL UNIQUE,
   name      VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE reservation (
-  reservation_id INT PRIMARY KEY,
-  member_id   INT  NOT NULL,
-  facility_id INT  NOT NULL,
-  use_date    DATE NOT NULL,
-  headcount   INT  NOT NULL,
-  <b>FOREIGN KEY (member_id)   REFERENCES member(member_id)</b>,
-  <b>FOREIGN KEY (facility_id) REFERENCES facility(facility_id)</b>
+  reservation_id INT  PRIMARY KEY,
+  member_id      INT  NOT NULL,
+  facility_id    INT  NOT NULL,
+  use_date       DATE NOT NULL,
+  headcount      INT  NOT NULL,
+  FOREIGN KEY (member_id)   REFERENCES member(member_id),
+  FOREIGN KEY (facility_id) REFERENCES facility(facility_id)
 );</code></p>
 
+<p class="cmdline"><code>mysql&gt; SHOW TABLES;
+Tables_in_sportdb
+facility
+member
+reservation</code></p>
+
+<p><code>utf8mb4</code> 로 만든 것에 주의합니다. 한글을 담으려면 필요하고,
+   이모지까지 담으려면 반드시 <code>utf8mb4</code> 여야 합니다.
+   예전 <code>utf8</code> 은 이름만 utf8 이고 실제로는 세 바이트까지만 담습니다.</p>
+
+<h4>제약 네 가지</h4>
+
 <table class="wide">
-  <tr><th style="width:150px">제약</th><th style="width:210px">막는 것</th><th>ERD 의</th></tr>
-  <tr><td><code>PRIMARY KEY</code></td><td>번호가 <b>겹치는</b> 것</td><td>PK</td></tr>
-  <tr><td><code>NOT NULL</code></td><td>칸이 <b>비는</b> 것</td><td>—</td></tr>
-  <tr><td><code>UNIQUE</code></td><td>아이디가 <b>겹치는</b> 것</td><td>U</td></tr>
-  <tr><td><code>FOREIGN KEY</code></td><td><b>없는 것을 가리키는</b> 것</td><td>FK</td></tr>
+  <tr><th style="width:170px">제약</th><th style="width:210px">막는 것</th><th>ERD 의</th></tr>
+  <tr><td><code>PRIMARY KEY</code></td><td>번호가 겹치는 것</td><td>PK</td></tr>
+  <tr><td><code>NOT NULL</code></td><td>칸이 비는 것</td><td>—</td></tr>
+  <tr><td><code>UNIQUE</code></td><td>아이디가 겹치는 것</td><td>U</td></tr>
+  <tr><td><code>FOREIGN KEY</code></td><td>없는 것을 가리키는 것</td><td>FK</td></tr>
 </table>
+
+<h4>제약을 일부러 어겨 본다</h4>
+
+<p>제약은 적어 놓기만 해서는 무엇을 막는지 알 수 없습니다. 한 번씩 어겨 보면
+   어떤 오류가 나는지 몸에 남습니다. 오류 번호도 함께 보아 두십시오.
+   실무에서 로그를 읽을 때 이 번호로 원인을 찾습니다.</p>
+
+<p class="cmdline"><code>mysql&gt; INSERT INTO facility VALUES (1,'또중앙','달서구',2000,TRUE);
+ERROR <b>1062</b> (23000): Duplicate entry '1' for key 'facility.PRIMARY'
+
+mysql&gt; INSERT INTO facility VALUES (9,NULL,'달서구',2000,TRUE);
+ERROR <b>1048</b> (23000): Column 'name' cannot be null
+
+mysql&gt; INSERT INTO member VALUES (9,'kim','다른김');
+ERROR <b>1062</b> (23000): Duplicate entry 'kim' for key 'member.login_id'
+
+mysql&gt; INSERT INTO reservation VALUES (999,1,99,'2026-10-09',5);
+ERROR <b>1452</b> (23000): Cannot add or update a child row: a foreign key
+constraint fails (`sportdb`.`reservation`, CONSTRAINT `reservation_ibfk_2`
+FOREIGN KEY (`facility_id`) REFERENCES `facility` (`facility_id`))
+
+mysql&gt; DELETE FROM facility WHERE facility_id=1;
+ERROR <b>1451</b> (23000): Cannot delete or update a parent row: a foreign key
+constraint fails (...)
+
+mysql&gt; INSERT INTO facility VALUES (8,'테스트','달서구','비싸요',TRUE);
+ERROR <b>1366</b> (HY000): Incorrect integer value: '비싸요' for column 'fee' at row 1</code></p>
+
+<table class="wide">
+  <tr><th style="width:110px">번호</th><th style="width:210px">무엇을 어겼나</th><th>어디를 고치나</th></tr>
+  <tr><td>1062</td><td>기본키 또는 UNIQUE 중복</td><td>넣으려는 값</td></tr>
+  <tr><td>1048</td><td>NOT NULL 인데 비움</td><td>빠뜨린 칸</td></tr>
+  <tr><td>1452</td><td>없는 부모를 가리킴</td><td>가리키는 번호</td></tr>
+  <tr><td>1451</td><td>자식이 있는 부모를 지움</td><td>자식을 먼저 지우거나 남겨 둠</td></tr>
+  <tr><td>1366</td><td>자료형이 안 맞음</td><td>값 또는 열의 자료형</td></tr>
+</table>
+
+<div class="warn">1452 와 1451 은 이름이 비슷해 헷갈립니다. 방향이 반대입니다.
+  1452 는 없는 것을 가리키려다 막힌 것이고, 1451 은 누가 가리키고 있는 것을
+  지우려다 막힌 것입니다. 앞은 넣을 때, 뒤는 지울 때 납니다.
+</div>
 
 <h4>자료형 고르기</h4>
 
 <table class="wide">
-  <tr><th style="width:150px">담을 것</th><th style="width:170px">자료형</th><th></th></tr>
+  <tr><th style="width:170px">담을 것</th><th style="width:190px">자료형</th><th></th></tr>
   <tr><td>번호 · 개수 · 금액</td><td><code>INT</code></td>
       <td>계산할 것이면 숫자로</td></tr>
-  <tr><td>이름 · 주소</td><td><code>VARCHAR(n)</code></td>
-      <td><b>길이를 정합니다</b></td></tr>
+  <tr><td>이름 · 주소</td><td><code>VARCHAR(n)</code></td><td>길이를 정합니다</td></tr>
   <tr><td>날짜</td><td><code>DATE</code></td>
-      <td><b>글자로 넣지 마십시오</b> — 날짜 계산이 됩니다</td></tr>
-  <tr><td>예 / 아니오</td><td><code>BOOLEAN</code></td><td></td></tr>
+      <td>글자로 넣으면 날짜 계산이 안 됩니다</td></tr>
+  <tr><td>예 / 아니오</td><td><code>BOOLEAN</code></td>
+      <td>MySQL 은 내부적으로 <code>TINYINT</code> 로 저장해
+          <code>1</code> · <code>0</code> 으로 보입니다</td></tr>
 </table>
 
-<div class="warn"><b>전화번호는 «숫자가 아닙니다».</b>
-  <code>010-1234-5678</code> 에는 <b>하이픈</b>이 있고,
-  앞의 <b><code>0</code> 이 사라지면 안 됩니다.</b>
-  <b>계산할 일이 없으면 <code>VARCHAR</code></b> 입니다 —
-  <b>「숫자처럼 보이면 숫자」 가 아닙니다.</b>
-</div>
-
-<h4>영문 이름을 쓰는 까닭</h4>
-
-<p>한글로도 표를 만들 수 있습니다. <b>오류 메시지가 달라집니다.</b></p>
-
-<p class="cmdline"><code><i># 한글 이름일 때</i>
-Referential integrity constraint violation: "CONSTRAINT_18C0:
-PUBLIC.<b>U&""\c608\c57d""</b> FOREIGN KEY(<b>U&""\c2dc\c124\bc88\d638""</b>)
-REFERENCES PUBLIC.U&""\c2dc\c124""(...) (99)"
-
-<i># 영문 이름일 때</i>
-Referential integrity constraint violation: "CONSTRAINT_232:
-PUBLIC.<b>RESERVATION</b> FOREIGN KEY(<b>FACILITY_ID</b>)
-REFERENCES PUBLIC.<b>FACILITY</b>(FACILITY_ID) (99)"</code></p>
-
-<div class="note"><b>같은 오류인데 «읽히는 정도» 가 다릅니다.</b>
-  한글 이름은 <code>U&"\c608\c57d"</code> 처럼 <b>번호로 바뀌어</b> 나옵니다
-  (유니코드 이스케이프).
-  <b>어느 표에서 난 오류인지 알아보기가 어렵습니다.</b><br>
-  <b>실무에서 영문 이름을 쓰는 까닭이 이것</b>입니다 —
-  <b>규칙이라서가 아니라 «오류를 읽으려고»</b> 입니다.
-</div>
+<p>전화번호는 숫자처럼 보이지만 <code>VARCHAR</code> 로 잡습니다.
+   <code>010-1234-5678</code> 에는 하이픈이 들어가고, 숫자로 담으면 맨 앞 <code>0</code> 이
+   사라집니다. 더할 일도 뺄 일도 없으니 글자로 두는 편이 맞습니다.</p>
       </div>
 </div>
 
@@ -1159,84 +1194,97 @@ REFERENCES PUBLIC.<b>FACILITY</b>(FACILITY_ID) (99)"</code></p>
       </aside>
       <div class="bd">
 
-<h4>넣기 — <code>INSERT</code></h4>
+<h4>넣기</h4>
 
 <p class="cmdline"><code>INSERT INTO facility VALUES (1,'중앙체육관','달서구',2000,TRUE);
 INSERT INTO facility VALUES (2,'달성운동장','달성군',1500,FALSE);
-INSERT INTO facility VALUES (3,'수성풋살장','수성구',3000,FALSE);</code></p>
+INSERT INTO facility VALUES (3,'수성풋살장','수성구',3000,FALSE);
 
-<h4>읽기 — <code>SELECT</code></h4>
+INSERT INTO member VALUES (1,'kim','김민수');
+INSERT INTO member VALUES (2,'park','박정희');
 
-<p class="cmdline"><code>SELECT * FROM facility;
+INSERT INTO reservation VALUES (101,1,1,'2026-10-01',10);
+INSERT INTO reservation VALUES (102,2,3,'2026-10-02',8);
+INSERT INTO reservation VALUES (103,1,3,'2026-10-05',12);</code></p>
 
-시설번호 | 이름    | 지역  | 요금   | 실내여부
-1    | 중앙체육관 | 달서구 | 2000 | TRUE
-2    | 달성운동장 | 달성군 | 1500 | FALSE
-3    | 수성풋살장 | 수성구 | 3000 | FALSE
-(3 rows, 43 ms)</code></p>
+<p>순서가 있습니다. 예약은 회원과 시설을 가리키므로 그 둘이 먼저 있어야 합니다.
+   거꾸로 넣으면 앞 실습에서 본 1452 오류가 납니다.</p>
 
-<p class="cmdline"><code>SELECT 이름, 요금 FROM 시설 WHERE 요금 &lt;= 2000 ORDER BY 요금;
+<h4>읽기</h4>
 
-이름    | 요금
-달성운동장 | 1500
-중앙체육관 | 2000
-(2 rows, 48 ms)</code></p>
+<p class="cmdline"><code>mysql&gt; SELECT * FROM facility;
++-------------+-----------------+-----------+------+--------+
+| facility_id | name            | region    | fee  | indoor |
++-------------+-----------------+-----------+------+--------+
+|           1 | 중앙체육관      | 달서구    | 2000 |      1 |
+|           2 | 달성운동장      | 달성군    | 1500 |      0 |
+|           3 | 수성풋살장      | 수성구    | 3000 |      0 |
++-------------+-----------------+-----------+------+--------+</code></p>
 
-<h4>이어 읽기 — 조인</h4>
+<p><code>indoor</code> 가 <code>1</code> 과 <code>0</code> 으로 보입니다.
+   <code>BOOLEAN</code> 으로 만들었는데 MySQL 이 <code>TINYINT</code> 로 저장하기 때문입니다.
+   값은 제대로 들어가 있으니 놀랄 일은 아닙니다.</p>
 
-<p><b>표 셋을 «한 번에»</b> 봅니다 — ERD 의 관계선이 여기서 쓰입니다.</p>
+<p class="cmdline"><code>SELECT name, fee FROM facility WHERE fee &lt;= 2000 ORDER BY fee;</code></p>
 
-<p class="cmdline"><code>SELECT 예.예약번호, 회.이름 AS 회원, 시.이름 AS 시설, 예.이용일, 예.인원
-FROM 예약 예
-  <b>JOIN 회원 회 ON 예.회원번호 = 회.회원번호</b>
-  <b>JOIN 시설 시 ON 예.시설번호 = 시.시설번호</b>
-ORDER BY 예.예약번호;
+<h4>이어 읽기</h4>
 
-예약번호 | 회원  | 시설    | 이용일        | 인원
-101  | 김민수 | 중앙체육관 | 2026-10-01 | 10
-102  | 박정희 | 수성풋살장 | 2026-10-02 | 8
-103  | 김민수 | 수성풋살장 | 2026-10-05 | 12
-(3 rows, 49 ms)</code></p>
+<p>예약 표에는 번호만 들어 있습니다. <code>member_id</code> 가 1 이라고만 적혀 있지
+   그 사람이 누구인지는 없습니다. 이름까지 같이 보려면 회원 표와 이어야 합니다.
+   그 일을 하는 것이 조인입니다.</p>
 
-<div class="note"><b>예약 표에는 «번호» 만 들어 있습니다.</b>
-  <code>회원번호 1</code> · <code>시설번호 3</code> 처럼요.
-  <b>조인이 그 번호를 «이름으로 바꿔» 줍니다</b> —
-  <b>ON 뒤가 «어느 칸끼리 이을지»</b> 입니다.
-</div>
+<p class="cmdline"><code>mysql&gt; SELECT r.reservation_id, m.name AS 회원, f.name AS 시설,
+    -&gt;        r.use_date, r.headcount
+    -&gt; FROM reservation r
+    -&gt;   JOIN member   m ON r.member_id   = m.member_id
+    -&gt;   JOIN facility f ON r.facility_id = f.facility_id
+    -&gt; ORDER BY r.reservation_id;
++----------------+-----------+-----------------+------------+-----------+
+| reservation_id | 회원      | 시설            | use_date   | headcount |
++----------------+-----------+-----------------+------------+-----------+
+|            101 | 김민수    | 중앙체육관      | 2026-10-01 |        10 |
+|            102 | 박정희    | 수성풋살장      | 2026-10-02 |         8 |
+|            103 | 김민수    | 수성풋살장      | 2026-10-05 |        12 |
++----------------+-----------+-----------------+------------+-----------+</code></p>
 
-<h4>모아 세기 — 집계</h4>
+<p><code>ON</code> 뒤가 어느 칸끼리 이을지를 적는 자리입니다. ERD 에서 그은 관계선이
+   그대로 여기로 옵니다. 선을 제대로 그려 두었으면 조인문은 옮겨 적기만 하면 됩니다.</p>
 
-<p class="cmdline"><code>SELECT 시.이름, COUNT(*) AS 건수, SUM(예.인원) AS 총인원
-FROM 예약 예 JOIN 시설 시 ON 예.시설번호 = 시.시설번호
-<b>GROUP BY 시.이름</b> ORDER BY 건수 DESC;
+<h4>모아 세기</h4>
 
-이름    | 건수 | 총인원
-수성풋살장 | 2  | 20
-중앙체육관 | 1  | 10
-(2 rows, 53 ms)</code></p>
+<p class="cmdline"><code>SELECT f.name, COUNT(*) AS 건수, SUM(r.headcount) AS 총인원
+FROM reservation r JOIN facility f ON r.facility_id = f.facility_id
+GROUP BY f.name ORDER BY 건수 DESC;</code></p>
 
-<p><b><code>달성운동장</code> 이 «안 나온 것»</b> 을 보십시오 —
-   <b>예약이 없으면 조인에서 빠집니다.</b>
-   <b>없는 것까지 보려면</b> <code>LEFT JOIN</code> 을 씁니다.</p>
+<p>이 결과에 달성운동장은 나오지 않습니다. 예약이 한 건도 없어 조인에서 빠지기
+   때문입니다. 예약이 없는 시설까지 0 으로 보고 싶다면 <code>LEFT JOIN</code> 을 씁니다.</p>
 
-<h4>고치기 · 지우기</h4>
+<h4>고치기와 지우기</h4>
 
 <p class="cmdline"><code>UPDATE facility SET fee = 2500 WHERE facility_id = 1;
 DELETE FROM reservation WHERE reservation_id = 103;</code></p>
 
-<div class="warn"><b><code>WHERE</code> 를 «빠뜨리면 전부» 바뀝니다.</b>
-  <code>UPDATE facility SET fee = 2500;</code> 는
-  <b>모든 시설의 요금</b>을 2500 으로 바꿉니다.
-  <code>DELETE FROM reservation;</code> 은 <b>예약을 전부</b> 지웁니다.
-  <b>오류도 안 납니다.</b><br>
-  <b>버릇을 들이십시오</b> —
-  <b><code>SELECT</code> 로 «먼저» 확인하고</b>
-  같은 <code>WHERE</code> 로 <code>UPDATE</code> · <code>DELETE</code> 합니다.
-</div>
-      </div>
+<div class="warn"><code>WHERE</code> 를 빠뜨리면 전부 바뀝니다.
+  <code>UPDATE facility SET fee = 2500;</code> 는 모든 시설의 요금을 2500 으로 바꾸고,
+  <code>DELETE FROM reservation;</code> 은 예약을 전부 지웁니다. 오류도 나지 않습니다.
+  고치거나 지우기 전에 같은 <code>WHERE</code> 로 <code>SELECT</code> 를 먼저 돌려
+  몇 건이 걸리는지 보는 습관을 들이십시오.
 </div>
 
-<h3 class="lv">레벨 5 · 마무리 <span>셋을 잇고 냅니다</span></h3>
+<h4>CRUD 라는 말</h4>
+
+<table class="wide">
+  <tr><th style="width:110px"></th><th style="width:170px">SQL</th><th>하는 일</th></tr>
+  <tr><td>C reate</td><td><code>INSERT</code></td><td>넣기</td></tr>
+  <tr><td>R ead</td><td><code>SELECT</code></td><td>읽기</td></tr>
+  <tr><td>U pdate</td><td><code>UPDATE</code></td><td>고치기</td></tr>
+  <tr><td>D elete</td><td><code>DELETE</code></td><td>지우기</td></tr>
+</table>
+
+<p>제출물에는 넷이 다 있어야 합니다. 읽기와 넣기는 자연스럽게 하게 되는데
+   고치기가 자주 빠집니다.</p>
+      </div>
+</div>
 
 <div class="step" id="st15">
       <h3><i>15</i>셋을 한 흐름으로</h3>
@@ -1334,8 +1382,8 @@ DELETE FROM reservation WHERE reservation_id = 103;</code></p>
 <p class="cmdline"><code>&gt; netstat -ano | findstr LISTENING
 <i># 띄운 WAS 가 남아 있으면 끕니다 (앞 교과 실습 9)</i>
 
-<i># H2 는 파일 하나입니다 — 제출에 넣거나 지웁니다</i>
-예약db.mv.db</code></p>
+<i># 도커 컨테이너를 내립니다</i>
+docker stop sportdb-mysql</code></p>
 
 <h4>뒤에서 다시 나오는 자리</h4>
 
@@ -1394,7 +1442,7 @@ DELETE FROM reservation WHERE reservation_id = 103;</code></p>
   <code>2001020232_23v5</code> 에서 옮긴 것입니다 —
   한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지).<br>
   모든 명령·화면·SQL 은 이 교안을 위해 Windows 11 · JDK 21.0.2 ·
-  H2 2.4.240 에서 실제로 돌려 얻은 것입니다.
+  MySQL 8.0.46(도커)에서 실제로 돌려 얻은 것입니다.
 </footer>
 
 </div>
