@@ -1,0 +1,2212 @@
+<meta charset="utf-8"><title>자료구조 활용 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<style>
+  /* 이 교안에만 있는 것 — 코드 보기 */
+  .bd pre{margin:14px 0;font-family:Consolas,"D2Coding",monospace;font-size:13px;
+          line-height:1.75;border:1px solid #ccc;border-left:3px solid #000;
+          padding:13px 16px;background:#fafafa;overflow-x:auto;white-space:pre}
+  .bd pre b{background:#e6e6e6;font-weight:700}
+  .bd pre i{font-style:normal;color:#777}
+  .bd code{font-family:Consolas,"D2Coding",monospace;font-size:14px;
+           background:#f2f2f2;padding:1px 5px}
+  aside.side code{font-family:Consolas,monospace;font-size:11px;background:#f2f2f2;padding:0 3px}
+</style>
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 / <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a> / 자료구조 활용 / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">준비</i>
+  <a href="#st1"><b>1</b><span>왜 고르는 일인가</span></a>
+  <a href="#st2"><b>2</b><span>완성 산출물의 확인</span></a>
+  <i class="qg">기본 자료구조</i>
+  <a href="#st3"><b>3</b><span>배열과 리스트</span></a>
+  <a href="#st4"><b>4</b><span>시간 복잡도</span></a>
+  <a href="#st5"><b>5</b><span>스택과 큐</span></a>
+  <a href="#st6"><b>6</b><span>맵과 집합</span></a>
+  <a href="#st7"><b>7</b><span>트리와 그래프</span></a>
+  <i class="qg">자료구조 활용</i>
+  <a href="#st8"><b>8</b><span>요구사항에서 고르기</span></a>
+  <a href="#st9"><b>9</b><span>잘못 고르면</span></a>
+  <a href="#st10"><b>10</b><span>선정 근거표</span></a>
+  <i class="qg">정렬과 탐색</i>
+  <a href="#st11"><b>11</b><span>정렬 셋을 만든다</span></a>
+  <a href="#st12"><b>12</b><span>정렬 성능을 잰다</span></a>
+  <a href="#st13"><b>13</b><span>선형 탐색과 이진 탐색</span></a>
+  <a href="#st14"><b>14</b><span>정렬 확인이 먼저</span></a>
+  <a href="#st15"><b>15</b><span>라이브러리와 직접 구현</span></a>
+  <i class="qg">마무리</i>
+  <a href="#st16"><b>16</b><span>자가 점검과 제출</span></a>
+  <i class="qg">감점</i>
+  <a href="#g3"><b>!</b><span>주요 감점 요인</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>자료구조 활용 — 준비 교안</h1>
+<p class="sub">능력단위 자료구조 활용 (2001020235_23v1) / 5수준 ·
+   능력단위요소 2개 · 학습 내용 4개</p>
+
+<!-- ═══════ 0 ═══════ -->
+<h2 class="sec" id="g0">0. 이 교과가 만드는 것</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">코드가 아니라 고른 까닭을 냅니다.</p>
+    <b class="sh">내는 것</b>
+    <p class="v">선정 근거표 + 측정 화면 + 코드</p>
+    <b class="sh">참고</b>
+    <p class="src">NCS 학습모듈 LM2001020235_23v1</p>
+  </aside>
+  <div class="bd">
+
+<div class="note">시작 전에 갖춰야 하는 것
+<table class="wide">
+  <tr><td class="nm">개발 환경</td>
+      <td>JDK 와 IDE. 개발자 환경 구축 교과에서 만든 것을 그대로 씁니다</td></tr>
+  <tr><td class="nm">자바 문법</td>
+      <td>반복문과 배열. 프로그래밍 언어 응용 교과에서 익힌 정도면 됩니다</td></tr>
+  <tr><td class="nm">요구사항명세서</td>
+      <td>실습 8 에서 여기서 자료구조를 뽑습니다. 요구사항 확인 교과의 산출물</td></tr>
+  <tr><td class="nm">작업지시서</td><td>제출 형식이 여기 적혀 있습니다</td></tr>
+</table>
+작업지시서는 평가도구라 이 사이트에 올려 두지 않습니다. 수업 시간에 받으십시오.
+</div>
+
+<h4>둘을 배웁니다</h4>
+
+<table class="wide">
+  <tr><th style="width:56px">묶음</th><th style="width:230px">능력단위요소</th>
+      <th>학습 내용</th></tr>
+  <tr><td class="c">①</td><td>기본 자료구조 활용하기</td>
+      <td>자료구조 특성 및 차이점 파악 · 자료구조 활용</td></tr>
+  <tr><td class="c">②</td><td>정렬 및 탐색 알고리즘 활용하기</td>
+      <td>데이터 정렬 알고리즘 활용 · 데이터 탐색 알고리즘 활용</td></tr>
+</table>
+
+<p>학습모듈의 목표는 이렇게 적혀 있습니다 —
+   「자료구조 유형별 특성을 고려하여 애플리케이션 구현과 정렬 및 탐색
+   알고리즘에 적합한 자료구조를 선정하여 활용할 수 있다」.
+   문장의 무게가 <b>선정</b>에 실려 있습니다.</p>
+
+<div class="warn">이 교과를 외우는 과목으로 오해하기 쉽습니다.
+  배열 · 연결리스트 · 스택 · 큐 · 트리 · 그래프를 이름과 그림으로 외우고
+  Big-O 표를 통째로 외우는 식입니다. 그렇게 해도 시험은 넘어갑니다.<br>
+  평가는 고른 까닭을 묻습니다. 「왜 여기에 해시테이블을 썼습니까」에
+  「빠르니까요」로 답하면 점수가 안 붙습니다.
+  이 교안은 그래서 재는 일부터 합니다.
+</div>
+
+<h4>핵심 용어 아홉</h4>
+
+<table class="wide">
+  <tr><th style="width:210px">용어</th><th style="width:70px">실습</th><th></th></tr>
+  <tr><td>자료구조 · 추상 자료형</td><td class="c">3</td>
+      <td>담는 방식과, 그 방식을 감싼 이름</td></tr>
+  <tr><td>시간 복잡도 · 공간 복잡도</td><td class="c">4</td>
+      <td>자료가 늘 때 시간과 메모리가 어떻게 늘어나는가</td></tr>
+  <tr><td>선형 구조 · 비선형 구조</td><td class="c">5 · 7</td>
+      <td>한 줄로 늘어서는가, 갈라지는가</td></tr>
+  <tr><td>노드 · 포인터</td><td class="c">3 · 7</td>
+      <td>한 칸과, 다음 칸을 가리키는 것</td></tr>
+  <tr><td>삽입 · 삭제 · 탐색 연산</td><td class="c">3 · 13</td>
+      <td>자료구조를 가르는 기준이 되는 세 가지 일</td></tr>
+</table>
+
+<h4>내는 것은 셋입니다</h4>
+
+<table class="wide">
+  <tr><th style="width:56px"></th><th style="width:190px">제출물</th><th>내용</th></tr>
+  <tr><td class="c">1</td><td>선정 근거표</td>
+      <td>기능마다 어느 자료구조를 왜 골랐는지. 대안과 견준 칸이 있어야 합니다</td></tr>
+  <tr><td class="c">2</td><td>측정 화면</td>
+      <td>시간과 메모리를 직접 잰 것. 근거표의 숫자가 여기서 나옵니다</td></tr>
+  <tr><td class="c">3</td><td>코드</td>
+      <td>정렬 셋과 탐색 둘. 비교 횟수를 세는 코드가 들어 있어야 합니다</td></tr>
+</table>
+  </div>
+</div>
+
+<!-- ═══════ 1 ═══════ -->
+<h2 class="sec" id="g1">1. 이 교과의 범위</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">직접 만드는 것과 골라 쓰는 것을 가릅니다.</p>
+    <b class="sh">능력단위요소</b>
+    <p class="v">기본 자료구조 활용하기 · 정렬 및 탐색 알고리즘 활용하기</p>
+    <b class="sh">선수 학습</b>
+    <p class="v">프로그래밍 언어 응용 · 요구사항 확인</p>
+  </aside>
+  <div class="bd">
+
+<h4>어디까지 만들고 어디부터 갖다 쓰나</h4>
+
+<p>자료구조는 대학에서 한 학기를 씁니다. 이 교과는 거기까지 안 갑니다.
+   응용SW 개발자가 실제로 하는 일은 대부분 <b>고르는 일</b>이고,
+   만드는 일은 한 번 해 보는 것으로 족합니다.</p>
+
+<table class="wide">
+  <tr><th style="width:150px">분야</th><th style="width:250px">여기서 하는 것</th><th>여기서 안 하는 것</th></tr>
+  <tr><td>기본 자료구조</td>
+      <td>차이를 재고 요구사항에 맞춰 고릅니다</td>
+      <td>레드블랙트리 · B트리를 직접 구현</td></tr>
+  <tr><td>정렬</td>
+      <td>기본 셋을 만들어 보고 라이브러리와 견줍니다</td>
+      <td>병합 · 퀵 정렬의 증명</td></tr>
+  <tr><td>탐색</td>
+      <td>선형과 이진의 차이를 비교 횟수로 봅니다</td>
+      <td>해시 충돌 해결 알고리즘 구현</td></tr>
+</table>
+
+<h4>고르는 일이 왜 중요한가</h4>
+
+<p class="cmdline"><code>같은 프로그램, 같은 기능, 자료구조만 다름
+
+  회원 20만 명에서 아이디로 찾기 2만 번
+
+    ArrayList 로  16,702 ms
+    HashMap 으로      11 ms</code></p>
+
+<p>천 배가 넘습니다. 코드 줄 수는 거의 같고 기능도 같습니다.
+   달라진 것은 담는 그릇 하나입니다.
+   실습 9 에서 이 숫자를 직접 냅니다.</p>
+
+<h4>이 교안이 쓰는 것</h4>
+
+<p class="cmdline"><code>언어         자바 21 — 앞 교과에서 쓰던 것 그대로
+자료구조      java.util 컬렉션 (ArrayList · LinkedList · HashMap · TreeMap …)
+재는 도구     System.nanoTime() 과 Runtime — 따로 설치할 것이 없습니다
+예제         공공 체육시설 예약 — 앞 교과들과 같은 예제</code></p>
+
+<div class="note">성능을 재는 데 전문 도구를 쓰지 않습니다.
+  <code>System.nanoTime()</code> 으로 앞뒤를 찍어 빼는 방식은 정확하지 않습니다.
+  자바는 처음 몇 번을 느리게 돌리다가 나중에 빨라지기 때문입니다.
+  이 교과에서 보려는 것은 정확한 밀리초가 아니라 <b>몇 배 차이인가</b> 이고,
+  그 정도는 이 방법으로도 충분히 보입니다.
+</div>
+  </div>
+</div>
+
+<!-- ═══════ 2 ═══════ -->
+<h2 class="sec" id="g2">2. 실습</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">재고, 고르고, 근거를 적습니다.</p>
+    <b class="sh">시간</b>
+    <p class="v">레벨 3에 몰아 씁니다</p>
+  </aside>
+  <div class="bd">
+
+<table class="wide">
+  <tr><th style="width:110px">레벨</th><th style="width:210px">무엇</th>
+      <th style="width:90px">실습</th><th>끝나면</th></tr>
+  <tr><td>1 · 준비</td><td>왜 고르는 일인가 · 낼 것</td><td class="c">1 ~ 2</td>
+      <td>이 교과가 무엇을 묻는지 압니다</td></tr>
+  <tr><td>2 · 기본 자료구조</td><td>배열 · 리스트 · 스택 · 큐 · 맵 · 트리</td><td class="c">3 ~ 7</td>
+      <td>요소 <b>①</b> 앞쪽</td></tr>
+  <tr><td>3 · 자료구조 활용</td><td>고르기 · 잘못 고르기 · 근거표</td><td class="c">8 ~ 10</td>
+      <td>요소 <b>①</b> 뒤쪽</td></tr>
+  <tr><td>4 · 정렬과 탐색</td><td>정렬 셋 · 탐색 둘 · 라이브러리</td><td class="c">11 ~ 15</td>
+      <td>요소 <b>②</b></td></tr>
+  <tr><td>5 · 마무리</td><td>점검 · 제출</td><td class="c">16</td><td>냅니다</td></tr>
+</table>
+
+<p>레벨 2 는 빠르게 지나갑니다. 각 자료구조를 깊이 파는 대신
+   차이가 드러나는 자리만 짚습니다.
+   레벨 3 이 이 교과의 몸통이고 점수도 거기 몰려 있습니다.</p>
+  </div>
+</div>
+
+<!-- ═══════ 실습 ═══════ -->
+
+<h3 class="lv">레벨 1 · 준비 <span>이 교과가 무엇을 묻는지 먼저 봅니다</span></h3>
+
+<div class="step" id="st1">
+      <h3><i>1</i>왜 고르는 일인가</h3>
+      <aside class="side">
+        <p class="pt">외우는 과목이 아니라 재는 과목입니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈의 목표</p>
+        <b class="sh">용어</b>
+        <p class="v">자료구조 · 추상 자료형</p>
+      </aside>
+      <div class="bd">
+
+<h4>같은 기능, 다른 그릇</h4>
+
+<p>회원 20만 명 가운데 아이디로 한 명을 찾는 기능을 만든다고 합시다.
+   자바에서 이것을 쓰는 방법은 여럿입니다. 아래 둘은 코드 길이가 거의 같고
+   하는 일도 같습니다.</p>
+
+<p class="cmdline"><code>list.contains("id173845")     ← ArrayList
+map.containsKey("id173845")   ← HashMap</code></p>
+
+<p>2만 번 찾아 보면 앞은 16,702 밀리초, 뒤는 11 밀리초가 걸립니다.
+   1,500배가 넘습니다. 실습 9 에서 이 숫자를 직접 냅니다.</p>
+
+<h4>자료구조와 추상 자료형</h4>
+
+<p>학습모듈은 둘을 나눠서 설명합니다. 헷갈리기 쉬운데 기준은 하나입니다.
+   <b>무엇을 할 수 있는가</b>를 말하면 추상 자료형이고,
+   어떻게 담는가를 말하면 자료구조입니다.</p>
+
+<table class="wide">
+  <tr><th style="width:130px"></th><th style="width:230px">추상 자료형</th><th>자료구조</th></tr>
+  <tr><td>보는 자리</td><td>논리적. 무엇을 할 수 있는가</td>
+      <td>물리적. 메모리에 어떻게 놓이는가</td></tr>
+  <tr><td>예</td><td>스택 · 큐 · 리스트</td>
+      <td>배열 · 연결리스트 · 트리 · 해시테이블</td></tr>
+  <tr><td>자바에서</td><td><code>List</code> · <code>Map</code> 같은 인터페이스</td>
+      <td><code>ArrayList</code> · <code>HashMap</code> 같은 클래스</td></tr>
+</table>
+
+<p class="cmdline"><code>List&lt;String&gt; v = new ArrayList&lt;&gt;();
+     ↑                    ↑
+  추상 자료형            자료구조
+  「목록을 다룬다」        「배열로 담는다」</code></p>
+
+<p>왼쪽만 바꾸면 컴파일이 안 되고 오른쪽만 바꾸면 그대로 돕니다.
+   <code>new LinkedList&lt;&gt;()</code> 로 고쳐도 아래 코드는 손댈 일이 없습니다.
+   고르는 일이 이 자리 한 곳에서 끝나기 때문에 바꿔 가며 재 볼 수 있습니다.</p>
+
+<h4>평가가 묻는 것</h4>
+
+<table class="wide">
+  <tr><th style="width:290px">이렇게 물으면</th><th>이렇게 답해야 합니다</th></tr>
+  <tr><td>여기에 무엇을 썼습니까</td><td>HashMap 입니다 — 이것만으로는 점수가 안 붙습니다</td></tr>
+  <tr><td>왜 그것을 골랐습니까</td>
+      <td>아이디로 찾는 일이 대부분이고 순서가 필요 없어서입니다</td></tr>
+  <tr><td>대안은 무엇이었습니까</td>
+      <td>TreeMap 도 됩니다. 순서가 필요 없어 HashMap 이 빠릅니다</td></tr>
+  <tr><td>얼마나 차이 납니까</td><td>20만 건에서 1,500배를 쟀습니다</td></tr>
+</table>
+
+<p>네 번째 줄까지 답할 수 있으면 이 교과를 다 한 것입니다.
+   그래서 실습이 재는 일로 시작합니다.</p>
+      <div class="lab">
+  <b class="t">실습 1</b>
+  <b>한 줄만 바꿔 1,500배를 직접 잰다</b>
+
+  <p><b>목적</b> — 자료구조를 고르는 일이 왜 중요한지 말로 들으면 잘 안 와닿습니다.
+     같은 기능을 두 가지로 만들어 재 보면 그다음부터는 설명이 필요 없습니다.
+     이 교과의 첫 실습을 재는 일로 시작하는 까닭입니다.</p>
+
+  <h5>절차 1 — 잴 프로그램을 쓴다</h5>
+
+  <p class="cmdline"><code>Cmp2.java
+
+import java.util.*;
+
+public class Cmp2 {
+  public static void main(String[] a) {
+    int N = 200_000, 찾을횟수 = 20_000;
+    ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;();
+    HashMap&lt;String,Integer&gt; map = new HashMap&lt;&gt;();
+    for (int i = 0; i &lt; N; i++) { list.add("id" + i); map.put("id" + i, i); }
+
+    Random r = new Random(42);
+    String[] 찾을것 = new String[찾을횟수];
+    for (int i = 0; i &lt; 찾을횟수; i++) 찾을것[i] = "id" + r.nextInt(N);
+
+    int c = 0;
+    long t = System.nanoTime();
+    for (String k : 찾을것) if (list.contains(k)) c++;
+    long 리스트 = (System.nanoTime() - t) / 1_000_000;
+
+    int d = 0;
+    t = System.nanoTime();
+    for (String k : 찾을것) if (map.containsKey(k)) d++;
+    long 맵 = (System.nanoTime() - t) / 1_000_000;
+
+    System.out.println("자료 " + N + "개에서 " + 찾을횟수 + "번 찾기");
+    System.out.printf("ArrayList.contains   %6d ms   (찾은 것 %d개)%n", 리스트, c);
+    System.out.printf("HashMap.containsKey  %6d ms   (찾은 것 %d개)%n", 맵, d);
+    if (맵 &gt; 0) System.out.println("차이 약 " + (리스트 / 맵) + "배");
+  }
+}</code></p>
+
+  <p><code>new Random(42)</code> 의 숫자에 뜻이 있습니다.
+     씨앗을 고정하면 몇 번을 돌려도 같은 값을 찾습니다.
+     양쪽이 똑같은 것을 찾아야 견줄 수 있습니다.</p>
+
+  <h5>절차 2 — 돌린다</h5>
+
+  <p class="cmdline"><code>&gt; javac -encoding utf-8 Cmp2.java
+&gt; java -Dstdout.encoding=utf-8 Cmp2
+자료 200000개에서 20000번 찾기
+ArrayList.contains    16702 ms   (찾은 것 20000개)
+HashMap.containsKey      11 ms   (찾은 것 20000개)
+차이 약 1518배</code></p>
+
+  <p>16초가 넘게 걸립니다. 기다리는 동안 무엇이 일어나는지 생각해 보십시오.
+     2만 번 찾는데 한 번 찾을 때마다 평균 10만 개를 견줍니다.
+     20억 번쯤 견주는 셈입니다.</p>
+
+  <h5>절차 3 — 찾은 개수가 같은지 확인한다</h5>
+
+  <p>양쪽 다 20000개입니다. 결과가 같다는 뜻입니다.
+     기능은 똑같고 걸린 시간만 다릅니다.
+     이 줄을 안 찍으면 한쪽이 덜 찾고 빨리 끝난 것인지 구별할 수 없습니다.</p>
+
+  <h5>절차 4 — 순서를 바꿔 다시 잰다</h5>
+
+  <p class="cmdline"><code><i># 맵을 먼저 재고 리스트를 나중에 재도록 두 블록의 자리를 바꿉니다</i>
+
+자료 200000개에서 20000번 찾기  (맵을 먼저 잼)
+ArrayList.contains    33968 ms   (찾은 것 20000개)
+HashMap.containsKey      11 ms   (찾은 것 20000개)
+차이 약 3088배</code></p>
+
+  <p>리스트 쪽이 16,702 에서 33,968 로 두 배가 되었습니다.
+     코드는 한 줄도 안 고쳤고 자리만 바꿨습니다.
+     밀리초 값 자체는 이만큼 흔들린다는 뜻입니다.</p>
+
+  <div class="warn">그래도 결론은 안 바뀝니다. 1,518배가 3,088배가 되었을 뿐
+    양쪽 다 세 자릿수입니다. 이 교과에서 봐야 하는 것이 밀리초가 아니라
+    자릿수인 까닭이 여기 있습니다.
+    반대로 두 배쯤 차이가 나는 결과를 근거로 삼으면 안 됩니다 —
+    순서만 바꿔도 뒤집힐 수 있는 크기입니다.
+  </div>
+
+  <h5>절차 5 — 건수를 줄여 본다</h5>
+
+  <p class="cmdline"><code><i># N 을 200 으로 바꿔서 돌립니다</i>
+
+자료 200개에서 20000번 찾기
+ArrayList.contains       34 ms   (찾은 것 20000개)
+HashMap.containsKey       2 ms   (찾은 것 20000개)
+차이 약 17배</code></p>
+
+  <p>1,518배가 17배로 줄었습니다. 여전히 빠른 쪽이 빠르지만
+     34 밀리초는 사람이 못 느끼는 시간입니다.
+     자료가 적으면 잘못 골라도 안 드러난다는 뜻입니다.
+     훈련생 과제는 대개 자료가 적어서, 실무에 가서야 문제가 터집니다.</p>
+
+  <h5>절차 6 — 화면을 남긴다</h5>
+
+  <p>친 명령부터 결과까지 한 장에 들어가게 찍으십시오.
+     이 화면이 실습 10 근거표의 첫 줄 근거가 됩니다.
+     결과만 오려 붙이면 어디서 나온 숫자인지 확인할 수 없습니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>한글이 물음표로 나온다</td>
+        <td><code>-Dstdout.encoding=utf-8</code> 을 붙였습니까 — 절차 2</td></tr>
+    <tr><td>컴파일에서 한글 변수명이 깨진다</td>
+        <td><code>javac -encoding utf-8</code> 을 빠뜨렸습니다</td></tr>
+    <tr><td>너무 오래 기다린다</td>
+        <td>정상입니다. <code>N</code> 을 5만으로 줄여도 차이는 보입니다</td></tr>
+    <tr><td><code>OutOfMemoryError</code></td>
+        <td><code>N</code> 을 줄이십시오. 20만이면 메모리가 넉넉해야 합니다</td></tr>
+    <tr><td>맵 쪽이 0 ms 로 나온다</td>
+        <td>나눗셈에서 예외가 납니다. <code>if (맵 &gt; 0)</code> 을 넣었습니까</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 20만 건 측정 화면, 순서를 바꿔 다시 잰 화면,
+     200건으로 줄여 잰 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 양쪽이 찾은 개수가 같은지 봤습니까
+     ② 순서를 바꿔 다시 쟀습니까
+     ③ 건수를 줄이면 차이가 줄어드는 것을 봤습니까
+     ④ 왜 자료가 적으면 안 드러나는지 설명할 수 있습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st2">
+      <h3><i>2</i>완성 산출물의 확인</h3>
+      <aside class="side">
+        <p class="pt">낼 것을 먼저 보고 시작합니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 활용 서식</p>
+        <b class="sh">내는 것</b>
+        <p class="v">근거표 · 측정 화면 · 코드</p>
+      </aside>
+      <div class="bd">
+
+<h4>완성본이 어떻게 생겼는지</h4>
+
+<p>제출물 셋 가운데 점수가 가장 많이 붙는 것은 선정 근거표입니다.
+   모양은 아래와 같습니다. 실습 10 에서 이것을 만듭니다.</p>
+
+<p class="cmdline"><code>기능        자료 성격          자주 하는 일   고른 것       대안        견준 근거
+----------  -----------------  -------------  ------------  ----------  ----------------
+로그인      아이디로 한 건      탐색           HashMap       TreeMap     20만 건 1,500배
+상품 검색    이름 일부로 여러 건  탐색           ArrayList     -           건수가 적어 충분
+장바구니     넣고 빼기가 잦음     삽입·삭제      ArrayList     LinkedList  뒤에만 넣어 같음
+주문 내역    날짜 범위로 조회     범위 탐색      TreeMap       ArrayList   정렬 유지가 필요</code></p>
+
+<p>오른쪽 두 칸이 이 표의 값어치입니다.
+   대안을 안 적으면 고른 것이 아니라 그냥 쓴 것이 되고,
+   근거에 숫자가 없으면 재 본 적이 없다는 뜻으로 읽힙니다.</p>
+
+<h4>측정 화면</h4>
+
+<p class="cmdline"><code>자료 100000개
+                  맨 앞에 넣기   인덱스로 읽기
+ArrayList            1201 ms          1 ms
+LinkedList              8 ms      11977 ms</code></p>
+
+<p>근거표의 숫자가 여기서 나옵니다.
+   화면에는 친 명령이 같이 들어 있어야 합니다.
+   결과만 오려 붙이면 어디서 나온 숫자인지 확인할 수 없습니다.</p>
+
+<h4>코드</h4>
+
+<table class="wide">
+  <tr><th style="width:190px">파일</th><th style="width:90px">실습</th><th></th></tr>
+  <tr><td><code>Cmp.java</code></td><td class="c">3 · 9</td>
+      <td>자료구조를 바꿔 가며 시간을 잽니다</td></tr>
+  <tr><td><code>Sort.java</code></td><td class="c">11 · 12</td>
+      <td>정렬 셋. 비교 횟수와 교환 횟수를 셉니다</td></tr>
+  <tr><td><code>Find.java</code></td><td class="c">13 · 14</td>
+      <td>선형 탐색과 이진 탐색</td></tr>
+</table>
+
+<p>정렬과 탐색은 자바가 이미 다 만들어 두었습니다.
+   그래도 직접 쓰는 까닭은 비교 횟수를 세기 위해서입니다.
+   라이브러리는 그 수를 안 알려 줍니다.</p>
+
+<h4>시간 배분</h4>
+
+<table class="wide">
+  <tr><th style="width:150px">레벨</th><th style="width:90px">실습</th><th></th></tr>
+  <tr><td>2 · 기본 자료구조</td><td class="c">3 ~ 7</td>
+      <td>빠르게 지나갑니다. 차이가 드러나는 자리만 짚습니다</td></tr>
+  <tr><td>3 · 자료구조 활용</td><td class="c">8 ~ 10</td>
+      <td>여기에 가장 오래 씁니다. 점수도 여기 몰려 있습니다</td></tr>
+  <tr><td>4 · 정렬과 탐색</td><td class="c">11 ~ 15</td>
+      <td>코드는 짧습니다. 재고 견주는 데 시간이 듭니다</td></tr>
+</table>
+      <div class="lab">
+  <b class="t">실습 2</b>
+  <b>제출 폴더를 먼저 만들고 근거표 틀을 잡는다</b>
+
+  <p><b>목적</b> — 낼 것을 마지막에 모으면 반드시 뭔가가 빕니다.
+     잰 화면은 다시 잴 수 있지만 그때 숫자가 달라집니다.
+     틀을 먼저 만들어 두고 실습마다 채워 넣는 편이 훨씬 빠릅니다.</p>
+
+  <h5>절차 1 — 폴더를 만든다</h5>
+
+  <p class="cmdline"><code>&gt; mkdir 자료구조활용
+&gt; cd 자료구조활용
+&gt; mkdir 코드 기록 화면
+
+&gt; dir /b
+코드
+기록
+화면</code></p>
+
+  <h5>절차 2 — 무엇이 어디에 들어가는지 적어 둔다</h5>
+
+  <table class="wide">
+    <tr><th style="width:110px">폴더</th><th style="width:210px">들어갈 것</th><th>나오는 실습</th></tr>
+    <tr><td><code>코드</code></td>
+        <td><code>Cmp.java</code> · <code>Sort.java</code> · <code>Find.java</code></td>
+        <td>1 · 3 · 11 · 13</td></tr>
+    <tr><td><code>기록</code></td>
+        <td>선정 근거표 · 측정값 정리</td><td>8 · 10 · 12</td></tr>
+    <tr><td><code>화면</code></td>
+        <td>측정 화면 · 실패 화면</td><td>거의 모든 실습</td></tr>
+  </table>
+
+  <h5>절차 3 — 근거표 틀을 만든다</h5>
+
+  <p class="cmdline"><code>기록/선정근거표.md
+
+| 기능 | 자료 성격 | 자주 하는 일 | 고른 것 | 대안 | 견준 근거 |
+|------|-----------|--------------|---------|------|-----------|
+|      |           |              |         |      |           |
+|      |           |              |         |      |           |
+|      |           |              |         |      |           |
+|      |           |              |         |      |           |
+|      |           |              |         |      |           |</code></p>
+
+  <p>다섯 줄을 미리 그어 두십시오. 기능 다섯 개를 채우는 것이 목표입니다.
+     실습 8 에서 왼쪽 세 칸을, 실습 9 와 10 에서 오른쪽 세 칸을 채웁니다.</p>
+
+  <h5>절차 4 — 측정값 정리표도 만든다</h5>
+
+  <p class="cmdline"><code>기록/측정값.md
+
+| 무엇을 쟀나 | 실습 | 결과 | 화면 파일 |
+|-------------|------|------|-----------|
+| 리스트 대 맵 탐색 | 1 | 16,702 ms 대 11 ms (1,518배) | 화면/01_탐색.png |
+|             |      |      |           |</code></p>
+
+  <p>첫 줄은 실습 1 에서 이미 나왔습니다. 지금 적어 두십시오.
+     이 표가 있으면 근거표를 쓸 때 숫자를 다시 찾아다닐 일이 없습니다.
+     근거표와 화면이 어긋나는 사고도 여기서 막힙니다.</p>
+
+  <h5>절차 5 — 화면 이름 규칙을 정한다</h5>
+
+  <p class="cmdline"><code>화면/
+  01_탐색_리스트대맵.png
+  02_삽입_리스트대링크드.png
+  03_메모리_배열대리스트.png
+  …</code></p>
+
+  <p>번호를 앞에 붙이면 순서대로 정렬됩니다.
+     뒤에는 무엇을 잰 화면인지 적으십시오.
+     <code>캡처1.png</code> 같은 이름을 열 장 모으면 나중에 다시 열어 봐야 합니다.</p>
+
+  <div class="note">화면은 친 명령부터 결과까지가 한 장에 들어가야 합니다.
+    창을 넓혀 두고 찍거나, 안 들어가면 두 장으로 나눠 찍고
+    이름에 <code>_1</code> <code>_2</code> 를 붙이십시오.
+    결과만 있는 화면은 어디서 나온 숫자인지 확인할 수 없어
+    근거로 쓰이지 못합니다.
+  </div>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>한글 폴더 이름이 깨진다</td>
+        <td>명령 프롬프트에서 <code>chcp 65001</code> 을 치고 다시 하십시오</td></tr>
+    <tr><td>마크다운 표를 어떻게 쓰는지 모르겠다</td>
+        <td>세로 막대로 칸을 나눕니다. 메모장으로 써도 됩니다</td></tr>
+    <tr><td>표를 엑셀로 쓰고 싶다</td>
+        <td>됩니다. 제출할 때 형식을 작업지시서에서 확인하십시오</td></tr>
+    <tr><td>화면을 어떻게 찍는지 모르겠다</td>
+        <td>윈도우 키 + Shift + S 로 범위를 골라 찍습니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 폴더 구조 화면, 근거표 틀, 측정값 정리표 첫 줄</p>
+
+  <p><b>스스로 확인</b> —
+     ① 폴더 셋을 만들었습니까
+     ② 근거표에 여섯 칸이 다 있습니까
+     ③ 실습 1 의 숫자를 측정값표에 옮겼습니까
+     ④ 화면 이름 규칙을 정했습니까</p>
+</div>
+      </div>
+</div>
+
+<h3 class="lv">레벨 2 · 기본 자료구조 <span>능력단위요소 ① · 차이가 드러나는 자리만</span></h3>
+
+<div class="step" id="st3">
+      <h3><i>3</i>배열과 리스트</h3>
+      <aside class="side">
+        <p class="pt">연속으로 놓느냐, 이어 두느냐.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1</p>
+        <b class="sh">용어</b>
+        <p class="v">노드 · 포인터 · 선형 구조</p>
+      </aside>
+      <div class="bd">
+
+<h4>메모리에 어떻게 놓이나</h4>
+
+<p class="cmdline"><code>배열      [10][20][30][40]         칸이 붙어 있습니다
+           ↑
+        시작 주소 + 칸 크기 × 번호   곧바로 계산됩니다
+
+연결리스트  [10|→][20|→][30|→][40|✕]  칸이 흩어져 있고
+                                      다음 칸 주소를 들고 있습니다
+           세 번째를 보려면 첫 칸부터 따라갑니다</code></p>
+
+<p>한 칸을 노드라 하고, 다음 칸을 가리키는 것을 포인터라 합니다.
+   배열은 포인터가 없습니다. 붙어 있으니 계산으로 찾습니다.</p>
+
+<h4>그래서 무엇이 달라지나</h4>
+
+<table class="wide">
+  <tr><th style="width:190px">하는 일</th><th style="width:170px">배열</th><th>연결리스트</th></tr>
+  <tr><td>번호로 읽기</td><td>계산 한 번</td><td>앞에서부터 따라갑니다</td></tr>
+  <tr><td>맨 앞에 넣기</td><td>뒤를 전부 밀어야 합니다</td><td>포인터 둘만 고칩니다</td></tr>
+  <tr><td>맨 뒤에 넣기</td><td>빈 자리가 있으면 바로</td><td>끝까지 가서 답니다</td></tr>
+  <tr><td>메모리</td><td>값만 담습니다</td><td>포인터 몫이 더 듭니다</td></tr>
+</table>
+
+<p>이 표가 실습 3 에서 숫자로 나옵니다.
+   10만 개를 맨 앞에 넣으면 <code>ArrayList</code> 는 1,201 밀리초,
+   <code>LinkedList</code> 는 8 밀리초입니다. 번호로 읽으면 뒤집힙니다.</p>
+
+<h4>자바에서는</h4>
+
+<table class="wide">
+  <tr><th style="width:190px">자바</th><th style="width:150px">속은</th><th></th></tr>
+  <tr><td><code>int[]</code></td><td>배열</td>
+      <td>크기가 고정입니다. 넘으면 예외가 납니다</td></tr>
+  <tr><td><code>ArrayList</code></td><td>배열</td>
+      <td>꽉 차면 더 큰 배열로 옮깁니다. 그 순간만 느립니다</td></tr>
+  <tr><td><code>LinkedList</code></td><td>연결리스트</td>
+      <td>양쪽으로 이어져 있습니다</td></tr>
+</table>
+
+<div class="note">실무에서 <code>LinkedList</code> 를 고르는 일은 드뭅니다.
+  맨 앞에 넣는 일이 잦다 해도 <code>ArrayDeque</code> 가 더 빠르고,
+  대부분의 코드는 번호로 읽는 일이 훨씬 많기 때문입니다.
+  그래도 이 교과에서 다루는 까닭은 둘의 차이가 자료구조를 고르는
+  기준 그 자체이기 때문입니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 3</b>
+  <b>ArrayList 와 LinkedList 를 재고 순위가 뒤집히는 것을 본다</b>
+
+  <p><b>목적</b> — 어느 것이 더 빠르냐는 물음에는 답이 없습니다.
+     무엇을 하느냐에 따라 뒤집히기 때문입니다.
+     둘을 두 가지 일로 재 보면 그 답이 왜 없는지 한눈에 보입니다.</p>
+
+  <h5>절차 1 — 두 가지 일을 잴 프로그램을 쓴다</h5>
+
+  <p class="cmdline"><code>Cmp1.java
+
+import java.util.*;
+
+public class Cmp1 {
+  public static void main(String[] a) {
+    int N = 100_000;
+    ArrayList&lt;Integer&gt;  al = new ArrayList&lt;&gt;();
+    LinkedList&lt;Integer&gt; ll = new LinkedList&lt;&gt;();
+
+    long t = System.nanoTime();
+    for (int i = 0; i &lt; N; i++) al.add(0, i);
+    long alHead = (System.nanoTime() - t) / 1_000_000;
+
+    t = System.nanoTime();
+    for (int i = 0; i &lt; N; i++) ll.add(0, i);
+    long llHead = (System.nanoTime() - t) / 1_000_000;
+
+    long s = 0;
+    t = System.nanoTime();
+    for (int i = 0; i &lt; N; i++) s += al.get(i);
+    long alGet = (System.nanoTime() - t) / 1_000_000;
+
+    t = System.nanoTime();
+    for (int i = 0; i &lt; N; i++) s += ll.get(i);
+    long llGet = (System.nanoTime() - t) / 1_000_000;
+
+    System.out.println("자료 " + N + "개");
+    System.out.println("                  맨 앞에 넣기   인덱스로 읽기");
+    System.out.printf ("ArrayList          %6d ms     %6d ms%n", alHead, alGet);
+    System.out.printf ("LinkedList         %6d ms     %6d ms%n", llHead, llGet);
+    System.out.println("(합계 " + s + " — 최적화 방지용)");
+  }
+}</code></p>
+
+  <p>마지막 줄이 필요한 까닭이 있습니다.
+     읽기만 하고 그 값을 아무 데도 안 쓰면 자바가 반복문을 통째로 지워 버립니다.
+     지워진 반복문은 0 밀리초로 나옵니다. 더해서 찍어 두면 못 지웁니다.</p>
+
+  <h5>절차 2 — 돌린다</h5>
+
+  <p class="cmdline"><code>&gt; javac -encoding utf-8 Cmp1.java
+&gt; java -Dstdout.encoding=utf-8 Cmp1
+자료 100000개
+                  맨 앞에 넣기   인덱스로 읽기
+ArrayList            1201 ms          1 ms
+LinkedList              8 ms      11977 ms
+(합계 9999900000 — 최적화 방지용)</code></p>
+
+  <h5>절차 3 — 표를 읽는다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">하는 일</th><th style="width:150px">빠른 쪽</th><th>차이</th></tr>
+    <tr><td>맨 앞에 넣기</td><td>LinkedList</td><td>150배</td></tr>
+    <tr><td>인덱스로 읽기</td><td>ArrayList</td><td>약 12,000배</td></tr>
+  </table>
+
+  <p>대각선으로 뒤집힙니다. 한쪽이 잘하는 일을 다른 쪽이 못합니다.
+     「어느 것이 빠른가」라는 물음이 성립하지 않는 까닭입니다.
+     물어야 할 것은 「내 프로그램이 주로 무엇을 하는가」입니다.</p>
+
+  <h5>절차 4 — 왜 그런지 그림으로 확인한다</h5>
+
+  <p class="cmdline"><code>ArrayList 맨 앞에 넣기
+  [_][10][20][30]      ← 먼저 전부 한 칸씩 뒤로 밀고
+  [5][10][20][30]      ← 빈 자리에 넣습니다
+  10만 개를 넣으면 밀어야 하는 칸이 계속 늡니다
+
+LinkedList 맨 앞에 넣기
+  [5|→][10|→][20|→]    ← 새 칸을 만들어 포인터 하나만 고칩니다
+  몇 개가 들어 있든 같은 일입니다
+
+LinkedList 인덱스로 읽기
+  5만 번째를 보려면 첫 칸부터 5만 번 따라갑니다</code></p>
+
+  <h5>절차 5 — 맨 뒤에 넣는 것으로 바꿔 본다</h5>
+
+  <p class="cmdline"><code><i># add(0, i) 를 add(i) 로 고칩니다</i>
+
+자료 100000개
+                  맨 뒤에 넣기   인덱스로 읽기
+ArrayList              10 ms          1 ms
+LinkedList              8 ms      11345 ms</code></p>
+
+  <p>맨 앞이 아니라 맨 뒤에 넣으면 차이가 사라집니다.
+     1,201 밀리초였던 자리가 10 밀리초가 되었고,
+     10 과 8 은 같다고 봐야 하는 값입니다.
+     실제 코드에서 목록에 무언가를 넣는 일은 거의 맨 뒤입니다.
+     실무에서 <code>LinkedList</code> 를 고를 일이 드문 까닭이 여기 있습니다.</p>
+
+  <div class="note"><code>ArrayList</code> 는 꽉 차면 더 큰 배열을 만들어 옮깁니다.
+    그 순간만 느리지만 다음 번 옮길 때까지 여유가 두 배로 늘어나므로
+    평균으로 보면 맨 뒤에 넣는 일은 O(1) 입니다.
+    <code>new ArrayList&lt;&gt;(100_000)</code> 처럼 처음부터 크기를 알려 주면
+    옮기는 일 자체가 없어집니다.
+  </div>
+
+  <h5>절차 6 — 측정값표에 옮긴다</h5>
+
+  <p class="cmdline"><code>| 리스트 대 링크드 (맨 앞 삽입) | 3 | 1,201 ms 대 8 ms (150배) | 화면/02_삽입.png |
+| 리스트 대 링크드 (인덱스 읽기) | 3 | 1 ms 대 11,977 ms | 화면/02_삽입.png |</code></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>읽기가 0 ms 로 나온다</td>
+        <td>합계를 안 찍어서 반복문이 지워졌습니다 — 절차 1</td></tr>
+    <tr><td>너무 오래 걸린다</td>
+        <td><code>LinkedList</code> 읽기가 12초입니다. 정상입니다</td></tr>
+    <tr><td>숫자가 교안과 다르다</td>
+        <td>컴퓨터마다 다릅니다. 몇 배인지가 같으면 됩니다</td></tr>
+    <tr><td>몇 배인지도 다르다</td>
+        <td>다시 돌려 보십시오. 두세 번 재서 가운데 값을 쓰십시오</td></tr>
+    <tr><td><code>Integer</code> 와 <code>int</code> 가 헷갈린다</td>
+        <td>컬렉션에는 <code>Integer</code> 만 넣을 수 있습니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 맨 앞 삽입과 인덱스 읽기를 잰 화면,
+     맨 뒤 삽입으로 바꿔 잰 화면, 측정값표 두 줄</p>
+
+  <p><b>스스로 확인</b> —
+     ① 순위가 뒤집히는 것을 봤습니까
+     ② 왜 뒤집히는지 그림으로 설명할 수 있습니까
+     ③ 맨 뒤에 넣으면 차이가 사라지는 것을 봤습니까
+     ④ 합계를 찍는 줄이 왜 필요한지 압니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st4">
+      <h3><i>4</i>시간 복잡도</h3>
+      <aside class="side">
+        <p class="pt">몇 초가 아니라 몇 배로 느는가.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1</p>
+        <b class="sh">용어</b>
+        <p class="v">시간 복잡도 · 공간 복잡도</p>
+      </aside>
+      <div class="bd">
+
+<h4>Big-O 가 재는 것</h4>
+
+<p>시간 복잡도는 걸린 시간이 아닙니다.
+   자료가 늘 때 <b>시간이 어떤 모양으로 느는가</b>입니다.
+   컴퓨터가 빠르든 느리든 모양은 안 바뀌므로 어느 컴퓨터에서 재도 같습니다.</p>
+
+<table class="wide">
+  <tr><th style="width:130px">표기</th><th style="width:210px">자료가 두 배가 되면</th><th>보기</th></tr>
+  <tr><td>O(1)</td><td>그대로</td><td>배열의 번호로 읽기 · 해시 조회</td></tr>
+  <tr><td>O(log n)</td><td>한 번 더 볼 뿐</td><td>이진 탐색 · 균형 트리</td></tr>
+  <tr><td>O(n)</td><td>두 배</td><td>처음부터 끝까지 훑기</td></tr>
+  <tr><td>O(n log n)</td><td>두 배보다 조금 더</td><td>병합 정렬 · <code>Arrays.sort</code></td></tr>
+  <tr><td>O(n²)</td><td>네 배</td><td>버블 · 선택 · 삽입 정렬</td></tr>
+</table>
+
+<p>실습 12 에서 버블 정렬의 개수를 두 배씩 늘리면
+   151 → 1,102 → 5,643 → 25,141 밀리초가 나옵니다.
+   대략 네 배씩 늡니다. 표의 마지막 줄이 눈앞에서 확인됩니다.</p>
+
+<h4>주요 자료구조의 시간 복잡도</h4>
+
+<table class="wide">
+  <tr><th style="width:170px"></th><th style="width:90px">접근</th><th style="width:90px">탐색</th>
+      <th style="width:110px">맨 앞 삽입</th><th>비고</th></tr>
+  <tr><td>배열 · ArrayList</td><td>O(1)</td><td>O(n)</td><td>O(n)</td>
+      <td>붙어 있어 캐시에 잘 맞습니다</td></tr>
+  <tr><td>LinkedList</td><td>O(n)</td><td>O(n)</td><td>O(1)</td>
+      <td>포인터 몫의 메모리가 더 듭니다</td></tr>
+  <tr><td>HashMap</td><td>-</td><td>평균 O(1)</td><td>평균 O(1)</td>
+      <td>순서가 없습니다</td></tr>
+  <tr><td>TreeMap</td><td>-</td><td>O(log n)</td><td>O(log n)</td>
+      <td>키 순서로 정렬되어 있습니다</td></tr>
+</table>
+
+<div class="warn"><code>HashMap</code> 이 평균 O(1) 이라는 말에는 조건이 붙습니다.
+  서로 다른 키가 같은 자리로 몰리면 그 자리에서 다시 찾아야 하고,
+  최악에는 O(n) 이 됩니다. 자바는 한 자리가 너무 길어지면 트리로 바꿔
+  O(log n) 으로 막아 둡니다. 「해시는 항상 빠르다」로 외우면
+  직접 만든 키 클래스에서 걸려 넘어집니다 — 실습 6 에서 겪어 봅니다.
+</div>
+
+<h4>공간 복잡도</h4>
+
+<p>메모리도 같은 방식으로 셉니다. 자바에서는 상자에 담는 비용이 큽니다.</p>
+
+<p class="cmdline"><code>int[1,000,000]             4,094 KB
+ArrayList&lt;Integer&gt; 100만  19,747 KB</code></p>
+
+<p>같은 백만 개인데 다섯 배 가까이 차이 납니다.
+   <code>int</code> 는 4바이트지만 <code>Integer</code> 는 객체라
+   머리말과 참조가 따로 듭니다.
+   숫자를 대량으로 다룰 때 이 차이가 메모리 부족으로 나타납니다.</p>
+      <div class="lab">
+  <b class="t">실습 4</b>
+  <b>배열의 경계에서 넘어져 보고 메모리를 잰다</b>
+
+  <p><b>목적</b> — 시간 복잡도는 재 봤습니다. 공간 복잡도도 재야 절반이 채워집니다.
+     같은 자료 백만 개가 담는 방식에 따라 몇 배까지 차이 나는지 보고,
+     배열의 크기가 고정이라는 말이 실제로 무엇을 뜻하는지 확인합니다.</p>
+
+  <h5>절차 1 — 배열의 경계를 넘어 본다</h5>
+
+  <p class="cmdline"><code>Arr1.java
+
+int[] v = new int[3];
+System.out.println("int[3] 만든 직후 " + Arrays.toString(v));
+try { v[3] = 10; } catch (Exception e) { System.out.println("v[3]=10 → " + e); }
+
+String[] s = new String[2];
+System.out.println("String[2] 만든 직후 " + Arrays.toString(s));
+try { System.out.println(s[0].length()); }
+catch (Exception e) { System.out.println("s[0].length() → " + e); }</code></p>
+
+  <p class="cmdline"><code>int[3] 만든 직후 [0, 0, 0]
+v[3]=10 → java.lang.ArrayIndexOutOfBoundsException: Index 3 out of bounds for length 3
+String[2] 만든 직후 [null, null]
+s[0].length() → java.lang.NullPointerException: Cannot invoke "String.length()"
+                because "&lt;local2&gt;[0]" is null</code></p>
+
+  <p>두 가지가 보입니다. 배열은 만들자마자 값이 채워져 있고,
+     그 값이 숫자면 0, 참조면 <code>null</code> 입니다.
+     그리고 크기를 넘으면 예외가 납니다. 늘어나지 않습니다.</p>
+
+  <h5>절차 2 — ArrayList 와 견준다</h5>
+
+  <p class="cmdline"><code>List&lt;Integer&gt; L = new ArrayList&lt;&gt;();
+for (int i = 0; i &lt; 5; i++) L.add(i);
+
+  [0, 1, 2, 3, 4]  크기 5
+  get(9) → java.lang.IndexOutOfBoundsException: Index 9 out of bounds for length 5</code></p>
+
+  <table class="wide">
+    <tr><th style="width:190px"></th><th style="width:190px">배열</th><th>ArrayList</th></tr>
+    <tr><td>크기</td><td>만들 때 정하고 못 바꿉니다</td><td>넣는 대로 늡니다</td></tr>
+    <tr><td>처음 상태</td><td>기본값으로 채워져 있습니다</td><td>비어 있습니다</td></tr>
+    <tr><td>크기 확인</td><td><code>v.length</code></td><td><code>L.size()</code></td></tr>
+    <tr><td>넘으면</td><td><code>ArrayIndexOutOfBounds</code></td>
+        <td><code>IndexOutOfBounds</code></td></tr>
+  </table>
+
+  <p>예외 이름이 다릅니다. 앞에 <code>Array</code> 가 붙으면 배열이고
+     안 붙으면 컬렉션입니다. 오류 화면에서 어느 쪽인지 바로 가려집니다.</p>
+
+  <h5>절차 3 — 메모리를 잰다</h5>
+
+  <p class="cmdline"><code>Runtime r = Runtime.getRuntime();
+System.gc(); long b1 = r.totalMemory() - r.freeMemory();
+
+int[] prim = new int[1_000_000];
+for (int i = 0; i &lt; prim.length; i++) prim[i] = i;
+System.gc(); long b2 = r.totalMemory() - r.freeMemory();
+
+List&lt;Integer&gt; box = new ArrayList&lt;&gt;(1_000_000);
+for (int i = 0; i &lt; 1_000_000; i++) box.add(i);
+System.gc(); long b3 = r.totalMemory() - r.freeMemory();</code></p>
+
+  <p class="cmdline"><code>int[1,000,000]             4,094 KB
+ArrayList&lt;Integer&gt; 100만  19,747 KB</code></p>
+
+  <p>4메가와 19.7메가입니다. 같은 백만 개인데 다섯 배 가까이 차이 납니다.
+     <code>int</code> 하나는 4바이트이므로 왼쪽은 계산대로입니다.
+     오른쪽은 <code>Integer</code> 객체 백만 개와, 그것을 가리키는 참조 백만 개입니다.</p>
+
+  <div class="warn"><code>System.gc()</code> 는 부탁이지 명령이 아닙니다.
+    자바가 그 자리에서 치울 수도 있고 안 치울 수도 있습니다.
+    그래서 이 방법으로 잰 값은 정확하지 않습니다.
+    다섯 배쯤 되는 차이를 보는 데는 충분하지만
+    「정확히 19,747 KB」라고 쓰면 안 됩니다. 재 보니 그쯤이었다고 쓰십시오.
+  </div>
+
+  <h5>절차 4 — 크기를 미리 알려 주면</h5>
+
+  <p class="cmdline"><code>500만 개를 맨 뒤에 넣기
+new ArrayList&lt;&gt;()            321 ms
+new ArrayList&lt;&gt;(5_000_000)   187 ms</code></p>
+
+  <p><code>ArrayList</code> 는 꽉 차면 더 큰 배열로 옮깁니다.
+     용량은 열에서 시작해 한 번에 1.5배씩 늘어나므로
+     500만 개를 넣는 동안 서른세 번 옮깁니다.
+     담을 개수를 미리 알고 있으면 괄호 안에 적어 주십시오.
+     옮기는 일이 통째로 없어져 1.7배쯤 빨라집니다.</p>
+
+  <h5>절차 5 — 언제 무엇을 쓸지 정리한다</h5>
+
+  <table class="wide">
+    <tr><th style="width:230px">이런 상황이면</th><th>고를 것</th></tr>
+    <tr><td>개수가 고정이고 숫자만 담는다</td><td>배열. 메모리가 다섯 배 적습니다</td></tr>
+    <tr><td>개수가 바뀐다</td><td>ArrayList</td></tr>
+    <tr><td>개수는 바뀌지만 대략 안다</td><td>ArrayList 에 크기를 알려 줍니다</td></tr>
+    <tr><td>백만 단위 숫자를 다룬다</td><td>배열. 메모리 차이가 실제로 문제가 됩니다</td></tr>
+  </table>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>메모리 값이 음수로 나온다</td>
+        <td><code>System.gc()</code> 가 중간에 치웠습니다. 다시 돌리십시오</td></tr>
+    <tr><td>메모리 값이 매번 다르다</td>
+        <td>정상입니다. 세 번 재서 가운데 값을 쓰십시오 — 절차 3</td></tr>
+    <tr><td><code>OutOfMemoryError</code></td>
+        <td><code>java -Xmx2g</code> 로 메모리를 늘려 돌리십시오</td></tr>
+    <tr><td>500만 개가 안 들어간다</td>
+        <td>100만으로 줄이십시오. 차이는 그대로 보입니다</td></tr>
+    <tr><td>배열 크기를 바꾸고 싶다</td>
+        <td>못 바꿉니다. <code>Arrays.copyOf</code> 로 새로 만듭니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 배열 경계 예외 화면, 메모리 측정 화면,
+     크기를 미리 알려 준 것과 아닌 것을 견준 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 배열의 기본값이 무엇인지 봤습니까
+     ② 두 예외 이름의 차이를 압니까
+     ③ 메모리 차이가 왜 나는지 설명할 수 있습니까
+     ④ <code>System.gc()</code> 로 잰 값의 한계를 압니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st5">
+      <h3><i>5</i>스택과 큐</h3>
+      <aside class="side">
+        <p class="pt">꺼내는 순서만 다릅니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1</p>
+        <b class="sh">용어</b>
+        <p class="v">LIFO · FIFO</p>
+      </aside>
+      <div class="bd">
+
+<h4>넣는 것은 같고 꺼내는 것이 다릅니다</h4>
+
+<p class="cmdline"><code>가 · 나 · 다 를 차례로 넣고 전부 꺼내면
+
+  스택   다 나 가      마지막에 넣은 것이 먼저 (LIFO)
+  큐     가 나 다      먼저 넣은 것이 먼저 (FIFO)</code></p>
+
+<p>둘 다 담는 그릇은 배열이나 연결리스트입니다.
+   자료구조가 다른 것이 아니라 <b>꺼내는 규칙</b>이 다릅니다.
+   그래서 학습모듈은 이 둘을 추상 자료형 쪽으로 분류합니다.</p>
+
+<h4>어디에 쓰이나</h4>
+
+<table class="wide">
+  <tr><th style="width:110px"></th><th style="width:230px">쓰이는 자리</th><th>왜 그 규칙인가</th></tr>
+  <tr><td>스택</td><td>되돌리기 · 괄호 검사 · 함수 호출</td>
+      <td>가장 최근 것부터 되짚어야 합니다</td></tr>
+  <tr><td>큐</td><td>대기열 · 인쇄 작업 · 메시지 처리</td>
+      <td>먼저 온 사람이 먼저입니다</td></tr>
+</table>
+
+<p>함수 호출이 스택인 것은 앞 교과에서 본 적이 있습니다.
+   예외가 났을 때 찍히는 <code>at</code> 줄이 스택을 위에서부터 쏟아 낸 것입니다.
+   가장 위가 방금 부른 함수입니다.</p>
+
+<h4>자바에서는</h4>
+
+<table class="wide">
+  <tr><th style="width:230px">쓸 것</th><th style="width:110px">넣기</th><th style="width:110px">꺼내기</th><th></th></tr>
+  <tr><td><code>Deque</code> · <code>ArrayDeque</code></td>
+      <td><code>push</code></td><td><code>pop</code></td><td>스택으로 씁니다</td></tr>
+  <tr><td><code>Queue</code> · <code>LinkedList</code></td>
+      <td><code>offer</code></td><td><code>poll</code></td><td>큐로 씁니다</td></tr>
+  <tr><td><code>Stack</code></td><td><code>push</code></td><td><code>pop</code></td>
+      <td>이름은 맞지만 오래된 클래스라 쓰지 않습니다</td></tr>
+</table>
+
+<div class="note">비어 있을 때 꺼내면 어떻게 되는지가 메서드마다 다릅니다.
+  <code>pop</code> 과 <code>remove</code> 는 예외를 던지고
+  <code>peek</code> 과 <code>poll</code> 은 <code>null</code> 을 돌려줍니다.
+  <code>null</code> 이 돌아온 줄 모르고 그대로 쓰면
+  몇 줄 뒤에서 <code>NullPointerException</code> 이 나는데,
+  터진 자리와 원인이 떨어져 있어 찾기가 번거롭습니다 — 실습 5 에서 봅니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 5</b>
+  <b>스택과 큐를 쓰고 빈 것에서 꺼내 본다</b>
+
+  <p><b>목적</b> — 꺼내는 순서가 다르다는 것은 한 번 돌려 보면 끝납니다.
+     시간이 드는 쪽은 비어 있을 때입니다.
+     네 가지 메서드가 서로 다르게 굴어서, 모르고 쓰면 엉뚱한 자리에서 터집니다.</p>
+
+  <h5>절차 1 — 같은 것을 넣고 순서를 본다</h5>
+
+  <p class="cmdline"><code>Deque&lt;String&gt; 스택 = new ArrayDeque&lt;&gt;();
+for (String s : new String[]{"가","나","다"}) 스택.push(s);
+while (!스택.isEmpty()) System.out.print(스택.pop() + " ");
+
+Queue&lt;String&gt; 큐 = new LinkedList&lt;&gt;();
+for (String s : new String[]{"가","나","다"}) 큐.offer(s);
+while (!큐.isEmpty()) System.out.print(큐.poll() + " ");</code></p>
+
+  <p class="cmdline"><code>스택 꺼내는 순서 : 다 나 가
+큐   꺼내는 순서 : 가 나 다</code></p>
+
+  <p>넣는 코드는 같습니다. 꺼내는 메서드 이름만 다릅니다.
+     스택은 마지막 것부터, 큐는 첫 것부터 나옵니다.</p>
+
+  <h5>절차 2 — 빈 것에서 꺼내 본다</h5>
+
+  <p class="cmdline"><code>빈 것에서 꺼내면
+  pop()    → java.util.NoSuchElementException
+  peek()   → null
+  poll()   → null
+  remove() → java.util.NoSuchElementException</code></p>
+
+  <table class="wide">
+    <tr><th style="width:150px">메서드</th><th style="width:190px">비었을 때</th><th>언제 쓰나</th></tr>
+    <tr><td><code>pop</code> · <code>remove</code></td><td>예외를 던집니다</td>
+        <td>비어 있으면 안 되는 자리. 바로 터져 주는 편이 낫습니다</td></tr>
+    <tr><td><code>poll</code></td><td><code>null</code> 을 돌려줍니다</td>
+        <td>비어 있을 수 있는 자리. 받아서 확인합니다</td></tr>
+    <tr><td><code>peek</code></td><td><code>null</code> 을 돌려줍니다</td>
+        <td>꺼내지 않고 들여다볼 때</td></tr>
+  </table>
+
+  <div class="warn"><code>null</code> 이 돌아온 줄 모르고 그대로 쓰면
+    바로 터지지 않습니다. 몇 줄 뒤 그 값을 쓰는 자리에서
+    <code>NullPointerException</code> 이 납니다.
+    터진 줄과 원인이 떨어져 있어 찾는 데 시간이 걸립니다.
+    <code>poll</code> 로 받았으면 다음 줄에서 <code>null</code> 인지 보십시오.
+  </div>
+
+  <h5>절차 3 — 반복문 안에서 지워 본다</h5>
+
+  <p class="cmdline"><code>List&lt;Integer&gt; v = new ArrayList&lt;&gt;(List.of(1,2,3,4,5));
+for (Integer x : v) if (x % 2 == 0) v.remove(x);
+
+  java.util.ConcurrentModificationException</code></p>
+
+  <p>돌면서 지우면 예외가 납니다. 스레드를 안 쓰는데도 이름에
+     <code>Concurrent</code> 가 붙습니다. 도는 중에 바뀌었다는 뜻입니다.
+     반복자가 목록의 크기를 기억해 두었다가 달라진 것을 알아채고 던집니다.</p>
+
+  <p class="cmdline"><code>v.removeIf(x -&gt; x % 2 == 0);
+
+  [1, 3, 5]</code></p>
+
+  <p>한 줄로 끝납니다. 조건에 맞는 것을 지우고 싶으면 이 메서드를 쓰십시오.
+     반복자를 직접 써서 <code>it.remove()</code> 를 부르는 방법도 있지만
+     길고 틀리기 쉽습니다.</p>
+
+  <h5>절차 4 — 예약 대기열을 만들어 본다</h5>
+
+  <p class="cmdline"><code>Queue&lt;String&gt; 대기 = new ArrayDeque&lt;&gt;();
+대기.offer("김민수");
+대기.offer("박정희");
+대기.offer("이영호");
+
+<i>// 자리가 하나 났을 때</i>
+String 다음 = 대기.poll();
+if (다음 != null) System.out.println(다음 + " 님 차례입니다");
+else              System.out.println("대기자가 없습니다");</code></p>
+
+  <p>줄 서는 일이니 큐입니다. 여기에 스택을 쓰면 나중에 온 사람이
+     먼저 들어갑니다. 오류가 안 나므로 코드만 봐서는 못 찾습니다.
+     추상 자료형을 고르는 일이 곧 규칙을 정하는 일입니다.</p>
+
+  <h5>절차 5 — 괄호 검사를 만들어 본다</h5>
+
+  <p class="cmdline"><code>boolean 짝이맞나(String s) {
+  Deque&lt;Character&gt; 스택 = new ArrayDeque&lt;&gt;();
+  for (char c : s.toCharArray()) {
+    if (c == '(') 스택.push(c);
+    else if (c == ')') { if (스택.isEmpty()) return false; 스택.pop(); }
+  }
+  return 스택.isEmpty();
+}</code></p>
+
+  <p class="cmdline"><code>(a+b)*(c-d)  → true
+((a+b)       → false
+a+b)(        → false
+()           → true</code></p>
+
+  <p>여는 괄호를 넣어 두었다가 닫는 괄호를 만나면 하나 꺼냅니다.
+     가장 최근에 연 것과 짝이 맞아야 하므로 스택입니다.
+     마지막에 스택이 비어 있지 않으면 안 닫은 것이 남았다는 뜻이고,
+     꺼내려는데 비어 있으면 안 연 것을 닫았다는 뜻입니다.
+     셋째 줄이 그 경우입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>Stack</code> 클래스를 써도 되는지</td>
+        <td>됩니다. 다만 오래된 것이라 <code>ArrayDeque</code> 를 씁니다</td></tr>
+    <tr><td><code>ArrayDeque</code> 에 <code>null</code> 을 못 넣는다</td>
+        <td><code>NullPointerException</code> 이 납니다.
+            비었다는 신호와 구별이 안 되기 때문입니다</td></tr>
+    <tr><td>큐인데 <code>push</code> 를 썼다</td>
+        <td>앞쪽에 넣습니다. <code>offer</code> 를 쓰십시오 — 절차 1</td></tr>
+    <tr><td><code>ConcurrentModificationException</code></td>
+        <td>돌면서 지웠습니다 — 절차 3</td></tr>
+    <tr><td>어느 쪽인지 모르겠다</td>
+        <td>줄을 서면 큐, 되돌리면 스택입니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 꺼내는 순서 화면, 빈 것에서 꺼낸 네 가지 화면,
+     <code>ConcurrentModificationException</code> 화면, 괄호 검사 코드</p>
+
+  <p><b>스스로 확인</b> —
+     ① 두 꺼내는 순서를 봤습니까
+     ② 예외를 던지는 것과 <code>null</code> 을 주는 것을 구별합니까
+     ③ 돌면서 지우면 왜 안 되는지 압니까
+     ④ 대기열에 스택을 쓰면 무엇이 잘못되는지 설명할 수 있습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st6">
+      <h3><i>6</i>맵과 집합</h3>
+      <aside class="side">
+        <p class="pt">이 교과에서 가장 많이 쓰게 됩니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1</p>
+        <b class="sh">용어</b>
+        <p class="v">해시테이블 · 키</p>
+      </aside>
+      <div class="bd">
+
+<h4>키로 바로 찾습니다</h4>
+
+<p class="cmdline"><code>ArrayList   [id0][id1][id2] … [id199999]
+            찾으려면 앞에서부터 하나씩 견줍니다
+
+HashMap     "id173845" → 해시 함수 → 3번 칸
+            계산 한 번으로 자리를 알아냅니다</code></p>
+
+<p>키를 숫자로 바꾸는 함수를 해시 함수라 하고,
+   그 숫자를 자리 번호로 쓰는 표를 해시테이블이라 합니다.
+   자료가 20만이든 200만이든 계산 횟수는 그대로입니다.</p>
+
+<h4>세 가지 맵</h4>
+
+<table class="wide">
+  <tr><th style="width:210px"></th><th style="width:150px">꺼내는 순서</th><th></th></tr>
+  <tr><td><code>HashMap</code></td><td>정해져 있지 않음</td>
+      <td>가장 빠릅니다. 순서가 필요 없을 때</td></tr>
+  <tr><td><code>LinkedHashMap</code></td><td>넣은 순서</td>
+      <td>입력 순서를 지켜야 할 때</td></tr>
+  <tr><td><code>TreeMap</code></td><td>키 순서</td>
+      <td>범위로 자르거나 정렬된 채로 봐야 할 때</td></tr>
+</table>
+
+<p class="cmdline"><code>다 · 가 · 나 · 라 를 차례로 넣고 키를 꺼내면
+
+  HashMap       [가, 다, 나, 라]     넣은 순서도 아니고 가나다순도 아닙니다
+  LinkedHashMap [다, 가, 나, 라]
+  TreeMap       [가, 나, 다, 라]</code></p>
+
+<p><code>HashMap</code> 의 순서는 우연히 정해진 것입니다.
+   자바 판이 바뀌면 달라질 수 있으므로 이 순서에 기대는 코드를 쓰면 안 됩니다.
+   순서가 필요하면 아래 둘 중 하나를 고르십시오.</p>
+
+<h4>집합</h4>
+
+<p><code>Set</code> 은 값이 겹치지 않는 자루입니다.
+   <code>HashSet</code> · <code>LinkedHashSet</code> · <code>TreeSet</code> 이
+   위 표와 똑같이 대응합니다. 값만 있고 키가 없는 맵이라고 보면 맞습니다.</p>
+
+<div class="warn">내가 만든 클래스를 맵의 키나 집합의 값으로 쓸 때는
+  <code>equals</code> 와 <code>hashCode</code> 를 같이 만들어야 합니다.
+  안 만들면 내용이 같은 두 개를 서로 다른 것으로 봅니다.
+  오류가 나지 않고 조용히 틀린 답이 나오기 때문에
+  찾는 데 오래 걸립니다 — 실습 6 에서 겪어 봅니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 6</b>
+  <b>equals 없이 HashSet 을 써서 조용히 틀려 본다</b>
+
+  <p><b>목적</b> — 맵과 집합은 앞으로 가장 많이 쓰게 됩니다.
+     그런데 내가 만든 클래스를 키로 넣는 순간 함정이 하나 생깁니다.
+     예외가 안 나고 답만 틀리기 때문에 한 번 겪어 두지 않으면 못 찾습니다.</p>
+
+  <h5>절차 1 — 클래스를 두 개 만든다</h5>
+
+  <p class="cmdline"><code>class 회원1 { String id; 회원1(String id){this.id=id;} }
+
+class 회원2 {
+  String id; 회원2(String id){this.id=id;}
+  @Override public boolean equals(Object o){
+    return o instanceof 회원2 m &amp;&amp; m.id.equals(id);
+  }
+  @Override public int hashCode(){ return id.hashCode(); }
+}</code></p>
+
+  <p>담는 것은 똑같이 아이디 하나입니다.
+     아래쪽에만 메서드 둘이 더 있습니다.</p>
+
+  <h5>절차 2 — 같은 아이디를 두 번 넣는다</h5>
+
+  <p class="cmdline"><code>equals · hashCode 를 안 만들면
+  같은 아이디 둘을 넣었는데 크기 = 2
+  contains(new 회원1("kim")) = false
+
+만들면
+  크기 = 1
+  contains(new 회원2("kim")) = true</code></p>
+
+  <p>위쪽이 틀린 답입니다. <code>Set</code> 은 겹치는 것을 안 받는 자루인데
+     같은 아이디가 둘 들어갔습니다. 넣어 둔 것을 찾지도 못합니다.
+     예외는 한 줄도 안 났습니다.</p>
+
+  <div class="warn">이것이 이 교과에서 가장 조심해야 할 종류의 오류입니다.
+    터지면 자리를 알려 주지만, 조용히 틀리면 알려 주는 것이 없습니다.
+    중복 신청을 막으려고 <code>HashSet</code> 을 썼는데 안 막히는 상황을
+    생각해 보십시오. 코드를 아무리 들여다봐도 잘못이 안 보입니다.
+  </div>
+
+  <h5>절차 3 — 왜 그런지 확인한다</h5>
+
+  <p class="cmdline"><code>회원1 a = new 회원1("kim");
+회원1 b = new 회원1("kim");
+System.out.println(a.equals(b));
+System.out.println(a.hashCode());
+System.out.println(b.hashCode());
+
+a.equals(b)  = false
+a.hashCode() = 834600351
+b.hashCode() = 471910020</code></p>
+
+  <p><code>HashSet</code> 은 먼저 <code>hashCode</code> 로 자리를 찾고
+     그 자리에서 <code>equals</code> 로 같은지 봅니다.
+     둘 다 안 만들면 자바가 준 기본 동작을 쓰는데,
+     그것은 주소가 같아야 같다고 봅니다. 새로 만든 객체는 주소가 다릅니다.</p>
+
+  <h5>절차 4 — 자동으로 만들게 한다</h5>
+
+  <p class="cmdline"><code>record 회원3(String id, String 이름) { }
+
+회원3 a = new 회원3("kim", "김민수");
+회원3 b = new 회원3("kim", "김민수");
+System.out.println(a.equals(b));
+
+record equals = true
+record HashSet 크기 = 1</code></p>
+
+  <p><code>record</code> 로 만들면 <code>equals</code> 와 <code>hashCode</code> 를
+     자바가 만들어 줍니다. 값만 담는 클래스라면 이쪽이 안전합니다.
+     IDE 에서 두 메서드를 생성하는 기능을 써도 됩니다.
+     직접 손으로 쓰는 일은 거의 없습니다.</p>
+
+  <h5>절차 5 — 꺼내는 순서를 견준다</h5>
+
+  <p class="cmdline"><code>다 · 가 · 나 · 라 를 차례로 넣고 키를 꺼내면
+
+  HashMap       [가, 다, 나, 라]
+  LinkedHashMap [다, 가, 나, 라]
+  TreeMap       [가, 나, 다, 라]</code></p>
+
+  <p><code>HashMap</code> 의 순서는 넣은 순서도 아니고 가나다순도 아닙니다.
+     해시 값이 정한 자리 순서입니다.
+     자바 판이 바뀌거나 자료가 늘어나면 달라질 수 있으므로
+     이 순서에 기대는 코드를 쓰면 안 됩니다.</p>
+
+  <h5>절차 6 — 어느 것을 쓸지 정한다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">이런 상황이면</th><th>고를 것</th></tr>
+    <tr><td>순서가 아무래도 상관없다</td><td>HashMap · HashSet</td></tr>
+    <tr><td>넣은 순서대로 보여 줘야 한다</td><td>LinkedHashMap · LinkedHashSet</td></tr>
+    <tr><td>정렬된 채로 봐야 한다</td><td>TreeMap · TreeSet</td></tr>
+    <tr><td>범위로 잘라야 한다</td><td>TreeMap — 실습 7</td></tr>
+  </table>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>중복이 안 걸러진다</td>
+        <td><code>equals</code> 와 <code>hashCode</code> 를 만들었습니까 — 절차 2</td></tr>
+    <tr><td><code>equals</code> 만 만들었다</td>
+        <td>여전히 크기가 2 입니다. 자리부터 다르게 잡히기 때문입니다</td></tr>
+    <tr><td><code>TreeMap</code> 에 넣으니 예외가 난다</td>
+        <td><code>ClassCastException</code> 입니다.
+            키가 <code>Comparable</code> 이어야 합니다</td></tr>
+    <tr><td>순서가 매번 다르다</td>
+        <td><code>HashMap</code> 은 순서를 약속하지 않습니다 — 절차 5</td></tr>
+    <tr><td>키를 나중에 고쳤더니 못 찾는다</td>
+        <td>해시 자리가 바뀝니다. 키로 쓴 값은 안 고치는 것이 원칙입니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 두 클래스를 견준 화면, 세 가지 맵의 순서 화면,
+     <code>record</code> 로 고친 코드</p>
+
+  <p><b>스스로 확인</b> —
+     ① 조용히 틀리는 것을 직접 봤습니까
+     ② <code>hashCode</code> 와 <code>equals</code> 가 각각 무엇을 하는지 압니까
+     ③ 셋 중 무엇을 쓸지 고르는 기준이 있습니까
+     ④ <code>HashMap</code> 의 순서에 기대면 왜 안 되는지 압니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st7">
+      <h3><i>7</i>트리와 그래프</h3>
+      <aside class="side">
+        <p class="pt">한 줄로 안 늘어서는 것들.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1</p>
+        <b class="sh">용어</b>
+        <p class="v">비선형 구조 · 너비 우선 · 깊이 우선</p>
+      </aside>
+      <div class="bd">
+
+<h4>선형과 비선형</h4>
+
+<p>여기까지 본 것은 전부 한 줄로 늘어섭니다.
+   배열도 리스트도 스택도 큐도 앞뒤가 하나씩입니다. 이것을 선형 구조라 합니다.
+   트리와 그래프는 한 칸에서 여러 갈래로 갈라집니다.</p>
+
+<p class="cmdline"><code>트리                    그래프
+
+      A                   A ─── B
+     / \                  │     │
+    B   C                 C ─── D
+   / \                     \   /
+  D   E                      E ─── F
+
+갈라지기만 하고 돌아오지 않음    돌아올 수 있음
+위로는 하나뿐                   이웃이 여럿</code></p>
+
+<h4>트리가 쓰이는 자리</h4>
+
+<table class="wide">
+  <tr><th style="width:230px">보기</th><th></th></tr>
+  <tr><td>폴더 구조</td><td>폴더 안에 폴더. 위로는 하나뿐입니다</td></tr>
+  <tr><td>HTML 문서</td><td>태그 안에 태그. 화면 구현 교과에서 다룹니다</td></tr>
+  <tr><td>조직도 · 분류 체계</td><td>NCS 의 대분류 · 중분류 · 소분류가 트리입니다</td></tr>
+  <tr><td><code>TreeMap</code></td><td>키를 정렬된 트리로 담아 범위를 자를 수 있습니다</td></tr>
+</table>
+
+<p class="cmdline"><code>TreeMap 에 10 · 25 · 37 · 48 · 52 를 넣어 두면
+
+  subMap(25, 48)   {25=나, 37=다}     범위로 자릅니다
+  floorKey(30)     25                 30 바로 아래
+  ceilingKey(30)   37                 30 바로 위</code></p>
+
+<p><code>HashMap</code> 으로는 이것을 못 합니다. 순서가 없기 때문입니다.
+   날짜 범위 조회 같은 기능이 있으면 <code>TreeMap</code> 쪽입니다.</p>
+
+<h4>그래프를 도는 두 방법</h4>
+
+<table class="wide">
+  <tr><th style="width:190px"></th><th style="width:150px">쓰는 자료구조</th><th></th></tr>
+  <tr><td>너비 우선 탐색</td><td>큐</td>
+      <td>가까운 것부터 훑습니다. 최단 거리를 찾을 때</td></tr>
+  <tr><td>깊이 우선 탐색</td><td>스택</td>
+      <td>한 갈래를 끝까지 따라갑니다. 경로가 있는지 볼 때</td></tr>
+</table>
+
+<p>같은 그래프를 돌면서 자료구조만 큐에서 스택으로 바꾸면
+   <code>A B C D E F</code> 가 <code>A B D E C F</code> 로 바뀝니다.
+   나머지 코드는 한 줄도 안 고칩니다.
+   자료구조를 고르는 일이 곧 알고리즘을 고르는 일이 되는 예입니다 — 실습 7.</p>
+
+<div class="note">이 교과에서 그래프를 깊이 다루지 않습니다.
+  최단 경로 알고리즘이나 신장 트리는 범위 밖입니다.
+  비선형 구조가 무엇인지 알고, 큐와 스택이 순회 순서를 바꾼다는 것을
+  직접 보면 됩니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 7</b>
+  <b>같은 그래프를 큐와 스택으로 돌아 순서를 바꿔 본다</b>
+
+  <p><b>목적</b> — 자료구조를 고르는 일이 알고리즘을 고르는 일이 되는 자리를
+     한 번 보여 주려는 실습입니다. 코드를 한 줄도 안 고치고
+     담는 그릇만 바꾸면 도는 순서가 달라집니다.</p>
+
+  <h5>절차 1 — 그래프를 만든다</h5>
+
+  <p class="cmdline"><code>static Map&lt;String,List&lt;String&gt;&gt; 이웃 = new LinkedHashMap&lt;&gt;();
+
+static void 잇기(String a, String b) {
+  이웃.computeIfAbsent(a, k -&gt; new ArrayList&lt;&gt;()).add(b);
+  이웃.computeIfAbsent(b, k -&gt; new ArrayList&lt;&gt;()).add(a);
+}
+
+잇기("A","B"); 잇기("A","C"); 잇기("B","D");
+잇기("C","E"); 잇기("D","E"); 잇기("E","F");</code></p>
+
+  <p class="cmdline"><code>이웃 목록
+  A → [B, C]
+  B → [A, D]
+  C → [A, E]
+  D → [B, E]
+  E → [C, D, F]
+  F → [E]</code></p>
+
+  <p>그래프를 담는 가장 흔한 방법이 이것입니다.
+     칸마다 이웃 목록을 달아 둡니다.
+     <code>LinkedHashMap</code> 을 쓴 것은 찍을 때 넣은 순서대로 보려는 것뿐입니다.</p>
+
+  <h5>절차 2 — 큐로 돈다</h5>
+
+  <p class="cmdline"><code>Set&lt;String&gt; 봤다 = new LinkedHashSet&lt;&gt;();
+Deque&lt;String&gt; q = new ArrayDeque&lt;&gt;();
+q.offer("A"); 봤다.add("A");
+while (!q.isEmpty()) {
+  String c = q.poll();
+  System.out.print(c + " ");
+  for (String n : 이웃.get(c)) if (봤다.add(n)) q.offer(n);
+}
+
+너비 우선(큐)   : A B C D E F</code></p>
+
+  <p><code>봤다.add(n)</code> 이 참을 돌려주면 처음 본 것이라는 뜻입니다.
+     <code>Set</code> 의 <code>add</code> 는 이미 있으면 거짓을 줍니다.
+     이 한 줄로 확인과 표시를 같이 합니다.
+     안 하면 A 와 B 사이를 무한히 오갑니다.</p>
+
+  <h5>절차 3 — 스택으로 돈다</h5>
+
+  <p class="cmdline"><code>Deque&lt;String&gt; s = new ArrayDeque&lt;&gt;();
+s.push("A");
+while (!s.isEmpty()) {
+  String c = s.pop();
+  if (!봤다2.add(c)) continue;
+  System.out.print(c + " ");
+  List&lt;String&gt; n = new ArrayList&lt;&gt;(이웃.get(c));
+  Collections.reverse(n);
+  for (String m : n) if (!봤다2.contains(m)) s.push(m);
+}
+
+깊이 우선(스택) : A B D E C F</code></p>
+
+  <h5>절차 4 — 두 순서를 견준다</h5>
+
+  <p class="cmdline"><code>너비 우선(큐)   : A B C D E F
+깊이 우선(스택) : A B D E C F</code></p>
+
+  <table class="wide">
+    <tr><th style="width:170px"></th><th style="width:130px">자료구조</th><th>도는 모양</th></tr>
+    <tr><td>너비 우선</td><td>큐</td>
+        <td>A 의 이웃 B · C 를 먼저 다 보고 그다음 층으로</td></tr>
+    <tr><td>깊이 우선</td><td>스택</td>
+        <td>A 에서 B 로, B 에서 D 로 끝까지 따라갑니다</td></tr>
+  </table>
+
+  <p>큐는 먼저 넣은 것이 먼저 나오니 가까운 것부터 처리됩니다.
+     스택은 마지막에 넣은 것이 먼저 나오니 방금 간 길을 계속 따라갑니다.
+     알고리즘 이름이 두 개지만 차이는 그릇 하나입니다.</p>
+
+  <div class="note">스택 쪽에 <code>Collections.reverse</code> 가 들어간 것은
+    보기 좋게 하려는 것입니다. 스택은 나중에 넣은 것이 먼저 나오므로
+    이웃을 순서대로 넣으면 뒤에서부터 돕니다.
+    뒤집어 넣으면 앞에서부터 도는 모양이 됩니다.
+    빼고 돌리면 <code>A C E F D B</code> 가 나옵니다.
+    순서는 달라도 한 갈래를 끝까지 따라가는 모양은 같습니다.
+  </div>
+
+  <h5>절차 5 — TreeMap 으로 범위를 잘라 본다</h5>
+
+  <p class="cmdline"><code>TreeMap&lt;Integer,String&gt; t = new TreeMap&lt;&gt;();
+t.put(10,"가"); t.put(25,"나"); t.put(37,"다"); t.put(48,"라"); t.put(52,"마");
+
+  전체           {10=가, 25=나, 37=다, 48=라, 52=마}
+  25 이상 48 미만 {25=나, 37=다}
+  30 바로 아래    25
+  30 바로 위      37
+  가장 작은 키    10</code></p>
+
+  <p><code>TreeMap</code> 은 속이 트리라 키가 정렬된 채로 있습니다.
+     그래서 범위를 자를 수 있습니다.
+     같은 것을 <code>HashMap</code> 으로 하려면 전부 훑어 걸러야 합니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:190px">메서드</th><th></th></tr>
+    <tr><td><code>subMap(a, b)</code></td><td>a 이상 b 미만</td></tr>
+    <tr><td><code>floorKey(k)</code></td><td>k 이하 가운데 가장 큰 키</td></tr>
+    <tr><td><code>ceilingKey(k)</code></td><td>k 이상 가운데 가장 작은 키</td></tr>
+    <tr><td><code>firstKey()</code> · <code>lastKey()</code></td><td>양 끝</td></tr>
+  </table>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>무한히 돈다</td>
+        <td>봤다고 표시하는 줄을 빠뜨렸습니다 — 절차 2</td></tr>
+    <tr><td>순서가 교안과 다르다</td>
+        <td>이웃 목록에 넣은 순서가 다릅니다. 절차 1 을 그대로 하십시오</td></tr>
+    <tr><td>같은 칸이 두 번 찍힌다</td>
+        <td>스택 쪽은 꺼낸 뒤에 표시해야 합니다 — 절차 3</td></tr>
+    <tr><td><code>subMap</code> 에 끝 값이 안 들어온다</td>
+        <td>미만입니다. 넣으려면 <code>subMap(a, true, b, true)</code></td></tr>
+    <tr><td><code>floorKey</code> 가 <code>null</code></td>
+        <td>그보다 작은 키가 없다는 뜻입니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 이웃 목록 화면, 두 순회 순서 화면,
+     <code>TreeMap</code> 범위 자르기 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 두 순회 순서가 다른 것을 봤습니까
+     ② 그릇만 바뀐 것을 확인했습니까
+     ③ 봤다고 표시하는 줄이 왜 필요한지 압니까
+     ④ <code>HashMap</code> 으로 범위를 왜 못 자르는지 설명할 수 있습니까</p>
+</div>
+      </div>
+</div>
+
+<h3 class="lv">레벨 3 · 자료구조 활용 <span>능력단위요소 ① · 점수가 몰려 있는 구간</span></h3>
+
+<div class="step" id="st8">
+      <h3><i>8</i>요구사항에서 고르기</h3>
+      <aside class="side">
+        <p class="pt">기능마다 자주 하는 일이 다릅니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-2</p>
+        <b class="sh">용어</b>
+        <p class="v">삽입 · 삭제 · 탐색 연산</p>
+      </aside>
+      <div class="bd">
+
+<h4>세 가지를 묻습니다</h4>
+
+<p>자료구조를 고를 때 물어야 하는 것은 셋입니다.
+   학습모듈의 수행 순서도 이 차례로 되어 있습니다.</p>
+
+<table class="wide">
+  <tr><th style="width:56px"></th><th style="width:230px">묻는 것</th><th>답이 갈라 놓는 것</th></tr>
+  <tr><td class="c">1</td><td>무엇을 담습니까</td>
+      <td>값만인지, 키와 값 쌍인지, 겹치면 안 되는지</td></tr>
+  <tr><td class="c">2</td><td>가장 자주 하는 일이 무엇입니까</td>
+      <td>탐색이면 맵, 순서대로 훑으면 리스트</td></tr>
+  <tr><td class="c">3</td><td>순서가 필요합니까</td>
+      <td>필요 없으면 해시, 필요하면 트리나 리스트</td></tr>
+</table>
+
+<p>둘째 물음이 가장 중요합니다.
+   한 번만 하는 일은 느려도 티가 안 나고,
+   자주 하는 일이 느리면 프로그램 전체가 느려집니다.</p>
+
+<h4>고르는 흐름</h4>
+
+<p class="cmdline"><code>키로 찾는 일이 대부분인가
+  ├ 예 ── 순서가 필요한가
+  │        ├ 아니오 ── HashMap
+  │        ├ 넣은 순서 ── LinkedHashMap
+  │        └ 키 순서 · 범위 ── TreeMap
+  └ 아니오 ─ 꺼내는 순서가 정해져 있는가
+             ├ 나중 것 먼저 ── ArrayDeque (스택)
+             ├ 먼저 것 먼저 ── ArrayDeque (큐)
+             └ 정해져 있지 않음 ── ArrayList</code></p>
+
+<p>이 그림으로 대부분이 정해집니다.
+   <code>LinkedList</code> 가 답이 되는 경우는 거의 없습니다.
+   실습 8 에서 요구사항명세서를 놓고 이 흐름을 따라가 봅니다.</p>
+
+<h4>체육시설 예약에 적용하면</h4>
+
+<table class="wide">
+  <tr><th style="width:170px">기능</th><th style="width:190px">자주 하는 일</th><th>고른 것</th></tr>
+  <tr><td>로그인</td><td>아이디로 한 건 찾기</td><td>HashMap</td></tr>
+  <tr><td>시설 목록</td><td>전부 순서대로 보여 주기</td><td>ArrayList</td></tr>
+  <tr><td>예약 대기</td><td>먼저 신청한 사람부터</td><td>ArrayDeque (큐)</td></tr>
+  <tr><td>날짜별 예약 조회</td><td>기간으로 자르기</td><td>TreeMap</td></tr>
+  <tr><td>중복 신청 막기</td><td>이미 있는지 확인</td><td>HashSet</td></tr>
+</table>
+
+<div class="note">기능이 다섯인데 자료구조가 넷입니다.
+  한 프로그램 안에서 여러 자료구조를 섞어 쓰는 것이 정상입니다.
+  전부 <code>ArrayList</code> 로 통일하면 코드는 단순해지지만
+  로그인이 느려집니다 — 실습 9 에서 그 값을 잽니다.
+</div>
+      </div>
+</div>
+
+<div class="step" id="st9">
+      <h3><i>9</i>잘못 고르면</h3>
+      <aside class="side">
+        <p class="pt">숫자로 봐야 설득됩니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-2</p>
+        <b class="sh">재는 것</b>
+        <p class="v">시간 · 메모리</p>
+      </aside>
+      <div class="bd">
+
+<h4>돌기는 다 돕니다</h4>
+
+<p>자료구조를 잘못 고른 프로그램은 오류가 나지 않습니다.
+   컴파일도 되고 결과도 맞습니다. 느릴 뿐입니다.
+   그래서 코드만 봐서는 잘못을 못 찾고, 재 봐야 드러납니다.</p>
+
+<p class="cmdline"><code>자료 200000개에서 20000번 찾기
+ArrayList.contains    16702 ms
+HashMap.containsKey      11 ms
+차이 약 1518배</code></p>
+
+<p>16초는 사람이 기다릴 수 있는 시간이 아닙니다.
+   그런데 훈련생 과제처럼 자료가 20건이면 둘 다 0 밀리초로 나옵니다.
+   자료가 적으면 잘못 골라도 안 드러난다는 것이 이 교과의 어려움입니다.</p>
+
+<h4>자료가 늘 때 무엇이 달라지나</h4>
+
+<table class="wide">
+  <tr><th style="width:130px">자료 건수</th><th style="width:150px">ArrayList</th>
+      <th style="width:130px">HashMap</th><th>차이</th></tr>
+  <tr><td>20건</td><td>15 ms</td><td>12 ms</td><td>1배</td></tr>
+  <tr><td>2,000건</td><td>178 ms</td><td>14 ms</td><td>12배</td></tr>
+  <tr><td>200,000건</td><td>35,080 ms</td><td>13 ms</td><td>2,698배</td></tr>
+</table>
+
+<p>같은 프로그램에 자료만 늘렸습니다. 오른쪽 칸은 12 · 14 · 13 으로 제자리인데
+   왼쪽 칸은 15 · 178 · 35,080 으로 뜁니다.</p>
+
+<p>왼쪽 칸은 O(n) 이라 자료에 비례해 늡니다.
+   오른쪽 칸은 평균 O(1) 이라 거의 안 늡니다.
+   실무에서 「처음엔 괜찮았는데 자료가 쌓이니 느려졌다」는 말이 나오는 자리가 여기입니다.</p>
+
+<h4>메모리도 같이 봅니다</h4>
+
+<p class="cmdline"><code>int[1,000,000]             4,094 KB
+ArrayList&lt;Integer&gt; 100만  19,747 KB</code></p>
+
+<p>시간만 재고 메모리를 안 재면 절반만 본 것입니다.
+   자료구조를 바꿔 빨라졌는데 메모리가 다섯 배로 늘 수도 있습니다.
+   근거표에 둘 다 적어 두십시오.</p>
+
+<div class="warn">재는 방법에도 함정이 있습니다.
+  자바는 같은 코드를 여러 번 돌리면 점점 빨라집니다.
+  먼저 잰 쪽이 손해를 보므로 순서를 바꿔 한 번 더 재 보십시오.
+  순서를 바꿔도 1,500배가 나오면 그것은 자료구조의 차이입니다.
+</div>
+      </div>
+</div>
+
+<div class="step" id="st10">
+      <h3><i>10</i>선정 근거표</h3>
+      <aside class="side">
+        <p class="pt">이 표 한 장이 이 교과의 산출물입니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-2</p>
+        <b class="sh">내는 것</b>
+        <p class="v">선정 근거표</p>
+      </aside>
+      <div class="bd">
+
+<h4>여섯 칸</h4>
+
+<table class="wide">
+  <tr><th style="width:150px">칸</th><th></th></tr>
+  <tr><td>기능</td><td>요구사항명세서에서 그대로 옮깁니다</td></tr>
+  <tr><td>자료 성격</td><td>무엇을 담는지. 건수도 적습니다</td></tr>
+  <tr><td>자주 하는 일</td><td>탐색 · 삽입 · 삭제 · 순회 가운데 무엇인지</td></tr>
+  <tr><td>고른 것</td><td>클래스 이름</td></tr>
+  <tr><td>대안</td><td>고려했다가 안 고른 것</td></tr>
+  <tr><td>견준 근거</td><td>왜 대안이 아니라 이것인지. 숫자가 있으면 가장 좋습니다</td></tr>
+</table>
+
+<p>뒤 두 칸이 빠진 표는 근거표가 아니라 목록입니다.
+   대안 칸에 적을 것이 정말 없으면 하이픈을 넣고
+   근거 칸에 왜 대안이 없는지를 적으십시오.</p>
+
+<h4>근거를 쓰는 두 가지 방식</h4>
+
+<table class="wide">
+  <tr><th style="width:130px"></th><th style="width:230px">이렇게 쓰면</th><th>왜</th></tr>
+  <tr><td>정량</td><td>20만 건에서 1,518배</td>
+      <td>잰 화면이 같이 있으면 반박할 것이 없습니다</td></tr>
+  <tr><td>정성</td><td>건수가 20건 안팎이라 어느 쪽이든 같습니다</td>
+      <td>잴 필요가 없는 경우를 밝힙니다</td></tr>
+</table>
+
+<p>전부 정량으로 채울 필요는 없습니다.
+   오히려 20건짜리 기능에 1,500배를 근거로 대면
+   재 보지 않고 베꼈다는 뜻이 됩니다.
+   재 봐야 하는 기능과 안 그래도 되는 기능을 가르는 것도 판단입니다.</p>
+
+<h4>완성된 표</h4>
+
+<p class="cmdline"><code>기능        자료 성격          자주 하는 일   고른 것       대안        견준 근거
+----------  -----------------  -------------  ------------  ----------  --------------------
+로그인      아이디로 한 건      탐색           HashMap       ArrayList   20만 건 1,518배 측정
+시설 목록    30건 내외           순회           ArrayList     -           건수가 적어 어느 쪽이든 같음
+예약 대기    신청 순서           삽입·삭제       ArrayDeque    LinkedList  앞뒤만 쓰므로 더 가벼움
+날짜별 조회  기간으로 자름       범위 탐색       TreeMap       HashMap     HashMap 은 범위를 못 자름
+중복 확인    있는지만 봄         탐색           HashSet       ArrayList   contains 가 O(n) 에서 O(1) 로</code></p>
+
+<div class="note">표를 다 채운 뒤 각 줄을 소리 내어 읽어 보십시오.
+  「로그인은 아이디로 한 건을 찾는 일이라 HashMap 을 골랐습니다.
+  ArrayList 도 되지만 20만 건에서 1,518배 차이를 쟀습니다」로
+  문장이 만들어지면 그 줄은 다 된 것입니다.
+  문장이 안 만들어지는 줄은 칸이 비어 있는 줄입니다.
+</div>
+      </div>
+</div>
+
+<h3 class="lv">레벨 4 · 정렬과 탐색 <span>능력단위요소 ② · 직접 만들어 보고 갖다 씁니다</span></h3>
+
+<div class="step" id="st11">
+      <h3><i>11</i>정렬 셋을 만든다</h3>
+      <aside class="side">
+        <p class="pt">비교 횟수를 세려고 직접 씁니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-1</p>
+        <b class="sh">용어</b>
+        <p class="v">버블 · 선택 · 삽입 정렬</p>
+      </aside>
+      <div class="bd">
+
+<h4>셋의 동작 방식</h4>
+
+<table class="wide">
+  <tr><th style="width:110px"></th><th style="width:290px">어떻게 도는가</th><th>특징</th></tr>
+  <tr><td>버블 정렬</td><td>옆칸끼리 견주어 큰 것을 뒤로 밉니다</td>
+      <td>한 바퀴 돌 때마다 가장 큰 것이 맨 뒤에 놓입니다</td></tr>
+  <tr><td>선택 정렬</td><td>남은 것 중 가장 작은 것을 찾아 앞으로 보냅니다</td>
+      <td>교환 횟수가 가장 적습니다</td></tr>
+  <tr><td>삽입 정렬</td><td>앞쪽 정렬된 부분에 끼워 넣습니다</td>
+      <td>이미 정렬된 자료에서 압도적으로 빠릅니다</td></tr>
+</table>
+
+<h4>버블 정렬</h4>
+
+<p class="cmdline"><code>for (int i = 0; i &lt; v.length - 1; i++)
+  for (int j = 0; j &lt; v.length - 1 - i; j++) {
+    비교++;
+    if (v[j] &gt; v[j+1]) { 자리바꿈(v, j, j+1); 교환++; }
+  }</code></p>
+
+<p>안쪽 반복문의 끝이 <code>- i</code> 로 줄어드는 것에 주의하십시오.
+   한 바퀴 돌 때마다 맨 뒤 한 칸이 확정되므로 다음 바퀴에서는 볼 필요가 없습니다.
+   이 <code>- i</code> 를 빠뜨리면 답은 맞는데 두 배쯤 느려집니다.</p>
+
+<h4>선택 정렬</h4>
+
+<p class="cmdline"><code>for (int i = 0; i &lt; v.length - 1; i++) {
+  int m = i;
+  for (int j = i + 1; j &lt; v.length; j++) { 비교++; if (v[j] &lt; v[m]) m = j; }
+  자리바꿈(v, i, m); 교환++;
+}</code></p>
+
+<p>안쪽에서는 자리를 바꾸지 않고 가장 작은 것의 <b>번호만</b> 기억합니다.
+   바깥에서 한 번만 바꿉니다.
+   그래서 2만 개를 정렬해도 교환이 19,999번뿐입니다.</p>
+
+<h4>삽입 정렬</h4>
+
+<p class="cmdline"><code>for (int i = 1; i &lt; v.length; i++) {
+  int k = v[i], j = i - 1;
+  while (j &gt;= 0) { 비교++; if (v[j] &lt;= k) break; v[j+1] = v[j]; 교환++; j--; }
+  v[j+1] = k;
+}</code></p>
+
+<p>안쪽이 <code>while</code> 이고 <code>break</code> 가 있는 것이 핵심입니다.
+   제자리를 찾으면 바로 멈춥니다.
+   그래서 이미 정렬된 자료에서는 한 번씩만 견주고 끝납니다.</p>
+
+<div class="warn">비교 횟수를 세는 자리를 정확히 잡아야 합니다.
+  <code>while</code> 조건 안이 아니라 몸통 첫 줄에서 세십시오.
+  조건에서 세면 반복이 끝날 때 한 번 더 세어 숫자가 어긋납니다.
+  제출한 숫자가 이론값과 안 맞으면 대개 세는 자리가 틀린 것입니다.
+</div>
+      </div>
+</div>
+
+<div class="step" id="st12">
+      <h3><i>12</i>정렬 성능을 잰다</h3>
+      <aside class="side">
+        <p class="pt">자료 모양에 따라 순위가 바뀝니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-1</p>
+        <b class="sh">재는 것</b>
+        <p class="v">비교 · 교환 · 시간</p>
+      </aside>
+      <div class="bd">
+
+<h4>무작위 자료에서</h4>
+
+<p class="cmdline"><code>무작위 20000개
+이름       비교 횟수      교환 횟수      걸린 시간
+버블 정렬   199,990,000   100,442,799    1280 ms
+선택 정렬   199,990,000        19,999     456 ms
+삽입 정렬   100,462,787   100,442,799     230 ms</code></p>
+
+<p>버블과 선택은 비교 횟수가 똑같습니다. 둘 다 정확히 199,990,000번입니다.
+   그런데 시간은 세 배 가까이 차이 납니다.
+   교환 횟수를 보면 이유가 보입니다. 선택 정렬은 19,999번뿐입니다.</p>
+
+<h4>이미 정렬된 자료에서</h4>
+
+<p class="cmdline"><code>이미 정렬된 20000개
+이름       비교 횟수      교환 횟수      걸린 시간
+버블 정렬   199,990,000             0     462 ms
+선택 정렬   199,990,000        19,999     418 ms
+삽입 정렬        19,999             0       0 ms</code></p>
+
+<p>삽입 정렬만 숫자가 통째로 바뀌었습니다.
+   비교가 1억에서 2만으로, 시간이 230 밀리초에서 0 으로 떨어졌습니다.
+   나머지 둘은 자료가 정렬되어 있든 말든 똑같이 일합니다.</p>
+
+<table class="wide">
+  <tr><th style="width:130px"></th><th style="width:170px">무작위</th><th>이미 정렬됨</th></tr>
+  <tr><td>버블</td><td>O(n²)</td><td>O(n²) — 그대로입니다</td></tr>
+  <tr><td>선택</td><td>O(n²)</td><td>O(n²) — 그대로입니다</td></tr>
+  <tr><td>삽입</td><td>O(n²)</td><td><b>O(n)</b> — 한 줄로 떨어집니다</td></tr>
+</table>
+
+<h4>버블 정렬을 고칠 수 있습니다</h4>
+
+<p>이미 정렬된 자료에서 버블이 1억 번 비교하는 것은 낭비입니다.
+   한 바퀴 도는 동안 교환이 한 번도 없었다면 이미 다 정렬된 것이니 멈춰도 됩니다.</p>
+
+<p class="cmdline"><code>boolean 바꿨나 = false;
+for (int j = 0; j &lt; v.length - 1 - i; j++) {
+  비교++;
+  if (v[j] &gt; v[j+1]) { 자리바꿈(v, j, j+1); 교환++; 바꿨나 = true; }
+}
+if (!바꿨나) break;</code></p>
+
+<p>이 네 줄을 넣으면 이미 정렬된 자료에서 19,999번 만에 끝납니다.
+   무작위 자료에서는 거의 도움이 안 됩니다.
+   실습 12 에서 넣기 전후를 재 보십시오.</p>
+
+<h4>개수를 두 배씩 늘리면</h4>
+
+<p class="cmdline"><code>개수        버블 정렬      Arrays.sort
+  10,000       151 ms           18 ms
+  20,000      1102 ms           16 ms
+  40,000      5643 ms            9 ms
+  80,000     25141 ms           20 ms</code></p>
+
+<p>왼쪽 칸이 대략 네 배씩 늡니다. O(n²) 의 모습입니다.
+   오른쪽 칸은 거의 그대로입니다.
+   8만 개에서 25초와 0.02초가 되었는데, 코드 줄 수는 한 줄과 여덟 줄입니다.</p>
+      </div>
+</div>
+
+<div class="step" id="st13">
+      <h3><i>13</i>선형 탐색과 이진 탐색</h3>
+      <aside class="side">
+        <p class="pt">반씩 줄이면 백만이 스무 번입니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-2</p>
+        <b class="sh">용어</b>
+        <p class="v">선형 탐색 · 이진 탐색</p>
+      </aside>
+      <div class="bd">
+
+<h4>둘의 차이</h4>
+
+<p class="cmdline"><code>선형 탐색   앞에서부터 하나씩 견줍니다
+            정렬 안 되어 있어도 됩니다
+
+이진 탐색   가운데를 보고 반을 버립니다
+            정렬되어 있어야만 합니다</code></p>
+
+<h4>비교 횟수</h4>
+
+<p class="cmdline"><code>개수         선형 탐색   이진 탐색   log2(n)
+     1,000       1,000         10      10.0
+    10,000      10,000         14      13.3
+   100,000     100,000         17      16.6
+ 1,000,000   1,000,000         20      19.9</code></p>
+
+<p>가장 뒤의 값을 찾았을 때의 수입니다.
+   선형은 자료 수만큼 세고 이진은 <code>log2(n)</code> 을 올림한 수만큼 셉니다.
+   백만 개에서 스무 번이면 사람이 손으로도 셀 수 있는 수입니다.</p>
+
+<h4>이진 탐색 코드</h4>
+
+<p class="cmdline"><code>int lo = 0, hi = v.length - 1;
+while (lo &lt;= hi) {
+  비교++;
+  int m = (lo + hi) / 2;
+  if (v[m] == k)      return m;
+  else if (v[m] &lt; k)  lo = m + 1;
+  else                hi = m - 1;
+}
+return -1;</code></p>
+
+<p>세 군데를 틀리기 쉽습니다.
+   <code>while</code> 조건이 <code>&lt;=</code> 여야 하고,
+   <code>lo</code> 와 <code>hi</code> 를 옮길 때 <code>m</code> 을 그대로 두면
+   무한 반복이 되며, 못 찾았을 때 무엇을 돌려줄지 정해 두어야 합니다.</p>
+
+<div class="warn">자료가 아주 많을 때 <code>(lo + hi) / 2</code> 가 넘칠 수 있습니다.
+  둘 다 20억 가까이 되면 더한 값이 <code>int</code> 범위를 넘어 음수가 됩니다.
+  <code>lo + (hi - lo) / 2</code> 로 쓰면 안 넘칩니다.
+  자바 표준 라이브러리도 이 문제로 한 번 고쳐진 적이 있습니다.
+</div>
+
+<h4>언제 무엇을 쓰나</h4>
+
+<table class="wide">
+  <tr><th style="width:230px">이런 상황이면</th><th>고를 것</th></tr>
+  <tr><td>한 번만 찾는다</td><td>선형. 정렬하는 시간이 더 듭니다</td></tr>
+  <tr><td>같은 자료에서 여러 번 찾는다</td><td>한 번 정렬하고 이진</td></tr>
+  <tr><td>계속 넣고 빼면서 찾는다</td><td>HashMap 이나 TreeMap</td></tr>
+  <tr><td>범위로 찾는다</td><td>TreeMap</td></tr>
+</table>
+
+<p>첫 줄이 뜻밖일 수 있습니다.
+   백만 개를 정렬하는 데 드는 시간이 선형 탐색 한 번보다 깁니다.
+   한 번 찾자고 정렬하는 것은 손해입니다.</p>
+      </div>
+</div>
+
+<div class="step" id="st14">
+      <h3><i>14</i>정렬 확인이 먼저</h3>
+      <aside class="side">
+        <p class="pt">오류가 안 나고 틀린 답이 나옵니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-2</p>
+        <b class="sh">보는 것</b>
+        <p class="v">정렬 여부 · 방향 · 일관성</p>
+      </aside>
+      <div class="bd">
+
+<h4>정렬 안 된 배열에 이진 탐색을 쓰면</h4>
+
+<p class="cmdline"><code>배열                        [5, 3, 8, 6, 9, 1, 7]
+Arrays.binarySearch(u, 9)   -8
+실제 9 가 있는 자리          4
+
+정렬 후                     [1, 3, 5, 6, 7, 8, 9]
+Arrays.binarySearch(s, 9)   6</code></p>
+
+<p>예외도 안 나고 경고도 안 뜹니다. <code>-8</code> 이 조용히 돌아옵니다.
+   음수는 못 찾았다는 뜻인데, 9 는 배열 안에 있습니다.
+   이 값을 그대로 쓰면 프로그램은 「9 가 없다」고 판단하고 다음 줄로 갑니다.</p>
+
+<div class="warn">이 종류가 가장 찾기 어렵습니다.
+  터지면 자리를 알려 주지만, 조용히 틀리면 알려 주는 것이 없습니다.
+  한참 뒤에 엉뚱한 화면이 나오고 나서야 거슬러 올라가야 합니다.
+  이진 탐색을 쓰기 전에는 정렬 여부를 확인하는 습관을 들이십시오.
+</div>
+
+<h4>세 가지를 확인합니다</h4>
+
+<table class="wide">
+  <tr><th style="width:130px"></th><th style="width:230px">보는 것</th><th>확인하는 방법</th></tr>
+  <tr><td>정렬 여부</td><td>정렬되어 있는가</td>
+      <td>옆칸끼리 한 바퀴 견줍니다. O(n) 입니다</td></tr>
+  <tr><td>정렬 방향</td><td>오름차순인가 내림차순인가</td>
+      <td>내림차순이면 비교를 뒤집어야 합니다</td></tr>
+  <tr><td>일관성</td><td>중간에 어긋난 구간이 없는가</td>
+      <td>어긋난 자리의 번호를 적어 둡니다</td></tr>
+</table>
+
+<p class="cmdline"><code>대상 데이터 1: [1, 3, 5, 4, 6, 8]
+  3번째와 4번째에서 어긋남 (5 &gt; 4)
+  나머지는 오름차순
+  결론: 불완전 정렬 — 이진 탐색을 쓰면 안 됩니다
+
+대상 데이터 2: [22, 19, 17, 13, 7]
+  앞의 값이 항상 큼
+  결론: 내림차순 — 비교 방향을 뒤집으면 이진 탐색을 쓸 수 있습니다</code></p>
+
+<h4>확인 코드</h4>
+
+<p class="cmdline"><code>boolean 오름차순인가(int[] v) {
+  for (int i = 1; i &lt; v.length; i++)
+    if (v[i-1] &gt; v[i]) return false;
+  return true;
+}</code></p>
+
+<p>한 바퀴만 돌면 됩니다. O(n) 이라 이진 탐색의 이득을 깎아먹지 않습니다.
+   자료가 바뀌지 않는다면 프로그램 시작할 때 한 번만 확인해도 됩니다.
+   이 메서드 하나가 실습 14 의 제출물입니다.</p>
+      </div>
+</div>
+
+<div class="step" id="st15">
+      <h3><i>15</i>라이브러리와 직접 구현</h3>
+      <aside class="side">
+        <p class="pt">실무에서는 갖다 씁니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-2</p>
+        <b class="sh">쓰는 것</b>
+        <p class="v">Arrays · Collections</p>
+      </aside>
+      <div class="bd">
+
+<h4>자바가 이미 만들어 둔 것</h4>
+
+<table class="wide">
+  <tr><th style="width:290px">쓸 것</th><th></th></tr>
+  <tr><td><code>Arrays.sort(v)</code></td><td>배열 정렬</td></tr>
+  <tr><td><code>Collections.sort(list)</code></td><td>리스트 정렬</td></tr>
+  <tr><td><code>list.sort(Comparator.comparing(…))</code></td><td>기준을 정해 정렬</td></tr>
+  <tr><td><code>Arrays.binarySearch(v, k)</code></td><td>이진 탐색. 정렬되어 있어야 합니다</td></tr>
+  <tr><td><code>Collections.binarySearch(list, k)</code></td><td>리스트에서 이진 탐색</td></tr>
+</table>
+
+<p><code>Arrays.sort</code> 는 자료형에 따라 다른 알고리즘을 씁니다.
+   기본형 배열에는 듀얼 피벗 퀵 정렬을, 객체 배열에는 팀 정렬을 씁니다.
+   팀 정렬은 병합 정렬과 삽입 정렬을 섞은 것이라
+   이미 정렬된 구간을 만나면 그냥 넘어갑니다.</p>
+
+<h4>직접 만든 것과 견주면</h4>
+
+<p class="cmdline"><code>개수        버블 정렬      Arrays.sort
+  80,000     25141 ms           20 ms</code></p>
+
+<p>1,250배입니다. 직접 만든 정렬을 실무 코드에 넣을 이유가 없습니다.
+   그렇다면 왜 만들어 봤는가 — 비교 횟수를 세기 위해서입니다.
+   <code>Arrays.sort</code> 는 몇 번 비교했는지 알려 주지 않습니다.</p>
+
+<h4>기준을 정해 정렬하기</h4>
+
+<p class="cmdline"><code>예약목록.sort(Comparator.comparing(예약::이용일));
+
+예약목록.sort(Comparator.comparing(예약::이용일)
+                        .thenComparing(예약::인원, Comparator.reverseOrder()));</code></p>
+
+<p>둘째 줄은 이용일 순으로 놓고, 같은 날이면 인원이 많은 쪽을 앞에 둡니다.
+   직접 만들면 비교 함수를 짜야 하는 일인데 한 줄로 끝납니다.
+   실무에서 정렬을 쓰는 모습이 대개 이렇습니다.</p>
+
+<div class="note">정렬이 안정적이라는 말은 같은 값끼리 원래 순서가 지켜진다는 뜻입니다.
+  팀 정렬은 안정적이고 퀵 정렬은 아닙니다.
+  이름순으로 정렬해 둔 목록을 다시 날짜순으로 정렬했을 때
+  같은 날짜 안에서 이름순이 지켜지느냐가 여기서 갈립니다.
+  선택 정렬도 안정적이지 않습니다 — 실습 11 에서 확인할 수 있습니다.
+</div>
+      </div>
+</div>
+
+<h3 class="lv">레벨 5 · 마무리 <span>근거를 세고 냅니다</span></h3>
+
+<div class="step" id="st16">
+      <h3><i>16</i>자가 점검과 제출</h3>
+      <aside class="side">
+        <p class="pt">근거를 못 대는 줄이 안 한 줄입니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 평가</p>
+        <b class="sh">내는 것</b>
+        <p class="v">근거표 · 측정 화면 · 코드</p>
+      </aside>
+      <div class="bd">
+
+<h4>능력단위요소 둘을 셉니다</h4>
+
+<table class="wide">
+  <tr><th style="width:56px">요소</th><th style="width:290px">할 수 있어야 하는 것</th><th>근거</th></tr>
+  <tr><td class="c">①</td><td>자료구조 유형을 분류한다</td><td>실습 3 · 5 · 7</td></tr>
+  <tr><td class="c">①</td><td>시간 복잡도와 공간 복잡도를 잰다</td><td>실습 4 · 9</td></tr>
+  <tr><td class="c">①</td><td>요구사항에서 자료구조를 고른다</td><td>실습 8</td></tr>
+  <tr><td class="c">①</td><td>고른 까닭을 숫자로 댄다</td><td>실습 9 · 10</td></tr>
+  <tr><td class="c">②</td><td>정렬 알고리즘 셋을 구현한다</td><td>실습 11</td></tr>
+  <tr><td class="c">②</td><td>자료 모양에 따른 차이를 잰다</td><td>실습 12</td></tr>
+  <tr><td class="c">②</td><td>선형 탐색과 이진 탐색을 구별한다</td><td>실습 13</td></tr>
+  <tr><td class="c">②</td><td>정렬 여부를 확인하고 탐색한다</td><td>실습 14</td></tr>
+</table>
+
+<h4>제출 전에 볼 다섯 가지</h4>
+
+<p class="cmdline"><code>① 근거표에 대안 칸과 근거 칸이 차 있는가
+② 근거의 숫자가 측정 화면과 맞는가
+③ 정렬 셋의 비교 횟수를 냈는가
+④ 이미 정렬된 자료로도 재 봤는가
+⑤ 잘못 골랐을 때의 화면이 있는가</code></p>
+
+<div class="warn">②가 가장 자주 어긋납니다.
+  근거표에는 1,500배라고 적어 놓고 화면에는 다른 숫자가 찍혀 있는 경우입니다.
+  대개 표를 먼저 쓰고 나중에 다시 재서 생깁니다.
+  잰 값이 바뀌었으면 표도 같이 고치십시오.
+  두 숫자가 다르면 어느 쪽도 못 믿습니다.
+</div>
+
+<h4>뒤에서 다시 나오는 자리</h4>
+
+<table class="wide">
+  <tr><th style="width:230px">여기서 배운 것</th><th>다시 만나는 곳</th></tr>
+  <tr><td>시간 복잡도</td><td>애플리케이션 테스트 관리 · 애플리케이션 리팩토링</td></tr>
+  <tr><td>HashMap · TreeMap</td><td>서버프로그램 구현 · 데이터 입출력 구현</td></tr>
+  <tr><td>정렬과 비교 기준</td><td>SQL 응용의 <code>ORDER BY</code> 와 같은 이야기입니다</td></tr>
+  <tr><td>이진 탐색</td><td>데이터베이스 구현의 인덱스가 같은 원리입니다</td></tr>
+  <tr><td>선정 근거를 적는 방식</td><td>요구사항 확인 · 소프트웨어개발 방법론 활용</td></tr>
+</table>
+
+<p>마지막 줄이 이 교과의 진짜 소득입니다.
+   고른 것을 근거와 함께 적는 일은 자료구조에만 쓰이지 않습니다.
+   프레임워크를 고를 때도, 데이터베이스를 고를 때도 같은 표를 씁니다.</p>
+      </div>
+</div>
+
+<!-- ═══════ 3 ═══════ -->
+<h2 class="sec" id="g3">3. 주요 감점 요인</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">고른 것만 적고 까닭을 안 적습니다.</p>
+    <b class="sh">가장 큰 것</b>
+    <p class="v">대안 칸이 비어 있음</p>
+    <b class="sh">가장 아까운 것</b>
+    <p class="v">재 놓고 표에 안 옮김</p>
+  </aside>
+  <div class="bd">
+
+<table class="wide">
+  <tr><th style="width:44%">자주 나오는 모습</th><th>보완</th></tr>
+  <tr><td>근거표의 대안 칸이 빔</td>
+      <td>고른 것이 아니라 그냥 쓴 것이 됩니다 (실습 10)</td></tr>
+  <tr><td>근거가 「빠르다」 한 마디</td>
+      <td>무엇보다 몇 배 빠른지 적으십시오 (실습 9)</td></tr>
+  <tr><td>표의 숫자와 측정 화면이 다름</td>
+      <td>다시 쟀으면 표도 고치십시오. 둘 다 못 믿게 됩니다</td></tr>
+  <tr><td>정렬을 라이브러리로만 돌림</td>
+      <td>비교 횟수를 세야 합니다. 직접 쓴 셋이 필요합니다 (실습 11)</td></tr>
+  <tr><td>무작위 자료로만 잼</td>
+      <td>이미 정렬된 자료를 넣어야 삽입 정렬의 값이 보입니다 (실습 12)</td></tr>
+  <tr><td>이진 탐색만 쓰고 정렬 확인이 없음</td>
+      <td>정렬 안 된 자료에서는 조용히 틀립니다 (실습 14)</td></tr>
+  <tr><td>모든 기능에 한 자료구조</td>
+      <td>기능마다 자주 하는 일이 다릅니다 (실습 8)</td></tr>
+  <tr><td>화면이 결과만</td><td>친 명령부터 넣으십시오</td></tr>
+</table>
+
+<div class="warn">여덟 가운데 넷이 「할 줄 아는가」가 아니라 「근거를 댔는가」입니다.
+  이 교과는 자료구조를 만드는 과목이 아니라 고르는 과목이고,
+  고른 일의 증거가 근거표 한 장입니다.
+  코드가 아무리 잘 돌아도 그 표가 비어 있으면 점수가 안 붙습니다.
+</div>
+  </div>
+</div>
+
+<footer>
+  자료구조 활용 · 5수준 · 담당 정우균<br>
+  능력단위요소와 학습 내용·수행 순서는 NCS 학습모듈
+  <code>2001020235_23v1</code> 에서 옮긴 것입니다 —
+  한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지).<br>
+  모든 코드·화면·측정값은 이 교안을 위해 Windows 11 ·
+  OpenJDK 21.0.2 에서 실제로 돌려 얻은 것입니다.
+</footer>
+
+</div>
+
+<script>
+/* 빠른 이동 — 지금 보는 단원을 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"],a[href="#g3"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  function mark() {
+    var y = window.scrollY + 120, cur = 0;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  window.addEventListener('scroll', mark, { passive: true });
+  mark();
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+})();
+</script>
