@@ -1,0 +1,4183 @@
+<meta charset="utf-8"><title>정적모델 설계 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<style>
+  /* 이 교안에만 있는 것 — 코드 보기 */
+  .bd pre{margin:14px 0;font-family:Consolas,"D2Coding",monospace;font-size:13px;
+          line-height:1.75;border:1px solid #ccc;border-left:3px solid #000;
+          padding:13px 16px;background:#fafafa;overflow-x:auto;white-space:pre}
+  .bd pre b{background:#e6e6e6;font-weight:700}
+  .bd pre i{font-style:normal;color:#777}
+  .bd code{font-family:Consolas,"D2Coding",monospace;font-size:14px;
+           background:#f2f2f2;padding:1px 5px}
+  aside.side code{font-family:Consolas,monospace;font-size:11px;background:#f2f2f2;padding:0 3px}
+</style>
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 / <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a> / 정적모델 설계 / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">준비</i>
+  <a href="#st1"><b>1</b><span>그림이 코드가 되는 자리</span></a>
+  <a href="#st2"><b>2</b><span>완성 산출물의 확인</span></a>
+  <i class="qg">읽는 법</i>
+  <a href="#st3"><b>3</b><span>UML 의 구성</span></a>
+  <a href="#st4"><b>4</b><span>설계 패턴과 MVC</span></a>
+  <i class="qg">분석 클래스</i>
+  <a href="#st5"><b>5</b><span>세 갈래로 나눈다</span></a>
+  <a href="#st6"><b>6</b><span>경계 클래스</span></a>
+  <a href="#st7"><b>7</b><span>제어 클래스</span></a>
+  <a href="#st8"><b>8</b><span>엔티티 클래스</span></a>
+  <i class="qg">정합성 검증</i>
+  <a href="#st9"><b>9</b><span>명명 규칙과 체크리스트</span></a>
+  <a href="#st10"><b>10</b><span>계층을 기계로 검사한다</span></a>
+  <i class="qg">상세화</i>
+  <a href="#st11"><b>11</b><span>클래스 설계 원칙</span></a>
+  <a href="#st12"><b>12</b><span>관계와 다중도</span></a>
+  <i class="qg">명세와 도식</i>
+  <a href="#st13"><b>13</b><span>속성과 오퍼레이션 명세</span></a>
+  <a href="#st14"><b>14</b><span>패키지 구조와 설계서</span></a>
+  <a href="#st15"><b>15</b><span>클래스 다이어그램 도식화</span></a>
+  <i class="qg">마무리</i>
+  <a href="#st16"><b>16</b><span>자가 점검과 제출</span></a>
+  <i class="qg">감점</i>
+  <a href="#g3"><b>!</b><span>주요 감점 요인</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>정적모델 설계 — 준비 교안</h1>
+<p class="sub">능력단위 정적모델 설계 (2001020222_23v6) / 6수준 ·
+   능력단위요소 2개 · 학습 내용 5개</p>
+
+<!-- ═══════ 0 ═══════ -->
+<h2 class="sec" id="g0">0. 이 교과가 만드는 것</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">클래스를 코드 직전까지 정합니다.</p>
+    <b class="sh">내는 것</b>
+    <p class="v">클래스 다이어그램 + 명세서 + 검증 결과</p>
+    <b class="sh">참고</b>
+    <p class="src">NCS 학습모듈 LM2001020222_23v6</p>
+  </aside>
+  <div class="bd">
+
+<div class="note">시작 전에 받아야 하는 것
+<table class="wide">
+  <tr><td class="nm">유스케이스 명세서</td>
+      <td>기능 모델링 교과의 산출물. 여기서 클래스를 찾아냅니다</td></tr>
+  <tr><td class="nm">JDK 21</td>
+      <td>설계한 것을 실제로 컴파일해 봅니다. <code>javac -version</code> 으로 확인</td></tr>
+  <tr><td class="nm">그림 도구</td>
+      <td>StarUML 이나 draw.io 나 종이</td></tr>
+  <tr><td class="nm">파이썬</td>
+      <td>실습 10 · 13 의 검사 도구에 씁니다</td></tr>
+  <tr><td class="nm">작업지시서</td><td>제출 형식이 여기 적혀 있습니다</td></tr>
+</table>
+작업지시서는 평가도구라 이 사이트에 올려 두지 않습니다. 수업 시간에 받으십시오.
+</div>
+
+<h4>둘을 배웁니다</h4>
+
+<table class="wide">
+  <tr><th style="width:56px">묶음</th><th style="width:210px">능력단위요소</th>
+      <th>학습 내용</th></tr>
+  <tr><td class="c">①</td><td>정적 분석모델 검증하기</td>
+      <td>정적모델 상세 분석 · 정합성 검증</td></tr>
+  <tr><td class="c">②</td><td>정적모델 상세화하기</td>
+      <td>설계모델 상세화 · 명세화 · 도식화</td></tr>
+</table>
+
+<p>학습모듈의 목표는 이렇게 적혀 있습니다 —
+   「요구사항 확인을 통한 상세 분석 결과, 소프트웨어 아키텍처 가이드라인 및
+   소프트웨어 아키텍처 산출물에 의거하여 애플리케이션 구현을 위한
+   <b>정적모델을 설계하고 검증</b>할 수 있다」.</p>
+
+<div class="warn">앞 교과 기능 모델링이 「무엇을 만들 것인가」를 정했습니다.
+  이 교과는 그것을 「어떤 클래스로 만들 것인가」로 바꿉니다.
+  유스케이스 하나가 클래스 서넛이 되고, 그 클래스가 그대로 소스 파일이 됩니다.
+  여기서 잘못 나눈 것은 코드에 그대로 남고,
+  나중에 고치려면 이미 만든 것을 뜯어야 합니다.
+</div>
+
+<h4>핵심 용어 여덟</h4>
+
+<table class="wide">
+  <tr><th style="width:210px">용어</th><th style="width:70px">실습</th><th></th></tr>
+  <tr><td>UML 모델링</td><td class="c">3</td>
+      <td>사물 · 관계 · 다이어그램으로 이루어진 표준 언어</td></tr>
+  <tr><td>설계 패턴 · MVC</td><td class="c">4</td>
+      <td>되풀이되는 설계 문제의 정해진 답</td></tr>
+  <tr><td>분석 클래스</td><td class="c">5</td>
+      <td>경계 · 제어 · 엔티티 세 갈래</td></tr>
+  <tr><td>경계 클래스</td><td class="c">6</td>
+      <td>액터와 주고받는 창구</td></tr>
+  <tr><td>제어 클래스</td><td class="c">7</td>
+      <td>업무 규칙과 흐름을 맡는 뇌</td></tr>
+  <tr><td>엔티티 클래스</td><td class="c">8</td>
+      <td>오래 남을 자료를 맡는 기억</td></tr>
+  <tr><td>정적모델</td><td class="c">12 · 15</td>
+      <td>시간이 지나도 변하지 않는 구조. 클래스 다이어그램</td></tr>
+</table>
+
+<h4>내는 것은 셋입니다</h4>
+
+<table class="wide">
+  <tr><th style="width:56px"></th><th style="width:190px">제출물</th><th>내용</th></tr>
+  <tr><td class="c">1</td><td>클래스 다이어그램</td>
+      <td>속성 · 오퍼레이션 · 가시성 · 관계 · 다중도</td></tr>
+  <tr><td class="c">2</td><td>정적모델 설계 명세서</td>
+      <td>패키지 구조 · 클래스 개요 · 속성/오퍼레이션 명세</td></tr>
+  <tr><td class="c">3</td><td>검증 결과</td>
+      <td>정합성 체크리스트 · 계층 검사 · 명세 대조. 지적이 나온 화면이 있어야 합니다</td></tr>
+</table>
+  </div>
+</div>
+
+<!-- ═══════ 1 ═══════ -->
+<h2 class="sec" id="g1">1. 이 교과의 범위</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">구조만 봅니다. 순서는 다음 교과입니다.</p>
+    <b class="sh">능력단위요소</b>
+    <p class="v">정적 분석모델 검증하기 · 정적모델 상세화하기</p>
+    <b class="sh">선수 학습</b>
+    <p class="v">기능 모델링 · 객체지향 설계 · UML 도구</p>
+  </aside>
+  <div class="bd">
+
+<h4>정적과 동적</h4>
+
+<p class="cmdline"><code>정적 모델링   시간이 지나도 변하지 않는 것
+             어떤 클래스가 있고 서로 어떻게 이어져 있는가
+             클래스 · 객체 · 컴포넌트 · 배치 다이어그램
+
+동적 모델링   시간에 따라 달라지는 것
+             누가 누구에게 언제 무엇을 시키는가
+             시퀀스 · 상태 · 활동 다이어그램
+
+이 교과는 위쪽입니다. 아래쪽은 다음 교과 동적모델 설계입니다.</code></p>
+
+<p>둘을 가르는 기준은 「시간이 들어가는가」입니다.
+   「예약은 회원을 하나 가진다」는 어제도 오늘도 참이므로 정적입니다.
+   「회원이 누르면 서비스가 저장소를 부른다」는 순서가 있으므로 동적입니다.</p>
+
+<h4>어디까지 하나</h4>
+
+<table class="wide">
+  <tr><th style="width:170px">분야</th><th style="width:250px">여기서 하는 것</th><th>여기서 안 하는 것</th></tr>
+  <tr><td>분석 클래스</td>
+      <td>경계 · 제어 · 엔티티로 나누고 검증합니다</td>
+      <td>유스케이스를 새로 뽑는 일 — 앞 교과</td></tr>
+  <tr><td>설계 클래스</td>
+      <td>속성 · 오퍼레이션 · 가시성 · 관계를 정합니다</td>
+      <td>메서드 안쪽 구현 — 구현 교과</td></tr>
+  <tr><td>다이어그램</td>
+      <td>클래스 · 패키지 다이어그램</td>
+      <td>시퀀스 · 상태 다이어그램 — 동적모델 설계</td></tr>
+</table>
+
+<p>가운데 줄이 헷갈리는 자리입니다.
+   메서드 이름과 인자와 반환형까지는 여기서 정하고,
+   그 안에 무엇을 적을지는 안 정합니다.</p>
+
+<h4>이 교안이 쓰는 것</h4>
+
+<p class="cmdline"><code>언어         자바 21 — 설계한 것을 실제로 컴파일해 봅니다
+표기법        OMG 의 UML 클래스 다이어그램
+그림         StarUML 이나 draw.io 나 종이
+검증 도구      파이썬으로 직접 만듭니다 (스무 줄씩 둘)
+예제         공공 체육시설 예약 — 앞 교과들과 같은 예제</code></p>
+
+<div class="note">설계 교과인데 왜 컴파일을 하는지 의아할 수 있습니다.
+  종이 위의 설계는 무엇을 적어도 틀렸다는 말을 안 해 줍니다.
+  자바로 옮겨 보면 가시성을 잘못 잡은 것,
+  관계를 거꾸로 그린 것이 컴파일 오류로 바로 나옵니다.
+  설계가 맞는지 확인할 수 있는 가장 싼 방법입니다.
+</div>
+  </div>
+</div>
+
+<!-- ═══════ 2 ═══════ -->
+<h2 class="sec" id="g2">2. 실습</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">나누고, 재고, 그립니다.</p>
+    <b class="sh">시간</b>
+    <p class="v">레벨 3에 가장 오래 씁니다</p>
+  </aside>
+  <div class="bd">
+
+<table class="wide">
+  <tr><th style="width:170px">레벨</th><th style="width:190px">무엇</th>
+      <th style="width:90px">실습</th><th>끝나면</th></tr>
+  <tr><td>1 · 준비</td><td>왜 나누는가 · 낼 것</td><td class="c">1 ~ 2</td>
+      <td>나눈 것과 안 나눈 것의 차이를 압니다</td></tr>
+  <tr><td>2 · 읽는 법</td><td>UML · 설계 패턴</td><td class="c">3 ~ 4</td>
+      <td>요소 <b>①</b> 앞쪽</td></tr>
+  <tr><td>3 · 분석 클래스</td><td>경계 · 제어 · 엔티티</td><td class="c">5 ~ 8</td>
+      <td>요소 <b>①</b> 가운데</td></tr>
+  <tr><td>4 · 정합성 검증</td><td>명명 규칙 · 계층 검사</td><td class="c">9 ~ 10</td>
+      <td>요소 <b>①</b> 뒤쪽</td></tr>
+  <tr><td>5 · 상세화</td><td>설계 원칙 · 관계</td><td class="c">11 ~ 12</td>
+      <td>요소 <b>②</b> 앞쪽</td></tr>
+  <tr><td>6 · 명세와 도식</td><td>명세서 · 패키지 · 그림</td><td class="c">13 ~ 15</td>
+      <td>요소 <b>②</b> 뒤쪽</td></tr>
+  <tr><td>7 · 마무리</td><td>점검 · 제출</td><td class="c">16</td><td>냅니다</td></tr>
+</table>
+
+<p>레벨 3 이 이 교과의 몸통입니다.
+   세 갈래를 제대로 나누면 나머지는 그것을 적고 그리는 일입니다.
+   나누는 데 시간을 쓰는 것이 이 교과를 제대로 하는 방법입니다.</p>
+  </div>
+</div>
+<h3 class="lv">레벨 1 · 준비 <span>나눈 것과 안 나눈 것을 먼저 견줍니다</span></h3>
+
+<div class="step" id="st1">
+      <h3><i>1</i>그림이 코드가 되는 자리</h3>
+      <aside class="side">
+        <p class="pt">클래스 하나가 소스 하나입니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1</p>
+        <b class="sh">용어</b>
+        <p class="v">정적모델 · 분석 클래스</p>
+      </aside>
+      <div class="bd">
+
+<h4>앞 교과에서 여기로</h4>
+
+<p class="cmdline"><code>기능 모델링                      정적모델 설계
+----------------------------  ----------------------------
+( 예약을 신청한다 )              ReservationConsole   경계
+  사전 조건 · 정상 흐름 · 대안    ReservationService   제어
+  액터 : 회원                    Reservation          엔티티
+                               Facility             엔티티
+
+유스케이스 타원 하나가 클래스 넷이 됩니다</code></p>
+
+<p>유스케이스 명세서의 정상 흐름을 한 줄씩 읽으면서
+   「이 줄은 누가 하는가」를 물으면 클래스가 나옵니다.
+   화면에 보여 주는 줄은 경계가, 규칙을 따지는 줄은 제어가,
+   저장하는 줄은 엔티티가 합니다.</p>
+
+<h4>안 나누면 이렇게 됩니다</h4>
+
+<p class="cmdline"><code>class ReservationAll {
+    static void 신청(String 회원, String 시설, String 날짜, int 인원) {
+        System.out.println("[화면] ...");          <i>화면</i>
+        if (!정원.containsKey(시설)) { ... }          <i>업무 규칙</i>
+        예약목록.add(new String[]{...});              <i>저장</i>
+        System.out.println("[메일] ...");           <i>바깥 시스템</i>
+    }
+}</code></p>
+
+<p>한 메서드 안에 화면과 규칙과 저장과 메일이 다 있습니다.
+   돌려 보면 아무 문제 없이 돌아갑니다 — 그것이 문제입니다.
+   돌아가니까 이대로 두게 되고, 화면을 웹으로 바꿀 때가 되면 규칙까지 다시 써야 합니다.</p>
+
+<h4>나누면 이렇게 됩니다</h4>
+
+<p class="cmdline"><code>boundary/ReservationConsole.java   화면에 찍고 사람 말로 바꿔 줍니다
+boundary/MailGateway.java         바깥 메일 시스템과 이야기합니다
+control/ReservationService.java   정원과 시설을 따져 결과를 돌려줍니다
+entity/Reservation.java           예약 한 건. 상태는 셋뿐입니다
+entity/Facility.java              시설 하나
+entity/ReservationStore.java      예약을 모아 둡니다
+Main.java                         셋을 이어 줍니다</code></p>
+
+<p>일곱 개가 되었습니다. 파일 수가 늘어난 것은 사실입니다.
+   대신 화면을 바꿀 때는 <code>boundary</code> 안만 고치면 됩니다.
+   규칙이 바뀌면 <code>control</code> 안만 고칩니다.</p>
+
+<div class="warn">여기서 가장 중요한 사실은 <b>두 프로그램의 출력이 한 글자도 다르지 않다</b>는 것입니다.
+  겉으로 보면 똑같이 돌아갑니다.
+  그래서 「돌아가는데 왜 나눠야 하느냐」는 물음이 나오고, 이 물음에 답할 수 있어야 합니다.
+  나누는 까닭은 지금 돌리려는 것이 아니라 <b>나중에 고치려는 것</b>입니다.
+  실습 1 에서 둘을 다 돌려 출력이 같은 것을 눈으로 확인합니다.
+</div>
+
+<h4>이 교과가 묻는 것</h4>
+
+<table class="wide">
+  <tr><th style="width:290px">이렇게 물으면</th><th>이렇게 답해야 합니다</th></tr>
+  <tr><td>클래스 다이어그램을 그렸습니까</td><td>이것만으로는 점수가 안 붙습니다</td></tr>
+  <tr><td>왜 이렇게 나눴습니까</td><td>유스케이스의 어느 줄에서 나왔는지 댈 수 있습니다</td></tr>
+  <tr><td>명명 규칙을 지켰습니까</td><td>검사해서 몇 건 나왔고 고쳤습니다</td></tr>
+  <tr><td>세 갈래가 제 자리를 지킵니까</td><td>계층 검사로 확인했고 3건 찾았습니다</td></tr>
+</table>
+
+<p>아래 둘이 능력단위요소 ①의 정합성 검증입니다.
+   그리는 것보다 검증하는 것에 배점이 실려 있는 것은 앞 교과와 같습니다.</p>
+      <div class="lab">
+  <b class="t">실습 1</b>
+  <b>안 나눈 것과 나눈 것을 둘 다 돌려 본다</b>
+
+  <p><b>목적</b> — 이 교과가 왜 있는지를 먼저 겪어 봅니다.
+     같은 일을 하는 프로그램 둘을 돌려 보고 출력이 같은 것을 확인합니다.
+     겉이 같은데 왜 나누는지를 스스로 물어야 나누는 법이 머리에 남습니다.</p>
+
+  <h5>절차 1 — 한 클래스에 다 넣은 것을 받아 적는다</h5>
+
+  <p class="cmdline"><code>bad\src\ReservationAll.java
+
+import java.util.*;
+
+public class ReservationAll {
+    static List&lt;String[]&gt; 예약목록 = new ArrayList&lt;&gt;();
+    static Map&lt;String, Integer&gt; 정원 = Map.of("F01", 20, "F02", 10);
+
+    public static void main(String[] args) {
+        신청("M0001", "F01", "2026-10-01", 15);
+        신청("M0002", "F01", "2026-10-01", 8);
+        신청("M0003", "F09", "2026-10-01", 3);
+        System.out.println("저장된 예약 " + 예약목록.size() + "건");
+    }
+
+    static void 신청(String 회원, String 시설, String 날짜, int 인원) {
+        System.out.println("[화면] " + 회원 + " 님이 " + 시설 + " 을 신청했습니다");
+        if (!정원.containsKey(시설)) {
+            System.out.println("[화면] 없는 시설입니다");
+            return;
+        }
+        int 기예약 = 0;
+        for (String[] r : 예약목록)
+            if (r[1].equals(시설) &amp;&amp; r[2].equals(날짜)) 기예약 += Integer.parseInt(r[3]);
+        if (기예약 + 인원 &gt; 정원.get(시설)) {
+            System.out.println("[화면] 정원을 초과했습니다");
+            return;
+        }
+        예약목록.add(new String[]{회원, 시설, 날짜, String.valueOf(인원)});
+        System.out.println("[메일] " + 회원 + " 님께 접수 메일을 보냈습니다");
+        System.out.println("[화면] 접수되었습니다");
+    }
+}</code></p>
+
+  <h5>절차 2 — 돌려 본다</h5>
+
+  <p class="cmdline"><code>&gt; javac -encoding utf-8 -proc:none -d bad\classes bad\src\ReservationAll.java
+&gt; java -Dstdout.encoding=utf-8 -cp bad\classes ReservationAll</code></p>
+
+  <p class="cmdline"><code>[화면] M0001 님이 F01 을 신청했습니다
+[메일] M0001 님께 접수 메일을 보냈습니다
+[화면] 접수되었습니다
+[화면] M0002 님이 F01 을 신청했습니다
+[화면] 정원을 초과했습니다
+[화면] M0003 님이 F09 을 신청했습니다
+[화면] 없는 시설입니다
+저장된 예약 1건</code></p>
+
+  <p>세 건 가운데 하나만 저장되었습니다.
+     둘째는 15 + 8 이 정원 20 을 넘어 막혔고, 셋째는 없는 시설이라 막혔습니다.
+     프로그램은 아무 문제 없이 제 할 일을 합니다.</p>
+
+  <h5>절차 3 — 이 메서드가 하는 일을 센다</h5>
+
+  <p class="cmdline"><code>신청() 메서드 안에 있는 것
+
+  화면에 찍기          System.out.println("[화면] ...")
+  업무 규칙 따지기      if (기예약 + 인원 &gt; 정원.get(시설))
+  저장하기            예약목록.add(...)
+  바깥 시스템 부르기    System.out.println("[메일] ...")
+
+네 가지입니다. 하나가 아니라 넷입니다.</code></p>
+
+  <p>이 메서드를 고칠 까닭이 넷이라는 뜻입니다.
+     화면 문구가 바뀌어도 열고, 정원 규칙이 바뀌어도 열고,
+     저장을 DB 로 바꿔도 열고, 메일 서버가 바뀌어도 엽니다.</p>
+
+  <h5>절차 4 — 나눈 것을 받아 적고 돌려 본다</h5>
+
+  <p class="cmdline"><code>good\src\
+  boundary\ReservationConsole.java   boundary\MailGateway.java
+  control\ReservationService.java
+  entity\Facility.java  entity\Reservation.java  entity\ReservationStore.java
+  Main.java
+
+&gt; cd good
+&gt; dir /s /b src\*.java</code></p>
+
+  <p class="cmdline"><code>&gt; javac -encoding utf-8 -proc:none -d classes src\Main.java src\boundary\*.java src\control\*.java src\entity\*.java
+&gt; java -Dstdout.encoding=utf-8 -cp classes Main</code></p>
+
+  <p class="cmdline"><code>[화면] M0001 님이 F01 을 신청했습니다
+[메일] M0001 님께 접수 메일을 보냈습니다
+[화면] 접수되었습니다
+[화면] M0002 님이 F01 을 신청했습니다
+[화면] 정원을 초과했습니다
+[화면] M0003 님이 F09 을 신청했습니다
+[화면] 없는 시설입니다
+저장된 예약 1건</code></p>
+
+  <h5>절차 5 — 두 화면을 나란히 놓고 본다</h5>
+
+  <p class="cmdline"><code>한 클래스 (bad)                나눈 것 (good)
+----------------------------  ----------------------------
+[화면] M0001 님이 F01 을 ...    [화면] M0001 님이 F01 을 ...
+[메일] M0001 님께 접수 메일을...  [메일] M0001 님께 접수 메일을...
+[화면] 접수되었습니다            [화면] 접수되었습니다
+...                           ...
+저장된 예약 1건                 저장된 예약 1건
+
+한 글자도 다르지 않습니다</code></p>
+
+  <div class="warn">이것이 이 교과에서 가장 먼저 알아야 하는 사실입니다.
+    <b>겉으로는 아무 차이가 없습니다.</b>
+    그래서 「돌아가는데 왜 나눠야 하느냐」는 물음이 당연히 나옵니다.
+    나누는 까닭은 지금 돌리려는 것이 아니라 <b>나중에 고치려는 것</b>입니다.
+    이 물음에 답할 수 있어야 설계를 배우는 뜻이 있습니다.
+  </div>
+
+  <h5>절차 6 — 고칠 자리를 견준다</h5>
+
+  <p class="cmdline"><code>화면 문구를 「접수되었습니다」에서 「신청이 접수되었습니다」로 바꾸려면
+
+  한 클래스   ReservationAll.java 를 연다
+              그 안에서 규칙 코드를 지나쳐 문구를 찾는다
+
+  나눈 것     boundary\ReservationConsole.java 를 연다
+              message() 메서드 안에 문구가 모여 있다
+              규칙 코드는 한 줄도 안 보인다</code></p>
+
+  <p>지금은 파일이 작아 차이가 작아 보입니다.
+     실무의 클래스는 300줄이 넘고, 그 안에서 문구를 찾다가
+     옆의 규칙을 잘못 건드리는 일이 실제로 일어납니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>한글이 깨져 나온다</td>
+        <td><code>-encoding utf-8</code> 과 <code>-Dstdout.encoding=utf-8</code> 을 빠뜨렸습니다</td></tr>
+    <tr><td><code>javac</code> 가 없다고 나온다</td>
+        <td>JDK 가 없거나 PATH 에 없습니다. <code>javac -version</code> 으로 확인</td></tr>
+    <tr><td>패키지가 있는데 클래스를 못 찾는다</td>
+        <td><code>-cp classes</code> 를 붙이고 <code>Main</code> 만 쓰십시오</td></tr>
+    <tr><td>파워셸에서 <code>-D</code> 옵션이 안 먹는다</td>
+        <td>따옴표로 묶으십시오 — <code>"-Dstdout.encoding=utf-8"</code></td></tr>
+    <tr><td>출력이 다르게 나온다</td>
+        <td>신청 세 줄의 인원과 정원을 견줘 보십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>ReservationAll.java</code>, 안 나눈 것 실행 화면,
+     나눈 것 일곱 파일, 나눈 것 실행 화면,
+     메서드가 하는 일 넷을 센 표, 고칠 자리 대조표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 두 프로그램을 다 돌려 보았습니까
+     ② 출력이 같다는 것을 눈으로 확인했습니까
+     ③ 한 메서드가 하는 일을 넷으로 셌습니까
+     ④ 왜 나누는지를 한 문장으로 말할 수 있습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st2">
+      <h3><i>2</i>완성 산출물의 확인</h3>
+      <aside class="side">
+        <p class="pt">낼 것을 먼저 보고 시작합니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 평가</p>
+        <b class="sh">내는 것</b>
+        <p class="v">다이어그램 · 명세서 · 검증 결과</p>
+      </aside>
+      <div class="bd">
+
+<h4>클래스 다이어그램</h4>
+
+<p class="cmdline"><code>┌──────────────────────────────┐
+│ &lt;&lt;entity&gt;&gt; Reservation        │
+├──────────────────────────────┤
+│ - memberNo : String          │
+│ - facilityCode : String      │
+│ - useDate : String           │
+│ - headcount : int            │
+│ - status : Status            │
+├──────────────────────────────┤
+│ + getStatus() : Status       │
+│ + confirm() : void           │
+│ + cancel() : void            │
+└──────────────────────────────┘</code></p>
+
+<p>세 칸입니다 — 이름, 속성, 오퍼레이션.
+   속성 앞의 <code>-</code> 와 오퍼레이션 앞의 <code>+</code> 가 가시성입니다.
+   이 표기가 그대로 자바의 <code>private</code> 과 <code>public</code> 이 됩니다.</p>
+
+<h4>설계 명세서</h4>
+
+<p class="cmdline"><code>클래스명  Reservation          갈래  엔티티
+설명     예약 한 건을 담는다. 상태는 신청·확정·취소 셋뿐이다
+
+속성
+| 속성명 | 타입 | 가시성 | 설명 |
+| memberNo | String | private | 회원 번호 |
+| status | Status | private | 예약 상태 |
+
+오퍼레이션
+| 연산명 | 인자 | 반환 | 가시성 | 설명 |
+| confirm | - | void | public | 상태를 확정으로 바꾼다 |
+| cancel | - | void | public | 상태를 취소로 바꾼다 |</code></p>
+
+<h4>검증 결과</h4>
+
+<p class="cmdline"><code>갈래        파일                           줄  지적
+------------------------------------------------------------------------------
+entity    Reservation.java            28  엔티티가 화면을 직접 다룹니다
+                                        System.out.println("[화면] 예약이 확정되었습니다
+control   ReservationService.java     25  제어가 화면을 직접 다룹니다
+                                        System.out.println("[화면] 없는 시설입니다");
+boundary  ReservationConsole.java      4  경계가 엔티티를 직접 가져다 씁니다
+                                        import entity.Facility;
+------------------------------------------------------------------------------
+지적 3건</code></p>
+
+<p>지적이 나온 화면이 있어야 합니다.
+   0건짜리 화면만 내면 검사를 안 해 본 것과 구별이 안 됩니다.
+   실습 10 · 13 에서 일부러 틀린 것을 넣고 잡히는 것을 봅니다.</p>
+
+<h4>폴더를 미리 만든다</h4>
+
+<p class="cmdline"><code>&gt; mkdir 정적모델
+&gt; cd 정적모델
+&gt; mkdir 분석 설계 명세서 검증 화면 src</code></p>
+
+<table class="wide">
+  <tr><th style="width:130px">폴더</th><th style="width:230px">들어갈 것</th><th>나오는 실습</th></tr>
+  <tr><td><code>분석</code></td><td>클래스 후보 · 세 갈래 분류표</td><td>5 ~ 8</td></tr>
+  <tr><td><code>설계</code></td><td>설계 원칙 적용 · 관계표</td><td>11 ~ 12</td></tr>
+  <tr><td><code>명세서</code></td><td>클래스 명세 · 패키지 구조 · 설계서</td><td>13 ~ 14</td></tr>
+  <tr><td><code>검증</code></td><td>체크리스트 · 검사 도구와 결과</td><td>9 · 10</td></tr>
+  <tr><td><code>화면</code></td><td>실행 화면. 지적이 나온 화면을 꼭 넣습니다</td><td>1 · 10 · 13</td></tr>
+  <tr><td><code>src</code></td><td>자바 소스. 설계한 것을 실제로 만들어 봅니다</td><td>6 ~ 8</td></tr>
+</table>
+      <div class="lab">
+  <b class="t">실습 2</b>
+  <b>낼 것을 적어 놓고 폴더와 패키지를 만든다</b>
+
+  <p><b>목적</b> — 제출물이 열이 넘습니다.
+     무엇을 내야 하는지 모르고 그리기 시작하면 그림에 시간을 다 쓰고 검증을 못 냅니다.
+     목록을 먼저 만들어 놓고 실습마다 지워 나갑니다.</p>
+
+  <h5>절차 1 — 폴더를 만든다</h5>
+
+  <p class="cmdline"><code>&gt; mkdir 정적모델
+&gt; cd 정적모델
+&gt; mkdir 분석 설계 명세서 검증 화면
+&gt; mkdir src\boundary src\control src\entity
+&gt; dir /b</code></p>
+
+  <p class="cmdline"><code>src
+검증
+명세서
+분석
+설계
+화면</code></p>
+
+  <p>여섯이 나오면 됩니다.
+     <code>src</code> 밑에 갈래마다 폴더를 하나씩 둔 것에 주의하십시오.
+     이 폴더 이름이 자바의 패키지 이름이 되고, 검사 도구가 읽는 갈래 이름도 이것입니다.</p>
+
+  <h5>절차 2 — 패키지가 폴더와 맞는지 본다</h5>
+
+  <p class="cmdline"><code>src\entity\Reservation.java 의 첫 줄
+
+  package entity;
+
+폴더 이름과 package 선언이 같아야 합니다
+다르면 javac 가 찾지 못하거나, 찾더라도 나중에 헷갈립니다</code></p>
+
+  <p>패키지는 이름표가 아니라 위치입니다.
+     <code>entity</code> 폴더에 있는 파일은 <code>package entity;</code> 로 시작합니다.
+     이 약속 하나로 「어느 갈래인가」를 파일 위치만 보고 알 수 있게 됩니다.</p>
+
+  <h5>절차 3 — 제출물 목록을 만든다</h5>
+
+  <p class="cmdline"><code>제출목록.md
+
+| 번호 | 제출물 | 폴더 | 나오는 실습 | 완료 |
+|------|--------|------|-------------|------|
+| 1 | 설계지침.md | 설계 | 4 | □ |
+| 2 | 클래스후보.md | 분석 | 5 | □ |
+| 3 | 세갈래분류.md | 분석 | 5 | □ |
+| 4 | boundary 소스 | src | 6 | □ |
+| 5 | control 소스 | src | 7 | □ |
+| 6 | entity 소스 | src | 8 | □ |
+| 7 | 정합성체크리스트.md | 검증 | 9 | □ |
+| 8 | 계층검사.py | 검증 | 10 | □ |
+| 9 | 책임표.md · 원칙적용.md | 설계 | 11 | □ |
+| 10 | 관계표.md | 설계 | 12 | □ |
+| 11 | 클래스명세_*.md · 클래스명세서.csv | 명세서 | 13 | □ |
+| 12 | 명세대조.py | 검증 | 13 | □ |
+| 13 | 패키지구조 · 설계서.md | 명세서 | 14 | □ |
+| 14 | 클래스 다이어그램 | 명세서 | 15 | □ |
+| 15 | 검증결과서.md | 검증 | 16 | □ |
+| 16 | 화면 여덟 장 | 화면 | 1 · 10 · 12 · 13 | □ |</code></p>
+
+  <h5>절차 4 — 화면 여덟 장의 자리를 미리 잡는다</h5>
+
+  <p class="cmdline"><code>화면\
+  01_안나눈것_실행.png
+  02_나눈것_실행.png
+  03_초안_두번찍힘.png         지적
+  04_계층검사_3건.png          지적
+  05_계층검사_0건.png
+  06_가시성_컴파일오류.png       지적
+  07_명세대조_불일치.png         지적
+  08_명세대조_일치.png</code></p>
+
+  <p>지적이 나온 화면이 넷입니다.
+     03 · 04 · 06 · 07 이 「검사를 실제로 돌렸다」는 증거입니다.
+     06 은 컴파일 오류 화면인데, 오류를 일부러 내서 찍는 것입니다.</p>
+
+  <div class="warn">오류 화면을 내라고 하면 대개 주저합니다.
+    틀린 것을 내는 것처럼 느껴지기 때문입니다.
+    그런데 설계 교과에서 오류 화면은 「설계가 실제로 지켜지는지 확인했다」는 증거입니다.
+    <code>private</code> 이라고 그려 놓고 컴파일해 본 적이 없으면
+    그 <code>private</code> 이 지켜지는지 아무도 모릅니다.
+  </div>
+
+  <h5>절차 5 — 요소별로 실습이 어디에 붙는지 적어 둔다</h5>
+
+  <p class="cmdline"><code>요소 ①  정적 분석모델 검증하기   실습 3 ~ 10
+요소 ②  정적모델 상세화하기     실습 11 ~ 15
+
+실습 1 · 2 · 16 은 준비와 마무리로, 요소에 직접 붙지 않습니다.</code></p>
+
+  <p>요소 ①이 여덟, ②가 다섯입니다.
+     ①은 「나누고 검증하는 일」이고 ②는 「적고 그리는 일」입니다.
+     나누는 데 시간을 더 쓰는 것이 맞습니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>mkdir</code> 로 여러 폴더가 한 번에 안 만들어진다</td>
+        <td>윈도우 <code>mkdir</code> 은 여러 개를 받습니다. 파워셸이면 <code>md</code></td></tr>
+    <tr><td>패키지 이름을 한글로 해도 되나</td>
+        <td>됩니다. 다만 구현 단계와 맞추려면 영문이 낫습니다</td></tr>
+    <tr><td>제출물이 열여섯이나 되나</td>
+        <td>대부분 표 하나짜리입니다. 소스는 이미 실습에서 만듭니다</td></tr>
+    <tr><td>작업지시서 형식이 다르다</td>
+        <td>작업지시서가 우선입니다. 이 표는 기본값입니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 폴더 여섯 개와 패키지 폴더 셋,
+     <code>제출목록.md</code>(열여섯 줄), 화면 파일 이름 여덟, 요소별 실습 배치표</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>src</code> 밑에 갈래 폴더 셋을 만들었습니까
+     ② 폴더 이름과 패키지 이름을 맞추기로 정했습니까
+     ③ 지적이 나온 화면 자리를 넷 잡아 두었습니까
+     ④ 요소 ①에 붙는 실습이 여덟이라는 것을 확인했습니까</p>
+</div>
+      </div>
+</div>
+
+<h3 class="lv">레벨 2 · 읽는 법 <span>능력단위요소 ① · 무엇으로 그리는지 먼저 봅니다</span></h3>
+
+<div class="step" id="st3">
+      <h3><i>3</i>UML 의 구성</h3>
+      <aside class="side">
+        <p class="pt">사물 · 관계 · 다이어그램 셋입니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1</p>
+        <b class="sh">용어</b>
+        <p class="v">UML · 정적 · 동적 다이어그램</p>
+      </aside>
+      <div class="bd">
+
+<h4>세 덩이</h4>
+
+<table class="wide">
+  <tr><th style="width:150px">구성 요소</th><th style="width:190px">무엇인가</th><th></th></tr>
+  <tr><td>사물 (Things)</td><td>모델의 기본 요소</td>
+      <td>클래스 · 인터페이스 · 컴포넌트 같은 것들</td></tr>
+  <tr><td>관계 (Relationships)</td><td>사물 사이의 연결</td>
+      <td>연관 · 포함 · 일반화 · 의존 · 실체화</td></tr>
+  <tr><td>다이어그램 (Diagram)</td><td>둘을 도형으로 그린 것</td>
+      <td>여러 관점의 뷰를 줍니다</td></tr>
+</table>
+
+<p>UML 은 소프트웨어의 청사진을 그리는 표준 언어입니다.
+   가시화 · 명세화 · 문서화가 되는 도구라고 학습모듈이 적고 있습니다.
+   표준이라는 말이 중요합니다 — 남이 그린 그림을 읽을 수 있다는 뜻입니다.</p>
+
+<h4>정적과 동적으로 나뉩니다</h4>
+
+<p class="cmdline"><code>정적(구조) 다이어그램            동적(행위) 다이어그램
+----------------------------  ----------------------------
+클래스 다이어그램                유스케이스 다이어그램
+객체 다이어그램                 시퀀스 다이어그램
+컴포넌트 다이어그램              상태 다이어그램
+배치 다이어그램                 활동 다이어그램
+
+이 교과는 왼쪽 맨 위 하나를 깊이 다룹니다</code></p>
+
+<table class="wide">
+  <tr><th style="width:170px">다이어그램</th><th></th></tr>
+  <tr><td>클래스</td><td>클래스와 인터페이스 사이의 정적인 관계</td></tr>
+  <tr><td>객체</td><td>클래스의 인스턴스를 어느 한 시점으로 찍은 것</td></tr>
+  <tr><td>컴포넌트</td><td>실제 구현 모듈 사이의 관계</td></tr>
+  <tr><td>배치</td><td>노드에 컴포넌트가 어떻게 올라가는지 — 물리적 구성</td></tr>
+</table>
+
+<p>클래스 다이어그램으로 주요 시스템 구조를 파악하고
+   구조상의 문제점을 도출할 수 있다고 학습모듈이 적고 있습니다.
+   「구조상의 문제점」이 이 교과의 검증이 찾는 것입니다.</p>
+
+<h4>다섯 가지 관계</h4>
+
+<p class="cmdline"><code>연관   Association      구조적으로 이어져 있다        ────
+집합   Aggregation      전체와 부분. 빌려 쓴다        ◇───
+합성   Composition      전체와 부분. 같이 죽는다      ◆───
+일반화 Generalization   is-a. 상속한다               ───▷
+의존   Dependency       바뀌면 영향을 받는다          ┈┈&gt;
+실체화 Realization      계약을 지키기로 한다          ┈┈▷</code></p>
+
+<p>선 모양이 다 다릅니다.
+   실선인지 점선인지, 끝이 다이아몬드인지 삼각형인지,
+   다이아몬드가 비었는지 찼는지로 갈립니다.
+   실습 12 에서 하나씩 코드로 옮겨 봅니다.</p>
+
+<div class="note">관계를 헷갈리면 그림이 거짓말을 합니다.
+  집합으로 그려야 할 것을 합성으로 그리면
+  「예약을 지우면 회원도 지운다」는 뜻이 되어 버립니다.
+  읽는 사람은 그대로 만들 것이고, 아무도 시키지 않은 삭제가 코드에 들어갑니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 3</b>
+  <b>UML 관계 여섯을 가려내고 쓸 것을 고른다</b>
+
+  <p><b>목적</b> — 관계 여섯의 선 모양이 저마다 다르고 뜻도 다릅니다.
+     외우기만 해서는 그릴 때 헷갈립니다.
+     우리 예제에 실제로 어느 관계가 필요한지 하나씩 따져 보면 몸에 붙습니다.</p>
+
+  <h5>절차 1 — 여섯을 표로 적는다</h5>
+
+  <p class="cmdline"><code>설계\관계정리.md
+
+| 관계 | 선 | 끝 모양 | 뜻 |
+|------|----|---------|-----|
+| 연관 Association | 실선 | 없거나 화살표 | 서로 이어져 있다 |
+| 집합 Aggregation | 실선 | 빈 다이아몬드 | 전체-부분. 부분이 따로 산다 |
+| 합성 Composition | 실선 | 찬 다이아몬드 | 전체-부분. 같이 죽는다 |
+| 일반화 Generalization | 실선 | 빈 삼각형 | is-a. 상속한다 |
+| 의존 Dependency | 점선 | 화살표 | 바뀌면 영향을 받는다 |
+| 실체화 Realization | 점선 | 빈 삼각형 | 인터페이스의 계약을 지킨다 |</code></p>
+
+  <p>선이 실선인지 점선인지가 먼저이고, 그다음이 끝 모양입니다.
+     점선은 둘뿐이라 외우기 쉽습니다 — 의존과 실체화.
+     다이아몬드는 색으로 갈리고, 삼각형은 선으로 갈립니다.</p>
+
+  <h5>절차 2 — 우리 클래스에 어느 관계가 필요한지 따진다</h5>
+
+  <p class="cmdline"><code>| 두 클래스 | 물어볼 것 | 관계 |
+|-----------|-----------|------|
+| ReservationConsole – ReservationService | 콘솔이 서비스를 가지고 있는가 | 연관 |
+| ReservationService – ReservationStore | 서비스가 저장소를 가지고 있는가 | 연관 |
+| ReservationStore – Reservation | 저장소가 사라지면 예약도 사라지는가 | 합성 |
+| Reservation – Facility | 예약이 시설을 가지는가, 시설이 따로 사는가 | 연관 |
+| ReservationConsole – MailGateway | 콘솔이 메일을 가지고 있는가 | 연관 |</code></p>
+
+  <p>셋째 줄만 합성입니다.
+     <code>ReservationStore</code> 안의 <code>List&lt;Reservation&gt;</code> 은
+     저장소가 없어지면 같이 없어집니다.
+     시설은 저장소와 상관없이 따로 존재하므로 합성이 아닙니다.</p>
+
+  <h5>절차 3 — 헷갈리는 자리를 문장으로 시험한다</h5>
+
+  <p class="cmdline"><code>일반화인가?  «A 는 B 이다» 로 읽어 봅니다
+
+  우대회원 은 회원 이다          말이 됩니다   → 일반화
+  예약 은 시설 이다             말이 안 됩니다 → 연관
+
+집합인가 합성인가?  «B 가 죽으면 A 도 죽는가» 로 물어봅니다
+
+  저장소가 사라지면 그 안의 예약도 사라지는가   예 → 합성
+  회원이 탈퇴하면 그 회원의 예약도 사라지는가   업무 규칙에 달렸습니다
+                                          → 요구사항을 보고 정합니다</code></p>
+
+  <div class="warn">아래쪽이 설계에서 실제로 다투는 자리입니다.
+    합성으로 그리면 「회원을 지우면 예약도 지운다」는 뜻이 되고,
+    구현하는 사람은 그대로 만듭니다.
+    그런데 공공 시설 예약은 이용 기록을 남겨야 하는 경우가 많습니다.
+    그러면 합성이 아니라 연관이고, 회원 쪽에 「탈퇴」 상태를 두어야 합니다.
+    다이아몬드 색 하나가 이만큼을 정합니다 — 요구사항을 보고 그리십시오.
+  </div>
+
+  <h5>절차 4 — 정적과 동적을 갈라 둔다</h5>
+
+  <p class="cmdline"><code>정적 다이어그램            이 교과에서
+  클래스                   그립니다
+  객체                     안 그립니다 (인스턴스 예시가 필요할 때만)
+  컴포넌트                  안 그립니다
+  배치                     안 그립니다
+
+동적 다이어그램            이 교과에서
+  유스케이스                앞 교과에서 그렸습니다
+  시퀀스 · 상태 · 활동        다음 교과입니다</code></p>
+
+  <p>그리는 것은 클래스 다이어그램 하나입니다.
+     나머지는 있다는 것만 알고 있으면 됩니다.
+     「왜 시퀀스는 안 그립니까」를 물으면 「시간이 들어가서 동적모델입니다」라고 답합니다.</p>
+
+  <h5>절차 5 — 스테레오타입을 정한다</h5>
+
+  <p class="cmdline"><code>&lt;&lt;boundary&gt;&gt;   경계 클래스
+&lt;&lt;control&gt;&gt;    제어 클래스
+&lt;&lt;entity&gt;&gt;     엔티티 클래스
+
+클래스 이름 위에 적습니다
+그림만 보고도 갈래를 알 수 있게 하는 표시입니다</code></p>
+
+  <p>UML 표준이 제공하는 확장 방법입니다.
+     패키지로도 갈래가 보이지만 그림에서는 패키지가 안 보이므로
+     스테레오타입을 적어 두면 읽는 사람이 편합니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>집합과 합성이 계속 헷갈린다</td>
+        <td>「전체가 죽으면 부분도 죽는가」 하나로만 가르십시오</td></tr>
+    <tr><td>연관과 의존이 헷갈린다</td>
+        <td>속성으로 가지고 있으면 연관, 메서드 인자로만 쓰면 의존입니다</td></tr>
+    <tr><td>관계가 너무 많아진다</td>
+        <td>속성으로 가진 것만 선을 그으십시오</td></tr>
+    <tr><td>실체화를 쓸 일이 없다</td>
+        <td>인터페이스를 안 쓰면 안 나옵니다. 실습 11 에서 나옵니다</td></tr>
+    <tr><td>화살표를 붙여야 하나</td>
+        <td>한쪽만 상대를 알면 붙이고, 서로 알면 안 붙입니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>관계정리.md</code>(여섯 줄),
+     우리 클래스에 필요한 관계표, 문장으로 시험한 기록,
+     정적·동적 구분표, 스테레오타입 규칙</p>
+
+  <p><b>스스로 확인</b> —
+     ① 여섯 관계의 선과 끝 모양을 적었습니까
+     ② 우리 예제에서 합성이 어디인지 골랐습니까
+     ③ 「A 는 B 이다」로 상속 여부를 시험해 보았습니까
+     ④ 이 교과에서 그릴 다이어그램이 무엇인지 압니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st4">
+      <h3><i>4</i>설계 패턴과 MVC</h3>
+      <aside class="side">
+        <p class="pt">먼저 정해진 틀을 확인합니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1</p>
+        <b class="sh">용어</b>
+        <p class="v">MVC · 설계 가이드라인</p>
+      </aside>
+      <div class="bd">
+
+<h4>MVC 세 덩이</h4>
+
+<table class="wide">
+  <tr><th style="width:150px">컴포넌트</th><th style="width:210px">맡는 것</th><th>이 교과의 갈래로</th></tr>
+  <tr><td>Controller</td><td>전체 제어 흐름을 관리합니다</td><td>제어 클래스</td></tr>
+  <tr><td>Model</td><td>핵심 기능 로직과 자료를 다룹니다</td><td>엔티티 클래스</td></tr>
+  <tr><td>View</td><td>사용자에게 보여 줍니다</td><td>경계 클래스</td></tr>
+</table>
+
+<p>MVC 의 셋과 분석 클래스의 셋이 거의 그대로 겹칩니다.
+   이름만 다르고 나누는 기준은 같습니다.
+   그래서 MVC 를 아는 사람은 이 교과가 쉽고, 여기서 배운 것은 MVC 에 그대로 씁니다.</p>
+
+<h4>설계 가이드라인을 먼저 봅니다</h4>
+
+<p class="cmdline"><code>설계를 시작하기 전에 확인할 것
+
+□ 설계 패턴          MVC 인가 Layer 계층인가
+□ 개발 플랫폼         스프링인가 순수 자바인가
+□ DBMS              MySQL 인가 오라클인가
+□ 패키지 구조         계층별인가 기능별인가
+□ 명명 규칙          클래스 · 속성 · 오퍼레이션 이름을 어떻게 짓는가
+□ 클래스 다이어그램 작성 단위
+□ 용어사전과 업무 규칙</code></p>
+
+<p>이것을 안 보고 그리면 다 그린 뒤에 다시 그리게 됩니다.
+   명명 규칙 하나만 어긋나도 클래스 이름을 전부 고쳐야 합니다.</p>
+
+<h4>플랫폼마다 이름 규칙이 있습니다</h4>
+
+<p class="cmdline"><code>스프링 · MVC 를 쓰는 곳의 흔한 규칙
+
+  Controller   업무명 + Controller      EmployeeController
+  Service      업무명 + Service         EmployeeService
+  VO           테이블명 + VO            EmployeeVO
+  DAO          업무명 + DAO             EmployeeDAO
+
+요소 사이의 규칙
+  Client 는 항상 Controller 를 거쳐 Service 를 부른다
+  데이터베이스와의 관계는 VO 를 거친다
+  엔티티 클래스는 DAO 와 짝이 된다</code></p>
+
+<p>이름만 보고 갈래를 알 수 있게 하는 것이 목적입니다.
+   <code>EmployeeService</code> 를 보면 제어 갈래라는 것을 압니다.
+   이 교안은 순수 자바로 만들므로 패키지 이름으로 갈래를 나눕니다.</p>
+
+<h4>이 교안이 쓰는 규칙</h4>
+
+<p class="cmdline"><code>설계\설계지침.md
+
+| 항목 | 정한 것 |
+|------|---------|
+| 설계 패턴 | MVC 를 본떠 경계·제어·엔티티로 나눈다 |
+| 플랫폼 | 순수 자바 21 (프레임워크 없음) |
+| 패키지 | boundary · control · entity 셋 |
+| 클래스명 | 대문자로 시작. 갈래를 뒤에 붙이지 않고 패키지로 나눈다 |
+| 속성명 | 소문자로 시작. camelCase |
+| 오퍼레이션명 | 소문자로 시작. 동사 + 명사 |
+| 가시성 | 속성은 private 이 기본. 오퍼레이션은 필요한 것만 public |</code></p>
+
+<div class="warn">맨 아래 줄을 지키는 것이 이 교과에서 가장 실질적인 이득입니다.
+  속성을 <code>private</code> 으로 두면 바깥에서 값을 바꿀 수 없고,
+  값을 바꾸려면 반드시 오퍼레이션을 거치게 됩니다.
+  그러면 「상태는 신청·확정·취소 셋뿐」 같은 규칙을 지킬 자리가 생깁니다.
+  <code>public</code> 으로 열어 두면 규칙을 지킬 자리가 어디에도 없습니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 4</b>
+  <b>설계 지침을 정하고 명명 규칙을 못 박는다</b>
+
+  <p><b>목적</b> — 설계를 시작하기 전에 정할 것이 있습니다.
+     어떤 패턴을 쓸지, 이름을 어떻게 지을지, 패키지를 어떻게 나눌지.
+     이것을 안 정하고 그리면 다 그린 뒤에 전부 고치게 됩니다.</p>
+
+  <h5>절차 1 — 확인할 것을 훑는다</h5>
+
+  <p class="cmdline"><code>□ 설계 패턴          MVC 인가 Layer 계층인가
+□ 개발 플랫폼         스프링인가 순수 자바인가
+□ DBMS              무엇을 쓰는가
+□ 패키지 구조         계층별인가 기능별인가
+□ 명명 규칙          클래스 · 속성 · 오퍼레이션
+□ 클래스 다이어그램 작성 단위
+□ 개발 표준 가이드와 구현 사례
+□ SQL 표준 · 메시지 표준
+□ 용어사전과 업무 규칙
+□ 형상관리 표준</code></p>
+
+  <p>학습모듈이 열 가지를 적고 있습니다.
+     실무에서는 이것이 「설계 가이드라인」이라는 문서로 내려옵니다.
+     훈련 과정에서는 그 문서가 없으므로 우리가 정합니다.</p>
+
+  <h5>절차 2 — 패키지를 계층별로 나눌지 기능별로 나눌지 정한다</h5>
+
+  <p class="cmdline"><code>계층별                       기능별
+--------------------------  --------------------------
+boundary/                   reservation/
+  ReservationConsole          ReservationConsole
+  FacilityConsole             ReservationService
+control/                      Reservation
+  ReservationService        facility/
+  FacilityService             FacilityConsole
+entity/                       FacilityService
+  Reservation                 Facility
+  Facility</code></p>
+
+  <p>왼쪽은 갈래가 한눈에 보이고, 오른쪽은 한 기능이 한 폴더에 모입니다.
+     실무에서는 기능별이 많고, 배우는 자리에서는 계층별이 낫습니다 —
+     세 갈래를 나누는 연습이 목적이기 때문입니다.
+     이 교안은 계층별로 갑니다.</p>
+
+  <h5>절차 3 — 명명 규칙을 정한다</h5>
+
+  <p class="cmdline"><code>설계\설계지침.md
+
+| 항목 | 정한 것 | 보기 |
+|------|---------|------|
+| 설계 패턴 | MVC 를 본떠 경계·제어·엔티티 | - |
+| 플랫폼 | 순수 자바 21 | - |
+| 패키지 | 계층별 — boundary · control · entity | - |
+| 클래스명 | 대문자로 시작. PascalCase | ReservationService |
+| 속성명 | 소문자로 시작. camelCase | facilityCode |
+| 오퍼레이션명 | 소문자로 시작. 동사 + 명사 | bookedCount, confirm |
+| 상수 | 대문자와 밑줄 | MAX_HEADCOUNT |
+| 가시성 | 속성은 private 이 기본 | - |
+| 열거형 | 대문자 | REQUESTED, CONFIRMED |</code></p>
+
+  <p>학습모듈은 클래스명을 유스케이스 기능명과 이어지게 지으라고 합니다.
+     유스케이스가 「예약을 신청한다」이므로 <code>ReservationService</code> 안에
+     <code>request</code> 라는 오퍼레이션을 둡니다 —
+     이름만 보고 어느 유스케이스의 것인지 알 수 있습니다.</p>
+
+  <h5>절차 4 — 이름을 지어 보고 규칙에 걸리는지 본다</h5>
+
+  <p class="cmdline"><code>| 지어 본 이름 | 규칙에 맞는가 | 왜 |
+|--------------|---------------|-----|
+| ReservationService | ○ | 대문자 시작 |
+| reservationService | ✗ | 클래스인데 소문자 시작 |
+| ResInfo | ✗ | 「Info」 가 아무 뜻이 없다 |
+| Reservation_Store | ✗ | 밑줄은 상수에만 |
+| bookedCount | ○ | 소문자 시작 |
+| BookedCount | ✗ | 오퍼레이션인데 대문자 시작 |
+| size | △ | 명사뿐. count 나 getSize 가 낫다 |</code></p>
+
+  <p>맨 아래 줄이 판단이 필요한 자리입니다.
+     자바의 관례로는 <code>size()</code> 가 널리 쓰이지만
+     우리가 정한 「동사 + 명사」 규칙에는 어긋납니다.
+     규칙을 고칠지 이름을 고칠지 정하고 그 판단을 적어 두십시오.</p>
+
+  <div class="note">규칙에 예외를 두는 것은 괜찮습니다.
+    다만 예외를 적어 두지 않으면 다음 사람이 「여기는 왜 다르지」 하고 헤맵니다.
+    「자바 표준 라이브러리 관례를 따르는 이름은 예외로 둔다 —
+    <code>size</code> · <code>get</code> · <code>toString</code>」 한 줄이면 됩니다.
+  </div>
+
+  <h5>절차 5 — 스프링을 쓸 때의 규칙도 알아 둔다</h5>
+
+  <p class="cmdline"><code>Controller   업무명 + Controller     EmployeeController
+Service      업무명 + Service        EmployeeService
+VO           테이블명 + VO           EmployeeVO
+DAO          업무명 + DAO            EmployeeDAO
+
+요소 사이의 규칙
+  Client 는 항상 Controller 를 거쳐 Service 를 부른다
+  데이터베이스와의 관계는 VO 를 거친다
+  엔티티 클래스는 DAO 와 짝이 된다</code></p>
+
+  <p>이름 뒤에 갈래를 붙이는 방식입니다.
+     패키지로 나누는 방식과 목적이 같습니다 — 이름만 보고 갈래를 알게 하는 것.
+     실무에서 스프링 프로젝트를 만나면 이 규칙을 따르게 됩니다.</p>
+
+  <h5>절차 6 — 지침을 지키는지 볼 방법을 정해 둔다</h5>
+
+  <p class="cmdline"><code>| 지침 | 어떻게 보는가 | 실습 |
+|------|---------------|------|
+| 클래스명 대문자 시작 | 눈으로 · 체크리스트 | 9 |
+| 속성 private | 컴파일해 보면 막힌다 | 8 |
+| 계층 방향 | 파이썬 도구로 import 를 훑는다 | 10 |
+| 명세와 코드 일치 | javap 로 뽑아 대조한다 | 13 |</code></p>
+
+  <p>지침을 정할 때 「어떻게 지켜지는지 볼 것인가」를 같이 정해 두면
+     나중에 검증 단계에서 할 일이 그대로 나옵니다.
+     볼 방법이 없는 지침은 지켜지지 않습니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>계층별과 기능별 중 뭘 고를지 모르겠다</td>
+        <td>배우는 자리에서는 계층별입니다. 고른 까닭을 적으십시오</td></tr>
+    <tr><td>클래스 이름을 못 짓겠다</td>
+        <td>유스케이스 이름에서 명사를 뽑아 보십시오</td></tr>
+    <tr><td>영문 이름이 어렵다</td>
+        <td>용어사전을 먼저 만드십시오 — 예약 Reservation, 시설 Facility</td></tr>
+    <tr><td>규칙이 자바 관례와 부딪힌다</td>
+        <td>예외를 적어 두면 됩니다. 말없이 어기는 것만 안 됩니다</td></tr>
+    <tr><td>작업지시서에 다른 규칙이 있다</td>
+        <td>작업지시서가 우선입니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 확인 항목 열 줄, 패키지 방식을 고른 기록,
+     <code>설계지침.md</code>(아홉 줄), 이름 시험표,
+     스프링 규칙 정리, 지침별 확인 방법표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 패키지를 계층별로 할지 기능별로 할지 정하고 까닭을 적었습니까
+     ② 클래스·속성·오퍼레이션 이름 규칙을 각각 정했습니까
+     ③ 규칙에 어긋나는 이름을 찾아보았습니까
+     ④ 지침마다 「어떻게 볼 것인가」를 적었습니까</p>
+</div>
+      </div>
+</div>
+
+<h3 class="lv">레벨 3 · 분석 클래스 <span>능력단위요소 ① · 이 교과의 몸통</span></h3>
+
+<div class="step" id="st5">
+      <h3><i>5</i>세 갈래로 나눈다</h3>
+      <aside class="side">
+        <p class="pt">창구 · 뇌 · 기억으로 나눕니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1 · 2-1</p>
+        <b class="sh">용어</b>
+        <p class="v">경계 · 제어 · 엔티티 클래스</p>
+      </aside>
+      <div class="bd">
+
+<h4>셋을 가르는 기준</h4>
+
+<table class="wide">
+  <tr><th style="width:130px">갈래</th><th style="width:130px">비유</th><th></th></tr>
+  <tr><td>경계 (Boundary)</td><td>창구</td>
+      <td>액터와 주고받습니다. 입력과 출력만 합니다</td></tr>
+  <tr><td>제어 (Control)</td><td>뇌</td>
+      <td>업무 규칙과 흐름을 맡습니다. 트랜잭션도 여기입니다</td></tr>
+  <tr><td>엔티티 (Entity)</td><td>기억</td>
+      <td>오래 남을 자료를 맡습니다. 시스템이 꺼져도 남습니다</td></tr>
+</table>
+
+<p>학습모듈의 수행 tip 이 이렇게 적고 있습니다 —
+   「경계는 창구, 제어는 뇌, 엔티티는 기억으로 점검하면 쉽게 구분할 수 있다」.
+   헷갈릴 때마다 이 셋으로 되물으면 됩니다.</p>
+
+<h4>유스케이스 흐름에서 뽑아냅니다</h4>
+
+<p class="cmdline"><code>UC-02 예약을 신청한다 · 정상 흐름
+
+1. 회원이 시설 목록을 연다                    ← 경계
+2. 시스템이 시설과 남은 자리를 보여 준다        ← 경계가 보여 주고, 엔티티가 자료를 냄
+3. 회원이 시설을 고르고 이용일자와 인원을 넣는다  ← 경계
+4. 시스템이 정원과 기간을 확인한다              ← 제어 (규칙) + 엔티티 (자료)
+5. 시스템이 예약을 저장하고 예약번호를 보여 준다  ← 엔티티 (저장) + 경계 (보여 줌)</code></p>
+
+<p>한 줄에 갈래가 둘씩 걸리는 것이 보통입니다.
+   그것이 정상입니다 — 한 줄을 이루려면 여럿이 협력해야 합니다.
+   갈래마다 그 줄에서 무엇을 맡는지만 갈라 놓으면 됩니다.</p>
+
+<h4>클래스 후보를 뽑습니다</h4>
+
+<p class="cmdline"><code>분석\클래스후보.md
+
+| 후보 | 갈래 | 나온 자리 | 까닭 |
+|------|------|-----------|------|
+| ReservationConsole | 경계 | 흐름 1·3·5 | 회원과 주고받는 창구 |
+| MailGateway | 경계 | 사후 조건 | 바깥 메일 시스템과의 창구 |
+| ReservationService | 제어 | 흐름 4 | 정원·기간 규칙과 흐름 |
+| Reservation | 엔티티 | 흐름 5 | 저장되어야 하는 예약 |
+| Facility | 엔티티 | 흐름 2·4 | 시설과 정원 |
+| ReservationStore | 엔티티 | 흐름 5 | 예약을 모아 두는 곳 |</code></p>
+
+<p>「나온 자리」 칸이 있어야 합니다.
+   평가에서 「왜 이 클래스가 있습니까」를 물으면 이 칸을 가리키면 됩니다.
+   흐름의 어느 줄에서도 안 나온 클래스는 근거가 없는 클래스입니다.</p>
+
+<div class="warn">앞 교과의 추적 검사와 같은 이야기입니다.
+  요구사항에 없는 유스케이스를 그리지 않듯,
+  유스케이스 흐름에 없는 클래스를 만들지 않습니다.
+  「나중에 쓸 것 같아서」 만든 클래스가 프로젝트마다 열 개씩 있고,
+  그 가운데 실제로 쓰이는 것은 하나도 없습니다.
+</div>
+
+<h4>세 갈래가 서로 부르는 방향</h4>
+
+<p class="cmdline"><code>       액터
+        │
+        ↓
+    ┌────────┐
+    │  경계   │   화면 · 외부 시스템
+    └────┬───┘
+         ↓          경계는 제어만 부릅니다
+    ┌────────┐
+    │  제어   │   업무 규칙 · 흐름
+    └────┬───┘
+         ↓          제어가 엔티티를 부릅니다
+    ┌────────┐
+    │ 엔티티  │   자료
+    └────────┘
+
+거꾸로 가는 화살표는 없습니다</code></p>
+
+<p>엔티티가 경계를 부르면 안 되고, 경계가 엔티티를 바로 부르면 안 됩니다.
+   이 방향이 지켜지는지를 실습 10 에서 기계로 검사합니다.
+   방향 하나만 지켜도 설계의 절반은 된 것입니다.</p>
+      <div class="lab">
+  <b class="t">실습 5</b>
+  <b>유스케이스 흐름에서 클래스를 뽑아 세 갈래로 나눈다</b>
+
+  <p><b>목적</b> — 클래스는 지어내는 것이 아니라 뽑아내는 것입니다.
+     유스케이스 명세서의 흐름을 한 줄씩 읽으면서 「이 줄은 누가 하는가」를 물으면
+     클래스가 나오고, 근거도 같이 남습니다.</p>
+
+  <h5>절차 1 — 유스케이스 명세서를 펼친다</h5>
+
+  <p class="cmdline"><code>UC-02 예약을 신청한다
+
+사전 조건  로그인되어 있을 것 · 시설이 하나 이상 등록되어 있을 것
+사후 조건  예약이 저장되고 예약번호가 발급될 것
+
+정상 흐름
+  1. 회원이 시설 목록을 연다
+  2. 시스템이 시설과 남은 자리를 보여 준다
+  3. 회원이 시설을 고르고 이용일자와 인원을 넣는다
+  4. 시스템이 정원과 기간을 확인한다
+  5. 시스템이 예약을 저장하고 예약번호를 보여 준다
+
+대안 흐름  4a 정원 초과 · 4b 30일 초과
+예외 흐름  5a 저장 실패</code></p>
+
+  <p>앞 교과의 산출물을 그대로 씁니다.
+     명세서가 없으면 여기서 만들 수는 있지만,
+     그러면 이 교과가 아니라 앞 교과를 하고 있는 것입니다.</p>
+
+  <h5>절차 2 — 줄마다 「누가 하는가」를 적는다</h5>
+
+  <p class="cmdline"><code>분석\흐름분석.md
+
+| 흐름 | 하는 일 | 누가 | 갈래 |
+|------|---------|------|------|
+| 1 | 시설 목록을 연다 | 화면 | 경계 |
+| 2 | 시설과 남은 자리를 보여 준다 | 화면이 보여 주고 자료는 저장소가 | 경계 + 엔티티 |
+| 3 | 입력을 받는다 | 화면 | 경계 |
+| 4 | 정원과 기간을 확인한다 | 규칙은 서비스, 자료는 저장소 | 제어 + 엔티티 |
+| 5 | 저장하고 번호를 보여 준다 | 저장은 저장소, 표시는 화면 | 엔티티 + 경계 |
+| 사후 | 접수 메일을 보낸다 | 바깥 메일 시스템 | 경계 |</code></p>
+
+  <p>한 줄에 갈래가 둘씩 걸리는 것이 정상입니다.
+     한 줄을 이루려면 여럿이 협력해야 하기 때문입니다.
+     갈래마다 그 줄에서 <b>무엇을 맡는지</b>만 갈라 놓으면 됩니다.</p>
+
+  <h5>절차 3 — 명사를 뽑아 클래스 후보로 삼는다</h5>
+
+  <p class="cmdline"><code>흐름에 나온 명사
+
+  회원 · 시설 · 목록 · 자리 · 이용일자 · 인원 · 정원 · 기간 · 예약 · 예약번호
+
+이 가운데 클래스가 될 만한 것
+  시설    속성이 여럿이고 오래 남습니다        → Facility
+  예약    속성이 여럿이고 오래 남습니다        → Reservation
+
+속성이 될 것
+  이용일자 · 인원 · 예약번호 · 정원
+
+클래스도 속성도 아닌 것
+  회원   이 시스템 범위에서는 액터입니다 (회원 관리는 다른 유스케이스)
+  목록 · 자리 · 기간   계산해서 나오는 값입니다</code></p>
+
+  <div class="warn">「회원」을 클래스로 만들고 싶어지는 것이 보통입니다.
+    이름이 있고 자료도 있으니 당연해 보입니다.
+    그런데 이 유스케이스에서 회원은 회원번호 하나로만 나타납니다 —
+    이름도 연락처도 쓰이지 않습니다.
+    회원 관리 유스케이스를 설계할 때 만들면 되고,
+    지금 만들면 속성 없는 빈 클래스가 됩니다.
+    <b>지금 유스케이스에 필요한 것만 만듭니다.</b>
+  </div>
+
+  <h5>절차 4 — 갈래마다 클래스를 배정한다</h5>
+
+  <p class="cmdline"><code>분석\세갈래분류.md
+
+| 갈래 | 클래스 | 맡는 것 |
+|------|--------|---------|
+| 경계 UI | ReservationConsole | 회원과 주고받는다 |
+| 경계 SI | MailGateway | 메일 시스템과 주고받는다 |
+| 제어 | ReservationService | 정원·시설 규칙과 흐름 |
+| 엔티티 | Reservation | 예약 한 건 |
+| 엔티티 | Facility | 시설 하나 |
+| 엔티티 | ReservationStore | 예약을 모아 두고 센다 |</code></p>
+
+  <h5>절차 5 — 근거를 적는다</h5>
+
+  <p class="cmdline"><code>분석\클래스후보.md
+
+| 클래스 | 갈래 | 나온 자리 | 까닭 |
+|--------|------|-----------|------|
+| ReservationConsole | 경계 | 흐름 1·3·5 | 회원과 주고받는 창구 |
+| MailGateway | 경계 | 사후 조건 | 바깥 메일 시스템과의 창구 |
+| ReservationService | 제어 | 흐름 4 · 대안 4a·4b | 정원·기간 규칙 |
+| Reservation | 엔티티 | 흐름 5 · 사후 조건 | 저장되어야 하는 예약 |
+| Facility | 엔티티 | 흐름 2·4 | 시설과 정원 |
+| ReservationStore | 엔티티 | 흐름 2·4·5 | 예약을 모아 두고 센다 |</code></p>
+
+  <p>「나온 자리」 칸이 이 실습의 제출물입니다.
+     평가에서 「왜 이 클래스가 있습니까」를 물으면 이 칸을 가리키면 됩니다.
+     어느 줄에서도 안 나온 클래스는 근거가 없는 클래스입니다.</p>
+
+  <h5>절차 6 — 거꾸로도 확인한다</h5>
+
+  <p class="cmdline"><code>흐름의 모든 줄이 클래스로 덮였는가
+
+  흐름 1  ReservationConsole            ○
+  흐름 2  ReservationConsole + Store    ○
+  흐름 3  ReservationConsole            ○
+  흐름 4  ReservationService + Store    ○
+  흐름 5  Store + ReservationConsole    ○
+  4a·4b  ReservationService             ○
+  5a     ReservationConsole             ○  ← 저장 실패 메시지
+
+빠진 줄 없음 · 근거 없는 클래스 없음</code></p>
+
+  <p>앞 교과의 추적 검사와 같은 방식입니다.
+     한 방향만 보면 절반만 검사한 것입니다 —
+     흐름에서 클래스가 다 나왔는지, 클래스가 다 흐름에서 나왔는지 둘 다 봅니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>클래스가 스무 개가 넘는다</td>
+        <td>명사를 전부 클래스로 만든 것입니다. 속성이 될 것을 가르십시오</td></tr>
+    <tr><td>클래스가 둘뿐이다</td>
+        <td>한 클래스가 여러 갈래를 맡고 있지 않은지 보십시오</td></tr>
+    <tr><td>제어 클래스가 안 나온다</td>
+        <td>업무 규칙을 따지는 줄이 있으면 반드시 제어가 있습니다</td></tr>
+    <tr><td>엔티티가 하나뿐이다</td>
+        <td>모아 두는 곳과 한 건을 나누면 둘이 됩니다</td></tr>
+    <tr><td>「회원」을 꼭 넣고 싶다</td>
+        <td>이 유스케이스에서 회원의 속성이 몇 개 쓰이는지 세어 보십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>흐름분석.md</code>, 명사 분류,
+     <code>세갈래분류.md</code>, <code>클래스후보.md</code>(나온 자리 포함),
+     거꾸로 확인한 표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 흐름을 한 줄씩 갈래로 나눴습니까
+     ② 명사 가운데 속성이 될 것을 갈랐습니까
+     ③ 클래스마다 나온 자리를 적었습니까
+     ④ 흐름의 모든 줄이 덮였는지 거꾸로도 봤습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st6">
+      <h3><i>6</i>경계 클래스</h3>
+      <aside class="side">
+        <p class="pt">주고받기만 합니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1 · 2-1</p>
+        <b class="sh">용어</b>
+        <p class="v">UI · SI · DI 클래스</p>
+      </aside>
+      <div class="bd">
+
+<h4>세 유형</h4>
+
+<table class="wide">
+  <tr><th style="width:110px">유형</th><th style="width:130px">액터</th><th></th></tr>
+  <tr><td>UI 클래스</td><td>사용자</td><td>화면과의 입출력</td></tr>
+  <tr><td>SI 클래스</td><td>외부 시스템</td><td>다른 시스템과 자료를 주고받습니다</td></tr>
+  <tr><td>DI 클래스</td><td>내외부 장치</td><td>장치를 지켜보고 제어합니다</td></tr>
+</table>
+
+<p>액터의 갈래에 따라 나뉩니다.
+   사람 액터용과 시스템 액터용을 한 클래스에 섞지 말라고 학습모듈이 적고 있습니다.
+   섞으면 화면을 고칠 때 외부 연동까지 건드리게 됩니다.</p>
+
+<h4>경계가 하는 것과 안 하는 것</h4>
+
+<p class="cmdline"><code>합니다
+  사용자 입력 받기 · 화면 표시 · HTTP 요청과 응답
+  형식 검증 (숫자 자리인가, 빈칸인가)
+  DTO 나 뷰 모델로 바꾸기 · 상태 코드 매핑
+
+안 합니다
+  업무 규칙 (정원을 넘었는가, 30일 이내인가)
+  트랜잭션 · 상태 전이
+  저장소에 직접 접근</code></p>
+
+<p>가르는 기준은 「이 판단이 화면이 바뀌어도 그대로인가」입니다.
+   「인원이 숫자인가」는 화면이 웹이든 앱이든 필요하지만 형식 검증이라 경계의 몫이고,
+   「정원을 넘었는가」는 업무 규칙이라 제어의 몫입니다.</p>
+
+<h4>써 봅니다</h4>
+
+<p class="cmdline"><code>src\boundary\ReservationConsole.java
+
+package boundary;
+
+import control.ReservationService;
+
+public class ReservationConsole {
+
+    private final ReservationService service;
+    private final MailGateway mail;
+
+    public ReservationConsole(ReservationService service, MailGateway mail) {
+        this.service = service;
+        this.mail = mail;
+    }
+
+    public void request(String memberNo, String facilityCode, String useDate, int headcount) {
+        System.out.println("[화면] " + memberNo + " 님이 " + facilityCode + " 을 신청했습니다");
+        ReservationService.Result result =
+                service.request(memberNo, facilityCode, useDate, headcount);
+        if (result == ReservationService.Result.OK) mail.sendAccepted(memberNo);
+        System.out.println("[화면] " + message(result));
+    }
+
+    private String message(ReservationService.Result r) {
+        return switch (r) {
+            case OK            -&gt; "접수되었습니다";
+            case NO_FACILITY   -&gt; "없는 시설입니다";
+            case OVER_CAPACITY -&gt; "정원을 초과했습니다";
+        };
+    }
+}</code></p>
+
+<p><code>import</code> 가 <code>control</code> 하나뿐인 것을 눈여겨보십시오.
+   <code>entity</code> 를 안 가져옵니다 — 가져오면 경계가 자료 구조를 알게 됩니다.
+   <code>message</code> 가 <code>private</code> 인 것도 눈여겨보십시오.
+   바깥에서 부를 일이 없으면 열지 않습니다.</p>
+
+<div class="note">제어가 <code>Result</code> 라는 값을 돌려주고 경계가 그것을 사람 말로 바꿉니다.
+  제어가 「정원을 초과했습니다」라는 한국어 문장을 돌려주면 안 됩니다.
+  화면을 영어로 바꿀 때 제어를 고쳐야 하기 때문입니다.
+  제어는 <code>OVER_CAPACITY</code> 까지만 알고,
+  그것을 무슨 말로 보여 줄지는 경계가 정합니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 6</b>
+  <b>경계 클래스를 만들고 규칙이 새어 나오지 않게 한다</b>
+
+  <p><b>목적</b> — 경계는 주고받기만 합니다.
+     업무 규칙이 한 줄이라도 들어가면 화면을 바꿀 때 규칙까지 옮겨야 합니다.
+     실제로 만들어 보면 「어디까지가 형식 검증이고 어디부터가 업무 규칙인가」가 손에 잡힙니다.</p>
+
+  <h5>절차 1 — 경계가 할 일을 적는다</h5>
+
+  <p class="cmdline"><code>분석\경계명세.md
+
+ReservationConsole  &lt;&lt;boundary UI&gt;&gt;
+  액터    회원 (사람)
+  입력    회원번호 · 시설코드 · 이용일자 · 인원
+  출력    접수 결과 문구
+  하는 일  입력을 받아 제어에 넘기고, 제어가 준 결과를 사람 말로 바꾼다
+  안 하는 일  정원 계산 · 시설 존재 확인 · 저장
+
+MailGateway  &lt;&lt;boundary SI&gt;&gt;
+  액터    메일 시스템 (외부 시스템)
+  출력    접수 알림
+  하는 일  메일 시스템에 알림을 넘긴다</code></p>
+
+  <p>둘로 나눈 것에 주의하십시오.
+     사람 액터용과 시스템 액터용을 한 클래스에 섞지 말라고 학습모듈이 적고 있습니다.
+     섞으면 화면을 고칠 때 메일 연동까지 건드리게 됩니다.</p>
+
+  <h5>절차 2 — 만든다</h5>
+
+  <p class="cmdline"><code>src\boundary\ReservationConsole.java
+
+package boundary;
+
+import control.ReservationService;
+
+public class ReservationConsole {
+
+    private final ReservationService service;
+    private final MailGateway mail;
+
+    public ReservationConsole(ReservationService service, MailGateway mail) {
+        this.service = service;
+        this.mail = mail;
+    }
+
+    public void request(String memberNo, String facilityCode, String useDate, int headcount) {
+        System.out.println("[화면] " + memberNo + " 님이 " + facilityCode + " 을 신청했습니다");
+        ReservationService.Result result =
+                service.request(memberNo, facilityCode, useDate, headcount);
+        if (result == ReservationService.Result.OK) mail.sendAccepted(memberNo);
+        System.out.println("[화면] " + message(result));
+    }
+
+    private String message(ReservationService.Result r) {
+        return switch (r) {
+            case OK            -&gt; "접수되었습니다";
+            case NO_FACILITY   -&gt; "없는 시설입니다";
+            case OVER_CAPACITY -&gt; "정원을 초과했습니다";
+        };
+    }
+}</code></p>
+
+  <p class="cmdline"><code>src\boundary\MailGateway.java
+
+package boundary;
+
+public class MailGateway {
+    public void sendAccepted(String memberNo) {
+        System.out.println("[메일] " + memberNo + " 님께 접수 메일을 보냈습니다");
+    }
+}</code></p>
+
+  <h5>절차 3 — import 를 센다</h5>
+
+  <p class="cmdline"><code>&gt; findstr /n "^import" src\boundary\ReservationConsole.java
+3:import control.ReservationService;</code></p>
+
+  <p>하나뿐입니다. <code>entity</code> 를 안 가져옵니다.
+     가져오면 경계가 자료 구조를 알게 되고,
+     엔티티의 속성이 바뀌면 화면 코드까지 고쳐야 합니다.
+     실습 10 의 검사 도구가 보는 것이 이 줄입니다.</p>
+
+  <h5>절차 4 — 형식 검증과 업무 규칙을 가른다</h5>
+
+  <p class="cmdline"><code>경계에 둡니다 (형식 검증)
+  회원번호가 비어 있지 않은가
+  인원이 숫자인가
+  이용일자가 yyyy-MM-dd 꼴인가
+
+제어에 둡니다 (업무 규칙)
+  시설이 있는가
+  정원을 넘는가
+  오늘부터 30일 이내인가
+
+가르는 물음 : «화면이 웹으로 바뀌어도 이 판단이 그대로인가»
+  그대로면 형식 검증, 업무가 정한 것이면 업무 규칙</code></p>
+
+  <p>헷갈리는 자리가 하나 있습니다 — 「인원이 1 이상인가」.
+     숫자 형식으로 보면 형식 검증이지만,
+     「한 번에 20명까지」는 업무가 정한 것이므로 업무 규칙입니다.
+     같은 모양의 조건이라도 누가 정했느냐로 갈립니다.</p>
+
+  <div class="warn">경계에 업무 규칙을 넣으면 그 자리에서는 편합니다.
+    화면에서 바로 막으니 서버를 안 거쳐도 되고 빠릅니다.
+    그런데 같은 시스템에 앱이 붙으면 앱에도 같은 규칙을 넣어야 하고,
+    그 둘이 어긋나는 순간부터 아무도 어느 쪽이 맞는지 모릅니다.
+    화면에서 미리 막고 싶으면 <b>제어에도 반드시 두고</b> 화면은 편의로만 둡니다.
+  </div>
+
+  <h5>절차 5 — 결과를 값으로 받는다</h5>
+
+  <p class="cmdline"><code>이렇게
+  제어가 Result.OVER_CAPACITY 를 돌려주고
+  경계가 「정원을 초과했습니다」로 바꿉니다
+
+이건 이렇게 됩니다
+  제어가 "정원을 초과했습니다" 라는 문자열을 돌려줍니다
+    → 화면을 영어로 바꿀 때 제어를 고쳐야 합니다
+    → 같은 결과를 앱에서 다르게 표시할 수 없습니다
+    → 제어를 시험할 때 한국어 문자열을 비교하게 됩니다</code></p>
+
+  <p>세 번째 줄이 실무에서 가장 아픕니다.
+     단위 테스트가 한국어 문구에 기대게 되면
+     문구를 다듬을 때마다 테스트가 깨집니다.</p>
+
+  <h5>절차 6 — 컴파일해 본다</h5>
+
+  <p class="cmdline"><code>&gt; javac -encoding utf-8 -proc:none -d classes src\boundary\*.java src\control\*.java src\entity\*.java</code></p>
+
+  <p>경계만 따로는 컴파일이 안 됩니다 — <code>control</code> 을 부르기 때문입니다.
+     제어와 엔티티를 같이 넘겨야 합니다.
+     이것이 의존 방향입니다 — 경계가 제어에 기대고 있다는 것이 컴파일에서 드러납니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>cannot find symbol: ReservationService</code></td>
+        <td>제어를 아직 안 만들었습니다. 실습 7 을 먼저 하십시오</td></tr>
+    <tr><td><code>package boundary does not exist</code></td>
+        <td>폴더 이름과 <code>package</code> 선언이 다릅니다</td></tr>
+    <tr><td><code>switch</code> 화살표 문법이 오류가 난다</td>
+        <td>JDK 14 이상이어야 합니다. <code>javac -version</code> 으로 확인</td></tr>
+    <tr><td><code>findstr</code> 가 아무것도 안 찍는다</td>
+        <td>파워셸이면 <code>Select-String "^import"</code> 를 쓰십시오</td></tr>
+    <tr><td>경계에 규칙을 넣고 싶다</td>
+        <td>제어에도 두고 화면은 편의로만 두십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>경계명세.md</code>,
+     <code>ReservationConsole.java</code> · <code>MailGateway.java</code>,
+     import 를 센 화면, 형식 검증과 업무 규칙을 가른 표, 컴파일 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① UI 경계와 SI 경계를 나눴습니까
+     ② 경계에 <code>import entity</code> 가 없습니까
+     ③ 제어가 준 결과를 값으로 받았습니까
+     ④ 형식 검증과 업무 규칙을 가르는 물음을 말할 수 있습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st7">
+      <h3><i>7</i>제어 클래스</h3>
+      <aside class="side">
+        <p class="pt">규칙과 흐름을 맡습니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1 · 2-1</p>
+        <b class="sh">용어</b>
+        <p class="v">비즈니스 로직 · 트랜잭션</p>
+      </aside>
+      <div class="bd">
+
+<h4>제어가 맡는 것</h4>
+
+<table class="wide">
+  <tr><th style="width:190px"></th><th></th></tr>
+  <tr><td>업무 규칙</td><td>정원을 넘는가, 30일 이내인가, 권한이 있는가</td></tr>
+  <tr><td>흐름 제어</td><td>어느 엔티티를 어느 순서로 부르는가</td></tr>
+  <tr><td>트랜잭션</td><td>중간에 실패하면 어디까지 되돌리는가</td></tr>
+  <tr><td>공유 정보</td><td>오퍼레이션들이 같이 쓰는 값을 속성으로 둡니다</td></tr>
+</table>
+
+<p>넷째가 학습모듈이 따로 적어 둔 대목입니다.
+   회원가입 절차처럼 여러 단계를 거치는 유스케이스면
+   「입력한 이메일」 「인증 여부」 같은 중간 상태를 제어가 속성으로 들고 있습니다.</p>
+
+<h4>써 봅니다</h4>
+
+<p class="cmdline"><code>src\control\ReservationService.java
+
+package control;
+
+import entity.Facility;
+import entity.Reservation;
+import entity.ReservationStore;
+import java.util.Map;
+
+public class ReservationService {
+
+    public enum Result { OK, NO_FACILITY, OVER_CAPACITY }
+
+    private final Map&lt;String, Facility&gt; facilities;
+    private final ReservationStore store;
+
+    public ReservationService(Map&lt;String, Facility&gt; facilities, ReservationStore store) {
+        this.facilities = facilities;
+        this.store = store;
+    }
+
+    public Result request(String memberNo, String facilityCode, String useDate, int headcount) {
+        Facility f = facilities.get(facilityCode);
+        if (f == null) return Result.NO_FACILITY;
+
+        int booked = store.bookedCount(facilityCode, useDate);
+        if (booked + headcount &gt; f.getCapacity()) return Result.OVER_CAPACITY;
+
+        Reservation r = new Reservation(memberNo, facilityCode, useDate, headcount);
+        r.confirm();
+        store.save(r);
+        return Result.OK;
+    }
+}</code></p>
+
+<p><code>System.out</code> 이 한 줄도 없습니다.
+   제어는 화면을 모릅니다 — 콘솔이든 웹이든 상관없이 같은 코드가 돕니다.
+   결과를 <code>Result</code> 로 돌려주는 것이 그것을 가능하게 합니다.</p>
+
+<h4>의존성을 바깥에서 받습니다</h4>
+
+<p class="cmdline"><code>이렇게 (생성자로 받습니다)
+  public ReservationService(Map&lt;String, Facility&gt; facilities, ReservationStore store)
+
+이건 이렇게 됩니다 (안에서 만듭니다)
+  private ReservationStore store = new ReservationStore();
+    → 시험할 때 가짜 저장소로 바꿔 넣을 수 없습니다
+    → 저장소를 DB 로 바꾸면 제어를 고쳐야 합니다</code></p>
+
+<p>바깥에서 받아 넣는 것을 의존성 주입이라고 합니다.
+   SOLID 의 마지막 원칙인 의존관계 역전이 이것입니다 — 실습 11.
+   앞 교과 애플리케이션 테스트 관리에서 스텁을 끼워 넣었던 것도 같은 구조입니다.</p>
+
+<div class="warn">제어 클래스가 가장 자주 무너지는 자리는 화면입니다.
+  「여기서 메시지 하나만 찍으면 편한데」로 <code>System.out.println</code> 을 한 줄 넣습니다.
+  그러면 이 제어는 콘솔 프로그램 전용이 되어 버립니다.
+  실습 10 의 검사 도구가 잡는 것이 바로 이 한 줄입니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 7</b>
+  <b>제어 클래스를 만들고 화면을 모르게 한다</b>
+
+  <p><b>목적</b> — 제어는 업무 규칙과 흐름을 맡습니다.
+     화면을 모르는 채로 만들면 콘솔이든 웹이든 앱이든 같은 코드가 돕니다.
+     결과를 값으로 돌려주는 방식이 그것을 가능하게 합니다.</p>
+
+  <h5>절차 1 — 제어가 할 일을 적는다</h5>
+
+  <p class="cmdline"><code>분석\제어명세.md
+
+ReservationService  &lt;&lt;control&gt;&gt;
+  유스케이스  UC-02 예약을 신청한다
+  하는 일    ① 시설이 있는지 본다
+             ② 이미 잡힌 인원을 세어 정원을 넘는지 본다
+             ③ 예약을 만들어 확정하고 저장한다
+  결과       OK · NO_FACILITY · OVER_CAPACITY
+  안 하는 일  화면에 찍기 · 메일 보내기 · 목록을 직접 뒤지기
+  속성       facilities · store  (오퍼레이션들이 같이 쓰는 것)</code></p>
+
+  <p>맨 아래 줄이 학습모듈이 따로 적어 둔 대목입니다 —
+     「제어 클래스의 오퍼레이션이 공유할 정보는 속성으로 정의되어 있는지 확인한다」.
+     여러 오퍼레이션이 같이 쓰는 것을 속성으로 올립니다.</p>
+
+  <h5>절차 2 — 만든다</h5>
+
+  <p class="cmdline"><code>src\control\ReservationService.java
+
+package control;
+
+import entity.Facility;
+import entity.Reservation;
+import entity.ReservationStore;
+import java.util.Map;
+
+public class ReservationService {
+
+    public enum Result { OK, NO_FACILITY, OVER_CAPACITY }
+
+    private final Map&lt;String, Facility&gt; facilities;
+    private final ReservationStore store;
+
+    public ReservationService(Map&lt;String, Facility&gt; facilities, ReservationStore store) {
+        this.facilities = facilities;
+        this.store = store;
+    }
+
+    public Result request(String memberNo, String facilityCode, String useDate, int headcount) {
+        Facility f = facilities.get(facilityCode);
+        if (f == null) return Result.NO_FACILITY;
+
+        int booked = store.bookedCount(facilityCode, useDate);
+        if (booked + headcount &gt; f.getCapacity()) return Result.OVER_CAPACITY;
+
+        Reservation r = new Reservation(memberNo, facilityCode, useDate, headcount);
+        r.confirm();
+        store.save(r);
+        return Result.OK;
+    }
+}</code></p>
+
+  <h5>절차 3 — System.out 이 있는지 센다</h5>
+
+  <p class="cmdline"><code>&gt; findstr /n "System.out" src\control\ReservationService.java
+&gt;</code></p>
+
+  <p>한 줄도 없습니다. 아무것도 안 찍히면 없는 것입니다.
+     제어가 화면을 모르는 상태입니다 —
+     이 클래스만 떼어내 웹 서버에 붙여도 그대로 돕니다.</p>
+
+  <h5>절차 4 — 결과 갈래를 enum 으로 둔다</h5>
+
+  <p class="cmdline"><code>public enum Result { OK, NO_FACILITY, OVER_CAPACITY }
+
+boolean 으로 하면
+  true / false 둘뿐이라 «왜 안 되는지» 를 못 돌려줍니다
+
+String 으로 하면
+  오타가 나도 컴파일이 안 막습니다 — "OVER_CAPACITI"
+  경계에서 문자열을 비교하게 됩니다
+
+enum 으로 하면
+  갈래가 셋이라는 것이 코드에 박히고
+  경계의 switch 에서 빠뜨리면 컴파일이 막습니다</code></p>
+
+  <p>앞 교과의 자료 사전에 「확인결과 = [ '확인' | '정원 초과' | '기간 초과' | '없는 시설' ]」
+     이라고 적었던 것이 <code>enum</code> 이 되는 자리입니다.
+     대괄호로 갈래를 못 박아 둔 것이 여기서 값을 합니다.</p>
+
+  <h5>절차 5 — 의존을 바깥에서 받는다</h5>
+
+  <p class="cmdline"><code>이렇게 (생성자로 받습니다)
+  public ReservationService(Map&lt;String, Facility&gt; facilities, ReservationStore store) {
+      this.facilities = facilities;
+      this.store = store;
+  }
+
+이건 이렇게 됩니다 (안에서 만듭니다)
+  private ReservationStore store = new ReservationStore();
+
+  → 시험할 때 가짜 저장소로 바꿔 넣을 수 없습니다
+  → 저장소를 DB 로 바꾸면 제어를 고쳐야 합니다
+  → 제어가 저장소의 «구현» 에 묶입니다</code></p>
+
+  <p>바깥에서 받아 넣는 것을 의존성 주입이라고 합니다.
+     앞 교과 애플리케이션 테스트 관리에서 스텁을 끼워 넣을 수 있었던 것도
+     그 코드가 의존을 바깥에서 받았기 때문입니다.</p>
+
+  <h5>절차 6 — Main 으로 이어 붙인다</h5>
+
+  <p class="cmdline"><code>src\Main.java
+
+import boundary.MailGateway;
+import boundary.ReservationConsole;
+import control.ReservationService;
+import entity.Facility;
+import entity.ReservationStore;
+import java.util.Map;
+
+public class Main {
+    public static void main(String[] args) {
+        Map&lt;String, Facility&gt; facilities = Map.of(
+                "F01", new Facility("F01", "제1체육관", 20),
+                "F02", new Facility("F02", "제2체육관", 10));
+        ReservationStore store = new ReservationStore();
+        ReservationService service = new ReservationService(facilities, store);
+        ReservationConsole console = new ReservationConsole(service, new MailGateway());
+
+        console.request("M0001", "F01", "2026-10-01", 15);
+        console.request("M0002", "F01", "2026-10-01", 8);
+        console.request("M0003", "F09", "2026-10-01", 3);
+
+        System.out.println("저장된 예약 " + store.size() + "건");
+    }
+}</code></p>
+
+  <div class="note"><code>Main</code> 이 세 갈래를 다 <code>import</code> 합니다.
+    계층 규칙을 어기는 것처럼 보이지만 <code>Main</code> 은 어느 갈래도 아닙니다.
+    누가 누구를 쓰는지 «이어 붙이는» 자리이고, 스프링 같은 프레임워크가 대신해 주는 일입니다.
+    실습 10 의 검사 도구가 <code>boundary</code> · <code>control</code> · <code>entity</code>
+    폴더만 보는 까닭이 이것입니다.
+  </div>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>cannot find symbol: Facility</code></td>
+        <td>엔티티를 아직 안 만들었습니다. 실습 8 을 먼저 하십시오</td></tr>
+    <tr><td><code>findstr</code> 가 한 줄도 안 찍는다</td>
+        <td>없다는 뜻입니다. 정상입니다</td></tr>
+    <tr><td><code>Map.of</code> 가 열 쌍을 넘는다</td>
+        <td><code>Map.ofEntries</code> 를 쓰십시오</td></tr>
+    <tr><td>제어에서 메시지를 찍고 싶다</td>
+        <td>결과를 돌려주고 경계가 찍게 하십시오</td></tr>
+    <tr><td>제어가 너무 길어진다</td>
+        <td>유스케이스마다 제어를 하나씩 두는 것이 기본입니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>제어명세.md</code>, <code>ReservationService.java</code>,
+     <code>System.out</code> 을 센 화면, 결과 갈래를 <code>enum</code> 으로 둔 까닭,
+     의존 주입 대조표, <code>Main.java</code></p>
+
+  <p><b>스스로 확인</b> —
+     ① 제어에 <code>System.out</code> 이 한 줄도 없습니까
+     ② 결과를 <code>enum</code> 으로 돌려줍니까
+     ③ 의존을 생성자로 받습니까
+     ④ 오퍼레이션들이 같이 쓰는 값을 속성으로 올렸습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st8">
+      <h3><i>8</i>엔티티 클래스</h3>
+      <aside class="side">
+        <p class="pt">오래 남을 자료만 맡습니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1 · 2-1</p>
+        <b class="sh">용어</b>
+        <p class="v">영속성 · 고유 정보</p>
+      </aside>
+      <div class="bd">
+
+<h4>엔티티의 세 가지 규칙</h4>
+
+<table class="wide">
+  <tr><th style="width:210px"></th><th></th></tr>
+  <tr><td>영속적인 자료를 맡는다</td><td>시스템이 꺼져도 남아야 하는 것</td></tr>
+  <tr><td>자료 로직만 둔다</td><td>형식 검증 · 불변식 · 상태 전이까지</td></tr>
+  <tr><td>고유의 정보만 속성으로 둔다</td><td>화면이나 요청에만 쓰이는 값은 안 둡니다</td></tr>
+</table>
+
+<p>셋째가 헷갈리는 자리입니다.
+   「최근 본 화면 경로」나 「응답용 토큰」이나 「체크박스 값」은
+   회원 자체의 성질이 아니므로 회원 엔티티에 안 둡니다.
+   회원의 이메일 · 이름 · 가입일 · 잠금 여부는 회원의 성질이므로 둡니다.</p>
+
+<h4>써 봅니다</h4>
+
+<p class="cmdline"><code>src\entity\Reservation.java
+
+package entity;
+
+public class Reservation {
+    public enum Status { REQUESTED, CONFIRMED, CANCELED }
+
+    private final String memberNo;
+    private final String facilityCode;
+    private final String useDate;
+    private final int headcount;
+    private Status status = Status.REQUESTED;
+
+    public Reservation(String memberNo, String facilityCode, String useDate, int headcount) {
+        this.memberNo = memberNo;
+        this.facilityCode = facilityCode;
+        this.useDate = useDate;
+        this.headcount = headcount;
+    }
+
+    public String getMemberNo()     { return memberNo; }
+    public Status getStatus()       { return status; }
+
+    public void confirm() { status = Status.CONFIRMED; }
+    public void cancel()  { status = Status.CANCELED; }
+}</code></p>
+
+<p>앞 교과의 자료 사전에 「상태 = [ '신청' | '확정' | '취소' ]」라고 적었던 것이
+   <code>enum Status</code> 셋으로 옮겨졌습니다.
+   분석 단계의 산출물이 설계로 넘어오는 자리가 이런 곳입니다.</p>
+
+<h4>왜 setter 를 안 만드나</h4>
+
+<p class="cmdline"><code>이렇게                        이건 이렇게 됩니다
+--------------------------  ----------------------------------
+public void confirm()        public void setStatus(Status s)
+public void cancel()
+
+  뜻이 있는 두 가지 변화만      아무 상태로나 바꿀 수 있습니다
+  허용합니다                  취소된 예약을 다시 신청으로 되돌릴 수도
+                            있고, 아무도 못 막습니다</code></p>
+
+<p>속성을 <code>private</code> 으로 두고 <code>setStatus</code> 를 열면
+   <code>private</code> 으로 둔 뜻이 없어집니다.
+   「어떤 변화가 허용되는가」를 오퍼레이션 이름으로 정하는 것이 캡슐화입니다.</p>
+
+<h4>저장소도 엔티티 갈래입니다</h4>
+
+<p class="cmdline"><code>src\entity\ReservationStore.java
+
+public class ReservationStore {
+    private final List&lt;Reservation&gt; rows = new ArrayList&lt;&gt;();
+
+    public void save(Reservation r) { rows.add(r); }
+    public int size()               { return rows.size(); }
+
+    public int bookedCount(String facilityCode, String useDate) {
+        int sum = 0;
+        for (Reservation r : rows)
+            if (r.getFacilityCode().equals(facilityCode)
+                    &amp;&amp; r.getUseDate().equals(useDate)
+                    &amp;&amp; r.getStatus() != Reservation.Status.CANCELED)
+                sum += r.getHeadcount();
+        return sum;
+    }
+}</code></p>
+
+<div class="note"><code>bookedCount</code> 가 업무 규칙처럼 보일 수 있습니다.
+  세는 것은 자료 로직이라 엔티티에 두고,
+  「센 값이 정원을 넘는가」를 따지는 것은 업무 규칙이라 제어에 둡니다.
+  경계가 이 자리입니다 — 세는 것과 판단하는 것을 가르면 됩니다.
+  실무에서는 이 클래스를 DAO 나 Repository 라고 부릅니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 8</b>
+  <b>엔티티를 만들고 private 이 정말 지켜지는지 컴파일로 본다</b>
+
+  <p><b>목적</b> — 그림에 <code>-</code> 라고 적어 놓는 것과
+     실제로 바깥에서 못 건드리는 것은 다릅니다.
+     일부러 건드려 보고 컴파일러가 막는 것을 확인합니다.
+     설계가 지켜지는지 확인하는 가장 싼 방법입니다.</p>
+
+  <h5>절차 1 — 엔티티가 가질 것을 적는다</h5>
+
+  <p class="cmdline"><code>분석\엔티티명세.md
+
+Reservation  &lt;&lt;entity&gt;&gt;
+  고유 정보  회원번호 · 시설코드 · 이용일자 · 인원 · 상태
+  자료 로직  상태를 확정으로 · 취소로 바꾼다
+  안 가지는 것  화면 경로 · 응답 토큰 · 체크박스 값
+
+Facility  &lt;&lt;entity&gt;&gt;
+  고유 정보  코드 · 이름 · 정원
+
+ReservationStore  &lt;&lt;entity&gt;&gt;
+  하는 일  저장한다 · 개수를 센다 · 날짜별 인원을 센다</code></p>
+
+  <p>「안 가지는 것」을 적어 두는 것이 요령입니다.
+     화면이나 요청에만 쓰이는 값은 회원이나 예약 자체의 성질이 아닙니다.
+     이것을 안 적어 두면 개발하다가 슬금슬금 들어옵니다.</p>
+
+  <h5>절차 2 — 만든다</h5>
+
+  <p class="cmdline"><code>src\entity\Reservation.java
+
+package entity;
+
+public class Reservation {
+    public enum Status { REQUESTED, CONFIRMED, CANCELED }
+
+    private final String memberNo;
+    private final String facilityCode;
+    private final String useDate;
+    private final int headcount;
+    private Status status = Status.REQUESTED;
+
+    public Reservation(String memberNo, String facilityCode, String useDate, int headcount) {
+        this.memberNo = memberNo;
+        this.facilityCode = facilityCode;
+        this.useDate = useDate;
+        this.headcount = headcount;
+    }
+
+    public String getMemberNo()     { return memberNo; }
+    public String getFacilityCode() { return facilityCode; }
+    public String getUseDate()      { return useDate; }
+    public int getHeadcount()       { return headcount; }
+    public Status getStatus()       { return status; }
+
+    public void confirm() { status = Status.CONFIRMED; }
+    public void cancel()  { status = Status.CANCELED; }
+}</code></p>
+
+  <p>속성이 다 <code>private</code> 이고 넷은 <code>final</code> 입니다.
+     한 번 정해지면 안 바뀌는 것에 <code>final</code> 을 붙입니다 —
+     회원번호가 도중에 바뀔 까닭이 없습니다.</p>
+
+  <h5>절차 3 — 저장소도 만든다</h5>
+
+  <p class="cmdline"><code>src\entity\ReservationStore.java
+
+package entity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ReservationStore {
+    private final List&lt;Reservation&gt; rows = new ArrayList&lt;&gt;();
+
+    public void save(Reservation r) { rows.add(r); }
+    public int size()               { return rows.size(); }
+
+    public int bookedCount(String facilityCode, String useDate) {
+        int sum = 0;
+        for (Reservation r : rows)
+            if (r.getFacilityCode().equals(facilityCode)
+                    &amp;&amp; r.getUseDate().equals(useDate)
+                    &amp;&amp; r.getStatus() != Reservation.Status.CANCELED)
+                sum += r.getHeadcount();
+        return sum;
+    }
+}</code></p>
+
+  <p>취소된 예약은 안 셉니다.
+     이것이 자료 로직입니다 — 「취소는 자리를 차지하지 않는다」는 사실의 표현입니다.
+     「그래서 신청을 받아 줄 것인가」는 제어가 정합니다.</p>
+
+  <h5>절차 4 — 일부러 private 을 건드려 본다</h5>
+
+  <p class="cmdline"><code>vis\Peek.java
+
+import entity.Reservation;
+
+public class Peek {
+    public static void main(String[] args) {
+        Reservation r = new Reservation("M0001", "F01", "2026-10-01", 5);
+        r.status = Reservation.Status.CONFIRMED;
+        System.out.println(r.getStatus());
+    }
+}</code></p>
+
+  <p class="cmdline"><code>&gt; javac -encoding utf-8 -proc:none -cp good\classes -d vis\classes vis\Peek.java
+vis\Peek.java:6: error: status has private access in Reservation
+        r.status = Reservation.Status.CONFIRMED;
+         ^
+1 error</code></p>
+
+  <p>컴파일러가 막았습니다.
+     이 화면이 <code>화면\06_가시성_컴파일오류.png</code> 입니다.
+     그림에 <code>- status</code> 라고 적은 것이 실제로 지켜진다는 증거입니다.</p>
+
+  <div class="warn">이 화면을 내라고 하면 대개 주저합니다.
+    오류를 내는 것이 틀린 것 같아서입니다.
+    그런데 설계 교과에서 이 오류는 <b>설계가 지켜진다는 증거</b>입니다.
+    <code>private</code> 이라고 그려 놓고 한 번도 시험해 본 적이 없으면
+    그 글자가 지켜지는지 아무도 모릅니다.
+    오류가 안 나면 오히려 설계가 안 지켜진 것입니다.
+  </div>
+
+  <h5>절차 5 — setter 를 안 만든 까닭을 적는다</h5>
+
+  <p class="cmdline"><code>이렇게 (뜻이 있는 변화만)      이건 이렇게 됩니다 (아무 변화나)
+---------------------------  ----------------------------------
+confirm()                    setStatus(Status s)
+cancel()
+
+  허용되는 변화가 둘입니다      취소된 예약을 다시 신청으로
+  이름만 봐도 무슨 뜻인지 압니다  되돌릴 수도 있습니다
+                             아무도 못 막습니다</code></p>
+
+  <p>속성을 <code>private</code> 으로 두고 <code>setStatus</code> 를 열면
+     <code>private</code> 으로 둔 뜻이 사라집니다.
+     「어떤 변화가 허용되는가」를 오퍼레이션 이름으로 정하는 것이 캡슐화입니다.</p>
+
+  <h5>절차 6 — 다 만들고 돌려 본다</h5>
+
+  <p class="cmdline"><code>&gt; javac -encoding utf-8 -proc:none -d classes src\Main.java src\boundary\*.java src\control\*.java src\entity\*.java
+&gt; java -Dstdout.encoding=utf-8 -cp classes Main</code></p>
+
+  <p class="cmdline"><code>[화면] M0001 님이 F01 을 신청했습니다
+[메일] M0001 님께 접수 메일을 보냈습니다
+[화면] 접수되었습니다
+[화면] M0002 님이 F01 을 신청했습니다
+[화면] 정원을 초과했습니다
+[화면] M0003 님이 F09 을 신청했습니다
+[화면] 없는 시설입니다
+저장된 예약 1건</code></p>
+
+  <p>실습 1 에서 본 것과 같은 출력입니다.
+     이제 이 출력이 여섯 클래스의 협력으로 나온 것입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>Peek 이 컴파일된다</td>
+        <td><code>status</code> 가 <code>private</code> 이 아닙니다. 고치고 다시</td></tr>
+    <tr><td><code>package entity does not exist</code></td>
+        <td><code>-cp</code> 에 컴파일된 폴더를 넣었는지 보십시오</td></tr>
+    <tr><td><code>cannot assign a value to final variable</code></td>
+        <td>다른 오류입니다. <code>final</code> 을 건드린 것입니다</td></tr>
+    <tr><td>오류 화면을 어떻게 찍나</td>
+        <td>터미널을 그대로 캡처하면 됩니다. 오류 줄이 보이면 됩니다</td></tr>
+    <tr><td>getter 가 너무 많다</td>
+        <td>안 쓰는 것은 지우십시오. 실습 13 에서 대조하면 드러납니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>엔티티명세.md</code>,
+     <code>Reservation.java</code> · <code>Facility.java</code> · <code>ReservationStore.java</code>,
+     가시성 컴파일 오류 화면, setter 를 안 만든 까닭, 전체 실행 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 속성이 전부 <code>private</code> 입니까
+     ② 「안 가지는 것」을 적었습니까
+     ③ 컴파일 오류 화면을 찍었습니까
+     ④ 상태를 바꾸는 오퍼레이션이 뜻 있는 이름입니까</p>
+</div>
+      </div>
+</div>
+<h3 class="lv">레벨 4 · 정합성 검증 <span>능력단위요소 ① · 배점이 실려 있는 구간</span></h3>
+
+<div class="step" id="st9">
+      <h3><i>9</i>명명 규칙과 체크리스트</h3>
+      <aside class="side">
+        <p class="pt">이름부터 맞춥니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-2</p>
+        <b class="sh">용어</b>
+        <p class="v">명명 규칙 · 정합성</p>
+      </aside>
+      <div class="bd">
+
+<h4>세 가지 명명 규칙</h4>
+
+<table class="wide">
+  <tr><th style="width:130px">요소</th><th></th></tr>
+  <tr><td>클래스명</td>
+      <td>늘 대문자로 시작합니다. 유스케이스 기능명과 이어지게 짓습니다</td></tr>
+  <tr><td>속성</td>
+      <td>늘 소문자로 시작합니다. 상속한 것이면 상위와 비슷한 이름으로</td></tr>
+  <tr><td>오퍼레이션</td>
+      <td>늘 소문자로 시작합니다. 무엇을 하는지 유추되는 이름으로</td></tr>
+</table>
+
+<p>상세 설계 단계에서는 실제 구현에서 쓸 이름이어야 하므로 영문으로 적습니다.
+   한글로 적어 두면 구현할 때 한 번 더 번역해야 하고,
+   그 번역이 사람마다 달라집니다.</p>
+
+<h4>좋은 이름과 나쁜 이름</h4>
+
+<p class="cmdline"><code>클래스명
+  Order          도메인 개념을 곧바로 나타냅니다
+  OrderInfo      «Info» 가 아무 뜻이 없습니다
+  OrderDate      주문인지 날짜인지 모릅니다
+
+속성 · 오퍼레이션이 클래스와 어울리는가
+  Order 의 속성 orderid · status                 어울립니다
+  Order 의 오퍼레이션 place() · cancel(reason)     어울립니다
+  Order 의 속성 lastScreenPath                    어울리지 않습니다</code></p>
+
+<p>학습모듈이 「명확성」과 「일관성」이라고 부르는 것입니다.
+   DB 와 화면과 API 에서 같은 개념을 같은 낱말로 부르면 일관성이 있는 것이고,
+   한쪽에서 <code>Order</code>, 다른 쪽에서 <code>Purchase</code> 면 없는 것입니다.</p>
+
+<h4>정합성 체크리스트 아홉</h4>
+
+<p class="cmdline"><code>① 그 업종에서 쓰는 개념 클래스를 잘 파악했는가
+② 참여자들이 보고 업무를 쉽게 이해할 수 있는가
+③ 핵심 클래스의 주요 속성과 오퍼레이션이 파악되었는가
+④ 유스케이스 기술서의 내용, 특히 속성이 빠짐없이 반영되었는가
+⑤ 클래스 사이의 연관성이 잘 정의되었는가
+⑥ 클래스명·속성명·오퍼레이션명이 일관되고 뜻이 충분한가
+⑦ 클래스의 수준이 적절한가. 너무 크거나 작은 것이 없는가
+⑧ 통합하거나 추상화할 것이 없는가
+⑨ 참여자들이 이 모델을 이해하고 공감하는가</code></p>
+
+<p>①과 ⑨가 사람이 봐야 하는 것이고 나머지는 기계로 상당 부분 볼 수 있습니다.
+   ④는 앞 교과의 추적 검사와 같은 방식입니다 —
+   유스케이스 명세서의 속성 목록과 클래스의 속성 목록을 대조하면 됩니다.</p>
+
+<h4>체크리스트를 문서로 만듭니다</h4>
+
+<p class="cmdline"><code>검증\정합성체크리스트.md
+
+검토자  정우균        검토일  2026-09-21
+
+| 번호 | 체크 항목 | Yes | No | 비고 |
+|------|-----------|-----|----|------|
+| 1 | 클래스명이 대문자로 시작하는가 | ○ | | 6개 모두 |
+| 2 | 속성명이 소문자로 시작하는가 | ○ | | |
+| 3 | 오퍼레이션명이 동사+명사인가 | | ○ | Store.size 는 명사뿐 |
+| 4 | 유스케이스 속성이 다 반영되었는가 | | ○ | 비고 속성이 빠짐 |
+| 5 | 경계가 제어를 하나 이상 쓰는가 | ○ | | |
+| 6 | 엔티티가 제어에 하나 이상 쓰이는가 | ○ | | |
+| 7 | 상속이 is-a 를 만족하는가 | - | - | 상속 없음 |</code></p>
+
+<p>3번과 4번에 No 가 있습니다.
+   체크리스트를 냈는데 전부 Yes 이면 오히려 의심을 받습니다 —
+   처음 그린 설계가 다 맞는 일은 없습니다.
+   No 를 찾고 고친 기록이 있어야 검토를 한 것입니다.</p>
+
+<div class="note">⑦의 「너무 크거나 작은 클래스」는 기준이 애매해 보이지만 판단하는 법이 있습니다.
+  클래스를 한 문장으로 설명해 보십시오.
+  「예약 한 건을 담는다」는 한 문장이 되므로 적당합니다.
+  「예약을 담고 회원도 담고 통계도 낸다」는 한 문장이 안 되므로 큽니다.
+  「예약 번호만 담는다」는 클래스가 될 까닭이 없으므로 작습니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 9</b>
+  <b>정합성 체크리스트로 훑고 No 를 찾는다</b>
+
+  <p><b>목적</b> — 여기부터 정합성 검증입니다.
+     아홉 가지 체크 항목으로 내가 만든 설계를 훑습니다.
+     전부 Yes 가 나오면 잘 만든 것이 아니라 대충 본 것입니다.</p>
+
+  <h5>절차 1 — 명명 규칙을 먼저 본다</h5>
+
+  <p class="cmdline"><code>| 요소 | 규칙 | 우리 것 | 맞는가 |
+|------|------|---------|--------|
+| 클래스명 | 대문자 시작 | ReservationConsole 외 5 | ○ |
+| 속성 | 소문자 시작 | memberNo · facilityCode 외 | ○ |
+| 오퍼레이션 | 소문자 시작 | request · confirm 외 | ○ |
+| 오퍼레이션 | 동사 + 명사 | size 는 명사뿐 | ✗ |
+| 클래스명 | 유스케이스와 이어지는가 | ReservationService ← 예약을 신청한다 | ○ |</code></p>
+
+  <p>넷째 줄에 ✗ 가 나왔습니다.
+     <code>size()</code> 는 자바 표준 라이브러리 관례라 흔히 쓰지만
+     우리가 정한 규칙에는 어긋납니다.
+     규칙에 예외를 적어 두든 이름을 <code>countAll()</code> 로 고치든 정하고 적습니다.</p>
+
+  <h5>절차 2 — 체크리스트 아홉을 만든다</h5>
+
+  <p class="cmdline"><code>검증\정합성체크리스트.md
+
+검토자  정우균        검토일  2026-09-21
+대상    예약 접수 단위 업무 · 클래스 6개
+
+| 번호 | 체크 항목 | Yes | No | 비고 |
+|------|-----------|-----|----|------|
+| 1 | 업종에서 쓰는 개념 클래스를 잘 파악했는가 | ○ | | 예약·시설 |
+| 2 | 참여자가 보고 업무를 쉽게 이해하는가 | ○ | | |
+| 3 | 핵심 클래스의 속성·오퍼레이션이 파악되었는가 | ○ | | |
+| 4 | 유스케이스의 속성이 빠짐없이 반영되었는가 | | ○ | 「비고」 가 빠짐 |
+| 5 | 클래스 사이 연관성이 잘 정의되었는가 | ○ | | |
+| 6 | 이름이 일관되고 뜻이 충분한가 | | ○ | size 가 명사뿐 |
+| 7 | 클래스 수준이 적절한가 | ○ | | |
+| 8 | 통합하거나 추상화할 것은 없는가 | ○ | | |
+| 9 | 참여자가 이 모델을 이해하고 공감하는가 | - | - | 검토 예정 |</code></p>
+
+  <h5>절차 3 — 4번을 실제로 대조한다</h5>
+
+  <p class="cmdline"><code>앞 교과의 자료 사전
+
+  예약신청서 = 회원번호 + 시설번호 + 이용일자 + 인원 + (비고)
+
+우리 Reservation 의 속성
+
+  memberNo · facilityCode · useDate · headcount · status
+
+  회원번호  → memberNo      ○
+  시설번호  → facilityCode   ○
+  이용일자  → useDate        ○
+  인원     → headcount      ○
+  (비고)   → 없음            ✗</code></p>
+
+  <p>「비고」가 빠졌습니다. 괄호로 싸여 있었으니 없어도 되는 항목입니다.
+     그래도 「빠진 것을 알고 안 넣은 것」과 「몰라서 안 넣은 것」은 다릅니다.
+     비고 칸에 「선택 항목이라 이번 범위에서 제외」라고 적어 두면 됩니다.</p>
+
+  <div class="note">4번이 이 체크리스트에서 가장 값어치가 큰 항목입니다.
+    앞 교과의 자료 사전이 그대로 대조 기준이 되기 때문입니다.
+    자료 사전을 성실히 써 둔 사람은 이 대조가 십 분이면 끝나고,
+    안 써 둔 사람은 유스케이스 명세서를 처음부터 다시 읽어야 합니다.
+    앞 교과의 산출물이 뒤 교과에서 값을 하는 자리입니다.
+  </div>
+
+  <h5>절차 4 — 7번의 「적절한 수준」을 재 본다</h5>
+
+  <p class="cmdline"><code>클래스를 한 문장으로 설명해 봅니다
+
+  Reservation         「예약 한 건을 담는다」            한 문장 → 적절
+  Facility            「시설 하나를 담는다」            한 문장 → 적절
+  ReservationStore    「예약을 모아 두고 센다」          한 문장 → 적절
+  ReservationService  「예약 신청의 업무 규칙을 따진다」   한 문장 → 적절
+  ReservationConsole  「회원과 주고받는다」             한 문장 → 적절
+  MailGateway         「메일 시스템에 알린다」           한 문장 → 적절
+
+  ReservationAll      「화면을 찍고 규칙을 따지고 저장하고 메일을 보낸다」
+                      한 문장이 안 됩니다 → 큽니다</code></p>
+
+  <p>맨 아래가 실습 1 에서 본 클래스입니다.
+     「~하고 ~하고 ~한다」가 나오면 나눌 자리가 있는 것입니다.
+     한 문장으로 설명이 안 되면 그것이 큰 클래스입니다.</p>
+
+  <h5>절차 5 — 관계 항목 넷도 본다</h5>
+
+  <p class="cmdline"><code>| 항목 | 확인 | 결과 |
+|------|------|------|
+| 경계가 제어를 하나 이상 쓰는가 | Console → Service | ○ |
+| 엔티티가 제어에 하나 이상 쓰이는가 | Service → Store · Facility | ○ |
+| 제어가 경계·엔티티와 독립적인가 | 제어에 import boundary 없음 | ○ |
+| 상속이 is-a 를 만족하는가 | 상속 없음 | - |</code></p>
+
+  <p>학습모듈이 「제어 클래스가 경계 클래스에서 반드시 하나 이상 사용되었는지」,
+     「엔티티 클래스가 제어 클래스에서 반드시 하나 이상 사용되었는지」를 적고 있습니다.
+     아무도 안 쓰는 클래스가 있으면 그것은 만들 까닭이 없는 클래스입니다.</p>
+
+  <h5>절차 6 — No 를 고친다</h5>
+
+  <p class="cmdline"><code>| 번호 | 지적 | 조치 | 완료 |
+|------|------|------|------|
+| 4 | 비고 속성이 빠짐 | 선택 항목이라 제외. 사유를 명세서에 적음 | ○ |
+| 6 | size 가 명사뿐 | 설계지침에 「자바 표준 관례는 예외」 한 줄 추가 | ○ |</code></p>
+
+  <p>둘 다 「고쳤다」가 아니라 「판단하고 적었다」로 끝났습니다.
+     그것도 조치입니다 — 다음 사람이 같은 것을 다시 묻지 않게 되면 된 것입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>전부 Yes 가 나온다</td>
+        <td>4번을 자료 사전과 한 항목씩 대조해 보십시오</td></tr>
+    <tr><td>자료 사전이 없다</td>
+        <td>유스케이스 명세서의 입력 항목으로 대신하십시오</td></tr>
+    <tr><td>7번 기준을 모르겠다</td>
+        <td>한 문장으로 설명해 보십시오. 「~하고 ~하고」가 나오면 큽니다</td></tr>
+    <tr><td>9번을 어떻게 확인하나</td>
+        <td>남에게 5분 설명해 보십시오. 막히는 자리가 안 된 자리입니다</td></tr>
+    <tr><td>No 가 다섯 개 넘는다</td>
+        <td>정상입니다. 처음 그린 설계가 다 맞는 일은 없습니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 명명 규칙 대조표,
+     <code>정합성체크리스트.md</code>(아홉 줄, No 포함),
+     4번 속성 대조, 7번 한 문장 시험, 관계 항목 넷, 조치 기록</p>
+
+  <p><b>스스로 확인</b> —
+     ① 체크리스트에 No 가 하나 이상 있습니까
+     ② 유스케이스의 속성을 한 항목씩 대조했습니까
+     ③ 클래스마다 한 문장으로 설명해 보았습니까
+     ④ No 마다 조치를 적었습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st10">
+      <h3><i>10</i>계층을 기계로 검사한다</h3>
+      <aside class="side">
+        <p class="pt">세 갈래가 제 자리를 지키는지 봅니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-2</p>
+        <b class="sh">용어</b>
+        <p class="v">계층 · 의존 방향</p>
+      </aside>
+      <div class="bd">
+
+<h4>기계로 볼 수 있는 규칙 넷</h4>
+
+<p class="cmdline"><code>① 엔티티가 화면을 직접 다루는가      System.out · Scanner 가 있는가
+② 엔티티가 경계나 제어를 부르는가     import boundary · import control
+③ 제어가 화면을 직접 다루는가        System.out · Scanner 가 있는가
+④ 경계가 엔티티를 직접 부르는가      import entity</code></p>
+
+<p>넷 다 <code>import</code> 문과 낱말 하나로 볼 수 있습니다.
+   눈으로 봐도 되지만, 파일이 스무 개쯤 되면 반드시 놓칩니다.
+   앞 교과에서 표기법을 코드로 옮겼던 것과 같은 방식입니다.</p>
+
+<h4>도구를 만듭니다</h4>
+
+<p class="cmdline"><code>검증\계층검사.py
+
+규칙 = [
+    ("entity",   r"System\.out|System\.err|Scanner",
+     "엔티티가 화면을 직접 다룹니다"),
+    ("entity",   r"import\s+(boundary|control)\.",
+     "엔티티가 경계나 제어를 가져다 씁니다"),
+    ("control",  r"System\.out|System\.err|Scanner",
+     "제어가 화면을 직접 다룹니다"),
+    ("boundary", r"import\s+entity\.",
+     "경계가 엔티티를 직접 가져다 씁니다"),
+]
+
+지적 = []
+for 갈래, 무늬, 말 in 규칙:
+    for f in sorted((뿌리 / 갈래).glob("*.java")):
+        for n, 줄 in enumerate(f.read_text(encoding="utf-8").splitlines(), 1):
+            if re.search(무늬, 줄):
+                지적.append((갈래, f.name, n, 말, 줄.strip()))</code></p>
+
+<p>패키지 폴더 이름이 곧 갈래입니다.
+   <code>boundary</code> · <code>control</code> · <code>entity</code> 로 나눠 두면
+   어느 갈래인지 따로 표시할 필요가 없습니다.
+   실무에서 계층별 패키지를 쓰는 까닭 가운데 하나가 이것입니다.</p>
+
+<h4>일부러 틀린 것을 넣고 돌립니다</h4>
+
+<p class="cmdline"><code>&gt; python 계층검사.py draft/src
+갈래        파일                           줄  지적
+------------------------------------------------------------------------------
+entity    Reservation.java            28  엔티티가 화면을 직접 다룹니다
+                                        System.out.println("[화면] 예약이 확정되었습니다
+control   ReservationService.java     25  제어가 화면을 직접 다룹니다
+                                        System.out.println("[화면] 없는 시설입니다");
+boundary  ReservationConsole.java      4  경계가 엔티티를 직접 가져다 씁니다
+                                        import entity.Facility;
+------------------------------------------------------------------------------
+지적 3건</code></p>
+
+<h4>고친 것을 돌립니다</h4>
+
+<p class="cmdline"><code>&gt; python 계층검사.py good/src
+갈래        파일                           줄  지적
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+지적 0건</code></p>
+
+<div class="warn">이 셋을 그냥 두면 실제로 버그가 납니다.
+  엔티티와 제어가 저마다 화면에 찍으면
+  경계가 찍는 줄과 겹쳐서 같은 말이 두 번 나옵니다.
+  실습 10 에서 그 화면을 직접 봅니다 —
+  「없는 시설입니다」가 두 줄 나오는 것을 보면
+  계층을 나누는 일이 잔소리가 아니라는 것을 알게 됩니다.
+</div>
+
+<h4>도구가 못 보는 것</h4>
+
+<table class="wide">
+  <tr><th style="width:250px">도구가 보는 것</th><th>사람이 봐야 하는 것</th></tr>
+  <tr><td><code>import</code> 가 규칙에 맞는가</td><td>그 클래스가 그 갈래에 맞게 이름 지어졌는가</td></tr>
+  <tr><td>화면 호출이 있는가</td><td>업무 규칙이 제어에 있는가 경계에 있는가</td></tr>
+  <tr><td>패키지가 나뉘어 있는가</td><td>클래스의 크기가 적당한가</td></tr>
+</table>
+
+<p>오른쪽 가운데 줄이 특히 기계로 어렵습니다.
+   경계 안에 <code>if (headcount &gt; 20)</code> 같은 줄이 있으면 업무 규칙이 새어 나온 것인데,
+   그것이 형식 검증인지 업무 규칙인지는 뜻을 알아야 갈립니다.
+   그래서 도구와 체크리스트를 같이 씁니다.</p>
+      <div class="lab">
+  <b class="t">실습 10</b>
+  <b>계층 규칙을 코드로 만들고 무너진 것을 잡는다</b>
+
+  <p><b>목적</b> — 세 갈래가 제 자리를 지키는지 눈으로 보면 놓칩니다.
+     규칙을 스무 줄짜리 코드로 옮기고, 일부러 무너뜨린 판을 만들어
+     도구가 잡는 것과 실제로 나는 버그를 함께 봅니다.</p>
+
+  <h5>절차 1 — 규칙 넷을 정한다</h5>
+
+  <p class="cmdline"><code>① 엔티티가 화면을 직접 다루는가      System.out · Scanner
+② 엔티티가 경계나 제어를 부르는가     import boundary · import control
+③ 제어가 화면을 직접 다루는가        System.out · Scanner
+④ 경계가 엔티티를 직접 부르는가      import entity</code></p>
+
+  <p>넷 다 <code>import</code> 문과 낱말 하나로 볼 수 있습니다.
+     ②가 가장 심각합니다 — 의존이 거꾸로 가서 고리가 생깁니다.
+     ①과 ③은 흔하고, ④는 「편해서」 생깁니다.</p>
+
+  <h5>절차 2 — 도구를 만든다</h5>
+
+  <p class="cmdline"><code>검증\계층검사.py
+
+import re, sys
+from pathlib import Path
+
+뿌리 = Path(sys.argv[1] if len(sys.argv) &gt; 1 else "src")
+
+규칙 = [
+    ("entity",   r"System\.out|System\.err|Scanner",
+     "엔티티가 화면을 직접 다룹니다"),
+    ("entity",   r"import\s+(boundary|control)\.",
+     "엔티티가 경계나 제어를 가져다 씁니다"),
+    ("control",  r"System\.out|System\.err|Scanner",
+     "제어가 화면을 직접 다룹니다"),
+    ("boundary", r"import\s+entity\.",
+     "경계가 엔티티를 직접 가져다 씁니다"),
+]
+
+지적 = []
+for 갈래, 무늬, 말 in 규칙:
+    for f in sorted((뿌리 / 갈래).glob("*.java")):
+        for n, 줄 in enumerate(f.read_text(encoding="utf-8").splitlines(), 1):
+            if re.search(무늬, 줄):
+                지적.append((갈래, f.name, n, 말, 줄.strip()))
+
+print(f"{'갈래':&lt;10}{'파일':&lt;26}{'줄':&gt;4}  지적")
+print("-" * 78)
+for 갈래, 파일, n, 말, 줄 in 지적:
+    print(f"{갈래:&lt;10}{파일:&lt;26}{n:&gt;4}  {말}")
+    print(f"{'':40}{줄[:36]}")
+print("-" * 78)
+print(f"지적 {len(지적)}건")</code></p>
+
+  <p>폴더 이름이 곧 갈래입니다.
+     <code>Main.java</code> 는 어느 폴더에도 안 들어 있으므로 검사하지 않습니다 —
+     이어 붙이는 자리는 세 갈래를 다 알아도 됩니다.</p>
+
+  <h5>절차 3 — 일부러 무너뜨린 판을 만든다</h5>
+
+  <p class="cmdline"><code>&gt; xcopy /e /i /q good draft
+&gt; rmdir /s /q draft\classes
+
+draft 에 셋을 넣습니다
+
+① entity\Reservation.java 의 confirm() 안에
+     System.out.println("[화면] 예약이 확정되었습니다");
+
+② control\ReservationService.java 의 시설 없음 자리에
+     System.out.println("[화면] 없는 시설입니다");
+
+③ boundary\ReservationConsole.java 에
+     import entity.Facility;
+     그리고 request() 앞부분에
+     if (headcount &gt; 20) { System.out.println("[화면] 한 번에 20명까지만..."); return; }</code></p>
+
+  <p>셋 다 실무에서 실제로 생기는 모양입니다.
+     ①은 「확정됐다고 알려 주면 편해서」, ②는 「여기서 바로 찍으면 되는데」,
+     ③은 「화면에서 미리 막으면 빠르니까」로 들어옵니다.</p>
+
+  <h5>절차 4 — 무너진 판을 돌려 본다</h5>
+
+  <p class="cmdline"><code>&gt; cd draft
+&gt; javac -encoding utf-8 -proc:none -d classes src\Main.java src\boundary\*.java src\control\*.java src\entity\*.java
+&gt; java -Dstdout.encoding=utf-8 -cp classes Main</code></p>
+
+  <p class="cmdline"><code>[화면] M0001 님이 F01 을 신청했습니다
+[화면] 예약이 확정되었습니다
+[메일] M0001 님께 접수 메일을 보냈습니다
+[화면] 접수되었습니다
+[화면] M0002 님이 F01 을 신청했습니다
+[화면] 정원을 초과했습니다
+[화면] M0003 님이 F09 을 신청했습니다
+[화면] 없는 시설입니다
+[화면] 없는 시설입니다
+저장된 예약 1건</code></p>
+
+  <div class="warn">맨 아래에서 두 줄을 보십시오.
+    <b>「없는 시설입니다」가 두 번 나옵니다.</b>
+    제어가 한 번 찍고 경계가 또 한 번 찍은 것입니다.
+    계층을 안 나누면 「나중에 고치기 어렵다」로 끝나는 것이 아니라
+    지금 당장 이런 버그가 납니다.
+    이 화면을 <code>화면\03_초안_두번찍힘.png</code> 로 저장하십시오.
+  </div>
+
+  <h5>절차 5 — 검사 도구를 돌린다</h5>
+
+  <p class="cmdline"><code>&gt; python 계층검사.py draft\src
+갈래        파일                           줄  지적
+------------------------------------------------------------------------------
+entity    Reservation.java            28  엔티티가 화면을 직접 다룹니다
+                                        System.out.println("[화면] 예약이 확정되었습니다
+control   ReservationService.java     25  제어가 화면을 직접 다룹니다
+                                        System.out.println("[화면] 없는 시설입니다");
+boundary  ReservationConsole.java      4  경계가 엔티티를 직접 가져다 씁니다
+                                        import entity.Facility;
+------------------------------------------------------------------------------
+지적 3건</code></p>
+
+  <p>셋을 다 잡았습니다. 파일과 줄 번호까지 나옵니다.
+     이 화면이 <code>화면\04_계층검사_3건.png</code> 입니다.</p>
+
+  <h5>절차 6 — 제대로 된 판을 돌린다</h5>
+
+  <p class="cmdline"><code>&gt; python 계층검사.py good\src
+갈래        파일                           줄  지적
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+지적 0건</code></p>
+
+  <p>0건입니다. <code>화면\05_계층검사_0건.png</code> 로 저장합니다.
+     3건 화면과 0건 화면이 나란히 있어야 도구가 실제로 검사한다는 것이 보입니다.</p>
+
+  <h5>절차 7 — 도구가 못 보는 것을 적는다</h5>
+
+  <p class="cmdline"><code>도구가 잡은 것                    도구가 못 잡은 것
+------------------------------  --------------------------------
+import entity.Facility          if (headcount &gt; 20) 이라는 업무 규칙
+System.out 이 있다는 사실         그 20 이 업무가 정한 수인지
+                                형식 검증인지
+
+③에서 넣은 «20명 제한» 은 지적 셋에 안 들어 있습니다
+import 만 잡혔고 규칙 자체는 못 잡았습니다</code></p>
+
+  <p>도구가 <code>import entity.Facility</code> 는 잡았지만
+     그 아래의 <code>if (headcount &gt; 20)</code> 은 못 잡았습니다.
+     이것이 기계의 한계입니다 — 숫자 20 이 어디서 온 것인지는 뜻을 알아야 압니다.
+     그래서 도구와 동료 검토와 체크리스트를 같이 씁니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>FileNotFoundError</code> 나 빈 결과</td>
+        <td>경로 끝이 <code>src</code> 여야 합니다. 그 밑에 갈래 폴더가 있어야 합니다</td></tr>
+    <tr><td>한글이 깨진다</td>
+        <td><code>chcp 65001</code> 을 먼저 치거나 파워셸을 쓰십시오</td></tr>
+    <tr><td><code>xcopy</code> 가 파일인지 폴더인지 묻는다</td>
+        <td><code>/i</code> 를 붙이면 안 묻습니다</td></tr>
+    <tr><td>초안에서도 0건이 나온다</td>
+        <td>위반을 <code>src</code> 밑 갈래 폴더에 넣었는지 보십시오</td></tr>
+    <tr><td>Main.java 가 지적된다</td>
+        <td>갈래 폴더 밖에 두십시오. 도구가 안 봅니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 규칙 넷, <code>계층검사.py</code>,
+     무너진 판 실행 화면(두 번 찍힘), 지적 3건 화면, 0건 화면,
+     도구가 못 잡은 것을 적은 표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 규칙을 코드로 옮겼습니까
+     ② 일부러 무너뜨린 판을 만들었습니까
+     ③ 같은 말이 두 번 나오는 화면을 찍었습니까
+     ④ 지적 3건 화면과 0건 화면을 둘 다 찍었습니까</p>
+</div>
+      </div>
+</div>
+
+<h3 class="lv">레벨 5 · 상세화 <span>능력단위요소 ② · 코드에 가깝게 만듭니다</span></h3>
+
+<div class="step" id="st11">
+      <h3><i>11</i>클래스 설계 원칙</h3>
+      <aside class="side">
+        <p class="pt">고칠 때 편한 쪽으로 정합니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-1</p>
+        <b class="sh">용어</b>
+        <p class="v">SOLID · 응집도 · 결합도</p>
+      </aside>
+      <div class="bd">
+
+<h4>객체지향의 네 기둥</h4>
+
+<table class="wide">
+  <tr><th style="width:130px"></th><th style="width:210px">무엇인가</th><th>이 교과에서</th></tr>
+  <tr><td>캡슐화</td><td>자료와 메서드를 묶고 바깥 접근을 막습니다</td>
+      <td>속성은 private, 변화는 오퍼레이션으로</td></tr>
+  <tr><td>상속</td><td>기존 클래스를 물려받습니다</td><td>is-a 일 때만 씁니다</td></tr>
+  <tr><td>다형성</td><td>같은 이름으로 다르게 동작합니다</td><td>결과 갈래를 늘릴 때</td></tr>
+  <tr><td>추상화</td><td>핵심만 남기고 감춥니다</td><td>인터페이스로 계약만 정합니다</td></tr>
+</table>
+
+<h4>SOLID 다섯</h4>
+
+<p class="cmdline"><code>S  단일 책임    클래스를 바꿀 까닭이 하나여야 한다
+O  개방 폐쇄    확장에는 열리고 수정에는 닫혀야 한다
+L  리스코프 치환 하위가 상위를 완전히 대신할 수 있어야 한다
+I  인터페이스 분리 안 쓰는 메서드에 의존하게 만들지 않는다
+D  의존관계 역전 둘 다 추상화에 의존해야 한다</code></p>
+
+<p>다섯을 다 외울 필요는 없습니다.
+   설계할 때 실제로 자주 쓰는 것은 S 와 D 둘입니다.
+   S 는 「이 클래스를 고칠 까닭이 몇 가지인가」를 묻고,
+   D 는 「이것을 시험할 때 가짜로 바꿔 넣을 수 있는가」를 묻습니다.</p>
+
+<h4>단일 책임을 재 봅니다</h4>
+
+<p class="cmdline"><code>ReservationAll 을 고칠 까닭
+
+  화면 문구를 바꾼다             → 고쳐야 한다
+  정원 규칙이 바뀐다             → 고쳐야 한다
+  저장을 파일에서 DB 로 바꾼다     → 고쳐야 한다
+  메일 서버가 바뀐다             → 고쳐야 한다
+                              네 가지. 단일 책임이 아닙니다
+
+ReservationService 를 고칠 까닭
+
+  정원 규칙이 바뀐다             → 고쳐야 한다
+                              한 가지. 단일 책임입니다</code></p>
+
+<p>세는 방법이 이것입니다.
+   「어떤 일이 생기면 이 파일을 열게 되는가」를 늘어놓고 개수를 셉니다.
+   둘 이상이면 나눌 자리가 있는 것입니다.</p>
+
+<h4>응집도와 결합도</h4>
+
+<table class="wide">
+  <tr><th style="width:130px"></th><th style="width:210px">높으면</th><th>낮으면</th></tr>
+  <tr><td>응집도</td><td>한 클래스가 한 책임만 합니다 — 좋습니다</td>
+      <td>여러 책임이 섞여 있습니다</td></tr>
+  <tr><td>결합도</td><td>남의 속사정에 기댑니다 — 나쁩니다</td>
+      <td>서로 독립적입니다 — 좋습니다</td></tr>
+</table>
+
+<p>응집도는 높이고 결합도는 낮춥니다. 방향이 반대인 것에 주의하십시오.
+   둘은 같이 움직입니다 — 한 클래스가 여러 일을 하면
+   그만큼 여러 클래스와 이어지게 되므로 결합도도 같이 올라갑니다.</p>
+
+<div class="note">결합도를 낮추는 가장 실용적인 방법이 의존성 주입입니다.
+  안에서 <code>new</code> 로 만들지 말고 생성자로 받으면
+  받는 쪽은 상대가 무엇인지 몰라도 되고, 주는 쪽이 정합니다.
+  앞 교과 애플리케이션 테스트 관리에서 스텁을 끼워 넣을 수 있었던 것도
+  그 코드가 의존성을 바깥에서 받았기 때문입니다.
+</div>
+
+<h4>가시성을 정합니다</h4>
+
+<table class="wide">
+  <tr><th style="width:110px">가시성</th><th style="width:70px">표기</th><th></th></tr>
+  <tr><td>public</td><td><code>+</code></td><td>아무 데서나 씁니다</td></tr>
+  <tr><td>private</td><td><code>-</code></td><td>그 클래스 안에서만. 자식도 못 씁니다</td></tr>
+  <tr><td>protected</td><td><code>#</code></td><td>같은 패키지와 상속한 자식이 씁니다</td></tr>
+  <tr><td>default</td><td>없음</td><td>같은 패키지 안에서만</td></tr>
+</table>
+
+<p>속성은 <code>private</code> 이 기본이고 오퍼레이션은 필요한 것만 엽니다.
+   <code>private</code> 을 정말 지키는지는 컴파일해 보면 압니다 — 실습 8.</p>
+      <div class="lab">
+  <b class="t">실습 11</b>
+  <b>고칠 까닭을 세고 확장에 열려 있는지 재 본다</b>
+
+  <p><b>목적</b> — SOLID 를 외우는 것으로는 설계가 안 됩니다.
+     단일 책임은 「고칠 까닭이 몇 가지인가」를 세면 되고,
+     개방 폐쇄는 새 기능을 붙여 보면 알 수 있습니다. 둘 다 재 봅니다.</p>
+
+  <h5>절차 1 — 클래스마다 고칠 까닭을 센다</h5>
+
+  <p class="cmdline"><code>설계\책임표.md
+
+| 클래스 | 이런 일이 생기면 고쳐야 한다 | 개수 |
+|--------|------------------------------|------|
+| ReservationAll | 화면 문구·정원 규칙·저장 방식·메일 서버 | 4 |
+| ReservationConsole | 화면 문구가 바뀐다 | 1 |
+| MailGateway | 메일 보내는 방법이 바뀐다 | 1 |
+| ReservationService | 정원·시설 규칙이 바뀐다 | 1 |
+| Reservation | 예약이 가질 정보가 바뀐다 | 1 |
+| ReservationStore | 저장 방식이 바뀐다 | 1 |</code></p>
+
+  <p>세는 방법이 이것입니다.
+     「어떤 일이 생기면 이 파일을 열게 되는가」를 늘어놓고 개수를 셉니다.
+     둘 이상이면 나눌 자리가 있는 것입니다.</p>
+
+  <h5>절차 2 — 요금 정책으로 개방 폐쇄를 재 본다</h5>
+
+  <p class="cmdline"><code>ocp\before\Fee.java
+
+public class Fee {
+    static int 요금(String 등급, int 기본) {
+        switch (등급) {
+            case "일반": return 기본;
+            case "우대": return 기본 / 2;
+            default:    return 기본;
+        }
+    }
+    public static void main(String[] args) {
+        System.out.println("일반 " + 요금("일반", 20000));
+        System.out.println("우대 " + 요금("우대", 20000));
+        System.out.println("단체 " + 요금("단체", 20000));
+    }
+}</code></p>
+
+  <p class="cmdline"><code>&gt; javac -encoding utf-8 -proc:none -d ocp\before\classes ocp\before\Fee.java
+&gt; java -Dstdout.encoding=utf-8 -cp ocp\before\classes Fee
+일반 20000
+우대 10000
+단체 20000</code></p>
+
+  <p>「단체」가 20000 으로 나왔습니다. 할인이 없는 것이 맞나요?
+     아무도 그렇게 정하지 않았습니다 — <code>default</code> 가 조용히 삼킨 것입니다.
+     모르는 등급이 들어와도 아무 말 없이 기본 요금을 돌려줍니다.</p>
+
+  <h5>절차 3 — 인터페이스로 바꿔 본다</h5>
+
+  <p class="cmdline"><code>ocp\after\Fee2.java
+
+interface 요금정책 { int 계산(int 기본); }
+
+class 일반요금 implements 요금정책 { public int 계산(int 기본) { return 기본; } }
+class 우대요금 implements 요금정책 { public int 계산(int 기본) { return 기본 / 2; } }
+
+public class Fee2 {
+    public static void main(String[] args) {
+        java.util.Map&lt;String, 요금정책&gt; 정책 =
+            new java.util.LinkedHashMap&lt;&gt;(java.util.Map.of("일반", new 일반요금(), "우대", new 우대요금()));
+        for (String 등급 : new String[]{"일반", "우대", "단체"}) {
+            요금정책 p = 정책.get(등급);
+            System.out.println(등급 + " " + (p == null ? "정책 없음" : String.valueOf(p.계산(20000))));
+        }
+    }
+}</code></p>
+
+  <p class="cmdline"><code>&gt; javac -encoding utf-8 -proc:none -d ocp\after\classes ocp\after\Fee2.java
+&gt; java -Dstdout.encoding=utf-8 -cp ocp\after\classes Fee2
+일반 20000
+우대 10000
+단체 정책 없음</code></p>
+
+  <p>「정책 없음」이라고 말해 줍니다.
+     <code>switch</code> 는 20000 이라고 대답했고 인터페이스 쪽은 모른다고 대답했습니다.
+     모르는 것을 모른다고 하는 쪽이 낫습니다 —
+     요금을 잘못 받는 것보다 오류가 나는 편이 고치기 쉽습니다.</p>
+
+  <h5>절차 4 — 단체 요금을 더해 본다</h5>
+
+  <p class="cmdline"><code>&gt; diff -u ocp\before\Fee.java ocp\before_v2\Fee.java
+@@ -3,6 +3,7 @@
+         switch (등급) {
+             case "일반": return 기본;
+             case "우대": return 기본 / 2;
++            case "단체": return (int) (기본 * 0.8);
+             default:    return 기본;
+         }
+     }</code></p>
+
+  <p class="cmdline"><code>&gt; diff -u ocp\after\Fee2.java ocp\after_v2\Fee2.java
+@@ -2,11 +2,12 @@
+
+ class 일반요금 implements 요금정책 { public int 계산(int 기본) { return 기본; } }
+ class 우대요금 implements 요금정책 { public int 계산(int 기본) { return 기본 / 2; } }
++class 단체요금 implements 요금정책 { public int 계산(int 기본) { return (int) (기본 * 0.8); } }
+
+ public class Fee2 {
+     public static void main(String[] args) {
+         java.util.Map&lt;String, 요금정책&gt; 정책 =
+-            new java.util.LinkedHashMap&lt;&gt;(java.util.Map.of("일반", new 일반요금(), "우대", new 우대요금()));
++            new java.util.LinkedHashMap&lt;&gt;(java.util.Map.of("일반", new 일반요금(), "우대", new 우대요금(), "단체", new 단체요금()));</code></p>
+
+  <div class="warn">여기서 뜻밖의 결과가 나옵니다.
+    <code>switch</code> 쪽은 <b>한 줄 더한 것</b>으로 끝났고,
+    인터페이스 쪽은 <b>한 줄 더하고 한 줄 고쳤습니다</b>.
+    줄 수로만 보면 인터페이스 쪽이 더 손이 갑니다.
+    「개방 폐쇄 원칙을 지키면 고칠 것이 준다」고 배우는데 실제로 재 보면 그렇지 않습니다.
+  </div>
+
+  <h5>절차 5 — 그러면 무엇이 다른지 적는다</h5>
+
+  <p class="cmdline"><code>switch 쪽에서 고친 자리
+  요금을 «계산하는 코드» 안쪽
+  → 단체를 더하다가 우대 계산을 잘못 건드릴 수 있습니다
+  → 요금 계산을 다시 시험해야 합니다
+
+인터페이스 쪽에서 고친 자리
+  기존 «일반요금» «우대요금» 클래스는 한 글자도 안 바뀝니다
+  새 클래스 하나가 늘고, 등록 한 줄이 바뀝니다
+  → 기존 계산은 다시 시험할 까닭이 없습니다
+  → 등록 줄은 설정 파일로 뺄 수 있습니다</code></p>
+
+  <p>차이는 줄 수가 아니라 <b>어디를 고쳤는가</b>입니다.
+ 개방 폐쇄가 말하는 「수정에 닫혀 있다」는
+ 고치는 줄이 없다는 뜻이 아니라 이미 잘 도는 코드를 안 건드린다는 뜻입니다.
+ 정책이 셋이 아니라 서른이면 이 차이가 크게 벌어집니다.</p>
+
+  <h5>절차 6 — 응집도와 결합도를 적는다</h5>
+
+  <p class="cmdline"><code>설계\원칙적용.md
+
+| 원칙 | 우리 설계에서 | 근거 |
+|------|---------------|------|
+| 단일 책임 (S) | 클래스마다 고칠 까닭 1개 | 책임표 |
+| 개방 폐쇄 (O) | 결과 갈래를 enum 으로 둠 | Result |
+| 리스코프 (L) | 상속을 안 씀 | - |
+| 인터페이스 분리 (I) | 인터페이스를 안 씀 | 요금 정책은 예제 |
+| 의존관계 역전 (D) | 생성자로 의존을 받음 | Service · Console |
+| 응집도 | 한 클래스가 한 문장으로 설명됨 | 실습 9 절차 4 |
+| 결합도 | 경계가 엔티티를 모름 | 실습 10 지적 0건 |</code></p>
+
+  <p>L 과 I 가 「안 씀」인 것도 답입니다.
+     이 규모에서 상속과 인터페이스를 억지로 넣으면 오히려 어려워집니다.
+     안 쓴 까닭을 적어 두면 그것도 판단입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>고칠 까닭이 하나인지 둘인지 애매하다</td>
+        <td>「누가 요청하면 이 파일을 여는가」로 물어보십시오</td></tr>
+    <tr><td>한글 클래스 이름이 컴파일 안 된다</td>
+        <td><code>-encoding utf-8</code> 을 붙였는지 보십시오</td></tr>
+    <tr><td><code>diff</code> 가 없다</td>
+        <td>Git Bash 에 있습니다. 없으면 <code>fc</code> 를 쓰십시오</td></tr>
+    <tr><td><code>Map.of</code> 로 만든 맵이 수정이 안 된다</td>
+        <td>불변 맵입니다. <code>LinkedHashMap</code> 으로 감쌌습니다</td></tr>
+    <tr><td>인터페이스 쪽이 더 손이 가는데요</td>
+        <td>맞습니다. 절차 5 의 「어디를 고쳤는가」를 보십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>책임표.md</code>,
+     <code>Fee.java</code> · <code>Fee2.java</code> 와 두 실행 화면,
+     두 방식의 diff, 「어디를 고쳤는가」 비교, <code>원칙적용.md</code></p>
+
+  <p><b>스스로 확인</b> —
+     ① 클래스마다 고칠 까닭을 세었습니까
+     ② 두 방식을 다 돌려 「정책 없음」을 보았습니까
+     ③ 줄 수로는 인터페이스 쪽이 더 든다는 것을 확인했습니까
+     ④ 그러면 무엇이 나은지 한 문장으로 말할 수 있습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st12">
+      <h3><i>12</i>관계와 다중도</h3>
+      <aside class="side">
+        <p class="pt">선 모양이 뜻을 바꿉니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-3</p>
+        <b class="sh">용어</b>
+        <p class="v">연관 · 집합 · 합성 · 일반화</p>
+      </aside>
+      <div class="bd">
+
+<h4>여섯 가지 관계</h4>
+
+<table class="wide">
+  <tr><th style="width:110px">관계</th><th style="width:130px">그림</th><th></th></tr>
+  <tr><td>연관</td><td>실선</td><td>서로 이어져 있습니다. 양 끝에 다중도를 적습니다</td></tr>
+  <tr><td>집합</td><td>빈 다이아몬드</td><td>전체와 부분. 부분이 따로 살 수 있습니다</td></tr>
+  <tr><td>합성</td><td>찬 다이아몬드</td><td>전체와 부분. 전체가 죽으면 부분도 죽습니다</td></tr>
+  <tr><td>일반화</td><td>빈 삼각형 실선</td><td>is-a. 상속합니다</td></tr>
+  <tr><td>의존</td><td>점선 화살표</td><td>바뀌면 영향을 받습니다</td></tr>
+  <tr><td>실체화</td><td>빈 삼각형 점선</td><td>인터페이스의 계약을 지킵니다</td></tr>
+</table>
+
+<h4>다중도</h4>
+
+<p class="cmdline"><code>Reservation ────────── Facility
+      *                 1
+
+  「예약 여럿이 시설 하나를 가리킨다」
+
+표기
+  1        꼭 하나
+  0..1     없거나 하나
+  *        0개 이상
+  1..*     1개 이상
+  1..5     1개에서 5개까지</code></p>
+
+<p>다중도를 안 적으면 그림이 절반만 말하는 것입니다.
+   「예약과 시설이 이어져 있다」까지만 알려 주고
+   예약 하나에 시설이 여럿인지 하나인지는 안 알려 줍니다.
+   그 차이가 표 설계와 코드의 자료형을 가릅니다.</p>
+
+<h4>집합과 합성의 차이를 코드로 봅니다</h4>
+
+<p class="cmdline"><code>집합 — 바깥이 준 목록을 그대로 들고 있습니다
+  집합예약(List&lt;String&gt; 참가자) { this.참가자 = 참가자; }
+
+합성 — 받은 것을 베껴서 제 것으로 만듭니다
+  합성예약(List&lt;String&gt; 참가자) { this.참가자 = new ArrayList&lt;&gt;(참가자); }
+  List&lt;String&gt; 참가자() { return List.copyOf(참가자); }</code></p>
+
+<p class="cmdline"><code>바깥 목록에 «박» 을 더한 뒤
+  집합 예약의 참가자 [김, 이, 박]
+  합성 예약의 참가자 [김, 이]
+  집합 예약은 바깥에서 참가자를 더할 수 있습니다 [김, 이, 박, 최]
+  합성 예약은 바깥에서 참가자를 못 더합니다 UnsupportedOperationException</code></p>
+
+<p>그림의 다이아몬드가 비었는지 찼는지가 이만큼을 가릅니다.
+   집합으로 그려 놓고 합성으로 만들면 바깥에서 참가자를 바꿔도 막을 수가 없고,
+   합성으로 그려 놓고 집합으로 만들면 남이 내 자료를 마음대로 고칩니다.</p>
+
+<h4>is-a 를 문장으로 시험합니다</h4>
+
+<p class="cmdline"><code>AdminUser 는 User 이다        말이 됩니다 → 상속 맞습니다
+Order 는 Product 이다        말이 안 됩니다 → 상속 아닙니다
+                            주문은 상품을 «가지는» 것입니다 → 연관
+
+우대회원 은 회원 이다          말이 됩니다
+예약 은 시설 이다             말이 안 됩니다</code></p>
+
+<div class="warn">상속을 코드 재사용 수단으로 쓰는 것이 가장 흔한 잘못입니다.
+  「저기에 쓸 만한 메서드가 있으니 상속받자」로 이어지면
+  <code>Order extends Product</code> 같은 것이 나옵니다.
+  문장으로 읽어 보고 말이 안 되면 상속이 아니라 연관이나 위임입니다.
+  리스코프 치환 원칙이 말하는 것도 이것입니다 —
+  하위가 상위를 완전히 대신할 수 없으면 is-a 가 아닙니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 12</b>
+  <b>관계와 다중도를 정하고 집합과 합성을 코드로 가른다</b>
+
+  <p><b>목적</b> — 다이아몬드 색 하나가 「같이 죽는가 아닌가」를 정합니다.
+     그림으로만 보면 취향 같지만 코드로 옮기면 동작이 달라집니다.
+     둘을 실제로 만들어 돌려 보고 차이를 확인합니다.</p>
+
+  <h5>절차 1 — 관계표를 만든다</h5>
+
+  <p class="cmdline"><code>설계\관계표.md
+
+| 왼쪽 | 관계 | 오른쪽 | 왼쪽 다중도 | 오른쪽 다중도 | 까닭 |
+|------|------|--------|-------------|---------------|------|
+| ReservationConsole | 연관 | ReservationService | 1 | 1 | 콘솔이 서비스를 가진다 |
+| ReservationConsole | 연관 | MailGateway | 1 | 1 | 콘솔이 메일 창구를 가진다 |
+| ReservationService | 연관 | ReservationStore | 1 | 1 | 서비스가 저장소를 가진다 |
+| ReservationService | 연관 | Facility | 1 | * | 서비스가 시설 여럿을 본다 |
+| ReservationStore | 합성 | Reservation | 1 | * | 저장소가 사라지면 예약도 사라진다 |
+| Reservation | 연관 | Facility | * | 1 | 예약 여럿이 시설 하나를 가리킨다 |</code></p>
+
+  <p>다섯째 줄만 합성입니다.
+     <code>ReservationStore</code> 안의 <code>List&lt;Reservation&gt;</code> 은
+     저장소가 없어지면 같이 없어집니다.
+     시설은 저장소와 상관없이 존재하므로 합성이 아닙니다.</p>
+
+  <h5>절차 2 — 다중도를 코드에서 확인한다</h5>
+
+  <p class="cmdline"><code>다중도 «1»       private final ReservationStore store;
+                  하나만 가집니다
+
+다중도 «*»       private final List&lt;Reservation&gt; rows;
+                  여럿을 가집니다
+
+다중도 «0..1»    private Facility selected;   (null 이 될 수 있습니다)</code></p>
+
+  <p>자료형만 봐도 다중도를 알 수 있습니다.
+     <code>List</code> 나 배열이면 <code>*</code> 이고, 하나면 <code>1</code> 입니다.
+     그림과 코드가 어긋나면 둘 중 하나가 틀린 것입니다.</p>
+
+  <h5>절차 3 — 집합과 합성을 만들어 본다</h5>
+
+  <p class="cmdline"><code>rel\Relation.java
+
+import java.util.*;
+
+public class Relation {
+
+    /** 집합 관계 — 부분을 «빌려» 쓴다. 바깥이 준 목록을 그대로 들고 있다. */
+    static class 집합예약 {
+        private final List&lt;String&gt; 참가자;
+        집합예약(List&lt;String&gt; 참가자) { this.참가자 = 참가자; }
+        List&lt;String&gt; 참가자() { return 참가자; }
+    }
+
+    /** 합성 관계 — 부분을 «소유» 한다. 받은 것을 베껴서 제 것으로 만든다. */
+    static class 합성예약 {
+        private final List&lt;String&gt; 참가자;
+        합성예약(List&lt;String&gt; 참가자) { this.참가자 = new ArrayList&lt;&gt;(참가자); }
+        List&lt;String&gt; 참가자() { return List.copyOf(참가자); }
+    }
+
+    public static void main(String[] args) {
+        List&lt;String&gt; 원본 = new ArrayList&lt;&gt;(List.of("김", "이"));
+
+        집합예약 a = new 집합예약(원본);
+        합성예약 b = new 합성예약(원본);
+
+        원본.add("박");
+
+        System.out.println("바깥 목록에 «박» 을 더한 뒤");
+        System.out.println("  집합 예약의 참가자 " + a.참가자());
+        System.out.println("  합성 예약의 참가자 " + b.참가자());
+
+        try {
+            a.참가자().add("최");
+            System.out.println("  집합 예약은 바깥에서 참가자를 더할 수 있습니다 " + a.참가자());
+        } catch (UnsupportedOperationException e) {
+            System.out.println("  집합 예약: 더할 수 없음");
+        }
+        try {
+            b.참가자().add("최");
+            System.out.println("  합성 예약도 더할 수 있습니다");
+        } catch (UnsupportedOperationException e) {
+            System.out.println("  합성 예약은 바깥에서 참가자를 못 더합니다 UnsupportedOperationException");
+        }
+    }
+}</code></p>
+
+  <h5>절차 4 — 돌려 본다</h5>
+
+  <p class="cmdline"><code>&gt; javac -encoding utf-8 -proc:none -d rel\classes rel\Relation.java
+&gt; java -Dstdout.encoding=utf-8 -cp rel\classes Relation</code></p>
+
+  <p class="cmdline"><code>바깥 목록에 «박» 을 더한 뒤
+  집합 예약의 참가자 [김, 이, 박]
+  합성 예약의 참가자 [김, 이]
+  집합 예약은 바깥에서 참가자를 더할 수 있습니다 [김, 이, 박, 최]
+  합성 예약은 바깥에서 참가자를 못 더합니다 UnsupportedOperationException</code></p>
+
+  <p>둘째 줄과 셋째 줄이 다릅니다.
+     집합 쪽은 바깥에서 목록을 고치자 안까지 바뀌었고,
+     합성 쪽은 베껴 두었으므로 그대로입니다.</p>
+
+  <div class="warn">다섯째 줄이 더 중요합니다.
+    집합 쪽은 <b>바깥에서 참가자를 마음대로 더할 수 있습니다.</b>
+    「참가자는 정원 안이어야 한다」 같은 규칙을 지킬 자리가 없습니다.
+    합성 쪽은 <code>List.copyOf</code> 로 읽기 전용 사본을 돌려주므로 막힙니다.
+    다이아몬드 색 하나가 이만큼을 가릅니다 —
+    그림을 그릴 때 아무 색이나 칠하면 안 되는 까닭입니다.
+  </div>
+
+  <h5>절차 5 — 삭제 전파를 정한다</h5>
+
+  <p class="cmdline"><code>합성으로 그리면 → 「전체를 지우면 부분도 지운다」
+연관으로 그리면 → 「전체를 지워도 부분은 남는다」
+
+우리 예제
+  저장소 – 예약     합성    저장소가 없어지면 예약도 없어집니다
+  회원 – 예약       ?      업무 규칙을 봐야 합니다
+
+공공 시설 예약은 이용 기록을 남겨야 하는 경우가 많습니다
+  → 회원을 지워도 예약은 남습니다 → 합성이 아닙니다
+  → 회원 쪽에 «탈퇴» 상태를 두고 지우지 않습니다</code></p>
+
+  <p>이 판단은 설계자가 혼자 못 합니다. 요구사항을 봐야 합니다.
+     요구사항에 없으면 물어봐야 하고, 물어볼 것을 적어 두는 것도 산출물입니다.</p>
+
+  <h5>절차 6 — 연관과 의존을 가른다</h5>
+
+  <p class="cmdline"><code>연관  속성으로 가지고 있습니다
+  class ReservationService {
+      private final ReservationStore store;    ← 연관
+  }
+
+의존  메서드 인자나 지역 변수로만 씁니다
+  class ReservationService {
+      public Result request(...) {
+          Reservation r = new Reservation(...);   ← 의존
+      }
+  }
+
+그림에서
+  연관은 실선, 의존은 점선입니다</code></p>
+
+  <p><code>ReservationService</code> 와 <code>Reservation</code> 은 의존입니다 —
+     만들어서 저장소에 넘길 뿐 속성으로 들고 있지 않습니다.
+     이것을 실선으로 그리면 「서비스가 예약을 계속 들고 있다」는 뜻이 되어 틀립니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>집합 쪽에서 예외가 난다</td>
+        <td><code>List.of</code> 로 만든 불변 목록을 넘긴 것입니다. <code>ArrayList</code> 로 감싸십시오</td></tr>
+    <tr><td>둘 다 같은 결과가 나온다</td>
+        <td>합성 쪽 생성자에서 베끼는 줄을 빠뜨렸습니다</td></tr>
+    <tr><td>한글 클래스 이름이 안 된다</td>
+        <td><code>-encoding utf-8</code> 을 붙이십시오</td></tr>
+    <tr><td>다중도를 뭘로 적나</td>
+        <td>자료형을 보십시오. <code>List</code> 면 <code>*</code> 입니다</td></tr>
+    <tr><td>회원–예약을 뭘로 할지 모르겠다</td>
+        <td>요구사항에 이용 기록 보관이 있는지 보십시오. 없으면 물어볼 것으로 적으십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>관계표.md</code>(다중도 포함),
+     <code>Relation.java</code> 와 실행 화면,
+     삭제 전파 판단 기록, 연관과 의존을 가른 표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 관계마다 다중도를 양쪽 다 적었습니까
+     ② 집합과 합성을 돌려 결과가 다른 것을 보았습니까
+     ③ 합성으로 그린 자리가 정말 같이 죽는 것입니까
+     ④ 속성으로 가진 것만 실선으로 그렸습니까</p>
+</div>
+      </div>
+</div>
+
+<h3 class="lv">레벨 6 · 명세와 도식 <span>능력단위요소 ② · 남이 읽을 문서로 만듭니다</span></h3>
+
+<div class="step" id="st13">
+      <h3><i>13</i>속성과 오퍼레이션 명세</h3>
+      <aside class="side">
+        <p class="pt">타입과 가시성을 반드시 적습니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-2</p>
+        <b class="sh">용어</b>
+        <p class="v">속성 명세 · 연산 명세 · 인자 방향</p>
+      </aside>
+      <div class="bd">
+
+<h4>속성 명세</h4>
+
+<p class="cmdline"><code>명세서\클래스명세_Reservation.md
+
+| 속성명 | 타입 | 가시성 | 설명 |
+|--------|------|--------|------|
+| memberNo | String | private | 회원 번호 |
+| facilityCode | String | private | 시설 코드 |
+| useDate | String | private | 이용 일자 yyyy-MM-dd |
+| headcount | int | private | 이용 인원 |
+| status | Status | private | 신청·확정·취소 셋 |</code></p>
+
+<p>구현에서 그대로 쓸 이름을 씁니다.
+   타입과 가시성은 반드시 넣습니다 — 이 둘이 없으면
+   구현하는 사람이 저마다 다르게 정하게 됩니다.</p>
+
+<h4>오퍼레이션 명세</h4>
+
+<p class="cmdline"><code>| 연산명 | 인자 | 반환 | 가시성 | 설명 |
+|--------|------|------|--------|------|
+| getStatus | - | Status | public | 현재 상태를 돌려준다 |
+| confirm | - | void | public | 상태를 확정으로 바꾼다 |
+| cancel | - | void | public | 상태를 취소로 바꾼다 |</code></p>
+
+<h4>인자 방향 셋</h4>
+
+<table class="wide">
+  <tr><th style="width:110px"></th><th></th></tr>
+  <tr><td><code>in</code></td><td>부르는 쪽에서 불리는 쪽으로 값이 갑니다</td></tr>
+  <tr><td><code>out</code></td><td>불리는 쪽에서 부르는 쪽으로 값이 옵니다</td></tr>
+  <tr><td><code>inout</code></td><td>주고, 불린 쪽이 그 값을 바꿀 수 있습니다</td></tr>
+</table>
+
+<p>자바에서는 거의 <code>in</code> 입니다.
+   <code>out</code> 과 <code>inout</code> 은 C 나 저장 프로시저를 쓸 때 나옵니다.
+   그래도 표에는 적어 둡니다 — 나중에 외부 시스템과 붙을 때 필요합니다.</p>
+
+<h4>오퍼레이션을 짓는 여덟 가지 지침</h4>
+
+<p class="cmdline"><code>① 동사 + 명사로 짓는다              registerUser · updatePassword
+② 하나의 오퍼레이션은 하나의 기능만    saveUser 와 validateUser 를 나눈다
+③ 인자와 반환 타입을 분명히          User findUserById(String id)
+④ 안 쓸 것은 private 나 protected
+⑤ 예외 상황을 명세에 적는다          throws UserNotFoundException
+⑥ 안 쓰는 · 겹치는 오퍼레이션은 지운다
+⑦ 오버로딩은 입력 타입이 다를 때만
+⑧ 외부 연동은 프로토콜과 포맷까지 적는다</code></p>
+
+<h4>명세와 코드가 같은지 기계로 봅니다</h4>
+
+<p class="cmdline"><code>&gt; python 명세대조.py
+■ entity.Reservation
+   명세서에만 있음   오퍼레이션 extend (public)
+
+어긋난 것 1건 — 불일치</code></p>
+
+<p><code>javap</code> 로 실제 클래스에서 속성과 오퍼레이션을 뽑아
+   명세서의 표와 견주는 도구입니다.
+   명세서에만 있는 것은 아직 안 만든 것이거나 지어낸 것이고,
+   코드에만 있는 것은 명세서에 안 적은 것입니다.</p>
+
+<div class="note">명세서와 코드가 어긋나는 일은 반드시 생깁니다.
+  구현하다가 메서드를 하나 더 만들고 명세서를 안 고치는 식입니다.
+  그러면 문서를 믿을 수 없게 되고, 아무도 안 읽게 되고,
+  결국 「문서는 형식일 뿐」이라는 말이 나옵니다.
+  대조를 자동으로 돌릴 수 있게 해 두면 그 고리를 끊을 수 있습니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 13</b>
+  <b>클래스 명세서를 쓰고 코드와 맞는지 기계로 대조한다</b>
+
+  <p><b>목적</b> — 명세서와 코드는 반드시 어긋납니다.
+     구현하다가 메서드를 하나 더 만들고 문서를 안 고치는 식입니다.
+     대조를 자동으로 돌릴 수 있게 해 두면 그 고리를 끊을 수 있습니다.</p>
+
+  <h5>절차 1 — 속성 명세를 쓴다</h5>
+
+  <p class="cmdline"><code>명세서\클래스명세_Reservation.md
+
+클래스  entity.Reservation     갈래  엔티티
+설명    예약 한 건을 담는다. 상태는 신청·확정·취소 셋뿐이다
+
+| 속성명 | 타입 | 가시성 | 설명 |
+|--------|------|--------|------|
+| memberNo | String | private | 회원 번호 |
+| facilityCode | String | private | 시설 코드 |
+| useDate | String | private | 이용 일자 yyyy-MM-dd |
+| headcount | int | private | 이용 인원 |
+| status | Status | private | 신청·확정·취소 |</code></p>
+
+  <p>타입과 가시성이 반드시 들어갑니다.
+     이 둘이 없으면 구현하는 사람이 저마다 다르게 정하고,
+     그러면 명세서를 쓴 뜻이 없습니다.</p>
+
+  <h5>절차 2 — 오퍼레이션 명세를 쓴다</h5>
+
+  <p class="cmdline"><code>| 연산명 | 인자 | 반환 | 가시성 | 설명 |
+|--------|------|------|--------|------|
+| getMemberNo | - | String | public | 회원 번호를 돌려준다 |
+| getFacilityCode | - | String | public | 시설 코드를 돌려준다 |
+| getUseDate | - | String | public | 이용 일자를 돌려준다 |
+| getHeadcount | - | int | public | 이용 인원을 돌려준다 |
+| getStatus | - | Status | public | 현재 상태를 돌려준다 |
+| confirm | - | void | public | 상태를 확정으로 바꾼다 |
+| cancel | - | void | public | 상태를 취소로 바꾼다 |
+| extend | in days:int | void | public | 이용 기간을 늘린다 |</code></p>
+
+  <p>맨 아래 <code>extend</code> 를 눈여겨보십시오.
+     설계할 때 「있으면 좋겠다」고 적어 둔 것인데 아직 안 만들었습니다.
+     이런 줄이 실제로 생깁니다 — 다음 절차에서 잡힙니다.</p>
+
+  <h5>절차 3 — 대조할 수 있게 CSV 로도 적는다</h5>
+
+  <p class="cmdline"><code>검증\클래스명세서.csv
+
+클래스,구분,이름,가시성
+entity.Reservation,속성,memberNo,private
+entity.Reservation,속성,facilityCode,private
+entity.Reservation,속성,useDate,private
+entity.Reservation,속성,headcount,private
+entity.Reservation,속성,status,private
+entity.Reservation,오퍼레이션,getMemberNo,public
+entity.Reservation,오퍼레이션,getFacilityCode,public
+entity.Reservation,오퍼레이션,getUseDate,public
+entity.Reservation,오퍼레이션,getHeadcount,public
+entity.Reservation,오퍼레이션,getStatus,public
+entity.Reservation,오퍼레이션,confirm,public
+entity.Reservation,오퍼레이션,cancel,public
+entity.Reservation,오퍼레이션,extend,public</code></p>
+
+  <p>표로만 두면 사람이 눈으로 대조해야 하고, 그러면 빠뜨립니다.
+     앞 교과에서 요구사항과 유스케이스를 CSV 로 둔 것과 같은 까닭입니다.</p>
+
+  <h5>절차 4 — javap 로 실제 클래스를 들여다본다</h5>
+
+  <p class="cmdline"><code>&gt; javap -p -cp good\classes entity.Reservation
+Compiled from "Reservation.java"
+public class entity.Reservation {
+  private final java.lang.String memberNo;
+  private final java.lang.String facilityCode;
+  private final java.lang.String useDate;
+  private final int headcount;
+  private entity.Reservation$Status status;
+  public entity.Reservation(java.lang.String, java.lang.String, java.lang.String, int);
+  public java.lang.String getMemberNo();
+  public java.lang.String getFacilityCode();
+  public java.lang.String getUseDate();
+  public int getHeadcount();
+  public entity.Reservation$Status getStatus();
+  public void confirm();
+  public void cancel();
+}</code></p>
+
+  <p><code>javap</code> 는 JDK 에 딸려 오는 도구입니다.
+     컴파일된 클래스에서 속성과 오퍼레이션을 뽑아 줍니다.
+     <code>-p</code> 를 붙여야 <code>private</code> 까지 보입니다.</p>
+
+  <h5>절차 5 — 대조 도구를 만든다</h5>
+
+  <p class="cmdline"><code>검증\명세대조.py
+
+import csv, re, subprocess, sys
+from collections import defaultdict
+
+명세 = defaultdict(set)
+for r in csv.DictReader(open("클래스명세서.csv", encoding="utf-8")):
+    명세[r["클래스"]].add((r["구분"], r["이름"], r["가시성"]))
+
+경로 = sys.argv[1] if len(sys.argv) &gt; 1 else "good/classes"
+지적 = 0
+for 클래스, 적은것 in 명세.items():
+    out = subprocess.run(["javap", "-p", "-cp", 경로, 클래스],
+                         capture_output=True, text=True).stdout
+    만든것 = set()
+    for 줄 in out.splitlines():
+        줄 = 줄.strip().rstrip(";")
+        m = re.match(r"(public|private|protected)?\s*(?:static\s+|final\s+)*"
+                     r"([\w.$&lt;&gt;\[\]]+)\s+([\w$]+)(\(.*\))?$", 줄)
+        if not m:
+            continue
+        가시성, _, 이름, 괄호 = m.groups()
+        만든것.add(("오퍼레이션" if 괄호 else "속성", 이름, 가시성 or "package"))
+
+    print(f"■ {클래스}")
+    for 구분, 이름, 가시성 in sorted(적은것 - 만든것):
+        print(f"   명세서에만 있음   {구분} {이름} ({가시성})")
+        지적 += 1
+    for 구분, 이름, 가시성 in sorted(만든것 - 적은것):
+        print(f"   코드에만 있음     {구분} {이름} ({가시성})")
+        지적 += 1
+    if 적은것 == 만든것:
+        print("   맞음")
+    print()
+
+print(f"어긋난 것 {지적}건 — {'일치' if not 지적 else '불일치'}")</code></p>
+
+  <p>집합 뺄셈 두 번입니다.
+     명세서에만 있는 것과 코드에만 있는 것을 양쪽으로 봅니다.
+     한 방향만 보면 절반만 검사한 것입니다 — 앞 교과의 추적 검사와 같습니다.</p>
+
+  <h5>절차 6 — 돌린다</h5>
+
+  <p class="cmdline"><code>&gt; python 명세대조.py
+■ entity.Reservation
+   명세서에만 있음   오퍼레이션 extend (public)
+
+어긋난 것 1건 — 불일치</code></p>
+
+  <p><code>extend</code> 가 잡혔습니다.
+     명세서에 적어 두었지만 코드에는 없습니다.
+     이 화면을 <code>화면\07_명세대조_불일치.png</code> 로 저장하십시오.</p>
+
+  <h5>절차 7 — 정하고 다시 돌린다</h5>
+
+  <p class="cmdline"><code>정할 것 두 가지
+  ① 만들 것인가 — 요구사항에 기간 연장이 있는가?
+  ② 지울 것인가 — 없으면 명세서에서 지웁니다
+
+요구사항 목록에 «기간 연장» 이 없으므로 지웁니다
+  → 클래스명세서.csv 에서 extend 줄을 지웁니다</code></p>
+
+  <p class="cmdline"><code>&gt; python 명세대조.py
+■ entity.Reservation
+   맞음
+
+어긋난 것 0건 — 일치</code></p>
+
+  <p>일치입니다. <code>화면\08_명세대조_일치.png</code> 로 저장합니다.
+     요구사항에 없는 오퍼레이션은 만들지 않는다 —
+     앞 교과의 「근거 없는 기능」과 같은 이야기입니다.</p>
+
+  <div class="note">이 도구가 생성자를 안 세는 것에 주의하십시오.
+    <code>public entity.Reservation(...)</code> 은 타입과 이름이 한 덩이라
+    정규식에 안 걸립니다.
+    생성자까지 대조하려면 규칙을 하나 더 넣어야 합니다.
+    도구가 무엇을 안 보는지 아는 것도 도구를 쓰는 일의 절반입니다.
+  </div>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>javap</code> 가 클래스를 못 찾는다</td>
+        <td><code>-cp</code> 경로와 패키지까지 붙인 이름을 확인하십시오</td></tr>
+    <tr><td>결과가 통째로 「코드에만 있음」이다</td>
+        <td>CSV 의 클래스 이름에 패키지를 붙였는지 보십시오</td></tr>
+    <tr><td>enum 상수가 잡힌다</td>
+        <td><code>Status</code> 는 따로 대조하거나 CSV 에 넣으십시오</td></tr>
+    <tr><td>한글이 깨진다</td>
+        <td><code>chcp 65001</code> 을 먼저 치거나 파워셸을 쓰십시오</td></tr>
+    <tr><td>0건만 나온다</td>
+        <td>일부러 한 줄 더해서 잡히는 것을 먼저 보십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>클래스명세_Reservation.md</code>(속성·오퍼레이션),
+     <code>클래스명세서.csv</code>, <code>javap</code> 화면,
+     <code>명세대조.py</code>, 불일치 화면, 일치 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 속성과 오퍼레이션에 타입과 가시성을 다 적었습니까
+     ② <code>javap</code> 로 실제 클래스를 들여다보았습니까
+     ③ 불일치 화면과 일치 화면을 둘 다 찍었습니까
+     ④ 도구가 안 보는 것이 무엇인지 압니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st14">
+      <h3><i>14</i>패키지 구조와 설계서</h3>
+      <aside class="side">
+        <p class="pt">클래스가 스무 개 넘으면 묶습니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-2</p>
+        <b class="sh">용어</b>
+        <p class="v">패키지 다이어그램 · 설계서</p>
+      </aside>
+      <div class="bd">
+
+<h4>패키지로 묶습니다</h4>
+
+<p class="cmdline"><code>       ┌──────────────┐
+       │   boundary   │   경계
+       └───────┬──────┘
+               ↓
+       ┌──────────────┐
+       │   control    │   제어
+       └───────┬──────┘
+               ↓
+       ┌──────────────┐
+       │    entity    │   엔티티
+       └──────────────┘
+
+화살표는 의존 방향입니다. 한 방향으로만 갑니다.</code></p>
+
+<p>패키지 다이어그램은 클래스가 많아질 때 한눈에 보려고 그립니다.
+   클래스가 여섯일 때는 필요 없지만 예순이면 반드시 필요합니다.
+   무엇보다 의존 방향이 한 방향인지를 이 그림으로 봅니다.</p>
+
+<h4>순환이 있으면 안 됩니다</h4>
+
+<p class="cmdline"><code>이건 안 됩니다
+
+  boundary ──→ control ──→ entity
+      ↑                       │
+      └───────────────────────┘
+
+  entity 가 boundary 를 부르면 고리가 생깁니다
+  셋을 따로 빌드할 수도, 따로 시험할 수도 없게 됩니다</code></p>
+
+<p>이 고리를 검사하는 것이 실습 10 의 규칙 ②입니다.
+   <code>entity</code> 안에 <code>import boundary.</code> 가 있으면 고리가 생긴 것입니다.</p>
+
+<h4>설계서에 넣을 것</h4>
+
+<table class="wide">
+  <tr><th style="width:190px">항목</th><th></th></tr>
+  <tr><td>업무 개요</td><td>업무 영역 · 단위 업무 · 작성일 · 버전</td></tr>
+  <tr><td>설계 클래스 목록</td><td>이름과 한 줄 설명. 왜 필요한지가 보이게</td></tr>
+  <tr><td>패키지 구조도</td><td>패키지와 의존 방향</td></tr>
+  <tr><td>클래스 다이어그램</td><td>속성 · 오퍼레이션 · 가시성 · 관계 · 다중도</td></tr>
+  <tr><td>속성 명세</td><td>이름 · 타입 · 가시성 · 설명</td></tr>
+  <tr><td>오퍼레이션 명세</td><td>이름 · 인자 · 반환 · 가시성 · 설명</td></tr>
+</table>
+
+<p>버전 정보를 넣으라고 학습모듈이 따로 적고 있습니다.
+   설계서는 한 번 쓰고 끝나는 문서가 아니라 구현하면서 계속 바뀝니다.
+   버전이 없으면 개발자가 어느 판을 보고 만들었는지 모릅니다.</p>
+
+<h4>클래스 목록을 적습니다</h4>
+
+<p class="cmdline"><code>명세서\설계서.md
+
+시스템  공공 체육시설 예약      단위 업무  예약 접수
+작성일  2026-09-21           버전  1.0
+
+| 패키지 | 클래스 | 갈래 | 역할 |
+|--------|--------|------|------|
+| boundary | ReservationConsole | 경계·UI | 회원과 주고받는다 |
+| boundary | MailGateway | 경계·SI | 메일 시스템과 주고받는다 |
+| control | ReservationService | 제어 | 정원·시설 규칙을 따진다 |
+| entity | Reservation | 엔티티 | 예약 한 건 |
+| entity | Facility | 엔티티 | 시설 하나 |
+| entity | ReservationStore | 엔티티 | 예약을 모아 둔다 |</code></p>
+
+<p>갈래 칸에 <code>경계·UI</code> 와 <code>경계·SI</code> 를 나눠 적었습니다.
+   사람 액터용과 시스템 액터용을 가른 것입니다.
+   한 클래스에 섞지 말라는 규칙을 지켰다는 표시이기도 합니다.</p>
+      <div class="lab">
+  <b class="t">실습 14</b>
+  <b>패키지 구조를 그리고 설계서를 쓴다</b>
+
+  <p><b>목적</b> — 설계서는 읽는 사람이 아니라 만드는 사람이 보는 문서입니다.
+     만드는 사람이 물어볼 것이 없을 만큼 적혀 있으면 다 된 것입니다.
+     패키지 구조부터 속성 명세까지 한 문서로 묶습니다.</p>
+
+  <h5>절차 1 — 패키지 구조도를 그린다</h5>
+
+  <p class="cmdline"><code>       ┌──────────────┐
+       │   boundary   │   ReservationConsole · MailGateway
+       └───────┬──────┘
+               ↓
+       ┌──────────────┐
+       │   control    │   ReservationService
+       └───────┬──────┘
+               ↓
+       ┌──────────────┐
+       │    entity    │   Reservation · Facility · ReservationStore
+       └──────────────┘
+
+화살표는 의존 방향입니다</code></p>
+
+  <p>세 상자에 여섯 클래스입니다.
+     클래스가 여섯일 때는 없어도 되지만 예순이면 반드시 필요합니다.
+     무엇보다 의존 방향이 한 방향인지를 이 그림으로 봅니다.</p>
+
+  <h5>절차 2 — 순환이 없는지 확인한다</h5>
+
+  <p class="cmdline"><code>&gt; findstr /s /n "^import" src\entity\*.java
+src\entity\ReservationStore.java:3:import java.util.ArrayList;
+src\entity\ReservationStore.java:4:import java.util.List;</code></p>
+
+  <p><code>boundary</code> 나 <code>control</code> 을 가져오는 줄이 없습니다.
+     엔티티가 위쪽을 안 부르므로 고리가 없습니다.
+     한 줄이라도 있으면 셋을 따로 빌드할 수도, 따로 시험할 수도 없게 됩니다.</p>
+
+  <h5>절차 3 — 클래스 목록을 적는다</h5>
+
+  <p class="cmdline"><code>명세서\설계서.md
+
+시스템  공공 체육시설 예약      단위 업무  예약 접수
+작성일  2026-09-21           버전  1.0      작성자  정우균
+
+## 1. 개요
+UC-02 «예약을 신청한다» 를 구현하기 위한 정적 설계모델이다.
+분석 클래스를 경계·제어·엔티티 세 갈래로 나누고 계층별 패키지로 묶었다.
+
+## 2. 설계 클래스 목록
+
+| 패키지 | 클래스 | 갈래 | 역할 | 나온 자리 |
+|--------|--------|------|------|-----------|
+| boundary | ReservationConsole | 경계·UI | 회원과 주고받는다 | 흐름 1·3·5 |
+| boundary | MailGateway | 경계·SI | 메일 시스템과 주고받는다 | 사후 조건 |
+| control | ReservationService | 제어 | 정원·시설 규칙을 따진다 | 흐름 4 |
+| entity | Reservation | 엔티티 | 예약 한 건 | 흐름 5 |
+| entity | Facility | 엔티티 | 시설 하나 | 흐름 2·4 |
+| entity | ReservationStore | 엔티티 | 예약을 모아 두고 센다 | 흐름 2·4·5 |</code></p>
+
+  <p>「나온 자리」 칸을 설계서에도 옮겨 적습니다.
+     설계서만 받아 본 사람도 이 클래스가 왜 있는지 알 수 있어야 합니다.
+     갈래를 <code>경계·UI</code> 와 <code>경계·SI</code> 로 나눠 적은 것도 그대로 둡니다.</p>
+
+  <h5>절차 4 — 관계와 명세를 붙인다</h5>
+
+  <p class="cmdline"><code>## 3. 클래스 관계
+
+| 왼쪽 | 관계 | 오른쪽 | 다중도 |
+|------|------|--------|--------|
+| ReservationConsole | 연관 | ReservationService | 1 : 1 |
+| ReservationService | 연관 | ReservationStore | 1 : 1 |
+| ReservationStore | 합성 | Reservation | 1 : * |
+| Reservation | 연관 | Facility | * : 1 |
+
+## 4. 클래스 명세
+(클래스마다 속성 표와 오퍼레이션 표. 클래스명세_*.md 를 옮겨 붙인다)
+
+## 5. 검증 결과
+| 검증 항목 | 도구 | 지적 | 조치 | 재검사 |
+|-----------|------|------|------|--------|
+| 계층 방향 | 계층검사.py | 3건(일부러) | 초안 폐기 | 0건 |
+| 가시성 | javac | 1건(일부러) | 설계대로 막힘 | - |
+| 명세·코드 일치 | 명세대조.py | 1건 | extend 삭제 | 0건 |
+| 정합성 | 체크리스트 | 2건 | 사유 기재 | 완료 |</code></p>
+
+  <h5>절차 5 — 버전을 붙여 관리한다</h5>
+
+  <p class="cmdline"><code>| 버전 | 날짜 | 바뀐 것 | 작성자 |
+|------|------|---------|--------|
+| 0.1 | 2026-09-18 | 초안. 클래스 여섯 식별 | 정우균 |
+| 0.2 | 2026-09-19 | 계층 검사 3건 반영 | 정우균 |
+| 1.0 | 2026-09-21 | extend 삭제. 검증 완료 | 정우균 |</code></p>
+
+  <p>학습모듈이 「작성 일자와 버전 정보를 기재한다」고 따로 적고 있습니다.
+     설계서는 한 번 쓰고 끝나는 문서가 아니라 구현하면서 계속 바뀝니다.
+     버전이 없으면 개발자가 어느 판을 보고 만들었는지 모릅니다.</p>
+
+  <div class="note">「바뀐 것」 칸을 성실히 적어 두면 뒤에서 값을 합니다.
+    구현하다가 「이건 왜 이렇게 되어 있지」가 나올 때
+    0.2 에서 계층 검사 때문에 바뀌었다는 것을 알면 되돌리지 않습니다.
+    까닭을 모르면 편한 쪽으로 되돌려 놓고, 같은 지적이 다시 나옵니다.
+  </div>
+
+  <h5>절차 6 — 만드는 사람 눈으로 읽어 본다</h5>
+
+  <p class="cmdline"><code>이 설계서만 받은 개발자가 물어볼 만한 것
+
+  □ Reservation 의 useDate 는 String 인가 LocalDate 인가   → 명세에 있음 ○
+  □ status 의 갈래가 몇 개인가                           → 설명에 있음 ○
+  □ Result 가 몇 갈래인가                               → ReservationService 명세 ○
+  □ 정원을 넘으면 어떻게 되는가                           → 유스케이스 명세서 참조 △
+  □ 저장소가 DB 인가 메모리인가                           → 안 적혀 있음 ✗</code></p>
+
+  <p>마지막 줄이 빠졌습니다.
+     <code>ReservationStore</code> 가 메모리인지 DB 인지 적혀 있지 않습니다.
+     개요에 「이번 범위에서는 메모리 목록으로 둔다」 한 줄을 더하면 됩니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>findstr /s</code> 가 하위 폴더를 안 본다</td>
+        <td>경로에 <code>*.java</code> 를 붙였는지 보십시오</td></tr>
+    <tr><td>패키지가 셋뿐이라 그릴 게 없다</td>
+        <td>셋이면 셋대로 그립니다. 방향이 보이면 된 것입니다</td></tr>
+    <tr><td>설계서가 너무 길어진다</td>
+        <td>클래스 명세는 따로 두고 설계서에서 가리켜도 됩니다</td></tr>
+    <tr><td>버전을 어떻게 매기나</td>
+        <td>검증을 통과한 판을 1.0 으로 하면 됩니다</td></tr>
+    <tr><td>물어볼 것이 하나도 없다</td>
+        <td>남에게 읽혀 보십시오. 쓴 사람은 안 보입니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 패키지 구조도, 순환 확인 화면,
+     <code>설계서.md</code>(개요·클래스 목록·관계·명세·검증 결과),
+     버전 이력, 개발자 눈으로 읽은 점검표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 패키지 구조도에 의존 방향을 그렸습니까
+     ② 순환이 없는지 <code>import</code> 로 확인했습니까
+     ③ 클래스 목록에 「나온 자리」를 적었습니까
+     ④ 버전 이력을 적었습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st15">
+      <h3><i>15</i>클래스 다이어그램 도식화</h3>
+      <aside class="side">
+        <p class="pt">종이에 먼저 그려 봅니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-3</p>
+        <b class="sh">용어</b>
+        <p class="v">도식화 · UML 도구</p>
+      </aside>
+      <div class="bd">
+
+<h4>순서</h4>
+
+<p class="cmdline"><code>① 종이나 화이트보드에 스케치한다
+② 도구에서 클래스를 만든다
+③ 속성을 넣고 타입과 가시성을 정한다
+④ 오퍼레이션을 넣고 인자와 반환과 가시성을 정한다
+⑤ 클래스 사이에 관계선을 긋는다
+⑥ 관계의 방향 · 역할 이름 · 다중도를 채운다</code></p>
+
+<p>①을 건너뛰지 말라고 학습모듈이 따로 적고 있습니다.
+   도구에서 바로 그리면 옮기고 지우는 데 시간을 다 씁니다.
+   종이에 한 번 그려 보면 시행착오가 크게 줄어듭니다.</p>
+
+<h4>그립니다</h4>
+
+<p class="cmdline"><code>┌────────────────────────────┐        ┌──────────────────────────┐
+│ &lt;&lt;boundary&gt;&gt;               │        │ &lt;&lt;control&gt;&gt;              │
+│ ReservationConsole         │        │ ReservationService       │
+├────────────────────────────┤   1    ├──────────────────────────┤
+│ - service : Reservation…   │───────→│ - facilities : Map       │
+│ - mail : MailGateway       │    1   │ - store : Reservation…   │
+├────────────────────────────┤        ├──────────────────────────┤
+│ + request(...) : void      │        │ + request(...) : Result  │
+│ - message(Result) : String │        └────────────┬─────────────┘
+└────────────────────────────┘                     │ 1
+                                                   ↓ 1
+                                      ┌──────────────────────────┐
+                                      │ &lt;&lt;entity&gt;&gt;               │
+                                      │ ReservationStore         │
+                                      ├──────────────────────────┤
+                                      │ - rows : List&lt;Reser…&gt;    │
+                                      ├──────────────────────────┤
+                                      │ + save(Reservation)      │
+                                      │ + bookedCount(...) : int │
+                                      └────────────┬─────────────┘
+                                                   │ 1
+                                                   ◆ *
+                                      ┌──────────────────────────┐
+                                      │ &lt;&lt;entity&gt;&gt; Reservation   │
+                                      └──────────────────────────┘</code></p>
+
+<p><code>&lt;&lt;boundary&gt;&gt;</code> 같은 표시를 스테레오타입이라고 합니다.
+   갈래를 그림 위에 적어 두면 읽는 사람이 계층을 바로 봅니다.
+   <code>ReservationStore</code> 와 <code>Reservation</code> 사이의 찬 다이아몬드는 합성입니다 —
+   저장소가 사라지면 그 안의 예약도 사라집니다.</p>
+
+<h4>그림에 꼭 들어가야 하는 다섯</h4>
+
+<p class="cmdline"><code>□ 클래스 이름이 대문자로 시작하는가
+□ 속성마다 타입이 붙어 있는가
+□ 가시성 기호(+ - #)가 다 붙어 있는가
+□ 오퍼레이션에 인자와 반환형이 있는가
+□ 관계선마다 다중도가 적혀 있는가</code></p>
+
+<p>다섯째가 가장 자주 빕니다.
+   선만 긋고 숫자를 안 적는 것입니다.
+   숫자가 없으면 표를 만들 때 외래 키를 어느 쪽에 둘지 알 수 없습니다.</p>
+
+<div class="note">그린 것이 맞는지 확인하는 가장 확실한 방법은 자바로 옮겨 컴파일해 보는 것입니다.
+  <code>private</code> 이라고 그려 놓고 바깥에서 쓰고 있으면 컴파일이 막고,
+  관계 방향을 거꾸로 그렸으면 <code>import</code> 가 순환해서 구조가 어색해집니다.
+  종이 위의 설계는 틀렸다는 말을 해 주지 않지만 컴파일러는 해 줍니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 15</b>
+  <b>클래스 다이어그램을 그리고 코드와 맞는지 본다</b>
+
+  <p><b>목적</b> — 지금까지 정한 것을 그림 한 장으로 모읍니다.
+     속성 · 오퍼레이션 · 가시성 · 관계 · 다중도 다섯이 다 들어가야 합니다.
+     그리고 그 그림이 실제 코드와 맞는지 한 항목씩 맞춰 봅니다.</p>
+
+  <h5>절차 1 — 종이에 먼저 스케치한다</h5>
+
+  <p class="cmdline"><code>종이에 그릴 때 순서
+
+  ① 클래스 이름만 여섯 개 적는다
+  ② 갈래별로 위아래로 늘어놓는다 — 경계 위, 엔티티 아래
+  ③ 선을 긋는다
+  ④ 속성과 오퍼레이션은 나중에 채운다</code></p>
+
+  <p>학습모듈이 스케치를 먼저 하라고 따로 적고 있습니다.
+     도구에서 바로 그리면 상자를 옮기고 선을 다시 긋는 데 시간을 다 씁니다.
+     종이에 한 번 그려 보면 시행착오가 크게 줄어듭니다.</p>
+
+  <h5>절차 2 — 상자 하나를 제대로 그린다</h5>
+
+  <p class="cmdline"><code>┌──────────────────────────────┐
+│ &lt;&lt;entity&gt;&gt;                   │   ← 스테레오타입
+│ Reservation                  │   ← 이름 (대문자 시작)
+├──────────────────────────────┤
+│ - memberNo : String          │   ← 가시성 - 이름 : 타입
+│ - facilityCode : String      │
+│ - useDate : String           │
+│ - headcount : int            │
+│ - status : Status            │
+├──────────────────────────────┤
+│ + getMemberNo() : String     │   ← 가시성 + 이름(인자) : 반환형
+│ + getStatus() : Status       │
+│ + confirm() : void           │
+│ + cancel() : void            │
+└──────────────────────────────┘</code></p>
+
+  <p>세 칸입니다 — 이름, 속성, 오퍼레이션.
+     속성 앞의 <code>-</code> 와 오퍼레이션 앞의 <code>+</code> 가 가시성입니다.
+     이 표기가 그대로 자바의 <code>private</code> 과 <code>public</code> 이 됩니다.</p>
+
+  <h5>절차 3 — 전체를 그린다</h5>
+
+  <p class="cmdline"><code>┌────────────────────────────┐        ┌──────────────────────────┐
+│ &lt;&lt;boundary&gt;&gt;               │        │ &lt;&lt;control&gt;&gt;              │
+│ ReservationConsole         │        │ ReservationService       │
+├────────────────────────────┤   1    ├──────────────────────────┤
+│ - service : Reservation…   │───────→│ - facilities : Map       │
+│ - mail : MailGateway       │    1   │ - store : Reservation…   │
+├────────────────────────────┤        ├──────────────────────────┤
+│ + request(...) : void      │        │ + request(...) : Result  │
+│ - message(Result) : String │        └────────────┬─────────────┘
+└─────────┬──────────────────┘                     │ 1
+          │ 1                                      ↓ 1
+          ↓ 1                           ┌──────────────────────────┐
+┌────────────────────────┐              │ &lt;&lt;entity&gt;&gt;               │
+│ &lt;&lt;boundary&gt;&gt;           │              │ ReservationStore         │
+│ MailGateway            │              ├──────────────────────────┤
+├────────────────────────┤              │ - rows : List&lt;Reser…&gt;    │
+│ + sendAccepted(String) │              ├──────────────────────────┤
+└────────────────────────┘              │ + save(Reservation)      │
+                                        │ + size() : int           │
+                                        │ + bookedCount(..) : int  │
+                                        └────────────┬─────────────┘
+                                                     ◆ 1
+                                                     │ *
+                                        ┌──────────────────────────┐
+                                        │ &lt;&lt;entity&gt;&gt; Reservation   │
+                                        └──────────────────────────┘</code></p>
+
+  <p>저장소와 예약 사이가 찬 다이아몬드입니다 — 합성.
+     다중도가 <code>1 : *</code> 이므로 저장소 하나에 예약이 여럿입니다.
+     나머지 선은 실선에 <code>1 : 1</code> 이므로 연관입니다.</p>
+
+  <h5>절차 4 — 다섯 가지를 점검한다</h5>
+
+  <p class="cmdline"><code>□ 클래스 이름이 대문자로 시작하는가        여섯 개 모두 ○
+□ 속성마다 타입이 붙어 있는가            ○
+□ 가시성 기호(+ - #)가 다 붙어 있는가     ○
+□ 오퍼레이션에 인자와 반환형이 있는가      ○
+□ 관계선마다 다중도가 적혀 있는가          ○</code></p>
+
+  <p>다섯째가 가장 자주 빕니다.
+     선만 긋고 숫자를 안 적는 것입니다.
+     숫자가 없으면 표를 만들 때 외래 키를 어느 쪽에 둘지 알 수 없습니다.</p>
+
+  <h5>절차 5 — 그림과 코드를 맞춰 본다</h5>
+
+  <p class="cmdline"><code>| 그림에 그린 것 | 코드에서 확인 | 맞는가 |
+|----------------|---------------|--------|
+| - status : Status | private Status status | ○ |
+| + confirm() : void | public void confirm() | ○ |
+| - message(Result) : String | private String message(...) | ○ |
+| Store ◆─ Reservation 1:* | private final List&lt;Reservation&gt; rows | ○ |
+| Console ── Service 1:1 | private final ReservationService service | ○ |</code></p>
+
+  <p>자료형만 봐도 다중도를 알 수 있습니다.
+     <code>List</code> 면 <code>*</code>, 하나면 <code>1</code> 입니다.
+     그림과 코드가 어긋나면 둘 중 하나가 틀린 것입니다.</p>
+
+  <div class="note">그림이 맞는지 확인하는 가장 확실한 방법은 자바로 옮겨 컴파일해 보는 것입니다.
+    <code>private</code> 이라고 그려 놓고 바깥에서 쓰고 있으면 컴파일이 막고,
+    의존 방향을 거꾸로 그렸으면 <code>import</code> 가 순환합니다.
+    종이 위의 설계는 틀렸다는 말을 안 해 주지만 컴파일러는 해 줍니다.
+    설계 교과에서 코드를 쓰는 까닭이 이것입니다.
+  </div>
+
+  <h5>절차 6 — 도구로 옮긴다</h5>
+
+  <p class="cmdline"><code>StarUML 이나 draw.io 에서
+
+  ① Class Diagram 을 새로 만든다
+  ② 툴박스에서 Class 를 끌어다 놓고 이름을 넣는다
+  ③ 속성 추가 아이콘으로 속성을 넣고 타입과 가시성을 고른다
+  ④ 오퍼레이션 추가 아이콘으로 연산을 넣는다
+  ⑤ 관계 요소를 고르고 클래스에서 클래스로 끌어다 놓는다
+  ⑥ Properties 창에서 방향 · 역할 이름 · 다중도를 지정한다
+
+저장할 때 버전을 이름에 넣습니다 — 클래스다이어그램_v1.0.mdj</code></p>
+
+  <p>도구가 없으면 종이 사진이나 텍스트 그림도 됩니다.
+     다섯 가지가 다 들어 있으면 형식은 상관없습니다.
+     다만 나중에 고칠 일이 많으므로 도구가 편하기는 합니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>상자가 너무 커서 한 장에 안 들어간다</td>
+        <td>패키지별로 나눠 그려도 됩니다. 전체 구조도를 따로 두십시오</td></tr>
+    <tr><td>선이 얽혀서 못 읽겠다</td>
+        <td>갈래별로 위아래로 늘어놓으면 선이 한 방향이 됩니다</td></tr>
+    <tr><td>다중도를 어느 쪽에 적나</td>
+        <td>상대 쪽 끝에 적습니다 — 「내가 상대를 몇 개 가지는가」</td></tr>
+    <tr><td>getter 를 다 그려야 하나</td>
+        <td>중요한 것만 그려도 됩니다. 명세서에는 다 적으십시오</td></tr>
+    <tr><td>StarUML 이 없다</td>
+        <td>draw.io 나 종이로 하십시오. 평가는 내용을 봅니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 종이 스케치, 클래스 다이어그램(여섯 클래스),
+     다섯 가지 점검표, 그림과 코드 대조표, 도구 파일 또는 그림 파일</p>
+
+  <p><b>스스로 확인</b> —
+     ① 종이에 먼저 그려 보았습니까
+     ② 속성에 타입, 오퍼레이션에 반환형이 다 있습니까
+     ③ 관계선마다 다중도가 적혀 있습니까
+     ④ 그림과 코드를 한 항목씩 맞춰 보았습니까</p>
+</div>
+      </div>
+</div>
+
+<h3 class="lv">레벨 7 · 마무리 <span>여덟을 세고 냅니다</span></h3>
+
+<div class="step" id="st16">
+      <h3><i>16</i>자가 점검과 제출</h3>
+      <aside class="side">
+        <p class="pt">지적이 나온 화면이 있어야 끝입니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 평가</p>
+        <b class="sh">내는 것</b>
+        <p class="v">다이어그램 · 명세서 · 검증 결과</p>
+      </aside>
+      <div class="bd">
+
+<h4>능력단위요소 둘을 셉니다</h4>
+
+<table class="wide">
+  <tr><th style="width:56px">요소</th><th style="width:290px">할 수 있어야 하는 것</th><th>근거</th></tr>
+  <tr><td class="c">①</td><td>설계 가이드라인의 패턴과 지침을 확인한다</td><td>실습 4 설계지침</td></tr>
+  <tr><td class="c">①</td><td>유스케이스에서 분석 클래스를 뽑아낸다</td><td>실습 5 클래스후보</td></tr>
+  <tr><td class="c">①</td><td>경계·제어·엔티티를 갈라 상세 분석한다</td><td>실습 6 · 7 · 8</td></tr>
+  <tr><td class="c">①</td><td>명명 규칙과 정합성을 체크리스트로 본다</td><td>실습 9 체크리스트</td></tr>
+  <tr><td class="c">①</td><td>계층이 지켜지는지 검증한다</td><td>실습 10 검사 화면</td></tr>
+  <tr><td class="c">②</td><td>설계 원칙에 따라 상세화한다</td><td>실습 11 책임표</td></tr>
+  <tr><td class="c">②</td><td>관계와 다중도를 정한다</td><td>실습 12 관계표</td></tr>
+  <tr><td class="c">②</td><td>속성과 오퍼레이션을 명세한다</td><td>실습 13 명세·대조</td></tr>
+  <tr><td class="c">②</td><td>패키지 구조와 설계서를 쓴다</td><td>실습 14 설계서</td></tr>
+  <tr><td class="c">②</td><td>클래스 다이어그램으로 도식화한다</td><td>실습 15 그림</td></tr>
+</table>
+
+<h4>제출 전에 볼 다섯</h4>
+
+<p class="cmdline"><code>① 클래스마다 어느 유스케이스 줄에서 나왔는지 적혀 있는가
+② 가시성과 타입이 그림과 명세서에 다 있는가
+③ 지적이 나온 화면이 셋 있는가
+④ 명세서와 코드를 대조해 보았는가
+⑤ 관계선마다 다중도가 적혀 있는가</code></p>
+
+<p>③이 가장 자주 빕니다.
+   고치고 나서 0건 화면만 찍는 것입니다.
+   검사를 돌렸다는 증거는 지적이 나온 화면입니다.</p>
+
+<h4>파일을 모읍니다</h4>
+
+<p class="cmdline"><code>정적모델/
+  분석/     클래스후보.md · 세갈래분류.md · 책임표.md
+  설계/     설계지침.md · 관계표.md · 원칙적용.md
+  명세서/   클래스명세_*.md · 설계서.md · 패키지구조.png
+  검증/     정합성체크리스트.md · 계층검사.py · 명세대조.py
+            클래스명세서.csv · 검증결과서.md
+  src/      boundary/ · control/ · entity/ · Main.java
+  화면/
+    01_안나눈것_실행.png
+    02_나눈것_실행.png
+    03_초안_두번찍힘.png        지적
+    04_계층검사_3건.png          지적
+    05_계층검사_0건.png
+    06_가시성_컴파일오류.png      지적
+    07_명세대조_불일치.png        지적
+    08_명세대조_일치.png</code></p>
+
+<p>화면 여덟에 지적이 넷입니다.
+   03 · 04 · 06 · 07 이 검사를 실제로 돌렸다는 증거입니다.</p>
+
+<h4>뒤에서 다시 나오는 자리</h4>
+
+<table class="wide">
+  <tr><th style="width:250px">여기서 배운 것</th><th>다시 만나는 곳</th></tr>
+  <tr><td>클래스 다이어그램</td><td>동적모델 설계의 시퀀스 다이어그램이 이 클래스들 사이를 그립니다</td></tr>
+  <tr><td>경계·제어·엔티티</td><td>인터페이스 설계 · 서버프로그램 구현의 계층</td></tr>
+  <tr><td>엔티티의 속성</td><td>데이터베이스 구현의 표 설계</td></tr>
+  <tr><td>SOLID · 응집도 · 결합도</td><td>애플리케이션 리팩토링</td></tr>
+  <tr><td>의존성 주입</td><td>애플리케이션 테스트 관리의 스텁과 드라이버</td></tr>
+</table>
+
+<p>이 교과의 산출물은 구현 교과들의 입력입니다.
+   여기서 나눈 패키지가 그대로 소스 폴더가 되고,
+   여기서 정한 오퍼레이션이 그대로 메서드가 됩니다.</p>
+      <div class="lab">
+  <b class="t">실습 16</b>
+  <b>열 줄로 세고 마지막으로 다시 돌려 보고 낸다</b>
+
+  <p><b>목적</b> — 능력단위요소 둘을 열 줄로 세고 빈 곳이 있는지 봅니다.
+     이 교과에서 가장 자주 비는 것은 그림이 아니라 검증 증거입니다.
+     지적이 나온 화면 넷이 있는지가 마지막 확인입니다.</p>
+
+  <h5>절차 1 — 열 줄로 센다</h5>
+
+  <p class="cmdline"><code>요소  할 수 있어야 하는 것                근거                    확인
+----  ----------------------------------  ----------------------  ----
+ ①    설계 패턴과 지침을 확인한다           설계지침.md
+ ①    유스케이스에서 클래스를 뽑아낸다        클래스후보.md
+ ①    경계 클래스를 상세 분석한다            경계명세 · 소스
+ ①    제어 클래스를 상세 분석한다            제어명세 · 소스
+ ①    엔티티 클래스를 상세 분석한다           엔티티명세 · 소스
+ ①    명명 규칙과 정합성을 검증한다           정합성체크리스트.md
+ ①    계층이 지켜지는지 검증한다             계층검사 화면 2장
+ ②    설계 원칙에 따라 상세화한다            책임표 · 원칙적용.md
+ ②    관계와 다중도를 정한다                관계표.md
+ ②    명세하고 도식화한다                   설계서.md · 다이어그램</code></p>
+
+  <p>요소 ①이 일곱 줄, ②가 세 줄입니다.
+     줄 수는 ①이 많지만 배점은 절반씩입니다.</p>
+
+  <h5>절차 2 — 지적이 나온 화면 넷을 확인한다</h5>
+
+  <p class="cmdline"><code>&gt; dir 화면 /b
+01_안나눈것_실행.png
+02_나눈것_실행.png
+03_초안_두번찍힘.png
+04_계층검사_3건.png
+05_계층검사_0건.png
+06_가시성_컴파일오류.png
+07_명세대조_불일치.png
+08_명세대조_일치.png</code></p>
+
+  <p>여덟 장입니다. 03 · 04 · 06 · 07 이 지적이 나온 화면입니다.
+     하나라도 없으면 그 검사는 돌렸다는 증거가 없는 것입니다.
+     지금이라도 돌아가서 일부러 틀린 것을 넣고 한 번 돌리십시오.</p>
+
+  <h5>절차 3 — 제출 전에 볼 다섯</h5>
+
+  <p class="cmdline"><code>① 클래스마다 어느 유스케이스 줄에서 나왔는지 적혀 있는가
+② 가시성과 타입이 그림과 명세서에 다 있는가
+③ 지적이 나온 화면이 넷 있는가
+④ 명세서와 코드를 대조해 보았는가
+⑤ 관계선마다 다중도가 적혀 있는가</code></p>
+
+  <p>③이 가장 자주 빕니다.
+     고치고 나서 0건 화면만 찍는 것입니다.
+     검사를 돌렸다는 증거는 지적이 나온 화면입니다.</p>
+
+  <h5>절차 4 — 마지막으로 다 한 번씩 돌린다</h5>
+
+  <p class="cmdline"><code>&gt; javac -encoding utf-8 -proc:none -d classes src\Main.java src\boundary\*.java src\control\*.java src\entity\*.java
+&gt; java -Dstdout.encoding=utf-8 -cp classes Main
+&gt; python 계층검사.py src
+&gt; python 명세대조.py classes</code></p>
+
+  <p class="cmdline"><code>저장된 예약 1건
+
+지적 0건
+
+어긋난 것 0건 — 일치</code></p>
+
+  <p>세 줄만 추려 적었습니다.
+     내기 직전에 한 번 더 돌리는 까닭은
+     고치다가 다른 것을 망가뜨리는 일이 흔하기 때문입니다.
+     앞 교과에서 배운 회귀 테스트와 같은 생각입니다.</p>
+
+  <h5>절차 5 — 검증 결과서를 쓴다</h5>
+
+  <p class="cmdline"><code>검증\검증결과서.md
+
+| 검증 항목 | 도구 | 지적 | 조치 | 재검사 |
+|-----------|------|------|------|--------|
+| 계층 방향 | 계층검사.py | 3건 | 초안 폐기 · 정본 유지 | 0건 |
+| 가시성 | javac | 1건 | 설계대로 막힘을 확인 | - |
+| 명세·코드 일치 | 명세대조.py | 1건 | extend 삭제 | 0건 |
+| 정합성 | 체크리스트 | 2건 | 사유 기재 | 완료 |
+| 명명 규칙 | 눈으로 확인 | 1건 | 예외 규정 추가 | 완료 |
+
+판정  전 항목 통과
+화면  01 ~ 08 (지적이 나온 화면 03 · 04 · 06 · 07 포함)</code></p>
+
+  <p>다섯 줄입니다. 도구 셋, 눈 하나, 체크리스트 하나입니다.
+     지적 칸이 전부 0 이면 오히려 의심을 받습니다 —
+     검사를 했는데 아무것도 안 나오는 일은 드뭅니다.</p>
+
+  <h5>절차 6 — 파일을 모은다</h5>
+
+  <p class="cmdline"><code>정적모델/
+  분석/     클래스후보.md · 세갈래분류.md · 흐름분석.md
+            경계명세.md · 제어명세.md · 엔티티명세.md
+  설계/     설계지침.md · 관계정리.md · 관계표.md
+            책임표.md · 원칙적용.md
+  명세서/   클래스명세_*.md · 설계서.md
+            패키지구조 · 클래스다이어그램
+  검증/     정합성체크리스트.md · 계층검사.py
+            명세대조.py · 클래스명세서.csv · 검증결과서.md
+  src/      boundary/ · control/ · entity/ · Main.java
+  화면/     01 ~ 08
+  제출목록.md</code></p>
+
+  <p>문서 열넷, 도구 둘, 소스 여섯, 그림 둘, 화면 여덟입니다.
+     제출목록의 네모가 다 채워졌는지 마지막으로 봅니다.</p>
+
+  <h5>절차 7 — 뒤에서 다시 나오는 자리</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">여기서 배운 것</th><th>다시 만나는 곳</th></tr>
+    <tr><td>클래스 다이어그램</td><td>동적모델 설계가 이 클래스들 사이의 순서를 그립니다</td></tr>
+    <tr><td>경계·제어·엔티티</td><td>인터페이스 설계 · 서버프로그램 구현의 계층</td></tr>
+    <tr><td>엔티티의 속성</td><td>데이터베이스 구현의 표 설계</td></tr>
+    <tr><td>SOLID · 응집도 · 결합도</td><td>애플리케이션 리팩토링</td></tr>
+    <tr><td>의존성 주입</td><td>애플리케이션 테스트 관리의 스텁과 드라이버</td></tr>
+  </table>
+
+  <p>이 교과의 산출물은 구현 교과들의 입력입니다.
+     여기서 나눈 패키지가 그대로 소스 폴더가 되고,
+     여기서 정한 오퍼레이션이 그대로 메서드가 됩니다.
+     그림이 코드가 되는 자리라고 실습 1 에서 말한 것이 이 뜻입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>열 줄에 빈 곳이 있다</td>
+        <td>근거 칸의 실습으로 돌아가십시오. 한두 줄은 흔합니다</td></tr>
+    <tr><td>지적이 나온 화면이 없다</td>
+        <td>일부러 틀린 것을 넣고 다시 돌리면 됩니다. 십 분이면 됩니다</td></tr>
+    <tr><td>마지막에 도구가 지적을 낸다</td>
+        <td>고치다가 망가뜨린 것입니다. 잘된 일입니다 — 고치고 다시 돌리십시오</td></tr>
+    <tr><td>초안 폴더를 지워야 하나</td>
+        <td>남기십시오. 지적이 나온 화면의 근거입니다</td></tr>
+    <tr><td>문서가 열넷이나 되나</td>
+        <td>대부분 표 하나짜리입니다. 분량보다 빠짐을 보십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 열 줄 점검표, 화면 목록,
+     제출 전 다섯 점검, 마지막 재검사 화면,
+     <code>검증결과서.md</code>, 폴더 전체</p>
+
+  <p><b>스스로 확인</b> —
+     ① 열 줄을 근거로 채웠습니까
+     ② 지적이 나온 화면이 넷 있습니까
+     ③ 내기 직전에 도구를 다시 돌렸습니까
+     ④ 제출목록의 네모를 다 채웠습니까</p>
+</div>
+      </div>
+</div>
+<!-- ═══════ 3 ═══════ -->
+<h2 class="sec" id="g3">3. 주요 감점 요인</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">그림만 예쁘고 근거가 없습니다.</p>
+    <b class="sh">가장 큰 것</b>
+    <p class="v">클래스가 어디서 나왔는지 없음</p>
+    <b class="sh">가장 아까운 것</b>
+    <p class="v">가시성과 타입을 안 적음</p>
+  </aside>
+  <div class="bd">
+
+<table class="wide">
+  <tr><th style="width:44%">자주 나오는 모습</th><th>보완</th></tr>
+  <tr><td>클래스가 어느 유스케이스 줄에서 나왔는지 없음</td>
+      <td>후보표에 「나온 자리」 칸을 두십시오 (실습 5)</td></tr>
+  <tr><td>속성에 타입이 없음</td>
+      <td>구현하는 사람이 저마다 다르게 정합니다 (실습 13)</td></tr>
+  <tr><td>가시성 기호가 없음</td>
+      <td>전부 <code>public</code> 으로 만들어집니다 (실습 11)</td></tr>
+  <tr><td>관계선에 다중도가 없음</td>
+      <td>외래 키를 어느 쪽에 둘지 알 수 없습니다 (실습 12)</td></tr>
+  <tr><td>집합과 합성을 아무렇게나 씀</td>
+      <td>다이아몬드 색이 삭제 전파를 가릅니다 (실습 12)</td></tr>
+  <tr><td>세 갈래가 섞임</td>
+      <td>제어에 <code>System.out</code> 한 줄이면 무너집니다 (실습 10)</td></tr>
+  <tr><td>지적이 나온 화면이 없음</td>
+      <td>0건 화면만으로는 검사했는지 모릅니다 (실습 10)</td></tr>
+  <tr><td>명세서와 코드가 다름</td>
+      <td>대조를 한 번은 돌려 보십시오 (실습 13)</td></tr>
+</table>
+
+<div class="warn">여덟 가운데 넷이 「적어야 할 것을 안 적었다」입니다.
+  타입 · 가시성 · 다중도 · 나온 자리.
+  넷 다 그림을 그리는 데는 없어도 되고, 구현할 때는 없으면 안 되는 것들입니다.
+  설계서는 읽는 사람이 아니라 <b>만드는 사람</b>이 보는 문서입니다.
+  만드는 사람이 물어볼 것이 없을 만큼 적혀 있으면 다 된 것입니다.
+</div>
+  </div>
+</div>
+
+<footer>
+  정적모델 설계 · 6수준 · 담당 정우균<br>
+  능력단위요소와 학습 내용·수행 순서는 NCS 학습모듈
+  <code>2001020222_23v6</code> 에서 옮긴 것입니다 —
+  한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지).<br>
+  표기법은 OMG 의 UML 을 따랐고,
+  모든 명령·화면·오류는 이 교안을 위해 Windows 11 ·
+  OpenJDK 21.0.2 · Python 3 에서 실제로 돌려 얻은 것입니다.
+</footer>
+
+</div>
+
+<script>
+/* 빠른 이동 — 지금 보는 단원을 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"],a[href="#g3"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  function mark() {
+    var y = window.scrollY + 120, cur = 0;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  window.addEventListener('scroll', mark, { passive: true });
+  mark();
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+})();
+</script>
