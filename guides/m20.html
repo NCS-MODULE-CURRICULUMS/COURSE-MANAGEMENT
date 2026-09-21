@@ -1,0 +1,1426 @@
+<meta charset="utf-8"><title>프로그래밍 언어 응용 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<style>
+  /* 이 교안에만 있는 것 — 코드 보기 */
+  .bd pre{margin:14px 0;font-family:Consolas,"D2Coding",monospace;font-size:13px;
+          line-height:1.75;border:1px solid #ccc;border-left:3px solid #000;
+          padding:13px 16px;background:#fafafa;overflow-x:auto;white-space:pre}
+  .bd pre b{background:#e6e6e6;font-weight:700}
+  .bd pre i{font-style:normal;color:#777}
+  .bd code{font-family:Consolas,"D2Coding",monospace;font-size:14px;
+           background:#f2f2f2;padding:1px 5px}
+  aside.side code{font-family:Consolas,monospace;font-size:11px;background:#f2f2f2;padding:0 3px}
+</style>
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 / <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a> / 프로그래밍 언어 응용 / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">준비</i>
+  <a href="#st1"><b>1</b><span>완성 산출물의 확인</span></a>
+  <a href="#st2"><b>2</b><span>세 언어를 한 자리에</span></a>
+  <i class="qg">언어 특성</i>
+  <a href="#st3"><b>3</b><span>저급과 고급</span></a>
+  <a href="#st4"><b>4</b><span>빌드 방식 셋</span></a>
+  <a href="#st5"><b>5</b><span>바이트 코드를 눈으로</span></a>
+  <a href="#st6"><b>6</b><span>실행 방식과 무엇을 고르나</span></a>
+  <a href="#st7"><b>7</b><span>언어를 고르는 표</span></a>
+  <i class="qg">구현과 최적화</i>
+  <a href="#st8"><b>8</b><span>먼저 돌아가게</span></a>
+  <a href="#st9"><b>9</b><span>코드 리뷰</span></a>
+  <a href="#st10"><b>10</b><span>나쁜 냄새 찾기</span></a>
+  <a href="#st11"><b>11</b><span>리팩토링과 시험</span></a>
+  <i class="qg">라이브러리</i>
+  <a href="#st12"><b>12</b><span>표준 라이브러리</span></a>
+  <a href="#st13"><b>13</b><span>외부 라이브러리 선정</span></a>
+  <a href="#st14"><b>14</b><span>붙이기 — classpath</span></a>
+  <a href="#st15"><b>15</b><span>라이브러리와 프레임워크</span></a>
+  <i class="qg">마무리</i>
+  <a href="#st16"><b>16</b><span>자가 점검과 제출</span></a>
+  <i class="qg">감점</i>
+  <a href="#g3"><b>!</b><span>주요 감점 요인</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>프로그래밍 언어 응용 — 준비 교안</h1>
+<p class="sub">능력단위 프로그래밍 언어 응용 (2001020230_23v5) / 3수준 ·
+   능력단위요소 2개 · 학습 내용 4개</p>
+
+<!-- ═══════ 0 ═══════ -->
+<h2 class="sec" id="g0">0. 이 교과가 만드는 것</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">돌아가게 만들고, 읽히게 고치고, 남의 것을 붙입니다.</p>
+    <b class="sh">내는 것</b>
+    <p class="v">코드 + 리뷰·리팩토링 기록 + 라이브러리 선정서</p>
+    <b class="sh">참고</b>
+    <p class="src">NCS 학습모듈 LM2001020230_23v5</p>
+  </aside>
+  <div class="bd">
+
+<div class="note"><b>시작 전에 받아야 하는 것</b><br>
+이 교안은 <b>아래를 손에 쥐고</b> 시작합니다. 없으면 실습이 진행되지 않습니다.
+<table class="wide">
+  <tr><td class="nm">개발 환경</td>
+      <td><b>JDK 와 IDE</b>. 앞 교과 <b>개발자 환경 구축</b>에서 만든 것을 그대로 씁니다</td></tr>
+  <tr><td class="nm">파이썬</td>
+      <td>실습 4 에서 <b>견주려고</b> 씁니다. 없으면 그 실습만 건너뜁니다</td></tr>
+  <tr><td class="nm">인터넷</td>
+      <td>실습 13 · 14 에서 <b>라이브러리를 받습니다</b></td></tr>
+  <tr><td class="nm">작업지시서</td>
+      <td>제출 형식이 여기 적혀 있습니다</td></tr>
+</table>
+<b>작업지시서는 평가도구라 이 사이트에 올려 두지 않습니다.</b>
+평가문항 원본은 공개 저장소에 두지 않는 것이 이 과정의 원칙입니다 —
+<b>수업 시간에 받으십시오.</b>
+</div>
+
+<p>이 교과는 <b>3수준</b>입니다.
+   앞 교과 <b>개발자 환경 구축(2수준)</b> 에서 만든 환경 위에서
+   <b>실제로 코드를 씁니다.</b></p>
+
+<table class="wide">
+  <tr><th style="width:56px">묶음</th><th style="width:210px">능력단위요소</th>
+      <th>학습 내용</th></tr>
+  <tr><td class="c">①</td><td>언어 특성 활용하기</td>
+      <td>언어별 특성 파악 · <b>애플리케이션 구현 및 최적화</b></td></tr>
+  <tr><td class="c">②</td><td>라이브러리 활용하기</td>
+      <td>라이브러리 선정 · 라이브러리 구성 및 적용</td></tr>
+</table>
+
+<p>학습모듈의 목표는 한 문장입니다 —
+   <b>「응용소프트웨어 개발에 사용되는 프로그래밍 언어의 특징과
+   라이브러리를 활용하여 기본 응용소프트웨어를 구현할 수 있다」</b>.</p>
+
+<div class="warn"><b>「응용」 은 «새 언어를 배우는 것» 이 아닙니다.</b>
+  앞 교과 <b>프로그래밍 언어 활용</b>에서 문법을 배웠습니다.
+  이 교과는 그 위에서 <b>세 가지</b>를 합니다 —
+  <b>언어마다 왜 다른지 알고 골라 쓰기</b>,
+  <b>돌아가는 코드를 «읽히게» 고치기</b>,
+  <b>남이 만든 것을 «갖다 쓰기»</b>.
+  <b>문법을 더 배우는 교과가 아닙니다.</b>
+</div>
+
+<h4>내는 것은 셋입니다</h4>
+
+<table class="wide">
+  <tr><th style="width:56px"></th><th style="width:210px">제출물</th><th>내용</th></tr>
+  <tr><td class="c">1</td><td><b>구현 코드</b></td>
+      <td><b>고치기 «전»과 «후»</b> 둘 다. 하나만 내면 무엇을 고쳤는지 안 보입니다</td></tr>
+  <tr><td class="c">2</td><td><b>리뷰 · 리팩토링 기록</b></td>
+      <td>무엇이 <b>나쁜 냄새</b>였고 <b>어떻게</b> 고쳤는지.
+          <b>결과가 같다는 증거</b>까지</td></tr>
+  <tr><td class="c">3</td><td><b>라이브러리 선정서</b></td>
+      <td>무엇을 <b>왜</b> 골랐는지. <b>안 쓰고 직접 만들었을 때와 견준 것</b></td></tr>
+</table>
+
+<p><b>2 번과 3 번이 이 교과의 «응용» 입니다.</b>
+   코드만 내면 <b>앞 교과와 구별이 안 됩니다.</b></p>
+  </div>
+</div>
+
+<!-- ═══════ 1 ═══════ -->
+<h2 class="sec" id="g1">1. 프로그래밍 언어 응용의 범위</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">언어를 고르는 눈과, 고친 것을 설명하는 말입니다.</p>
+    <b class="sh">능력단위요소</b>
+    <p class="v">언어 특성 활용하기 · 라이브러리 활용하기</p>
+    <b class="sh">선수 학습</b>
+    <p class="v">개발자 환경 구축 · 프로그래밍 언어 활용</p>
+  </aside>
+  <div class="bd">
+
+<h4>핵심 용어 아홉</h4>
+
+<p>학습모듈이 드는 핵심 용어입니다. <b>이 아홉을 설명할 수 있으면</b> 이 교과는 끝난 것입니다.</p>
+
+<table class="wide">
+  <tr><th style="width:170px">용어</th><th style="width:60px">실습</th><th></th></tr>
+  <tr><td>저급언어 · 고급언어</td><td class="c">3</td>
+      <td>컴퓨터가 바로 읽느냐, 사람이 읽느냐</td></tr>
+  <tr><td>원시 코드 · 목적 코드</td><td class="c">4</td>
+      <td><code>.java</code> 와 <code>.class</code></td></tr>
+  <tr><td>리뷰</td><td class="c">9</td><td>돌려 보지 «않고» 읽어서 결함을 찾는 일</td></tr>
+  <tr><td>리팩토링</td><td class="c">10 · 11</td>
+      <td><b>기능은 그대로</b> 두고 <b>안을 고치는</b> 일</td></tr>
+  <tr><td>모듈 · 패키지 · 라이브러리</td><td class="c">15</td><td>크기가 다른 세 덩이</td></tr>
+</table>
+
+<h4>이 교과의 두 축</h4>
+
+<table class="wide">
+  <tr><th style="width:190px">요소 ① 언어 특성</th><th>요소 ② 라이브러리</th></tr>
+  <tr><td><b>왜 이 언어로 만들었습니까</b> 에 답하는 일</td>
+      <td><b>왜 직접 안 만들고 갖다 썼습니까</b> 에 답하는 일</td></tr>
+  <tr><td>실습 3 ~ 11</td><td>실습 12 ~ 15</td></tr>
+</table>
+
+<p><b>둘 다 「왜」 에 답하는 일</b>입니다.
+   이 교과가 3수준인 까닭입니다 —
+   <b>시키는 대로 만드는 것(2수준)에서 «고르고 설명하는 것»</b> 으로 올라갑니다.</p>
+
+<h4>이 교안이 쓰는 것</h4>
+
+<p class="cmdline"><code>주 언어    자바 21        — 뒤 교과들이 다 자바를 씁니다
+견줌       파이썬 3.12    — 인터프리터 방식을 보려고
+          노드 24        — (있으면) 같은 일을 또 한 언어로
+라이브러리  Gson 2.11     — JSON 을 다루는 작은 외부 라이브러리
+예제       공공 체육시설 예약 — 앞 교과들과 같은 예제</code></p>
+
+<p><b>파이썬과 노드는 «견주려고»</b> 씁니다.
+   <b>안 깔려 있으면 그 실습만 건너뛰어도</b> 됩니다 —
+   <b>표를 보고 차이만 알아 두면</b> 충분합니다.</p>
+  </div>
+</div>
+
+<!-- ═══════ 2 ═══════ -->
+<h2 class="sec" id="g2">2. 실습</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">레벨 1부터 5까지 따라가면 셋이 완성됩니다.</p>
+    <b class="sh">시간</b>
+    <p class="v">레벨 3에 몰아 씁니다</p>
+  </aside>
+  <div class="bd">
+
+<table class="wide">
+  <tr><th style="width:80px">레벨</th><th style="width:190px">무엇</th>
+      <th style="width:100px">실습</th><th>끝나면</th></tr>
+  <tr><td>1 · 준비</td><td>낼 것 확인 · 세 언어 준비</td><td class="c">1 ~ 2</td>
+      <td>견줄 판이 깔립니다</td></tr>
+  <tr><td>2 · 언어 특성</td><td>분류 · 빌드 방식 · 고르는 기준</td><td class="c">3 ~ 7</td>
+      <td>요소 <b>①</b> 의 앞 절반</td></tr>
+  <tr><td>3 · 구현과 최적화</td><td>구현 · 리뷰 · 리팩토링</td><td class="c">8 ~ 11</td>
+      <td>요소 <b>①</b> 이 끝납니다</td></tr>
+  <tr><td>4 · 라이브러리</td><td>선정 · 적용 · 층 이해</td><td class="c">12 ~ 15</td>
+      <td>요소 <b>②</b> 가 끝납니다</td></tr>
+  <tr><td>5 · 마무리</td><td>점검 · 제출</td><td class="c">16</td><td>냅니다</td></tr>
+</table>
+  </div>
+</div>
+
+<h3 class="lv">레벨 1 · 준비 <span>견줄 판을 깝니다</span></h3>
+
+<div class="step" id="st1">
+      <h3><i>1</i>완성 산출물의 확인</h3>
+      <aside class="side">
+        <p class="pt">셋을 내는데 둘이 「왜」 에 답하는 것입니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">코드 · 기록 · 선정서</p>
+      </aside>
+      <div class="bd">
+
+<h4>끝났을 때의 모습</h4>
+
+<p class="cmdline"><code>제출물
+
+1. 구현 코드        Before.java  (고치기 «전»)
+                    After.java   (고친 «후»)
+                    Check.java   (결과가 같다는 «증거»)
+
+2. 리뷰·리팩토링 기록  나쁜 냄새 표 + 고친 방법 + 시험 통과 화면
+
+3. 라이브러리 선정서   무엇을 왜 골랐는지 + 직접 만든 것과 견준 표</code></p>
+
+<div class="warn"><b>코드만 내면 «앞 교과와 구별이 안 됩니다».</b>
+  <b>프로그래밍 언어 활용</b>에서도 코드를 냅니다.
+  이 교과가 더 보는 것은 <b>「왜 그렇게 했는가」</b> 입니다 —
+  <b>2 번과 3 번이 그 답</b>입니다.
+</div>
+
+<h4>기록은 «두 줄» 이면 됩니다</h4>
+
+<p class="cmdline"><code>나쁜 냄새          고친 방법                     결과
+----------------  ----------------------------  --------------
+중복된 코드         합계 계산을 함수로 뽑음          같음 (Check 통과)
+매직 넘버 50000    상수 무료배송_기준 으로 이름 붙임   같음 (Check 통과)</code></p>
+
+<p><b>「결과」 칸이 핵심</b>입니다.
+   리팩토링은 <b>기능을 그대로 두고 안을 고치는 일</b>이므로
+   <b>결과가 달라졌으면 리팩토링이 아니라 «수정»</b> 입니다.</p>
+      </div>
+</div>
+
+<div class="step" id="st2">
+      <h3><i>2</i>세 언어를 한 자리에</h3>
+      <aside class="side">
+        <p class="pt">같은 일을 세 언어로 시켜 보면 차이가 보입니다.</p>
+        <b class="sh">쓰이는 곳</b>
+        <p class="v">실습 4 · 6</p>
+      </aside>
+      <div class="bd">
+
+<h4>같은 일을 셋에게 시킵니다</h4>
+
+<p><b>1 부터 5천만까지 더하기</b> — 아주 단순한 일입니다.
+   <b>단순해야 언어 차이만 남습니다.</b></p>
+
+<p class="cmdline"><code>자바      Sum.java
+파이썬    sum.py
+노드      sum.js</code></p>
+
+<p class="cmdline"><code><i># 자바</i>
+public class Sum {
+  public static void main(String[] a) {
+    long t = 0;
+    for (int i = 1; i &lt;= 50_000_000; i++) t += i;
+    System.out.println("합계 = " + t);
+  }
+}</code></p>
+
+<p class="cmdline"><code><i># 파이썬</i>
+t = 0
+for i in range(1, 50_000_001):
+    t += i
+print("합계 =", t)</code></p>
+
+<div class="note"><b>세 줄로 끝나는 것과 일곱 줄이 필요한 것</b>의 차이가
+  벌써 보입니다.
+  파이썬은 <b>변수의 «종류» 를 안 적어도</b> 되고
+  <b>감싸는 <code>class</code> 도 없습니다.</b>
+  <b>「어느 쪽이 좋은가」 가 아닙니다</b> —
+  <b>무엇을 덜 적게 하고 대신 무엇을 포기했는가</b> 입니다 (실습 3).
+</div>
+
+<h4>셋 다 «같은 답» 이 나와야 합니다</h4>
+
+<p class="cmdline"><code>합계 = 1250000025000000</code></p>
+
+<p><b>답이 다르면 코드가 틀린 것</b>입니다 —
+   견주기 전에 <b>먼저 같은지</b> 확인하십시오.</p>
+
+<h4>없으면 건너뜁니다</h4>
+
+<table class="wide">
+  <tr><th style="width:150px">언어</th><th>확인</th><th>없으면</th></tr>
+  <tr><td>자바</td><td><code>java -version</code></td>
+      <td><b>필수입니다.</b> 앞 교과로 돌아가십시오</td></tr>
+  <tr><td>파이썬</td><td><code>python -V</code></td>
+      <td>실습 4 의 <b>견줌만</b> 건너뜁니다</td></tr>
+  <tr><td>노드</td><td><code>node -v</code></td><td>없어도 됩니다</td></tr>
+</table>
+      </div>
+</div>
+
+<h3 class="lv">레벨 2 · 언어 특성 <span>능력단위요소 ① · 왜 다른지 압니다</span></h3>
+
+<div class="step" id="st3">
+      <h3><i>3</i>저급과 고급</h3>
+      <aside class="side">
+        <p class="pt">사람 쪽에 가까운가 기계 쪽에 가까운가입니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1</p>
+      </aside>
+      <div class="bd">
+
+<h4>두 갈래</h4>
+
+<table class="wide">
+  <tr><th style="width:150px"></th><th style="width:230px">저급언어</th><th>고급언어</th></tr>
+  <tr><td>누가 읽나</td><td><b>컴퓨터</b>가 바로</td><td><b>사람</b>이</td></tr>
+  <tr><td>번역</td><td>필요 없음</td><td><b>필요합니다</b></td></tr>
+  <tr><td>속도</td><td>빠릅니다</td><td>번역 방식에 따라 다릅니다</td></tr>
+  <tr><td>호환</td><td><b>없습니다</b> — 기계마다 기계어가 다릅니다</td>
+      <td>있습니다</td></tr>
+  <tr><td>유지관리</td><td><b>어렵습니다</b></td><td>쉽습니다</td></tr>
+  <tr><td>보기</td><td>기계어 · 어셈블리어</td><td>C · 자바 · 파이썬</td></tr>
+</table>
+
+<p><b>지금 쓰는 것은 전부 고급언어</b>입니다.
+   <b>저급언어는 「이런 것이 있다」</b> 만 알면 됩니다 —
+   <b>왜 번역이 필요한지</b>를 설명할 때 쓰입니다.</p>
+
+<h4>실행 · 구현 방식으로 나누면 넷</h4>
+
+<table class="wide">
+  <tr><th style="width:150px">갈래</th><th style="width:230px">무엇에 중점을 두나</th><th>보기</th></tr>
+  <tr><td><b>명령형</b></td><td>컴퓨터가 <b>어떤 순서로</b> 동작할지</td>
+      <td>FORTRAN · C</td></tr>
+  <tr><td><b>함수형</b></td><td>자료 처리를 <b>수학의 함수</b>로.
+      <b>상태와 가변 데이터를 멀리</b> 합니다</td><td>LISP · Scala</td></tr>
+  <tr><td><b>논리형</b></td><td><b>논리 문장</b>으로 표현하고
+      조건이 맞으면 규칙이 실행</td><td>PROLOG</td></tr>
+  <tr><td><b>객체지향</b></td><td><b>객체끼리 메시지</b>를 주고받아 동작</td>
+      <td><b>JAVA</b> · C++</td></tr>
+</table>
+
+<div class="note"><b>한 언어가 «한 갈래» 에만 속하지는 않습니다.</b>
+  자바는 객체지향이지만 <b>람다가 들어오면서 함수형 방식</b>도 씁니다.
+  파이썬도 마찬가지입니다.
+  <b>「이 언어는 무슨 형이다」 보다</b>
+  <b>「이 코드는 어느 방식으로 썼다」</b> 가 더 정확한 말입니다.
+</div>
+
+<h4>실습 2 의 코드로 견주면</h4>
+
+<p class="cmdline"><code>자바     class 로 감싸야 하고 변수의 «종류»(long, int)를 적습니다
+        → <b>객체지향</b> · <b>정적 타입</b>
+
+파이썬   감싸는 것도 종류도 없습니다
+        → <b>절차적으로도 쓸 수 있고</b> · <b>동적 타입</b></code></p>
+
+<p><b>「종류를 적는다」 는 것</b>이 무엇을 바꾸는지가 이 교과의 핵심입니다 —
+   <b>덜 적는 대신 실수를 «나중에» 발견</b>하게 됩니다 (실습 6).</p>
+      </div>
+</div>
+
+<div class="step" id="st4">
+      <h3><i>4</i>빌드 방식 셋</h3>
+      <aside class="side">
+        <p class="pt">원시 코드가 실행되는 길이 셋입니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1</p>
+        <b class="sh">용어</b>
+        <p class="v">원시 코드 · 목적 코드</p>
+      </aside>
+      <div class="bd">
+
+<h4>빌드란</h4>
+
+<p><b>소스코드가 «실행 가능한 형태» 로 변하는 과정</b>입니다.
+   그 길이 셋입니다.</p>
+
+<table class="wide">
+  <tr><th style="width:56px"></th><th style="width:150px">방식</th>
+      <th style="width:250px">어떻게</th><th>보기</th></tr>
+  <tr><td class="c">1</td><td><b>컴파일</b></td>
+      <td>소스가 <b>기계어 실행 파일</b>로 통째로 바뀝니다</td>
+      <td>C · C++</td></tr>
+  <tr><td class="c">2</td><td><b>인터프리터</b></td>
+      <td>소스를 <b>한 줄씩</b> 번역하며 실행합니다</td>
+      <td><b>파이썬</b></td></tr>
+  <tr><td class="c">3</td><td><b>바이트 코드</b></td>
+      <td>컴파일해서 <b>가상머신이 읽는 코드</b>로 바꾸고,
+          가상머신이 <b>다시</b> 기계어로</td>
+      <td><b>JAVA</b> · Scala</td></tr>
+</table>
+
+<h4>자바는 «두 번» 번역합니다</h4>
+
+<p class="cmdline"><code>Sum.java          원시 코드 (사람이 씀)
+   │
+   │  javac        ← ① 번역
+   ▼
+Sum.class         목적 코드 = <b>바이트 코드</b> (가상머신이 읽음)
+   │
+   │  java (JVM)   ← ② 번역
+   ▼
+기계어 실행</code></p>
+
+<p><b>「한 번 쓰면 어디서나 돈다」</b> 가 여기서 나옵니다 —
+   <code>.class</code> 는 <b>어느 컴퓨터에서든 같고</b>,
+   <b>그 컴퓨터의 JVM 이</b> 자기 기계어로 바꿔 줍니다.</p>
+
+<h4>실제로 재 봤습니다</h4>
+
+<p class="cmdline"><code><i># 자바 — 번역하고 실행</i>
+&gt; javac Sum.java
+real    <b>0m1.687s</b>
+&gt; java Sum
+합계 = 1250000025000000
+real    <b>0m0.382s</b>
+
+<i># 노드 — 바로 실행</i>
+&gt; node sum.js
+real    <b>0m3.759s</b>
+
+<i># 파이썬 — 바로 실행</i>
+&gt; python sum.py
+real    <b>0m9.596s</b></code></p>
+
+<div class="note"><b>숫자를 «그대로» 믿지는 마십시오.</b>
+  이 결과는 <b>「5천만 번 더하기」 라는 한 가지 일</b>에 대한 것입니다.
+  <b>문자열을 다루거나 파일을 읽는 일</b>이면 차이가 훨씬 줄고,
+  <b>뒤집히기도</b> 합니다.<br>
+  다만 <b>「반복이 아주 많은 계산」 에서 인터프리터가 느리다</b> 는 것은
+  <b>방식에서 오는 차이</b>라 대체로 그렇습니다 —
+  <b>한 줄씩 번역하면서 돌기</b> 때문입니다.
+</div>
+
+<h4>대신 얻는 것</h4>
+
+<table class="wide">
+  <tr><th style="width:190px">인터프리터가 느린 대신</th><th></th></tr>
+  <tr><td><b>번역 기다림이 없습니다</b></td>
+      <td>고치고 <b>바로</b> 돌려 볼 수 있습니다</td></tr>
+  <tr><td><b>실시간 분석</b>이 됩니다</td>
+      <td>한 줄씩 쳐 가며 <b>대화하듯</b> 쓸 수 있습니다</td></tr>
+  <tr><td>코드가 <b>짧습니다</b></td><td>실습 2 에서 본 그대로</td></tr>
+</table>
+
+<p><b>자바의 <code>javac</code> 가 1.7초 걸린 것</b>을 보십시오.
+   <b>코드를 백 번 고치면 그 시간이 백 번</b> 듭니다 —
+   <b>작은 것을 빨리 만들 때는 인터프리터가 유리합니다.</b></p>
+      </div>
+</div>
+
+<div class="step" id="st5">
+      <h3><i>5</i>바이트 코드를 눈으로</h3>
+      <aside class="side">
+        <p class="pt">.class 안에 무엇이 들었는지 열어 봅니다.</p>
+        <b class="sh">도구</b>
+        <p class="v">javap</p>
+        <b class="sh">용어</b>
+        <p class="v">목적 코드</p>
+      </aside>
+      <div class="bd">
+
+<h4><code>.class</code> 는 사람이 못 읽습니다</h4>
+
+<p class="cmdline"><code>&gt; xxd Sum.class | head -4
+
+00000000: <b>cafe babe</b> 0000 0041 0030 0a00 0200 0307  .......A.0......
+00000010: 0004 0c00 0500 0601 0010 6a61 7661 2f6c  ..........java/l
+00000020: 616e 672f 4f62 6a65 6374 0100 063c 696e  ang/Object...&lt;in
+00000030: 6974 3e01 0003 2829 5603 02fa f080 0900  it&gt;...()V.......</code></p>
+
+<div class="note"><b>맨 앞 네 바이트가 <code>cafe babe</code> 입니다.</b>
+  <b>「이 파일은 자바 클래스 파일이다」</b> 를 알리는 표시입니다.
+  이런 것을 <b>매직 넘버</b>라고 합니다 —
+  <b>확장자가 없거나 틀려도</b> 이것만 보면 무엇인지 압니다.<br>
+  오른쪽에 <code>java/lang/Object</code> 같은 <b>글자가 섞여 보이는 것</b>도
+  눈여겨보십시오. <b>이름은 글자 그대로</b> 들어 있습니다.
+</div>
+
+<h4><code>javap</code> 로 열면 읽을 수 있습니다</h4>
+
+<p class="cmdline"><code>&gt; javap -c Sum
+
+  public static void main(java.lang.String[]);
+    Code:
+       0: lconst_0            <i># 0 을 놓고</i>
+       1: lstore_1            <i># 1번 자리에 저장  (t = 0)</i>
+       2: iconst_1
+       3: istore_3            <i># 3번 자리에 1      (i = 1)</i>
+       4: iload_3
+       5: ldc           #7    // int 50000000
+       7: <b>if_icmpgt     21</b>    <i># i &gt; 5천만이면 21번으로 («반복 끝»)</i>
+      10: lload_1
+      11: iload_3
+      12: i2l                 <i># int 를 long 으로 («종류» 를 바꿉니다)</i>
+      13: ladd                <i># 더하고</i>
+      14: lstore_1            <i># 다시 1번 자리에   (t += i)</i>
+      15: iinc          3, 1  <i># i 를 1 늘리고</i>
+      18: <b>goto          4</b>     <i># 4번으로 돌아감   («반복»)</i>
+      21: getstatic     #8    // System.out
+      ...
+      33: return</code></p>
+
+<h4>여기서 «세 가지» 가 보입니다</h4>
+
+<table class="wide">
+  <tr><th style="width:190px">보이는 것</th><th></th></tr>
+  <tr><td><code>goto 4</code> 와
+      <code>if_icmpgt 21</code></td>
+      <td><b><code>for</code> 문이 사라졌습니다.</b>
+          <b>비교하고 돌아가기</b>로 풀렸습니다 —
+          <b>반복문은 사람을 위한 표현</b>이었습니다</td></tr>
+  <tr><td><code>i2l</code></td>
+      <td><code>int</code> 를 <code>long</code> 으로 바꾸는 <b>진짜 명령</b>이 있습니다.
+          <b>「종류」 가 공짜가 아닙니다</b></td></tr>
+  <tr><td>번호가 <b>0 · 1 · 2 · 4 · 5 · 7 …</b></td>
+      <td><b>바이트 단위 위치</b>입니다. 그래서 <b>바이트 코드</b></td></tr>
+</table>
+
+<p><b>외울 것이 아닙니다.</b>
+   <b>「기계는 이렇게 단순한 것만 한다」</b> 를 한 번 보는 것이 목적입니다 —
+   <b>고급언어가 무엇을 대신해 주는지</b>가 여기서 보입니다.</p>
+      </div>
+</div>
+
+<div class="step" id="st6">
+      <h3><i>6</i>실행 방식과 무엇을 고르나</h3>
+      <aside class="side">
+        <p class="pt">종류를 적는 대신 언제 실수를 잡느냐가 갈립니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1</p>
+      </aside>
+      <div class="bd">
+
+<h4>컴파일러와 인터프리터</h4>
+
+<table class="wide">
+  <tr><th style="width:150px"></th><th style="width:230px">컴파일러</th><th>인터프리터</th></tr>
+  <tr><td>언제 번역</td><td><b>미리 전부</b></td><td><b>돌면서 한 줄씩</b></td></tr>
+  <tr><td>결과물</td><td><b>실행 파일이 남습니다</b></td><td>안 남습니다</td></tr>
+  <tr><td>실행 속도</td><td>빠릅니다</td><td>느립니다</td></tr>
+  <tr><td>오류를 <b>언제</b> 아나</td>
+      <td><b>번역할 때</b> — 돌리기 «전»</td>
+      <td><b>그 줄에 닿았을 때</b> — 돌리는 «중»</td></tr>
+</table>
+
+<div class="warn"><b>마지막 줄이 실무에서 가장 크게 갈립니다.</b>
+  컴파일 언어는 <b>오타 하나도 «번역 단계»에서 걸립니다.</b>
+  인터프리터 언어는 <b>그 줄이 실행될 때까지 모릅니다</b> —
+  <b>한 시간 돌다가 마지막 줄에서 오타로 죽는</b> 일이 생깁니다.<br>
+  <b>그래서 큰 프로그램일수록 컴파일 언어를 씁니다.</b>
+</div>
+
+<h4>«마지막 줄» 에 오타를 내 보면</h4>
+
+<p>실습 2 의 코드 <b>맨 끝에</b> 없는 변수를 쓰는 줄을 하나 붙였습니다.
+   <b>오타가 «맨 뒤» 에 있을 때 무슨 일이 생기는지</b> 봅니다.</p>
+
+<p class="cmdline"><code>print("평균 =", t / <b>갯수</b>)      ← 없는 변수입니다</code></p>
+
+<p class="cmdline"><code><i># 자바 — 돌리기 «전» 에 걸립니다</i>
+&gt; javac Late.java
+Late.java:6: error: cannot find symbol
+    System.out.println("평균 = " + (t / 갯수));
+                                      ^
+real    <b>0m1.595s</b>
+<i>→ <b>한 줄도 안 돌았습니다.</b> 1.6초 만에 알았습니다</i></code></p>
+
+<p class="cmdline"><code><i># 파이썬 — 다 돌고 «나서» 걸립니다</i>
+&gt; python late.py
+    print("평균 =", t / 갯수)
+                        ^^^^
+NameError: name '갯수' is not defined
+real    <b>0m8.662s</b>
+<i>→ <b>5천만 번을 다 더하고 나서</b> 죽었습니다</i></code></p>
+
+<div class="warn"><b>1.6초 대 8.7초입니다.</b>
+  파이썬은 <b>앞의 계산을 다 하고</b> 마지막 줄에서 죽었습니다.
+  <b>그 계산은 «버려졌습니다».</b><br>
+  여기서는 9초지만 <b>실무에서는 밤새 도는 작업</b>이 있습니다.
+  <b>아침에 와서 보니 마지막 줄 오타로 죽어 있는</b> 일이
+  이 차이에서 나옵니다.
+</div>
+
+<h4>정적 타입과 동적 타입</h4>
+
+<table class="wide">
+  <tr><th style="width:150px"></th><th style="width:230px">정적 (자바)</th><th>동적 (파이썬)</th></tr>
+  <tr><td>종류를 적나</td><td><b>적습니다</b> — <code>long t = 0;</code></td>
+      <td>안 적습니다 — <code>t = 0</code></td></tr>
+  <tr><td>손이</td><td>더 갑니다</td><td>덜 갑니다</td></tr>
+  <tr><td>틀린 종류를 넣으면</td>
+      <td><b>번역할 때</b> 걸립니다</td>
+      <td><b>돌다가</b> 걸립니다</td></tr>
+  <tr><td>도구가 도와주는 정도</td>
+      <td><b>많습니다</b> — 자동 완성이 정확합니다</td>
+      <td>덜합니다</td></tr>
+</table>
+
+<p><b>「덜 적는다」 는 공짜가 아닙니다.</b>
+   <b>적는 수고를 «나중에 찾는 수고»로</b> 바꾼 것입니다.</p>
+      </div>
+</div>
+
+<div class="step" id="st7">
+      <h3><i>7</i>언어를 고르는 표</h3>
+      <aside class="side">
+        <p class="pt">「왜 이 언어로 만들었습니까」 에 답합니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">선정 근거 한 장</p>
+      </aside>
+      <div class="bd">
+
+<h4>고르는 기준 다섯</h4>
+
+<table class="wide">
+  <tr><th style="width:170px">기준</th><th></th></tr>
+  <tr><td><b>만들 것이 무엇인가</b></td>
+      <td>웹 · 앱 · 자동화 · 계산 — <b>분야마다 굳어진 언어</b>가 있습니다</td></tr>
+  <tr><td><b>크기와 수명</b></td>
+      <td>오래 갈 큰 것이면 <b>정적 타입</b> 쪽이 유리합니다 (실습 6)</td></tr>
+  <tr><td><b>속도가 중요한가</b></td>
+      <td>중요하면 컴파일 쪽. <b>대개는 안 중요합니다</b></td></tr>
+  <tr><td><b>라이브러리가 있는가</b></td>
+      <td><b>실무에서 가장 크게 작용합니다</b> (실습 13)</td></tr>
+  <tr><td><b>팀이 아는가</b></td>
+      <td>아무리 좋아도 <b>아무도 모르면 못 씁니다</b></td></tr>
+</table>
+
+<h4>선정 근거는 «이렇게» 적습니다</h4>
+
+<table class="wide">
+  <tr><th style="width:80px"></th><th></th></tr>
+  <tr><td><b>약함</b></td><td>자바가 좋아서 골랐습니다</td></tr>
+  <tr><td><b>권함</b></td>
+      <td>웹 서버를 만들고 <b>오래 유지해야</b> 하므로
+          <b>정적 타입</b>인 자바를 골랐습니다.
+          <b>스프링</b>이라는 성숙한 프레임워크가 있고,
+          <b>조원 넷이 다 써 본</b> 언어입니다</td></tr>
+</table>
+
+<p><b>다섯 기준 가운데 «세 개» 만 대도</b> 충분합니다.
+   <b>기준 없이 「좋아서」</b> 는 답이 아닙니다.</p>
+
+<h4>이 과정의 선택</h4>
+
+<p class="cmdline"><code>언어    자바 21
+까닭    ① 웹 백엔드가 목표 — 스프링 생태계가 가장 큽니다
+       ② 오래 갈 코드 — 정적 타입이 실수를 «번역 단계»에서 잡습니다
+       ③ 뒤 교과(서버프로그램 구현 · 통합 구현 · 배포)가 전부 자바 기준
+
+견줌    파이썬 — 빨리 만들기에는 낫지만
+              큰 프로그램에서 «나중에 터지는» 실수가 늘어납니다</code></p>
+
+<p><b>이 표가 실습 16 의 제출물</b>이 됩니다.
+   <b>지금 적어 두면</b> 마지막에 다시 생각할 일이 없습니다.</p>
+      </div>
+</div>
+
+<h3 class="lv">레벨 3 · 구현과 최적화 <span>돌아가게 만들고 읽히게 고칩니다</span></h3>
+
+<div class="step" id="st8">
+      <h3><i>8</i>먼저 돌아가게</h3>
+      <aside class="side">
+        <p class="pt">고칠 것이 있어야 고칩니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-2</p>
+        <b class="sh">산출물</b>
+        <p class="v">Before.java</p>
+      </aside>
+      <div class="bd">
+
+<h4>일부러 «못 쓴» 코드를 만듭니다</h4>
+
+<p>리팩토링을 배우려면 <b>고칠 것</b>이 있어야 합니다.
+   <b>돌아가기는 하는데 읽기 나쁜 코드</b>를 하나 만듭니다.</p>
+
+<p class="cmdline"><code>public class Before {
+  public static void main(String[] a) {
+    List&lt;int[]&gt; d = new ArrayList&lt;&gt;();
+    d.add(new int[]{1, 12000, 2});
+    d.add(new int[]{2,  8000, 1});
+    d.add(new int[]{3, 15000, 3});
+    int s = 0;
+    for (int i = 0; i &lt; d.size(); i++) { s += d.get(i)[1] * d.get(i)[2]; }
+    int t = 0;
+    if (s &gt;= 50000) { t = 0; } else { t = 3000; }
+    int f = s + t;
+    System.out.println("상품금액 " + s);
+    System.out.println("배송비 " + t);
+    System.out.println("합계 " + f);
+  }
+}</code></p>
+
+<p class="cmdline"><code>&gt; javac -encoding UTF-8 Before.java
+&gt; java Before
+상품금액 77000
+배송비 0
+합계 77000</code></p>
+
+<div class="note"><b>이 코드는 «틀리지 않았습니다».</b>
+  답이 맞고 오류도 없습니다.
+  그런데 <b>석 달 뒤에 내가 봐도 못 읽습니다.</b>
+  <code>d</code> 가 무엇이고 <code>[1]</code> 이 무엇인지
+  <b>코드 어디에도 안 적혀 있습니다.</b><br>
+  학습모듈은 이런 것을 <b>「나쁜 냄새(Bad Smell)」</b> 라고 부릅니다 —
+  <b>오류는 아니지만 문제를 일으킬 수 있는 부분</b>입니다.
+</div>
+
+<h4>먼저 «돌아가게» 만드는 것이 순서입니다</h4>
+
+<table class="wide">
+  <tr><th style="width:56px">순서</th><th></th></tr>
+  <tr><td class="c">1</td><td><b>돌아가게</b> 만듭니다 — 못생겨도 됩니다</td></tr>
+  <tr><td class="c">2</td><td><b>결과를 적어 둡니다</b> — 고친 뒤 견줄 기준</td></tr>
+  <tr><td class="c">3</td><td><b>읽히게</b> 고칩니다 (실습 10 · 11)</td></tr>
+</table>
+
+<p><b>예쁘게 쓰면서 동시에 돌아가게 하려다 둘 다 못 하는</b> 일이 흔합니다.
+   <b>순서를 지키면</b> 각각은 어렵지 않습니다.</p>
+      </div>
+</div>
+
+<div class="step" id="st9">
+      <h3><i>9</i>코드 리뷰</h3>
+      <aside class="side">
+        <p class="pt">돌려 보지 «않고» 읽어서 찾습니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-2 · 코드 인스펙션</p>
+        <b class="sh">용어</b>
+        <p class="v">리뷰 · 인스펙션</p>
+      </aside>
+      <div class="bd">
+
+<h4>리뷰란</h4>
+
+<p>학습모듈은 <b>코드 인스펙션</b>을
+   <b>「소스코드를 «실행하지 않고» 잠재적인 오류와 표준 미준수를
+   사전에 식별하여 개선하는 공식적인 리뷰 기법」</b>
+   으로 정의합니다.</p>
+
+<p><b>「실행하지 않고」</b> 가 핵심입니다.
+   <b>돌려서 찾는 것은 시험(테스트)</b> 이고,
+   <b>읽어서 찾는 것이 리뷰</b>입니다.</p>
+
+<h4>세 가지 기법 — 무게가 다릅니다</h4>
+
+<table class="wide">
+  <tr><th style="width:150px">기법</th><th style="width:80px">공식성</th><th></th></tr>
+  <tr><td><b>동료검토</b><br>(Peer Review)</td><td>비공식</td>
+      <td><b>별도 절차 없이</b> 계획 없이 임의로.
+          개발자가 <b>동료와</b> 결함을 식별합니다</td></tr>
+  <tr><td><b>워크스루</b><br>(Walk Through)</td><td>중간</td>
+      <td>개발자가 <b>주제와 시간을 정해 발표</b>하고
+          동료의 의견을 듣습니다. <b>정보 공유·아이디어 수집</b></td></tr>
+  <tr><td><b>인스펙션</b><br>(Inspection)</td><td><b>공식</b></td>
+      <td><b>역할 · 절차 · 체크리스트</b>를 기준으로 결함을 식별</td></tr>
+</table>
+
+<p><b>수업에서는 «동료검토»로 충분합니다.</b>
+   조원끼리 서로 코드를 읽어 주면 됩니다 —
+   <b>다만 «찾은 것을 적어야»</b> 제출물이 됩니다.</p>
+
+<h4>인스펙션의 여섯 단계</h4>
+
+<p>공식 기법이 어떻게 생겼는지 한 번 봐 둡니다. <b>외울 것은 아닙니다.</b></p>
+
+<table class="wide">
+  <tr><th style="width:150px">단계</th><th></th></tr>
+  <tr><td>계획</td><td>대상과 사람을 정하고 <b>미리 배포</b>합니다</td></tr>
+  <tr><td>개관</td><td>이해도를 높입니다 — <b>생략 가능</b></td></tr>
+  <tr><td><b>준비</b></td><td><b>각자</b> 읽고 <b>체크리스트로</b> 결함을 기록</td></tr>
+  <tr><td>검토회의</td><td>함께 보며 <b>찾은 결함에 집중</b></td></tr>
+  <tr><td>재작업</td><td>고칩니다</td></tr>
+  <tr><td><b>추적</b></td><td><b>정말 고쳐졌는지</b> 최종 확인</td></tr>
+</table>
+
+<div class="note"><b>「준비」 와 「추적」 이 이 절차의 값어치입니다.</b>
+  <b>각자 미리 읽고 오지 않으면</b> 회의가 <b>그 자리에서 읽는 시간</b>이 됩니다.
+  <b>고친 뒤에 확인하지 않으면</b> 찾은 것이 <b>안 고쳐진 채</b> 남습니다.<br>
+  수업에서도 <b>이 둘만은</b> 지키십시오 — 나머지는 줄여도 됩니다.
+</div>
+
+<h4>체크리스트는 «다섯 줄» 이면 됩니다</h4>
+
+<p class="cmdline"><code>□ 이름만 보고 무엇인지 알 수 있는가
+□ 같은 코드가 두 번 이상 나오지 않는가
+□ 뜻 모를 숫자(매직 넘버)가 박혀 있지 않은가
+□ 한 함수가 한 가지 일만 하는가
+□ 주석이 없어도 읽히는가</code></p>
+
+<p><b>이 다섯이 실습 10 의 「나쁜 냄새」</b> 와 그대로 이어집니다.</p>
+      </div>
+</div>
+
+<div class="step" id="st10">
+      <h3><i>10</i>나쁜 냄새 찾기</h3>
+      <aside class="side">
+        <p class="pt">오류는 아닌데 문제를 부르는 것들입니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-2 · 리팩토링</p>
+        <b class="sh">용어</b>
+        <p class="v">리팩토링 · Bad Smell</p>
+      </aside>
+      <div class="bd">
+
+<h4>리팩토링이란</h4>
+
+<p>학습모듈의 정의는 —
+   <b>「SW 의 원래 «기능은 유지» 하면서 소스코드의 «내부 구조» 를
+   수정·보완하여 가독성, 성능 향상 및 로직을 개선하는 기법」</b></p>
+
+<div class="warn"><b>「기능은 유지」 가 «정의의 일부» 입니다.</b>
+  결과가 달라졌으면 <b>리팩토링이 아니라 «수정»</b> 입니다.
+  그래서 <b>결과가 같다는 증거</b>를 남겨야 합니다 (실습 11).
+</div>
+
+<h4>학습모듈이 드는 나쁜 냄새</h4>
+
+<table class="wide">
+  <tr><th style="width:210px">나쁜 냄새</th><th>고치는 방법</th></tr>
+  <tr><td><b>중복된 코드</b><br>(Duplicated Code)</td>
+      <td>중복을 <b>제거합니다</b> — 함수로 뽑습니다</td></tr>
+  <tr><td><b>긴 메서드</b><br>(Long Method)</td>
+      <td><b>적정 크기로 나눕니다</b></td></tr>
+  <tr><td>긴 파라미터 리스트<br>(Long Parameter List)</td>
+      <td>개수를 <b>줄입니다</b> — 묶어서 하나로</td></tr>
+  <tr><td>게으른 클래스<br>(Lazy Class)</td>
+      <td>차이가 없으면 <b>합칩니다</b></td></tr>
+  <tr><td><b>주석</b><br>(Comment)</td>
+      <td><b>주석이 없어도 읽히게</b> 코드를 고칩니다</td></tr>
+</table>
+
+<div class="note"><b>마지막 줄이 뜻밖일 수 있습니다.</b>
+  <b>「주석을 달지 말라」 는 뜻이 아닙니다.</b>
+  <b>주석으로 설명해야만 읽히는 코드</b>라면
+  <b>코드 쪽을 고치라</b>는 뜻입니다.<br>
+  <code>// 배송비 계산</code> 이라고 달 바에는
+  <b>함수 이름을 <code>배송비()</code></b> 로 지으면 주석이 필요 없습니다.
+</div>
+
+<h4>실습 8 의 코드에서 찾아 봅니다</h4>
+
+<p class="cmdline"><code>List&lt;int[]&gt; d = ...                  ← <b>이름</b>이 뜻을 안 알려 줍니다
+d.get(i)<b>[1]</b> * d.get(i)<b>[2]</b>          ← <b>[1] 이 무엇인지</b> 모릅니다
+if (s &gt;= <b>50000</b>) { t = 0; }         ← <b>50000 이 무엇인지</b> 모릅니다
+else { t = <b>3000</b>; }                ← <b>3000 도</b> 마찬가지
+int s, t, f                          ← <b>한 글자 이름</b>
+main 안에 전부                        ← <b>긴 메서드</b></code></p>
+
+<h4>표로 적습니다 — 이것이 제출물입니다</h4>
+
+<p class="cmdline"><code>나쁜 냄새          어디                        고칠 방법
+----------------  --------------------------  ----------------------
+뜻 없는 이름       d · s · t · f               뜻이 드러나는 이름으로
+매직 넘버          50000 · 3000                상수로 이름을 붙임
+뜻 없는 첨자        [1] · [2]                   record 로 이름을 줌
+긴 메서드          main 이 다 함                함수 셋으로 나눔</code></p>
+
+<p><b>네 줄이면 충분합니다.</b>
+   <b>「어디」 칸을 꼭 적으십시오</b> — 안 적으면 고친 뒤에 <b>대조가 안 됩니다.</b></p>
+      </div>
+</div>
+
+<div class="step" id="st11">
+      <h3><i>11</i>리팩토링과 시험</h3>
+      <aside class="side">
+        <p class="pt">결과가 같다는 증거까지가 리팩토링입니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">After.java · Check.java</p>
+      </aside>
+      <div class="bd">
+
+<h4>고친 코드</h4>
+
+<p class="cmdline"><code>public class After {
+
+  <b>record 주문항목(int 상품번호, int 단가, int 수량)</b> {
+    int 금액() { return 단가 * 수량; }
+  }
+
+  static final int <b>무료배송_기준</b> = 50_000;
+  static final int <b>배송비</b> = 3_000;
+
+  static int <b>상품금액</b>(List&lt;주문항목&gt; 항목들) {
+    int 합 = 0;
+    for (주문항목 항목 : 항목들) 합 += 항목.금액();
+    return 합;
+  }
+
+  static int <b>배송비</b>(int 상품금액) {
+    return 상품금액 &gt;= 무료배송_기준 ? 0 : 배송비;
+  }
+
+  public static void main(String[] a) {
+    List&lt;주문항목&gt; 항목들 = List.of(
+        new 주문항목(1, 12000, 2),
+        new 주문항목(2,  8000, 1),
+        new 주문항목(3, 15000, 3));
+    int 상품 = 상품금액(항목들);
+    int 배송 = 배송비(상품);
+    System.out.println("상품금액 " + 상품);
+    System.out.println("배송비 " + 배송);
+    System.out.println("합계 " + (상품 + 배송));
+  }
+}</code></p>
+
+<table class="wide">
+  <tr><th style="width:210px">고친 것</th><th>없어진 나쁜 냄새</th></tr>
+  <tr><td><code>record 주문항목</code></td>
+      <td><b><code>[1]</code> · <code>[2]</code> 가 사라졌습니다</b> —
+          <code>단가</code> · <code>수량</code> 으로 읽힙니다</td></tr>
+  <tr><td><code>무료배송_기준</code> · <code>배송비</code></td>
+      <td><b>매직 넘버</b>가 사라졌습니다</td></tr>
+  <tr><td><code>상품금액()</code> · <code>배송비()</code></td>
+      <td><b>긴 메서드</b>가 나뉘었습니다.
+          <b>주석도 필요 없어졌습니다</b></td></tr>
+</table>
+
+<h4>결과가 «같은지» 봅니다</h4>
+
+<p class="cmdline"><code>&gt; java Before          &gt; java After
+상품금액 77000          상품금액 77000
+배송비 0                배송비 0
+합계 77000              합계 77000</code></p>
+
+<p><b>같습니다.</b> 이것이 <b>리팩토링의 정의</b>입니다.</p>
+
+<h4>눈으로 견주는 것으로는 부족합니다</h4>
+
+<p>이 예제는 결과가 세 줄뿐이라 눈으로 봐도 됩니다.
+   그런데 <b>경우가 많아지면</b> 눈으로는 못 봅니다 —
+   <b>확인을 코드로</b> 적어 둡니다.</p>
+
+<p class="cmdline"><code>public class Check {
+  static int 통과 = 0, 실패 = 0;
+  static void 같은가(String 이름, int 기대, int 실제) {
+    if (기대 == 실제) { 통과++; System.out.println("  통과  " + 이름); }
+    else { 실패++; System.out.println("  실패  " + 이름 + " : 기대 " + 기대 + " 인데 " + 실제); }
+  }
+  public static void main(String[] a) {
+    같은가("무료배송 기준 넘음", 0, After.배송비(77000));
+    같은가("무료배송 기준 딱",   0, After.배송비(50000));
+    같은가("기준 미만",       3000, After.배송비(49999));
+    System.out.println("통과 " + 통과 + " · 실패 " + 실패);
+    if (실패 &gt; 0) System.exit(1);
+  }
+}</code></p>
+
+<p class="cmdline"><code>&gt; java Check
+  통과  무료배송 기준 넘음
+  통과  무료배송 기준 딱
+  통과  기준 미만
+<b>통과 3 · 실패 0</b>
+종료 코드 = <b>0</b></code></p>
+
+<div class="note"><b>«경계» 셋을 고른 것을 보십시오.</b>
+  <code>50000</code> 넘는 값, <b>딱 <code>50000</code></b>, <code>49999</code> —
+  <b>경계에서 틀리는 일이 가장 많습니다.</b>
+  <code>&gt;=</code> 를 <code>&gt;</code> 로 잘못 쓰면
+  <b>「딱 50000」 하나만 틀립니다</b> —
+  <b>이 시험이 그것을 잡습니다.</b><br>
+  <b>종료 코드</b>를 남기는 것(<code>System.exit(1)</code>)은
+  앞 교과에서 배운 그것입니다 — <b>나중에 도구가 판단할 수 있게</b> 합니다.
+</div>
+
+<h4>순서를 지키십시오</h4>
+
+<p class="cmdline"><code>① Before 를 만듭니다              돌아가게
+② <b>Check 를 먼저 만듭니다</b>          Before 로 통과시켜 둡니다
+③ After 로 고칩니다               구조만
+④ <b>Check 를 다시 돌립니다</b>         통과하면 «기능이 유지» 된 것</code></p>
+
+<p><b>②를 «먼저» 하는 것이 요령</b>입니다.
+   고친 뒤에 시험을 만들면
+   <b>「고친 코드에 맞춰」 시험을 쓰게</b> 되어 의미가 없습니다.</p>
+      </div>
+</div>
+
+<h3 class="lv">레벨 4 · 라이브러리 <span>능력단위요소 ② · 남의 것을 갖다 씁니다</span></h3>
+
+<div class="step" id="st12">
+      <h3><i>12</i>표준 라이브러리</h3>
+      <aside class="side">
+        <p class="pt">설치 없이 이미 들어 있는 것부터 봅니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-1</p>
+      </aside>
+      <div class="bd">
+
+<h4>라이브러리란</h4>
+
+<p>학습모듈의 정의는 —
+   <b>「프로그램을 효율적으로 개발할 수 있도록 «필요한 기능이 구현된»
+   프로그램을 모은 집합체」</b>.
+   영어로 <b>도서관</b>입니다 — <b>빌려 쓰는 것</b>입니다.</p>
+
+<table class="wide">
+  <tr><th style="width:190px">들어 있는 것</th><th></th></tr>
+  <tr><td><b>도움말</b></td><td>설명과 사용 방법</td></tr>
+  <tr><td><b>설치 파일</b></td><td>연동하려고 받는 것 — 자바면 <code>.jar</code></td></tr>
+  <tr><td><b>예시 코드</b></td><td>쉽게 붙일 수 있게 주는 샘플</td></tr>
+</table>
+
+<h4>설치 여부로 나누면 둘</h4>
+
+<table class="wide">
+  <tr><th style="width:170px"></th><th style="width:230px">표준 라이브러리</th><th>외부 라이브러리</th></tr>
+  <tr><td>어디서 오나</td><td><b>언어와 «함께»</b> 옵니다</td>
+      <td><b>따로 받습니다</b></td></tr>
+  <tr><td>설치</td><td><b>필요 없습니다</b></td><td>필요합니다</td></tr>
+  <tr><td>누가 만드나</td><td>언어를 만든 쪽</td>
+      <td><b>누구나</b> — 회사 · 개인 · 재단</td></tr>
+  <tr><td>자바 보기</td><td><code>java.util</code> · <code>java.time</code></td>
+      <td>Gson · Jackson · Spring</td></tr>
+</table>
+
+<h4>표준부터 봅니다</h4>
+
+<p><b>표준에 있는 것을 «직접 만드는» 일</b>이 초보에게 가장 흔한 낭비입니다.</p>
+
+<p class="cmdline"><code>하려는 일              직접 만들면         표준에 이미 있는 것
+--------------------  ------------------  ----------------------
+목록을 다루기           배열을 늘려 가며     java.util.List
+날짜 계산              일수를 직접 세며     <b>java.time.LocalDate</b>
+정렬                  정렬 알고리즘        Collections.sort
+문자열 붙이기           + 로 이어 붙이며     StringBuilder
+파일 읽기              한 줄씩 읽으며       java.nio.file.Files</code></p>
+
+<div class="note"><b>날짜 계산은 «절대» 직접 만들지 마십시오.</b>
+  윤년 · 월말 · 시간대 · 서머타임이 얽혀 있어
+  <b>제대로 만들려면 매우 어렵습니다.</b>
+  <code>java.time</code> 이 <b>이미 다 처리해 둔 것</b>입니다.
+</div>
+
+<h4>무엇이 있는지 찾는 법</h4>
+
+<p class="cmdline"><code>① 공식 문서 (자바면 「Java 21 API」)
+② IDE 에서 «점» 을 찍어 보기 — 쓸 수 있는 것이 «목록»으로 나옵니다
+③ 검색할 때  <b>「java 날짜 차이 구하기」</b> 처럼 «언어 이름»을 앞에</code></p>
+
+<p><b>②가 가장 빠릅니다.</b>
+   <code>LocalDate.now().</code> 까지 치면 <b>할 수 있는 일이 다 보입니다</b> —
+   외울 필요가 없습니다.</p>
+      </div>
+</div>
+
+<div class="step" id="st13">
+      <h3><i>13</i>외부 라이브러리 선정</h3>
+      <aside class="side">
+        <p class="pt">직접 만든 것과 견줘야 선정입니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-1</p>
+        <b class="sh">산출물</b>
+        <p class="v">선정서</p>
+      </aside>
+      <div class="bd">
+
+<h4>같은 일을 «두 가지» 로 해 봅니다</h4>
+
+<p>시설 목록을 <b>JSON 글자</b>로 바꾸는 일입니다.</p>
+
+<p class="cmdline"><code><i># ① 손으로 — 표준 라이브러리만</i>
+StringBuilder sb = new StringBuilder("[");
+for (int i = 0; i &lt; 목록.size(); i++) {
+  시설 s = 목록.get(i);
+  if (i &gt; 0) sb.append(",");
+  sb.append("{\"이름\":\"").append(s.이름())
+    .append("\",\"요금\":").append(s.요금())
+    .append(",\"실내\":").append(s.실내()).append("}");
+}
+System.out.println(sb.append("]"));
+
+<i># ② 라이브러리로</i>
+String 글 = <b>new Gson().toJson(목록)</b>;
+System.out.println(글);</code></p>
+
+<p class="cmdline"><code><i># 둘 다 같은 결과입니다</i>
+[{"이름":"중앙체육관","요금":2000,"실내":true},{"이름":"달성운동장","요금":1500,"실내":false}]</code></p>
+
+<h4>줄 수만 보면 큰 차이가 아닙니다</h4>
+
+<p class="cmdline"><code>Json.java (라이브러리) : <b>13</b> 줄
+Hand.java (손으로)     : <b>19</b> 줄
+gson-2.11.0.jar        : <b>292K</b></code></p>
+
+<p><b>여섯 줄 아끼려고 292K 를 더 받나</b> 싶습니다.
+   <b>여기서 판단을 멈추면 안 됩니다.</b></p>
+
+<h4>이름에 «따옴표» 를 하나 넣어 봅니다</h4>
+
+<p class="cmdline"><code>new 시설(<b>"중앙\"체육관"</b>, 2000, true)</code></p>
+
+<p class="cmdline"><code><i># 손으로 만든 쪽</i>
+[{"이름":"중앙<b>"</b>체육관","요금":2000,...}]
+<i>→ <b>JSON 이 깨졌습니다.</b> 읽는 쪽에서 «오류» 가 납니다</i>
+
+<i># 라이브러리 쪽</i>
+[{"이름":"중앙<b>\"</b>체육관","요금":2000,...}]
+<i>→ <b>제대로 처리했습니다</b></i></code></p>
+
+<div class="warn"><b>이것이 라이브러리를 쓰는 «진짜» 까닭입니다.</b>
+  줄 수가 아니라 <b>「내가 생각 못 한 경우」</b> 입니다.
+  따옴표 · 줄바꿈 · 역슬래시 · 유니코드 —
+  <b>JSON 규칙에는 처리해야 할 것이 십여 가지</b> 있습니다.
+  <b>라이브러리는 그것을 다 겪고 고쳐 온 코드</b>입니다.<br>
+  <b>「내 데이터엔 따옴표 없어요」 가 위험합니다</b> —
+  <b>오늘은 없어도 내일은 들어옵니다.</b>
+</div>
+
+<h4>고르는 기준 다섯</h4>
+
+<table class="wide">
+  <tr><th style="width:170px">기준</th><th>어떻게 봅니다</th></tr>
+  <tr><td><b>살아 있는가</b></td>
+      <td>마지막 갱신이 <b>언제</b>인지. 몇 년째 안 고쳐졌으면 피합니다</td></tr>
+  <tr><td><b>많이 쓰는가</b></td>
+      <td>많이 쓰이면 <b>문제와 답이 이미 인터넷에</b> 있습니다</td></tr>
+  <tr><td><b>라이선스</b></td>
+      <td><b>상업적으로 써도 되는지.</b> 이것을 안 보면 나중에 곤란해집니다</td></tr>
+  <tr><td><b>크기와 딸린 것</b></td>
+      <td>하나 받았는데 <b>스무 개가 딸려 오는</b> 것이 있습니다</td></tr>
+  <tr><td><b>내가 쓸 기능이 있는가</b></td>
+      <td>큰 것을 받아 <b>1%만 쓰는</b> 일이 흔합니다</td></tr>
+</table>
+
+<h4>선정서는 «이렇게» 적습니다</h4>
+
+<p class="cmdline"><code>하려는 일    객체를 JSON 글자로 바꾸기
+
+고른 것      Gson 2.11.0 · 292K · Apache 2.0 라이선스
+까닭        ① 작습니다 — 딸려 오는 것이 없습니다
+           ② 널리 쓰입니다 — 문제가 나면 답을 찾기 쉽습니다
+           ③ 한 줄이면 됩니다 — new Gson().toJson(목록)
+
+견줌        직접 만들기 : 19줄 · 따옴표가 든 값에서 <b>JSON 이 깨짐</b>
+           Jackson    : 기능이 더 많지만 <b>이 과제엔 과함</b>
+
+결론        <b>Gson</b></code></p>
+
+<p><b>「견줌」 칸이 선정서의 값어치</b>입니다.
+   <b>하나만 적으면 「고른 것」 이지 「선정」 이 아닙니다.</b></p>
+      </div>
+</div>
+
+<div class="step" id="st14">
+      <h3><i>14</i>붙이기 — classpath</h3>
+      <aside class="side">
+        <p class="pt">컴파일 때와 실행 때 «둘 다» 알려 줘야 합니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-2</p>
+      </aside>
+      <div class="bd">
+
+<h4>안 알려 주면 «컴파일» 이 안 됩니다</h4>
+
+<p class="cmdline"><code>&gt; javac -encoding UTF-8 Json.java
+Json.java:1: error: <b>package com.google.gson does not exist</b>
+import com.google.gson.Gson;
+                      ^</code></p>
+
+<p><b>「그런 꾸러미가 없다」</b> 는 뜻입니다.
+   <code>.jar</code> 파일은 폴더에 있는데 <b>자바가 그것을 볼 곳으로</b> 안 봅니다.</p>
+
+<h4><code>-cp</code> 로 알려 줍니다</h4>
+
+<p class="cmdline"><code>&gt; javac -encoding UTF-8 <b>-cp "gson-2.11.0.jar"</b> Json.java
+<i>(됩니다)</i></code></p>
+
+<h4>그런데 «실행» 에서 또 막힙니다</h4>
+
+<p class="cmdline"><code>&gt; java Json
+Exception in thread "main" <b>java.lang.NoClassDefFoundError</b>: com/google/gson/Gson
+	at Json.main(Json.java:10)
+Caused by: <b>java.lang.ClassNotFoundException</b>: com.google.gson.Gson</code></p>
+
+<div class="warn"><b>컴파일은 «됐는데» 실행이 안 됩니다.</b>
+  <b>여기서 많이들 헤맵니다</b> — 「컴파일까지 됐는데 왜」 싶기 때문입니다.
+  <b>컴파일할 때와 실행할 때는 «따로»</b> 알려 줘야 합니다.
+  <code>javac</code> 에 준 <code>-cp</code> 는 <b>그때만</b> 쓰입니다.
+</div>
+
+<p class="cmdline"><code>&gt; java <b>-cp ".;gson-2.11.0.jar"</b> Json
+[{"이름":"중앙체육관","요금":2000,"실내":true},...]</code></p>
+
+<table class="wide">
+  <tr><th style="width:130px">조각</th><th></th></tr>
+  <tr><td><code>.</code></td>
+      <td><b>지금 폴더</b> — <b>이걸 빼면 내 <code>Json.class</code> 를 못 찾습니다</b></td></tr>
+  <tr><td><code>;</code></td>
+      <td>구분자. <b>윈도우는 <code>;</code>, 리눅스·맥은 <code>:</code></b></td></tr>
+  <tr><td><code>gson-2.11.0.jar</code></td><td>라이브러리</td></tr>
+</table>
+
+<h4>오류 둘을 가려 읽습니다</h4>
+
+<table class="wide">
+  <tr><th style="width:250px">나오는 것</th><th>언제 · 무슨 뜻</th></tr>
+  <tr><td><code>package … does not exist</code></td>
+      <td><b>컴파일</b> 때. <code>javac -cp</code> 를 안 줬습니다</td></tr>
+  <tr><td><code>NoClassDefFoundError</code></td>
+      <td><b>실행</b> 때. <code>java -cp</code> 를 안 줬습니다.
+          <b>컴파일은 성공했다는 뜻</b>이기도 합니다</td></tr>
+</table>
+
+<h4>실무에서는 도구가 대신합니다</h4>
+
+<p class="cmdline"><code><i># Gradle 이면 한 줄</i>
+dependencies {
+    implementation 'com.google.code.gson:gson:2.11.0'
+}</code></p>
+
+<p><b>받고 · 넣고 · 두 자리에 다 알려 주는 일</b>을 도구가 대신합니다.
+   <b>그래도 손으로 한 번 해 보십시오</b> —
+   <b>도구가 무엇을 대신하는지</b> 알아야 <b>도구가 실패할 때</b> 고칩니다.
+   <b>애플리케이션 배포</b> 교과에서 이것을 다시 만납니다.</p>
+      </div>
+</div>
+
+<div class="step" id="st15">
+      <h3><i>15</i>라이브러리와 프레임워크</h3>
+      <aside class="side">
+        <p class="pt">크기와 «부르는 방향» 이 다릅니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-1</p>
+        <b class="sh">용어</b>
+        <p class="v">모듈 · 패키지 · 라이브러리</p>
+      </aside>
+      <div class="bd">
+
+<h4>세 덩이 — 크기 순서</h4>
+
+<table class="wide">
+  <tr><th style="width:150px"></th><th style="width:210px">무엇</th><th>자바에서</th></tr>
+  <tr><td><b>모듈</b></td><td>기능 <b>한 덩이</b></td>
+      <td>클래스 하나 · 파일 하나쯤</td></tr>
+  <tr><td><b>패키지</b></td><td>모듈을 <b>묶은 것</b></td>
+      <td><code>com.google.gson</code></td></tr>
+  <tr><td><b>라이브러리</b></td><td>패키지를 <b>모아 배포하는 것</b></td>
+      <td><code>gson-2.11.0.jar</code></td></tr>
+</table>
+
+<p><b>실습 14 에서 셋을 다 봤습니다</b> —
+   <code>Gson</code> 이라는 <b>모듈</b>을
+   <code>com.google.gson</code> 이라는 <b>패키지</b>에서 꺼내
+   <code>.jar</code> 라는 <b>라이브러리</b>로 받았습니다.</p>
+
+<h4>네 용어를 가릅니다</h4>
+
+<table class="wide">
+  <tr><th style="width:150px"></th><th style="width:250px">무엇</th><th>보기</th></tr>
+  <tr><td><b>Library</b></td>
+      <td>필요한 기능을 <b>내가 «불러» 쓰는</b> 모듈의 집합</td>
+      <td>jQuery · Jar · DLL</td></tr>
+  <tr><td><b>Framework</b></td>
+      <td>표준 구조를 구현하기 위한 <b>클래스와 라이브러리의 모임</b></td>
+      <td><b>Spring</b> · Django</td></tr>
+  <tr><td>Architecture</td>
+      <td>구성 요소들의 <b>전반적인 구조와 설계 방법</b></td>
+      <td>모노리틱 · MSA</td></tr>
+  <tr><td>Platform</td>
+      <td>프로그램이 돌 수 있는 <b>공통 실행 환경</b></td>
+      <td>Windows · Linux · <b>JVM</b></td></tr>
+</table>
+
+<div class="note"><b>라이브러리와 프레임워크는 «부르는 방향» 이 반대입니다.</b>
+  <b>라이브러리</b>는 <b>내 코드가</b> 라이브러리를 부릅니다 —
+  <code>new Gson().toJson(...)</code> 처럼 <b>내가 주도</b>합니다.<br>
+  <b>프레임워크</b>는 <b>프레임워크가</b> 내 코드를 부릅니다 —
+  내가 규칙대로 만들어 두면 <b>때가 되면 불러 줍니다.</b>
+  <b>주도권이 넘어가는 것</b>이 차이입니다.<br>
+  <b>스프링을 배울 때 이 말이 다시 나옵니다</b> (서버프로그램 구현).
+</div>
+
+<h4>결합 방식으로 나누면 둘</h4>
+
+<table class="wide">
+  <tr><th style="width:150px"></th><th style="width:250px">정적 라이브러리</th><th>동적 라이브러리</th></tr>
+  <tr><td>언제 합쳐지나</td><td><b>빌드할 때</b> 실행 파일 안에</td>
+      <td><b>필요할 때</b> 불러옵니다</td></tr>
+  <tr><td>실행 파일 크기</td><td>큽니다</td><td><b>작습니다</b></td></tr>
+  <tr><td>메모리</td><td>계속 있습니다</td><td>쓰고 나면 <b>내려갑니다</b></td></tr>
+  <tr><td>확장자</td><td>—</td>
+      <td>윈도우 <code>.dll</code> · 리눅스 <code>.so</code></td></tr>
+</table>
+
+<p><b>「프로그램이 안 뜨는데 <code>.dll</code> 이 없다고 합니다」</b> 는
+   <b>동적 라이브러리를 못 찾은 것</b>입니다 —
+   <code>NoClassDefFoundError</code> 와 <b>같은 종류의 문제</b>입니다 (실습 14).</p>
+      </div>
+</div>
+
+<h3 class="lv">레벨 5 · 마무리 <span>셋을 갖춰 냅니다</span></h3>
+
+<div class="step" id="st16">
+      <h3><i>16</i>자가 점검과 제출</h3>
+      <aside class="side">
+        <p class="pt">「왜」 에 답한 것이 둘인지 셉니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">코드 · 기록 · 선정서</p>
+      </aside>
+      <div class="bd">
+
+<h4>여덟 줄로 셉니다</h4>
+
+<p class="cmdline"><code>요소  할 수 있어야 하는 것                  근거              확인
+----  ------------------------------------  ----------------  ----
+ ①    언어를 «분류» 할 수 있다                실습 3 표
+ ①    «빌드 방식» 셋을 가를 수 있다           실습 4 · 5
+ ①    언어를 «고른 까닭» 을 댈 수 있다         실습 7 선정 근거
+ ①    «구현» 할 수 있다                      Before.java
+ ①    «리뷰» 로 나쁜 냄새를 찾을 수 있다       실습 10 표
+ ①    «리팩토링» 하고 결과가 같음을 보인다     After · Check
+ ②    라이브러리를 «고를» 수 있다             실습 13 선정서
+ ②    라이브러리를 «붙일» 수 있다             실습 14 화면</code></p>
+
+<h4>제출 전 다섯</h4>
+
+<p class="cmdline"><code>① Before 와 After 를 «둘 다» 냈는가
+② 나쁜 냄새 표에 «어디» 칸이 있는가
+③ Check 가 «통과» 하는 화면이 있는가
+④ 선정서에 «견줌» 칸이 있는가
+⑤ classpath 오류 «둘» 을 겪어 봤는가</code></p>
+
+<div class="warn"><b>③ 과 ④ 가 이 교과의 «응용» 입니다.</b>
+  <b>③ 이 없으면</b> 리팩토링이 아니라 <b>그냥 고친 것</b>이고,
+  <b>④ 가 없으면</b> 선정이 아니라 <b>그냥 쓴 것</b>입니다.
+  <b>둘 다 표 한 줄이면</b> 됩니다 — <b>어렵지 않은데 자주 빕니다.</b>
+</div>
+
+<h4>뒤에서 다시 나오는 자리</h4>
+
+<table class="wide">
+  <tr><th style="width:230px">여기서 배운 것</th><th>다시 만나는 곳</th></tr>
+  <tr><td>classpath · 의존성</td><td><b>애플리케이션 배포</b> — Gradle</td></tr>
+  <tr><td>리팩토링 · 시험</td><td><b>애플리케이션 테스트 수행</b> — JUnit</td></tr>
+  <tr><td>라이브러리 vs 프레임워크</td><td><b>서버프로그램 구현</b> — 스프링</td></tr>
+  <tr><td>코드 리뷰</td><td><b>개발 환경 운영 지원</b> — Pull Request</td></tr>
+</table>
+      </div>
+</div>
+
+<!-- ═══════ 3 ═══════ -->
+<h2 class="sec" id="g3">3. 주요 감점 요인</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">코드는 냈는데 「왜」 가 없습니다.</p>
+    <b class="sh">가장 큰 것</b>
+    <p class="v">고치기 전 코드를 안 냄</p>
+    <b class="sh">가장 아까운 것</b>
+    <p class="v">견줌 칸이 빔</p>
+  </aside>
+  <div class="bd">
+
+<table class="wide">
+  <tr><th style="width:44%">자주 나오는 모습</th><th>보완</th></tr>
+  <tr><td><b>After 만</b> 냄</td>
+      <td>무엇을 고쳤는지 <b>안 보입니다.</b> Before 를 같이 (실습 8)</td></tr>
+  <tr><td>결과가 <b>같다는 증거</b>가 없음</td>
+      <td>Check 한 장 (실습 11) — <b>없으면 리팩토링이 아닙니다</b></td></tr>
+  <tr><td>선정서에 <b>고른 것만</b> 적음</td>
+      <td><b>견줌</b> 칸 (실습 13) — <b>없으면 선정이 아닙니다</b></td></tr>
+  <tr><td>언어를 <b>「좋아서」</b> 골랐다고 적음</td>
+      <td>다섯 기준 중 <b>셋</b>을 대십시오 (실습 7)</td></tr>
+  <tr><td>나쁜 냄새 표에 <b>「어디」</b> 가 없음</td>
+      <td>대조가 안 됩니다 (실습 10)</td></tr>
+  <tr><td><b>시험을 나중에</b> 만듦</td>
+      <td>고친 코드에 <b>맞춰 쓰게</b> 됩니다 — 순서를 지키십시오 (실습 11)</td></tr>
+  <tr><td>표준에 있는 것을 <b>직접 만듦</b></td>
+      <td>특히 <b>날짜 계산</b> (실습 12)</td></tr>
+  <tr><td>라이선스를 <b>안 봄</b></td>
+      <td>다섯 기준의 하나입니다 (실습 13)</td></tr>
+</table>
+
+<div class="warn">
+  여덟 가운데 <b>다섯</b> 이 <b>「만들 줄 아는가」 가 아니라 «설명했는가»</b> 입니다.
+  이 교과는 <b>3수준</b> — <b>고르고 설명하는 단계</b>입니다.
+  <b>코드는 앞 교과에서 이미 배웠습니다.</b>
+  <b>표 두 장(나쁜 냄새 · 선정서)이 이 교과의 절반</b>입니다.
+</div>
+  </div>
+</div>
+
+<footer>
+  프로그래밍 언어 응용 · 3수준 · 담당 정우균<br>
+  능력단위요소와 학습 내용·수행 순서는 NCS 학습모듈
+  <code>2001020230_23v5</code> 에서 옮긴 것입니다 —
+  한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지).<br>
+  모든 코드·화면·시간은 이 교안을 위해 JDK 21.0.2 · Python 3.12.10 ·
+  Node 24.11.1 · Gson 2.11.0 에서 실제로 돌려 얻은 것입니다.
+</footer>
+
+</div>
+
+<script>
+/* 빠른 이동 — 지금 보는 단원을 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"],a[href="#g3"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  function mark() {
+    var y = window.scrollY + 120, cur = 0;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  window.addEventListener('scroll', mark, { passive: true });
+  mark();
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+})();
+</script>
