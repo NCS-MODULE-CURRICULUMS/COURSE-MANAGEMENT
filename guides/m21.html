@@ -1592,6 +1592,122 @@ Caused by: ... Exception ...</code></p>
 
 <p><b>①은 4층 문제, ②는 내 코드 문제</b>입니다 —
  가르는 기준은 <code>Started</code> 줄이 있는가 입니다.</p>
+      <div class="lab">
+  <b class="t">실습 9</b>
+  <b>WAS 를 띄우고 끄면서 3층과 4층이 어떻게 달라지는지 본다</b>
+
+  <p><b>목적</b> — 실습 6 에서 핑은 되는데 접속이 안 되는 경우를 표로 배웠습니다.
+     여기서는 그 상황을 직접 만들어 봅니다. WAS 를 껐다 켜면서 같은 명령을
+     쳐 보면 3층과 4층의 차이가 손에 잡힙니다.</p>
+
+  <h5>절차 1 — 띄운다</h5>
+
+  <p class="cmdline"><code>&gt; java -jar app.jar
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+<i>…</i>
+INFO kr.dep.DeployApp : No active profile set, falling back to 1 default profile: "default"
+INFO o.s.boot.tomcat.TomcatWebServer : Tomcat initialized with port 8080 (http)
+INFO o.apache.catalina.core.StandardService : Starting service [Tomcat]
+INFO o.s.boot.tomcat.TomcatWebServer : Tomcat started on port 8080 (http) with context path '/'
+INFO kr.dep.DeployApp : Started DeployApp in 9.589 seconds (process running for 24.763)</code></p>
+
+  <p>이 창은 로그가 계속 흐르므로 명령을 칠 수 없습니다. 창을 하나 더 열어
+     거기서 확인합니다. 앞 교과에서 익힌 방식 그대로입니다.</p>
+
+  <h5>절차 2 — 세 줄을 찾는다</h5>
+
+  <table class="wide">
+    <tr><th style="width:290px">줄</th><th>증명하는 것</th></tr>
+    <tr><td><code>Tomcat initialized</code></td>
+        <td>WAS 가 프로그램 안에 들어 있다</td></tr>
+    <tr><td><code>Tomcat started on port 8080</code></td>
+        <td>4층이 열렸다. 이제 <code>netstat</code> 에 보인다</td></tr>
+    <tr><td><code>Started DeployApp in 9.589 seconds</code></td>
+        <td>기동이 끝까지 갔다. 이 줄이 없으면 도중에 죽은 것</td></tr>
+  </table>
+
+  <p>예전에는 Tomcat 을 따로 설치하고 거기에 프로그램을 넣었습니다.
+     지금은 거꾸로 프로그램 안에 Tomcat 이 들어갑니다.
+     그래서 <code>java -jar</code> 한 줄로 뜹니다.</p>
+
+  <h5>절차 3 — 4층과 7층을 확인한다</h5>
+
+  <p class="cmdline"><code><i># 둘째 창에서</i>
+&gt; netstat -ano | findstr :8080
+  TCP    0.0.0.0:8080     0.0.0.0:0     LISTENING    35576
+  TCP    [::]:8080        [::]:0        LISTENING    35576
+
+&gt; curl -s http://localhost:8080/api/health
+{"status":"UP","version":"1.0.0","env":"dev","profile":"default","port":"8080"}</code></p>
+
+  <p>줄이 둘 나오는 것은 IPv4 와 IPv6 로 함께 듣고 있기 때문입니다 (실습 5).
+     PID 가 같으니 같은 프로그램입니다.</p>
+
+  <h5>절차 4 — 끄고 같은 것을 다시 쳐 본다</h5>
+
+  <p class="cmdline"><code>&gt; taskkill /PID 35576 /F
+성공: 프로세스(PID 35576)가 종료되었습니다.
+
+&gt; netstat -ano | findstr :8080
+<i>(아무것도 안 나옵니다)</i>
+
+&gt; ping -n 1 127.0.0.1
+127.0.0.1의 응답: 바이트=32 시간&lt;1ms TTL=128     ← <b>여전히 성공합니다</b></code></p>
+
+  <div class="warn">이것이 실습 6 표의 가운데 줄입니다. 서버를 껐는데도 핑은
+    성공합니다. 컴퓨터는 멀쩡하기 때문입니다. 망을 아무리 들여다봐도
+    원인이 안 나오는 경우가 바로 이것입니다. 포트를 한 번 보면 끝납니다.
+  </div>
+
+  <h5>절차 5 — 못 뜨는 두 경우를 구별한다</h5>
+
+  <p class="cmdline"><code><i># ① 포트가 이미 쓰이고 있을 때</i>
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+Identify and stop the process that's listening on port 8080 or
+configure this application to listen on another port.</code></p>
+
+  <p class="cmdline"><code><i># ② 내 코드가 뜨다가 죽을 때</i>
+<i>(Started … 줄이 안 나오고 예외가 찍힙니다)</i>
+Caused by: ... Exception ...</code></p>
+
+  <p>①은 4층 문제이고 ②는 내 코드 문제입니다. 가르는 기준은
+     <code>Started</code> 줄이 있는가입니다. ①의 해결은 앞 교과에서 배운
+     <code>netstat</code> 으로 PID 를 찾아 <code>taskkill</code> 하는 것입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>Port 8080 was already in use</code></td>
+        <td>앞서 띄운 것이 살아 있습니다 — 절차 5</td></tr>
+    <tr><td>로그가 안 흐르고 바로 프롬프트로 돌아온다</td>
+        <td>뜨다가 죽었습니다. 위로 올려 예외를 찾으십시오</td></tr>
+    <tr><td>띄운 창에 명령이 안 쳐진다</td>
+        <td>정상입니다. 창을 하나 더 여십시오 — 절차 1</td></tr>
+    <tr><td><code>curl</code> 이 아무 말 없이 끝난다</td>
+        <td>아직 기동 중입니다. <code>Started</code> 줄을 보고 치십시오</td></tr>
+    <tr><td>실습이 끝났는데 끄는 것을 잊었다</td>
+        <td>다음 교과에서 포트가 막힙니다. 절차 4 로 끄십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 기동 로그 세 줄, 띄웠을 때와 껐을 때의
+     <code>netstat</code> 두 장, <code>curl</code> 응답</p>
+
+  <p><b>스스로 확인</b> —
+     ① 세 줄을 찾았습니까
+     ② 껐을 때 포트가 사라지는 것을 봤습니까
+     ③ 껐는데도 핑은 되는 것을 봤습니까
+     ④ 못 뜨는 두 경우를 구별합니까</p>
+</div>
       </div>
 </div>
 
@@ -1658,6 +1774,100 @@ public class 예약컨트롤러 {
 <p><b>스프링으로 MVC 를 만드는 것</b>은
  서버프로그램 구현 교과에서 합니다.
  여기서는 「셋이 무엇을 맡는지 구별」 하면 됩니다.</p>
+      <div class="lab">
+  <b class="t">실습 10</b>
+  <b>없는 주소로 요청해 404 가 어디서 나오는지 확인한다</b>
+
+  <p><b>목적</b> — MVC 는 셋으로 나눈다는 말만 들으면 왜 나누는지 와닿지 않습니다.
+     주소와 코드가 어떻게 이어지는지 직접 보면 Controller 가 하는 일이 분명해집니다.</p>
+
+  <h5>절차 1 — 있는 주소와 없는 주소를 견준다</h5>
+
+  <p class="cmdline"><code>&gt; curl -s -o nul -w "상태 코드 %{http_code}\n" http://localhost:8080/api/health
+상태 코드 200
+
+&gt; curl -s -o nul -w "상태 코드 %{http_code}\n" http://localhost:8080/api/none
+상태 코드 404</code></p>
+
+  <p>둘 다 서버까지 갔습니다. 포트도 열려 있고 연결도 됐습니다.
+     차이는 그 주소를 받는 코드가 있느냐뿐입니다. 404 를 돌려준 것도 서버입니다.</p>
+
+  <h5>절차 2 — 주소와 코드가 이어지는 자리를 본다</h5>
+
+  <p class="cmdline"><code>@RestController
+public class 예약컨트롤러 {
+
+  @GetMapping("/api/예약")          ← 이 주소로 오면
+  public List&lt;예약&gt; 목록() {
+    return 예약저장소.전부();          ← 이 코드를 부른다
+  }
+}</code></p>
+
+  <p>실습 8 에서 센 여섯 가지 중 ③이 이것입니다. WAS 가 주소를 보고
+     어느 메서드를 부를지 정합니다. 그 표에 없는 주소로 오면 404 입니다.</p>
+
+  <h5>절차 3 — 셋이 무엇을 맡는지 구별한다</h5>
+
+  <table class="wide">
+    <tr><th style="width:130px"></th><th style="width:190px">맡는 일</th><th>이 예제에서</th></tr>
+    <tr><td>Model</td><td>자료와 그 규칙</td>
+        <td>예약 · 시설. DB 와 주고받습니다</td></tr>
+    <tr><td>View</td><td>보여 주는 모양</td><td>HTML 이나 JSON</td></tr>
+    <tr><td>Controller</td><td>받아서 시키고 넘긴다</td>
+        <td>주소를 보고 어느 Model 을 쓸지 정합니다</td></tr>
+  </table>
+
+  <p class="cmdline"><code>요청  →  Controller  →  Model  →  DB
+              │           ↓
+              └───────  View  →  응답</code></p>
+
+  <h5>절차 4 — 왜 나누는지 생각해 본다</h5>
+
+  <p>셋은 바뀌는 이유가 다릅니다. 화면 색을 바꾸는 일과 예약 규칙이 바뀌는 일은
+     서로 상관이 없습니다. 나눠 두면 한쪽만 고치면 되고, 안 나누면 한 곳을
+     고치려고 다른 곳을 지나가야 합니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:250px">이런 일이 생기면</th><th>어디만 고치나</th></tr>
+    <tr><td>화면 색과 배치를 바꾼다</td><td>View</td></tr>
+    <tr><td>예약 가능 기간이 30일에서 60일로 바뀐다</td><td>Model</td></tr>
+    <tr><td>주소를 <code>/예약</code> 에서 <code>/reserve</code> 로 바꾼다</td>
+        <td>Controller</td></tr>
+  </table>
+
+  <div class="note">앞 교과 프로그래밍 언어 응용에서 다룬 「긴 메서드」와 같은
+    이야기입니다. 한 덩이가 여러 일을 하면 고칠 때 위험합니다.
+    MVC 는 그 원칙을 웹 프로그램에 맞게 셋으로 나눈 것입니다.
+  </div>
+
+  <h5>절차 5 — 이 교과의 범위를 확인한다</h5>
+
+  <p>스프링으로 MVC 를 직접 만드는 것은 서버프로그램 구현 교과에서 합니다.
+     여기서는 셋이 무엇을 맡는지 구별하고, 주소가 코드로 이어지는 자리를
+     짚을 수 있으면 됩니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>있는 주소인데 404</td>
+        <td>철자나 대소문자를 보십시오. 슬래시 하나도 다릅니다</td></tr>
+    <tr><td>404 대신 연결이 안 된다고 나온다</td>
+        <td>서버가 안 떠 있습니다. 실습 9 로</td></tr>
+    <tr><td>500 이 나온다</td>
+        <td>주소는 맞고 코드가 터진 것입니다. WAS 로그를 보십시오</td></tr>
+    <tr><td>Model 과 View 가 헷갈린다</td>
+        <td>자료면 Model, 보이는 모양이면 View — 절차 3</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 200 과 404 를 견준 화면, MVC 셋을 구별한 표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 404 를 서버가 돌려준다는 것을 압니까
+     ② 주소가 코드로 이어지는 자리를 짚습니까
+     ③ 셋을 구별합니까
+     ④ 왜 나누는지 설명할 수 있습니까</p>
+</div>
       </div>
 </div>
 
@@ -1740,6 +1950,125 @@ public class 예약컨트롤러 {
  Read(<code>SELECT</code>) ·
  Update(<code>UPDATE</code>) ·
  Delete(<code>DELETE</code>).</p>
+      <div class="lab">
+  <b class="t">실습 11</b>
+  <b>같은 자료를 파일과 DB 에 넣어 보고 무엇이 걸러지는지 본다</b>
+
+  <p><b>목적</b> — 예약 정보를 텍스트 파일에 한 줄씩 적어도 됩니다.
+     그런데 잘못된 자료가 들어올 때 무슨 일이 생기는지가 다릅니다.
+     같은 것을 양쪽에 넣어 보면 DBMS 를 쓰는 까닭이 한눈에 보입니다.</p>
+
+  <h5>절차 1 — 파일에 적어 본다</h5>
+
+  <p class="cmdline"><code>예약.csv
+
+101,1,1,2026-10-01,10
+102,2,3,2026-10-02,8
+103,1,3,2026-10-05,12</code></p>
+
+  <p>여기에 잘못된 줄 셋을 더 붙여 보십시오. 같은 예약번호를 또 쓰고,
+     없는 시설 번호를 쓰고, 날짜 자리에 글자를 넣습니다.</p>
+
+  <p class="cmdline"><code>101,1,1,2026-10-01,10        ← 번호가 겹칩니다
+104,1,99,2026-10-09,5        ← 99번 시설은 없습니다
+105,1,1,내일,열명             ← 날짜와 인원이 글자입니다</code></p>
+
+  <p class="cmdline"><code>&gt; type 예약.csv
+101,1,1,2026-10-01,10
+102,2,3,2026-10-02,8
+103,1,3,2026-10-05,12
+101,1,1,2026-10-01,10
+104,1,99,2026-10-09,5
+105,1,1,내일,열명
+
+줄 수: 6</code></p>
+
+  <p>셋 다 아무 말 없이 들어갔습니다. 파일은 글자를 받아 적을 뿐
+     그것이 맞는지 틀린지 판단하지 않습니다.</p>
+
+  <h5>절차 2 — 같은 것을 DB 에 넣어 본다</h5>
+
+  <p class="cmdline"><code>mysql&gt; INSERT INTO reservation VALUES (101,1,1,'2026-10-01',10);
+ERROR 1062 (23000): Duplicate entry '101' for key 'reservation.PRIMARY'
+
+mysql&gt; INSERT INTO reservation VALUES (104,1,99,'2026-10-09',5);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key
+constraint fails (`sportdb`.`reservation`, CONSTRAINT `reservation_ibfk_2`
+FOREIGN KEY (`facility_id`) REFERENCES `facility` (`facility_id`))
+
+mysql&gt; INSERT INTO reservation VALUES (105,1,1,'내일','열명');
+ERROR 1292 (22007): Incorrect date value: '내일' for column 'use_date' at row 1</code></p>
+
+  <p class="cmdline"><code>mysql&gt; SELECT * FROM reservation;
++----------------+-----------+-------------+------------+-----------+
+| reservation_id | member_id | facility_id | use_date   | headcount |
++----------------+-----------+-------------+------------+-----------+
+|            101 |         1 |           1 | 2026-10-01 |        10 |
+|            102 |         2 |           3 | 2026-10-02 |         8 |
+|            103 |         1 |           3 | 2026-10-05 |        12 |
++----------------+-----------+-------------+------------+-----------+</code></p>
+
+  <p>셋 다 막혔고 표는 세 줄 그대로입니다. 파일은 여섯 줄이 되었는데
+     DB 는 아무것도 늘지 않았습니다.</p>
+
+  <h5>절차 3 — 무엇이 달랐는지 적는다</h5>
+
+  <table class="wide">
+    <tr><th style="width:230px">이런 일이 생기면</th><th style="width:170px">파일이면</th><th>DBMS 면</th></tr>
+    <tr><td>번호가 겹친다</td><td>내가 매번 검사</td><td>기본키가 막는다</td></tr>
+    <tr><td>없는 것을 가리킨다</td><td>내가 검사</td><td>외래키가 막는다</td></tr>
+    <tr><td>자료형이 안 맞는다</td><td>내가 검사</td><td>자료형이 막는다</td></tr>
+    <tr><td>둘이 동시에 고친다</td><td>한쪽이 사라진다</td><td>트랜잭션이 지킨다</td></tr>
+    <tr><td>조건에 맞는 것을 찾는다</td><td>처음부터 끝까지 읽는다</td><td>인덱스로 바로 찾는다</td></tr>
+    <tr><td>도중에 전원이 나간다</td><td>반쯤 쓰인 채 남는다</td><td>되돌린다</td></tr>
+  </table>
+
+  <div class="warn">여섯 중 넷은 파일이면 내가 직접 해야 하는 검사입니다.
+    한두 번은 빠뜨리지 않겠지만 코드가 늘어나면 반드시 빠뜨립니다.
+    DBMS 를 쓰는 까닭은 편해서가 아니라 내가 빠뜨려도 막히게 하려는 것입니다.
+  </div>
+
+  <h5>절차 4 — 말을 정리한다</h5>
+
+  <table class="wide">
+    <tr><th style="width:130px">말</th><th></th></tr>
+    <tr><td>테이블</td><td>표 하나. <code>facility</code> · <code>member</code> · <code>reservation</code></td></tr>
+    <tr><td>행</td><td>가로 한 줄. 자료 하나</td></tr>
+    <tr><td>열</td><td>세로 한 칸. 항목 하나</td></tr>
+    <tr><td>기본키</td><td>그 행을 가리키는 번호. 겹치면 안 됩니다</td></tr>
+    <tr><td>외래키</td><td>다른 표를 가리키는 칸</td></tr>
+  </table>
+
+  <h5>절차 5 — SQL 의 갈래를 안다</h5>
+
+  <p class="cmdline"><code>DDL   표를 만들고 바꾼다     CREATE · ALTER · DROP
+DML   자료를 다룬다         INSERT · SELECT · UPDATE · DELETE
+DCL   권한을 준다           GRANT · REVOKE</code></p>
+
+  <p>DML 넷이 곧 CRUD 입니다. Create 가 <code>INSERT</code>,
+     Read 가 <code>SELECT</code>, Update 가 <code>UPDATE</code>,
+     Delete 가 <code>DELETE</code> 입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>DB 가 아직 없다</td>
+        <td>실습 13 에서 만듭니다. 지금은 화면만 봐 두십시오</td></tr>
+    <tr><td>파일로도 충분해 보인다</td>
+        <td>절차 3 의 넷을 직접 만들어 보면 생각이 바뀝니다</td></tr>
+    <tr><td>오류 번호가 무슨 뜻인지 모르겠다</td>
+        <td>실습 13 에서 번호별로 정리합니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 파일과 DB 에 같은 것을 넣은 두 화면, 무엇이 달랐는지 적은 표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 파일이 무엇을 안 막는지 봤습니까
+     ② DB 가 무엇을 막는지 봤습니까
+     ③ 기본키와 외래키를 구별합니까
+     ④ DDL 과 DML 을 구별합니까</p>
+</div>
       </div>
 </div>
 
@@ -1805,6 +2134,99 @@ public class 예약컨트롤러 {
 
 <p><b>「예약」처럼 둘을 잇는 것</b>이 대개 가운데 옵니다 —
  양쪽을 가리키는 FK 가 둘입니다.</p>
+      <div class="lab">
+  <b class="t">실습 12</b>
+  <b>명사를 찾아 표로 바꾸고 관계선을 긋는다</b>
+
+  <p><b>목적</b> — ERD 는 표를 만들기 전에 그립니다. 그려 놓고 만들면
+     <code>CREATE</code> 문은 옮겨 적는 일이 되고, 안 그리면 만들다가
+     칸을 빠뜨리거나 관계를 잘못 잇습니다.</p>
+
+  <h5>절차 1 — 문장에서 명사를 찾는다</h5>
+
+  <p>만들 것을 한 문장으로 적고 명사에 밑줄을 그어 보십시오.</p>
+
+  <p class="cmdline"><code>「<b>회원</b>이 <b>시설</b>을 골라 <b>예약</b>한다」
+
+  → 회원 · 시설 · 예약  세 표가 나옵니다</code></p>
+
+  <p>동사에서 나온 명사가 대개 가운데 표가 됩니다. 예약이 그렇습니다.
+     회원과 시설을 이어 주는 자리에 놓입니다.</p>
+
+  <h5>절차 2 — 각 표의 항목을 적는다</h5>
+
+  <p class="cmdline"><code>회원    회원번호 · 아이디 · 이름
+시설    시설번호 · 이름 · 지역 · 요금 · 실내여부
+예약    예약번호 · 회원번호 · 시설번호 · 이용일 · 인원</code></p>
+
+  <h5>절차 3 — 기본키를 정하고 관계를 긋는다</h5>
+
+  <p class="cmdline"><code>┌──────────┐        ┌──────────┐        ┌──────────┐
+│  회원     │        │  예약     │        │  시설     │
+├──────────┤        ├──────────┤        ├──────────┤
+│ 회원번호 PK│───1:N──│ 예약번호 PK│──N:1───│ 시설번호 PK│
+│ 아이디  U │        │ 회원번호 FK│        │ 이름      │
+│ 이름      │        │ 시설번호 FK│        │ 지역      │
+└──────────┘        │ 이용일     │        │ 요금      │
+                    │ 인원      │        │ 실내여부   │
+                    └──────────┘        └──────────┘</code></p>
+
+  <table class="wide">
+    <tr><th style="width:110px">표시</th><th></th></tr>
+    <tr><td>PK</td><td>기본키. 그 행을 가리키는 번호</td></tr>
+    <tr><td>FK</td><td>외래키. 다른 표를 가리킵니다</td></tr>
+    <tr><td>U</td><td>유일. 겹치면 안 되는 칸</td></tr>
+    <tr><td>1:N</td><td>회원 하나가 예약 여럿을 합니다</td></tr>
+  </table>
+
+  <h5>절차 4 — 관계 셋을 구별한다</h5>
+
+  <table class="wide">
+    <tr><th style="width:110px">관계</th><th style="width:210px">보기</th><th>표로 만들면</th></tr>
+    <tr><td>1:1</td><td>회원과 회원상세</td><td>둘 중 한쪽에 FK</td></tr>
+    <tr><td>1:N</td><td>회원과 예약</td><td>N 쪽에 FK</td></tr>
+    <tr><td>N:M</td><td>시설과 편의시설</td><td>가운데 표를 하나 만듭니다</td></tr>
+  </table>
+
+  <div class="note">1:N 에서 FK 를 N 쪽에 두는 데는 이유가 있습니다.
+    회원 한 명이 예약을 열 건 할 수 있는데 회원 표에 예약번호 열 개를 넣을
+    칸을 만들 수는 없습니다. 예약 표에 회원번호 한 칸을 두면 몇 건이든 됩니다.
+    표로 1:N 을 만드는 방법은 이것뿐입니다.
+  </div>
+
+  <h5>절차 5 — 그린 것을 검산한다</h5>
+
+  <p class="cmdline"><code>□ 표마다 기본키가 있는가
+□ FK 가 가리키는 표가 실제로 있는가
+□ 1:N 에서 FK 가 N 쪽에 있는가
+□ 겹치면 안 되는 칸에 U 를 표시했는가
+□ 빠진 항목이 없는가</code></p>
+
+  <p>다섯을 대 보고 나서 실습 13 으로 갑니다. 여기서 빠뜨린 것은
+     <code>CREATE</code> 문에서도 그대로 빠집니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>표가 둘밖에 안 나온다</td>
+        <td>이어 주는 표를 빠뜨렸습니다. 동사를 보십시오 — 절차 1</td></tr>
+    <tr><td>FK 를 어디에 둘지 모르겠다</td>
+        <td>여럿인 쪽에 둡니다 — 절차 4 아래</td></tr>
+    <tr><td>N:M 이 나왔다</td>
+        <td>가운데 표를 하나 만들면 1:N 둘로 바뀝니다</td></tr>
+    <tr><td>그릴 도구가 없다</td>
+        <td>draw.io 나 종이면 됩니다. 관계선만 보이면 충분합니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — ERD 한 장(표 셋 이상, PK · FK · 관계선 포함)</p>
+
+  <p><b>스스로 확인</b> —
+     ① 명사에서 표를 뽑았습니까
+     ② 표마다 기본키가 있습니까
+     ③ FK 가 N 쪽에 있습니까
+     ④ 다섯 가지로 검산했습니까</p>
+</div>
       </div>
 </div>
 
