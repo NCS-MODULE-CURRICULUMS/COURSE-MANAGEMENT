@@ -101,8 +101,13 @@ if no_alt:
     warn.append(f"alt 가 없는 그림 {no_alt}개")
 
 # ── 3. 링크한 파일이 있는가 ──────────────────────────────
+# 코드 블록 «안» 의 href 는 보기로 적은 것이지 실제 링크가 아니다.
+# 그대로 세면 m03 처럼 마크업을 가르치는 교안에서 전부 「대상 없음」 이 된다.
+s_links = re.sub(r"<pre>.*?</pre>", " ", s, flags=re.S)
+s_links = re.sub(r'<p class="cmdline">.*?</p>', " ", s_links, flags=re.S)
+s_links = re.sub(r"<code>.*?</code>", " ", s_links, flags=re.S)
 for href in sorted(set(re.findall(
-        r'(?:src|href)="((?!https?:|#|javascript:|mailto:)[^"]+)"', s))):
+        r'(?:src|href)="((?!https?:|#|javascript:|mailto:)[^"]+)"', s_links))):
     t = href.split("#")[0].split("?")[0]
     if t and not (PAGE.parent / t).exists():
         bad.append(f"대상 없음: {href}")
