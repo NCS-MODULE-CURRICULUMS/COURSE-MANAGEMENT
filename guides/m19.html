@@ -189,6 +189,28 @@
 JDK       21
 개발도구   IDE 하나 (Eclipse · IntelliJ · VS Code 가운데 하나)</code></p>
 
+<h4>학습 내용 «2-1 운영체제 설치» 에 대하여</h4>
+
+<p>학습모듈의 <b>2-1 은 「운영체제 설치」</b> 입니다.
+   빈 장비에 운영체제를 새로 얹는 일을 다룹니다.
+   <b>이 교안은 그것을 실습으로 넣지 않았습니다.</b> 까닭은 둘입니다.</p>
+
+<table class="wide">
+  <tr><th style="width:230px">까닭</th><th></th></tr>
+  <tr><td>쓰는 컴퓨터에 <b>이미 깔려 있습니다</b></td>
+      <td>지우고 다시 깔면 <b>남은 실습을 못 합니다</b></td></tr>
+  <tr><td><b>되돌릴 수 없습니다</b></td>
+      <td>잘못되면 컴퓨터를 <b>못 쓰게</b> 됩니다.
+          수업에서 시킬 일이 아닙니다</td></tr>
+</table>
+
+<p>대신 <b>2-1 이 요구하는 «판단» 은 실습 2 와 11 에서 합니다</b> —
+   <b>어떤 운영체제가 이 장비에 맞는지 식별하고</b>,
+   <b>그에 맞는 설치본을 고르는</b> 일입니다.
+   실제로 깔아 보고 싶으면
+   <b>가상 머신(VirtualBox 등)에 리눅스를 얹어 보는 것</b>이 안전합니다 —
+   <b>내 컴퓨터는 그대로 두고</b> 같은 절차를 겪을 수 있습니다.</p>
+
 <p>학습모듈은 윈도우와 리눅스를 <b>나란히</b> 다룹니다.
    이 교안은 <b>윈도우</b>로 따라 하고,
    <b>리눅스에서는 무엇이 다른지</b>를 표로 함께 적어 둡니다.
@@ -2515,6 +2537,148 @@ native.encoding=<b>MS949</b></code></p>
   <b>이름이 비슷해 <code>file.encoding</code> 부터 건드리게 되는데</b>
   <b>화면 깨짐에는 소용이 없습니다.</b>
 </div>
+      <div class="lab">
+  <b class="t">실습 13</b>
+  <b>한 번은 «손으로» 합니다 — IDE 가 무엇을 대신하는지 보입니다</b>
+
+  <p><b>목적</b> — IDE 는 버튼 하나로 다 해 줍니다.
+     편하지만 <b>무슨 일이 일어나는지 안 보입니다.</b>
+     <b>한 번만 손으로 해 두면</b> 뒤에서 오류가 났을 때 <b>어디를 볼지</b> 압니다.</p>
+
+  <h5>절차 1 — 두 걸음입니다</h5>
+
+  <p class="cmdline"><code>Hello.java   <i>(사람이 쓴 글)</i>
+   │
+   │  <b>javac Hello.java</b>       ← 컴파일
+   ▼
+Hello.class  <i>(컴퓨터가 읽는 것)</i>
+   │
+   │  <b>java Hello</b>             ← 실행  (<b>.class 를 «안» 붙입니다</b>)
+   ▼
+화면에 출력</code></p>
+
+  <h5>절차 2 — 파일을 씁니다</h5>
+
+  <p class="cmdline"><code>public class <b>Hello</b> {
+  public static void main(String[] args) {
+    System.out.println("안녕하세요, 개발자 환경 구축입니다.");
+    System.out.println("자바 판 : " + System.getProperty("java.version"));
+  }
+}</code></p>
+
+  <p><b>파일 이름은 <code>Hello.java</code></b> 여야 합니다 —
+     <b><code>public class</code> 뒤의 이름과 «똑같이»</b>.
+     메모장으로 저장할 때 <b>「모든 파일」 을 고르지 않으면</b>
+     <code>Hello.java<b>.txt</b></code> 가 됩니다.</p>
+
+  <h5>절차 3 — 돌립니다</h5>
+
+  <p class="cmdline"><code>&gt; javac -encoding UTF-8 Hello.java
+&gt; dir /b
+<b>Hello.class</b>
+Hello.java
+
+&gt; java Hello
+안녕하세요, 개발자 환경 구축입니다.
+자바 판 : 21.0.2</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">보는 것</th><th></th></tr>
+    <tr><td><code>Hello.class</code> 가 <b>생겼는가</b></td>
+        <td>없으면 <b>컴파일이 실패</b>했습니다 — 오류 메시지를 보십시오</td></tr>
+    <tr><td>판이 <b>21.0.2</b> 인가</td>
+        <td>실습 11 의 <code>java -version</code> 과 <b>같아야</b> 합니다</td></tr>
+  </table>
+
+  <p><code>-encoding UTF-8</code> 은 <b>「이 «소스 파일» 이 UTF-8 로 적혀 있다」</b> 는 뜻입니다.
+     한글이 든 파일이면 <b>붙이는 편이 안전합니다.</b></p>
+
+  <h5>절차 4 — 이름을 «틀리게» 쳐 봅니다</h5>
+
+  <p class="cmdline"><code>&gt; java hello
+<b>Error: Could not find or load main class hello</b>
+Caused by: java.lang.NoClassDefFoundError: hello (<b>wrong name: Hello</b>)</code></p>
+
+  <div class="warn"><b>자바는 대문자와 소문자를 «가립니다».</b>
+    <code>Hello</code> 와 <code>hello</code> 는 <b>다른 이름</b>입니다.
+    그런데 <b>윈도우는 «파일 이름» 에서 대소문자를 안 가립니다</b> —
+    그래서 <b>파일은 열리는데 자바는 못 찾는</b> 일이 생깁니다.<br>
+    <code>wrong name:</code> <b>뒤에 맞는 이름이 친절하게 나옵니다</b> —
+    그대로 치면 됩니다.
+  </div>
+
+  <h5>절차 5 — 한글이 깨지면</h5>
+
+  <p class="cmdline"><code>&gt; chcp 65001
+&gt; java Hello
+<b>�ȳ��ϼ���, ������ ȯ�� �����Դϴ�.</b></code></p>
+
+  <p>왜 그런지 <b>자바에게 직접 물어보면</b> 나옵니다.</p>
+
+  <p class="cmdline"><code>System.getProperty("file.encoding")    → <b>UTF-8</b>
+System.getProperty("stdout.encoding")  → <b>MS949</b>   ← 화면에 내보낼 때 «이것»
+System.getProperty("native.encoding")  → <b>MS949</b></code></p>
+
+  <table class="wide">
+    <tr><th style="width:290px">고치는 법</th><th>결과</th></tr>
+    <tr><td><code>chcp 949</code> 로 되돌리기</td>
+        <td><b>됩니다</b> — 가장 간단합니다</td></tr>
+    <tr><td><code>java <b>-Dfile.encoding=UTF-8</b> Hello</code></td>
+        <td><b>안 됩니다</b></td></tr>
+    <tr><td><code>java <b>-Dstdout.encoding=UTF-8</b> Hello</code></td>
+        <td><b>됩니다</b></td></tr>
+  </table>
+
+  <div class="note"><b>셋을 다 재 본 결과입니다.</b>
+    <code>file.encoding</code> 은 <b>파일을 읽고 쓸 때</b>의 규칙,
+    <code>stdout.encoding</code> 이 <b>화면에 내보낼 때</b>의 규칙입니다.
+    <b>이름이 비슷해 <code>file.encoding</code> 부터 건드리게 되는데</b>
+    <b>화면 깨짐에는 소용이 없습니다.</b><br>
+    <b>가장 쉬운 답은 <code>chcp 949</code></b> 입니다.
+  </div>
+
+  <h5>절차 6 — IDE 가 무엇을 대신하는지 적습니다</h5>
+
+  <p class="cmdline"><code>내가 한 것                    IDE 는
+--------------------------  --------------------------------
+메모장으로 씀                 편집기 — 오타를 색으로 알려 줍니다
+javac 를 침                   저장할 때 «알아서» 합니다
+java 를 침                    실행 단추 하나
+dir 로 .class 확인            안 보여 줍니다 (뒤에서 합니다)
+오류 줄 번호를 찾아 감          <b>눌러서</b> 그 줄로 갑니다</code></p>
+
+  <p><b>IDE 가 «새로운 일» 을 하는 것이 아닙니다.</b>
+     <b>같은 것을 대신</b> 해 줄 뿐입니다 —
+     그래서 <b>IDE 가 이상할 때 손으로 해 보면 원인이 보입니다.</b></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>Could not find or load main class</code></td>
+        <td><b>대소문자</b>를 보십시오 — 절차 4</td></tr>
+    <tr><td><code>class Hello is public, should be declared
+        in a file named Hello.java</code></td>
+        <td><b>파일 이름</b>과 클래스 이름이 다릅니다 — 절차 2</td></tr>
+    <tr><td><code>Hello.java.txt</code> 로 저장됨</td>
+        <td>메모장에서 <b>「모든 파일」</b> 을 고르고 저장하십시오</td></tr>
+    <tr><td><code>Hello.class</code> 가 <b>안 생김</b></td>
+        <td>컴파일이 실패했습니다. <b>오류 메시지의 줄 번호</b>를 보십시오</td></tr>
+    <tr><td>한글이 <b>깨짐</b></td>
+        <td><code>chcp 949</code> — 절차 5</td></tr>
+    <tr><td><code>java Hello.class</code> 로 쳐서 오류</td>
+        <td><b><code>.class</code> 를 안 붙입니다</b> — 절차 1</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>javac</code> → <code>dir</code> → <code>java</code> 한 화면 +
+     <b>이름을 틀렸을 때</b> 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>.class</code> 가 <b>생겼습니까</b>
+     ② 판이 실습 11 과 <b>같습니까</b>
+     ③ <b>대소문자 오류</b>를 겪어 봤습니까
+     ④ IDE 가 <b>무엇을 대신</b> 하는지 적었습니까</p>
+</div>
       </div>
 </div>
 
@@ -2601,6 +2765,124 @@ native.encoding=<b>MS949</b></code></p>
   <tr><td>빌드 (Ant · Gradle)</td><td>묶기</td><td>애플리케이션 배포</td></tr>
   <tr><td>Jenkins</td><td>자동 배포</td><td>애플리케이션 배포</td></tr>
 </table>
+      <div class="lab">
+  <b class="t">실습 14</b>
+  <b>IDE 가 «어느 JDK» 를 쓰는지 봅니다 — 창마다 다를 수 있습니다</b>
+
+  <p><b>목적</b> — IDE 를 깔고 <b>같은 코드를 돌려</b>
+     실습 13 과 <b>결과가 같은지</b> 봅니다.
+     <b>다르면 IDE 가 다른 JDK 를 쓰고 있습니다</b> —
+     이 과정 내내 사람을 헷갈리게 하는 자리입니다.</p>
+
+  <h5>절차 1 — 하나를 고릅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px">IDE</th><th style="width:80px">무게</th><th></th></tr>
+    <tr><td><b>Eclipse</b></td><td>중</td>
+        <td>학습모듈의 기본 예시. <b>자바만 하려면 무난합니다</b></td></tr>
+    <tr><td><b>IntelliJ IDEA</b></td><td>중</td>
+        <td>Community 판이 무료입니다. <b>자동 완성이 좋습니다</b></td></tr>
+    <tr><td>VS Code</td><td>가벼움</td>
+        <td><b>확장을 따로</b> 깔아야 자바가 됩니다</td></tr>
+  </table>
+
+  <p><b>무엇을 골랐느냐보다 «골랐다는 것을 적었느냐»</b> 가 중요합니다.
+     <b>조에서 같은 것을 쓰면</b> 서로 도와주기가 쉽습니다.</p>
+
+  <h5>절차 2 — 같은 코드를 «IDE 에서» 돌립니다</h5>
+
+  <p class="cmdline"><code>① 새 프로젝트를 만듭니다
+② 실습 13 의 <b>Hello.java 를 그대로</b> 넣습니다
+③ 실행 단추를 누릅니다
+④ 아래 «콘솔» 창에 나온 것을 봅니다</code></p>
+
+  <p class="cmdline"><code><i># 이렇게 나와야 합니다 — 실습 13 과 «같은» 두 줄</i>
+안녕하세요, 개발자 환경 구축입니다.
+자바 판 : <b>21.0.2</b></code></p>
+
+  <div class="note"><b>IDE 가 «대신» <code>javac</code> 와 <code>java</code> 를 부른 것입니다.</b>
+    새로운 일을 하는 것이 아니므로 <b>결과도 같아야</b> 합니다.
+    <b>판 숫자가 다르게 나오면</b> 절차 3 입니다.
+  </div>
+
+  <h5>절차 3 — 판이 다르면 «어느 JDK» 를 쓰는지 봅니다</h5>
+
+  <p><b>가장 자주 막히는 자리</b>입니다.
+     명령 프롬프트에서는 21 인데 <b>IDE 안에서는 17</b> 인 일이 흔합니다.
+     IDE 는 <b>자기가 아는 JDK 목록</b>을 따로 갖고 있기 때문입니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:150px">IDE</th><th>보는 곳</th></tr>
+    <tr><td>Eclipse</td>
+        <td>Window → Preferences → Java → <b>Installed JREs</b></td></tr>
+    <tr><td>IntelliJ</td>
+        <td>File → Project Structure → <b>Project SDK</b></td></tr>
+    <tr><td>VS Code</td>
+        <td>설정에서 <code>java.jdt.ls.java.home</code></td></tr>
+  </table>
+
+  <p class="cmdline"><code>여기 적힌 자리   ↔   where java 의 결과
+
+C:\jdk-21.0.2        ↔   C:\jdk-21.0.2\bin\java.exe      <b>같습니다</b></code></p>
+
+  <div class="warn"><b>다르면 «같은 코드가 창에 따라 다르게» 돕니다.</b>
+    명령 프롬프트에서는 되는데 IDE 에서는 안 되고,
+    <b>원인을 코드에서 찾다가 하루가 갑니다.</b>
+    <b>IDE 를 깔자마자 이 한 번을 확인</b>해 두십시오.
+  </div>
+
+  <h5>절차 4 — 확인서 IDE 칸을 채웁니다</h5>
+
+  <p class="cmdline"><code>개발도구    IDE           (고른 것) (판)       도움말 &gt; 정보
+개발도구    IDE 의 JDK    C:\jdk-21.0.2        IDE 설정 화면</code></p>
+
+  <p><b>판까지 적으십시오.</b>
+     IDE 는 판마다 <b>필요한 JDK 가 다릅니다</b> —
+     「이클립스」 라고만 적으면 <b>다시 만들 수가 없습니다</b> (실습 15).</p>
+
+  <h5>절차 5 — 한 벌로 움직이는 것들을 훑어 둡니다</h5>
+
+  <p>지금 다 깔 필요는 <b>없습니다.</b> 뒤 교과에서 하나씩 만납니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:170px">구성 요소</th><th style="width:170px">하는 일</th><th>만나는 교과</th></tr>
+    <tr><td><b>JDK</b></td><td>만들고 돌리기</td><td><b>이 교과</b></td></tr>
+    <tr><td><b>IDE</b></td><td>편집 · 빌드 · 실행</td><td><b>이 교과</b></td></tr>
+    <tr><td>형상관리 (Git)</td><td>소스 관리</td><td>개발 환경 운영 지원</td></tr>
+    <tr><td>DBMS</td><td>자료 저장</td><td>데이터베이스 구현</td></tr>
+    <tr><td>WAS (Tomcat)</td><td>웹 요청 처리</td><td>서버프로그램 구현</td></tr>
+    <tr><td>빌드 (Gradle)</td><td>묶기</td><td>애플리케이션 배포</td></tr>
+    <tr><td>Jenkins</td><td>자동 배포</td><td>애플리케이션 배포</td></tr>
+  </table>
+
+  <p><b>이 표가 이 교과의 «자리» 를 보여 줍니다.</b>
+     맨 위 둘을 여기서 깔고, <b>나머지는 그 위에 얹힙니다.</b></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>IDE 가 <b>JDK 를 못 찾는다</b>고 함</td>
+        <td>절차 3 의 설정에서 <b>손으로 자리를 알려</b> 주십시오</td></tr>
+    <tr><td>판이 <b>다르게</b> 나옴</td><td>절차 3</td></tr>
+    <tr><td>콘솔 한글이 <b>깨짐</b></td>
+        <td>IDE 설정에서 <b>인코딩을 UTF-8</b> 로.
+            실습 13 의 <code>chcp</code> 와 <b>비슷한 문제</b>입니다</td></tr>
+    <tr><td>IDE 가 <b>무겁다</b></td>
+        <td>VS Code 로 바꾸되 <b>확장을 깔아야</b> 합니다 — 절차 1</td></tr>
+    <tr><td>설치에 <b>디스크가 모자람</b></td>
+        <td>실습 2 — <b>2 GB</b> 는 비워 두십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — IDE 콘솔에 <b>실습 13 과 같은 두 줄</b> +
+     <b>IDE 가 쓰는 JDK 설정</b> 화면 + 확인서 <b>IDE 칸</b></p>
+
+  <p><b>스스로 확인</b> —
+     ① 결과가 <b>실습 13 과 같습니까</b>
+     ② IDE 의 JDK 가 <code>where java</code> 와 <b>같습니까</b>
+     ③ 확인서에 <b>판까지</b> 적었습니까
+     ④ <b>뒤에 무엇이 얹히는지</b> 압니까</p>
+</div>
       </div>
 </div>
 
@@ -2672,6 +2954,130 @@ native.encoding=<b>MS949</b></code></p>
   <b>오류를 읽을 줄 안다는 증거</b>가 됩니다.
   성공 화면만 있으면 <b>한 번에 됐다는 뜻이 아니라 «안 해 봤다» 는 뜻</b>으로도 읽힙니다.
 </div>
+      <div class="lab">
+  <b class="t">실습 15</b>
+  <b>「이 표만 들고 다시 만들 수 있는가」 로 검산합니다</b>
+
+  <p><b>목적</b> — 확인서는 <b>내가 보려고 쓰는 것이 아닙니다.</b>
+     <b>남이 이 표만 보고 같은 환경을 만들 수 있어야</b> 합니다.
+     그 기준으로 <b>한 줄씩 대 보면</b> 빈 곳이 드러납니다.</p>
+
+  <h5>절차 1 — 모아 둔 파일에서 «옮겨» 옵니다</h5>
+
+  <p>실습 10 에서 <code>환경.txt</code> 를 만들어 두었으면 <b>다시 칠 것이 없습니다.</b></p>
+
+  <p class="cmdline"><code>&gt; type 환경.txt
+
+Microsoft Windows [Version 10.0.26200.9457]
+openjdk version "21.0.2" 2024-01-16
+OpenJDK Runtime Environment (build 21.0.2+13-58)
+OpenJDK 64-Bit Server VM (build 21.0.2+13-58, mixed mode, sharing)
+C:\jdk-21.0.2\bin\java.exe</code></p>
+
+  <p><b>복사해 붙이십시오.</b> 손으로 치면 <b>오타가 납니다</b> —
+     <code>21.0.2</code> 를 <code>21.2.0</code> 으로 적는 일이 흔합니다.</p>
+
+  <h5>절차 2 — 아홉 줄을 채웁니다</h5>
+
+  <p class="cmdline"><code>구축 확인서                                작성 2026-09-21 · 홍길동
+
+구분        항목            값                         확인한 명령
+----------  --------------  -------------------------  ------------------
+운영체제    이름            Microsoft Windows 11 Home  systeminfo
+운영체제    판              10.0.26200.9457            ver
+운영체제    종류            x64-based PC               systeminfo
+개발도구    JDK             openjdk 21.0.2             java -version
+개발도구    컴파일러        javac 21.0.2               javac -version
+개발도구    설치 자리       C:\jdk-21.0.2              where java
+개발도구    IDE             (고른 것과 판)             도움말 &gt; 정보
+환경변수    PATH 에 들어감  C:\jdk-21.0.2\bin          where java
+환경변수    JAVA_HOME       C:\jdk-21.0.2              echo %JAVA_HOME%</code></p>
+
+  <h5>절차 3 — 네 가지로 «검산» 합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">이런 칸이 있으면</th><th>다시 못 만듭니다</th></tr>
+    <tr><td>판이 <b>「최신」</b> 이라고만</td>
+        <td><b>몇 달 뒤의 최신은 다릅니다.</b> <code>21.0.2</code> 로</td></tr>
+    <tr><td>설치 자리가 <b>비어 있음</b></td>
+        <td>어디에 깔지 모릅니다. <b><code>where</code> 의 결과</b>를 그대로</td></tr>
+    <tr><td>IDE 가 <b>「이클립스」</b> 라고만</td>
+        <td><b>판</b>을 적으십시오</td></tr>
+    <tr><td><b>확인한 명령</b> 칸이 비어 있음</td>
+        <td><b>다시 재 볼 수가</b> 없습니다</td></tr>
+  </table>
+
+  <div class="note"><b>「확인한 명령」 칸이 이 표의 값어치입니다.</b>
+    값만 아홉 줄 적어 놓으면 <b>어디서 가져온 숫자인지</b> 알 수 없습니다.
+    <b>명령을 함께 적어 두면 채점자가 그 자리에서 다시 쳐 볼 수 있습니다.</b>
+    「내 컴퓨터 속성에서 봤습니다」 는 <b>다시 해 볼 수가 없습니다.</b>
+  </div>
+
+  <h5>절차 4 — 화면 일곱 장을 자리에 놓습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:44px"></th><th style="width:250px">찍을 것</th><th>어느 실습</th></tr>
+    <tr><td class="c">1</td><td><code>ver</code> · <code>systeminfo</code></td><td>실습 4</td></tr>
+    <tr><td class="c">2</td><td><code>tree /f</code> (<b>선이 안 깨진 것</b>)</td><td>실습 5</td></tr>
+    <tr><td class="c">3</td><td><code>rd</code> 가 <b>실패한</b> 화면</td><td>실습 6</td></tr>
+    <tr><td class="c">4</td><td><code>netstat</code> → <code>tasklist</code> → <code>taskkill</code></td>
+        <td>실습 9</td></tr>
+    <tr><td class="c">5</td><td><code>java</code> · <code>javac</code> · <code>where</code> <b>세 줄</b></td>
+        <td>실습 11</td></tr>
+    <tr><td class="c">6</td><td><code>echo %JAVA_HOME%</code> (<b>새 창에서</b>)</td><td>실습 12</td></tr>
+    <tr><td class="c">7</td><td><code>javac</code> → <code>java</code> → 출력</td><td>실습 13</td></tr>
+  </table>
+
+  <div class="warn"><b>실패 화면을 «한 장» 꼭 넣으십시오.</b>
+    <code>java hello</code> 의 <code>wrong name: Hello</code> 나
+    <code>rd</code> 의 <code>디렉터리가 비어 있지 않습니다</code> 같은 것입니다.
+    <b>오류를 읽을 줄 안다는 증거</b>가 됩니다.<br>
+    <b>성공 화면만 있으면</b> 「한 번에 됐다」 가 아니라
+    <b>「안 해 봤다」</b> 로도 읽힙니다.
+  </div>
+
+  <h5>절차 5 — 남에게 «넘겨» 봅니다</h5>
+
+  <p><b>가장 확실한 검산</b>입니다.
+     <b>표만 주고</b> 옆 사람에게 물어보십시오 —
+     <b>「이걸로 네 컴퓨터에 같은 걸 만들 수 있겠어?」</b></p>
+
+  <p class="cmdline"><code>되묻는 질문                        빠진 칸
+--------------------------------  ------------------
+「자바 몇 비트짜리 받아?」            <b>운영체제 종류</b>
+「어디에 깔면 돼?」                  <b>설치 자리</b>
+「JAVA_HOME 은 뭐로 잡아?」          <b>환경변수</b>
+「이클립스 어느 버전?」               <b>IDE 판</b></code></p>
+
+  <p><b>되묻는 질문이 나오면 그 답이 표에 빠진 것</b>입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>값을 <b>어디서 가져올지</b> 모르겠음</td>
+        <td>「확인한 명령」 칸을 <b>그대로 쳐</b> 보십시오</td></tr>
+    <tr><td><code>환경.txt</code> 를 <b>안 만들었음</b></td>
+        <td>지금 만드십시오 (실습 10 절차 3) — 한 줄이면 됩니다</td></tr>
+    <tr><td>화면을 <b>안 찍어 뒀음</b></td>
+        <td>실습 5 · 6 · 9 · 13 은 <b>다시 해야</b> 합니다.
+            각각 오 분이면 됩니다</td></tr>
+    <tr><td><b>실패 화면</b>이 없음</td>
+        <td><code>java hello</code> 한 번이면 됩니다 (실습 13)</td></tr>
+    <tr><td>표가 <b>너무 짧아</b> 보임</td>
+        <td><b>아홉 줄이면 됩니다.</b> 길다고 좋은 것이 아닙니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 구축 확인서 <b>1장</b>(아홉 줄 · 확인한 명령 포함) +
+     화면 <b>일곱 장</b>(실패 한 장 포함)</p>
+
+  <p><b>스스로 확인</b> —
+     ① 값을 <b>복사</b>해 왔습니까
+     ② <b>확인한 명령</b> 칸이 다 찼습니까
+     ③ 판과 자리를 <b>구체적으로</b> 적었습니까
+     ④ <b>실패 화면</b>이 있습니까
+     ⑤ 남에게 <b>넘겨</b> 봤습니까</p>
+</div>
       </div>
 </div>
 
@@ -2718,6 +3124,120 @@ native.encoding=<b>MS949</b></code></p>
 <p><b>띄워 둔 것을 안 끄면</b> 다음 교과에서
    <b>「포트가 이미 쓰이고 있습니다」</b> 로 막힙니다.
    <b>끝내면서 끄는 습관</b>을 이 교과에서 들이십시오.</p>
+      <div class="lab">
+  <b class="t">실습 16</b>
+  <b>여덟 줄로 세고, 띄운 것을 끄고 냅니다</b>
+
+  <p><b>목적</b> — 능력단위요소 <b>둘</b>이 다 채워졌는지
+     <b>근거 화면을 대 보며</b> 셉니다.
+     <b>근거를 못 대는 줄이 곧 안 한 것</b>입니다.</p>
+
+  <h5>절차 1 — 여덟 줄로 셉니다</h5>
+
+  <p class="cmdline"><code>요소  할 수 있어야 하는 것            근거 화면       확인
+----  ------------------------------  --------------  ----
+ ①    운영체제를 «식별» 한다            실습 4
+ ①    «기본 명령어» 를 CLI 에서 쓴다     실습 5 · 6
+ ①    같은 것을 «GUI» 로도 본다         실습 7
+ ①    «환경변수 · 프로세스 · 기록»       실습 8 · 9 · 10
+ ②    «JDK 를 설치» 하고 확인한다       실습 11
+ ②    «환경변수를 잡는다»               실습 12
+ ②    «만들고 돌린다»                   실습 13
+ ②    «개발도구를 쓴다»                 실습 14</code></p>
+
+  <p><b>「확인」 칸에 ○ 를 치면서</b> 근거 화면이 <b>정말 있는지</b> 보십시오.
+     <b>기억으로 치지 말고</b> 폴더를 열어 <b>파일이 있는지</b> 보십시오.</p>
+
+  <h5>절차 2 — 넷을 확인합니다</h5>
+
+  <p class="cmdline"><code>① 확인서의 <b>아홉 칸</b>이 다 찼는가
+② 칸마다 <b>확인한 명령</b>이 적혀 있는가
+③ 화면에 <b>친 명령이 같이</b> 보이는가
+④ <b>실패 화면</b>이 한 장 있는가</code></p>
+
+  <h5>절차 3 — 띄운 것을 «끕니다»</h5>
+
+  <p class="cmdline"><code>&gt; netstat -ano | findstr LISTENING
+<i># 내가 띄운 것이 있으면 PID 를 찾아 끕니다 (실습 9)</i>
+
+&gt; taskkill /PID 24988 /F
+성공: 프로세스(PID 24988)가 종료되었습니다.</code></p>
+
+  <div class="warn"><b>안 끄고 다음 교과로 가면 반드시 막힙니다.</b>
+    <b>「포트가 이미 사용 중입니다」</b> 가 나오는데,
+    원인이 <b>지난 시간에 띄운 것</b>이라 <b>찾기가 어렵습니다.</b>
+    <b>끝내면서 끄는 습관</b>을 이 교과에서 들이십시오 —
+    뒤 교과들이 전부 <b>포트를 씁니다.</b>
+  </div>
+
+  <h5>절차 4 — 연습한 것을 정리합니다</h5>
+
+  <p class="cmdline"><code>&gt; dir /b 연습            ← <b>지우기 전에 한 번 봅니다</b> (실습 6)
+build
+docs
+
+&gt; rd /s /q 연습
+&gt; dir /b 연습
+지정된 경로를 찾을 수 없습니다.     ← <b>지워졌습니다</b></code></p>
+
+  <p><b>제출물은 먼저 옮겨 두고</b> 지우십시오.
+     <code>연습</code> 안에 화면을 저장해 두었다면 <b>같이 사라집니다.</b></p>
+
+  <h5>절차 5 — 냅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">내는 것</th><th></th></tr>
+    <tr><td><b>구축 확인서</b></td><td>아홉 줄 · 확인한 명령 포함</td></tr>
+    <tr><td><b>화면</b></td><td>일곱 장 · <b>실패 한 장 포함</b></td></tr>
+  </table>
+
+  <p><b>파일 이름에 이름을 넣으십시오</b> —
+     <code>개발자환경구축_확인서_홍길동.docx</code> 처럼.</p>
+
+  <h5>절차 6 — 이 교과가 «뒤에서 다시» 나오는 자리</h5>
+
+  <p>여기서 익힌 것이 <b>뒤 교과의 어디에서 다시 나오는지</b> 적어 두면
+     <b>왜 배웠는지</b>가 분명해집니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:230px">여기서 배운 것</th><th>다시 만나는 곳</th></tr>
+    <tr><td><code>netstat</code> → <code>taskkill</code></td>
+        <td><b>거의 모든 교과</b> — 서버를 띄울 때마다</td></tr>
+    <tr><td><code>PATH</code> · <code>where</code></td>
+        <td>「그런 명령이 없습니다」 가 날 때마다</td></tr>
+    <tr><td><code>2&gt;&amp;1</code> · 종료 코드</td>
+        <td>애플리케이션 배포 — 빌드 스크립트</td></tr>
+    <tr><td>대소문자 · 인코딩</td>
+        <td>화면 구현 · 데이터베이스 구현</td></tr>
+    <tr><td>확인서 쓰는 법</td>
+        <td><b>모든 교과</b> — 「다시 만들 수 있게 적는 일」</td></tr>
+  </table>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>근거를 <b>못 대는</b> 줄이 있음</td>
+        <td><b>안 한 것</b>입니다. 그 실습으로 돌아가십시오</td></tr>
+    <tr><td>화면을 <b>같이 지웠음</b></td>
+        <td>다시 해야 합니다 — 절차 4.
+            <b>제출물을 먼저 옮기십시오</b></td></tr>
+    <tr><td>띄운 것이 <b>안 꺼짐</b></td>
+        <td><code>/F</code> 를 붙이십시오 (실습 9)</td></tr>
+    <tr><td>무엇을 냈는지 <b>헷갈림</b></td>
+        <td>낼 것은 <b>둘</b>입니다 — 절차 5</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <b>구축 확인서</b> + <b>화면 일곱 장</b> +
+     여덟 줄 <b>자가 점검표</b></p>
+
+  <p><b>스스로 확인</b> —
+     ① 여덟 줄에 <b>근거 화면</b>을 다 댔습니까
+     ② 화면에 <b>친 명령</b>이 보입니까
+     ③ <b>실패 화면</b>이 있습니까
+     ④ 띄운 것을 <b>껐습니까</b>
+     ⑤ 제출물을 <b>먼저 옮기고</b> 지웠습니까</p>
+</div>
       </div>
 </div>
 
