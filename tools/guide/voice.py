@@ -75,7 +75,9 @@ def audit(mod):
         found.append(("겹낫표", n, "산문에서 «» 로 강조했습니다 — 대부분 지웁니다"))
 
     # ── 2. 줄표 ────────────────────────────────────────
-    n = sum(p.count("—") for _, p in para)
+    # 「목적 — 」「제출물 — 」「스스로 확인 — 」 은 양식이라 세지 않는다
+    라벨 = re.compile(r"^(목적|제출물|스스로 확인)\s*—\s*")
+    n = sum(라벨.sub("", p).count("—") for _, p in para)
     if n > len(para) * 0.15:
         found.append(("줄표", n,
                       f"산문 {len(para)}문단에 — 가 {n}번 — 마침표로 끊으십시오"))
