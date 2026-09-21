@@ -905,6 +905,98 @@ Addresses:  2606:4700:10::6814:179a
 </table>
 
 <p><b>세 걸음이면 DNS 인지 아닌지 갈립니다.</b></p>
+      <div class="lab">
+  <b class="t">실습 5</b>
+  <b>이름을 주소로 바꿔 보고, 한 이름에 주소가 여럿인 것을 본다</b>
+
+  <p><b>목적</b> — 사람은 <code>example.com</code> 을 치고 컴퓨터는
+     <code>104.20.23.154</code> 를 씁니다. 그 사이를 DNS 가 잇습니다.
+     직접 물어보면 무슨 일이 일어나는지 보입니다.</p>
+
+  <h5>절차 1 — 이름을 주소로 바꿔 본다</h5>
+
+  <p class="cmdline"><code>&gt; nslookup example.com 8.8.8.8
+
+서버:    UnKnown
+Address:  8.8.8.8
+
+이름:    example.com
+Addresses:  2606:4700:10::6814:179a
+	  2606:4700:10::ac42:93f3
+	  104.20.23.154
+	  172.66.147.243</code></p>
+
+  <p>뒤에 붙인 <code>8.8.8.8</code> 은 물어볼 DNS 서버입니다. 안 붙이면
+     내 컴퓨터에 설정된 DNS 에 물어봅니다. 둘을 번갈아 해 보면
+     내 설정이 문제인지 가릴 수 있습니다.</p>
+
+  <h5>절차 2 — 결과를 읽는다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">보이는 것</th><th></th></tr>
+    <tr><td><code>서버: UnKnown</code></td>
+        <td>물어본 DNS 서버의 이름을 모른다는 뜻입니다. 정상입니다</td></tr>
+    <tr><td>주소가 넷</td>
+        <td>한 이름에 주소가 여럿일 수 있습니다.
+            들어오는 요청을 나눠 받으려고 그렇게 둡니다</td></tr>
+    <tr><td><code>2606:4700:…</code></td>
+        <td>IPv6 주소입니다. 콜론으로 나뉩니다</td></tr>
+    <tr><td><code>104.20.23.154</code></td>
+        <td>IPv4 주소입니다. 점으로 나뉩니다</td></tr>
+  </table>
+
+  <p>IPv4 가 모자라서 IPv6 를 만들었고 지금은 둘이 같이 쓰입니다.
+     앞 교과에서 <code>netstat</code> 결과가 줄이 둘씩 나온 것도 이 때문입니다.
+     같은 프로그램이 두 방식으로 함께 기다리고 있었습니다.</p>
+
+  <h5>절차 3 — 내 DNS 로도 물어본다</h5>
+
+  <p class="cmdline"><code>&gt; nslookup example.com</code></p>
+
+  <p>주소가 같게 나오면 내 DNS 설정에 문제가 없습니다. 하나는 되고
+     하나는 안 되면 문제가 어디인지 바로 갈립니다.</p>
+
+  <h5>절차 4 — 이름을 못 찾을 때의 순서를 익힌다</h5>
+
+  <p class="cmdline"><code>① nslookup 이 되는가
+     안 되면 DNS 문제
+
+② 주소로 직접 가 보면 되는가
+     되면 DNS 만 문제, 안 되면 길 문제 (실습 6)
+
+③ 다른 DNS 로 물어보면 되는가
+     되면 내 DNS 설정 문제</code></p>
+
+  <div class="note">회사나 학원 망에서는 안에서만 쓰는 이름이 있습니다.
+    바깥 DNS 인 <code>8.8.8.8</code> 에 물어보면 당연히 못 찾습니다.
+    그럴 때는 <code>nslookup</code> 을 그냥 써서 내 DNS 에 물어야 합니다.
+  </div>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>DNS request timed out</code></td>
+        <td>그 DNS 서버에 못 닿았습니다. 다른 DNS 로 해 보십시오</td></tr>
+    <tr><td><code>Non-existent domain</code></td>
+        <td>그런 이름이 없습니다. 철자를 보십시오</td></tr>
+    <tr><td>주소가 하나만 나온다</td>
+        <td>정상입니다. 사이트마다 다릅니다</td></tr>
+    <tr><td>IPv6 만 나온다</td>
+        <td>드물지만 있습니다. <code>nslookup -type=A</code> 로
+            IPv4 만 물어볼 수 있습니다</td></tr>
+    <tr><td>리눅스라면</td>
+        <td><code>dig example.com</code> 또는 <code>host example.com</code></td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>nslookup</code> 화면 두 장(지정한 DNS 와 내 DNS)</p>
+
+  <p><b>스스로 확인</b> —
+     ① 이름이 주소로 바뀌는 것을 봤습니까
+     ② 주소가 여럿일 수 있다는 것을 압니까
+     ③ IPv4 와 IPv6 를 구별합니까
+     ④ 못 찾을 때의 세 걸음을 압니까</p>
+</div>
       </div>
 </div>
 
@@ -976,6 +1068,105 @@ Ping 127.0.0.1 32바이트 데이터 사용:
 </table>
 
 <p><b>이 표가 실습 1 의 「가르는 순서」</b> 입니다.</p>
+      <div class="lab">
+  <b class="t">실습 6</b>
+  <b>핑은 되는데 접속이 안 되는 경우를 가른다</b>
+
+  <p><b>목적</b> — <code>ping</code> 이 되면 다 된 줄 알기 쉽습니다.
+     그런데 <code>ping</code> 은 3층만 봅니다. 컴퓨터까지는 닿는데 그 포트가
+     안 열려 있으면 프로그램은 여전히 연결되지 않습니다.
+     이 둘을 가르는 것이 이 실습입니다.</p>
+
+  <h5>절차 1 — 나 자신부터 확인한다</h5>
+
+  <p class="cmdline"><code>&gt; ping -n 2 127.0.0.1
+
+Ping 127.0.0.1 32바이트 데이터 사용:
+127.0.0.1의 응답: 바이트=32 시간&lt;1ms TTL=128
+127.0.0.1의 응답: 바이트=32 시간&lt;1ms TTL=128
+
+127.0.0.1에 대한 Ping 통계:
+    패킷: 보냄 = 2, 받음 = 2, 손실 = 0 (0% 손실),
+왕복 시간(밀리초):
+    최소 = 0ms, 최대 = 0ms, 평균 = 0ms</code></p>
+
+  <p>이것이 안 되면 망 문제가 아니라 컴퓨터 자체의 문제입니다.
+     확인은 늘 여기서 시작합니다. <code>127.0.0.1</code> 은 망을 거치지 않고
+     자기 자신에게 되돌아옵니다.</p>
+
+  <h5>절차 2 — 결과를 읽는다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px">보는 것</th><th></th></tr>
+    <tr><td>손실 0%</td><td>보낸 것이 다 돌아왔습니다</td></tr>
+    <tr><td>시간</td><td>왕복에 걸린 시간입니다. <code>&lt;1ms</code> 는 즉시라는 뜻</td></tr>
+    <tr><td><code>TTL</code></td>
+        <td>앞으로 몇 번 더 거칠 수 있는지입니다.
+            줄어든 만큼 거쳐 온 것이라 대략의 거리를 짐작할 수 있습니다</td></tr>
+  </table>
+
+  <h5>절차 3 — 포트를 확인한다</h5>
+
+  <p><code>ping</code> 다음은 포트입니다. 내 컴퓨터에서 무언가 듣고 있는지는
+     <code>netstat</code> 으로 봅니다.</p>
+
+  <p class="cmdline"><code>&gt; netstat -ano | findstr :8080
+
+<i>(아무것도 안 나오면 8080 을 듣는 프로그램이 없습니다)</i></code></p>
+
+  <p>앞 교과 개발자 환경 구축에서 쓴 그 명령입니다. 거기서는 포트를 물고 있는
+     것을 찾아 끄는 데 썼고, 여기서는 열려 있는지 확인하는 데 씁니다.</p>
+
+  <h5>절차 4 — 셋을 표로 가른다</h5>
+
+  <table class="wide">
+    <tr><th style="width:130px"><code>ping</code></th>
+        <th style="width:150px">포트 연결</th><th>어디 문제인가</th></tr>
+    <tr><td>안 됨</td><td>안 됨</td>
+        <td>3층. 주소나 길이나 케이블</td></tr>
+    <tr><td>됨</td><td>안 됨</td>
+        <td>4층. 포트가 막혔거나 서버가 안 떠 있다</td></tr>
+    <tr><td>됨</td><td>됨</td>
+        <td>7층. 응답 내용을 봐야 한다 (실습 7)</td></tr>
+  </table>
+
+  <div class="warn">가운데 줄이 가장 흔합니다. 서버가 안 떠 있는데 컴퓨터는
+    멀쩡하니 <code>ping</code> 은 성공합니다. 그래서 망 문제인 줄 알고
+    한참 헤맵니다. 포트를 확인하는 한 걸음이면 바로 갈립니다.
+  </div>
+
+  <h5>절차 5 — 실제로 겪어 본다</h5>
+
+  <p>실습 9 에서 WAS 를 띄우기 전과 후에 같은 명령을 쳐 보십시오.
+     <code>ping localhost</code> 는 둘 다 성공하는데
+     <code>netstat</code> 결과는 달라집니다. 그것이 3층과 4층의 차이입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>127.0.0.1</code> 핑이 안 된다</td>
+        <td>망이 아니라 컴퓨터 문제입니다. 다시 켜 보십시오</td></tr>
+    <tr><td>바깥 주소 핑이 안 된다</td>
+        <td>게이트웨이를 확인하십시오 (실습 4)</td></tr>
+    <tr><td>핑은 되는데 접속이 안 된다</td>
+        <td>4층입니다 — 절차 4</td></tr>
+    <tr><td>회사 서버가 핑에 응답을 안 한다</td>
+        <td>일부러 막아 둔 경우가 있습니다.
+            핑이 안 된다고 서버가 죽은 것은 아닙니다</td></tr>
+    <tr><td>리눅스라면</td>
+        <td><code>ping</code> 은 같고 포트는 <code>ss -tlnp</code></td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>ping</code> 화면과 <code>netstat</code> 화면,
+     그리고 셋을 가르는 표</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>127.0.0.1</code> 부터 확인했습니까
+     ② <code>TTL</code> 이 무엇인지 압니까
+     ③ 핑이 3층만 본다는 것을 압니까
+     ④ 세 경우를 가를 수 있습니까</p>
+</div>
       </div>
 </div>
 
@@ -1046,6 +1237,117 @@ Ping 127.0.0.1 32바이트 데이터 사용:
   <b>404 는 「주소가 없다」</b> 이지 「서버가 죽었다」 가 아닙니다 —
   <b>서버는 «살아서» 404 라고 답한 것</b>입니다.
   앞 교과에서 <code>/actuator/health</code> 가 404 였던 그 경우입니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 7</b>
+  <b>한 화면에서 3층 · 4층 · 7층이 차례로 지나가는 것을 본다</b>
+
+  <p><b>목적</b> — 브라우저는 결과만 보여 줍니다. 무엇을 보내고 무엇을 받았는지는
+     감춰져 있습니다. <code>curl -v</code> 는 그 과정을 글자로 보여 줍니다.
+     실습 1 에서 그린 흐름이 여기서 실제로 확인됩니다.</p>
+
+  <h5>절차 1 — 자세히 보기로 요청한다</h5>
+
+  <p class="cmdline"><code>&gt; curl -v https://example.com
+
+* Host example.com:443 was resolved.
+* IPv4: 104.20.23.154, 172.66.147.243
+*   Trying 104.20.23.154:443...
+* ALPN: curl offers http/1.1
+* ALPN: server accepted http/1.1
+* Established connection to example.com (104.20.23.154 port 443)
+
+&gt; GET / HTTP/1.1
+&gt; Host: example.com
+&gt; User-Agent: curl/8.17.0
+&gt; Accept: */*
+&gt;
+* Request completely sent off
+
+&lt; HTTP/1.1 200 OK
+&lt; Date: Mon, 21 Sep 2026 02:04:39 GMT
+&lt; Content-Type: text/html
+&lt; Transfer-Encoding: chunked</code></p>
+
+  <h5>절차 2 — 세 기호를 구별한다</h5>
+
+  <table class="wide">
+    <tr><th style="width:110px">기호</th><th></th></tr>
+    <tr><td><code>*</code></td><td>curl 이 하는 말. 연결 과정을 설명합니다</td></tr>
+    <tr><td><code>&gt;</code></td><td>내가 보낸 것</td></tr>
+    <tr><td><code>&lt;</code></td><td>서버가 답한 것</td></tr>
+  </table>
+
+  <h5>절차 3 — 층을 짚어 본다</h5>
+
+  <p>위 화면을 다시 보면서 어느 줄이 몇 층인지 표시해 보십시오.</p>
+
+  <p class="cmdline"><code>was resolved / IPv4: ...        이름을 주소로     실습 5 의 DNS
+Trying 104.20.23.154:443        그 주소 그 포트로   3층 · 4층
+GET / HTTP/1.1                  요청               7층
+HTTP/1.1 200 OK                 응답               7층</code></p>
+
+  <p>실습 5 와 6 에서 따로 확인한 것이 한 화면에 순서대로 나옵니다.
+     이 화면 한 장이면 실습 1 의 흐름도 ① 부분이 다 설명됩니다.</p>
+
+  <h5>절차 4 — 응답의 첫 줄을 읽는다</h5>
+
+  <p>응답의 첫 줄에 붙은 세 자리 숫자를 상태 코드라고 합니다.
+     앞자리만 봐도 누구 잘못인지 갈립니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:130px">코드</th><th style="width:170px">뜻</th><th>어디를 고치나</th></tr>
+    <tr><td>2xx (200)</td><td>됐다</td><td>—</td></tr>
+    <tr><td>3xx (301 · 302)</td><td>다른 데로 가라</td><td>—</td></tr>
+    <tr><td>4xx (404 · 401)</td><td>요청이 잘못됐다</td><td>보내는 쪽. 주소나 권한</td></tr>
+    <tr><td>5xx (500 · 503)</td><td>서버가 터졌다</td><td>서버 안. 로그를 봐야 한다</td></tr>
+  </table>
+
+  <div class="warn">404 는 서버가 죽었다는 뜻이 아닙니다. 서버는 살아서
+    그런 주소가 없다고 답한 것입니다. 앞 교과에서
+    <code>/actuator/health</code> 가 404 였던 것이 그 경우였습니다.
+    4xx 면 내 요청을 고치고 5xx 면 서버 안을 봅니다.
+  </div>
+
+  <p>오류 문구 앞의 괄호 숫자는 curl 이 남기는 종료 코드입니다.
+     6 은 이름을 못 찾은 것, 7 은 연결이 안 된 것, 28 은 시간이 넘은 것입니다.
+     스크립트에서 이 숫자로 원인을 가릅니다.</p>
+
+  <h5>절차 5 — 헤더만 보고 싶을 때</h5>
+
+  <p class="cmdline"><code>&gt; curl -I https://example.com
+
+<i># 본문은 안 받고 헤더만 봅니다. 상태 코드 확인에 빠릅니다</i></code></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>curl: (6) Could not resolve host: …</code></td>
+        <td>이름을 못 찾았습니다. 실습 5 로</td></tr>
+    <tr><td><code>curl: (7) Failed to connect to …
+        Could not connect to server</code></td>
+        <td>주소는 찾았는데 그 포트가 안 열려 있습니다. 실습 6 으로</td></tr>
+    <tr><td><code>curl: (28) Operation timed out</code></td>
+        <td>응답이 없습니다. 방화벽이 막고 있을 수 있습니다</td></tr>
+    <tr><td><code>curl</code> 이 없다고 한다</td>
+        <td>윈도우 10 이후에는 기본으로 있습니다.
+            없으면 PowerShell 의 <code>Invoke-WebRequest</code> 를 쓰십시오</td></tr>
+    <tr><td>글자가 쏟아져 읽기 어렵다</td>
+        <td><code>-o nul</code> 을 붙이면 본문을 버리고 과정만 보입니다.
+            리눅스와 맥은 <code>-o /dev/null</code></td></tr>
+    <tr><td>오류가 화면에 안 나온다</td>
+        <td><code>-s</code> 만 쓰면 오류까지 감춥니다.
+            <code>-sS</code> 로 쓰면 오류는 보여 줍니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>curl -v</code> 화면과, 어느 줄이 몇 층인지 표시한 것</p>
+
+  <p><b>스스로 확인</b> —
+     ① 세 기호를 구별합니까
+     ② 층을 짚을 수 있습니까
+     ③ 4xx 와 5xx 를 가릅니까
+     ④ 404 가 서버가 죽은 것이 아님을 압니까</p>
 </div>
       </div>
 </div>
@@ -1123,6 +1425,94 @@ Ping 127.0.0.1 32바이트 데이터 사용:
 <p>내가 <code>main</code> 에서 순서대로 부르는 코드가 아닙니다. 규칙에 맞게 만들어 두면
    요청이 왔을 때 WAS 가 알아서 찾아 부릅니다. 이 차이가 다음 실습의 로그와
    실습 10 의 MVC 로 이어집니다.</p>
+      <div class="lab">
+  <b class="t">실습 8</b>
+  <b>WAS 가 대신해 주는 여섯 가지를 세어 본다</b>
+
+  <p><b>목적</b> — 미들웨어는 말만 들으면 막연합니다. WAS 가 없을 때
+     내가 해야 할 일을 적어 보면 무엇을 대신해 주는지가 분명해집니다.</p>
+
+  <h5>절차 1 — 앞 교과에서 만든 것을 떠올린다</h5>
+
+  <p>개발자 환경 구축 실습 9 에서 포트 하나를 열고 기다리는 프로그램을
+     만들었습니다. 열 줄이 안 되는 코드였습니다.</p>
+
+  <p class="cmdline"><code>ServerSocket s = new ServerSocket(8123);
+System.out.println("8123 포트로 기다립니다");
+while (true) { s.accept().close(); }</code></p>
+
+  <p>이 프로그램은 연결을 받기만 하고 아무 일도 안 합니다. 브라우저로 들어가면
+     빈 화면이 뜹니다. 여기서 웹 서버가 되려면 무엇이 더 필요한지 적어 보십시오.</p>
+
+  <h5>절차 2 — 필요한 여섯 가지를 적는다</h5>
+
+  <p class="cmdline"><code>① 포트를 열고 기다린다              ← 위 코드가 한 것
+② 요청 글자를 HTTP 규칙대로 읽는다    GET / HTTP/1.1 ...
+③ 주소를 보고 어느 코드를 부를지 정한다
+④ 여러 사람이 동시에 와도 처리한다
+⑤ 결과를 HTTP 규칙대로 쓴다          HTTP/1.1 200 OK ...
+⑥ 연결을 닫는다</code></p>
+
+  <p>②의 HTTP 규칙은 실습 7 에서 <code>curl -v</code> 로 본 그 글자들입니다.
+     사람이 읽을 수 있게 생겼지만 규칙대로 잘라 읽으려면 손이 꽤 갑니다.
+     빈 줄이 어디서 끝나는지, 본문 길이를 어떻게 아는지 같은 것을 다 다뤄야 합니다.</p>
+
+  <h5>절차 3 — 무엇이 남는지 본다</h5>
+
+  <p>여섯 중 다섯을 WAS 가 맡습니다. 개발자가 쓰는 코드는 ③이 불러 주는
+     그 코드뿐입니다. 실습 10 에서 그 코드가 어떻게 생겼는지 봅니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:150px">누가 하나</th><th></th></tr>
+    <tr><td>WAS</td><td>① ② ④ ⑤ ⑥</td></tr>
+    <tr><td>개발자</td><td>③ 이 불러 주는 코드</td></tr>
+  </table>
+
+  <h5>절차 4 — 다른 미들웨어도 이름만 익힌다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px">종류</th><th style="width:230px">하는 일</th><th>보기</th></tr>
+    <tr><td>WAS</td><td>HTTP 요청을 받아 내 코드를 부른다</td><td>Tomcat · Jetty</td></tr>
+    <tr><td>웹 서버</td><td>고정된 파일을 돌려준다</td><td>Apache · Nginx</td></tr>
+    <tr><td>DB 연결 관리</td><td>연결을 미리 만들어 두고 빌려준다</td><td>HikariCP</td></tr>
+    <tr><td>메시지</td><td>보낼 것을 줄 세워 둔다</td><td>Kafka · RabbitMQ</td></tr>
+  </table>
+
+  <div class="note">웹 서버와 WAS 를 헷갈리기 쉽습니다. 그림이나 CSS 처럼
+    이미 만들어져 있는 파일을 돌려주는 것이 웹 서버이고,
+    요청을 받아 코드를 돌려 결과를 만들어 내는 것이 WAS 입니다.
+    같은 서버에 둘을 같이 두는 경우가 많아 더 헷갈립니다.
+  </div>
+
+  <h5>절차 5 — 부르는 쪽이 누구인지 확인한다</h5>
+
+  <p>앞 교과 프로그래밍 언어 응용에서 라이브러리와 프레임워크를 견줄 때,
+     프레임워크는 내 코드를 불러 주는 쪽이라고 했습니다. WAS 가 그 부르는 쪽입니다.
+     내가 <code>main</code> 에서 순서대로 부르는 것이 아닙니다.</p>
+
+  <p class="cmdline"><code>라이브러리   내 코드  →  라이브러리     내가 부른다
+WAS        WAS     →  내 코드       WAS 가 부른다</code></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>미들웨어가 뭔지 여전히 막연하다</td>
+        <td>절차 2 의 여섯 줄만 기억하십시오. 그것을 대신해 주는 것입니다</td></tr>
+    <tr><td>웹 서버와 WAS 가 헷갈린다</td>
+        <td>파일을 주면 웹 서버, 코드를 돌리면 WAS — 절차 4</td></tr>
+    <tr><td>Kafka 나 Redis 도 배워야 하나</td>
+        <td>이 교과에서는 아닙니다. 이름과 하는 일만 알아 두십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 여섯 가지 목록과, WAS 가 맡는 것에 표시한 것</p>
+
+  <p><b>스스로 확인</b> —
+     ① 여섯 가지를 말할 수 있습니까
+     ② 개발자에게 남는 것이 무엇인지 압니까
+     ③ 웹 서버와 WAS 를 구별합니까
+     ④ 부르는 쪽이 누구인지 압니까</p>
+</div>
       </div>
 </div>
 
