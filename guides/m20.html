@@ -2592,6 +2592,143 @@ gson-2.11.0.jar        : <b>292K</b></code></p>
 
 <p><b>「견줌」 칸이 선정서의 값어치</b>입니다.
    <b>하나만 적으면 「고른 것」 이지 「선정」 이 아닙니다.</b></p>
+      <div class="lab">
+  <b class="t">실습 13</b>
+  <b>줄 수가 아니라 «내가 생각 못 한 경우» 가 이유입니다</b>
+
+  <p><b>목적</b> — 라이브러리를 <b>「고르는」</b> 실습입니다.
+     <b>하나만 적으면 「고른 것」 이지 「선정」 이 아닙니다</b> —
+     <b>직접 만든 것과 견줘야</b> 선정입니다.</p>
+
+  <h5>절차 1 — 같은 일을 «두 가지» 로 합니다</h5>
+
+  <p>시설 목록을 <b>JSON 글자</b>로 바꿉니다.</p>
+
+  <p class="cmdline"><code><i># ① 손으로 — 표준 라이브러리만</i>
+StringBuilder sb = new StringBuilder("[");
+for (int i = 0; i &lt; 목록.size(); i++) {
+  시설 s = 목록.get(i);
+  if (i &gt; 0) sb.append(",");
+  sb.append("{\"이름\":\"").append(s.이름())
+    .append("\",\"요금\":").append(s.요금())
+    .append(",\"실내\":").append(s.실내()).append("}");
+}
+System.out.println(sb.append("]"));</code></p>
+
+  <p class="cmdline"><code><i># ② 라이브러리로</i>
+String 글 = <b>new Gson().toJson(목록)</b>;
+System.out.println(글);</code></p>
+
+  <p class="cmdline"><code><i># 둘 다 «같은» 결과입니다</i>
+[{"이름":"중앙체육관","요금":2000,"실내":true},{"이름":"달성운동장","요금":1500,"실내":false}]</code></p>
+
+  <h5>절차 2 — 줄 수만 보면 «큰 차이가 아닙니다»</h5>
+
+  <p class="cmdline"><code>Json.java (라이브러리) : <b>13</b> 줄
+Hand.java (손으로)     : <b>19</b> 줄
+gson-2.11.0.jar        : <b>292K</b></code></p>
+
+  <p><b>여섯 줄 아끼려고 292K 를 받나</b> 싶습니다.
+     <b>여기서 판단을 멈추면 «잘못된 결론»</b> 에 이릅니다.</p>
+
+  <h5>절차 3 — 이름에 «따옴표» 하나를 넣어 봅니다</h5>
+
+  <p class="cmdline"><code>new 시설(<b>"중앙\"체육관"</b>, 2000, true)</code></p>
+
+  <p class="cmdline"><code><i># 손으로 만든 쪽</i>
+[{"이름":"중앙<b>"</b>체육관","요금":2000,...}]
+<i>→ <b>JSON 이 깨졌습니다.</b> 읽는 쪽에서 «오류» 가 납니다</i>
+
+<i># 라이브러리 쪽</i>
+[{"이름":"중앙<b>\"</b>체육관","요금":2000,...}]
+<i>→ <b>제대로 처리했습니다</b></i></code></p>
+
+  <div class="warn"><b>이것이 라이브러리를 쓰는 «진짜» 까닭입니다.</b>
+    줄 수가 아니라 <b>「내가 생각 못 한 경우」</b> 입니다.
+    따옴표 · 줄바꿈 · 역슬래시 · 제어 문자 · 유니코드 —
+    <b>JSON 규칙에는 처리해야 할 것이 십여 가지</b> 있습니다.
+    <b>라이브러리는 그것을 다 겪고 고쳐 온 코드</b>입니다.<br>
+    <b>「내 자료엔 따옴표 없어요」 가 위험합니다</b> —
+    <b>오늘은 없어도 내일 사용자가 넣습니다.</b>
+  </div>
+
+  <h5>절차 4 — 고르는 기준 다섯</h5>
+
+  <table class="wide">
+    <tr><th style="width:170px">기준</th><th>어떻게 봅니다</th></tr>
+    <tr><td><b>살아 있는가</b></td>
+        <td>마지막 갱신이 <b>언제</b>인지. 몇 년째 안 고쳐졌으면 피합니다</td></tr>
+    <tr><td><b>많이 쓰는가</b></td>
+        <td>많이 쓰이면 <b>문제와 답이 이미 인터넷에</b> 있습니다</td></tr>
+    <tr><td><b>라이선스</b></td>
+        <td><b>상업적으로 써도 되는지.</b>
+            안 보면 나중에 곤란해집니다</td></tr>
+    <tr><td><b>크기와 딸린 것</b></td>
+        <td>하나 받았는데 <b>스무 개가 딸려 오는</b> 것이 있습니다</td></tr>
+    <tr><td><b>내가 쓸 기능이 있는가</b></td>
+        <td>큰 것을 받아 <b>1%만 쓰는</b> 일이 흔합니다</td></tr>
+  </table>
+
+  <h5>절차 5 — 선정서를 씁니다</h5>
+
+  <p class="cmdline"><code>하려는 일    객체를 JSON 글자로 바꾸기
+
+고른 것      <b>Gson 2.11.0</b> · 292K · Apache 2.0 라이선스
+
+까닭        ① <b>작습니다</b> — 딸려 오는 것이 없습니다
+           ② <b>널리 쓰입니다</b> — 문제가 나면 답을 찾기 쉽습니다
+           ③ <b>한 줄</b>이면 됩니다 — new Gson().toJson(목록)
+
+<b>견줌</b>        직접 만들기 : 19줄 · <b>따옴표가 든 값에서 JSON 이 깨짐</b>
+           Jackson    : 기능이 더 많지만 <b>이 과제엔 과함</b>
+
+결론        <b>Gson</b></code></p>
+
+  <p><b>「견줌」 칸이 선정서의 값어치</b>입니다.
+     <b>둘 이상을 견줘야</b> 「골랐다」 고 말할 수 있습니다.</p>
+
+  <h5>절차 6 — 라이선스를 «꼭» 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px">자주 보는 것</th><th></th></tr>
+    <tr><td><b>Apache 2.0</b> · MIT</td>
+        <td><b>대체로 자유롭습니다.</b> 상업적으로도 씁니다</td></tr>
+    <tr><td>GPL</td>
+        <td><b>조심하십시오.</b> 내 코드도 공개해야 하는 경우가 있습니다</td></tr>
+    <tr><td>상용</td><td><b>돈을 냅니다</b></td></tr>
+  </table>
+
+  <p><b>수업 과제에서는 문제가 안 됩니다.</b>
+     그래도 <b>「라이선스를 봤다」 는 것을 적어 두는 습관</b>을 들이십시오 —
+     <b>실무에서는 이것 때문에 라이브러리를 바꿔야 하는</b> 일이 있습니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>견줄 <b>두 번째</b> 가 없음</td>
+        <td><b>직접 만들기</b>가 두 번째입니다 — 절차 1</td></tr>
+    <tr><td>라이브러리를 <b>어디서</b> 받나</td>
+        <td>Maven Central 에서 <code>.jar</code> 를 받습니다.
+            Gradle 이면 <b>한 줄로</b> 됩니다 (실습 14)</td></tr>
+    <tr><td>어느 것이 <b>많이 쓰이는지</b> 모름</td>
+        <td>Maven Central 의 <b>사용 수</b>나 GitHub 별 수를 보십시오</td></tr>
+    <tr><td>깨지는 것을 <b>재현 못 함</b></td>
+        <td>이름에 <code>\"</code> 를 넣었습니까 — 절차 3</td></tr>
+    <tr><td>과제에 <b>JSON 이 없음</b></td>
+        <td>다른 것으로 해도 됩니다 — <b>날짜 계산</b>이나 <b>문자열 처리</b>.
+            <b>「직접 만든 것과 견주기」</b> 만 지키면 됩니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 두 코드 + <b>따옴표를 넣었을 때</b> 두 결과 +
+     선정서(<b>견줌 칸 포함</b>)</p>
+
+  <p><b>스스로 확인</b> —
+     ① <b>직접 만든 것</b>과 견줬습니까
+     ② <b>깨지는 경우</b>를 재현해 봤습니까
+     ③ 기준을 <b>셋 이상</b> 댔습니까
+     ④ <b>라이선스</b>를 적었습니까</p>
+</div>
       </div>
 </div>
 
@@ -2666,6 +2803,140 @@ dependencies {
    <b>그래도 손으로 한 번 해 보십시오</b> —
    <b>도구가 무엇을 대신하는지</b> 알아야 <b>도구가 실패할 때</b> 고칩니다.
    <b>애플리케이션 배포</b> 교과에서 이것을 다시 만납니다.</p>
+      <div class="lab">
+  <b class="t">실습 14</b>
+  <b>컴파일은 «됐는데» 실행이 안 됩니다 — 두 자리에 따로 알려 줍니다</b>
+
+  <p><b>목적</b> — 받은 <code>.jar</code> 를 <b>붙이는</b> 실습입니다.
+     <b>여기서 가장 많이 헤맵니다</b> —
+     <b>「컴파일까지 됐는데 왜」</b> 싶기 때문입니다.</p>
+
+  <h5>절차 1 — 안 알려 주면 «컴파일» 이 안 됩니다</h5>
+
+  <p class="cmdline"><code>&gt; javac -encoding UTF-8 Json.java
+
+Json.java:1: error: <b>package com.google.gson does not exist</b>
+import com.google.gson.Gson;
+                      ^
+Json.java:10: error: cannot find symbol
+    String 글 = new <b>Gson</b>().toJson(목록);
+                   ^</code></p>
+
+  <p><b>「그런 꾸러미가 없다」</b> 는 뜻입니다.
+     <code>.jar</code> 는 같은 폴더에 있는데
+     <b>자바가 그것을 «볼 곳» 으로 안 봅니다.</b></p>
+
+  <h5>절차 2 — <code>-cp</code> 로 알려 줍니다</h5>
+
+  <p class="cmdline"><code>&gt; javac -encoding UTF-8 <b>-cp "gson-2.11.0.jar"</b> Json.java
+<i>(컴파일 됩니다)</i>
+
+&gt; dir /b
+Json.class
+Json.java
+gson-2.11.0.jar</code></p>
+
+  <h5>절차 3 — 그런데 «실행» 에서 또 막힙니다</h5>
+
+  <p class="cmdline"><code>&gt; java Json
+
+Exception in thread "main" <b>java.lang.NoClassDefFoundError</b>: com/google/gson/Gson
+	at Json.main(Json.java:10)
+Caused by: <b>java.lang.ClassNotFoundException</b>: com.google.gson.Gson
+	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(...)</code></p>
+
+  <div class="warn"><b>컴파일할 때와 실행할 때는 «따로» 알려 줘야 합니다.</b>
+    <code>javac</code> 에 준 <code>-cp</code> 는 <b>그때만</b> 쓰입니다 —
+    <b>어디에 어떻게 줬는지 «기억해 두지 않습니다».</b><br>
+    <b>여기서 「컴파일은 됐는데 왜」 하고 한참 헤맵니다.</b>
+    <b>둘은 «다른 프로그램»</b> 이라고 생각하면 쉽습니다 —
+    <code>javac</code> 와 <code>java</code> 는 실제로 다른 프로그램입니다.
+  </div>
+
+  <h5>절차 4 — 실행에도 줍니다</h5>
+
+  <p class="cmdline"><code>&gt; java <b>-cp ".;gson-2.11.0.jar"</b> Json
+[{"이름":"중앙체육관","요금":2000,"실내":true},{"이름":"달성운동장","요금":1500,"실내":false}]</code></p>
+
+  <table class="wide">
+    <tr><th style="width:150px">조각</th><th></th></tr>
+    <tr><td><b><code>.</code></b></td>
+        <td><b>지금 폴더.</b>
+            <b>이걸 빼면 내 <code>Json.class</code> 를 못 찾습니다</b> —
+            <b>가장 자주 빠뜨리는 것</b>입니다</td></tr>
+    <tr><td><code>;</code></td>
+        <td>구분자. <b>윈도우 <code>;</code> · 리눅스와 맥 <code>:</code></b></td></tr>
+    <tr><td><code>gson-2.11.0.jar</code></td><td>라이브러리</td></tr>
+  </table>
+
+  <h5>절차 5 — 오류 «둘» 을 가려 읽습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">나오는 것</th><th>언제 · 무슨 뜻</th></tr>
+    <tr><td><code>package … does not exist</code></td>
+        <td><b>컴파일</b> 때. <code>javac -cp</code> 를 안 줬습니다</td></tr>
+    <tr><td><code>NoClassDefFoundError</code></td>
+        <td><b>실행</b> 때. <code>java -cp</code> 를 안 줬습니다.<br>
+            <b>「컴파일은 성공했다」 는 뜻</b>이기도 합니다</td></tr>
+    <tr><td><code>Could not find or load main class</code></td>
+        <td><code>-cp</code> 에서 <b><code>.</code> 을 빼먹었습니다</b></td></tr>
+  </table>
+
+  <p><b>셋을 구별할 줄 아는 것</b>이 이 실습의 목표입니다 —
+     <b>메시지만 보고 어디를 고칠지</b> 알 수 있습니다.</p>
+
+  <h5>절차 6 — 실무에서는 도구가 대신합니다</h5>
+
+  <p class="cmdline"><code><i># Gradle 이면 한 줄</i>
+dependencies {
+    implementation 'com.google.code.gson:gson:2.11.0'
+}</code></p>
+
+  <table class="wide">
+    <tr><th style="width:230px">도구가 대신하는 일</th><th></th></tr>
+    <tr><td><b>받기</b></td><td>인터넷에서 <code>.jar</code> 를 내려받습니다</td></tr>
+    <tr><td><b>딸린 것까지</b></td><td>그것이 필요로 하는 것들도 같이</td></tr>
+    <tr><td><b>두 자리에 알려 주기</b></td><td>컴파일과 실행 <b>양쪽</b></td></tr>
+  </table>
+
+  <div class="note"><b>그래도 «손으로 한 번» 해 보십시오.</b>
+    도구가 <b>무엇을 대신하는지</b> 알아야
+    <b>도구가 실패할 때</b> 고칠 수 있습니다.
+    <b>「Gradle 이 라이브러리를 못 찾습니다」</b> 가 났을 때
+    <b>이 실습을 해 본 사람과 안 해 본 사람이 갈립니다.</b><br>
+    <b>애플리케이션 배포</b> 교과에서 이것을 다시 만납니다.
+  </div>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>package … does not exist</code></td>
+        <td><code>javac -cp</code> — 절차 2</td></tr>
+    <tr><td><code>NoClassDefFoundError</code></td>
+        <td><code>java -cp</code> — 절차 4</td></tr>
+    <tr><td><code>Could not find or load main class</code></td>
+        <td><code>-cp</code> 에 <b><code>.</code></b> 을 넣으십시오</td></tr>
+    <tr><td>리눅스·맥에서 <b>안 됨</b></td>
+        <td>구분자가 <b><code>:</code></b> 입니다 — <code>".:gson-2.11.0.jar"</code></td></tr>
+    <tr><td><code>.jar</code> 이름이 <b>길어 자꾸 틀림</b></td>
+        <td><code>-cp ".<b>;*</b>"</code> 로 <b>그 폴더의 jar 를 한꺼번에</b> 잡습니다.<br>
+            <b><code>*.jar</code> 가 아니라 <code>*</code></b> 입니다 —
+            <code>".;*.jar"</code> 는 <b>안 됩니다</b></td></tr>
+    <tr><td>IDE 에서는 <b>되는데</b> 명령에서 안 됨</td>
+        <td>IDE 가 <b>알아서 붙여 주고</b> 있습니다 —
+            그래서 손으로 해 보는 것입니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <b>오류 두 화면</b>(컴파일 · 실행) +
+     <code>-cp</code> 를 붙여 <b>성공한</b> 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① <b>두 오류</b>를 다 겪어 봤습니까
+     ② 둘의 <b>차이</b>를 압니까
+     ③ <code>-cp</code> 에 <b><code>.</code></b> 을 넣었습니까
+     ④ 도구가 <b>무엇을 대신</b>하는지 압니까</p>
+</div>
       </div>
 </div>
 
@@ -2739,6 +3010,142 @@ dependencies {
 <p><b>「프로그램이 안 뜨는데 <code>.dll</code> 이 없다고 합니다」</b> 는
    <b>동적 라이브러리를 못 찾은 것</b>입니다 —
    <code>NoClassDefFoundError</code> 와 <b>같은 종류의 문제</b>입니다 (실습 14).</p>
+      <div class="lab">
+  <b class="t">실습 15</b>
+  <b>«부르는 방향» 이 반대입니다 — 라이브러리와 프레임워크</b>
+
+  <p><b>목적</b> — 핵심 용어 <b>모듈 · 패키지 · 라이브러리</b> 를 정리하고,
+     <b>라이브러리와 프레임워크의 차이</b>를 잡습니다.
+     <b>뒤 교과(서버프로그램 구현)에서 스프링을 배울 때</b> 이 말이 다시 나옵니다.</p>
+
+  <h5>절차 1 — 세 덩이를 크기 순으로 놓습니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px"></th><th style="width:210px">무엇</th><th>실습 14 에서 본 것</th></tr>
+    <tr><td><b>모듈</b></td><td>기능 <b>한 덩이</b></td>
+        <td><code>Gson</code> 이라는 클래스</td></tr>
+    <tr><td><b>패키지</b></td><td>모듈을 <b>묶은 것</b></td>
+        <td><code>com.google.gson</code></td></tr>
+    <tr><td><b>라이브러리</b></td><td>패키지를 <b>모아 배포</b>하는 것</td>
+        <td><code>gson-2.11.0.jar</code></td></tr>
+  </table>
+
+  <p class="cmdline"><code>import <b>com.google.gson</b>.<b>Gson</b>;
+       └─ 패키지 ─┘ └모듈┘
+
+<b>gson-2.11.0.jar</b> ← 라이브러리 (이 안에 패키지들이 들어 있습니다)</code></p>
+
+  <p><b>실습 14 의 <code>import</code> 한 줄에 셋이 다 있습니다.</b></p>
+
+  <h5>절차 2 — <code>.jar</code> 안을 열어 봅니다</h5>
+
+  <p class="cmdline"><code>&gt; jar tf gson-2.11.0.jar | head -8
+
+META-INF/
+META-INF/MANIFEST.MF
+META-INF/proguard/
+<b>com/
+com/google/
+com/google/gson/
+com/google/gson/annotations/
+com/google/gson/internal/</b>
+<i>… 이어서 .class 파일들이 나옵니다 …</i></code></p>
+
+  <p><b>폴더 구조가 곧 패키지 이름</b>입니다 —
+     <code>com/google/gson/</code> 이 <code>com.google.gson</code> 입니다.
+     <b>안에 든 것은 <code>.class</code>, 곧 바이트 코드</b> 입니다 (실습 5).</p>
+
+  <h5>절차 3 — 네 용어를 가릅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px"></th><th style="width:250px">무엇</th><th>보기</th></tr>
+    <tr><td><b>Library</b></td>
+        <td>필요한 기능을 <b>내가 «불러» 쓰는</b> 모듈의 집합</td>
+        <td>jQuery · Jar · DLL</td></tr>
+    <tr><td><b>Framework</b></td>
+        <td>표준 구조를 구현하기 위한 <b>클래스와 라이브러리의 모임</b></td>
+        <td><b>Spring</b> · Django</td></tr>
+    <tr><td>Architecture</td>
+        <td>구성 요소들의 <b>전반적인 구조와 설계 방법</b></td>
+        <td>모노리틱 · MSA</td></tr>
+    <tr><td>Platform</td>
+        <td>프로그램이 돌 수 있는 <b>공통 실행 환경</b></td>
+        <td>Windows · Linux · <b>JVM</b></td></tr>
+  </table>
+
+  <h5>절차 4 — «부르는 방향» 을 그려 봅니다</h5>
+
+  <p class="cmdline"><code><b>라이브러리</b>                        <b>프레임워크</b>
+
+내 코드                            프레임워크
+   │                                  │
+   │ 내가 «부릅니다»                    │ 프레임워크가 «부릅니다»
+   ▼                                  ▼
+라이브러리                          내 코드
+
+new Gson().toJson(...)            @GetMapping("/시설")
+                                   public List&lt;시설&gt; 목록() { ... }
+«내가» 언제 부를지 정합니다            «요청이 오면» 불러 줍니다</code></p>
+
+  <div class="note"><b>주도권이 넘어가는 것</b>이 차이입니다.
+    라이브러리는 <b>내가 필요할 때 꺼내 씁니다.</b>
+    프레임워크는 <b>내가 «규칙대로» 만들어 두면 때가 되면 불러 줍니다.</b><br>
+    <b>그래서 프레임워크는 «규칙» 을 배워야</b> 쓸 수 있습니다 —
+    라이브러리보다 배우는 데 시간이 더 듭니다.
+    대신 <b>많은 것을 대신해 줍니다.</b>
+  </div>
+
+  <h5>절차 5 — 결합 방식으로 나누면 둘</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px"></th><th style="width:230px">정적 라이브러리</th><th>동적 라이브러리</th></tr>
+    <tr><td>언제 합쳐지나</td><td><b>빌드할 때</b> 실행 파일 «안»에</td>
+        <td><b>필요할 때</b> 불러옵니다</td></tr>
+    <tr><td>실행 파일 크기</td><td>큽니다</td><td><b>작습니다</b></td></tr>
+    <tr><td>메모리</td><td>계속 있습니다</td><td>쓰고 나면 <b>내려갑니다</b></td></tr>
+    <tr><td>확장자</td><td>—</td>
+        <td>윈도우 <code>.dll</code> · 리눅스 <code>.so</code></td></tr>
+  </table>
+
+  <p><b>「프로그램이 안 뜨는데 <code>.dll</code> 이 없다고 합니다」</b> 는
+     <b>동적 라이브러리를 못 찾은 것</b>입니다 —
+     <b>실습 14 의 <code>NoClassDefFoundError</code> 와 «같은 종류»</b> 의 문제입니다.</p>
+
+  <h5>절차 6 — 뒤 교과와 이어 봅니다</h5>
+
+  <p class="cmdline"><code>이 교과에서 «라이브러리» 를 붙였습니다        — Gson
+서버프로그램 구현에서 «프레임워크» 를 씁니다    — Spring
+애플리케이션 배포에서 «도구» 가 대신합니다     — Gradle</code></p>
+
+  <p><b>셋이 같은 이야기의 다른 단계</b>입니다 —
+     <b>「남이 만든 것을 갖다 쓰는 일」</b>.
+     <b>여기서 손으로 한 번 해 둔 것</b>이 뒤에서 값을 합니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>모듈·패키지·라이브러리가 <b>헷갈림</b></td>
+        <td><code>import</code> 한 줄을 보십시오 — 절차 1</td></tr>
+    <tr><td><code>jar tf</code> 가 <b>안 됨</b></td>
+        <td><code>jar</code> 는 JDK 에 있습니다.
+            <code>.jar</code> 는 <b>사실 zip</b> 이라 압축 프로그램으로도 열립니다</td></tr>
+    <tr><td>라이브러리와 프레임워크가 <b>헷갈림</b></td>
+        <td><b>누가 누구를 부르나</b> — 절차 4</td></tr>
+    <tr><td>스프링을 <b>지금 배워야</b> 하나</td>
+        <td><b>아닙니다.</b> 뒤 교과에서 합니다.
+            <b>말만</b> 알아 두십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>jar tf</code> 화면 + <b>네 용어 표</b> +
+     <b>부르는 방향</b> 그림</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>import</code> 에서 <b>셋을 짚을</b> 수 있습니까
+     ② <code>.jar</code> 안을 <b>열어</b> 봤습니까
+     ③ <b>부르는 방향</b>의 차이를 압니까
+     ④ <code>.dll</code> 문제가 <b>같은 종류</b>임을 압니까</p>
+</div>
       </div>
 </div>
 
@@ -2789,6 +3196,128 @@ dependencies {
   <tr><td>라이브러리 vs 프레임워크</td><td><b>서버프로그램 구현</b> — 스프링</td></tr>
   <tr><td>코드 리뷰</td><td><b>개발 환경 운영 지원</b> — Pull Request</td></tr>
 </table>
+      <div class="lab">
+  <b class="t">실습 16</b>
+  <b>여덟 줄로 세고, «표 둘» 이 있는지 봅니다</b>
+
+  <p><b>목적</b> — 능력단위요소 <b>둘</b>이 채워졌는지 셉니다.
+     <b>이 교과의 «응용» 은 표 두 장</b>입니다 —
+     <b>그 둘이 있는지</b>만 확인하면 됩니다.</p>
+
+  <h5>절차 1 — 여덟 줄로 셉니다</h5>
+
+  <p class="cmdline"><code>요소  할 수 있어야 하는 것                  근거              확인
+----  ------------------------------------  ----------------  ----
+ ①    언어를 «분류» 할 수 있다                실습 3 표
+ ①    «빌드 방식» 셋을 가를 수 있다           실습 4 · 5
+ ①    언어를 «고른 까닭» 을 댈 수 있다         실습 7 선정 근거
+ ①    «구현» 할 수 있다                      Before.java
+ ①    «리뷰» 로 나쁜 냄새를 찾을 수 있다       실습 10 표
+ ①    «리팩토링» 하고 결과가 같음을 보인다     After · Check
+ ②    라이브러리를 «고를» 수 있다             실습 13 선정서
+ ②    라이브러리를 «붙일» 수 있다             실습 14 화면</code></p>
+
+  <p><b>근거를 못 대는 줄이 곧 안 한 것</b>입니다.
+     <b>기억으로 치지 말고</b> 폴더를 열어 <b>파일이 있는지</b> 보십시오.</p>
+
+  <h5>절차 2 — 제출 전 다섯</h5>
+
+  <p class="cmdline"><code>① Before 와 After 를 «둘 다» 냈는가
+② 나쁜 냄새 표에 «어디» 칸이 있는가
+③ Check 가 «통과» 하는 화면이 있는가
+④ 선정서에 «견줌» 칸이 있는가
+⑤ classpath 오류 «둘» 을 겪어 봤는가</code></p>
+
+  <div class="warn"><b>③ 과 ④ 가 이 교과의 «응용» 입니다.</b>
+    <b>③ 이 없으면</b> 리팩토링이 아니라 <b>그냥 고친 것</b>이고,
+    <b>④ 가 없으면</b> 선정이 아니라 <b>그냥 쓴 것</b>입니다.
+    <b>둘 다 표 한 줄이면</b> 됩니다 —
+    <b>어렵지 않은데 자주 빕니다.</b>
+  </div>
+
+  <h5>절차 3 — 파일을 모읍니다</h5>
+
+  <p class="cmdline"><code>제출/
+  코드/
+    Before.java        고치기 «전»
+    After.java         고친 «후»
+    Check.java         «증거»
+    Json.java          라이브러리로
+    Hand.java          직접 만들기
+  기록/
+    나쁜냄새표.md
+    선정서.md
+    언어선정근거.md
+  화면/
+    01_세언어_시간.png
+    02_javap.png
+    03_늦은오타.png
+    04_Check통과.png
+    05_Check실패.png
+    06_따옴표깨짐.png
+    07_classpath오류.png</code></p>
+
+  <p><b>화면 일곱 장</b>이면 충분합니다.
+     <b>실패 화면 둘(05 · 07)을 꼭</b> 넣으십시오 —
+     <b>성공만 있으면 「안 해 봤다」 로도 읽힙니다.</b></p>
+
+  <h5>절차 4 — 뒷정리</h5>
+
+  <p class="cmdline"><code>&gt; dir /b 연습            ← 지우기 «전» 에 한 번 봅니다
+&gt; rd /s /q 연습
+
+<i># 실습 6 에서 일부러 깨뜨린 파일이 남아 있으면 지웁니다</i>
+Late.java · late.py · err/ · ovf/</code></p>
+
+  <p><b>제출물은 먼저 옮기고</b> 지우십시오 (앞 교과 실습 6 · 16).</p>
+
+  <h5>절차 5 — 뒤에서 다시 나오는 자리</h5>
+
+  <table class="wide">
+    <tr><th style="width:230px">여기서 배운 것</th><th>다시 만나는 곳</th></tr>
+    <tr><td>classpath · 의존성</td>
+        <td><b>애플리케이션 배포</b> — Gradle 이 대신합니다</td></tr>
+    <tr><td>리팩토링 · 시험</td>
+        <td><b>애플리케이션 테스트 수행</b> — JUnit 이 <code>Check</code> 를 대신합니다</td></tr>
+    <tr><td>라이브러리 vs 프레임워크</td>
+        <td><b>서버프로그램 구현</b> — 스프링</td></tr>
+    <tr><td>코드 리뷰</td>
+        <td><b>개발 환경 운영 지원</b> — Pull Request</td></tr>
+    <tr><td>바이트 코드 · JVM</td>
+        <td><b>응용SW 기초 기술 활용</b></td></tr>
+  </table>
+
+  <div class="note"><b><code>Check.java</code> 는 «JUnit 의 축소판» 입니다.</b>
+    통과·실패를 세고 <b>실패하면 종료 코드 1</b> 을 남기는 것 —
+    <b>JUnit 이 하는 일이 정확히 그것</b>입니다.
+    <b>여기서 손으로 만들어 본 것</b>이
+    <b>테스트 교과에서 「아 이걸 대신해 주는구나」</b> 가 됩니다.
+  </div>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>근거를 <b>못 대는</b> 줄이 있음</td>
+        <td><b>안 한 것</b>입니다. 그 실습으로 돌아가십시오</td></tr>
+    <tr><td><b>실패 화면</b>이 없음</td>
+        <td>실습 11 절차 6 · 실습 14 절차 3 — <b>각각 일 분</b>이면 됩니다</td></tr>
+    <tr><td>표 둘을 <b>안 썼</b>음</td>
+        <td><b>이 교과의 절반</b>입니다 — 실습 10 · 13</td></tr>
+    <tr><td>파일이 <b>여기저기</b> 흩어져 있음</td>
+        <td>절차 3 처럼 <b>세 폴더</b>로 모으십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <b>코드 다섯</b> + <b>기록 셋</b> + <b>화면 일곱</b> +
+     여덟 줄 <b>자가 점검표</b></p>
+
+  <p><b>스스로 확인</b> —
+     ① 여덟 줄에 <b>근거</b>를 다 댔습니까
+     ② <b>표 둘</b>이 있습니까
+     ③ <b>실패 화면 둘</b>이 있습니까
+     ④ 연습 파일을 <b>정리</b>했습니까
+     ⑤ 뒤 교과에서 <b>무엇이 다시 나오는지</b> 압니까</p>
+</div>
       </div>
 </div>
 
