@@ -65,6 +65,25 @@
     <p class="src">작업지시서</p>
   </aside>
   <div class="bd">
+<div class="note"><b>시작 전에 받아야 하는 것</b><br>
+이 교과는 <b>앞 교과의 산출물을 손에 쥐고</b> 시작합니다. 없으면 진행되지 않습니다.
+<table class="wide">
+  <tr><td class="nm">작업지시서</td>
+      <td>역할 나누기 · 제출물 셋 · 캡처 규칙이 여기 적혀 있습니다</td></tr>
+  <tr><td class="nm">스타일가이드</td>
+      <td><b>화면 설계</b> 교과의 산출물. 색 · 글자 · 부품 · 레이아웃 값 (실습 3)</td></tr>
+  <tr><td class="nm">스토리보드</td>
+      <td>화면 목록 · 흐름도 · 메뉴 구조도 · UI 기능정의 (실습 4 · 5 · 6)</td></tr>
+  <tr><td class="nm">조원 명단</td>
+      <td>서브페이지가 <b>조원 수만큼</b> 필요합니다 (실습 2)</td></tr>
+</table>
+<b>작업지시서는 평가도구라 이 사이트에 올려 두지 않습니다.</b>
+평가문항 원본은 공개 저장소에 두지 않는 것이 이 과정의 원칙입니다 —
+<b>수업 시간에 받으십시오.</b><br>
+앞 교과 산출물이 없으면 <b>같은 조의 화면 설계 제출물</b>을 받아 오십시오.
+<b>이 교과에서 새로 기획하는 것은 없습니다.</b>
+</div>
+
 <p>이 교과는 앞 교과에서 만든 스타일가이드와 스토리보드를 <b>HTML 과 CSS 로 옮기는</b> 일을 다룹니다.
    새로 기획하는 것이 없습니다. 채점은 대부분 「앞 문서와 같은가」 를 봅니다.</p>
 <table class="wide">
@@ -181,6 +200,94 @@
   앞 교과에서 낸 스타일가이드와 스토리보드를 열어 한 화면에 띄워 두십시오.
   이 교과의 작업은 처음부터 끝까지 그 두 문서를 옆에 놓고 합니다.
 </div>
+      <div class="lab">
+  <b class="t">실습 1</b>
+  <b>앞 문서 둘을 «열어 두는 것» 이 이 교과의 준비입니다</b>
+
+  <p><b>목적</b> — 채점 13개 가운데 <b>11개</b>가
+     「스타일가이드에 맞게」 또는 「스토리보드에 맞게」 로 시작합니다.
+     <b>새로 정할 것이 없습니다.</b>
+     그래서 시간을 잃는 자리도 <b>딱 둘</b>입니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:290px">시간을 잃는 자리</th><th>막는 법</th></tr>
+    <tr><td>앞 문서를 <b>안 열고 기억으로</b> 만들다 어긋남</td>
+        <td>두 문서를 <b>한 화면에 띄워 두고</b> 시작합니다</td></tr>
+    <tr><td>앞 문서에 <b>없는 값</b>을 만나 멈춤</td>
+        <td><b>그 자리에서 정하고</b> 스타일가이드에도 적습니다</td></tr>
+  </table>
+
+  <div class="note"><b>없는 값은 «정하고 적는 것» 이 정답입니다.</b>
+    카드의 모서리 둥글기처럼 스타일가이드에 안 적힌 것을 만나면
+    <b>멈추지 말고 정하십시오.</b>
+    다만 <b>스타일가이드에 되돌려 적어야</b>
+    다음에 같은 값이 필요할 때 <b>조원끼리 어긋나지 않습니다.</b>
+    안 적으면 조장은 10, 조원은 8 로 만들게 됩니다.</div>
+
+  <h5>절차 1 — 낼 것 «셋» 을 적어 둡니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:44px"></th><th style="width:170px">제출물</th><th>내용</th></tr>
+    <tr><td class="c">1</td><td><b>구현 코드</b></td>
+        <td>메인 1 + 서브(조원 수만큼) + <code>css</code> + <code>img</code></td></tr>
+    <tr><td class="c">2</td><td><b>검사 결과 캡처</b></td>
+        <td>HTML 검사 · CSS 검사 화면. <b>쪽마다</b> 찍습니다</td></tr>
+    <tr><td class="c">3</td><td><b>업무 내용 PPT</b></td>
+        <td>누가 어느 쪽을 맡아 무엇을 했는지 + <b>쪽별 캡처</b></td></tr>
+  </table>
+
+  <div class="warn"><b>코드만 내고 2 · 3 을 빠뜨리는 조가 «매 기수» 나옵니다.</b>
+    업무 내용 PPT 는 채점 항목에 <b>직접 걸려 있지 않습니다.</b>
+    그래서 「없어도 되겠지」 하고 넘깁니다.
+    그런데 작업지시서가 <b>「각 역할별로 업무 내용을 PPT 에 포함시킵니다」</b>
+    라고 못 박고 있어 <b>빠지면 제출물 미비</b>로 처리됩니다.</div>
+
+  <h5>절차 2 — 배점이 «어디에» 있는지 봅니다</h5>
+
+  <p class="cmdline"><code>① 스타일가이드대로 만들었는가   30점   (6항목 × 5점)
+② W3C 표준을 지켰는가         20점   (HTML 10 · CSS 10)
+③ <b>스토리보드대로 «동작» 하는가   50점</b>   (5항목 × 10점)
+                              ----
+                              100점</code></p>
+
+  <div class="warn"><b>절반이 「동작하는가」 에 있습니다.</b>
+    화면을 보기 좋게 만드는 데 시간을 다 쓰고
+    링크를 <code>#</code> 으로 남겨 두면
+    <b>로그인 흐름과 쪽 이동 20점이 그대로 날아갑니다.</b>
+    <b>예쁜 것보다 «눌러서 넘어가는 것»</b> 이 먼저입니다.</div>
+
+  <h5>절차 3 — 두 문서를 «옆에» 놓습니다</h5>
+
+  <p class="cmdline"><code>왼쪽 화면 : 만드는 코드
+오른쪽 화면 : 스타일가이드 · 스토리보드
+
+<i># 화면이 하나면</i>
+스타일가이드를 «인쇄» 하거나 다른 기기에 띄워 두십시오</code></p>
+
+  <p><b>이 교과의 작업은 처음부터 끝까지</b>
+     그 두 문서를 <b>옆에 놓고</b> 합니다.
+     덮어 두고 만들면 <b>반드시 어긋납니다.</b></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>앞 교과 문서가 <b>없음</b></td>
+        <td>같은 조의 <b>화면 설계 제출물</b>을 받으십시오.
+            없으면 <b>이 교과를 시작할 수 없습니다</b></td></tr>
+    <tr><td>스타일가이드에 <b>값이 비어 있음</b></td>
+        <td><b>정하고 적으십시오</b> — 위 상자</td></tr>
+    <tr><td>스토리보드와 <b>조원 수가 안 맞음</b></td>
+        <td>실습 2 에서 정리합니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 없습니다. <b>낼 것 셋</b>과 <b>배점 세 줄</b>을 적어 두십시오</p>
+
+  <p><b>스스로 확인</b> —
+     ① 낼 것이 <b>셋</b>인 것을 압니까
+     ② <b>③ 이 50점</b> 인 것을 압니까
+     ③ 앞 문서 둘을 <b>열어</b> 두었습니까</p>
+</div>
       </div>
     </div>
 
@@ -230,6 +337,132 @@
     <li>공용 CSS 파일 하나를 정했습니까. 누가 그 파일을 고칠지도 정해 둡니다.</li>
   </ol>
 </div>
+      <div class="lab">
+  <b class="t">실습 2</b>
+  <b>폴더를 «먼저» 만듭니다 — 나중에 옮기면 경로가 전부 깨집니다</b>
+
+  <p><b>목적</b> — 파일을 한군데 쏟아 놓고 만들다가
+     나중에 <code>sub/</code> 로 옮기면
+     <b>CSS 와 이미지 경로가 «전부» 깨집니다.</b>
+     고치는 데 한 시간씩 걸립니다.</p>
+
+  <h5>절차 1 — 구조를 먼저 만듭니다</h5>
+
+  <p class="cmdline"><code>index.html            ← 조장 · 메인
+css/
+  common.css          ← <b>공용. 한 사람만 고칩니다</b>
+img/
+  logo.svg
+  gym1.jpg
+sub/
+  facility.html       ← 조원 1
+  reserve.html        ← 조원 2
+  login.html          ← 조원 3</code></p>
+
+  <div class="warn"><b>파일 이름에 «한글과 빈칸» 을 쓰지 마십시오.</b>
+    내 PC 에서는 열립니다. <b>서버에 올리면 안 열립니다.</b>
+    <code>시설 안내.html</code> 이 아니라 <code>facility.html</code> 입니다.
+    <b>영문 소문자와 <code>-</code> 만</b> 쓰십시오.</div>
+
+  <h5>절차 2 — 경로가 «어디서» 달라지는지 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">어디서</th><th>CSS 를 부르는 길</th></tr>
+    <tr><td><code>index.html</code> (뿌리)</td>
+        <td><code>href="<b>css/</b>common.css"</code></td></tr>
+    <tr><td><code>sub/facility.html</code></td>
+        <td><code>href="<b>../css/</b>common.css"</code> —
+            <b><code>../</code> 가 붙습니다</b></td></tr>
+  </table>
+
+  <p><code>../</code> 는 <b>「한 칸 위로」</b> 라는 뜻입니다.
+     <code>sub/</code> 안에서 보면 <code>css/</code> 는
+     <b>위로 한 번 올라가야</b> 있습니다.</p>
+
+  <h5>절차 3 — 경로를 «세어» 봅니다</h5>
+
+  <p>눈으로는 안 보입니다. 파일이 정말 있는지 세어 주는 것을 만들어 두십시오.</p>
+
+  <p class="cmdline"><code>python links.py site
+
+  · index.html 의 href="facility.html" → 그런 파일이 없습니다
+  · index.html 의 href="reserve.html" → 그런 파일이 없습니다
+  · <b>sub\facility.html 의 href="css/common.css" → 그런 파일이 없습니다</b>
+  · sub\facility.html 의 href="index.html" → 그런 파일이 없습니다
+쪽 2 · 경로 8건 · <b>깨진 것 4건</b></code></p>
+
+  <p class="cmdline"><code><i># ../ 를 붙이고 sub/ 를 붙여 고친 뒤</i>
+python links.py site
+
+쪽 3 · 경로 10건 · <b>깨진 것 0건</b></code></p>
+
+  <div class="note"><b>깨진 경로는 «화면에 안 보입니다».</b>
+    CSS 가 안 불러와지면 <b>글자만 있는 하얀 쪽</b>이 뜹니다.
+    「아직 꾸미기 전인가 보다」 하고 넘어가기 쉽습니다.
+    링크가 깨지면 <b>눌러도 아무 일이 안 일어나거나</b>
+    <b>「파일을 찾을 수 없음」</b> 이 뜹니다 —
+    <b>채점 ③ 05 쪽 이동(10점)이 그대로 빕니다.</b></div>
+
+  <h5>절차 4 — 역할을 나눕니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:80px">역할</th><th style="width:190px">맡는 쪽</th>
+        <th>고르는 기준</th></tr>
+    <tr><td>조장</td><td><code>index.html</code></td>
+        <td>공통 골격(헤더 · GNB · 푸터)을 <b>함께 만들어 넘깁니다</b></td></tr>
+    <tr><td>조원 1</td><td><code>sub/facility.html</code></td>
+        <td><b>목록</b> 화면 — 카드나 표가 있는 쪽</td></tr>
+    <tr><td>조원 2</td><td><code>sub/reserve.html</code></td>
+        <td><b>입력</b> 화면 — 폼과 버튼이 있는 쪽</td></tr>
+    <tr><td>조원 3</td><td><code>sub/login.html</code></td>
+        <td><b>로그인</b> — 흐름 채점(③ 04)이 걸립니다</td></tr>
+  </table>
+
+  <div class="warn"><b>로그인 쪽은 «반드시» 누군가 맡아야 합니다.</b>
+    채점 ③ 04 가
+    <b>「프로토타입의 흐름과 일치하게 로그인 화면 흐름을 구현하였는가」</b>
+    를 봅니다. <b>10점</b>입니다.
+    조원이 둘뿐이라면 <b>한 사람이 두 쪽</b>을 맡으십시오 —
+    로그인을 빼는 선택지는 없습니다.</div>
+
+  <h5>절차 5 — 공용 파일을 «누가 고칠지» 정합니다</h5>
+
+  <p><code>css/common.css</code> 는 <b>모두가 불러 씁니다.</b>
+     둘이 동시에 고치면 <b>한쪽 것이 사라집니다.</b></p>
+
+  <p class="cmdline"><code>공용 CSS 담당 : 조장
+  · 색 · 글자 · 버튼 · 헤더 · 푸터  → 조장이 고침
+  · 내 쪽에만 쓰는 것             → 내 쪽 &lt;style&gt; 이 아니라
+                                  common.css 맨 «아래»에 내 이름 주석과 함께</code></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>서브페이지가 <b>글자만</b> 나옴</td>
+        <td>CSS 경로에 <code>../</code> 가 빠졌습니다 — 절차 2</td></tr>
+    <tr><td>이미지가 <b>깨진 그림</b>으로</td>
+        <td>같은 까닭입니다. <code>../img/…</code> 인지 보십시오</td></tr>
+    <tr><td>내 PC 에선 되는데 <b>서버에선 안 됨</b></td>
+        <td>파일 이름에 <b>한글이나 대문자</b>가 있습니까.
+            서버는 대소문자를 <b>가립니다</b></td></tr>
+    <tr><td>조원 수와 서브페이지 수가 <b>다름</b></td>
+        <td>한 사람이 <b>둘</b>을 맡거나 <b>한 쪽을 빼십시오.</b>
+            빼면 <b>메뉴에서도 빼야</b> 합니다 (실습 4)</td></tr>
+    <tr><td>공용 CSS 가 <b>덮어써짐</b></td>
+        <td>담당을 안 정했습니다 — 절차 5</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 폴더 구조 화면 + <b>역할 표</b> +
+     <b>경로 깨진 것 0건</b> 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 폴더를 <b>먼저</b> 만들었습니까
+     ② 이름이 <b>영문 소문자</b>입니까
+     ③ <b>로그인</b> 쪽 담당이 있습니까
+     ④ <b>경로 0건</b>을 확인했습니까
+     ⑤ 공용 CSS <b>담당</b>을 정했습니까</p>
+</div>
       </div>
     </div>
 
@@ -275,6 +508,134 @@
 
 <p class="ex"><span class="x">감점</span> 쪽마다 <code>#1B4D3E</code> 와 <code>#1F5A48</code> 이 섞여 있음</p>
 <p class="ex"><span class="o">권함</span> <code>var(--c-primary)</code> 하나만 씁니다</p>
+      <div class="lab">
+  <b class="t">실습 3</b>
+  <b>색을 «한 곳에만» 적습니다 — 변수 오타는 «조용히» 틀립니다</b>
+
+  <p><b>목적</b> — 채점 ① 여섯 개가 모두
+     <b>「스타일 가이드에 맞게」</b> 로 시작합니다.
+     조원이 각자 눈대중으로 색을 맞추면
+     <b>쪽마다 조금씩 달라지고 그 차이가 그대로 감점</b>입니다.</p>
+
+  <h5>절차 1 — <code>:root</code> 에 한 번만 적습니다</h5>
+
+  <p class="cmdline"><code>:root{
+  --primary: #2b4c7e;     <i>/* 헤더 · 기본 버튼 */</i>
+  --accent:  #e8590c;     <i>/* 가격 · 예약 버튼 */</i>
+  --gap:     24px;
+}
+.hd{
+  background: <b>var(--primary)</b>;
+  color: #fff;
+  height: 56px;
+  padding: 0 24px;
+}
+.btn{
+  height: 40px;
+  border-radius: 6px;
+  background-color: <b>var(--accent)</b>;
+  color: #fff;
+}</code></p>
+
+  <p><b>여섯 자리 값을 «복사» 하십시오.</b>
+     눈으로 비슷하게 맞추지 마십시오.
+     스타일가이드에 값이 없으면 <b>지금 정하고 거기에도 적습니다</b> (실습 1).</p>
+
+  <h5>절차 2 — 세 가지면 충분합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">무엇을 변수로</th><th>몇 개</th></tr>
+    <tr><td><b>색</b></td><td>주조 · 강조 · 글자 · 테두리 — <b>넷</b></td></tr>
+    <tr><td><b>글자 크기</b></td><td>본문 · 작은 글 — <b>둘</b></td></tr>
+    <tr><td><b>여백</b></td><td><b>하나</b> (배수로 씁니다)</td></tr>
+  </table>
+
+  <p><b>스무 개를 만들면 쓰기 전에 찾느라 더 오래 걸립니다.</b></p>
+
+  <h5>절차 3 — 오타를 내 보고 «무슨 일이 나는지» 봅니다</h5>
+
+  <p><code>var(--accent)</code> 를 <code>var(--ac<b>e</b>nt)</code> 로
+     한 글자 빼고 브라우저에서 열어 보십시오.</p>
+
+  <div class="warn"><b>오류가 «하나도» 안 납니다.</b>
+    개발자 도구에도 빨간 줄이 없습니다.
+    <b>버튼 색만 «그냥 안 칠해집니다».</b>
+    그래서 <b>「원래 이 색이었나」</b> 하고 넘어갑니다.
+    <b>그리고 채점 ① 에서 감점됩니다.</b></div>
+
+  <h5>절차 4 — W3C 검사기도 «못 잡습니다»</h5>
+
+  <p class="cmdline"><code>W3C CSS 검사기에 오타난 파일을 넣었을 때
+
+유효: False · 오류 2 · 경고 2
+[error] line 9: Missing a semicolon before the property name “padding”
+[error] line 12: Property “heigth” doesn't exist. The closest matching property name is “height”
+[warn ] line 7: You have no color set … but you have set a background-color
+[warn ] line 15: You have no background-color set … but you have set a color
+
+<b>오류·경고 4건 가운데 --acent 를 언급한 것 : 0건</b></code></p>
+
+  <p><b><code>heigth</code> 오타는 잡아 주는데 <code>--acent</code> 는 안 잡습니다.</b>
+     속성 이름은 <b>정해진 목록</b>이 있어 견줄 수 있지만,
+     변수 이름은 <b>내가 마음대로 짓는 것</b>이라
+     검사기가 <b>맞는지 틀린지 알 방법이 없습니다.</b></p>
+
+  <h5>절차 5 — 그래서 «직접» 세어 봅니다</h5>
+
+  <p class="cmdline"><code>python vars.py css/common.css
+
+정한 변수 3 · 쓴 변수 3
+  · <b>--acent 은 :root 에 없습니다 — «조용히» 아무 색도 안 나옵니다</b>
+    (비슷한 것: --accent, --gap, --primary)
+  · <b>--accent 는 정해 놓고 «안 씁니다»</b>
+
+지적 1건</code></p>
+
+  <p class="cmdline"><code><i># 고친 뒤</i>
+정한 변수 3 · 쓴 변수 3
+<b>변수 대조 통과</b></code></p>
+
+  <div class="note"><b>두 줄이 «짝» 으로 나오는 것을 보십시오.</b>
+    <code>--acent</code> 가 <b>없는 이름</b>으로 잡히면서
+    <code>--accent</code> 가 <b>안 쓰이는 이름</b>으로 같이 잡힙니다.
+    <b>이 짝이 보이면 거의 오타</b>입니다.</div>
+
+  <h5>절차 6 — 조원에게 파일을 돌립니다</h5>
+
+  <p><b>이 시점 이후 색 값을 직접 적는 사람이 없어야 합니다.</b></p>
+
+  <table class="wide">
+    <tr><th style="width:44%">감점</th><th>권함</th></tr>
+    <tr><td>쪽마다 <code>#2b4c7e</code> 와 <code>#2B4D7F</code> 가 섞여 있음</td>
+        <td><code>var(--primary)</code> <b>하나만</b> 씁니다</td></tr>
+  </table>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>색이 <b>안 칠해짐</b></td>
+        <td><b>변수 이름 오타</b>가 첫 번째 의심입니다 — 절차 5</td></tr>
+    <tr><td><code>:root</code> 를 <b>쪽마다</b> 적음</td>
+        <td><b><code>common.css</code> 에 한 번만</b> 적습니다</td></tr>
+    <tr><td>변수가 <b>안 먹음</b></td>
+        <td><code>var(--x)</code> 인지 보십시오.
+            <code>var(x)</code> 나 <code>--x</code> 는 <b>안 됩니다</b></td></tr>
+    <tr><td>조원마다 <b>색이 다름</b></td>
+        <td>공용 파일을 <b>안 받아 갔습니다</b> — 절차 6</td></tr>
+    <tr><td>검사기가 <b>통과</b>인데 색이 이상</td>
+        <td><b>정상입니다</b> — 절차 4. 검사기는 변수를 안 봅니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>common.css</code> 의 <code>:root</code> 부분 +
+     <b>변수 대조 통과 화면</b> + 스타일가이드와 <b>색값이 같은 것</b></p>
+
+  <p><b>스스로 확인</b> —
+     ① 색 값을 <b>복사</b>해 왔습니까
+     ② 오타를 내 보고 <b>조용히 틀리는 것</b>을 봤습니까
+     ③ <b>변수 대조</b>를 돌렸습니까
+     ④ 색 값을 <b>직접 적는 곳</b>이 없습니까</p>
+</div>
       </div>
     </div>
 
