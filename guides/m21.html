@@ -1,0 +1,1418 @@
+<meta charset="utf-8"><title>응용SW 기초 기술 활용 — 준비 교안</title>
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../assets/guide.css">
+<style>
+  /* 이 교안에만 있는 것 — 코드 보기 */
+  .bd pre{margin:14px 0;font-family:Consolas,"D2Coding",monospace;font-size:13px;
+          line-height:1.75;border:1px solid #ccc;border-left:3px solid #000;
+          padding:13px 16px;background:#fafafa;overflow-x:auto;white-space:pre}
+  .bd pre b{background:#e6e6e6;font-weight:700}
+  .bd pre i{font-style:normal;color:#777}
+  .bd code{font-family:Consolas,"D2Coding",monospace;font-size:14px;
+           background:#f2f2f2;padding:1px 5px}
+  aside.side code{font-family:Consolas,monospace;font-size:11px;background:#f2f2f2;padding:0 3px}
+</style>
+<script src="../assets/auth.js"></script>
+<script>EXAM_AUTH.guard("../");</script>
+
+<div class="top"><div class="tbar">
+  <div class="brand"><a href="../index.html">과정관리</a><small>커리큘럼 / <a href="../curriculum/web-app-20010202.html">응용SW엔지니어링</a> / 응용SW 기초 기술 활용 / 준비 교안</small></div>
+  <div class="tuser" id="tUser"><b id="tName"></b><button id="tOut" type="button">로그아웃</button></div>
+</div></div>
+<script>EXAM_AUTH.paintTop("../");</script>
+
+<button id="qbtn" type="button" aria-label="빠른 이동">목차</button>
+<nav id="qnav" aria-label="빠른 이동">
+  <a class="qt" href="#top"><b>↑</b><span>맨 위로</span></a>
+  <i class="qg">준비</i>
+  <a href="#st1"><b>1</b><span>한 요청이 지나는 길</span></a>
+  <a href="#st2"><b>2</b><span>완성 산출물의 확인</span></a>
+  <i class="qg">네트워크</i>
+  <a href="#st3"><b>3</b><span>계층과 프로토콜</span></a>
+  <a href="#st4"><b>4</b><span>주소 체계</span></a>
+  <a href="#st5"><b>5</b><span>이름이 주소로</span></a>
+  <a href="#st6"><b>6</b><span>닿는지 확인하기</span></a>
+  <a href="#st7"><b>7</b><span>HTTP 를 눈으로</span></a>
+  <i class="qg">미들웨어</i>
+  <a href="#st8"><b>8</b><span>미들웨어란</span></a>
+  <a href="#st9"><b>9</b><span>WAS 를 띄웁니다</span></a>
+  <a href="#st10"><b>10</b><span>MVC</span></a>
+  <i class="qg">데이터베이스</i>
+  <a href="#st11"><b>11</b><span>파일과 무엇이 다른가</span></a>
+  <a href="#st12"><b>12</b><span>ERD</span></a>
+  <a href="#st13"><b>13</b><span>테이블 정의</span></a>
+  <a href="#st14"><b>14</b><span>테이블 조작</span></a>
+  <a href="#st15"><b>15</b><span>셋을 한 흐름으로</span></a>
+  <i class="qg">마무리</i>
+  <a href="#st16"><b>16</b><span>자가 점검과 제출</span></a>
+  <i class="qg">감점</i>
+  <a href="#g3"><b>!</b><span>주요 감점 요인</span></a>
+</nav>
+
+<div class="wrap" id="top">
+
+<h1>응용SW 기초 기술 활용 — 준비 교안</h1>
+<p class="sub">능력단위 응용SW 기초 기술 활용 (2001020232_23v5) / 3수준 ·
+   능력단위요소 3개 · 학습 내용 6개</p>
+
+<!-- ═══════ 0 ═══════ -->
+<h2 class="sec" id="g0">0. 이 교과가 만드는 것</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">따로 배운 셋이 한 요청에서 만납니다.</p>
+    <b class="sh">내는 것</b>
+    <p class="v">확인 화면 + 흐름도 + SQL</p>
+    <b class="sh">참고</b>
+    <p class="src">NCS 학습모듈 LM2001020232_23v5</p>
+  </aside>
+  <div class="bd">
+
+<div class="note"><b>시작 전에 받아야 하는 것</b><br>
+<table class="wide">
+  <tr><td class="nm">개발 환경</td>
+      <td><b>JDK 와 IDE</b>. 앞 교과 <b>개발자 환경 구축</b>에서 만든 것</td></tr>
+  <tr><td class="nm">인터넷</td>
+      <td>실습 5 · 6 · 7 에서 <b>바깥으로 나가 봅니다</b></td></tr>
+  <tr><td class="nm">데이터베이스</td>
+      <td><b>H2</b> 하나면 됩니다 — <code>.jar</code> 파일 하나이고
+          <b>설치가 없습니다</b> (실습 13)</td></tr>
+  <tr><td class="nm">작업지시서</td><td>제출 형식이 여기 적혀 있습니다</td></tr>
+</table>
+<b>작업지시서는 평가도구라 이 사이트에 올려 두지 않습니다.</b>
+<b>수업 시간에 받으십시오.</b>
+</div>
+
+<h4>세 가지를 «따로» 배웁니다</h4>
+
+<table class="wide">
+  <tr><th style="width:56px">묶음</th><th style="width:210px">능력단위요소</th>
+      <th>학습 내용</th></tr>
+  <tr><td class="c">①</td><td>네트워크 기초 활용하기</td>
+      <td>네트워크 프로토콜 활용</td></tr>
+  <tr><td class="c">②</td><td>미들웨어 기초 활용하기</td>
+      <td>미들웨어 파악 · 미들웨어 운용</td></tr>
+  <tr><td class="c">③</td><td>데이터베이스 기초 활용하기</td>
+      <td>특징 식별 · <b>테이블 정의</b> · <b>테이블 조작</b></td></tr>
+</table>
+
+<p>학습모듈의 목표는 —
+   <b>「응용소프트웨어 개발을 위하여 네트워크, 미들웨어, 데이터베이스의
+   «기초 기술» 을 적용할 수 있다」</b>.</p>
+
+<div class="warn"><b>셋이 «따로 노는» 것처럼 보입니다.</b>
+  네트워크와 데이터베이스는 <b>아예 다른 이야기</b> 같습니다.
+  <b>그래서 이 교과가 어렵게 느껴집니다.</b><br>
+  <b>실은 «한 요청» 안에서 셋이 차례로 만납니다</b> —
+  실습 1 에서 그것을 먼저 보고 시작합니다.
+  <b>연결이 보이면 셋이 하나로 읽힙니다.</b>
+</div>
+
+<h4>핵심 용어 아홉</h4>
+
+<table class="wide">
+  <tr><th style="width:190px">용어</th><th style="width:60px">실습</th><th></th></tr>
+  <tr><td>OSI 7계층 · 프로토콜</td><td class="c">3</td>
+      <td>규칙을 층으로 나눠 놓은 것</td></tr>
+  <tr><td>IP 주소 체계</td><td class="c">4 · 5</td><td>누구에게 보낼지</td></tr>
+  <tr><td>미들웨어 · MVC</td><td class="c">8 · 10</td><td>가운데서 이어 주는 것</td></tr>
+  <tr><td>DBMS · ERD</td><td class="c">11 · 12</td><td>자료를 맡아 주는 것과 그 설계도</td></tr>
+  <tr><td>SQL · CRUD</td><td class="c">13 · 14</td><td>자료를 다루는 말</td></tr>
+</table>
+
+<h4>내는 것은 셋입니다</h4>
+
+<table class="wide">
+  <tr><th style="width:56px"></th><th style="width:190px">제출물</th><th>내용</th></tr>
+  <tr><td class="c">1</td><td><b>확인 화면</b></td>
+      <td>네트워크 명령 · WAS 기동 · SQL 실행 — <b>명령과 결과가 한 장에</b></td></tr>
+  <tr><td class="c">2</td><td><b>한 요청 흐름도</b></td>
+      <td>브라우저에서 DB 까지 <b>셋이 어디서 만나는지</b></td></tr>
+  <tr><td class="c">3</td><td><b>ERD 와 SQL</b></td>
+      <td>표 셋 이상 · <b>제약 조건</b>이 든 <code>CREATE</code> · CRUD 넷</td></tr>
+</table>
+  </div>
+</div>
+
+<!-- ═══════ 1 ═══════ -->
+<h2 class="sec" id="g1">1. 이 교과의 범위</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">깊이 파지 않습니다. 「기초」 입니다.</p>
+    <b class="sh">능력단위요소</b>
+    <p class="v">네트워크 · 미들웨어 · 데이터베이스 기초 활용하기</p>
+    <b class="sh">선수 학습</b>
+    <p class="v">개발자 환경 구축</p>
+  </aside>
+  <div class="bd">
+
+<h4>「기초」 라는 말의 뜻</h4>
+
+<p>세 분야는 각각 <b>한 학기짜리 과목</b>입니다.
+   이 교과는 <b>거기까지 안 갑니다.</b>
+   <b>응용SW 개발자가 «알아야 하는 만큼»</b> 만 합니다.</p>
+
+<table class="wide">
+  <tr><th style="width:150px">분야</th><th style="width:230px">여기서 하는 것</th><th>여기서 «안» 하는 것</th></tr>
+  <tr><td><b>네트워크</b></td>
+      <td>계층을 알고 <b>막혔을 때 어디를 볼지</b> 안다</td>
+      <td>라우터 설정 · 방화벽 정책</td></tr>
+  <tr><td><b>미들웨어</b></td>
+      <td>무엇이 <b>가운데 있는지</b> 알고 띄운다</td>
+      <td>WAS 튜닝 · 클러스터 구성</td></tr>
+  <tr><td><b>데이터베이스</b></td>
+      <td>테이블을 <b>만들고 다룬다</b></td>
+      <td>인덱스 튜닝 · 백업 · 이중화</td></tr>
+</table>
+
+<h4>왜 이 셋인가</h4>
+
+<p class="cmdline"><code>브라우저에서 「예약하기」 를 눌렀을 때
+
+  ① <b>네트워크</b>   요청이 서버까지 «갑니다»
+  ② <b>미들웨어</b>   서버에서 «받아» 어느 코드가 처리할지 정합니다
+  ③ <b>데이터베이스</b> 예약을 «저장» 합니다
+  ②           결과를 «만들어» 돌려줍니다
+  ①           응답이 브라우저로 «돌아옵니다»</code></p>
+
+<p><b>셋 중 하나만 막혀도 화면이 안 뜹니다.</b>
+   그런데 <b>화면에는 똑같이 「안 됩니다」</b> 로 보입니다 —
+   <b>어디가 막혔는지 가르는 것</b>이 이 교과의 값어치입니다.</p>
+
+<h4>이 교안이 쓰는 것</h4>
+
+<p class="cmdline"><code>네트워크      윈도우 기본 명령 — ipconfig · ping · nslookup · curl
+미들웨어      앞 교과에서 만든 스프링 부트 프로그램 (WAS 가 들어 있습니다)
+데이터베이스   <b>H2</b> — jar 파일 하나. 설치가 «없습니다»
+예제         공공 체육시설 예약 — 앞 교과들과 같은 예제</code></p>
+
+<div class="note"><b>H2 를 쓰는 까닭</b><br>
+  MySQL 이나 오라클은 <b>설치와 계정 설정</b>에 시간이 많이 듭니다.
+  <b>H2 는 <code>.jar</code> 파일 하나</b>이고,
+  <b>SQL 은 거의 같습니다.</b>
+  <b>여기서 익힌 SQL 이 MySQL 에서도 그대로</b> 돕니다 —
+  <b>데이터베이스 구현</b> 교과에서 MySQL 을 씁니다.
+</div>
+  </div>
+</div>
+
+<!-- ═══════ 2 ═══════ -->
+<h2 class="sec" id="g2">2. 실습</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">셋을 따로 하고 마지막에 잇습니다.</p>
+    <b class="sh">시간</b>
+    <p class="v">레벨 4에 몰아 씁니다</p>
+  </aside>
+  <div class="bd">
+
+<table class="wide">
+  <tr><th style="width:80px">레벨</th><th style="width:190px">무엇</th>
+      <th style="width:100px">실습</th><th>끝나면</th></tr>
+  <tr><td>1 · 준비</td><td>셋이 만나는 자리 · 낼 것</td><td class="c">1 ~ 2</td>
+      <td>왜 셋을 같이 배우는지 압니다</td></tr>
+  <tr><td>2 · 네트워크</td><td>계층 · 주소 · 확인 명령</td><td class="c">3 ~ 7</td>
+      <td>요소 <b>①</b></td></tr>
+  <tr><td>3 · 미들웨어</td><td>개념 · WAS · MVC</td><td class="c">8 ~ 10</td>
+      <td>요소 <b>②</b></td></tr>
+  <tr><td>4 · 데이터베이스</td><td>DBMS · ERD · DDL · DML</td><td class="c">11 ~ 14</td>
+      <td>요소 <b>③</b></td></tr>
+  <tr><td>5 · 마무리</td><td>잇기 · 제출</td><td class="c">15 ~ 16</td><td>냅니다</td></tr>
+</table>
+  </div>
+</div>
+
+<h3 class="lv">레벨 1 · 준비 <span>셋이 어디서 만나는지 먼저 봅니다</span></h3>
+
+<div class="step" id="st1">
+      <h3><i>1</i>한 요청이 지나는 길</h3>
+      <aside class="side">
+        <p class="pt">셋이 따로 노는 것이 아닙니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">흐름도 한 장</p>
+      </aside>
+      <div class="bd">
+
+<h4>「예약하기」 를 눌렀을 때</h4>
+
+<p class="cmdline"><code>브라우저                                          내 컴퓨터
+   │
+   │ ① <b>네트워크</b>   요청이 서버까지 «갑니다»
+   │    이름 → 주소 → 길 찾기 → TCP 연결 → HTTP 요청
+   ▼
+서버 (WAS)                                        미들웨어
+   │
+   │ ② <b>미들웨어</b>   받아서 «어느 코드가» 처리할지 정합니다
+   │    /예약  →  예약컨트롤러.신청()
+   ▼
+데이터베이스                                       DBMS
+   │
+   │ ③ <b>데이터베이스</b>  예약을 «저장» 합니다
+   │    INSERT INTO reservation ...
+   ▼
+   │ ② 결과를 «만들어» 돌려주고
+   │ ① 응답이 브라우저로 «돌아옵니다»
+   ▼
+화면에 「예약되었습니다」</code></p>
+
+<h4>하나만 막혀도 화면은 «똑같이» 안 뜹니다</h4>
+
+<table class="wide">
+  <tr><th style="width:130px">막힌 곳</th><th style="width:250px">실제로 일어난 일</th>
+      <th>화면에는</th></tr>
+  <tr><td><b>① 네트워크</b></td>
+      <td>서버 주소를 못 찾음 · 포트가 막힘</td>
+      <td rowspan="3"><b>「안 됩니다」</b><br>
+          — <b>셋 다 비슷하게 보입니다</b></td></tr>
+  <tr><td><b>② 미들웨어</b></td>
+      <td>WAS 가 안 떠 있음 · 주소에 맞는 코드가 없음</td></tr>
+  <tr><td><b>③ DB</b></td>
+      <td>DB 가 안 떠 있음 · 제약 조건에 걸림</td></tr>
+</table>
+
+<div class="warn"><b>이 교과의 값어치가 여기 있습니다.</b>
+  <b>「어디가 막혔는지 «가르는» 일」</b> 입니다.
+  셋을 다 알아야 <b>한 걸음씩 좁혀</b> 갈 수 있습니다 —
+  <b>모르면 처음부터 다시 만들게</b> 됩니다.
+</div>
+
+<h4>가르는 순서는 «바깥에서 안으로»</h4>
+
+<p class="cmdline"><code>① 서버까지 «가는가»        ping · telnet · curl      (실습 6 · 7)
+② 서버가 «받았는가»        WAS 로그                  (실습 9)
+③ DB 까지 «갔는가»         DB 로그 · SQL 직접 실행    (실습 14)</code></p>
+
+<p><b>순서를 지키면 대개 두세 걸음에 찾습니다.</b>
+   <b>거꾸로 가면</b> DB 를 아무리 봐도 원인이 안 나옵니다 —
+   <b>요청이 서버에 닿지도 않았기</b> 때문입니다.</p>
+      </div>
+</div>
+
+<div class="step" id="st2">
+      <h3><i>2</i>완성 산출물의 확인</h3>
+      <aside class="side">
+        <p class="pt">셋을 따로 내고 마지막에 잇습니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">화면 · 흐름도 · SQL</p>
+      </aside>
+      <div class="bd">
+
+<h4>끝났을 때의 모습</h4>
+
+<p class="cmdline"><code>1. 확인 화면
+   네트워크   ipconfig · nslookup · ping · curl -v
+   미들웨어   WAS 기동 로그 · 응답
+   DB        CREATE · INSERT · SELECT · 제약 위반 오류
+
+2. 한 요청 흐름도
+   브라우저 → 네트워크 → WAS → DB → 되돌아오기
+   «셋이 어디서 만나는지» 표시
+
+3. ERD 와 SQL
+   표 셋 이상 · 관계선 · CREATE 문 · CRUD 넷</code></p>
+
+<h4>화면은 «명령과 결과가 한 장에»</h4>
+
+<p class="cmdline"><code>&gt; nslookup example.com
+서버:    UnKnown
+Address:  8.8.8.8
+
+이름:    example.com
+Addresses:  104.20.23.154
+	  172.66.147.243</code></p>
+
+<p><b>결과만 잘라 내면</b> 무엇을 쳐서 나온 것인지 안 보입니다 —
+   앞 교과들과 같은 규칙입니다.</p>
+
+<h4>이 교과에서 «가장 자주 비는» 것</h4>
+
+<table class="wide">
+  <tr><th style="width:250px">제출물</th><th></th></tr>
+  <tr><td><b>흐름도</b></td>
+      <td><b>가장 자주 빕니다.</b> 화면 찍기는 하는데
+          <b>셋을 «이어» 그리는 것</b>을 안 합니다</td></tr>
+  <tr><td><b>제약 위반 오류</b> 화면</td>
+      <td>성공한 SQL 만 냅니다 —
+          <b>제약이 «일하는 것»을 안 보인 것</b>입니다 (실습 13)</td></tr>
+</table>
+      </div>
+</div>
+
+<h3 class="lv">레벨 2 · 네트워크 <span>능력단위요소 ① · 막혔을 때 볼 곳을 만듭니다</span></h3>
+
+<div class="step" id="st3">
+      <h3><i>3</i>계층과 프로토콜</h3>
+      <aside class="side">
+        <p class="pt">층으로 나눈 까닭이 있습니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1</p>
+        <b class="sh">용어</b>
+        <p class="v">프로토콜 · OSI 7계층</p>
+      </aside>
+      <div class="bd">
+
+<h4>프로토콜이란</h4>
+
+<p>학습모듈은 <b>원래 외교 용어</b>라고 적습니다 —
+   <b>「국가 간의 교류를 원활하게 하려고 정한 의례나 약속」</b>.
+   네트워크 프로토콜은 <b>「통신을 «통제하는 규칙» 들을 모아 놓은 것」</b> 입니다.</p>
+
+<table class="wide">
+  <tr><th style="width:130px">세 요소</th><th style="width:230px">무엇</th><th>택배로 비유하면</th></tr>
+  <tr><td><b>구문</b> (syntax)</td>
+      <td>데이터의 <b>구조나 형식</b></td>
+      <td>송장을 <b>어떤 양식</b>으로 쓰나</td></tr>
+  <tr><td><b>의미</b> (semantics)</td>
+      <td>각 부분이 <b>무엇을 뜻하나</b></td>
+      <td>이 칸이 <b>받는 사람</b>, 저 칸이 주소</td></tr>
+  <tr><td><b>타이밍</b> (timing)</td>
+      <td><b>언제</b> 보내고 <b>얼마나 빨리</b></td>
+      <td>언제 · 며칠 만에 오나</td></tr>
+</table>
+
+<p><b>세 가지가 «사전에» 정해져 있어야</b> 주고받을 수 있습니다.
+   <b>보내는 쪽과 받는 쪽이 같은 규칙</b>을 알아야 한다는 뜻입니다.</p>
+
+<h4>왜 «층» 으로 나누나</h4>
+
+<p class="cmdline"><code>층을 안 나누면
+  프로그램이 «전선의 전기 신호» 까지 알아야 합니다
+
+층을 나누면
+  프로그램은 «HTTP» 만 알면 되고
+  아래가 알아서 «전기 신호» 까지 내려보냅니다</code></p>
+
+<p><b>한 층을 갈아 끼워도 위아래가 안 바뀝니다</b> —
+   유선을 무선으로 바꿔도 <b>브라우저는 그대로</b> 입니다.</p>
+
+<h4>OSI 7계층과 TCP/IP</h4>
+
+<table class="wide">
+  <tr><th style="width:56px">층</th><th style="width:150px">OSI 7계층</th>
+      <th style="width:130px">TCP/IP</th><th>이 교과에서 만나는 것</th></tr>
+  <tr><td class="c">7</td><td>응용</td><td rowspan="3">응용</td>
+      <td><b>HTTP</b> · DNS (실습 5 · 7)</td></tr>
+  <tr><td class="c">6</td><td>표현</td><td>문자 인코딩 · 암호화</td></tr>
+  <tr><td class="c">5</td><td>세션</td><td>연결 유지</td></tr>
+  <tr><td class="c">4</td><td><b>전송</b></td><td>전송</td>
+      <td><b>TCP · 포트</b> (실습 6)</td></tr>
+  <tr><td class="c">3</td><td><b>네트워크</b></td><td>인터넷</td>
+      <td><b>IP 주소</b> · 라우팅 (실습 4 · 6)</td></tr>
+  <tr><td class="c">2</td><td>데이터 링크</td><td rowspan="2">네트워크 접근</td>
+      <td>MAC 주소 · 스위치</td></tr>
+  <tr><td class="c">1</td><td>물리</td><td>전선 · 전파</td></tr>
+</table>
+
+<div class="note"><b>일곱을 외울 필요는 «없습니다».</b>
+  실무에서 쓰는 것은 <b>「몇 층 문제인가」</b> 라는 말입니다.<br>
+  <b>「3층 문제」</b> — 주소를 못 찾는다 (실습 5 · 6)<br>
+  <b>「4층 문제」</b> — 포트가 막혔다 (실습 6)<br>
+  <b>「7층 문제」</b> — 주소는 닿는데 응답이 이상하다 (실습 7)<br>
+  <b>이 셋만 가릴 줄 알면</b> 이 교과의 네트워크는 충분합니다.
+</div>
+      </div>
+</div>
+
+<div class="step" id="st4">
+      <h3><i>4</i>주소 체계</h3>
+      <aside class="side">
+        <p class="pt">IP · 서브넷 · 게이트웨이 셋이 한 벌입니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 1-1 · IP주소 체계</p>
+      </aside>
+      <div class="bd">
+
+<h4>내 컴퓨터의 주소를 봅니다</h4>
+
+<p class="cmdline"><code>&gt; ipconfig
+
+이더넷 어댑터 이더넷:
+   IPv4 주소 . . . . . . . . . : <i>(내 주소)</i>
+   서브넷 마스크 . . . . . . . : 255.255.255.0
+   기본 게이트웨이 . . . . . . : <i>(공유기 주소)</i></code></p>
+
+<table class="wide">
+  <tr><th style="width:150px">셋</th><th></th></tr>
+  <tr><td><b>IP 주소</b></td><td><b>나</b>의 주소</td></tr>
+  <tr><td><b>서브넷 마스크</b></td>
+      <td><b>어디까지가 «우리 동네»</b> 인지 — 아래</td></tr>
+  <tr><td><b>기본 게이트웨이</b></td>
+      <td><b>동네 «밖» 으로 나갈 때</b> 거치는 문 (공유기)</td></tr>
+</table>
+
+<h4>서브넷 마스크가 하는 일</h4>
+
+<p class="cmdline"><code>내 주소        192.168.0.<b>10</b>
+서브넷 마스크   255.255.255.<b>0</b>
+               └──── 여기까지 같으면 ────┘  «같은 동네»
+
+192.168.0.20   →  같은 동네   →  <b>바로</b> 보냅니다
+8.8.8.8        →  다른 동네   →  <b>게이트웨이</b>로 보냅니다</code></p>
+
+<div class="note"><b>「같은 동네면 바로, 아니면 게이트웨이로」</b>
+  — 이 한 줄이 서브넷 마스크의 전부입니다.<br>
+  <b>게이트웨이가 «비어 있으면»</b> 바깥으로 못 나갑니다 —
+  <b>같은 동네끼리만</b> 통합니다.
+  가상 머신용 어댑터가 대개 그렇습니다.
+</div>
+
+<h4>특별한 주소들</h4>
+
+<table class="wide">
+  <tr><th style="width:170px">주소</th><th></th></tr>
+  <tr><td><b><code>127.0.0.1</code></b></td>
+      <td><b>나 자신.</b> <code>localhost</code> 와 같습니다.
+          <b>망을 안 거칩니다</b> — 실습 6 에서 씁니다</td></tr>
+  <tr><td><code>192.168.*.*</code><br>
+          <code>10.*.*.*</code></td>
+      <td><b>«동네» 안에서만</b> 쓰는 주소.
+          <b>인터넷에서는 이 주소로 못 찾아옵니다</b></td></tr>
+  <tr><td><code>0.0.0.0</code></td>
+      <td>서버가 <b>「어느 주소로 오든 받겠다」</b> —
+          앞 교과 <code>netstat</code> 에서 본 그것</td></tr>
+</table>
+
+<h4>포트 — 같은 컴퓨터 안의 «호수»</h4>
+
+<p class="cmdline"><code>IP 주소   →  «어느 건물» 인가
+포트      →  그 건물의 «몇 호» 인가
+
+  80    HTTP          8080  개발용 웹
+  443   HTTPS         3306  MySQL
+  22    SSH           9092  (그때그때)</code></p>
+
+<p><b>주소가 맞아도 포트가 다르면</b> 안 닿습니다 —
+   <b>건물은 찾았는데 다른 호수</b>를 두드린 것입니다.</p>
+      </div>
+</div>
+
+<div class="step" id="st5">
+      <h3><i>5</i>이름이 주소로</h3>
+      <aside class="side">
+        <p class="pt">DNS 가 하는 일을 한 번에 봅니다.</p>
+        <b class="sh">도구</b>
+        <p class="v">nslookup</p>
+      </aside>
+      <div class="bd">
+
+<h4>사람은 이름을, 컴퓨터는 주소를</h4>
+
+<p class="cmdline"><code>사람이 치는 것    example.com
+컴퓨터가 쓰는 것   104.20.23.154
+
+그 사이를 «DNS» 가 이어 줍니다</code></p>
+
+<h4>직접 물어봅니다</h4>
+
+<p class="cmdline"><code>&gt; nslookup example.com 8.8.8.8
+
+서버:    UnKnown
+Address:  8.8.8.8
+
+이름:    example.com
+Addresses:  2606:4700:10::6814:179a
+	  2606:4700:10::ac42:93f3
+	  <b>104.20.23.154</b>
+	  <b>172.66.147.243</b></code></p>
+
+<table class="wide">
+  <tr><th style="width:190px">보이는 것</th><th></th></tr>
+  <tr><td><code>서버: UnKnown</code></td>
+      <td><b>정상</b>입니다. 물어본 DNS 서버(8.8.8.8)의
+          <b>«이름» 을 모른다</b>는 뜻일 뿐입니다</td></tr>
+  <tr><td>주소가 <b>넷</b></td>
+      <td><b>한 이름에 주소가 여럿</b>일 수 있습니다 —
+          나눠서 받으려고 그렇게 합니다</td></tr>
+  <tr><td><code>2606:4700:…</code></td>
+      <td><b>IPv6</b> 주소입니다. 콜론으로 나뉩니다</td></tr>
+</table>
+
+<div class="warn"><b>IPv4 와 IPv6 가 «같이» 나오는 것이 정상입니다.</b>
+  IPv4 는 <code>104.20.23.154</code> 처럼 <b>점 세 개</b>,
+  IPv6 는 <code>2606:4700:10::6814:179a</code> 처럼 <b>콜론</b>입니다.
+  <b>IPv4 가 모자라서</b> IPv6 를 만들었고,
+  <b>지금은 둘이 같이</b> 쓰입니다 —
+  앞 교과 <code>netstat</code> 에서 줄이 둘씩 나온 까닭입니다.
+</div>
+
+<h4>「이름을 못 찾습니다」 가 나오면</h4>
+
+<table class="wide">
+  <tr><th style="width:230px">확인 순서</th><th></th></tr>
+  <tr><td>① <code>nslookup</code> 이 <b>되나</b></td>
+      <td>안 되면 <b>DNS 문제</b> — 3층 아래</td></tr>
+  <tr><td>② 주소로 <b>직접</b> 가 보면</td>
+      <td>되면 <b>DNS 만</b> 문제. 안 되면 <b>길</b> 문제 (실습 6)</td></tr>
+  <tr><td>③ 다른 DNS 로 물어보면</td>
+      <td><code>nslookup 이름 8.8.8.8</code> —
+          되면 <b>내 DNS 설정</b> 문제</td></tr>
+</table>
+
+<p><b>세 걸음이면 DNS 인지 아닌지 갈립니다.</b></p>
+      </div>
+</div>
+
+<div class="step" id="st6">
+      <h3><i>6</i>닿는지 확인하기</h3>
+      <aside class="side">
+        <p class="pt">3층과 4층을 나눠 봅니다.</p>
+        <b class="sh">도구</b>
+        <p class="v">ping · netstat</p>
+      </aside>
+      <div class="bd">
+
+<h4>가장 먼저 «나 자신» 에게</h4>
+
+<p class="cmdline"><code>&gt; ping -n 2 127.0.0.1
+
+Ping 127.0.0.1 32바이트 데이터 사용:
+127.0.0.1의 응답: 바이트=32 시간&lt;1ms TTL=128
+127.0.0.1의 응답: 바이트=32 시간&lt;1ms TTL=128
+
+127.0.0.1에 대한 Ping 통계:
+    패킷: 보냄 = 2, 받음 = 2, <b>손실 = 0 (0% 손실)</b>,
+왕복 시간(밀리초):
+    최소 = 0ms, 최대 = 0ms, 평균 = 0ms</code></p>
+
+<p><b>이것이 안 되면 컴퓨터 자체 문제</b>입니다 — 망 문제가 아닙니다.
+   <b>확인의 «출발점»</b> 으로 삼으십시오.</p>
+
+<table class="wide">
+  <tr><th style="width:150px">보는 것</th><th></th></tr>
+  <tr><td><b>손실 0%</b></td><td>다 닿았습니다</td></tr>
+  <tr><td><b>시간</b></td><td>왕복에 걸린 시간. <code>&lt;1ms</code> 는 «즉시»</td></tr>
+  <tr><td><code>TTL</code></td>
+      <td>몇 번 더 거칠 수 있나. <b>줄어든 만큼 거쳐 온 것</b>입니다</td></tr>
+</table>
+
+<h4><code>ping</code> 이 되는데 «안 되는» 경우</h4>
+
+<div class="warn"><b><code>ping</code> 은 «3층» 을 봅니다.</b>
+  <b>컴퓨터까지는 닿는데 «그 포트» 가 막혔을 수</b> 있습니다.
+  그러면 <code>ping</code> 은 <b>멀쩡히 성공</b>하는데
+  <b>프로그램은 연결이 안 됩니다.</b><br>
+  <b>「핑은 되는데 접속이 안 됩니다」</b> 가 이 경우입니다 —
+  <b>4층(포트) 문제</b> 입니다.
+</div>
+
+<h4>포트가 열려 있는지 봅니다</h4>
+
+<p class="cmdline"><code><i># 내 컴퓨터에서 «여는» 쪽</i>
+&gt; netstat -ano | findstr :8080
+
+<i># 아무것도 안 나오면 «아무도 안 듣고 있습니다»</i>
+<i># → 서버가 안 떠 있거나 다른 포트로 떴습니다 (실습 9)</i></code></p>
+
+<p>앞 교과 <b>개발자 환경 구축 실습 9</b> 에서 한 그것입니다 —
+   <b>여기서는 「왜 그 명령이 필요한가」</b> 가 층으로 설명됩니다.</p>
+
+<h4>가르는 표</h4>
+
+<table class="wide">
+  <tr><th style="width:130px"><code>ping</code></th>
+      <th style="width:130px">포트 연결</th><th>어디 문제</th></tr>
+  <tr><td>안 됨</td><td>안 됨</td>
+      <td><b>3층</b> — 주소 · 길 · 케이블</td></tr>
+  <tr><td><b>됨</b></td><td>안 됨</td>
+      <td><b>4층</b> — 포트가 막혔거나 <b>서버가 안 떠 있습니다</b></td></tr>
+  <tr><td>됨</td><td>됨</td>
+      <td><b>7층</b> — 응답 내용을 보십시오 (실습 7)</td></tr>
+</table>
+
+<p><b>이 표가 실습 1 의 「가르는 순서」</b> 입니다.</p>
+      </div>
+</div>
+
+<div class="step" id="st7">
+      <h3><i>7</i>HTTP 를 눈으로</h3>
+      <aside class="side">
+        <p class="pt">7층에서 무엇이 오가는지 봅니다.</p>
+        <b class="sh">도구</b>
+        <p class="v">curl -v</p>
+      </aside>
+      <div class="bd">
+
+<h4>브라우저가 «감추고» 있는 것</h4>
+
+<p>브라우저는 <b>결과만</b> 보여 줍니다.
+   <b>무엇을 보내고 무엇을 받았는지</b>는 안 보입니다 —
+   <code>curl -v</code> 가 그것을 <b>글자로</b> 보여 줍니다.</p>
+
+<p class="cmdline"><code>&gt; curl -v https://example.com
+
+* Host example.com:443 was resolved.
+* IPv4: 104.20.23.154, 172.66.147.243          ← <b>① DNS</b> (실습 5)
+*   Trying 104.20.23.154:443...                ← <b>② 연결</b> (3·4층)
+* ALPN: server accepted http/1.1
+* Established connection to example.com (104.20.23.154 port 443)
+
+<b>&gt; GET / HTTP/1.1</b>                              ← <b>③ 내가 «보낸» 것</b>
+<b>&gt; Host: example.com</b>
+<b>&gt; User-Agent: curl/8.17.0</b>
+<b>&gt; Accept: */*</b>
+&gt;
+* Request completely sent off
+
+<b>&lt; HTTP/1.1 200 OK</b>                             ← <b>④ 서버가 «답한» 것</b>
+<b>&lt; Date: Mon, 21 Sep 2026 02:04:39 GMT</b>
+<b>&lt; Content-Type: text/html</b>
+&lt; Transfer-Encoding: chunked</code></p>
+
+<table class="wide">
+  <tr><th style="width:110px">기호</th><th></th></tr>
+  <tr><td><code>*</code></td><td><b>curl 이 하는 말</b> — 연결 과정 설명</td></tr>
+  <tr><td><b><code>&gt;</code></b></td><td><b>내가 «보낸»</b> 것</td></tr>
+  <tr><td><b><code>&lt;</code></b></td><td><b>서버가 «답한»</b> 것</td></tr>
+</table>
+
+<div class="note"><b>실습 1 의 「한 요청이 지나는 길」 이 여기 다 있습니다.</b>
+  <b>① 이름을 주소로</b> (실습 5) →
+  <b>② 그 주소의 그 포트로 연결</b> (실습 6) →
+  <b>③ HTTP 로 요청</b> → <b>④ HTTP 로 응답</b>.<br>
+  <b>한 화면에서 3층 · 4층 · 7층이 차례로</b> 보입니다.
+</div>
+
+<h4>응답의 첫 줄 — 상태 코드</h4>
+
+<table class="wide">
+  <tr><th style="width:110px">코드</th><th style="width:150px">뜻</th><th>누구 잘못인가</th></tr>
+  <tr><td><b>2xx</b> (200)</td><td>됐습니다</td><td>—</td></tr>
+  <tr><td>3xx (301 · 302)</td><td>다른 데로 가세요</td><td>—</td></tr>
+  <tr><td><b>4xx</b> (404 · 401)</td><td>요청이 잘못됐습니다</td>
+      <td><b>보내는 쪽</b> — 주소 · 권한</td></tr>
+  <tr><td><b>5xx</b> (500 · 503)</td><td>서버가 터졌습니다</td>
+      <td><b>서버 쪽</b> — <b>WAS 로그를 보십시오</b> (실습 9)</td></tr>
+</table>
+
+<div class="warn"><b>4xx 와 5xx 를 가르는 것</b>이 이 실습의 핵심입니다.
+  <b>4xx 면 내 요청</b>을 고치고,
+  <b>5xx 면 서버 안</b>을 봐야 합니다.<br>
+  <b>404 는 「주소가 없다」</b> 이지 「서버가 죽었다」 가 아닙니다 —
+  <b>서버는 «살아서» 404 라고 답한 것</b>입니다.
+  앞 교과에서 <code>/actuator/health</code> 가 404 였던 그 경우입니다.
+</div>
+      </div>
+</div>
+
+<h3 class="lv">레벨 3 · 미들웨어 <span>능력단위요소 ② · 가운데 있는 것</span></h3>
+
+<div class="step" id="st8">
+      <h3><i>8</i>미들웨어란</h3>
+      <aside class="side">
+        <p class="pt">이름 그대로 「가운데(middle) 것」 입니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-1</p>
+      </aside>
+      <div class="bd">
+
+<h4>무엇과 무엇 «사이» 인가</h4>
+
+<p class="cmdline"><code>응용 프로그램  (내가 만든 것)
+      ▲
+      │   ← <b>미들웨어</b>가 여기 있습니다
+      ▼
+운영체제 · 네트워크 · 데이터베이스</code></p>
+
+<p><b>「내가 만든 것」 과 「바닥」 사이를 이어 주는 것</b>입니다.
+   <b>없으면 내가 다 해야 합니다</b> —
+   요청을 받고, 줄 세우고, 여러 사람을 동시에 처리하고, 연결을 관리하고.</p>
+
+<h4>이 교과에서 만나는 미들웨어</h4>
+
+<table class="wide">
+  <tr><th style="width:150px">종류</th><th style="width:230px">하는 일</th><th>보기</th></tr>
+  <tr><td><b>WAS</b><br>(웹 애플리케이션 서버)</td>
+      <td>HTTP 요청을 받아 <b>내 코드를 불러</b> 주고
+          결과를 돌려줍니다</td>
+      <td><b>Tomcat</b> · Jetty</td></tr>
+  <tr><td>웹 서버</td>
+      <td>그림·CSS 같은 <b>고정된 파일</b>을 돌려줍니다</td>
+      <td>Apache · Nginx</td></tr>
+  <tr><td>DB 연결 관리</td>
+      <td>DB 연결을 <b>미리 만들어 두고 빌려줍니다</b></td>
+      <td>HikariCP</td></tr>
+  <tr><td>메시지</td>
+      <td>보낼 것을 <b>줄 세워</b> 둡니다</td>
+      <td>Kafka · RabbitMQ</td></tr>
+</table>
+
+<div class="note"><b>WAS 하나만 제대로 알면 됩니다.</b>
+  <b>「기초」</b> 이므로 나머지는 <b>이름과 하는 일</b>만 알면 충분합니다.
+  <b>WAS 는 실습 9 에서 직접 띄웁니다.</b>
+</div>
+
+<h4>WAS 가 «대신» 해 주는 것</h4>
+
+<p class="cmdline"><code>WAS 가 없으면 내가 해야 하는 일
+
+  ① 포트를 열고 기다립니다              ServerSocket
+  ② 요청 글자를 «HTTP 규칙대로» 읽습니다   GET / HTTP/1.1 ...
+  ③ 주소를 보고 어느 코드를 부를지 정합니다
+  ④ 여러 사람이 «동시에» 와도 처리합니다   스레드
+  ⑤ 결과를 «HTTP 규칙대로» 씁니다        HTTP/1.1 200 OK ...
+  ⑥ 연결을 닫습니다</code></p>
+
+<p><b>①만 앞 교과에서 해 봤습니다</b> (개발자 환경 구축 실습 9 의 8123 포트).
+   <b>②~⑥을 WAS 가 대신</b> 합니다 —
+   <b>내가 쓰는 코드는 ③의 «그 코드» 뿐</b>입니다.</p>
+
+<h4>라이브러리와 프레임워크의 «그» 이야기</h4>
+
+<p>앞 교과 <b>프로그래밍 언어 응용 실습 15</b> 에서
+   <b>「프레임워크는 «내 코드를 불러 준다»」</b> 고 했습니다.
+   <b>WAS 가 바로 그 «부르는 쪽»</b> 입니다.</p>
+
+<p class="cmdline"><code>요청이 옴  →  WAS 가 «내 코드를» 부릅니다  →  결과를 돌려줌
+               ↑
+               내가 부르는 것이 «아닙니다»</code></p>
+      </div>
+</div>
+
+<div class="step" id="st9">
+      <h3><i>9</i>WAS 를 띄웁니다</h3>
+      <aside class="side">
+        <p class="pt">로그 두 줄이 「떴다」 는 증거입니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-2 · 미들웨어 운용</p>
+      </aside>
+      <div class="bd">
+
+<h4>띄우고 로그를 봅니다</h4>
+
+<p class="cmdline"><code>&gt; java -jar app.jar
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+<i>…</i>
+INFO  o.s.boot.tomcat.TomcatWebServer : Tomcat initialized with port 8080 (http)
+INFO  o.a.catalina.core.StandardService : Starting service [<b>Tomcat</b>]
+<i>…</i>
+INFO  o.s.boot.tomcat.TomcatWebServer : <b>Tomcat started on port 8080 (http)</b>
+INFO  kr.dep.DeployApp : <b>Started DeployApp in 21.18 seconds</b></code></p>
+
+<table class="wide">
+  <tr><th style="width:250px">이 줄이 증명하는 것</th><th></th></tr>
+  <tr><td><code>Tomcat initialized</code></td>
+      <td><b>WAS 가 «안에» 들어 있습니다</b></td></tr>
+  <tr><td><b><code>Tomcat started on port 8080</code></b></td>
+      <td><b>4층이 열렸습니다</b> — 이제 <code>netstat</code> 에 보입니다</td></tr>
+  <tr><td><code>Started … in 21.18 seconds</code></td>
+      <td><b>끝까지 갔습니다.</b> 이 줄이 없으면 <b>도중에 죽은 것</b></td></tr>
+</table>
+
+<div class="note"><b>Tomcat 이 «프로그램 안에» 들어 있습니다.</b>
+  예전에는 <b>Tomcat 을 따로 설치하고</b>
+  거기에 <b>내 프로그램을 «넣었습니다».</b>
+  요즘 스프링 부트는 <b>거꾸로</b> — <b>내 프로그램 안에 Tomcat 이</b> 들어갑니다.
+  그래서 <code>java -jar</code> 한 줄로 뜹니다.
+</div>
+
+<h4>3 · 4 · 7층을 «차례로» 확인합니다</h4>
+
+<p class="cmdline"><code><i># 4층 — 포트가 열렸나</i>
+&gt; netstat -ano | findstr :8080
+  TCP    0.0.0.0:8080    0.0.0.0:0    LISTENING    12345
+
+<i># 7층 — 대답하나</i>
+&gt; curl -s http://localhost:8080/api/health
+{"status":"UP","version":"1.0.0","env":"dev","profile":"default","port":"8080"}</code></p>
+
+<p><b>실습 6 의 표가 여기서 쓰입니다</b> —
+   <b>포트가 안 보이면 4층</b>, <b>포트는 보이는데 대답이 이상하면 7층</b>.</p>
+
+<h4>WAS 가 «못» 뜨는 두 경우</h4>
+
+<p class="cmdline"><code><i># ① 포트가 이미 쓰이고 있음</i>
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+<b>Web server failed to start. Port 8080 was already in use.</b>
+
+Action:
+Identify and stop the process that's listening on port 8080 or
+configure this application to listen on another port.</code></p>
+
+<p><b>앞 교과에서 배운 그것</b>입니다 —
+   <code>netstat</code> 로 PID 를 찾아 <code>taskkill</code> 합니다
+   (개발자 환경 구축 실습 9).</p>
+
+<p class="cmdline"><code><i># ② 내 코드가 뜨다가 죽음</i>
+<i>(Started … 줄이 «안» 나옵니다)</i>
+Caused by: ... Exception ...</code></p>
+
+<p><b>①은 4층 문제, ②는 내 코드 문제</b>입니다 —
+   <b>가르는 기준은 <code>Started</code> 줄이 있는가</b> 입니다.</p>
+      </div>
+</div>
+
+<div class="step" id="st10">
+      <h3><i>10</i>MVC</h3>
+      <aside class="side">
+        <p class="pt">받은 요청을 셋으로 나눠 처리합니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 2-1 · MVC</p>
+        <b class="sh">용어</b>
+        <p class="v">MVC</p>
+      </aside>
+      <div class="bd">
+
+<h4>셋으로 나누는 까닭</h4>
+
+<table class="wide">
+  <tr><th style="width:130px"></th><th style="width:190px">맡는 일</th><th>이 예제에서</th></tr>
+  <tr><td><b>Model</b></td><td><b>자료</b>와 그 규칙</td>
+      <td><code>예약</code> · <code>시설</code> — DB 와 주고받습니다</td></tr>
+  <tr><td><b>View</b></td><td><b>보여 주는</b> 모양</td>
+      <td>HTML · JSON</td></tr>
+  <tr><td><b>Controller</b></td><td><b>받아서 시키고 넘기는</b> 것</td>
+      <td>주소를 보고 <b>어느 Model 을 쓸지</b> 정합니다</td></tr>
+</table>
+
+<p class="cmdline"><code>요청  →  <b>Controller</b>  →  <b>Model</b>  →  DB
+                 │            ↓
+                 └──────  <b>View</b>  →  응답</code></p>
+
+<h4>왜 나누나 — 「바뀌는 이유」 가 다릅니다</h4>
+
+<table class="wide">
+  <tr><th style="width:190px">이런 일이 생기면</th><th>어디만 고치면 되나</th></tr>
+  <tr><td>화면 색과 배치를 바꾼다</td><td><b>View</b> 만</td></tr>
+  <tr><td>예약 규칙이 바뀐다 (30일 → 60일)</td><td><b>Model</b> 만</td></tr>
+  <tr><td>주소를 바꾼다 (<code>/예약</code> → <code>/reserve</code>)</td>
+      <td><b>Controller</b> 만</td></tr>
+</table>
+
+<div class="note"><b>안 나누면 «한 곳을 고칠 때 다 건드리게» 됩니다.</b>
+  화면 색을 바꾸려는데 <b>예약 규칙 코드를 지나가야</b> 하고,
+  그러다 <b>규칙을 잘못 건드립니다.</b><br>
+  앞 교과 <b>프로그래밍 언어 응용</b>의 <b>「긴 메서드」</b> 와 같은 이야기입니다 —
+  <b>한 덩이가 여러 일을 하면 위험합니다.</b>
+</div>
+
+<h4>코드에서 보면</h4>
+
+<p class="cmdline"><code><b>@RestController</b>                       ← Controller
+public class 예약컨트롤러 {
+
+  <b>@GetMapping("/api/예약")</b>            ← 이 주소로 오면
+  public List&lt;예약&gt; 목록() {
+    return 예약저장소.전부();            ← <b>Model</b> 에게 시킵니다
+  }                                    ← 돌려준 것이 <b>View</b>(JSON)가 됩니다
+}</code></p>
+
+<p><b>WAS 가 이 메서드를 «불러» 줍니다</b> (실습 8) —
+   <b>내가 부르는 코드가 하나도 없습니다.</b></p>
+
+<h4>이 교과에서는 «구별» 까지</h4>
+
+<p><b>스프링으로 MVC 를 «만드는» 것</b>은
+   <b>서버프로그램 구현</b> 교과에서 합니다.
+   여기서는 <b>「셋이 무엇을 맡는지 구별」</b> 하면 됩니다.</p>
+      </div>
+</div>
+
+<h3 class="lv">레벨 4 · 데이터베이스 <span>능력단위요소 ③ · 점수가 몰려 있는 구간</span></h3>
+
+<div class="step" id="st11">
+      <h3><i>11</i>파일과 무엇이 다른가</h3>
+      <aside class="side">
+        <p class="pt">파일로도 되는데 왜 DBMS 를 쓰나.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 3-1</p>
+        <b class="sh">용어</b>
+        <p class="v">DBMS</p>
+      </aside>
+      <div class="bd">
+
+<h4>파일에 적으면 안 되나</h4>
+
+<p>예약 정보를 <b>텍스트 파일</b>에 한 줄씩 적어도 «됩니다».
+   <b>그런데 아래가 전부 내 일</b>이 됩니다.</p>
+
+<table class="wide">
+  <tr><th style="width:190px">이런 일이 생기면</th><th style="width:230px">파일이면</th><th>DBMS 면</th></tr>
+  <tr><td>같은 예약번호가 <b>두 번</b> 들어옴</td>
+      <td>내가 <b>매번 검사</b>해야 합니다</td>
+      <td><b>기본키</b>가 막아 줍니다</td></tr>
+  <tr><td>없는 시설로 예약이 들어옴</td>
+      <td>내가 검사</td><td><b>외래키</b>가 막습니다</td></tr>
+  <tr><td>요금 칸에 <b>글자</b>가 들어옴</td>
+      <td>내가 검사</td><td><b>자료형</b>이 막습니다</td></tr>
+  <tr><td>둘이 <b>동시에</b> 고침</td>
+      <td><b>한쪽이 사라집니다</b></td><td><b>트랜잭션</b>이 지킵니다</td></tr>
+  <tr><td>「수성구 3천원 이하」 를 찾음</td>
+      <td>처음부터 끝까지 <b>다 읽습니다</b></td>
+      <td><b>인덱스</b>로 «바로» 찾습니다</td></tr>
+  <tr><td>도중에 <b>전원이 나감</b></td>
+      <td><b>반쯤 쓰인 채</b> 남습니다</td><td><b>되돌립니다</b></td></tr>
+</table>
+
+<div class="warn"><b>여섯 가운데 넷이 «내가 안 해도 되는 일» 입니다.</b>
+  <b>DBMS 를 쓰는 까닭은 «편해서» 가 아니라</b>
+  <b>이 검사들을 «내가 빠뜨리지 않게» 하려는 것</b>입니다.<br>
+  <b>사람은 반드시 빠뜨립니다</b> —
+  실습 13 에서 <b>제약이 «실제로 막는 것»</b> 을 봅니다.
+</div>
+
+<h4>관계형 데이터베이스</h4>
+
+<p class="cmdline"><code>표(테이블)로 저장하고
+표와 표를 «관계»로 이어 둡니다
+
+  시설 표         회원 표
+     ↑              ↑
+     └──── 예약 표 ──┘    ← 예약이 둘을 «가리킵니다»</code></p>
+
+<table class="wide">
+  <tr><th style="width:150px">말</th><th></th></tr>
+  <tr><td><b>테이블</b></td><td>표 하나 — <code>시설</code> · <code>회원</code> · <code>예약</code></td></tr>
+  <tr><td><b>행</b> (row)</td><td>가로 한 줄 — <b>자료 하나</b></td></tr>
+  <tr><td><b>열</b> (column)</td><td>세로 한 칸 — <b>항목 하나</b></td></tr>
+  <tr><td><b>기본키</b></td><td>그 행을 <b>가리키는 번호</b>. 겹치면 안 됩니다</td></tr>
+  <tr><td><b>외래키</b></td><td><b>다른 표를 가리키는</b> 칸</td></tr>
+</table>
+
+<h4>SQL — 자료를 다루는 말</h4>
+
+<table class="wide">
+  <tr><th style="width:130px">갈래</th><th style="width:190px">하는 일</th><th>명령</th></tr>
+  <tr><td><b>DDL</b></td><td>표를 <b>만들고 바꿉니다</b></td>
+      <td><code>CREATE</code> · <code>ALTER</code> · <code>DROP</code></td></tr>
+  <tr><td><b>DML</b></td><td>자료를 <b>넣고 빼고 고칩니다</b></td>
+      <td><code>INSERT</code> · <code>SELECT</code> ·
+          <code>UPDATE</code> · <code>DELETE</code></td></tr>
+  <tr><td>DCL</td><td>권한을 줍니다</td>
+      <td><code>GRANT</code> · <code>REVOKE</code></td></tr>
+</table>
+
+<p><b>DML 넷이 곧 CRUD</b> 입니다 —
+   <b>C</b>reate(<code>INSERT</code>) ·
+   <b>R</b>ead(<code>SELECT</code>) ·
+   <b>U</b>pdate(<code>UPDATE</code>) ·
+   <b>D</b>elete(<code>DELETE</code>).</p>
+      </div>
+</div>
+
+<div class="step" id="st12">
+      <h3><i>12</i>ERD</h3>
+      <aside class="side">
+        <p class="pt">표를 만들기 «전» 에 그립니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 3-2</p>
+        <b class="sh">용어</b>
+        <p class="v">ERD</p>
+      </aside>
+      <div class="bd">
+
+<h4>ERD 란</h4>
+
+<p><b>Entity-Relationship Diagram</b> —
+   <b>「무엇이 있고 서로 어떻게 이어지는가」</b> 를 그린 그림입니다.
+   <b>표를 만들기 전에</b> 그립니다.</p>
+
+<p class="cmdline"><code>┌──────────┐        ┌──────────┐        ┌──────────┐
+│  회원     │        │  예약     │        │  시설     │
+├──────────┤        ├──────────┤        ├──────────┤
+│ 회원번호 PK│───1:N──│ 예약번호 PK│──N:1───│ 시설번호 PK│
+│ 아이디  U │        │ 회원번호 FK│        │ 이름      │
+│ 이름      │        │ 시설번호 FK│        │ 지역      │
+└──────────┘        │ 이용일     │        │ 요금      │
+                    │ 인원      │        │ 실내여부   │
+                    └──────────┘        └──────────┘</code></p>
+
+<table class="wide">
+  <tr><th style="width:110px">표시</th><th></th></tr>
+  <tr><td><b>PK</b></td><td>기본키 — 그 행을 가리키는 번호</td></tr>
+  <tr><td><b>FK</b></td><td>외래키 — <b>다른 표를 가리킴</b></td></tr>
+  <tr><td><b>U</b></td><td>유일 — <b>겹치면 안 되는</b> 칸 (아이디)</td></tr>
+  <tr><td><b>1:N</b></td><td>회원 <b>하나</b>가 예약 <b>여럿</b>을 합니다</td></tr>
+</table>
+
+<h4>관계 셋</h4>
+
+<table class="wide">
+  <tr><th style="width:110px">관계</th><th style="width:230px">보기</th><th>표로 만들면</th></tr>
+  <tr><td><b>1:1</b></td><td>회원 — 회원상세</td><td>둘 중 한쪽에 <b>FK</b></td></tr>
+  <tr><td><b>1:N</b></td><td>회원 — 예약</td><td><b>N 쪽에 FK</b></td></tr>
+  <tr><td><b>N:M</b></td><td>시설 — 편의시설</td>
+      <td><b>가운데 표</b>를 하나 만듭니다</td></tr>
+</table>
+
+<div class="note"><b>1:N 은 «N 쪽» 에 FK 를 둡니다.</b>
+  회원 한 명이 예약을 <b>열 건</b> 할 수 있는데,
+  회원 표에 <b>예약번호 열 개를 넣을 칸</b>은 만들 수 없습니다.
+  <b>예약 표에 «회원번호» 한 칸</b>을 두면 끝납니다 —
+  <b>이것이 1:N 을 표로 만드는 유일한 방법</b>입니다.
+</div>
+
+<h4>그리는 순서</h4>
+
+<p class="cmdline"><code>① <b>명사</b>를 찾습니다        회원 · 시설 · 예약
+② 각 명사의 <b>항목</b>을 적습니다  이름 · 요금 · 이용일
+③ <b>기본키</b>를 정합니다       회원번호 · 시설번호 · 예약번호
+④ <b>관계</b>를 긋습니다        회원 1:N 예약 N:1 시설
+⑤ <b>FK</b> 를 N 쪽에 둡니다</code></p>
+
+<p><b>「예약」 처럼 «둘을 잇는» 것</b>이 대개 가운데 옵니다 —
+   <b>양쪽을 가리키는 FK 가 둘</b>입니다.</p>
+      </div>
+</div>
+
+<div class="step" id="st13">
+      <h3><i>13</i>테이블 정의</h3>
+      <aside class="side">
+        <p class="pt">제약이 실제로 막는 것을 봅니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 3-2</p>
+        <b class="sh">도구</b>
+        <p class="v">H2</p>
+      </aside>
+      <div class="bd">
+
+<h4>ERD 를 <code>CREATE</code> 로 옮깁니다</h4>
+
+<p class="cmdline"><code>CREATE TABLE facility (
+  facility_id INT <b>PRIMARY KEY</b>,
+  name        VARCHAR(50) <b>NOT NULL</b>,
+  region      VARCHAR(20) NOT NULL,
+  fee         INT         NOT NULL,
+  indoor      BOOLEAN     NOT NULL
+);
+
+CREATE TABLE member (
+  member_id INT PRIMARY KEY,
+  login_id  VARCHAR(20) NOT NULL <b>UNIQUE</b>,
+  name      VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE reservation (
+  reservation_id INT PRIMARY KEY,
+  member_id   INT  NOT NULL,
+  facility_id INT  NOT NULL,
+  use_date    DATE NOT NULL,
+  headcount   INT  NOT NULL,
+  <b>FOREIGN KEY (member_id)   REFERENCES member(member_id)</b>,
+  <b>FOREIGN KEY (facility_id) REFERENCES facility(facility_id)</b>
+);</code></p>
+
+<table class="wide">
+  <tr><th style="width:150px">제약</th><th style="width:210px">막는 것</th><th>ERD 의</th></tr>
+  <tr><td><code>PRIMARY KEY</code></td><td>번호가 <b>겹치는</b> 것</td><td>PK</td></tr>
+  <tr><td><code>NOT NULL</code></td><td>칸이 <b>비는</b> 것</td><td>—</td></tr>
+  <tr><td><code>UNIQUE</code></td><td>아이디가 <b>겹치는</b> 것</td><td>U</td></tr>
+  <tr><td><code>FOREIGN KEY</code></td><td><b>없는 것을 가리키는</b> 것</td><td>FK</td></tr>
+</table>
+
+<h4>자료형 고르기</h4>
+
+<table class="wide">
+  <tr><th style="width:150px">담을 것</th><th style="width:170px">자료형</th><th></th></tr>
+  <tr><td>번호 · 개수 · 금액</td><td><code>INT</code></td>
+      <td>계산할 것이면 숫자로</td></tr>
+  <tr><td>이름 · 주소</td><td><code>VARCHAR(n)</code></td>
+      <td><b>길이를 정합니다</b></td></tr>
+  <tr><td>날짜</td><td><code>DATE</code></td>
+      <td><b>글자로 넣지 마십시오</b> — 날짜 계산이 됩니다</td></tr>
+  <tr><td>예 / 아니오</td><td><code>BOOLEAN</code></td><td></td></tr>
+</table>
+
+<div class="warn"><b>전화번호는 «숫자가 아닙니다».</b>
+  <code>010-1234-5678</code> 에는 <b>하이픈</b>이 있고,
+  앞의 <b><code>0</code> 이 사라지면 안 됩니다.</b>
+  <b>계산할 일이 없으면 <code>VARCHAR</code></b> 입니다 —
+  <b>「숫자처럼 보이면 숫자」 가 아닙니다.</b>
+</div>
+
+<h4>영문 이름을 쓰는 까닭</h4>
+
+<p>한글로도 표를 만들 수 있습니다. <b>오류 메시지가 달라집니다.</b></p>
+
+<p class="cmdline"><code><i># 한글 이름일 때</i>
+Referential integrity constraint violation: "CONSTRAINT_18C0:
+PUBLIC.<b>U&""\c608\c57d""</b> FOREIGN KEY(<b>U&""\c2dc\c124\bc88\d638""</b>)
+REFERENCES PUBLIC.U&""\c2dc\c124""(...) (99)"
+
+<i># 영문 이름일 때</i>
+Referential integrity constraint violation: "CONSTRAINT_232:
+PUBLIC.<b>RESERVATION</b> FOREIGN KEY(<b>FACILITY_ID</b>)
+REFERENCES PUBLIC.<b>FACILITY</b>(FACILITY_ID) (99)"</code></p>
+
+<div class="note"><b>같은 오류인데 «읽히는 정도» 가 다릅니다.</b>
+  한글 이름은 <code>U&"\c608\c57d"</code> 처럼 <b>번호로 바뀌어</b> 나옵니다
+  (유니코드 이스케이프).
+  <b>어느 표에서 난 오류인지 알아보기가 어렵습니다.</b><br>
+  <b>실무에서 영문 이름을 쓰는 까닭이 이것</b>입니다 —
+  <b>규칙이라서가 아니라 «오류를 읽으려고»</b> 입니다.
+</div>
+      </div>
+</div>
+
+<div class="step" id="st14">
+      <h3><i>14</i>테이블 조작</h3>
+      <aside class="side">
+        <p class="pt">CRUD 넷과 조인 하나면 됩니다.</p>
+        <b class="sh">근거</b>
+        <p class="v">학습모듈 3-3</p>
+        <b class="sh">용어</b>
+        <p class="v">SQL · CRUD</p>
+      </aside>
+      <div class="bd">
+
+<h4>넣기 — <code>INSERT</code></h4>
+
+<p class="cmdline"><code>INSERT INTO facility VALUES (1,'중앙체육관','달서구',2000,TRUE);
+INSERT INTO facility VALUES (2,'달성운동장','달성군',1500,FALSE);
+INSERT INTO facility VALUES (3,'수성풋살장','수성구',3000,FALSE);</code></p>
+
+<h4>읽기 — <code>SELECT</code></h4>
+
+<p class="cmdline"><code>SELECT * FROM facility;
+
+시설번호 | 이름    | 지역  | 요금   | 실내여부
+1    | 중앙체육관 | 달서구 | 2000 | TRUE
+2    | 달성운동장 | 달성군 | 1500 | FALSE
+3    | 수성풋살장 | 수성구 | 3000 | FALSE
+(3 rows, 43 ms)</code></p>
+
+<p class="cmdline"><code>SELECT 이름, 요금 FROM 시설 WHERE 요금 &lt;= 2000 ORDER BY 요금;
+
+이름    | 요금
+달성운동장 | 1500
+중앙체육관 | 2000
+(2 rows, 48 ms)</code></p>
+
+<h4>이어 읽기 — 조인</h4>
+
+<p><b>표 셋을 «한 번에»</b> 봅니다 — ERD 의 관계선이 여기서 쓰입니다.</p>
+
+<p class="cmdline"><code>SELECT 예.예약번호, 회.이름 AS 회원, 시.이름 AS 시설, 예.이용일, 예.인원
+FROM 예약 예
+  <b>JOIN 회원 회 ON 예.회원번호 = 회.회원번호</b>
+  <b>JOIN 시설 시 ON 예.시설번호 = 시.시설번호</b>
+ORDER BY 예.예약번호;
+
+예약번호 | 회원  | 시설    | 이용일        | 인원
+101  | 김민수 | 중앙체육관 | 2026-10-01 | 10
+102  | 박정희 | 수성풋살장 | 2026-10-02 | 8
+103  | 김민수 | 수성풋살장 | 2026-10-05 | 12
+(3 rows, 49 ms)</code></p>
+
+<div class="note"><b>예약 표에는 «번호» 만 들어 있습니다.</b>
+  <code>회원번호 1</code> · <code>시설번호 3</code> 처럼요.
+  <b>조인이 그 번호를 «이름으로 바꿔» 줍니다</b> —
+  <b>ON 뒤가 «어느 칸끼리 이을지»</b> 입니다.
+</div>
+
+<h4>모아 세기 — 집계</h4>
+
+<p class="cmdline"><code>SELECT 시.이름, COUNT(*) AS 건수, SUM(예.인원) AS 총인원
+FROM 예약 예 JOIN 시설 시 ON 예.시설번호 = 시.시설번호
+<b>GROUP BY 시.이름</b> ORDER BY 건수 DESC;
+
+이름    | 건수 | 총인원
+수성풋살장 | 2  | 20
+중앙체육관 | 1  | 10
+(2 rows, 53 ms)</code></p>
+
+<p><b><code>달성운동장</code> 이 «안 나온 것»</b> 을 보십시오 —
+   <b>예약이 없으면 조인에서 빠집니다.</b>
+   <b>없는 것까지 보려면</b> <code>LEFT JOIN</code> 을 씁니다.</p>
+
+<h4>고치기 · 지우기</h4>
+
+<p class="cmdline"><code>UPDATE facility SET fee = 2500 WHERE facility_id = 1;
+DELETE FROM reservation WHERE reservation_id = 103;</code></p>
+
+<div class="warn"><b><code>WHERE</code> 를 «빠뜨리면 전부» 바뀝니다.</b>
+  <code>UPDATE facility SET fee = 2500;</code> 는
+  <b>모든 시설의 요금</b>을 2500 으로 바꿉니다.
+  <code>DELETE FROM reservation;</code> 은 <b>예약을 전부</b> 지웁니다.
+  <b>오류도 안 납니다.</b><br>
+  <b>버릇을 들이십시오</b> —
+  <b><code>SELECT</code> 로 «먼저» 확인하고</b>
+  같은 <code>WHERE</code> 로 <code>UPDATE</code> · <code>DELETE</code> 합니다.
+</div>
+      </div>
+</div>
+
+<h3 class="lv">레벨 5 · 마무리 <span>셋을 잇고 냅니다</span></h3>
+
+<div class="step" id="st15">
+      <h3><i>15</i>셋을 한 흐름으로</h3>
+      <aside class="side">
+        <p class="pt">따로 배운 것을 이어 그립니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">흐름도 한 장</p>
+      </aside>
+      <div class="bd">
+
+<h4>실습 1 의 그림을 «채웁니다»</h4>
+
+<p>실습 1 에서 본 그림에 <b>지금까지 확인한 명령과 화면</b>을 붙입니다.</p>
+
+<p class="cmdline"><code>브라우저에서 「예약하기」
+
+  ① <b>네트워크</b>
+     이름 → 주소       nslookup            (실습 5)
+     닿는가            ping                (실습 6)
+     포트가 열렸나      netstat -ano        (실습 6 · 9)
+     무엇을 주고받나    curl -v             (실습 7)
+
+  ② <b>미들웨어</b>
+     WAS 가 떴나       Tomcat started 로그  (실습 9)
+     어느 코드로 가나   @GetMapping         (실습 10)
+
+  ③ <b>데이터베이스</b>
+     표가 있나         CREATE TABLE        (실습 13)
+     넣고 읽기         INSERT · SELECT     (실습 14)
+     규칙이 지켜지나    제약 위반 오류        (실습 13)</code></p>
+
+<h4>막혔을 때 «가르는» 표를 만듭니다</h4>
+
+<p class="cmdline"><code>증상                          먼저 볼 것              층
+----------------------------  ---------------------  ----
+주소를 못 찾는다                nslookup               3
+서버에 닿지 않는다              ping                   3
+연결이 거부된다                 netstat (포트)          4
+404 가 온다                    주소 · @GetMapping      7
+500 이 온다                    <b>WAS 로그</b>              7
+자료가 안 보인다                SQL 을 «직접» 돌려 보기    —</code></p>
+
+<div class="note"><b>마지막 줄이 중요합니다.</b>
+  프로그램을 통해서만 보면 <b>어디가 잘못됐는지</b> 모릅니다.
+  <b>같은 SQL 을 «직접» 돌려 보면</b>
+  <b>SQL 이 문제인지 프로그램이 문제인지</b> 바로 갈립니다.<br>
+  <b>실습 14 에서 SQL 을 손으로 쳐 본 것</b>이 여기서 값을 합니다.
+</div>
+
+<h4>흐름도는 «한 장» 이면 됩니다</h4>
+
+<p><b>화살표와 층 번호만</b> 있으면 됩니다 —
+   <b>예쁘게 그릴 것 없습니다.</b>
+   <b>셋이 어디서 만나는지</b>가 보이면 충분합니다.</p>
+      </div>
+</div>
+
+<div class="step" id="st16">
+      <h3><i>16</i>자가 점검과 제출</h3>
+      <aside class="side">
+        <p class="pt">요소 셋을 여섯 줄로 셉니다.</p>
+        <b class="sh">산출물</b>
+        <p class="v">화면 · 흐름도 · ERD와 SQL</p>
+      </aside>
+      <div class="bd">
+
+<h4>여섯 줄로 셉니다</h4>
+
+<p class="cmdline"><code>요소  할 수 있어야 하는 것                  근거              확인
+----  ------------------------------------  ----------------  ----
+ ①    «계층» 을 구별할 수 있다                실습 3 표
+ ①    막힌 곳을 «가를» 수 있다                실습 6 표 · 7
+ ②    «미들웨어» 가 무엇인지 안다             실습 8
+ ②    WAS 를 «띄우고» 확인한다                실습 9 로그
+ ③    «테이블을 정의» 한다                    실습 13 CREATE
+ ③    «CRUD» 로 다룬다                       실습 14 화면</code></p>
+
+<h4>제출 전 다섯</h4>
+
+<p class="cmdline"><code>① 화면에 <b>명령과 결과</b>가 같이 있는가
+② <b>흐름도</b> 가 있는가          ← 가장 자주 빕니다
+③ <b>제약 위반 오류</b> 화면이 있는가  ← 두 번째로 자주 빕니다
+④ ERD 와 CREATE 문이 <b>서로 맞는가</b>
+⑤ CRUD <b>넷</b>이 다 있는가</code></p>
+
+<div class="warn"><b>② 와 ③ 이 이 교과의 «응용» 입니다.</b>
+  화면 찍기는 다들 합니다.
+  <b>셋을 «이어» 그리는 것</b>과
+  <b>제약이 «일하는 것»을 보이는 것</b>이 빠집니다.<br>
+  <b>둘 다 한 장씩</b>이면 됩니다.
+</div>
+
+<h4>뒷정리</h4>
+
+<p class="cmdline"><code>&gt; netstat -ano | findstr LISTENING
+<i># 띄운 WAS 가 남아 있으면 끕니다 (앞 교과 실습 9)</i>
+
+<i># H2 는 파일 하나입니다 — 제출에 넣거나 지웁니다</i>
+예약db.mv.db</code></p>
+
+<h4>뒤에서 다시 나오는 자리</h4>
+
+<table class="wide">
+  <tr><th style="width:230px">여기서 배운 것</th><th>다시 만나는 곳</th></tr>
+  <tr><td>계층 · 포트 · HTTP</td><td><b>네트워크 프로그래밍 구현</b></td></tr>
+  <tr><td>WAS · MVC</td><td><b>서버프로그램 구현</b> — 스프링으로 «만듭니다»</td></tr>
+  <tr><td>ERD · SQL</td><td><b>데이터베이스 구현</b> · <b>SQL 활용</b> — MySQL 로</td></tr>
+  <tr><td>막힌 곳 가르기</td><td><b>통합 구현</b> · <b>애플리케이션 배포</b></td></tr>
+</table>
+      </div>
+</div>
+
+<!-- ═══════ 3 ═══════ -->
+<h2 class="sec" id="g3">3. 주요 감점 요인</h2>
+<div class="sect">
+  <aside class="side">
+    <p class="pt">따로 낸 것을 안 이었습니다.</p>
+    <b class="sh">가장 큰 것</b>
+    <p class="v">흐름도가 없음</p>
+    <b class="sh">가장 아까운 것</b>
+    <p class="v">제약 위반 화면이 없음</p>
+  </aside>
+  <div class="bd">
+
+<table class="wide">
+  <tr><th style="width:44%">자주 나오는 모습</th><th>보완</th></tr>
+  <tr><td><b>흐름도</b>가 없음</td>
+      <td>화면만 따로 셋. <b>셋을 이어 그리십시오</b> (실습 15)</td></tr>
+  <tr><td><b>성공한 SQL 만</b> 냄</td>
+      <td>제약이 <b>일하는 것</b>을 보이십시오 (실습 13)</td></tr>
+  <tr><td>ERD 와 <code>CREATE</code> 가 <b>다름</b></td>
+      <td>FK 를 그려 놓고 <b>안 넣는</b> 일이 흔합니다</td></tr>
+  <tr><td>CRUD 가 <b>셋</b>만</td>
+      <td><code>UPDATE</code> 가 자주 빕니다</td></tr>
+  <tr><td>화면이 <b>결과만</b></td><td>친 명령부터 넣으십시오</td></tr>
+  <tr><td>자료형을 <b>다 <code>VARCHAR</code></b> 로</td>
+      <td>날짜는 <code>DATE</code>, 금액은 <code>INT</code> (실습 13)</td></tr>
+  <tr><td>계층을 <b>외워서만</b> 적음</td>
+      <td><b>「몇 층 문제인가」</b> 로 쓸 줄 알아야 합니다 (실습 3 · 6)</td></tr>
+  <tr><td>WAS 를 <b>안 끄고</b> 감</td>
+      <td>다음 교과에서 포트가 막힙니다</td></tr>
+</table>
+
+<div class="warn">
+  여덟 가운데 <b>넷</b> 이 <b>「할 줄 아는가」 가 아니라 «이었는가·보였는가»</b> 입니다.
+  이 교과는 <b>셋을 «따로» 배우고 «하나로» 쓰는</b> 과목입니다 —
+  <b>흐름도 한 장이 그 증거</b>입니다.
+</div>
+  </div>
+</div>
+
+<footer>
+  응용SW 기초 기술 활용 · 3수준 · 담당 정우균<br>
+  능력단위요소와 학습 내용·수행 순서는 NCS 학습모듈
+  <code>2001020232_23v5</code> 에서 옮긴 것입니다 —
+  한국직업능력연구원 · 공공누리 제2유형(출처표시 · 상업적 이용 금지).<br>
+  모든 명령·화면·SQL 은 이 교안을 위해 Windows 11 · JDK 21.0.2 ·
+  H2 2.4.240 에서 실제로 돌려 얻은 것입니다.
+</footer>
+
+</div>
+
+<script>
+/* 빠른 이동 — 지금 보는 단원을 표시하고, 좁은 화면에서는 여닫습니다. */
+(function () {
+  var nav = document.getElementById('qnav'), btn = document.getElementById('qbtn');
+  var links = [].slice.call(nav.querySelectorAll('a[href^="#st"],a[href="#g3"]'));
+  var tgt = links.map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); });
+  function mark() {
+    var y = window.scrollY + 120, cur = 0;
+    for (var i = 0; i < tgt.length; i++) if (tgt[i] && tgt[i].offsetTop <= y) cur = i;
+    links.forEach(function (a, i) { a.classList.toggle('on', i === cur); });
+  }
+  window.addEventListener('scroll', mark, { passive: true });
+  mark();
+  btn.addEventListener('click', function () { nav.classList.toggle('open'); });
+  nav.addEventListener('click', function (e) { if (e.target.closest('a')) nav.classList.remove('open'); });
+})();
+</script>
