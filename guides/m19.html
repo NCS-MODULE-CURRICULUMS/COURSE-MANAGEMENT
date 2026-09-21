@@ -273,6 +273,87 @@ OpenJDK 64-Bit Server VM (build 21.0.2+13-58, mixed mode, sharing)</code></p>
 
 <p><b>결과만 잘라 내면</b> 무엇을 쳐서 나온 것인지 안 보입니다.
    <b>친 줄부터</b> 넣으십시오.</p>
+      <div class="lab">
+  <b class="t">실습 1</b>
+  <b>빈 표를 «먼저» 만듭니다 — 채워 나갈 자리가 보입니다</b>
+
+  <p><b>목적</b> — 이 교과는 <b>무엇을 만드는지가 잘 안 보입니다.</b>
+     화면도 없고 프로그램도 없습니다.
+     <b>표 한 장</b>을 먼저 그려 두면 <b>지금 어디까지 왔는지</b>가 보입니다.</p>
+
+  <h5>절차 1 — 아홉 줄을 «비워서» 적어 둡니다</h5>
+
+  <p class="cmdline"><code>구분        항목            값    확인한 명령
+----------  --------------  ----  ------------------
+운영체제    이름                  systeminfo
+운영체제    판                    ver
+운영체제    종류                  systeminfo
+개발도구    JDK                   java -version
+개발도구    컴파일러              javac -version
+개발도구    설치 자리             where java
+개발도구    IDE                   도움말 &gt; 정보
+환경변수    PATH                  where java
+환경변수    JAVA_HOME             echo %JAVA_HOME%</code></p>
+
+  <p><b>「확인한 명령」 칸은 «지금» 채웁니다.</b>
+     값은 나중에 실습을 하면서 하나씩 들어옵니다.</p>
+
+  <h5>절차 2 — 어느 실습에서 채워지는지 표시합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:190px">칸</th><th>채워지는 곳</th></tr>
+    <tr><td>운영체제 세 줄</td><td>실습 4</td></tr>
+    <tr><td>JDK · 컴파일러 · 설치 자리</td><td>실습 11</td></tr>
+    <tr><td>PATH · JAVA_HOME</td><td>실습 12</td></tr>
+    <tr><td>IDE</td><td>실습 14</td></tr>
+  </table>
+
+  <p><b>다 채워지면 끝난 것</b>입니다.
+     <b>이것이 이 교과의 「완성」 입니다</b> — 다른 산출물은 없습니다.</p>
+
+  <h5>절차 3 — 화면 찍는 규칙을 정합니다</h5>
+
+  <p class="cmdline"><code><b>&gt; java -version</b>                       ← 친 줄부터
+openjdk version "21.0.2" 2024-01-16
+OpenJDK Runtime Environment (build 21.0.2+13-58)
+OpenJDK 64-Bit Server VM (build 21.0.2+13-58, mixed mode, sharing)</code></p>
+
+  <div class="warn"><b>결과만 잘라 내지 마십시오.</b>
+    <code>openjdk version "21.0.2"</code> 만 있으면
+    <b>무엇을 쳐서 나온 것인지</b> 채점자가 알 수 없습니다.
+    <b>「어디선가 복사해 온 것 아닌가」</b> 로도 읽힙니다.
+    <b>프롬프트(<code>&gt;</code>)와 친 명령이 같이</b> 보이게 찍으십시오.
+  </div>
+
+  <h5>절차 4 — 찍을 곳을 «미리» 만들어 둡니다</h5>
+
+  <p class="cmdline"><code>md 제출\화면
+<i># 실습마다 여기에 바로 저장합니다</i></code></p>
+
+  <p><b>마지막에 몰아서 찍으려면 했던 것을 전부 다시 해야</b> 합니다.
+     특히 <b>실습 6 · 9 · 13 은 되돌릴 수 없습니다</b> —
+     지우고 끄고 나면 <b>그 화면이 사라집니다.</b></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>무엇을 만드는지 <b>모르겠음</b></td>
+        <td><b>표 아홉 줄</b>이 전부입니다 — 절차 1</td></tr>
+    <tr><td>표를 <b>어디에</b> 쓰나</td>
+        <td>메모장도 됩니다. <b>글자로 남으면</b> 됩니다</td></tr>
+    <tr><td>화면을 <b>어떻게</b> 찍나</td>
+        <td>창을 <code>Alt</code>+<code>PrintScreen</code>.
+            또는 창에서 <b>드래그해 복사</b>하면 글자로 붙습니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 없습니다. <b>빈 확인서</b>와 <b>화면 폴더</b>를 만들어 두십시오</p>
+
+  <p><b>스스로 확인</b> —
+     ① 표 <b>아홉 줄</b>을 만들었습니까
+     ② <b>확인한 명령</b> 칸을 채웠습니까
+     ③ 화면에 <b>친 명령</b>이 보이게 찍기로 했습니까</p>
+</div>
       </div>
 </div>
 
@@ -313,6 +394,98 @@ HP rx2800   개발 WAS    Weblogic 11g      HP-UX 11.31</code></p>
   <tr><td>남은 디스크</td>
       <td>IDE 하나가 <b>1 GB 가 넘습니다.</b> 설치하다 멈춥니다</td></tr>
 </table>
+      <div class="lab">
+  <b class="t">실습 2</b>
+  <b>한 줄짜리 «정보 자산 목록» 을 만듭니다 — 비트 수부터 봅니다</b>
+
+  <p><b>목적</b> — 학습모듈은 <b>서버가 여럿인 회사</b>를 가정하고
+     <b>장비별 표</b>를 만들게 합니다.
+     우리는 컴퓨터가 한 대지만 <b>같은 일을 한 줄로</b> 합니다.
+     <b>이걸 안 하면 JDK 를 잘못 받습니다.</b></p>
+
+  <h5>절차 1 — 세 가지를 명령으로 봅니다</h5>
+
+  <p class="cmdline"><code>&gt; systeminfo | findstr /B /C:"OS 이름" /C:"OS 버전" /C:"시스템 종류"
+
+OS 이름:                 <b>Microsoft Windows 11 Home</b>
+OS 버전:                 <b>10.0.26200 N/A 빌드 26200</b>
+시스템 종류:             <b>x64-based PC</b></code></p>
+
+  <table class="wide">
+    <tr><th style="width:150px">보는 것</th><th>왜 중요한가</th></tr>
+    <tr><td><b>시스템 종류</b></td>
+        <td><b>가장 중요합니다.</b> <code>x64</code> 인지 <code>ARM64</code> 인지에 따라
+            <b>받을 JDK 가 다릅니다</b></td></tr>
+    <tr><td>OS 이름</td><td>Home 인지 Pro 인지 — <b>되는 기능이 다릅니다</b></td></tr>
+    <tr><td>OS 버전</td><td>도구가 <b>이 판을 지원하는지</b> 볼 때</td></tr>
+  </table>
+
+  <div class="warn"><b>비트 수를 안 보고 받으면 «설치는 되는데 안 돕니다».</b>
+    요즘 노트북 중에는 <b>ARM64</b> 도 있습니다.
+    x64 용 JDK 를 깔아도 <b>일단 깔립니다.</b>
+    그런데 <b>돌려 보면 느리거나 오류가 납니다</b> —
+    <b>원인을 찾는 데 하루가 갑니다.</b>
+    <b>먼저 한 줄 확인하는 데 십 초</b>입니다.
+  </div>
+
+  <h5>절차 2 — 영문 윈도우라면</h5>
+
+  <p class="cmdline"><code>&gt; systeminfo | findstr /B /C:"OS Name" /C:"OS Version" /C:"System Type"
+
+OS Name:                       Microsoft Windows 11 Home
+System Type:                   x64-based PC</code></p>
+
+  <p><b>같은 명령인데 «찾는 글자» 가 다릅니다.</b>
+     한국어 윈도우면 <code>"OS 이름"</code>, 영문이면 <code>"OS Name"</code> 입니다.
+     <b>둘 다 적어 두면</b> 어느 쪽에서든 됩니다 —
+     <code>/C:</code> 는 <b>여러 번 붙일 수 있습니다.</b></p>
+
+  <h5>절차 3 — 남은 디스크를 봅니다</h5>
+
+  <p class="cmdline"><code>&gt; dir C:\
+<i>… 맨 아래 …</i>
+               5 Dir(s)  <b>159,952,850,944 bytes free</b></code></p>
+
+  <p><b>IDE 하나가 1 GB 를 넘습니다.</b>
+     JDK 도 300 MB 쯤 됩니다.
+     <b>2 GB 는 비워 두고</b> 시작하십시오 —
+     <b>설치하다 멈추면 반쯤 깔린 채로 남습니다.</b></p>
+
+  <h5>절차 4 — 한 줄로 적습니다</h5>
+
+  <p class="cmdline"><code>정보 자산 목록
+
+구분      이름              운영체제                    종류        용도
+--------  ----------------  --------------------------  ----------  --------
+노트북    BOOK-28226F2NG8   Microsoft Windows 11 Home   x64-based   개발</code></p>
+
+  <p><b>이름은 <code>echo %COMPUTERNAME%</code> 으로</b> 나옵니다.
+     한 줄이지만 <b>학습모듈의 표와 같은 칸</b>입니다 —
+     <b>회사에서는 이 표가 스무 줄이 됩니다.</b></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>findstr</code> 에 <b>아무것도 안 나옴</b></td>
+        <td>영문 윈도우입니다 — 절차 2</td></tr>
+    <tr><td><code>systeminfo</code> 가 <b>한참 걸림</b></td>
+        <td><b>정상</b>입니다. 십 초쯤 걸립니다</td></tr>
+    <tr><td>시스템 종류가 <b>ARM64</b></td>
+        <td>JDK 도 <b>ARM64 용</b>을 받으십시오 — 절차 1 상자</td></tr>
+    <tr><td>디스크가 <b>모자람</b></td>
+        <td>다운로드 폴더와 휴지통부터 비우십시오</td></tr>
+    <tr><td>리눅스라면</td>
+        <td><code>uname -a</code> 와 <code>df -h</code> 입니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 정보 자산 목록 <b>한 줄</b> + <code>systeminfo</code> 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① <b>시스템 종류</b>를 봤습니까
+     ② 남은 디스크가 <b>2 GB 이상</b>입니까
+     ③ 표에 <b>컴퓨터 이름</b>을 적었습니까</p>
+</div>
       </div>
 </div>
 
@@ -357,6 +530,102 @@ HP rx2800   개발 WAS    Weblogic 11g      HP-UX 11.31</code></p>
 <p><b>둘 다 해 볼 필요는 없습니다.</b>
    쓰는 컴퓨터 하나로 <b>끝까지</b> 하고,
    다른 쪽은 <b>이 표로 대응만</b> 알아 두십시오.</p>
+      <div class="lab">
+  <b class="t">실습 3</b>
+  <b>폴더에서 창을 열면 «거기서» 열립니다 — <code>cd</code> 를 안 쳐도 됩니다</b>
+
+  <p><b>목적</b> — 창을 여는 법은 셋인데 <b>셋째를 아는 사람이 드뭅니다.</b>
+     이것 하나로 <b>실습 내내 <code>cd</code> 치는 수고</b>가 사라집니다.</p>
+
+  <h5>절차 1 — 세 가지로 열어 봅니다</h5>
+
+  <p class="cmdline"><code>① 시작 단추 → <b>cmd</b> 라고 치고 엔터
+② <b>Win + R</b> → cmd → 엔터
+③ 탐색기에서 원하는 폴더를 연 뒤
+   <b>주소창에 cmd</b> 라고 치고 엔터</code></p>
+
+  <p><b>①②로 열면</b> 늘 <code>C:\Users\내이름</code> 에서 시작합니다.
+     <b>③으로 열면</b> <b>그 폴더에서</b> 시작합니다.</p>
+
+  <p class="cmdline"><code><i># ① 로 열었을 때</i>
+C:\Users\jwg13&gt;
+
+<i># 연습 폴더에서 ③ 으로 열었을 때</i>
+C:\Users\jwg13\Documents\연습&gt;      ← <b>이미 여기에 와 있습니다</b></code></p>
+
+  <h5>절차 2 — 지금 어디인지 확인하는 버릇</h5>
+
+  <p class="cmdline"><code>&gt; cd
+C:\Users\jwg13\Documents\연습</code></p>
+
+  <p><code>cd</code> 를 <b>아무것도 안 붙이고</b> 치면 <b>지금 자리</b>를 알려 줍니다.
+     <b>명령이 파일을 못 찾는다고 할 때 가장 먼저 칠 것</b>입니다 (실습 5).</p>
+
+  <h5>절차 3 — 관리자 권한이 필요한 자리를 압니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">이런 일은</th><th></th></tr>
+    <tr><td>파일 만들기 · 지우기 · 명령 확인</td><td><b>그냥</b> 열어도 됩니다</td></tr>
+    <tr><td><code>C:\</code> 바로 아래에 설치</td><td><b>관리자</b>로 열어야 합니다</td></tr>
+    <tr><td>환경변수를 <b>모든 사용자</b>에게</td><td><b>관리자</b>로</td></tr>
+    <tr><td>환경변수를 <b>나에게만</b> (<code>setx</code>)</td><td>그냥 열어도 됩니다</td></tr>
+  </table>
+
+  <p class="cmdline"><code><i># 권한이 모자라면 이렇게 나옵니다</i>
+액세스가 거부되었습니다.</code></p>
+
+  <p><b>이 메시지가 보이면 권한 문제</b>입니다 —
+     명령이 틀린 것이 아닙니다.
+     시작 단추에서 <code>cmd</code> 를 찾은 뒤
+     <b>오른쪽 클릭 → 관리자 권한으로 실행</b> 하십시오.</p>
+
+  <div class="note"><b>관리자로 연 창은 «제목» 이 다릅니다.</b>
+    창 위에 <b>「관리자:」</b> 가 붙습니다.
+    화면을 찍을 때 <b>제목 줄까지 넣으면</b>
+    <b>관리자로 했다는 것이 같이 증명</b>됩니다.
+  </div>
+
+  <h5>절차 4 — 창을 «둘» 띄웁니다</h5>
+
+  <p>이 교과는 <b>창 두 개</b>를 자주 씁니다.</p>
+
+  <table class="wide">
+    <tr><th style="width:150px">창</th><th></th></tr>
+    <tr><td><b>첫째 창</b></td><td>프로그램을 <b>띄워 두는</b> 곳 (실습 9 · 13)</td></tr>
+    <tr><td><b>둘째 창</b></td><td><b>확인</b>하는 곳 — <code>netstat</code> · <code>tasklist</code></td></tr>
+  </table>
+
+  <p><b>띄운 창에서는 명령을 칠 수 없습니다.</b>
+     로그가 계속 흐르기 때문입니다 —
+     <b>「창이 멈췄다」 가 아닙니다.</b></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>주소창에 <code>cmd</code> 를 쳤는데 <b>안 열림</b></td>
+        <td>주소창을 <b>한 번 눌러</b> 글자가 다 지워진 뒤에 치십시오</td></tr>
+    <tr><td><code>액세스가 거부되었습니다</code></td>
+        <td><b>관리자로</b> 여십시오 — 절차 3</td></tr>
+    <tr><td>창에 명령이 <b>안 쳐짐</b></td>
+        <td>무언가 <b>돌고 있습니다.</b>
+            <code>Ctrl</code>+<code>C</code> 로 멈추거나 <b>창을 하나 더</b> 여십시오</td></tr>
+    <tr><td>PowerShell 이 열림</td>
+        <td><b>대부분 그대로 써도</b> 됩니다.
+            다만 이 교안의 화면과 <b>프롬프트 모양이 다릅니다</b></td></tr>
+    <tr><td>리눅스라면</td>
+        <td><code>Ctrl</code>+<code>Alt</code>+<code>T</code>.
+            관리자 권한은 명령 앞에 <code>sudo</code></td></tr>
+  </table>
+
+  <p><b>제출물</b> — 없습니다. <b>폴더에서 연 창</b>의 프롬프트를 한 장 찍어 두십시오</p>
+
+  <p><b>스스로 확인</b> —
+     ① <b>폴더에서 여는 법</b>을 해 봤습니까
+     ② <code>cd</code> 로 지금 자리를 봤습니까
+     ③ <b>관리자로 여는 법</b>을 압니까
+     ④ 창을 <b>둘</b> 띄워 봤습니까</p>
+</div>
       </div>
 </div>
 
@@ -426,6 +695,111 @@ System Type:                   <b>x64-based PC</b></code></p>
 <p><code>systeminfo</code> 만 치면 <b>수십 줄</b>이 쏟아집니다.
    <code>| findstr</code> 을 붙이면 <b>찾는 줄만</b> 남습니다 —
    <code>|</code> 는 <b>「앞의 결과를 뒤로 넘긴다」</b> 는 뜻입니다.</p>
+      <div class="lab">
+  <b class="t">실습 4</b>
+  <b><code>|</code> 로 «찾는 줄만» 남깁니다 — 수십 줄에서 세 줄로</b>
+
+  <p><b>목적</b> — 확인서의 <b>운영체제 세 줄</b>을 채웁니다.
+     명령은 둘이면 되는데, <b>그냥 치면 수십 줄이 쏟아집니다.</b>
+     <b>거르는 법</b>을 여기서 익힙니다 — 뒤에서 계속 씁니다.</p>
+
+  <h5>절차 1 — <code>ver</code> 로 판을 봅니다</h5>
+
+  <p class="cmdline"><code>&gt; ver
+
+Microsoft Windows [Version <b>10.0.26200.9457</b>]</code></p>
+
+  <p><b>가장 짧은 명령</b>입니다. 한 줄만 나옵니다.</p>
+
+  <h5>절차 2 — <code>systeminfo</code> 를 «그냥» 쳐 봅니다</h5>
+
+  <p class="cmdline"><code>&gt; systeminfo
+
+호스트 이름:             BOOK-28226F2NG8
+OS 이름:                 Microsoft Windows 11 Home
+OS 버전:                 10.0.26200 N/A 빌드 26200
+OS 제조업체:             Microsoft Corporation
+<i>… 서른 줄 넘게 이어집니다 …</i></code></p>
+
+  <p><b>십 초쯤 걸리고</b> 화면을 가득 채웁니다.
+     필요한 것은 <b>세 줄</b>뿐입니다.</p>
+
+  <h5>절차 3 — <code>|</code> 로 거릅니다</h5>
+
+  <p class="cmdline"><code>&gt; systeminfo | findstr /B /C:"OS 이름" /C:"OS 버전" /C:"시스템 종류"
+
+OS 이름:                 Microsoft Windows 11 Home
+OS 버전:                 10.0.26200 N/A 빌드 26200
+시스템 종류:             x64-based PC</code></p>
+
+  <table class="wide">
+    <tr><th style="width:130px">조각</th><th></th></tr>
+    <tr><td><code>|</code></td>
+        <td><b>파이프</b>라고 읽습니다. <b>「앞의 결과를 뒤로 넘겨라」</b></td></tr>
+    <tr><td><code>findstr</code></td><td>넘어온 줄에서 <b>찾는 것만</b> 남깁니다</td></tr>
+    <tr><td><code>/B</code></td><td><b>줄 «맨 앞»</b> 에 있을 때만 — 엉뚱한 줄이 덜 걸립니다</td></tr>
+    <tr><td><code>/C:"…"</code></td><td>찾을 말. <b>빈칸이 있으면 따옴표가 필요합니다</b></td></tr>
+    <tr><td><code>/i</code></td><td>대소문자를 <b>안 가림</b> (필요하면 붙입니다)</td></tr>
+  </table>
+
+  <div class="note"><b><code>|</code> 는 이 교과에서 가장 많이 쓰는 기호입니다.</b>
+    실습 9 에서 <code>netstat -ano <b>|</b> findstr :8123</code>,
+    실습 8 에서 <code>echo %PATH% <b>|</b> findstr jdk</code> 로 다시 나옵니다.
+    <b>「긴 결과에서 찾는 줄만」</b> 이 늘 같은 모양입니다.
+  </div>
+
+  <h5>절차 4 — 운영체제 종류를 견줘 적습니다</h5>
+
+  <p>학습모듈이 드는 다섯 가지 가운데
+     <b>내 것이 어느 쪽이고 왜 그것을 쓰는지</b> 한 줄 적어 두십시오.</p>
+
+  <p class="cmdline"><code>쓰는 것 : Windows 11 Home
+까닭   : 학원 실습 PC 가 윈도우이고, 이 과정의 IDE 가 다 윈도우에서 돕니다
+견줌   : 서버는 대개 리눅스 — 무료이고 GUI 없이 돌릴 수 있어 자원을 덜 먹습니다</code></p>
+
+  <p><b>「그냥 깔려 있어서」 도 답이 됩니다.</b>
+     다만 <b>적어 두는 것</b>과 안 적는 것은 다릅니다 —
+     학습모듈이 <b>「운영체제별 특징을 사전에 파악하고 설계·구축하라」</b> 고
+     적어 둔 자리입니다.</p>
+
+  <h5>절차 5 — 확인서 세 줄을 채웁니다</h5>
+
+  <p class="cmdline"><code>운영체제    이름    Microsoft Windows 11 Home   systeminfo
+운영체제    판      10.0.26200.9457             ver
+운영체제    종류    x64-based PC                systeminfo</code></p>
+
+  <p><b>판을 <code>ver</code> 에서 가져온 것</b>에 주의하십시오.
+     <code>systeminfo</code> 의 「OS 버전」 은 <code>10.0.26200 N/A 빌드 26200</code> 으로
+     <b>모양이 다릅니다.</b>
+     <b>어느 명령에서 가져왔는지</b>를 적어 두면 <b>이 차이가 문제가 안 됩니다.</b></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td><code>findstr</code> 에 <b>아무것도 안 나옴</b></td>
+        <td>영문 윈도우입니다. <code>"OS Name"</code> 으로 (실습 2 절차 2)</td></tr>
+    <tr><td><b>엉뚱한 줄</b>까지 나옴</td>
+        <td><code>/B</code> 를 붙이십시오 — 줄 맨 앞만 봅니다</td></tr>
+    <tr><td>따옴표를 <b>빼먹음</b></td>
+        <td>빈칸 뒤가 <b>다른 낱말로</b> 읽힙니다.
+            <code>/C:"OS 이름"</code> 처럼 <b>통째로</b> 감싸십시오</td></tr>
+    <tr><td><code>systeminfo</code> 가 <b>권한 오류</b></td>
+        <td>드물지만 <b>관리자로</b> 열어 보십시오 (실습 3)</td></tr>
+    <tr><td>리눅스라면</td>
+        <td><code>uname -a</code> · <code>cat /etc/os-release</code>.
+            거르는 것은 <code>| grep</code></td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>ver</code> 화면 + <b>걸러 낸</b> <code>systeminfo</code> 화면 +
+     확인서 <b>운영체제 세 줄</b> + 운영체제 <b>까닭 한 줄</b></p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>|</code> 가 <b>무엇을 하는지</b> 압니까
+     ② <code>/B</code> 와 <code>/C:</code> 를 <b>왜 붙이는지</b> 압니까
+     ③ 확인서 <b>세 줄</b>이 찼습니까
+     ④ <b>어느 명령에서</b> 가져왔는지 적었습니까</p>
+</div>
       </div>
 </div>
 
@@ -520,6 +894,151 @@ C:.
   <b>「내 컴퓨터가 고장 났나」 가 아닙니다.</b>
   <b>읽는 규칙이 다를 뿐</b>입니다 — <code>chcp 949</code> 로 되돌리면 됩니다.
 </div>
+      <div class="lab">
+  <b class="t">실습 5</b>
+  <b>「없다」 고 할 때 «지금 어디인지» 부터 봅니다</b>
+
+  <p><b>목적</b> — 초보가 막히는 이유의 절반이
+     <b>「지금 어느 폴더에 있는지」 를 잘못 알고 있어서</b>입니다.
+     파일은 분명히 있는데 명령은 없다고 합니다.</p>
+
+  <h5>절차 1 — 연습할 자리를 만듭니다</h5>
+
+  <p class="cmdline"><code>&gt; md 연습
+&gt; cd 연습
+&gt; cd
+C:\Users\jwg13\Documents\<b>연습</b></code></p>
+
+  <h5>절차 2 — 폴더 셋과 파일 하나를 만듭니다</h5>
+
+  <p class="cmdline"><code>&gt; md src docs build
+&gt; echo 첫 줄입니다&gt; src\hello.txt
+&gt; echo 둘째 줄입니다&gt;&gt; src\hello.txt</code></p>
+
+  <p><code>md</code> 는 <b>한 번에 여러 개</b>를 만들 수 있습니다.
+     <code>&gt;</code> 와 <code>&gt;&gt;</code> 의 차이는 실습 10 에서 자세히 봅니다 —
+     지금은 <b>하나는 덮고 하나는 붙인다</b> 만 알면 됩니다.</p>
+
+  <h5>절차 3 — 목록을 봅니다</h5>
+
+  <p class="cmdline"><code>&gt; dir
+
+ Directory of C:\Users\jwg13\Documents\연습
+
+2026-09-21  오전 10:11    &lt;DIR&gt;          .
+2026-09-21  오전 10:11    &lt;DIR&gt;          ..
+2026-09-21  오전 10:11    &lt;DIR&gt;          build
+2026-09-21  오전 10:11    &lt;DIR&gt;          docs
+2026-09-21  오전 10:11    &lt;DIR&gt;          src
+               0 File(s)              0 bytes
+               5 Dir(s)  159,952,850,944 bytes free</code></p>
+
+  <div class="note"><b><code>0 File(s)</code> 인데 파일을 만들었는데요?</b>
+    <b>파일은 <code>src</code> 안에</b> 있습니다.
+    <code>dir</code> 은 <b>지금 폴더의 것만</b> 보여 줍니다.
+    <b>이것이 「분명히 만들었는데 없다」 의 정체</b>입니다 —
+    <b>만든 자리와 보는 자리가 다릅니다.</b>
+  </div>
+
+  <h5>절차 4 — 파일 내용을 봅니다</h5>
+
+  <p class="cmdline"><code>&gt; type src\hello.txt
+첫 줄입니다
+둘째 줄입니다</code></p>
+
+  <h5>절차 5 — <code>tree</code> 로 한눈에 봅니다</h5>
+
+  <p class="cmdline"><code>&gt; tree /f
+
+폴더 PATH의 목록입니다.
+볼륨 일련 번호는 4CAF-A6E2입니다.
+C:.
+<b>├─build
+├─docs
+└─src</b>
+        hello.txt</code></p>
+
+  <p><code>/f</code> 를 붙여야 <b>파일까지</b> 나옵니다. 안 붙이면 폴더만 나옵니다.</p>
+
+  <h5>절차 6 — 선이 깨지는 것을 «일부러» 겪습니다</h5>
+
+  <p class="cmdline"><code>&gt; chcp 65001
+Active code page: 65001
+
+&gt; tree /f
+Folder PATH listing
+Volume serial number is 4CAF-A6E2
+C:.
+<b>��������build
+��������docs
+��������src</b>
+        hello.txt</code></p>
+
+  <div class="warn"><b>같은 명령입니다. 고장 난 것이 아닙니다.</b>
+    <code>chcp</code> 는 <b>이 창이 글자를 어떤 규칙으로 읽을지</b> 정합니다.
+    <b>949</b> 는 한국어, <b>65001</b> 은 UTF-8 입니다.
+    바꾸면 <b>메시지까지 영어로</b> 바뀌는 것을 보십시오 —
+    <b>「폴더 PATH의 목록입니다」 → 「Folder PATH listing」</b><br>
+    <code>chcp 949</code> 로 <b>되돌리면</b> 원래대로 나옵니다.
+    <b>깨진 화면을 그대로 제출하지 마십시오</b> (3절 감점).
+  </div>
+
+  <h5>절차 7 — 돌아다녀 봅니다</h5>
+
+  <p class="cmdline"><code>&gt; cd src
+&gt; cd
+C:\Users\jwg13\Documents\연습\<b>src</b>
+
+&gt; cd ..
+&gt; cd
+C:\Users\jwg13\Documents\<b>연습</b>
+
+&gt; cd \
+&gt; cd
+<b>C:\</b></code></p>
+
+  <table class="wide">
+    <tr><th style="width:130px">치는 것</th><th></th></tr>
+    <tr><td><code>cd 이름</code></td><td>그 폴더 <b>안</b>으로</td></tr>
+    <tr><td><code>cd ..</code></td><td><b>한 칸 위</b>로</td></tr>
+    <tr><td><code>cd \</code></td><td>그 드라이브 <b>맨 위</b>로</td></tr>
+    <tr><td><code>cd /d D:\work</code></td><td><b>다른 드라이브</b>로 — <code>/d</code> 가 필요합니다</td></tr>
+  </table>
+
+  <div class="warn"><b><code>cd D:\work</code> 가 «조용히» 아무 일도 안 합니다.</b>
+    드라이브가 다르면 <code>/d</code> 없이는 <b>안 옮겨집니다.</b>
+    <b>오류도 안 납니다</b> — 화면이 그대로라 <b>「먹혔나」</b> 싶습니다.
+    <b><code>cd</code> 만 쳐서 확인</b>하는 것이 유일한 방법입니다.
+  </div>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>지정된 경로를 찾을 수 없습니다</code></td>
+        <td><b>지금 자리</b>가 다릅니다. <code>cd</code> 로 확인 — 절차 1</td></tr>
+    <tr><td>파일이 <b>분명히 있는데 없다</b>고 함</td>
+        <td><b>하위 폴더</b>에 있습니다 — 절차 3 상자</td></tr>
+    <tr><td>선이 <b>깨져</b> 나옴</td>
+        <td><code>chcp 949</code> — 절차 6</td></tr>
+    <tr><td><code>cd</code> 했는데 <b>안 움직임</b></td>
+        <td>드라이브가 다릅니다. <code>/d</code> — 절차 7</td></tr>
+    <tr><td>폴더 이름에 <b>빈칸</b>이 있음</td>
+        <td><code>cd "내 문서"</code> 처럼 <b>따옴표</b>로 감싸십시오</td></tr>
+    <tr><td>리눅스라면</td>
+        <td><code>ls</code> · <code>cat</code> · <code>pwd</code>.
+            <b>드라이브 개념이 없어</b> <code>/d</code> 도 없습니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>tree /f</code> 화면(<b>선이 안 깨진 것</b>) +
+     <code>cd</code> 로 자리를 확인한 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① <code>cd</code> 로 <b>지금 자리</b>를 볼 줄 압니까
+     ② <code>dir</code> 이 <b>지금 폴더만</b> 보여 준다는 것을 압니까
+     ③ <b>선이 깨지는 것</b>을 겪어 봤습니까
+     ④ <code>chcp 949</code> 로 <b>되돌렸</b>습니까</p>
+</div>
       </div>
 </div>
 
@@ -579,6 +1098,142 @@ readme.txt
   <b>지우기 전에 <code>dir</code> 로 무엇이 들었는지 한 번 보는 습관</b>을 들이십시오.
   <b>이 한 줄이 나중에 하루를 아껴 줍니다.</b>
 </div>
+      <div class="lab">
+  <b class="t">실습 6</b>
+  <b>지우는 명령은 «휴지통으로 안 갑니다» — 지우기 전에 봅니다</b>
+
+  <p><b>목적</b> — 만들고 옮기는 것은 안 해도 알 만합니다.
+     <b>지우는 것</b>이 다릅니다.
+     탐색기에서 지운 것은 되살릴 수 있지만
+     <b>명령으로 지운 것은 그냥 없어집니다.</b></p>
+
+  <h5>절차 1 — 복사하고 이름 바꾸고 옮깁니다</h5>
+
+  <p class="cmdline"><code>&gt; copy src\hello.txt docs\
+        <b>1개 파일이 복사되었습니다.</b>
+
+&gt; cd docs
+&gt; ren hello.txt readme.txt
+&gt; dir /b
+<b>readme.txt</b>
+
+&gt; cd ..
+&gt; move docs\readme.txt build\
+        <b>1개 파일을 이동했습니다.</b></code></p>
+
+  <table class="wide">
+    <tr><th style="width:130px">명령</th><th style="width:170px">원래 것은</th><th>리눅스</th></tr>
+    <tr><td><code>copy</code></td><td><b>남습니다</b></td><td><code>cp</code></td></tr>
+    <tr><td><code>move</code></td><td><b>없어집니다</b></td><td><code>mv</code></td></tr>
+    <tr><td><code>ren</code></td><td>이름만 바뀝니다</td><td><code>mv</code></td></tr>
+  </table>
+
+  <p><b>리눅스는 <code>mv</code> 하나</b>가 옮기기와 이름 바꾸기를 다 합니다.
+     <b>같은 일을 두 이름으로</b> 부르는 것이 아니라,
+     <b>「옮기는 것」 과 「이름 바꾸는 것」 이 원래 같은 일</b>이기 때문입니다 —
+     자리를 바꾸는 것이니까요.</p>
+
+  <h5>절차 2 — <code>ren</code> 에 «경로를 붙이면» 안 됩니다</h5>
+
+  <p class="cmdline"><code>&gt; ren docs\hello.txt <b>docs\</b>readme.txt
+<b>명령 구문이 올바르지 않습니다.</b>
+
+&gt; ren docs\hello.txt readme.txt
+<i>(됩니다)</i></code></p>
+
+  <p><code>ren</code> 은 <b>「어디 있는 무엇을」 + 「새 이름」</b> 입니다.
+     <b>새 이름 쪽에는 경로를 못 씁니다</b> —
+     이름만 바꾸는 것이지 <b>옮기는 것이 아니기</b> 때문입니다.
+     옮기려면 <code>move</code> 입니다.</p>
+
+  <h5>절차 3 — 폴더를 지워 봅니다</h5>
+
+  <p class="cmdline"><code>&gt; rd src
+<b>디렉터리가 비어 있지 않습니다.</b>
+
+&gt; dir /b src
+hello.txt                        ← <b>안에 이것이 있었습니다</b>
+
+&gt; rd /s /q src
+<i>(아무 말 없이 지워집니다)</i></code></p>
+
+  <table class="wide">
+    <tr><th style="width:110px">붙이는 것</th><th></th></tr>
+    <tr><td><code>/s</code></td><td><b>안에 든 것까지</b> 다</td></tr>
+    <tr><td><code>/q</code></td><td><b>물어보지 않고</b> (quiet)</td></tr>
+  </table>
+
+  <div class="warn"><b><code>rd /s /q</code> 와 <code>del</code> 은 휴지통을 «거치지 않습니다».</b>
+    탐색기에서 지우면 휴지통에 들어가 <b>되살릴 수 있습니다.</b>
+    명령으로 지우면 <b>그냥 없어집니다.</b>
+    <b><code>/q</code> 를 붙이면 「정말 지울까요」 도 안 물어봅니다.</b><br>
+    <b>지우기 전에 <code>dir /b</code> 로 한 번 보는 습관</b>을 들이십시오 —
+    <b>이 한 줄이 나중에 하루를 아껴 줍니다.</b>
+  </div>
+
+  <h5>절차 4 — 「오류가 떴는데 성공」 을 겪습니다</h5>
+
+  <p>이 교과에서 <b>가장 중요한 한 가지</b>입니다.</p>
+
+  <p class="cmdline"><code>&gt; rd z
+디렉터리가 비어 있지 않습니다.          ← <b>실패했습니다</b>
+
+&gt; echo %errorlevel%
+<b>0</b>                                     ← 그런데 <b>0 («성공»)</b> 입니다</code></p>
+
+  <p class="cmdline"><code><i># 다른 창에서 이 명령만 따로 돌려 보면</i>
+$ cmd /c "rd z"
+$ echo 종료 코드 = $?
+종료 코드 = <b>145</b>                        ← <b>실은 145 («실패»)</b> 였습니다</code></p>
+
+  <div class="warn"><b>화면의 오류 메시지와 «종료 코드» 는 다른 것입니다.</b>
+    <b>종료 코드</b>는 프로그램이 남기는 <b>숫자 한 개</b>입니다 —
+    <b>0 이면 성공, 0 이 아니면 실패</b>로 약속되어 있습니다.
+    나중에 스크립트를 쓸 때 <b>이 숫자로 판단</b>합니다 (뒤 교과).<br>
+    그런데 <b><code>%errorlevel%</code> 은 «줄을 읽을 때» 값이 정해집니다.</b>
+    그래서 <b>실패한 직후에 물어봐도 옛 값</b>이 나올 수 있습니다.
+    <b>「화면에 오류가 떴으니 실패」</b> 는 맞지만
+    <b>「%errorlevel% 이 0 이니 성공」</b> 은 <b>믿으면 안 됩니다.</b>
+  </div>
+
+  <h5>절차 5 — 지운 것을 확인합니다</h5>
+
+  <p class="cmdline"><code>&gt; dir /b
+build
+docs                             ← src 가 <b>없어졌습니다</b></code></p>
+
+  <p><b>지운 뒤에 <code>dir</code> 로 한 번 더</b> 보십시오.
+     <b>「지웠다고 생각했는데 안 지워진」</b> 경우가 절차 4 처럼 생깁니다.</p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>디렉터리가 비어 있지 않습니다</code></td>
+        <td><code>/s</code> 를 붙이거나 <b>안을 먼저</b> 비우십시오 — 절차 3</td></tr>
+    <tr><td><code>액세스가 거부되었습니다</code></td>
+        <td>그 파일을 <b>다른 프로그램이 열고</b> 있습니다.
+            닫고 다시 하십시오</td></tr>
+    <tr><td><code>명령 구문이 올바르지 않습니다</code> (<code>ren</code>)</td>
+        <td>새 이름에 <b>경로를 붙였습니다</b> — 절차 2</td></tr>
+    <tr><td>지웠는데 <b>아직 있음</b></td>
+        <td>절차 4 — <b>종료 코드를 믿지 말고</b> <code>dir</code> 로 보십시오</td></tr>
+    <tr><td><b>잘못 지웠음</b></td>
+        <td>휴지통에 <b>없습니다.</b> 되살릴 방법이 사실상 없습니다 — 절차 3 상자</td></tr>
+    <tr><td>리눅스라면</td>
+        <td><code>rm -rf</code> 가 <code>rd /s /q</code> 입니다.
+            <b>더 위험합니다</b> — 되물어 주지도 않습니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — <code>copy</code> · <code>ren</code> · <code>move</code> 화면 +
+     <b><code>rd</code> 가 실패한 화면</b> + 지운 뒤 <code>dir</code></p>
+
+  <p><b>스스로 확인</b> —
+     ① 지우기 전에 <code>dir</code> 로 <b>봤습니까</b>
+     ② <code>/s</code> 와 <code>/q</code> 가 <b>무엇인지</b> 압니까
+     ③ <b>휴지통에 안 간다</b>는 것을 압니까
+     ④ <b>오류가 떴는데 0</b> 이 나오는 것을 봤습니까</p>
+</div>
       </div>
 </div>
 
@@ -628,6 +1283,147 @@ readme.txt
   <tr><td>둘 다 되는데 고민될 때</td>
       <td><b>CLI.</b> 채점자가 <b>다시 쳐 볼 수 있습니다</b></td></tr>
 </table>
+      <div class="lab">
+  <b class="t">실습 7</b>
+  <b>같은 값을 «두 곳» 에서 봅니다 — 다르면 하나를 잘못 읽은 것입니다</b>
+
+  <p><b>목적</b> — 학습모듈이 <b>CLI 로 보고 GUI 로도 보라</b>고 시킵니다.
+     <b>왜 두 번 시키는가</b> 가 이 실습의 핵심입니다.
+     <b>같은 것을 두 창구에서 확인하는 법</b>을 익혀 두면
+     뒤에서 <b>「분명히 고쳤는데 안 먹는다」</b> 를 스스로 풉니다.</p>
+
+  <h5>절차 1 — 다섯 가지를 «양쪽» 에서 봅니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:150px">보려는 것</th><th style="width:210px">CLI</th><th>GUI</th></tr>
+    <tr><td>운영체제 판</td><td><code>ver</code></td>
+        <td>설정 → 시스템 → <b>정보</b></td></tr>
+    <tr><td>시스템 사양</td><td><code>systeminfo</code></td>
+        <td>제어판 → 시스템</td></tr>
+    <tr><td>지금 도는 것</td><td><code>tasklist</code></td>
+        <td><b>작업 관리자</b>
+            (<code>Ctrl</code>+<code>Shift</code>+<code>Esc</code>)</td></tr>
+    <tr><td>환경변수</td><td><code>set</code></td>
+        <td>시스템 속성 → <b>환경 변수</b></td></tr>
+    <tr><td>네트워크</td><td><code>ipconfig</code></td>
+        <td>설정 → 네트워크</td></tr>
+  </table>
+
+  <p><b>다섯을 다 해 볼 필요는 없습니다.</b>
+     <b>운영체제 판</b>과 <b>작업 관리자</b> 둘만 해 보면 감이 옵니다.</p>
+
+  <h5>절차 2 — 값이 같은지 대 봅니다</h5>
+
+  <p class="cmdline"><code>CLI   &gt; ver
+      Microsoft Windows [Version <b>10.0.26200.9457</b>]</code></p>
+
+  <p>이 숫자를 들고 <b>설정 → 시스템 → 정보</b> 를 열어 보십시오.
+     거기에도 <b>「OS 빌드」</b> 가 적혀 있습니다.
+     <b>뒤 두 토막(<code>26200.9457</code>)이 같은지</b> 확인하십시오.</p>
+
+  <p>설정 화면이 <b>어디서 그 값을 가져오는지</b>도 볼 수 있습니다.</p>
+
+  <p class="cmdline"><code>&gt; reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v DisplayVersion
+    DisplayVersion    REG_SZ    <b>25H2</b>
+
+&gt; reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v CurrentBuild
+    CurrentBuild    REG_SZ    <b>26200</b>
+
+&gt; reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion" /v UBR
+    UBR    REG_DWORD    <b>0x24f1</b>        <i># 16진수 24f1 = 9457</i></code></p>
+
+  <div class="note"><b>설정 화면은 «이 값들을 읽어서 보여 주는 것» 뿐입니다.</b>
+    <b>「버전 25H2」</b> 는 <code>DisplayVersion</code>,
+    <b>「OS 빌드 26200.9457」</b> 은 <code>CurrentBuild</code> 와 <code>UBR</code> 을 이어 붙인 것입니다.
+    <code>UBR</code> 이 <b>16진수</b>로 적혀 있어 <code>0x24f1</code> 로 보이지만
+    <b>10진수로 바꾸면 9457</b> — <code>ver</code> 의 마지막 토막과 <b>같습니다.</b><br>
+    <b>GUI 가 «따로 아는 것» 이 아닙니다.</b> 같은 값을 다르게 그려 줄 뿐입니다.
+  </div>
+
+  <div class="note"><b>«모양» 은 다르고 «숫자» 는 같습니다.</b>
+    <code>ver</code> 은 <code>10.0.26200.9457</code> 처럼 <b>네 토막</b>으로 보여 주고,
+    설정 화면은 <b>「버전」 과 「OS 빌드」 를 나눠</b> 보여 줍니다.
+    <b>다르게 보인다고 놀라지 마십시오</b> —
+    <b>같은 숫자를 찾을 수 있으면</b> 맞는 것입니다.
+    <b>못 찾겠으면 둘 중 한쪽을 잘못 보고 있습니다.</b>
+  </div>
+
+  <h5>절차 3 — «안 맞는» 경우를 일부러 만들어 봅니다</h5>
+
+  <p>환경변수가 <b>가장 자주 어긋나는</b> 자리입니다.</p>
+
+  <p class="cmdline"><code>① 지금 열린 창에서   &gt; echo %JAVA_HOME%
+                     <b>%JAVA_HOME%</b>              ← 없습니다
+
+② GUI 에서 잡습니다  시스템 속성 → 환경 변수 → 새로 만들기
+                     JAVA_HOME = C:\jdk-21.0.2 → 확인
+
+③ 같은 창에서 다시   &gt; echo %JAVA_HOME%
+                     <b>%JAVA_HOME%</b>              ← <b>여전히 없습니다</b>
+
+④ 창을 닫고 새로 열어  &gt; echo %JAVA_HOME%
+                     <b>C:\jdk-21.0.2</b>           ← 이제 나옵니다</code></p>
+
+  <div class="warn"><b>③ 에서 「안 먹었네」 하고 또 잡는 일이 «매우» 흔합니다.</b>
+    창은 <b>열릴 때</b> 환경변수를 <b>한 번 받아</b> 갖고 있습니다.
+    그 뒤에 <b>밖에서 바뀌어도 이미 열린 창은 모릅니다.</b><br>
+    <b>GUI 에서 고쳤든 <code>setx</code> 로 고쳤든 똑같습니다</b> (실습 12).
+    <b>「창을 닫고 새로 연다」</b> 가 이 교과에서 <b>가장 많이 쓰게 될 해법</b>입니다.
+  </div>
+
+  <h5>절차 4 — 어느 쪽을 제출물에 넣을지 정합니다</h5>
+
+  <table class="wide">
+    <tr><th style="width:250px">이럴 때</th><th>이쪽</th></tr>
+    <tr><td>값을 <b>확인</b>해서 표에 적을 때</td>
+        <td><b>CLI</b> — 명령과 결과가 <b>한 장</b>에 들어갑니다</td></tr>
+    <tr><td><b>설치 과정</b>을 보일 때</td>
+        <td><b>GUI</b> — 설치 창에는 명령이 없습니다</td></tr>
+    <tr><td>환경변수를 <b>잡은 것</b>을 보일 때</td>
+        <td><b>둘 다.</b> GUI 로 잡고 CLI 로 확인한 <b>두 장</b></td></tr>
+    <tr><td>둘 다 되는데 고민될 때</td>
+        <td><b>CLI.</b> 채점자가 <b>다시 쳐 볼 수 있습니다</b></td></tr>
+  </table>
+
+  <h5>절차 5 — 작업 관리자와 <code>tasklist</code> 를 견줍니다</h5>
+
+  <p class="cmdline"><code>&gt; tasklist
+
+이미지 이름                    PID 세션 이름              세션#  메모리 사용
+========================= ======== ================ =========== ============
+System Idle Process              0 Services                   0          8 K
+System                           4 Services                   0     10,300 K
+smss.exe                       984 Services                   0      1,496 K</code></p>
+
+  <p><b>작업 관리자의 「세부 정보」 탭</b>에 <b>같은 목록</b>이 나옵니다.
+     <b>PID 숫자가 같은 것</b>을 확인해 보십시오 —
+     실습 9 에서 <b>이 숫자로 프로그램을 끕니다.</b></p>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">이런 일이 생기면</th><th>볼 곳</th></tr>
+    <tr><td>GUI 에서 고쳤는데 <b>CLI 에 안 나옴</b></td>
+        <td><b>창을 닫고 새로</b> 여십시오 — 절차 3</td></tr>
+    <tr><td>두 값이 <b>달라 보임</b></td>
+        <td><b>모양만</b> 다른 경우가 많습니다 — 절차 2</td></tr>
+    <tr><td>「환경 변수」 창을 <b>못 찾겠음</b></td>
+        <td>검색창에 <b>「환경 변수」</b> 라고 치면 바로 나옵니다</td></tr>
+    <tr><td><code>tasklist</code> 가 <b>너무 김</b></td>
+        <td><code>| findstr</code> 로 거르십시오 (실습 4)</td></tr>
+    <tr><td>리눅스라면</td>
+        <td>GUI 는 <b>설정</b>, 프로세스는 <b>시스템 모니터</b> 입니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 같은 값을 <b>CLI 와 GUI 로</b> 본 <b>두 장</b> +
+     환경변수가 <b>새 창에서야 나오는</b> 화면</p>
+
+  <p><b>스스로 확인</b> —
+     ① 같은 값을 <b>두 곳</b>에서 봤습니까
+     ② <b>값이 같은지</b> 대 봤습니까
+     ③ <b>창을 다시 열어야</b> 한다는 것을 겪었습니까
+     ④ 제출물에 <b>어느 쪽</b>을 넣을지 압니까</p>
+</div>
       </div>
 </div>
 
@@ -708,6 +1504,121 @@ C:\Users\jwg13\bin;C:\Program Files\Git\mingw64\bin;…;<b>C:\jdk-21.0.2\bin</b>
   <code>%JAVA_HOME%</code> 이라는 <b>글자가 그대로</b> 나온 것입니다.
   <b>무언가 나왔으니 잡혔구나</b> 하고 넘어가는 일이 많습니다.
   <b>퍼센트 기호가 양쪽에 그대로 보이면 «없는 것»</b> 입니다.
+</div>
+      <div class="lab">
+  <b class="t">실습 8</b>
+  <b><code>where</code> 하나면 «어느 것이 도는지» 압니다</b>
+
+  <p><b>목적</b> — <b>「그런 명령이 없습니다」</b> 는
+     이 과정에서 <b>가장 자주 보게 될 오류</b>입니다.
+     원인은 거의 늘 <b><code>PATH</code></b> 입니다.
+     여기서 <b>스스로 푸는 법</b>을 익힙니다.</p>
+
+  <h5>절차 1 — 없는 명령을 «일부러» 쳐 봅니다</h5>
+
+  <p class="cmdline"><code>&gt; javaxx -version
+<b>'javaxx'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+배치 파일이 아닙니다.</b></code></p>
+
+  <p><b>이 메시지를 외워 두십시오.</b>
+     <code>javac</code> · <code>gradle</code> · <code>git</code> 어느 것이든
+     <b>똑같은 모양</b>으로 나옵니다.
+     <b>뜻은 하나</b>입니다 — <b>「PATH 에 적힌 폴더들에 그런 파일이 없다」</b></p>
+
+  <h5>절차 2 — <code>PATH</code> 가 무엇인지 봅니다</h5>
+
+  <p class="cmdline"><code>&gt; echo %PATH%
+C:\Users\jwg13\bin;C:\Program Files\Git\mingw64\bin;…;<b>C:\jdk-21.0.2\bin</b>;…</code></p>
+
+  <p><b>세미콜론 <code>;</code> 으로 나뉜 폴더 목록</b>입니다.
+     명령을 치면 <b>이 폴더들을 «앞에서부터» 뒤져</b> 같은 이름의 파일을 찾습니다.
+     <b>찾으면 그것을 돌리고, 끝까지 없으면 절차 1 의 메시지</b>가 납니다.</p>
+
+  <h5>절차 3 — 한 줄이 너무 길면 거릅니다</h5>
+
+  <p class="cmdline"><code>&gt; echo %PATH% | findstr /i jdk
+<i>(jdk 가 들어간 부분이 있으면 그 줄이 나옵니다)</i></code></p>
+
+  <p><code>/i</code> 는 <b>대소문자를 안 가림</b> 입니다.
+     <code>JDK</code> 로 적혀 있어도 잡힙니다.</p>
+
+  <h5>절차 4 — <code>where</code> 로 «어디 있는지» 봅니다</h5>
+
+  <p class="cmdline"><code>&gt; where java
+<b>C:\jdk-21.0.2\bin\java.exe</b>
+
+&gt; where javac
+<b>C:\jdk-21.0.2\bin\javac.exe</b></code></p>
+
+  <div class="note"><b><code>where</code> 가 이 교과에서 «가장 쓸모 있는» 명령입니다.</b>
+    <b>아무것도 안 나오면</b> → <code>PATH</code> 에 <b>그 폴더가 없습니다</b><br>
+    <b>한 줄 나오면</b> → 그것이 돌아갑니다<br>
+    <b>여러 줄 나오면</b> → <b>맨 «위» 의 것</b>이 돌아갑니다<br><br>
+    <b>세 번째가 사람을 가장 많이 헷갈리게 합니다.</b>
+    JDK 를 새로 깔았는데 <code>java -version</code> 이 <b>옛 판</b>을 말한다면
+    <b>PATH 앞쪽에 옛 것이 있는</b> 것입니다.
+  </div>
+
+  <h5>절차 5 — 안 잡힌 변수를 «알아보는 법»</h5>
+
+  <p class="cmdline"><code>&gt; echo %JAVA_HOME%
+<b>%JAVA_HOME%</b>
+
+&gt; echo %없는변수%
+<b>%없는변수%</b></code></p>
+
+  <div class="warn"><b>이것이 «값» 이 아니라 «없다» 는 뜻입니다.</b>
+    <code>%JAVA_HOME%</code> 이라는 <b>글자가 그대로 되돌아온</b> 것입니다.
+    <b>무언가 나왔으니 잡혔구나</b> 하고 넘어가는 일이 정말 많습니다.<br>
+    <b>퍼센트 기호가 양쪽에 그대로 보이면 «없는 것»</b> 입니다.
+    <b>있으면 퍼센트 기호가 사라지고 값만</b> 나옵니다.
+  </div>
+
+  <h5>절차 6 — 어떤 변수들이 있는지 훑어봅니다</h5>
+
+  <p class="cmdline"><code>&gt; set | findstr /B /C:"PATH=" /C:"TEMP=" /C:"USERNAME=" /C:"OS="
+
+OS=Windows_NT
+PATH=C:\Users\jwg13\bin;…
+TEMP=C:\Users\jwg13\AppData\Local\Temp
+USERNAME=jwg13</code></p>
+
+  <table class="wide">
+    <tr><th style="width:150px">변수</th><th></th></tr>
+    <tr><td><b><code>PATH</code></b></td><td>명령을 찾을 <b>폴더 목록</b> — 가장 중요합니다</td></tr>
+    <tr><td><code>TEMP</code></td><td><b>임시 파일</b>을 두는 자리</td></tr>
+    <tr><td><code>USERNAME</code></td><td>지금 로그인한 사람</td></tr>
+    <tr><td><code>COMPUTERNAME</code></td><td>컴퓨터 이름 — 실습 2 의 표에 씁니다</td></tr>
+  </table>
+
+  <h5>안 될 때 볼 곳</h5>
+
+  <table class="wide">
+    <tr><th style="width:330px">나오는 것</th><th>볼 곳</th></tr>
+    <tr><td><code>내부 또는 외부 명령 … 아닙니다</code></td>
+        <td><code>where</code> 로 <b>있는지부터</b> 보십시오 — 절차 4</td></tr>
+    <tr><td><code>where</code> 에 <b>아무것도 안 나옴</b></td>
+        <td><code>PATH</code> 에 <b>그 폴더가 없습니다.</b> 실습 12 에서 넣습니다</td></tr>
+    <tr><td><code>where</code> 에 <b>여러 줄</b></td>
+        <td><b>맨 위의 것</b>이 돕니다 — 절차 4 상자</td></tr>
+    <tr><td>깔았는데 <b>옛 판</b>이 나옴</td>
+        <td>같은 까닭입니다. <code>PATH</code> 에서 <b>내 것을 앞으로</b></td></tr>
+    <tr><td><code>%변수%</code> 가 <b>그대로</b> 나옴</td>
+        <td><b>안 잡힌 것</b>입니다 — 절차 5</td></tr>
+    <tr><td>리눅스라면</td>
+        <td><code>which java</code> · <code>echo $PATH</code>.
+            구분자가 <code>;</code> 이 아니라 <b><code>:</code></b> 입니다</td></tr>
+  </table>
+
+  <p><b>제출물</b> — 없는 명령을 친 <b>오류 화면</b> +
+     <code>where java</code> · <code>where javac</code> +
+     <code>echo %JAVA_HOME%</code>(아직 <b>없는</b> 상태)</p>
+
+  <p><b>스스로 확인</b> —
+     ① 오류 메시지의 <b>뜻</b>을 압니까
+     ② <code>where</code> 로 <b>어디 있는지</b> 볼 줄 압니까
+     ③ <b>여러 줄이면 맨 위</b>가 돈다는 것을 압니까
+     ④ <b>안 잡힌 변수</b>를 알아볼 줄 압니까</p>
 </div>
       </div>
 </div>
